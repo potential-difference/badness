@@ -76,8 +76,8 @@ class OPCGrid {
     seed[1] = new PVector (size.rig.x, mirrorX[0][3].y-(dist/6)); 
     seed[2] = new PVector (size.rig.x, size.rig.y);
     _cansLength = size.rigWidth/2;
-    cans[0] = new PVector(size.rig.x-(_cansLength/2), size.rig.y-(mirrorAndGap/2));
-    cans[1] = new PVector(size.rig.x+(_cansLength/2), size.rig.y+(mirrorAndGap/2));
+    cans[0] = new PVector(size.rig.x-(_cansLength/2), size.rig.y-(mirrorAndGap/2)+2);
+    cans[1] = new PVector(size.rig.x+(_cansLength/2), size.rig.y+(mirrorAndGap/2)-2);
     uv = new PVector(size.rig.x+10, size.rig.y);
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////

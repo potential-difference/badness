@@ -15,10 +15,6 @@ float function1[] = new float[4];
 float roofFunction[] = new float[4];
 float roofFunction1[] = new float[4];
 
-PVector[] panelM = new PVector[9];
-PVector[] panelT = new PVector[9];
-PVector[] panelB = new PVector[9]; 
-
 void playWithYourself(float vizTm) {
 
   ///////////////// VIZ TIMER ////////////////////////////////////////

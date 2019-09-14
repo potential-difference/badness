@@ -5,9 +5,9 @@ class SizeSettings {
   int sizeX, sizeY;
 
   SizeSettings() {
-    rigWidth = 600;                              // WIDTH of rigViz
-    rigHeight = 550;                             // HEIGHT of rigViz
-    rig = new PVector(rigWidth/2, (rigHeight/2)-30);  // cordinates for center of rig
+    rigWidth = 600;                                    // WIDTH of rigViz
+    rigHeight = 550;                                   // HEIGHT of rigViz
+    rig = new PVector(rigWidth/2, (rigHeight/2)-30);   // cordinates for center of rig
     rigWindow = new PVector(rigWidth/2, rigHeight/2);
 
     vizWidth = rigWidth;
@@ -101,19 +101,6 @@ void loadGraphics() {
     vis[i].noFill();
     vis[i].endDraw();
   }
-  //////////////////////////////// ROOF VIS GRAPHICS ///////////////////
-  //for ( int i = 0; i< vis.length; i++ ) {
-  //  roofVis[i] = createGraphics(int(size.roofWidth*1.2), int(size.roofHeight*1.2), P2D);
-  //  roofVis[i].beginDraw();
-  //  roofVis[i].colorMode(HSB, 360, 100, 100);
-  //  roofVis[i].blendMode(NORMAL);
-  //  roofVis[i].ellipseMode(CENTER);
-  //  roofVis[i].rectMode(CENTER);
-  //  roofVis[i].imageMode(CENTER);
-  //  roofVis[i].noStroke();
-  //  roofVis[i].noFill();
-  //  roofVis[i].endDraw();
-  //}
   //////////////////////////////// rig subwindow  ///////////////////
   rigWindow = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
   rigWindow.beginDraw();
@@ -128,7 +115,22 @@ void loadGraphics() {
   rigColourLayer.imageMode(CENTER);
   rigColourLayer.rectMode(CENTER);
   rigColourLayer.endDraw();
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////// ROOF GRAPHICS SETUP ///////////////////////////////////////////
   if (size.roofWidth > 0) {
+    ////////////////////////////// ROOF VIS GRAPHICS ///////////////////
+    for ( int i = 0; i< vis.length; i++ ) {
+      roofVis[i] = createGraphics(int(size.roofWidth*1.2), int(size.roofHeight*1.2), P2D);
+      roofVis[i].beginDraw();
+      roofVis[i].colorMode(HSB, 360, 100, 100);
+      roofVis[i].blendMode(NORMAL);
+      roofVis[i].ellipseMode(CENTER);
+      roofVis[i].rectMode(CENTER);
+      roofVis[i].imageMode(CENTER);
+      roofVis[i].noStroke();
+      roofVis[i].noFill();
+      roofVis[i].endDraw();
+    }
     //////////////////////////////// roof subwindow  ///////////////////
     roofWindow = createGraphics(int(size.roofWidth), int(size.roofHeight), P2D);
     roofWindow.beginDraw();
