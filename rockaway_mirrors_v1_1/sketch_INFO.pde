@@ -107,7 +107,7 @@ void onScreenInfo() {
     textAlign(RIGHT);
     textSize(20); 
     fill(300);
-    text("NO AUDIO!!", width-5, height-2);
+    text("NO AUDIO!! "+pause, width-5, height-2);
   }
 
   if (info) {

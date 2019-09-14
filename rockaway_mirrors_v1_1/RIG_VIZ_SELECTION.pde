@@ -160,7 +160,7 @@ void rigVizSelection(PGraphics subwindow, int viz, float dimmer) {
       donut(i, col1, stroke, wide, high, alpha[i]*alf*dimmer);
     }
     for (int i = 0; i < 4; i++) {
-      stroke = 20+(50*oskP);
+      stroke = 20+(50*noize);
       wide = 10+((size.vizWidth-60)-((size.vizWidth-60)*function1[i]));
       high = wide;
       // donut(int n, color col, float stroke, float sz, float sz1, float alph) {

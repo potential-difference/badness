@@ -55,11 +55,23 @@ long beatTimer;
 float avgtime, avgvolume;
 float weightedsum, weightedcnt;
 float beatAlpha;
+boolean beatTrigger;
 void beats() {             ////// BEAT DETECT THROUGHOUT SKETCH ///////
   beatTimer++;
   beatAlpha=0.2;//this affects how quickly code adapts to tempo changes 0.2 averages
   // the last 10 onsets  0.02 would average the last 100
-  if (beatDetect.isOnset()) {
+
+  // trigger beats from audio source
+  beatTrigger = beatDetect.isOnset();
+  // trigger beats without audio input
+  float triggerLimit = (sineFast);
+  if (pause > 5) {
+    if (triggerLimit > 0.9995) beatTrigger = true;
+    else beatTrigger = false;
+  }
+  println("default trigger", beatTrigger, triggerLimit);
+
+  if (beatTrigger) {
     beat = 1;
     beatFast = 1;
     beatSlow = 1;
@@ -339,13 +351,13 @@ void pause(int pau) {
     }
   }
   if (pause > 0) {
-    beat  = d;
-    for (int i = 0; i < beats.length; i++) if (beatCounter % 4 == i)  beats[i] = d;
-    pulz = e;
-    if (millis()/1000 - time[5] >= 4) {
-      beatCounter +=1%120;
-      time[5] = millis()/1000;  //// also update the stored time
-    }
+    //beat  = d;
+    //for (int i = 0; i < beats.length; i++) if (beatCounter % 4 == i)  beats[i] = d;
+    //pulz = e;
+    //if (millis()/1000 - time[5] >= 4) {
+    //  beatCounter +=1%120;
+    //  time[5] = millis()/1000;  //// also update the stored time
+    //}
   }
 }
 
