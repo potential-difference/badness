@@ -20,23 +20,17 @@ import themidibus.*;
 MidiBus TR8bus;       // midibus for TR8
 MidiBus faderBus;     // midibus for APC mini
 MidiBus LPD8bus;      // midibus for LPD8
-MidiBus myBus;
 
 float cc[] = new float[128];   //// An array where to store the last value received for each knob
 float prevcc[] = new float[128];
 int time[] = new int[12]; // array of timers to use throughout the sketch
-int surfacePositionX = 710, surfacePositionY = 400;
-
-PShader maskShader;
-PGraphics maskImage, maskedImage;
-PVector[] DMXpar = new PVector[6];
 
 PFont myFont;
+boolean onTop = false;
 
 void settings() {
   size(size.sizeX, size.sizeY, P2D);
 }
-boolean onTop = false;
 
 void setup()
 {
@@ -47,8 +41,7 @@ void setup()
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
   surface.setAlwaysOnTop(onTop);
 
-
-  ///////////////// LOCAL opc  /////////////////////
+  ///////////////// LOCAL opc /////////////////////
   //opc = new OPC(this, "127.0.0.1", 7890);            // Connect to the local instance of fcserver - MIRRORS
   opcMirror1 = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRROR 1 - used coz of issues with the remote conneciton
   opcMirror2 = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRROR 1 - used coz of issues with the remote conneciton
@@ -57,7 +50,7 @@ void setup()
   opcControllerA = new OPC(this, "127.0.0.1", 7890);   // Connect to the remote instance of fcserver - LEFT TWO CONTROLLERS
   opcControllerB = new OPC(this, "127.0.0.1", 7890);   // Connect to the remote instance of fcserver - RIGHT PAIR OF CONTROLLERS
 
-  ///////////////// OPC over WIFI /////////////////////
+  ///////////////// OPC over NETWORK /////////////////////
   //opcMirror1 = new OPC(this, "10.168.1.58", 7890);       // Connect to the remote instance of fcserver - MIRROR 1
   //opcMirror2 = new OPC(this, "10.168.1.179", 7890);      // Connect to the remote instance of fcserver - MIRROR 2
   //opcCans = new OPC(this, "10.168.1.86", 7890);          // Connect to the remote instance of fcserver - CANS BOX
@@ -67,7 +60,8 @@ void setup()
 
   grid = new OPCGrid();
   grid.kallidaMirrors(opcMirror1, opcMirror2, 0);               // grids 0-3 MIX IT UPPPPP 
-  grid.kallidaCans(opcCans);                                  // grids 0-3 MIX IT UPPPPP 
+  grid.kallidaCans(opcCans);                                  // grids 0-3 MIX IT UPPPPP
+  grid.kallidaUV(opcCans);
   grid.kallidaSeeds(opcSeeds);
   grid.kallidaControllers(opcControllerA, opcControllerB, 2);   // grids 0-3 MIX IT UPPPPP 
 
@@ -81,8 +75,7 @@ void setup()
   oscAddrSetup();
 
   dimmer = 1; // must come before load control frame
-
-  toggle = new Toggle();
+  toggle = new Toggle(); 
 
   drawingSetup();
   loadImages();
@@ -114,7 +107,6 @@ int roofViz, rigViz, colStepper = 1;
 
 void draw()
 {
-    surface.setAlwaysOnTop(onTop);
 
   background(0);
   //dimmer = bgDimmer;
@@ -138,7 +130,6 @@ void draw()
   //else colStepper = 1;
   colTime = colorTimerSlider*60*30;
   colorTimer(colTime, 1); //// seconds between colour change, number of steps to cycle through colours
-
 
   //dimmer = cc[4]*rigDimmer;
   vizTime = 60*15*vizTimeSlider;

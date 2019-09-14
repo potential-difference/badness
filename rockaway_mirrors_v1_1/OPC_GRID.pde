@@ -61,7 +61,7 @@ class OPCGrid {
     seed[0] = new PVector (size.roof.x, size.roof.y-(size.roofHeight/4)); 
     seed[1] = new PVector (size.roof.x, size.roof.y+(size.roofHeight/4)); 
     seed[2] = new PVector (size.roof.x, size.roof.y);
-    int _cansLength = size.roofWidth/2;
+    _cansLength = size.roofWidth/2;
     cans[0] = new PVector(size.roof.x-(_cansLength/2), size.roof.y-(mirrorAndGap/2));
     cans[1] = new PVector(size.roof.x+(_cansLength/2), size.roof.y+(mirrorAndGap/2));
     uv = new PVector(size.rig.x, size.rig.y);
@@ -146,20 +146,26 @@ class OPCGrid {
     strt = strt+leds;                 //next led in same channel
     leds = 46;
     opc.ledStrip(strt, leds, seed[2].x, seed[2].y+(seedLeds/2*pd-(leds/2*pd)), pd, (PI/2), true);
-    //////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
     seedLength = _seedLength + (pd/2);
     seed2Length = seedLeds*pd + (pd/2);
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////// CANS //////////////////////////////////////////////////
   void kallidaCans(OPC opc) {
-    int gap = int(cansLength/6);
     int fc = 5 * 512;
+    int channel = 64;
+    int leds = 6;
+    pd = int(_cansLength/6);
+    opc.ledStrip(fc+(channel*0), leds, int(cans[0].x), int(cans[0].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
+    opc.ledStrip(fc+(channel*1)+(64*channel), leds, int(cans[1].x), int(cans[1].y), pd, 0, false);      /////  6 CANS PLUG INTO slot 1 on CANS BOX ///////
+    cansLength = _cansLength - (pd/2);
+  }
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////// UV /////////////////////////////////////////////////////
+  void kallidaUV(OPC opc) {
+    int fc = 2 * 512;
     int channel = 64;                 
-    opc.ledStrip(fc+(channel*0), 6, int(cans[0].x), int(cans[0].y), gap, 0, false);      /////  6 CANS PLUG INTO slot 1 on CANS BOX /////// 
-    opc.ledStrip(fc+(channel*1)+(64*channel), 6, int(cans[1].x), int(cans[1].y), gap, 0, false);      /////  6 CANS PLUG INTO slot 1 on CANS BOX ///////
-    cansLength = _cansLength - (gap/2);
-    //////////////////////////////////////////// UV /////////////////////////////////////////////
     opc.led(fc+(channel*7), int(uv.x), int(uv.y));
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////
