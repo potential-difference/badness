@@ -49,7 +49,8 @@ void setup()
   ///////////////// LOCAL opc  /////////////////////
   //opc = new OPC(this, "127.0.0.1", 7890);   // Connect to the local instance of fcserver - MIRRORS
   opcMirror1 = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRROR 1 - used coz of issues with the remote conneciton
-    opcMirror2 = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRROR 1 - used coz of issues with the remote conneciton
+  opcMirror2 = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRROR 1 - used coz of issues with the remote conneciton
+
 
   ///////////////// OPC over WIFI /////////////////////
   //opcMirror1 = new OPC(this, "10.168.1.58", 7890);   // Connect to the remote instance of fcserver - MIRROR 1
