@@ -149,6 +149,7 @@ void draw()
   image(rigWindow, size.rigWidth/2, size.rigHeight/2);
   blendMode(NORMAL);
 
+/*
   //toggle roof viz and posostions of the cans and seeds with tilda key '~' 
   if (!keyT[96]) {
     // roof posistion for grid
@@ -185,6 +186,7 @@ void draw()
   grid.kallidaCans(opcCans);                                  
   grid.kallidaUV(opcCans);
   grid.kallidaSeeds(opcSeeds);
+  */
   if (int(frameCount % (frameRate*90)) == 0) {                           // change the controller gird every X seconds
     int controllerGridStep = int(random(5));                 // randomly choose new grid
     if (rigBgr == 4 ) controllerGridStep = int(random(1, 5));  // dont use grid 0 is bg4 = not symetrical

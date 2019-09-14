@@ -56,33 +56,29 @@ class OPCGrid {
     mirror[9] = new PVector (size.rig.x-(mirrorAndGap/2), yBottom);                 
     mirror[10]= new PVector (size.rig.x+(mirrorAndGap/2), yBottom);                  
     mirror[11]= new PVector (size.rig.x+(mirrorAndGap/2)+mirrorAndGap, yBottom); 
-
-    mirrorWidth = _mirrorWidth+16;        /// make bigger for full coverage in animations
-
+    mirrorWidth = _mirrorWidth+16;   
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////// ROOF POSISTIONS FOR GRID ////////////////////////////////////////////////////
     _seedLength = size.roofWidth;
     _seed2Length = size.roofHeight;
     seed[0] = new PVector (size.roof.x, size.roof.y-(size.roofHeight/4)); 
     seed[1] = new PVector (size.roof.x, size.roof.y+(size.roofHeight/4)); 
     seed[2] = new PVector (size.roof.x, size.roof.y);
-
     _cansLength = size.roofWidth/2;
     cans[0] = new PVector(size.roof.x-(_cansLength/2), size.roof.y-(mirrorAndGap/2));
     cans[1] = new PVector(size.roof.x+(_cansLength/2), size.roof.y+(mirrorAndGap/2));
     uv = new PVector(size.rig.x, size.rig.y);
-/*
-    // alternate positions
-    _seedLength = size.rigWidth/1.3;
-    _seed2Length = size.rigHeight/1.15;
-    seed[0] = new PVector (size.rig.x, mirrorX[0][0].y); 
-    seed[1] = new PVector (size.rig.x, mirrorX[0][3].y); 
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////// RIG POSITIONS FOR GRID ///////////////////////////////////////////////////////
+    _seedLength = size.rigWidth;
+    _seed2Length = size.rigHeight/1.6;
+    seed[0] = new PVector (size.rig.x, mirrorX[0][0].y+(dist/6)); 
+    seed[1] = new PVector (size.rig.x, mirrorX[0][3].y-(dist/6)); 
     seed[2] = new PVector (size.rig.x, size.rig.y);
-
     _cansLength = size.rigWidth/2;
     cans[0] = new PVector(size.rig.x-(_cansLength/2), size.rig.y-(mirrorAndGap/2));
     cans[1] = new PVector(size.rig.x+(_cansLength/2), size.rig.y+(mirrorAndGap/2));
     uv = new PVector(size.rig.x+10, size.rig.y);
-
-    */
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////// MIRRORS //////////////////////////////////////////////
@@ -183,10 +179,10 @@ class OPCGrid {
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////// CONTROL PANNLS ////////////////////////////////////////
-  
+
   //////////// check which controllers are which here when setting up
-    // left to right should be 0 - 3;
-    
+  // left to right should be 0 - 3;
+
   void kallidaControllers(OPC opc, OPC opc2, int controllerGridStep) {
     int fc = 3 * 512;                 // fadecandy number (first one used is 0)
     int channel = 64;                 // pair of holes on fadecandy board
@@ -218,7 +214,7 @@ class OPCGrid {
       controller[2] = new PVector(mirror[10].x, mirror[10].y+_mirrorWidth+(dist/3));
       controller[3] = new PVector(mirror[11].x, mirror[11].y+_mirrorWidth+(dist/3));
       break;
-      case 4:
+    case 4:
       controller[0] = new PVector(mirror[0].x, mirror[0].y);
       controller[1] = new PVector(mirror[8].x, mirror[8].y);
       controller[2] = new PVector(mirror[3].x, mirror[3].y);

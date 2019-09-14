@@ -14,7 +14,7 @@ class SizeSettings {
     vizHeight = rigHeight;
     viz = new PVector (rig.x, rig.y);
 
-    roofWidth = 300;
+    roofWidth = 0;
     roofHeight = rigHeight;
     roof = new PVector (rigWidth+roofWidth/2, roofHeight/2);
 
@@ -102,18 +102,18 @@ void loadGraphics() {
     vis[i].endDraw();
   }
   //////////////////////////////// ROOF VIS GRAPHICS ///////////////////
-  for ( int i = 0; i< vis.length; i++ ) {
-    roofVis[i] = createGraphics(int(size.roofWidth*1.2), int(size.roofHeight*1.2), P2D);
-    roofVis[i].beginDraw();
-    roofVis[i].colorMode(HSB, 360, 100, 100);
-    roofVis[i].blendMode(NORMAL);
-    roofVis[i].ellipseMode(CENTER);
-    roofVis[i].rectMode(CENTER);
-    roofVis[i].imageMode(CENTER);
-    roofVis[i].noStroke();
-    roofVis[i].noFill();
-    roofVis[i].endDraw();
-  }
+  //for ( int i = 0; i< vis.length; i++ ) {
+  //  roofVis[i] = createGraphics(int(size.roofWidth*1.2), int(size.roofHeight*1.2), P2D);
+  //  roofVis[i].beginDraw();
+  //  roofVis[i].colorMode(HSB, 360, 100, 100);
+  //  roofVis[i].blendMode(NORMAL);
+  //  roofVis[i].ellipseMode(CENTER);
+  //  roofVis[i].rectMode(CENTER);
+  //  roofVis[i].imageMode(CENTER);
+  //  roofVis[i].noStroke();
+  //  roofVis[i].noFill();
+  //  roofVis[i].endDraw();
+  //}
   //////////////////////////////// rig subwindow  ///////////////////
   rigWindow = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
   rigWindow.beginDraw();
@@ -128,20 +128,22 @@ void loadGraphics() {
   rigColourLayer.imageMode(CENTER);
   rigColourLayer.rectMode(CENTER);
   rigColourLayer.endDraw();
-  //////////////////////////////// roof subwindow  ///////////////////
-  roofWindow = createGraphics(int(size.roofWidth), int(size.roofHeight), P2D);
-  roofWindow.beginDraw();
-  roofWindow.colorMode(HSB, 360, 100, 100);
-  roofWindow.imageMode(CENTER);
-  roofWindow.rectMode(CENTER);
-  roofWindow.endDraw();
-  //////////////////////////////// roof colour layer  ///////////////////
-  roofColourLayer = createGraphics(int(size.roofWidth), int(size.roofHeight), P2D);
-  roofColourLayer.beginDraw();
-  roofColourLayer.colorMode(HSB, 360, 100, 100);
-  roofColourLayer.imageMode(CENTER);
-  roofColourLayer.rectMode(CENTER);
-  roofColourLayer.endDraw();
+  if (size.roofWidth > 0) {
+    //////////////////////////////// roof subwindow  ///////////////////
+    roofWindow = createGraphics(int(size.roofWidth), int(size.roofHeight), P2D);
+    roofWindow.beginDraw();
+    roofWindow.colorMode(HSB, 360, 100, 100);
+    roofWindow.imageMode(CENTER);
+    roofWindow.rectMode(CENTER);
+    roofWindow.endDraw();
+    //////////////////////////////// roof colour layer  ///////////////////
+    roofColourLayer = createGraphics(int(size.roofWidth), int(size.roofHeight), P2D);
+    roofColourLayer.beginDraw();
+    roofColourLayer.colorMode(HSB, 360, 100, 100);
+    roofColourLayer.imageMode(CENTER);
+    roofColourLayer.rectMode(CENTER);
+    roofColourLayer.endDraw();
+  }
   //////////////////////////////// info subwindow  ///////////////////
   infoWindow = createGraphics(size.infoWidth, size.infoHeight, P2D);
   infoWindow.beginDraw();
