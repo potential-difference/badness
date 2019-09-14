@@ -213,10 +213,10 @@ class OPCGrid {
       controller[3] = new PVector(mirror[7].x, mirror[7].y);
       break;
     case 3:
-      controller[0] = new PVector(mirror[8].x, mirror[8].y+_mirrorWidth);
-      controller[1] = new PVector(mirror[9].x, mirror[9].y+_mirrorWidth);
-      controller[2] = new PVector(mirror[10].x, mirror[10].y+_mirrorWidth);
-      controller[3] = new PVector(mirror[11].x, mirror[11].y+_mirrorWidth);
+      controller[0] = new PVector(mirror[8].x, mirror[8].y+_mirrorWidth+(dist/3));
+      controller[1] = new PVector(mirror[9].x, mirror[9].y+_mirrorWidth+(dist/3));
+      controller[2] = new PVector(mirror[10].x, mirror[10].y+_mirrorWidth+(dist/3));
+      controller[3] = new PVector(mirror[11].x, mirror[11].y+_mirrorWidth+(dist/3));
       break;
       case 4:
       controller[0] = new PVector(mirror[0].x, mirror[0].y);

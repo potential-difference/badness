@@ -171,10 +171,10 @@ void draw()
     blendMode(NORMAL);
   } else {
     // rig positions for grid
-    grid._seedLength = size.rigWidth/1.3;
-    grid._seed2Length = size.rigHeight/1.3;
-    grid.seed[0] = new PVector (size.rig.x, grid.mirrorX[0][0].y+(grid.dist/4)); 
-    grid.seed[1] = new PVector (size.rig.x, grid.mirrorX[0][3].y-(grid.dist/4)); 
+    grid._seedLength = size.rigWidth;
+    grid._seed2Length = size.rigHeight/1.6;
+    grid.seed[0] = new PVector (size.rig.x, grid.mirrorX[0][0].y+(grid.dist/6)); 
+    grid.seed[1] = new PVector (size.rig.x, grid.mirrorX[0][3].y-(grid.dist/6)); 
     grid.seed[2] = new PVector (size.rig.x, size.rig.y);
 
     grid._cansLength = size.rigWidth/2;
@@ -186,8 +186,8 @@ void draw()
   grid.kallidaUV(opcCans);
   grid.kallidaSeeds(opcSeeds);
   if (int(frameCount % (frameRate*90)) == 0) {                           // change the controller gird every X seconds
-     int controllerGridStep = int(random(5));                 // randomly choose new grid
-    if(rigBgr == 4 ) controllerGridStep = int(random(1,5));  // dont use grid 0 is bg4 = not symetrical
+    int controllerGridStep = int(random(5));                 // randomly choose new grid
+    if (rigBgr == 4 ) controllerGridStep = int(random(1, 5));  // dont use grid 0 is bg4 = not symetrical
     grid.kallidaControllers(opcControllerA, opcControllerB, controllerGridStep);   // grids 0-4 MIX IT UPPPPP
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////
