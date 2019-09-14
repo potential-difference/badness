@@ -239,8 +239,8 @@ void rigVizSelection(PGraphics subwindow, float dimmer) {
     //wide = 800-(noize1*100*func);
     for (int i = 0; i < 4; i++) {
       wide = 800-(noize1*100*function[i]);
-      rush(i, col1, wide, grid.mirrorWidth, function[i], alpha[i]);
-      rush(i+4, col1, wide, grid.mirrorWidth, 1-function[i], alpha[i]);
+      rush(i, col1, wide, grid.mirrorAndGap+2, function[i], alpha[i]);
+      rush(i+4, col1, wide, grid.mirrorAndGap+2, 1-function[i], alpha[i]);
     }
     subwindow.beginDraw();
     subwindow.background(0);
