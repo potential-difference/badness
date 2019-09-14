@@ -245,14 +245,14 @@ void rigVizSelection(PGraphics subwindow, int viz, float dimmer) {
     subwindow.background(0);
     subwindow.blendMode(LIGHTEST);
     for (int i = 0; i < 4; i++) {
-      subwindow.image(vis[i+4], size.viz.x+((size.vizWidth/2)), grid.mirror[0].y);
-      subwindow.image(vis[i], size.viz.x-((size.vizWidth/2)), grid.mirror[0].y);
+      subwindow.image(vis[i+4], size.viz.x+(size.vizWidth/2+grid.dist), grid.mirror[0].y);
+      subwindow.image(vis[i], size.viz.x-(size.vizWidth/2+grid.dist), grid.mirror[0].y);
 
-      subwindow.image(vis[i+4], size.viz.x-(size.vizWidth/2), size.viz.y);
-      subwindow.image(vis[i], size.viz.x+(size.vizWidth/2), size.viz.y);
+      subwindow.image(vis[i+4], size.viz.x-(size.vizWidth/2+grid.dist), size.viz.y);
+      subwindow.image(vis[i], size.viz.x+(size.vizWidth/2+grid.dist), size.viz.y);
 
-      subwindow.image(vis[i+4], size.viz.x+((size.vizWidth/2)), grid.mirror[8].y);
-      subwindow.image(vis[i], size.viz.x-((size.vizWidth/2)), grid.mirror[8].y);
+      subwindow.image(vis[i+4], size.viz.x+(size.vizWidth/2+grid.dist), grid.mirror[8].y);
+      subwindow.image(vis[i], size.viz.x-(size.vizWidth/2+grid.dist), grid.mirror[8].y);
     }
     break;
   }
