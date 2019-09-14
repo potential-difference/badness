@@ -156,8 +156,8 @@ void rigVizSelection(PGraphics subwindow, int viz, float dimmer) {
   case 6:  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     stroke = 50+(100*noize*func);
     // star(int n, float wide, float high, float rotate, color col, float stroke, float alph) {
-    star(0, 10+(pulz*size.vizWidth*1.5), 10+(beat*size.vizHeight*1.5), -30*pulz*noize, col1, stroke, bt/2*alf*dimmer);
-    star(1, 10+(pulz*size.vizWidth*1.5), 10+(beat*size.vizHeight*1.5), -30*pulz*noize2, col1, stroke, bt/2*alf*dimmer);
+    star(0, 10+(pulz*size.vizWidth*1.5), 10+(beat*size.vizHeight*1.5), -30*pulz*noize, col1, stroke, bt*alf*dimmer);
+    star(1, 10+(pulz*size.vizWidth*1.5), 10+(beat*size.vizHeight*1.5), -30*pulz*noize2, col1, stroke, bt*alf*dimmer);
 
     subwindow.beginDraw();
     subwindow.background(0);
@@ -246,8 +246,42 @@ void rigVizSelection(PGraphics subwindow, int viz, float dimmer) {
     }
     subwindow.endDraw();
     break; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  case 10: /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //PGraphics rush(int n, color col, color col1, float wide, float high, float func, float alph) {
+    wide = 500+(noize*150);
+    for (int i = 0; i < 4; i+=2) rush(i, col1, wide, size.vizHeight, function[i], alpha[i]);
+    for (int i = 1; i < 4; i+=2) rush(i, col1, wide, size.vizHeight, 1-function[i], alpha[i]);
+    subwindow.beginDraw();
+    subwindow.background(0);
+    subwindow.blendMode(LIGHTEST);
+    for (int i = 0; i < 4; i++) subwindow.image(vis[i], size.viz.x, size.viz.y);
+    subwindow.endDraw();
+    break;   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  case 11: /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //PGraphics rush(int n, color col, color col1, float wide, float high, float func, float alph) {
+    wide = 800-(noize1*100*func);
+    for (int i = 0; i < 4; i++) {
+      wide = 800-(noize1*100*function[i]);
+      rush(i, col1, wide, grid.mirrorWidth, function[i], alpha[i]);
+      rush(i+4, col1, wide, grid.mirrorWidth, 1-function[i], alpha[i]);
+    }
+    subwindow.beginDraw();
+    subwindow.background(0);
+    subwindow.blendMode(LIGHTEST);
+    for (int i = 0; i < 4; i++) {
+      subwindow.image(vis[i], size.viz.x-(size.vizWidth/2)+(grid.mirrorAndGap/2), grid.mirror[0].y);
+      subwindow.image(vis[i+4], size.viz.x+(size.vizWidth/2)+(grid.mirrorAndGap/2), grid.mirror[0].y);
+
+      subwindow.image(vis[i], size.viz.x+(size.vizWidth/2)+(grid.mirrorAndGap/2), size.viz.y);
+      subwindow.image(vis[i+4], size.viz.x-(size.vizWidth/2)+(grid.mirrorAndGap/2), size.viz.y);
+
+      subwindow.image(vis[i], size.viz.x-(size.vizWidth/2)+(grid.mirrorAndGap/2), grid.mirror[8].y);
+      subwindow.image(vis[i+4], size.viz.x+(size.vizWidth/2)+(grid.mirrorAndGap/2), grid.mirror[8].y);
+    }
+    subwindow.endDraw();
+    break;
   }
-  
+
 
   ///////////////////////////////////////////////////// END OF VIZ LIST /////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

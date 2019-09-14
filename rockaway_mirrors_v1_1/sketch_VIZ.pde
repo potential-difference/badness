@@ -173,36 +173,19 @@ PGraphics star(int n, float wide, float high, float rotate, color col, float str
   return blured[n];
 }
 
-PGraphics rush(int n, color col, color col1, float wide, float high, float func, float alph) {
+PGraphics rush(int n, color col, float wide, float high, float func, float alph) {
   float moveA;
-  float strt = wide/2;
+  float strt = -0;
   if (beatCounter % 8 <4 )  moveA = strt+((size.rigWidth-(strt*2))*func);
-  else  moveA = strt+((size.rigWidth-(strt*2))*func);
-
-  //moveA = vis[n].width-strt-((vis[n].width-(strt*2))*func);
+  else  moveA = size.rigWidth-(strt+((size.rigWidth-(strt*2))*func));
   vis[n].beginDraw();
   vis[n].colorMode(HSB, 360, 100, 100);
   vis[n].background(0);
-  vis[n].noStroke();
-  vis[n].fill(col, 360);
-  vis[n].rect(moveA, vis[n].height/2, wide, high);
-  vis[n].noFill();
+    vis[n].imageMode(CENTER);
+  vis[n].image(bar1, moveA, vis[n].height/2, wide, high);
+  vis[n].tint(col,360*alph);
   vis[n].endDraw();
-
-  blur.set("horizontalPass", 0);
-  pass1[n].beginDraw();   
-  pass1[n].shader(blur); 
-  pass1[n].imageMode(CENTER);
-  pass1[n].image(vis[n], pass1[n].width/2, pass1[n].height/2);
-  pass1[n].endDraw();
-  blur.set("horizontalPass", 1);
-  blured[n].beginDraw(); 
-  blured[n].imageMode(CENTER);
-  blured[n].shader(blur);  
-  blured[n].image(vis[n], blured[n].width/2, blured[n].height/2);
-  blured[n].endDraw();    
-
-  return blured[n];
+  return vis[n];
 }
 
 PGraphics bgNoise( int n, color col, float alph) {
