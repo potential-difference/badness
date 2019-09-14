@@ -54,7 +54,7 @@ void setup()
 
   ///////////////// OPC over WIFI /////////////////////
   //opcMirror1 = new OPC(this, "10.168.1.58", 7890);   // Connect to the remote instance of fcserver - MIRROR 1
-  opcMirror2 = new OPC(this, "10.168.1.179", 7890);    // Connect to the remote instance of fcserver - MIRROR 2
+  //opcMirror2 = new OPC(this, "10.168.1.179", 7890);    // Connect to the remote instance of fcserver - MIRROR 2
   opcCans = new OPC(this, "10.168.1.86", 7890);    // Connect to the remote instance of fcserver - CANS BOX
   opcSeeds = new OPC(this, "127.0.0.1", 7890);   // Connect to the remote instance of fcserver - SEEDS BOX IN ROOF - also had issues with this one so had to remove it
   opcControllerA = new OPC(this, "10.168.1.28", 7890);   // Connect to the remote instance of fcserver - LEFT TWO CONTROLLERS
