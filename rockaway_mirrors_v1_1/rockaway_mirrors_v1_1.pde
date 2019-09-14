@@ -150,11 +150,9 @@ void draw()
 
   if (beatCounter%128 == 0) rigBgr = (rigBgr + 1)% 7;                // change colour layer automatically
   colorLayer(rigColourLayer, rigBgr);                                // develop colour layer
-  //image(rigColourLayer, size.rigWidth/2, size.rigHeight/2);         // draw rig colour layer to rig window
+  image(rigColourLayer, size.rigWidth/2, size.rigHeight/2);         // draw rig colour layer to rig window
   blendMode(MULTIPLY);
-  //image(rigWindow, size.rigWidth/2, size.rigHeight/2);
-    controllerControl(white, (0.7+(0.3*noize1))*controllerDimmer);
-
+  image(rigWindow, size.rigWidth/2, size.rigHeight/2);
   blendMode(NORMAL);
 
   //toggle roof viz with tilda key '~' 
@@ -210,7 +208,7 @@ size.seed1X = size.rig.x;
   rect(grid.cans[0].x, grid.cans[0].y, grid.cansLength, 3);
   rect(grid.cans[1].x, grid.cans[1].y, grid.cansLength, 3);
 
-  ///////////////////////////////////////////SEEDS //////////////////////////////////////
+  /////////////////////////////////////////// SEEDS ///////////////////////////////////////////////////////////
   fill(0, 360-(360*seedsDimmer));
   rect(grid.seed[0].x, grid.seed[0].y, grid.seedLength, 3);
   rect(grid.seed[1].x, grid.seed[1].y, grid.seedLength, 3);
@@ -218,15 +216,15 @@ size.seed1X = size.rig.x;
   fill(0, 360-(360*seed2Dimmer));
   rect(grid.seed[2].x, grid.seed[2].y, 3, grid.seed2Length);
 
-  /////////////////////////////////////////////////////////////
- 
+  //////////////////////////////// CONTROLLERS //////////////////////////////////////////////////////////////
+
+  controllerControl(flash1, (0.7+(0.3*noize1))*controllerDimmer);
 
 
-
-  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //playWithMeMore();
 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////// TEST ALL COLOURS - TURN ALL LEDS ON AND CYCLE COLOURS ////////////////////////////////
   if (test) {
     fill((millis()/50)%360, 100, 100);           
