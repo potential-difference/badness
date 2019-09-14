@@ -60,7 +60,7 @@ void setup()
 
   grid = new OPCGrid();
   grid.kallidaMirrors(opcMirror1, opcMirror2, 0);               // grids 0-3 MIX IT UPPPPP 
-  grid.kallidaCans(opcCans);                                  // grids 0-3 MIX IT UPPPPP
+  grid.kallidaCans(opcCans);                                  
   grid.kallidaUV(opcCans);
   grid.kallidaSeeds(opcSeeds);
   grid.kallidaControllers(opcControllerA, opcControllerB, 2);   // grids 0-3 MIX IT UPPPPP 
@@ -98,7 +98,7 @@ void setup()
   //hint(DISABLE_OPTIMIZED_STROKE);
   cc[1] = 0.75;
   cc[6] = 0.75;
-  cc[8] = 0;
+  cc[8] = 1;
 
   frameRate(30);
 }
@@ -141,29 +141,57 @@ void draw()
   float rigDimmerPad = cc[4]; // come back to this with wigflex code?!
   float roofDimmerPad = cc[8]; // come back to this with wigflex code?!
 
-  rigVizSelection(rigWindow, rigViz, rigDimmerPad*rigDimmer);                           // develop one visulisation
-  //roofVizSelection(roofWindow, roofViz, roofDimmerPad*roofDimmer);    // develop 2nd visulisation
-
-  if (beatCounter%128 == 0) rigBgr = (rigBgr + 1)% 7;                // change colour layer automatically
-  colorLayer(rigColourLayer, rigBgr);                                // develop colour layer
+  rigVizSelection(rigWindow, rigDimmerPad*rigDimmer);               // develop rig visulisation
+  if (beatCounter%128 == 0) rigBgr = (rigBgr + 1)% 7;               // change colour layer automatically
+  colorLayer(rigColourLayer, rigBgr);                               // develop colour layer
   image(rigColourLayer, size.rigWidth/2, size.rigHeight/2);         // draw rig colour layer to rig window
   blendMode(MULTIPLY);
   image(rigWindow, size.rigWidth/2, size.rigHeight/2);
   blendMode(NORMAL);
 
-  //toggle roof viz with tilda key '~' 
+  //toggle roof viz and posostions of the cans and seeds with tilda key '~' 
   if (!keyT[96]) {
+    // roof posistion for grid
+    grid._seedLength = size.roofWidth;
+    grid._seed2Length = size.roofHeight;
+    grid.seed[0] = new PVector (size.roof.x, size.roof.y-(size.roofHeight/4)); 
+    grid.seed[1] = new PVector (size.roof.x, size.roof.y+(size.roofHeight/4)); 
+    grid.seed[2] = new PVector (size.roof.x, size.roof.y);
+
+    grid._cansLength = size.roofWidth/2;
+    grid.cans[0] = new PVector(size.roof.x-( grid._cansLength/2), size.roof.y-( grid.mirrorAndGap/2));
+    grid.cans[1] = new PVector(size.roof.x+( grid._cansLength/2), size.roof.y+( grid.mirrorAndGap/2));
+    grid.uv = new PVector(size.rig.x, size.rig.y);
+
+    roofVizSelection(roofWindow, roofDimmerPad*roofDimmer);         // develop roof visulisation
     colorLayer(roofColourLayer, roofBgr);  
-    image(roofColourLayer, size.roof.x, size.roof.y);                      // draw roof colour layer to roog window
+    image(roofColourLayer, size.roof.x, size.roof.y);               // draw roof colour layer to roof window
     blendMode(MULTIPLY);
-    image(roofWindow, size.roof.x, size.roof.y);
+    image(roofWindow, size.roof.x, size.roof.y);                    // draw roof viz to roof window    
     blendMode(NORMAL);
+  } else {
+    // rig positions for grid
+    grid._seedLength = size.rigWidth/1.3;
+    grid._seed2Length = size.rigHeight/1.3;
+    grid.seed[0] = new PVector (size.rig.x, grid.mirrorX[0][0].y+(grid.dist/4)); 
+    grid.seed[1] = new PVector (size.rig.x, grid.mirrorX[0][3].y-(grid.dist/4)); 
+    grid.seed[2] = new PVector (size.rig.x, size.rig.y);
+
+    grid._cansLength = size.rigWidth/2;
+    grid.cans[0] = new PVector(size.rig.x-(grid._cansLength/2), size.rig.y-(grid.mirrorAndGap/2));
+    grid.cans[1] = new PVector(size.rig.x+(grid._cansLength/2), size.rig.y+(grid.mirrorAndGap/2));
+    grid.uv = new PVector(size.rig.x+10, size.rig.y);
   }
-
+  grid.kallidaCans(opcCans);                                  
+  grid.kallidaUV(opcCans);
+  grid.kallidaSeeds(opcSeeds);
+  if (int(frameCount % (frameRate*90)) == 0) {                           // change the controller gird every X seconds
+     int controllerGridStep = int(random(5));                 // randomly choose new grid
+    if(rigBgr == 4 ) controllerGridStep = int(random(1,5));  // dont use grid 0 is bg4 = not symetrical
+    grid.kallidaControllers(opcControllerA, opcControllerB, controllerGridStep);   // grids 0-4 MIX IT UPPPPP
+  }
   ////////////////////////////////////////////////////////////////////////////////////////////////////
-
   image(infoWindow, size.info.x, size.info.y);
-
   //////////////////////////////////////////// SEEDS SHIT ///////////////////////////////////////////////////////////////////////////////
   if (keyP[48]) { // beatCounter % 100 >   92
     rigControl(0, 1);
@@ -175,14 +203,6 @@ void draw()
     rect(grid.seed[2].x, grid.seed[2].y, 3, grid.seedLength);
   }
   /*
-size.seed1X = size.rig.x;
-   size.seed2X = size.rig.x;
-   size.seed3X = size.rig.x;
-   
-   size.seed1Y = size.rig.y-(rigHeight/1.5);
-   size.seed2Y = size.rig.y+(rigHeight/1.5);
-   size.seed3Y = size.rig.y;
-   
    
    if (button[0])  cansControl(0,0); 
    if (button[1]) seedsControlA(0, 0);
@@ -214,7 +234,7 @@ size.seed1X = size.rig.x;
 
   //////////////////////////////// CONTROLLERS //////////////////////////////////////////////////////////////
 
-  controllerControl(flash1, (0.7+(0.3*noize1))*controllerDimmer);
+  //controllerControl(flash1, (0.7+(0.3*noize1))*controllerDimmer);
 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////

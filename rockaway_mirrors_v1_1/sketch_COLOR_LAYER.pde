@@ -1,22 +1,39 @@
 int rigBgr, roofBgr; 
 int bgList = 8;
-
 void colorLayer(PGraphics subwindow, int index) {
-
   /////////////////////////////////////////////// RIG COLOR LAYERS ///////////////////////////////////////
   if (subwindow == rigColourLayer) {
     oneColourBG(0, c);
     mirrorGradientBG(1, c, flash, 0.5);  
-    sideBySideBG(2, flash,c);
+    sideBySideBG(2, flash, c);
     checkSymmetricalBG(3, c, flash);
     cornersBG(4, flash, c);
     crossBG(5, c, flash);
     oneColourBG(6, flash);
     sideBySideBG(7, c, flash);
+
+    subwindow.beginDraw();
+    subwindow.image(bg[index], subwindow.width/2, subwindow.height/2, subwindow.width, subwindow.height);
+    subwindow.endDraw();
   }
-  subwindow.beginDraw();
-  subwindow.image(bg[index], subwindow.width/2, subwindow.height/2, subwindow.width, subwindow.height);
-  subwindow.endDraw();
+
+  if (subwindow == roofColourLayer) {
+    color roofCol1 = c;
+    color roofCol2 = flash;
+    color roofClash = clash;
+
+    mirrorGradientBG(0, roofCol1, roofCol2, 0.5);  
+    //radialGradientBG(1, roofCol1, roofCol2, 0.1);
+    horizontalMirrorGradBG(2, roofCol1, roofCol2, 0);
+    horizontalMirrorGradBG(3, roofCol2, roofCol1, func);
+    //roofArrangement(4, roofCol2, roofCol1);
+    //roofBigSeeds(5, roofCol1, roofCol2);
+    horizontalMirrorGradBG(6, roofCol1, roofCol2, func);
+
+    subwindow.beginDraw();
+    subwindow.image(bg[index], subwindow.width/2, subwindow.height/2, subwindow.width, subwindow.height);
+    subwindow.endDraw();
+  }
 }
 ///////////////////////////// END OF BACKGROUNDS ///////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -49,7 +66,6 @@ PGraphics mirrorGradientBG(int n, color col1, color col2, float func) {
   bg[n].vertex(bg[n].width*func, bg[n].height);
   bg[n].endShape(CLOSE);
   bg[n].endDraw();
-
   return bg[n];
 }
 

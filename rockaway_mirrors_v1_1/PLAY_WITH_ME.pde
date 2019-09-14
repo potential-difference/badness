@@ -61,10 +61,8 @@ void playWithMeMore() {
 
   if (keyP[55]) cansControl(flash, stutter); 
   if (keyP[56]) seedsControlA(flash, stutter);
-  if (keyP[57])  colorSwap(0.9999999);
+  if (keyP[57]) colorSwap(0.9999999);
 }
-
-
 
 void cansControl(color col, float alpha) {
   fill(col, 360*alpha);
@@ -101,8 +99,8 @@ void seedsControlC(color col, float alpha) {
   rect(grid.seed[2].x, grid.seed[2].y, 3, grid.seed2Length);
   noStroke();
 }
-
 void controllerControl(color col, float alpha) {
+
   fill(col, 360*alpha);
   rect(grid.controller[0].x, grid.controller[0].y, grid.controllerWidth, grid.controllerWidth);
   rect(grid.controller[1].x, grid.controller[1].y, grid.controllerWidth, grid.controllerWidth);

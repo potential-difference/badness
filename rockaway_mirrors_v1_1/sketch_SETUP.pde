@@ -7,7 +7,7 @@ class SizeSettings {
   SizeSettings() {
     rigWidth = 600;                              // WIDTH of rigViz
     rigHeight = 500;                             // HEIGHT of rigViz
-    rig = new PVector(rigWidth/2, (rigHeight/2)-25);  // cordinates for center of rig
+    rig = new PVector(rigWidth/2, (rigHeight/2)-30);  // cordinates for center of rig
     rigWindow = new PVector(rigWidth/2, rigHeight/2);
 
     vizWidth = rigWidth;

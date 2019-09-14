@@ -1,4 +1,4 @@
-int counter, alphIndex, alph1Index = 1, fctIndex, fct1Index = 1, swap;
+int counter, rigAlphIndex, rigAlph1Index = 1, fctIndex, fct1Index = 1, swap;
 int roofAlphIndex, roofAlph1Index = 1, roofFctIndex, roofFct1Index = 1;
 
 float alf, bt, bt1, dimmer, func, func1;
@@ -32,12 +32,12 @@ void playWithYourself(float vizTm) {
   float divide = 4; ///////// NUMBER OF TIMES ALPHA CHANGES PER VIZ
   ///////////// ALPHA TIMER ///////////////////////////////////////////////////////////
   if (millis()/1000 - time[1] >= vizTm/divide) { ///// alpha timer changes 4 times every viz change /////
-    alphIndex = int(random(alph.length));  //// select from alpha array
-    alph1Index = int(random(alph.length)); //// select from alpha array
+    rigAlphIndex = int(random(alph.length));  //// select from alpha array
+    rigAlph1Index = int(random(alph.length)); //// select from alpha array
     roofAlphIndex = int(random(roofAlph.length));  //// select from alpha array
     roofAlph1Index = int(random(roofAlph.length)); //// select from alpha array
     alf = 0; ////// set  viz to 0 to fade up viz when alpha changes /////
-    println("alpha change @", (hour()+":"+minute()+":"+second()), "new af:", alphIndex, "new af1:", alph1Index);
+    println("alpha change @", (hour()+":"+minute()+":"+second()), "new af:", rigAlphIndex, "new af1:", rigAlph1Index);
     time[1] = millis()/1000;
   }
   divide = 6; //////////////// NUMBER OF TIMES FUNCTION CHANGES PER VIZ
@@ -61,24 +61,24 @@ void playWithYourself(float vizTm) {
   for (int i =0; i< beats.length; i++) {
     /////////////////////////////////////// SHIMMER control for rig ////////////////////////////
     if (beatCounter % 36 > 24) { 
-      alpha[i] = alph[alphIndex][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
-      alpha1[i] = alph[alph1Index][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
+      alpha[i] = alph[rigAlphIndex][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
+      alpha1[i] = alph[rigAlph1Index][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
 
       if (beatCounter%4 == i) {
-        bt = alph[alphIndex][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
-        bt1 = alph[alph1Index][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
+        bt = alph[rigAlphIndex][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
+        bt1 = alph[rigAlph1Index][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
       }
     } else {
-      alpha[i] = alph[alphIndex][i]/1;    //*(0.6+0.4*noize12)/1.5;  //// set alpha to selected alpha with bit of variation
-      alpha1[i] = alph[alph1Index][i]/1;   //*(0.6+0.4*noize1)/1.5;  //// set alpha1 to selected alpha with bit of variation
+      alpha[i] = alph[rigAlphIndex][i]/1;    //*(0.6+0.4*noize12)/1.5;  //// set alpha to selected alpha with bit of variation
+      alpha1[i] = alph[rigAlph1Index][i]/1;   //*(0.6+0.4*noize1)/1.5;  //// set alpha1 to selected alpha with bit of variation
       if (beatCounter%4 == i) {
-        bt = alph[alphIndex][i];
-        bt1 = alph[alph1Index][i];
+        bt = alph[rigAlphIndex][i];
+        bt1 = alph[rigAlphIndex][i];
       }
       //////////////// bright flash every 6 beats - counters all code above /////////
       if (beatCounter%6 == 0) {
-        alpha[i]  = alph[alphIndex][i];
-        alpha1[i]  = alph[alph1Index][i];
+        alpha[i]  = alph[rigAlphIndex][i];
+        alpha1[i]  = alph[rigAlph1Index][i];
       }
     }
 

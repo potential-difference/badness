@@ -48,7 +48,7 @@ void onScreenInfo() {
   text("rigViz: " + rigViz, x, y);
   text("bkgrnd: " + rigBgr, x, y+20);
   text("func's: " + fctIndex + " / " + fct1Index, x+100, y);
-  text("alph's: " + alphIndex + " / " + alph1Index, x+100, y+20);
+  text("alph's: " + rigAlphIndex + " / " + rigAlph1Index, x+100, y+20);
   //////////// roof info
   x = x+size.roof.x-(size.roofWidth/2);
   text("roofViz: " + roofViz, x, y);

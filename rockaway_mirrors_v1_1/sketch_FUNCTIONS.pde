@@ -69,8 +69,7 @@ void beats() {             ////// BEAT DETECT THROUGHOUT SKETCH ///////
     if (triggerLimit > 0.9995) beatTrigger = true;
     else beatTrigger = false;
   }
-  println("default trigger", beatTrigger, triggerLimit);
-
+  
   if (beatTrigger) {
     beat = 1;
     beatFast = 1;
@@ -155,8 +154,8 @@ void keyPressed() {
     fct1Index = (fct1Index+1)%fct.length;
   }  
   if (key == '.') {                            //// CYCLE THROUGH RIG ALPHAS
-    alphIndex = (alphIndex+1)%alph.length; 
-    alph1Index = (alph1Index+1)%alph.length;
+    rigAlphIndex = (rigAlphIndex+1)%alph.length; 
+    rigAlph1Index = (rigAlph1Index+1)%alph.length;
   }   
 
   if (key == 'k') {                          //// CYCLE THROUGH ROOF FUNCS

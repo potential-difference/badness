@@ -4,7 +4,7 @@ int roofVizList = 6;
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////// VIZ SELECTION and PREVIEW ///////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-void rigVizSelection(PGraphics subwindow, int viz, float dimmer) {
+void rigVizSelection(PGraphics subwindow, float dimmer) {
   // variables to use in the construction of each vis[n]
   float stroke, wide, high;
   col1 = color(white);
@@ -17,7 +17,7 @@ void rigVizSelection(PGraphics subwindow, int viz, float dimmer) {
   /////////////////////////////////////////////////// VIZ SELECTION //////////////////////////////////////////////////////////////////////////
   toggle.rect = true;
 
-  switch (viz) {
+  switch (rigViz) {
   case 0: /////////////////////////////////////////////////////////////////////////////////////////////////////////////
     stroke = 180-(200*noize);
     wide = size.vizWidth+(50);
@@ -256,6 +256,16 @@ void rigVizSelection(PGraphics subwindow, int viz, float dimmer) {
     }
     break;
   }
+  subwindow.blendMode(NORMAL);
+  subwindow.noStroke();
+
+  subwindow.fill(col1, (0.6+(0.4*noize1))*controllerDimmer*360);
+  subwindow.rect(grid.controller[0].x, grid.controller[0].y, grid.controllerWidth, grid.controllerWidth);
+  subwindow.rect(grid.controller[3].x, grid.controller[3].y, grid.controllerWidth, grid.controllerWidth);
+  subwindow.fill(col1, (0.6+(0.4*noize12))*controllerDimmer*360);
+  subwindow.rect(grid.controller[1].x, grid.controller[1].y, grid.controllerWidth, grid.controllerWidth);
+  subwindow.rect(grid.controller[2].x, grid.controller[2].y, grid.controllerWidth, grid.controllerWidth);
+
   subwindow.endDraw();
   ///////////////////////////////////////////////////// END OF VIZ LIST /////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
