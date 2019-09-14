@@ -36,14 +36,17 @@ PFont myFont;
 void settings() {
   size(size.sizeX, size.sizeY, P2D);
 }
+boolean onTop = false;
 
 void setup()
 {
   /// size moved to settings - see above
-  surface.setAlwaysOnTop(true);
+  //surface.setAlwaysOnTop(true);
   size.surfacePositionX = 720;
   size.surfacePositionY = 200;
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
+  surface.setAlwaysOnTop(onTop);
+
 
   ///////////////// LOCAL opc  /////////////////////
   //opc = new OPC(this, "127.0.0.1", 7890);            // Connect to the local instance of fcserver - MIRRORS
@@ -111,6 +114,8 @@ int roofViz, rigViz, colStepper = 1;
 
 void draw()
 {
+    surface.setAlwaysOnTop(onTop);
+
   background(0);
   //dimmer = bgDimmer;
   noStroke();

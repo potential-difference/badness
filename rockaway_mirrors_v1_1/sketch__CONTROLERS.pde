@@ -24,8 +24,8 @@ class ControlFrame extends PApplet {
   }
 
   public void setup() {
-    surface.setAlwaysOnTop(true);
-    surface.setLocation(surfacePositionX, surfacePositionY+parent.height);
+    surface.setAlwaysOnTop(onTop);
+    surface.setLocation(size.surfacePositionX, size.surfacePositionY+parent.height);
 
     //drawingSetup();
     myFont = createFont("Lucida Sans", 18);
@@ -215,6 +215,15 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac1) 
       .setColorForeground(slider1) 
       ;
+
+    //// create a toggle
+    //cp5.addToggle("opTop")
+    //  .setPosition(width-100, y)
+    //  .setSize(50, 50)
+    //  .setColorActive(act) 
+    //  .setColorBackground(bac) 
+    //  .setColorForeground(slider) 
+    //  ;
     //cp5.addSlider("tweakSlider")
     //  .plugTo(parent, "tweakSlider")
     //  .setPosition(x+clm, y+row)
