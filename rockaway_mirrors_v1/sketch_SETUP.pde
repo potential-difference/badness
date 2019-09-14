@@ -1,13 +1,14 @@
 class SizeSettings {
   int rigWidth, rigHeight, roofWidth, roofHeight, sliderHeight, infoWidth, infoHeight, vizWidth, vizHeight;
-  PVector rig, roof, info, viz;
+  PVector rig, roof, info, viz, rigWindow;
   int surfacePositionX, surfacePositionY;
   int sizeX, sizeY;
 
   SizeSettings() {
-    rigWidth = 800;                              // WIDTH of rigViz
-    rigHeight = 500;                             // HEIGHT of rigViz
-    rig = new PVector(rigWidth/2, rigHeight/2);  // cordinates for center of rig
+    rigWidth = 500;                              // WIDTH of rigViz
+    rigHeight = 450;                             // HEIGHT of rigViz
+    rig = new PVector(rigWidth/2, (rigHeight/2)-25);  // cordinates for center of rig
+    rigWindow = new PVector(rigWidth/2, rigHeight/2);
 
     vizWidth = rigWidth;
     vizHeight = rigHeight;

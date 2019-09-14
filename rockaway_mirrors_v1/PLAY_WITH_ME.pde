@@ -67,11 +67,9 @@ void playWithMeMore() {
 
 
 void cansControl(color col, float alpha) {
-  //blendMode(MULTIPLY);
-  fill( col, 360*alpha);
-  rect(grid.can1X, grid.can1Y, grid.canWidth*2, 3);
-  rect(grid.can1X, grid.can2Y, grid.canWidth*2, 3);
-  //blendMode(NORMAL);
+  fill(col, 360*alpha);
+  rect(grid.cans[0].x, grid.cans[0].y, grid.cansLength, 3);
+  rect(grid.cans[1].x, grid.cans[1].y, grid.cansLength, 3);
 }
 
 void rigControl(color col, float alpha) {
@@ -86,21 +84,21 @@ void seedsControlA(color col, float alpha) {
   noFill();
   strokeWeight(5);
   stroke(col, 360*alpha);  
-  rect(grid.seed1X, grid.seed1Y, grid.seedWidth, 3);
+  rect(grid.seed[0].x, grid.seed[0].y, grid.seedLength, 3);
   noStroke();
 }
 void seedsControlB(color col, float alpha) {
   noFill();
   strokeWeight(5);
   stroke(col, 360*alpha);  
-  rect(grid.seed2X, grid.seed2Y, grid.seedWidth, 3);
+  rect(grid.seed[1].x, grid.seed[1].y, grid.seedLength, 3);
   noStroke();
 }
 void seedsControlC(color col, float alpha) {
   noFill();
   strokeWeight(5);
   stroke(col, 360*alpha);  
-  rect(grid.seed3X, grid.seed3Y, 3, mh);
+  rect(grid.seed[2].x, grid.seed[2].y, 3, grid.seed2Length);
   noStroke();
 }
 

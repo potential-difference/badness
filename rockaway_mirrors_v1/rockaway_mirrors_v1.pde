@@ -50,21 +50,24 @@ void setup()
   //opc = new OPC(this, "127.0.0.1", 7890);   // Connect to the local instance of fcserver - MIRRORS
   opcMirror1 = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRROR 1 - used coz of issues with the remote conneciton
   opcMirror2 = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRROR 1 - used coz of issues with the remote conneciton
-
+  opcSeeds = new OPC(this, "127.0.0.1", 7890);           // Connect to the remote instance of fcserver - SEEDS BOX IN ROOF - also had issues with this one so had to remove it
+  opcCans = new OPC(this, "127.0.0.1", 7890);          // Connect to the remote instance of fcserver - CANS BOX
+  opcControllerA = new OPC(this, "127.0.0.1", 7890);   // Connect to the remote instance of fcserver - LEFT TWO CONTROLLERS
+  opcControllerB = new OPC(this, "127.0.0.1", 7890);   // Connect to the remote instance of fcserver - RIGHT PAIR OF CONTROLLERS
 
   ///////////////// OPC over WIFI /////////////////////
-  //opcMirror1 = new OPC(this, "10.168.1.58", 7890);   // Connect to the remote instance of fcserver - MIRROR 1
+  //opcMirror1 = new OPC(this, "10.168.1.58", 7890);     // Connect to the remote instance of fcserver - MIRROR 1
   //opcMirror2 = new OPC(this, "10.168.1.179", 7890);    // Connect to the remote instance of fcserver - MIRROR 2
-  opcCans = new OPC(this, "10.168.1.86", 7890);    // Connect to the remote instance of fcserver - CANS BOX
-  opcSeeds = new OPC(this, "127.0.0.1", 7890);   // Connect to the remote instance of fcserver - SEEDS BOX IN ROOF - also had issues with this one so had to remove it
-  opcControllerA = new OPC(this, "10.168.1.28", 7890);   // Connect to the remote instance of fcserver - LEFT TWO CONTROLLERS
-  opcControllerB = new OPC(this, "10.168.1.89", 7890);   // Connect to the remote instance of fcserver - RIGHT PAIR OF CONTROLLERS
+  //opcCans = new OPC(this, "10.168.1.86", 7890);          // Connect to the remote instance of fcserver - CANS BOX
+  //opcSeeds = new OPC(this, "127.0.0.1", 7890);           // Connect to the remote instance of fcserver - SEEDS BOX IN ROOF - also had issues with this one so had to remove it
+  //opcControllerA = new OPC(this, "10.168.1.28", 7890);   // Connect to the remote instance of fcserver - LEFT TWO CONTROLLERS
+  //opcControllerB = new OPC(this, "10.168.1.89", 7890);   // Connect to the remote instance of fcserver - RIGHT PAIR OF CONTROLLERS
 
   grid = new OPCGrid();
-  grid.kallidaMirrors(opcMirror1, opcMirror2, 0);           // grids 0-3 MIX IT UPPPPP 
-  grid.kallidaCans(opcCans);           // grids 0-3 MIX IT UPPPPP 
+  grid.kallidaMirrors(opcMirror1, opcMirror2, 0);             // grids 0-3 MIX IT UPPPPP 
+  //grid.kallidaCans(opcCans);                                  // grids 0-3 MIX IT UPPPPP 
   //grid.kallidaSeeds(opcSeeds);
-  grid.kallidaController(opcControllerA, opcControllerB, 0); // grids 0-3 MIX IT UPPPPP 
+  grid.kallidaControllers(opcControllerA, opcControllerB, 3);  // grids 0-3 MIX IT UPPPPP 
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
 
@@ -120,7 +123,7 @@ int roofViz, rigViz, colStepper = 1;
 void draw()
 {
   background(0);
-  dimmer = bgDimmer;
+  //dimmer = bgDimmer;
   noStroke();
   beatDetect.detect(in.mix);
   beats();
@@ -158,17 +161,17 @@ void draw()
 
   if (beatCounter%128 == 0) rigBgr = (rigBgr + 1)% 7;                // change colour layer automatically
   colorLayer(rigColourLayer, rigBgr);                                // develop colour layer
-  image(rigColourLayer, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight);         // draw rig colour layer to rig window
+  image(rigColourLayer, size.rigWidth/2, size.rigHeight/2);         // draw rig colour layer to rig window
   blendMode(MULTIPLY);
-  image(rigWindow, size.rig.x, size.rig.y);
+  image(rigWindow, size.rigWidth/2, size.rigHeight/2);
   blendMode(NORMAL);
 
   //toggle roof viz with tilda key '~' 
   if (!keyT[96]) {
     colorLayer(roofColourLayer, roofBgr);  
-    image(roofColourLayer, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight);                      // draw roof colour layer to roog window
+    image(roofColourLayer, size.roof.x, size.roof.y);                      // draw roof colour layer to roog window
     blendMode(MULTIPLY);
-    image(roofWindow, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight);
+    image(roofWindow, size.roof.x, size.roof.y);
     blendMode(NORMAL);
   }
 
@@ -182,9 +185,9 @@ void draw()
     cansControl(0, 1);
     // add uv control////
     fill(flash, 360*(pulz*0.8+(stutter*0.2)));
-    rect(grid.seed1X, grid.seed1Y, grid.seedWidth, 3);
-    rect(grid.seed2X, grid.seed2Y, grid.seedWidth, 3);
-    rect(grid.seed3X, grid.seed3Y, 3, mh);
+    rect(grid.seed[0].x, grid.seed[0].y, grid.seedLength, 3);
+    rect(grid.seed[1].x, grid.seed[1].y, grid.seedLength, 3);
+    rect(grid.seed[2].x, grid.seed[2].y, 3, grid.seedLength);
   }
   /*
 size.seed1X = size.rig.x;
@@ -208,23 +211,21 @@ size.seed1X = size.rig.x;
    */
 
   /////////////////////////////////////////////// UV /////////////////////////////////////////////////////////////////////////////////////
-  fill(360, (20*noize)+(20*pulz));
-  ellipse(grid.uv.x, grid.uv.y, 1, 1);
+  fill(360, ((180*noize)+(180*pulz))*uvDimmer);
+  ellipse(grid.uv.x, grid.uv.y, 3, 3);
 
   ///////////////////////////////////////////CANS //////////////////////////////////////
-  fill(0, 360-(360*bgDimmer));
-  rect(grid.can1X, grid.can1Y, grid.canWidth, 3);
-  rect(grid.can1X, grid.can2Y, grid.canWidth, 3);
+  fill(0, 360-(360*cansDimmer));
+  rect(grid.cans[0].x, grid.cans[0].y, grid.cansLength, 3);
+  rect(grid.cans[1].x, grid.cans[1].y, grid.cansLength, 3);
 
   ///////////////////////////////////////////SEEDS //////////////////////////////////////
-  fill(0, 360-(360*boothDimmer));
-  rect(grid.seed1X, grid.seed1Y, grid.seedWidth, 3);
-  rect(grid.seed2X, grid.seed2Y, grid.seedWidth, 3);
+  fill(0, 360-(360*seedsDimmer));
+  rect(grid.seed[0].x, grid.seed[0].y, grid.seedLength, 3);
+  rect(grid.seed[1].x, grid.seed[1].y, grid.seedLength, 3);
 
-  ///////////////////////////////////////////SEEDS //////////////////////////////////////
-  fill(0, 360-(360*digDimmer));
-  rect(grid.seed3X, grid.seed3Y, 3, mh);
-  rect(grid.seed3X, grid.seed3Y, 3, mh);
+  fill(0, 360-(360*seed2Dimmer));
+  rect(grid.seed[2].x, grid.seed[2].y, 3, grid.seed2Length);
 
   /////////////////////////////////////////////////////////////
   controllerControl(0, roofDimmer);

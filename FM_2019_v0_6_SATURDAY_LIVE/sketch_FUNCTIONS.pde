@@ -64,11 +64,23 @@ long beatTimer;
 float avgtime, avgvolume;
 float weightedsum, weightedcnt;
 float beatAlpha;
+boolean beatTrigger;
+
 void beats() {             ////// BEAT DETECT THROUGHOUT SKETCH ///////
   beatTimer++;
   beatAlpha=0.2;//this affects how quickly code adapts to tempo changes 0.2 averages
   // the last 10 onsets  0.02 would average the last 100
-  if (beatDetect.isOnset()) {
+
+  // trigger beats from audio source
+  if (beatDetect.isOnset()) beatTrigger = true;
+  // trigger beats without audio input
+  float triggerLimit = (sine*0.985)+(noize1*0.02);
+  if (pause > 1) {
+    if (triggerLimit > 0.99) beatTrigger = true;
+    else beatTrigger = false;
+  }
+
+  if (beatTrigger) {    
     beat = 1;
     beatFast = 1;
     beatSlow = 1;
@@ -317,8 +329,8 @@ float pad[] = new float[64];
 void noteOn(Note note) {
   println();
   println("BUTTON: ", +note.pitch);
-  
-if(note.pitch == 36){
+
+  if (note.pitch == 36) {
     fill(360*smokePump);
     rect(dmx.smoke[0].x, dmx.smoke[0].y, 10, 10);
   }

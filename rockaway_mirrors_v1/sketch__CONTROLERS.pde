@@ -1,9 +1,9 @@
 import controlP5.*;
 ControlFrame controlFrame;
 
-float vizTimeSlider, colorSwapSlider, colorTimerSlider, bgDimmer, boothDimmer, digDimmer, roofPulse, backParsSlider, backDropSlider, cansSlider, movesSlider;
+float vizTimeSlider, colorSwapSlider, colorTimerSlider, cansDimmer, boothDimmer, digDimmer, roofPulse, backParsSlider, backDropSlider, cansSlider, movesSlider;
 float cansPulse, cans1Pulse, cans2Pluse, cans3Pulse, speedSlider, tweakSlider, testSlider3, blurSlider, rigDimmer, multiViz1, multiViz2, multiViz3;
-float shimmerSlider, beatSlider, boothParSlider, backParSlider, secondVizSlider, roofDimmer;
+float shimmerSlider, beatSlider, boothParSlider, backParSlider, secondVizSlider, roofDimmer, seedsDimmer, seed2Dimmer, uvDimmer;
 
 class ControlFrame extends PApplet {
 
@@ -90,8 +90,8 @@ class ControlFrame extends PApplet {
       .setColorForeground(slider) 
       ;
     ////////////////////////////////// 2nd coloum of sliders
-    cp5.addSlider("boothDimmer")
-      .plugTo(parent, "boothDimmer")
+    cp5.addSlider("seedsDimmer")
+      .plugTo(parent, "seedsDimmer")
       .setPosition(x+clm, y)
       .setSize(wide, high)
       //.setFont(font)
@@ -101,8 +101,8 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac1) 
       .setColorForeground(slider1) 
       ;
-    cp5.addSlider("digDimmer")
-      .plugTo(parent, "digDimmer")
+    cp5.addSlider("seed2Dimmer")
+      .plugTo(parent, "seed2Dimmer")
 
       .setPosition(x+clm, y+row)
       .setSize(wide, high)
@@ -131,8 +131,8 @@ class ControlFrame extends PApplet {
     x +=clm+clm;
 
     ///////////////////////////////// third coloum of sliders
-    cp5.addSlider("bgDimmer")
-      .plugTo(parent, "bgDimmer")
+    cp5.addSlider("cansDimmer")
+      .plugTo(parent, "cansDimmer")
 
       .setPosition(x, y)
       .setSize(wide, high)
@@ -143,8 +143,8 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
-    cp5.addSlider("shimmerSlider")
-      .plugTo(parent, "shimmerSlider")
+    cp5.addSlider("uvDimmer")
+      .plugTo(parent, "uvDimmer")
       .setPosition(x, y+row)
       .setSize(wide, high)
       //.setFont(font)

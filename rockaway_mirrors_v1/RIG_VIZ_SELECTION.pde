@@ -11,8 +11,8 @@ void rigVizSelection(PGraphics subwindow, int viz, float dimmer) {
   col1 = color(white);
   col2 = color(white);
 
-  size.viz.x = size.rigWidth/2;
-  size.viz.y = size.rigHeight/2;
+  size.viz.x = size.rig.x;
+  size.viz.y = size.rig.y;
   size.vizWidth = size.rigWidth;
   size.vizHeight = size.rigHeight;
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
