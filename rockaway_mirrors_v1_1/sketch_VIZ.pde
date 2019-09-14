@@ -175,9 +175,9 @@ PGraphics star(int n, float wide, float high, float rotate, color col, float str
 
 PGraphics rush(int n, color col, float wide, float high, float func, float alph) {
   float moveA;
-  float strt = -0;
-  if (beatCounter % 8 <4 )  moveA = strt+((size.rigWidth-(strt*2))*func);
-  else  moveA = size.rigWidth-(strt+((size.rigWidth-(strt*2))*func));
+  float strt = 0;
+  if (beatCounter % 8 <4 )  moveA = (strt+(vis[n].width-strt)*func);
+  else  moveA = (vis[n].width-strt)-(strt+(vis[n].width-strt)*func);
   vis[n].beginDraw();
   vis[n].colorMode(HSB, 360, 100, 100);
   vis[n].background(0);

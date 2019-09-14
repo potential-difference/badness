@@ -235,7 +235,7 @@ void rigVizSelection(PGraphics subwindow, int viz, float dimmer) {
     break;   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   case 11: /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //PGraphics rush(int n, color col, color col1, float wide, float high, float func, float alph) {
-    wide = 800-(noize1*100*func);
+    //wide = 800-(noize1*100*func);
     for (int i = 0; i < 4; i++) {
       wide = 800-(noize1*100*function[i]);
       rush(i, col1, wide, grid.mirrorWidth, function[i], alpha[i]);
@@ -245,20 +245,18 @@ void rigVizSelection(PGraphics subwindow, int viz, float dimmer) {
     subwindow.background(0);
     subwindow.blendMode(LIGHTEST);
     for (int i = 0; i < 4; i++) {
-      subwindow.image(vis[i], size.viz.x-(size.vizWidth/2)+(grid.mirrorAndGap/2), grid.mirror[0].y);
-      subwindow.image(vis[i+4], size.viz.x+(size.vizWidth/2)+(grid.mirrorAndGap/2), grid.mirror[0].y);
+      subwindow.image(vis[i+4], size.viz.x+((size.vizWidth/2)), grid.mirror[0].y);
+      subwindow.image(vis[i], size.viz.x-((size.vizWidth/2)), grid.mirror[0].y);
 
-      subwindow.image(vis[i], size.viz.x+(size.vizWidth/2)+(grid.mirrorAndGap/2), size.viz.y);
-      subwindow.image(vis[i+4], size.viz.x-(size.vizWidth/2)+(grid.mirrorAndGap/2), size.viz.y);
+      subwindow.image(vis[i+4], size.viz.x-(size.vizWidth/2), size.viz.y);
+      subwindow.image(vis[i], size.viz.x+(size.vizWidth/2), size.viz.y);
 
-      subwindow.image(vis[i], size.viz.x-(size.vizWidth/2)+(grid.mirrorAndGap/2), grid.mirror[8].y);
-      subwindow.image(vis[i+4], size.viz.x+(size.vizWidth/2)+(grid.mirrorAndGap/2), grid.mirror[8].y);
+      subwindow.image(vis[i+4], size.viz.x+((size.vizWidth/2)), grid.mirror[8].y);
+      subwindow.image(vis[i], size.viz.x-((size.vizWidth/2)), grid.mirror[8].y);
     }
     break;
   }
   subwindow.endDraw();
-
-
   ///////////////////////////////////////////////////// END OF VIZ LIST /////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
