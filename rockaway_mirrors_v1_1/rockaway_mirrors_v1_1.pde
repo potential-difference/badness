@@ -24,8 +24,6 @@ MidiBus TR8bus;       // midibus for TR8
 MidiBus faderBus;     // midibus for APC mini
 MidiBus LPD8bus;      // midibus for LPD8
 
-float cc[] = new float[128];   //// An array where to store the last value received for each knob
-float prevcc[] = new float[128];
 int time[] = new int[12]; // array of timers to use throughout the sketch
 
 PFont myFont;
@@ -96,8 +94,8 @@ void setup()
   rigViz = 4;
   roofViz = 1;
   rigBgr = 1;    
-  rig.color1 = 1;    // set c start
-  rig.color2 = 2;   // set flash start
+  rig.colorA = 1;    // set c start
+  rig.colorB = 2;   // set flash start
 
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
   for (int i = 0; i < 9; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen

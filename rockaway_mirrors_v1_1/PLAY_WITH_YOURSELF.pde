@@ -145,12 +145,12 @@ void playWithYourself(float vizTm) {
 
   ////////////////////////////// LERP COLOUR ON BEAT /////////////////////////////
   if (keyT[111]) {
-    rig.c = lerpColor(rig.col[rig.color2], rig.col[rig.color1], beatFast);
-    rig.flash = lerpColor(rig.col[rig.color1], rig.col[rig.color2], beatFast);
+    rig.c = lerpColor(rig.col[rig.colorB], rig.col[rig.colorA], beatFast);
+    rig.flash = lerpColor(rig.col[rig.colorA], rig.col[rig.colorB], beatFast);
   }
   if (beatCounter % 18 > 13) {
-    rig.c = lerpColor(rig.col[rig.color2], rig.col[rig.color1], beatFast);
-    rig.flash = lerpColor(rig.col[rig.color1], rig.col[rig.color2], beatFast);
+    rig.c = lerpColor(rig.col[rig.colorB], rig.col[rig.colorA], beatFast);
+    rig.flash = lerpColor(rig.col[rig.colorA], rig.col[rig.colorB], beatFast);
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

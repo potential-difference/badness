@@ -212,10 +212,10 @@ void oscEvent(OscMessage theOscMessage) {
   }
   if (argument==10) {
     int steps = 1;
-    rig.color1 =  (rig.color1 + steps) % (rig.col.length-1);
-    rig.colB =  rig.col[rig.color1];
-    rig.color2 = (rig.color2 + steps) % (rig.col.length-1);
-    rig.colD = rig.col[rig.color2];
+    rig.colorA =  (rig.colorA + steps) % (rig.col.length-1);
+    rig.colB =  rig.col[rig.colorA];
+    rig.colorB = (rig.colorB + steps) % (rig.col.length-1);
+    rig.colD = rig.col[rig.colorB];
     //co2 = (co2 + steps) % (col.length-1);
     //co3 = (co3 + steps) % (col.length-1);
   }

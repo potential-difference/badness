@@ -165,11 +165,11 @@ void keyPressed() {
     roofAlphIndex = (roofAlphIndex+1)%alph.length; 
     roofAlph1Index = (roofAlph1Index+1)%alph.length;
   }   
-  if (key == 'c') rig.color1 = (rig.color1+1)%rig.col.length;         //// CYCLE FORWARD THROUGH RIG COLORS
-  if (key == 'v') rig.color2 = (rig.color2+1)%rig.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
+  if (key == 'c') rig.colorA = (rig.colorA+1)%rig.col.length;         //// CYCLE FORWARD THROUGH RIG COLORS
+  if (key == 'v') rig.colorB = (rig.colorB+1)%rig.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
 
-  if (key == 'd') roof.color1 = (roof.color1+1)%roof.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
-  if (key == 'f') roof.color2 = (roof.color2+1)%roof.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
+  if (key == 'd') roof.colorA = (roof.colorA+1)%roof.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
+  if (key == 'f') roof.colorB = (roof.colorB+1)%roof.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
 
 
   //// SHIFT KEY TO SWITCH BETWEEN TOGGLE or HOLD key functions
@@ -262,6 +262,8 @@ void noteOn(Note note) {
   println("BUTTON: ", +note.pitch);
 }
 
+float cc[] = new float[128];                   //// An array where to store the last value received for each knob
+float prevcc[] = new float[128];
 void controllerChange(int channel, int number, int value) {
   cc[number] = map(value, 0, 127, 0, 1);
   println();
@@ -276,8 +278,8 @@ void controllerChange(int channel, int number, int value) {
     sat2 = map(cc[5], 0, 1, 40, 100);
     println(sat2);
   } else  sat2 = 100;
-  rig.col[rig.color1] = color(hue(rig.col[rig.color1]), sat1, brightness(rig.col[rig.color2]));
-  rig.col[rig.color2] = color(hue(rig.col[rig.color2]), sat2, brightness(rig.col[rig.color2]));
+  rig.col[rig.colorA] = color(hue(rig.col[rig.colorA]), sat1, brightness(rig.col[rig.colorB]));
+  rig.col[rig.colorB] = color(hue(rig.col[rig.colorB]), sat2, brightness(rig.col[rig.colorB]));
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
