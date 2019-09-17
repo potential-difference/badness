@@ -72,6 +72,8 @@ void setup()
   MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
   println();
   TR8bus = new MidiBus(this, "TR-8S", "TR8-S"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
+  LPD8bus = new MidiBus(this, "LPD8", "LPD8"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
+
   /* start oscP5, listening for incoming messages at port 5000 to 5003 */
   for (int i = 0; i < 4; i++) oscP5[i] = new OscP5(this, 5000+i);
   oscAddrSetup();
@@ -122,6 +124,7 @@ void draw()
   oskPulse();
   arrayDraw();
   rig.clash(func);                         ///// clash colour changes on function in brackets
+  roof.clash(func);                         ///// clash colour changes on function in brackets
 
   ////// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
   blury = int(map(blurSlider, 0, 1, 0, 30));

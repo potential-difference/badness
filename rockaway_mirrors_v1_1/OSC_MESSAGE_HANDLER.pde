@@ -185,14 +185,17 @@ void oscEvent(OscMessage theOscMessage) {
    catch(Exception e) {
    };*/
 
-  //if (messageType.equals("masterFXon") == true) {
-  //  float hue = hue(c), sat = saturation(c), bright = brightness(c);
-  //  //float reSat = 
-  //  c = color(hue, sat, bright);
-  //}
-  if (messageType.equals("oneshot")) {
-    if (argument == 21) rigBgr = int(random(0, 8));
-  }
+//  if (messageType.equals("masterFXon") == true) {
+//    float rigHue = hue(rig.c), sat = saturation(rig.c), bright = brightness(rig.c);
+//    //float reSat = 
+//    rig.c = color(hue, sat, bright);
+//  }
+  //if (messageType.equals("throttleValue"))
+  //  if (messageType.equals("throttleButton"))
+
+      if (messageType.equals("oneshot")) {
+        if (argument == 21) rigBgr = int(random(0, 8));
+      }
   if (messageType.equals("kitChange")) {
     colorControl(argument);
   }

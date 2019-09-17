@@ -273,7 +273,18 @@ void controllerChange(int channel, int number, int value) {
   cc[number] = map(value, 0, 127, 0, 1);
   println();
   println("CC: ", number, "....", map(value, 0, 127, 0, 1), "- Channel:", channel);
-  //spd = 1;
+
+  float sat1, sat2;
+  if (cc[101] > 0) {
+    sat1 = map(cc[1], 0, 1, 40, 100);
+    println(sat1);
+  } else  sat1 = 100;
+  if (cc[105] > 0) {
+    sat2 = map(cc[5], 0, 1, 40, 100);
+    println(sat2);
+  } else  sat2 = 100;
+  rig.col[rig.color1] = color(hue(rig.col[rig.color1]), sat1, brightness(rig.col[rig.color2]));
+  rig.col[rig.color2] = color(hue(rig.col[rig.color2]), sat2, brightness(rig.col[rig.color2]));
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
