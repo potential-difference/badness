@@ -8,8 +8,11 @@ OPC opcControllerA;
 OPC opcControllerB;
 
 SizeSettings size = new SizeSettings();
-OPCGrid grid;
-Toggle toggle;
+OPCGrid grid = new OPCGrid();
+Toggle toggle = new Toggle();
+
+SketchColor rig = new SketchColor();
+SketchColor roof = new SketchColor();
 
 import javax.sound.midi.ShortMessage;       // shorthand names for each control on the TR8
 import oscP5.*;
@@ -58,7 +61,6 @@ void setup()
   //opcControllerA = new OPC(this, "10.168.1.28", 7890);   // Connect to the remote instance of fcserver - LEFT TWO CONTROLLERS
   //opcControllerB = new OPC(this, "10.168.1.89", 7890);   // Connect to the remote instance of fcserver - RIGHT PAIR OF CONTROLLERS
 
-  grid = new OPCGrid();
   grid.kallidaMirrors(opcMirror1, opcMirror2, 0);               // grids 0-3 MIX IT UPPPPP 
   grid.kallidaCans(opcCans);                                  
   grid.kallidaUV(opcCans);
@@ -75,13 +77,14 @@ void setup()
   oscAddrSetup();
 
   dimmer = 1; // must come before load control frame
-  toggle = new Toggle(); 
 
   drawingSetup();
   loadImages();
   loadGraphics();
-  colorSetup();
-  colorArray();
+
+  colorSetup();  
+  rig.colorArray();
+  roof.colorArray();
 
   controlFrame = new ControlFrame(this, width, 130, "Controls"); // load control frame must come after shild ring etc
 
@@ -91,8 +94,9 @@ void setup()
   rigViz = 4;
   roofViz = 1;
   rigBgr = 1;    
-  co = 1;    // set c start
-  co1 = 2;   // set flash start
+  rig.color1 = 1;    // set c start
+  rig.color2 = 2;   // set flash start
+
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
   for (int i = 0; i < 9; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen
   //hint(DISABLE_OPTIMIZED_STROKE);
@@ -117,7 +121,7 @@ void draw()
   noize();
   oskPulse();
   arrayDraw();
-  clash(func);                         ///// clash colour changes on function in brackets
+  rig.clash(func);                         ///// clash colour changes on function in brackets
 
   ////// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
   blury = int(map(blurSlider, 0, 1, 0, 30));
@@ -125,11 +129,6 @@ void draw()
     prevblury=blury;
     loadShaders(blury);
   }
-
-  //if (keyT[97]) colStepper = 2;
-  //else colStepper = 1;
-  colTime = colorTimerSlider*60*30;
-  colorTimer(colTime, 1); //// seconds between colour change, number of steps to cycle through colours
 
   //dimmer = cc[4]*rigDimmer;
   vizTime = 60*15*vizTimeSlider;
@@ -149,44 +148,44 @@ void draw()
   image(rigWindow, size.rigWidth/2, size.rigHeight/2);
   blendMode(NORMAL);
 
-/*
+  /*
   //toggle roof viz and posostions of the cans and seeds with tilda key '~' 
-  if (!keyT[96]) {
-    // roof posistion for grid
-    grid._seedLength = size.roofWidth;
-    grid._seed2Length = size.roofHeight;
-    grid.seed[0] = new PVector (size.roof.x, size.roof.y-(size.roofHeight/4)); 
-    grid.seed[1] = new PVector (size.roof.x, size.roof.y+(size.roofHeight/4)); 
-    grid.seed[2] = new PVector (size.roof.x, size.roof.y);
-
-    grid._cansLength = size.roofWidth/2;
-    grid.cans[0] = new PVector(size.roof.x-( grid._cansLength/2), size.roof.y-( grid.mirrorAndGap/2));
-    grid.cans[1] = new PVector(size.roof.x+( grid._cansLength/2), size.roof.y+( grid.mirrorAndGap/2));
-    grid.uv = new PVector(size.rig.x, size.rig.y);
-
-    roofVizSelection(roofWindow, roofDimmerPad*roofDimmer);         // develop roof visulisation
-    colorLayer(roofColourLayer, roofBgr);  
-    image(roofColourLayer, size.roof.x, size.roof.y);               // draw roof colour layer to roof window
-    blendMode(MULTIPLY);
-    image(roofWindow, size.roof.x, size.roof.y);                    // draw roof viz to roof window    
-    blendMode(NORMAL);
-  } else {
-    // rig positions for grid
-    grid._seedLength = size.rigWidth;
-    grid._seed2Length = size.rigHeight/1.6;
-    grid.seed[0] = new PVector (size.rig.x, grid.mirrorX[0][0].y+(grid.dist/6)); 
-    grid.seed[1] = new PVector (size.rig.x, grid.mirrorX[0][3].y-(grid.dist/6)); 
-    grid.seed[2] = new PVector (size.rig.x, size.rig.y);
-
-    grid._cansLength = size.rigWidth/2;
-    grid.cans[0] = new PVector(size.rig.x-(grid._cansLength/2), size.rig.y-(grid.mirrorAndGap/2));
-    grid.cans[1] = new PVector(size.rig.x+(grid._cansLength/2), size.rig.y+(grid.mirrorAndGap/2));
-    grid.uv = new PVector(size.rig.x+10, size.rig.y);
-  }
-  grid.kallidaCans(opcCans);                                  
-  grid.kallidaUV(opcCans);
-  grid.kallidaSeeds(opcSeeds);
-  */
+   if (!keyT[96]) {
+   // roof posistion for grid
+   grid._seedLength = size.roofWidth;
+   grid._seed2Length = size.roofHeight;
+   grid.seed[0] = new PVector (size.roof.x, size.roof.y-(size.roofHeight/4)); 
+   grid.seed[1] = new PVector (size.roof.x, size.roof.y+(size.roofHeight/4)); 
+   grid.seed[2] = new PVector (size.roof.x, size.roof.y);
+   
+   grid._cansLength = size.roofWidth/2;
+   grid.cans[0] = new PVector(size.roof.x-( grid._cansLength/2), size.roof.y-( grid.mirrorAndGap/2));
+   grid.cans[1] = new PVector(size.roof.x+( grid._cansLength/2), size.roof.y+( grid.mirrorAndGap/2));
+   grid.uv = new PVector(size.rig.x, size.rig.y);
+   
+   roofVizSelection(roofWindow, roofDimmerPad*roofDimmer);         // develop roof visulisation
+   colorLayer(roofColourLayer, roofBgr);  
+   image(roofColourLayer, size.roof.x, size.roof.y);               // draw roof colour layer to roof window
+   blendMode(MULTIPLY);
+   image(roofWindow, size.roof.x, size.roof.y);                    // draw roof viz to roof window    
+   blendMode(NORMAL);
+   } else {
+   // rig positions for grid
+   grid._seedLength = size.rigWidth;
+   grid._seed2Length = size.rigHeight/1.6;
+   grid.seed[0] = new PVector (size.rig.x, grid.mirrorX[0][0].y+(grid.dist/6)); 
+   grid.seed[1] = new PVector (size.rig.x, grid.mirrorX[0][3].y-(grid.dist/6)); 
+   grid.seed[2] = new PVector (size.rig.x, size.rig.y);
+   
+   grid._cansLength = size.rigWidth/2;
+   grid.cans[0] = new PVector(size.rig.x-(grid._cansLength/2), size.rig.y-(grid.mirrorAndGap/2));
+   grid.cans[1] = new PVector(size.rig.x+(grid._cansLength/2), size.rig.y+(grid.mirrorAndGap/2));
+   grid.uv = new PVector(size.rig.x+10, size.rig.y);
+   }
+   grid.kallidaCans(opcCans);                                  
+   grid.kallidaUV(opcCans);
+   grid.kallidaSeeds(opcSeeds);
+   */
   if (int(frameCount % (frameRate*90)) == 0) {                           // change the controller gird every X seconds
     int controllerGridStep = int(random(5));                 // randomly choose new grid
     if (rigBgr == 4 ) controllerGridStep = int(random(1, 5));  // dont use grid 0 is bg4 = not symetrical
@@ -199,7 +198,7 @@ void draw()
     rigControl(0, 1);
     cansControl(0, 1);
     // add uv control////
-    fill(flash, 360*(pulz*0.8+(stutter*0.2)));
+    fill(roof.flash, 360*(pulz*0.8+(stutter*0.2)));
     rect(grid.seed[0].x, grid.seed[0].y, grid.seedLength, 3);
     rect(grid.seed[1].x, grid.seed[1].y, grid.seedLength, 3);
     rect(grid.seed[2].x, grid.seed[2].y, 3, grid.seedLength);
@@ -255,12 +254,12 @@ void draw()
     rect(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight);
     rect(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight);
   }
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
 
-  fill(flash);
+  fill(rig.flash);
   rect(size.rigWidth, height/2, 1, height);                     ///// vertical line to show end of rig viz area
   rect(size.rigWidth+size.roofWidth, height/2, 1, height);      ///// vertical line to show end of roof viz area
-  fill(flash, 80);    
+  fill(rig.flash, 80);    
   rect((size.rigWidth+size.roofWidth)/2, height-size.sliderHeight, size.rigWidth+size.roofWidth, 1);                              ///// horizontal line to show bottom area
 
   // code to develop and then draw preview boxes 

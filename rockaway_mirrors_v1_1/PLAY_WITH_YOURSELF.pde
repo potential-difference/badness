@@ -116,9 +116,21 @@ void playWithYourself(float vizTm) {
     }
   }
 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////// PLAY WITH COLOUR ////////////////////////////////////////////////////////////////
+  //if (keyT[97]) colStepper = 2;
+  //else colStepper = 1;
+  colTime = colorTimerSlider*60*30;
+  rig.colorTimer(colTime, 1); //// seconds between colour change, number of steps to cycle through colours
+  roof.colorTimer(colTime, 1); //// seconds between colour change, number of steps to cycle through colours
+
   ///////////////////////////////////// COLORSWAP TIMER ///////////////////////////////////
-  if (colorSwapSlider > 0)  colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
-  if (beatCounter%64<2) colorSwap(1000000*noize);   
+  if (colorSwapSlider > 0) {
+    rig.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
+    roof.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
+  }
+  if (beatCounter%64<2) rig.colorSwap(1000000*noize);  
+  if (beatCounter%64>61) roof.colorSwap(1000000*noize);
   if (colorSwapSlider == 0);
 
   ////////////////////////////////////////// HOLD BUTTONS FOR VIZ AND COLOUR ///////////////////////////
@@ -126,19 +138,19 @@ void playWithYourself(float vizTm) {
   if (hold1) time[3] = millis()/1000;  //// hold color change timer
 
   ////////////////////////////////////// COLOR SWAP AND FLIP BUTTONS //////////////////////////////////////
-  colorFlip(colFlip);                      // COLOR FLIP on ';' key (toggle)
-  if (keyP[92])  colorSwap(0.9999999999); /// COLOR SWAP on '\'  key
-  if (keyP[39])  colorFlip(keyP[39]);      // COLOR SWAP ON '"' key (press and hold)
+  //colorFlip(colFlip);                      // COLOR FLIP on ';' key (toggle)
+  if (keyP[92])  rig.colorSwap(0.9999999999); /// COLOR SWAP on '\'  key
+  if (keyP[39])  rig.colorFlip(keyP[39]);      // COLOR SWAP ON '"' key (press and hold)
 
 
   ////////////////////////////// LERP COLOUR ON BEAT /////////////////////////////
   if (keyT[111]) {
-    c = lerpColor(col[co1], col[co], beatFast);
-    flash = lerpColor(col[co], col[co1], beatFast);
+    rig.c = lerpColor(rig.col[rig.color2], rig.col[rig.color1], beatFast);
+    rig.flash = lerpColor(rig.col[rig.color1], rig.col[rig.color2], beatFast);
   }
   if (beatCounter % 18 > 13) {
-    c = lerpColor(col[co1], col[co], beatFast);
-    flash = lerpColor(col[co], col[co1], beatFast);
+    rig.c = lerpColor(rig.col[rig.color2], rig.col[rig.color1], beatFast);
+    rig.flash = lerpColor(rig.col[rig.color1], rig.col[rig.color2], beatFast);
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -3,38 +3,31 @@ void playWithMe() {
   float top = stutter*0.1;
   blendMode(NORMAL);
 
-  color col1a = c;
-  color col2a = flash;
-
-  if (keyT[42]) {
-    col1a = 0;
-    col2a = 0;
-    base = 1;
-    top = 1;
-  }
+  //color col1a = c;
+  //color col2a = flash;
 }
 
 void colorControl(int colorSwitch) {
   switch(colorSwitch) {
   case 0:
-    c = red;
-    flash = bloo;
+    rig.c = red;
+    rig.flash = bloo;
     break;
   case 1:
-    c = grin;
-    flash = red;
+    rig.c = grin;
+    rig.flash = red;
     break;
   case 2:
-    c = pink;
-    flash = grin;
+    rig.c = pink;
+    rig.flash = grin;
     break;
   case 3:
-    c = orange;
-    flash = pink;
+    rig.c = orange;
+    rig.flash = pink;
     break;
   case 4:
-    c = orange;
-    flash = teal;
+    rig.c = orange;
+    rig.flash = teal;
     break;
   }
 }
@@ -59,9 +52,9 @@ void playWithMeMore() {
   if (keyP[52]) seedsControlB(0, 1);
   if (keyP[53]) controllerControl(0, 1);
 
-  if (keyP[55]) cansControl(flash, stutter); 
-  if (keyP[56]) seedsControlA(flash, stutter);
-  if (keyP[57]) colorSwap(0.9999999);
+  if (keyP[55]) cansControl(roof.flash, stutter); 
+  if (keyP[56]) seedsControlA(roof.flash, stutter);
+  if (keyP[57]) rig.colorSwap(0.9999999);
 }
 
 void cansControl(color col, float alpha) {

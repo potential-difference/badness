@@ -3,14 +3,18 @@ int bgList = 8;
 void colorLayer(PGraphics subwindow, int index) {
   /////////////////////////////////////////////// RIG COLOR LAYERS ///////////////////////////////////////
   if (subwindow == rigColourLayer) {
-    oneColourBG(0, c);
-    mirrorGradientBG(1, c, flash, 0.5);  
-    sideBySideBG(2, flash, c);
-    checkSymmetricalBG(3, c, flash);
-    cornersBG(4, flash, c);
-    crossBG(5, c, flash);
-    oneColourBG(6, flash);
-    sideBySideBG(7, c, flash);
+    color col1 = rig.c;
+    color col2 = rig.flash;
+    color col3 = rig.clash;
+    
+    oneColourBG(0, col1);
+    mirrorGradientBG(1, col1,col2, 0.5);  
+    sideBySideBG(2, col2,col1);
+    checkSymmetricalBG(3, col1,col2);
+    cornersBG(4, col2,col1);
+    crossBG(5, col1,col2);
+    oneColourBG(6, col3);
+    sideBySideBG(7, col1,col2);
 
     subwindow.beginDraw();
     subwindow.image(bg[index], subwindow.width/2, subwindow.height/2, subwindow.width, subwindow.height);
@@ -18,17 +22,17 @@ void colorLayer(PGraphics subwindow, int index) {
   }
 
   if (subwindow == roofColourLayer) {
-    color roofCol1 = c;
-    color roofCol2 = flash;
-    color roofClash = clash;
+    color col1 = roof.c;
+    color col2 = roof.flash;
+    color col3 = roof.clash;
 
-    mirrorGradientBG(0, roofCol1, roofCol2, 0.5);  
+    mirrorGradientBG(0, col1, col2, 0.5);  
     //radialGradientBG(1, roofCol1, roofCol2, 0.1);
-    horizontalMirrorGradBG(2, roofCol1, roofCol2, 0);
-    horizontalMirrorGradBG(3, roofCol2, roofCol1, func);
+    horizontalMirrorGradBG(2, col1, col2, 0);
+    horizontalMirrorGradBG(3, col2, col1, func);
     //roofArrangement(4, roofCol2, roofCol1);
     //roofBigSeeds(5, roofCol1, roofCol2);
-    horizontalMirrorGradBG(6, roofCol1, roofCol2, func);
+    horizontalMirrorGradBG(6, col1, col2, func);
 
     subwindow.beginDraw();
     subwindow.image(bg[index], subwindow.width/2, subwindow.height/2, subwindow.width, subwindow.height);

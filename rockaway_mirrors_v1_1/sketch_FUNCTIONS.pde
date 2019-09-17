@@ -69,7 +69,7 @@ void beats() {             ////// BEAT DETECT THROUGHOUT SKETCH ///////
     if (triggerLimit > 0.9995) beatTrigger = true;
     else beatTrigger = false;
   }
-  
+
   if (beatTrigger) {
     beat = 1;
     beatFast = 1;
@@ -138,36 +138,38 @@ int keyNum;
 int mirrorStep, gridStep;
 void keyPressed() {  
   /////////////////////////////// RIG KEY FUNCTIONS ////////////////////////
-  if (key == 'n') rigViz = (rigViz+1)%rigVizList;             //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
-  if (key == 'b') rigViz -=1;                                   //// STEP BACK TO PREVIOUS RIG VIZ
+  if (key == 'n') rigViz = (rigViz+1)%rigVizList;        //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
+  if (key == 'b') rigViz -=1;                            //// STEP BACK TO PREVIOUS RIG VIZ
   if (rigViz <0) rigViz = rigVizList-1;
-  if (key == 'm') rigBgr = (rigBgr+1)%7;                                  //// CYCLE THROUGH RIG BACKGROUNDS
+  if (key == 'm') rigBgr = (rigBgr+1)%7;                 //// CYCLE THROUGH RIG BACKGROUNDS
 
   /////////////////////////////// ROOF KEY FUNCTIONS ////////////////////////
-  if (key == 'h') roofViz = (roofViz+1)%8;             //// STEP FORWARD TO NEXT RIG VIZ
-  if (key == 'g') roofViz -= 1;   //// STEP BACK TO PREVIOUS RIG VIZ
+  if (key == 'h') roofViz = (roofViz+1)%8;               //// STEP FORWARD TO NEXT RIG VIZ
+  if (key == 'g') roofViz -= 1;                          //// STEP BACK TO PREVIOUS RIG VIZ
   if (roofViz <0) roofViz = 7;
-  if (key == 'j') roofBgr = (roofBgr+1)%7;        //// CYCLE THROUGH ROOF BACKGROUNDS
+  if (key == 'j') roofBgr = (roofBgr+1)%7;               //// CYCLE THROUGH ROOF BACKGROUNDS
 
-  if (key == ',') {                            //// CYCLE THROUGH RIG FUNCS
+  if (key == ',') {                                      //// CYCLE THROUGH RIG FUNCS
     fctIndex = (fctIndex+1)%fct.length; 
     fct1Index = (fct1Index+1)%fct.length;
   }  
-  if (key == '.') {                            //// CYCLE THROUGH RIG ALPHAS
+  if (key == '.') {                                      //// CYCLE THROUGH RIG ALPHAS
     rigAlphIndex = (rigAlphIndex+1)%alph.length; 
     rigAlph1Index = (rigAlph1Index+1)%alph.length;
   }   
-
-  if (key == 'k') {                          //// CYCLE THROUGH ROOF FUNCS
+  if (key == 'k') {                                      //// CYCLE THROUGH ROOF FUNCS
     roofFctIndex = (roofFctIndex+1)%fct.length; 
     roofFct1Index = (roofFct1Index+1)%fct.length;
   }  
-  if (key == 'l') {                            //// CYCLE THROUGH ROOF ALPHAS
+  if (key == 'l') {                                      //// CYCLE THROUGH ROOF ALPHAS
     roofAlphIndex = (roofAlphIndex+1)%alph.length; 
     roofAlph1Index = (roofAlph1Index+1)%alph.length;
   }   
-  if (key == 'c') co = (co+1)%col.length;      //// CYCLE THROUGH COLORS
-  if (key == 'v') co1 = (co1+1)%col.length;
+  if (key == 'c') rig.color1 = (rig.color1+1)%rig.col.length;         //// CYCLE FORWARD THROUGH RIG COLORS
+  if (key == 'v') rig.color2 = (rig.color2+1)%rig.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
+
+  if (key == 'd') roof.color1 = (roof.color1+1)%roof.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
+  if (key == 'f') roof.color2 = (roof.color2+1)%roof.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
 
 
   //// SHIFT KEY TO SWITCH BETWEEN TOGGLE or HOLD key functions
@@ -208,15 +210,12 @@ void keyPressed() {
       println(key, i, keyT[i]);  //// print key
     }
   }
-
   for (int i = 91; i <=127; i++) {
     if (key == char(i)) {
       keyT[i] = !keyT[i];
       println(key, i, keyT[i]);  //// print key
     }
   }
-
-
   /// switches for function  control
   switch(key) {
   case 'q':
@@ -235,69 +234,11 @@ void keyPressed() {
     hold1 = !hold1;
     break;
   case ';':
-    colFlip = !colFlip;
+    rig.colFlip = !rig.colFlip;
     break;
   case 'l':
     colBeat = !colBeat;
     break;
-  }
-  /// TOGGLE KEYS active when SHIFT is FALSE ////
-  if (!shift) {
-    switch(key) {
-    case '1':
-      one = !one;
-      break;
-    case '2':
-      two = !two;
-      break;
-    case '3':
-      three = !three;
-      break;
-    case '4':
-      four = !four;
-      break;
-    case '5':
-      five = !five;
-      break;
-    case '6':
-      six = !six;
-      break;
-    case '7':
-      seven = !seven;
-      break;
-    case '8':
-      eight = !eight;
-      break;
-    case '9':
-      nine = !nine;
-      break;
-    case '0':
-      zero = !zero;
-      break;
-    case '-':
-      minus = !minus;
-      break;
-    case '+':
-      plus = !plus;
-      break;
-    case ' ':
-      space = !space;
-      break;
-    }
-  } else if (shift) {
-    one = false;
-    two = false;
-    three = false;
-    four = false;
-    five = false;
-    six = false;
-    seven = false;
-    eight = false;
-    nine = false; 
-    zero = false;
-    space = false;
-    minus = false;
-    plus = false;
   }
 }
 
@@ -353,10 +294,10 @@ void pause(int pau) {
     //beat  = d;
     //for (int i = 0; i < beats.length; i++) if (beatCounter % 4 == i)  beats[i] = d;
     //pulz = e;
-    //if (millis()/1000 - time[5] >= 4) {
-    //  beatCounter +=1%120;
-    //  time[5] = millis()/1000;  //// also update the stored time
-    //}
+    if (millis()/1000 - time[5] >= 4) {
+      beatCounter +=1%120;
+      time[5] = millis()/1000;  //// also update the stored time
+    }
   }
 }
 

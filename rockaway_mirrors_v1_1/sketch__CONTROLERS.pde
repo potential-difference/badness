@@ -317,9 +317,8 @@ class ControlFrame extends PApplet {
 
   void draw() {
     background(0);
-    fill(c);
+    fill(rig.c);
     rect(width/2, 0, width, 2);
-
 
     //if (keyT[97]) {
     //  y = 80;
