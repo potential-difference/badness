@@ -260,13 +260,6 @@ float pad[] = new float[64];
 void noteOn(Note note) {
   println();
   println("BUTTON: ", +note.pitch);
-
-  if (+note.pitch > 99 && +note.pitch < 104) pad[0] = (+note.pitch);
-  if (+note.pitch > 108 && +note.pitch < 112) pad[0] = (+note.pitch);
-  if (+note.pitch > 103 && +note.pitch < 108)  pad[1] = (+note.pitch);
-  if (+note.pitch > 112 && +note.pitch < 117)  pad[1] = (+note.pitch);
-  if (+note.pitch > 108 && +note.pitch < 111)  pad[2] = (+note.pitch);
-  if (+note.pitch > 112 && +note.pitch < 115)  pad[3] = (+note.pitch);
 }
 
 void controllerChange(int channel, int number, int value) {
@@ -302,9 +295,6 @@ void pause(int pau) {
     }
   }
   if (pause > 0) {
-    //beat  = d;
-    //for (int i = 0; i < beats.length; i++) if (beatCounter % 4 == i)  beats[i] = d;
-    //pulz = e;
     if (millis()/1000 - time[5] >= 4) {
       beatCounter +=1%120;
       time[5] = millis()/1000;  //// also update the stored time

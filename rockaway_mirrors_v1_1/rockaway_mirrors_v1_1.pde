@@ -1,6 +1,6 @@
 OPC opc;
 OPC opcLocal;
-OPC opcMirror1;
+OPC opcMirror1; 
 OPC opcMirror2;
 OPC opcSeeds;
 OPC opcCans;
@@ -119,11 +119,11 @@ void draw()
   noStroke();
   beatDetect.detect(in.mix);
   beats();
-  pause(10);                        ////// number of seconds before no music detected
+  pause(10);                                ////// number of seconds before no music detected
   noize();
   oskPulse();
   arrayDraw();
-  rig.clash(func);                         ///// clash colour changes on function in brackets
+  rig.clash(func);                          ///// clash colour changes on function in brackets
   roof.clash(func);                         ///// clash colour changes on function in brackets
 
   ////// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////

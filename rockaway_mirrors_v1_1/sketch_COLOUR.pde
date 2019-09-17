@@ -1,6 +1,6 @@
 class SketchColor {
   //////////////////////////////////////////////////// COLOR TIMER ////////////////////////////////
-  color c, flash, c1, flash1, color1, color2 = 1, co2, co3, colA, colB, colC, colD;
+  color c, flash, c1, flash1, color1, color2 = 1, colA, colB, colC, colD;
   float go;
   boolean change;
   void colorTimer(float colTime, int steps) {
@@ -19,7 +19,6 @@ class SketchColor {
       colB =  col[color1];
       color2 = (color2 + steps) % (col.length-1);
       colD = col[color2];
-     
     }
     c = col[color1];
     c1 = col[color1];
