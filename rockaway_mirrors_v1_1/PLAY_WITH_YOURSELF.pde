@@ -134,6 +134,7 @@ void playWithYourself(float vizTm) {
   ///////////////////////////////////////// LERP COLOUR //////////////////////////////////////////////////////////////////
   if (beatCounter % 18 > 13) {
     ///// make lerp colour a function that can be applied to any object and the function can be changed
+    //colorLerping(rig);
     rig.c = lerpColor(rig.col[rig.colorB], rig.col[rig.colorA], beatFast);
     rig.flash = lerpColor(rig.col[rig.colorA], rig.col[rig.colorB], beatFast);
   }
@@ -142,7 +143,7 @@ void playWithYourself(float vizTm) {
 }
 
 /*
-void lerpColor(Object object) {
+void colorLerping(Object object) {
  object.c = lerpColor(rig.col[rig.colorB], rig.col[rig.colorA], beatFast);
  object.flash = lerpColor(rig.col[rig.colorA], rig.col[rig.colorB], beatFast);
  }
