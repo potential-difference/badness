@@ -132,19 +132,17 @@ void playWithYourself(float vizTm) {
   else rig.colFlip = false;
   rig.colorFlip(rig.colFlip);
   ///////////////////////////////////////// LERP COLOUR //////////////////////////////////////////////////////////////////
-  if (beatCounter % 18 > 13) {
-    ///// make lerp colour a function that can be applied to any object and the function can be changed
-    //colorLerping(rig);
-    rig.c = lerpColor(rig.col[rig.colorB], rig.col[rig.colorA], beatFast);
-    rig.flash = lerpColor(rig.col[rig.colorA], rig.col[rig.colorB], beatFast);
-  }
+  if (beatCounter % 18 > 13)  colorLerping(rig, beatFast);
+  else colBeat = false;
+  //rig.c = lerpColor(rig.col[rig.colorB], rig.col[rig.colorA], beatFast);
+  //rig.flash = lerpColor(rig.col[rig.colorA], rig.col[rig.colorB], beatFast);
+
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
-/*
-void colorLerping(Object object) {
- object.c = lerpColor(rig.col[rig.colorB], rig.col[rig.colorA], beatFast);
- object.flash = lerpColor(rig.col[rig.colorA], rig.col[rig.colorB], beatFast);
- }
- */
+void colorLerping(SketchColor object, float function) {
+  object.c = lerpColor(object.col[object.colorB], object.col[object.colorA], function);
+  object.flash = lerpColor(object.col[object.colorA], object.col[object.colorB], function);
+  colBeat = true;
+}

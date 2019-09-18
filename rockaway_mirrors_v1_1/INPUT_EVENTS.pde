@@ -245,16 +245,10 @@ void keyPressed() {
   if (key == ']') colHold = !colHold; 
 
   /////////////////////////////////// momentaory key pressed array /////////////////////////////////////////////////
-  for (int i = 32; i <=127; i++) {
-    if (key == char(i)) keyP[i]=true;
-    if (key == char(i)) println(key, i, keyP[i]);
-  }
-  for (int i = 91; i <=127; i++) {
-    if (key == char(i)) keyP[i]=true;
-    if (key == char(i)) println(key, i, keyP[i]);
-  }
+  for (int i = 32; i <=63; i++)  if (key == char(i)) keyP[i]=true;
+  for (int i = 91; i <=127; i++) if (key == char(i)) keyP[i]=true;
   ///////////////////////////////// toggle key pressed array ///////////////////////////////////////////////////////
-  for (int i = 32; i <=127; i++) {
+  for (int i = 32; i <=63; i++) {
     if (key == char(i)) keyT[i] = !keyT[i];
     if (key == char(i)) println(key, i, keyT[i]);
   }
