@@ -1,15 +1,12 @@
 int counter, rigAlphIndex, rigAlph1Index = 1, fctIndex, fct1Index = 1, swap;
 int roofAlphIndex, roofAlph1Index = 1, roofFctIndex, roofFct1Index = 1;
-
 float alf, bt, bt1, dimmer, func, func1;
 float roofBt, roofBt1, roofFunc, roofFunc1;
 color col1, col2;
-
 float alpha[] = new float[4];
 float alpha1[] = new float[4];
 float roofAlpha[] = new float[4];
 float roofAlpha1[] = new float[4];
-
 float function[] = new float[4];
 float function1[] = new float[4];
 float roofFunction[] = new float[4];
@@ -77,7 +74,6 @@ void playWithYourself(float vizTm) {
         alpha1[i]  = alph[rigAlph1Index][i];
       }
     }
-
     ////////////////// shimmer control for roof ////////////////////////////
     if (beatCounter % 96 < 64) { 
       roofAlpha[i] = roofAlph[roofAlphIndex][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
@@ -100,10 +96,11 @@ void playWithYourself(float vizTm) {
       }
     }
   }
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////// FUNCTIONS //////////////////////////////////////////////////////////////////////////
   for (int i =0; i< beats.length; i++) {
-    function[i] = fct[fctIndex][i];                    /// set func to selected function
-    function1[i] = fct[fct1Index][i];                  /// set func1 to selected function
+    function[i] = fct[fctIndex][i];                                /// set func to selected function
+    function1[i] = fct[fct1Index][i];                              /// set func1 to selected function
     //roof
     roofFunction[i] = roofFct[roofFctIndex][i];                    /// set func to selected function
     roofFunction1[i] = roofFct[roofFct1Index][i];                  /// set func1 to selected function
@@ -115,7 +112,6 @@ void playWithYourself(float vizTm) {
       roofFunc1 = roofFct[roofFct1Index][i];
     }
   }
-
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////// PLAY WITH COLOUR ////////////////////////////////////////////////////////////////
   //if (keyT[97]) colStepper = 2;
@@ -123,8 +119,7 @@ void playWithYourself(float vizTm) {
   colTime = colorTimerSlider*60*30;
   rig.colorTimer(colTime, 1); //// seconds between colour change, number of steps to cycle through colours
   roof.colorTimer(colTime, 1); //// seconds between colour change, number of steps to cycle through colours
-
-  ///////////////////////////////////// COLORSWAP TIMER ///////////////////////////////////
+  ///////////////////////////////////// COLORSWAP TIMER /////////////////////////////////////////////////////////////////
   if (colorSwapSlider > 0) {
     rig.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
     roof.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
@@ -132,27 +127,23 @@ void playWithYourself(float vizTm) {
   if (beatCounter%64<2) rig.colorSwap(1000000*noize);  
   if (beatCounter%64>61) roof.colorSwap(1000000*noize);
   if (colorSwapSlider == 0);
-
-  ////////////////////////////////////////// HOLD BUTTONS FOR VIZ AND COLOUR ///////////////////////////
-  if (hold)  time[0] = millis()/1000;  //// hold viz change timer
-  if (hold1) time[3] = millis()/1000;  //// hold color change timer
-
-  ////////////////////////////////////// COLOR SWAP AND FLIP BUTTONS //////////////////////////////////////
-  //colorFlip(colFlip);                      // COLOR FLIP on ';' key (toggle)
-  if (keyP[92])  rig.colorSwap(0.9999999999); /// COLOR SWAP on '\'  key
-  if (keyP[39])  rig.colorFlip(keyP[39]);      // COLOR SWAP ON '"' key (press and hold)
-
-
-  ////////////////////////////// LERP COLOUR ON BEAT /////////////////////////////
-  if (keyT[111]) {
-    rig.c = lerpColor(rig.col[rig.colorB], rig.col[rig.colorA], beatFast);
-    rig.flash = lerpColor(rig.col[rig.colorA], rig.col[rig.colorB], beatFast);
-  }
+  ////////////////////////////////////////// COLOR FLIP ///////////////////////////////////////////////////////////////////
+  for (int i = 16; i<22; i+=2) if ( beatCounter % 128 == i) rig.colFlip = true;
+  else rig.colFlip = false;
+  rig.colorFlip(rig.colFlip);
+  ///////////////////////////////////////// LERP COLOUR //////////////////////////////////////////////////////////////////
   if (beatCounter % 18 > 13) {
+    ///// make lerp colour a function that can be applied to any object and the function can be changed
     rig.c = lerpColor(rig.col[rig.colorB], rig.col[rig.colorA], beatFast);
     rig.flash = lerpColor(rig.col[rig.colorA], rig.col[rig.colorB], beatFast);
   }
-
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
+
+/*
+void lerpColor(Object object) {
+  object.c = lerpColor(rig.col[rig.colorB], rig.col[rig.colorA], beatFast);
+  object.flash = lerpColor(rig.col[rig.colorA], rig.col[rig.colorB], beatFast);
+}
+*/

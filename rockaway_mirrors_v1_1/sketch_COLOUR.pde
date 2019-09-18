@@ -63,15 +63,13 @@ class SketchColor {
   } 
   ////////////////////////////// COLOR FLIP //////////////////////////////////
   boolean colFlip;
-  boolean colorFlipped;
   void colorFlip(boolean toggle) {
     int colA = c;
     int colB = flash;
     if (toggle) {
-      colorFlipped = true;
       c = colB;
       flash = colA;
-    } else colorFlipped = false;
+    }
   }
   ///////////////////////////////////////// CLASH COLOR SETUP /////////////////////////////////
   color clash, clash1, clash2, clash12, clashed;

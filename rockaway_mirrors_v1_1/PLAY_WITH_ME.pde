@@ -1,8 +1,5 @@
 void playWithMe() {
-  float base = 0.4;
-  float top = stutter*0.1;
-  blendMode(NORMAL);
-
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   float sat1, sat2;
   if (cc[101] > 0) {
     sat1 = map(cc[1], 0, 1, 40, 100);
@@ -14,39 +11,57 @@ void playWithMe() {
   } else  sat2 = 100;
   rig.col[rig.colorA] = color(hue(rig.col[rig.colorA]), sat1, brightness(rig.col[rig.colorB]));
   rig.col[rig.colorB] = color(hue(rig.col[rig.colorB]), sat2, brightness(rig.col[rig.colorB]));
+  ////////////////////////////////////// COLOR SWAP AND FLIP BUTTONS /////////////////////////////////////////
+  if (keyP['\\']) rig.colorSwap(0.9999999999);                // COLOR SWAP MOMENTARY 
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  if (keyT['\'']) rig.colFlip = (keyT['\'']);                  // COLOR FLIP TOGGLE 
+  if (keyP[';']) rig.colFlip = !rig.colFlip;                   // COLOR FLIP MOMENTARY
+  rig.colorFlip(rig.colFlip);
+  ////////////////////////////// LERP COLOUR ON BEAT /////////////////////////////////////////////////////////
+  if (keyT['o']) rig.c = lerpColor(rig.col[rig.colorB], rig.col[rig.colorA], beatFast);
+  if (keyT['o']) rig.flash = lerpColor(rig.col[rig.colorA], rig.col[rig.colorB], beatFast);
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  if (keyP['l']) colBeat = !colBeat;
+  // lerpcolor function goes in here
 
-    //color col1a = c;
-    //color col2a = flash;
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  // shimmer function goes in here
+
+  ////////////////////////////////////////// HOLD BUTTONS FOR VIZ AND COLOUR /////////////////////////////////
+  if (vizHold) time[0] = millis()/1000;              // hold viz change timer
+  if (colHold) time[3] = millis()/1000;              // hold color change timer
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+}
+
+void colorControl(int colorSwitch) {
+  switch(colorSwitch) {
+  case 0:
+    rig.c = red;
+    rig.flash = bloo;
+    break;
+  case 1:
+    rig.c = grin;
+    rig.flash = red;
+    break;
+  case 2:
+    rig.c = pink;
+    rig.flash = grin;
+    break;
+  case 3:
+    rig.c = orange;
+    rig.flash = pink;
+    break;
+  case 4:
+    rig.c = orange;
+    rig.flash = teal;
+    break;
   }
-
-  void colorControl(int colorSwitch) {
-    switch(colorSwitch) {
-    case 0:
-      rig.c = red;
-      rig.flash = bloo;
-      break;
-    case 1:
-      rig.c = grin;
-      rig.flash = red;
-      break;
-    case 2:
-      rig.c = pink;
-      rig.flash = grin;
-      break;
-    case 3:
-      rig.c = orange;
-      rig.flash = pink;
-      break;
-    case 4:
-      rig.c = orange;
-      rig.flash = teal;
-      break;
-    }
-  }
-
-//PGraphics vis[] = new PGraphics[11];
-
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////// PLAY WITH DRAWING FUNCTIONS ////////////////////////////////////////////////////////////// 
 boolean button[] = new boolean [16];
 void playWithMeMore() {
 
@@ -67,15 +82,15 @@ void playWithMeMore() {
 
   if (keyP['7']) cansControl(roof.flash, stutter); 
   if (keyP['8']) seedsControlA(roof.flash, stutter);
-  if (keyP['9']) rig.colorSwap(0.9999999);
 }
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void cansControl(color col, float alpha) {
   fill(col, 360*alpha);
   rect(grid.cans[0].x, grid.cans[0].y, grid.cansLength, 3);
   rect(grid.cans[1].x, grid.cans[1].y, grid.cansLength, 3);
 }
-
 void rigControl(color col, float alpha) {
   noFill();
   strokeWeight(5);
@@ -83,7 +98,6 @@ void rigControl(color col, float alpha) {
   for (int i  = 0; i < grid.mirror.length; i++) rect(grid.mirror[i].x, grid.mirror[i].y, grid._mirrorWidth, grid._mirrorWidth);
   noStroke();
 }
-
 void seedsControlA(color col, float alpha) {
   noFill();
   strokeWeight(5);
@@ -106,7 +120,6 @@ void seedsControlC(color col, float alpha) {
   noStroke();
 }
 void controllerControl(color col, float alpha) {
-
   fill(col, 360*alpha);
   rect(grid.controller[0].x, grid.controller[0].y, grid.controllerWidth, grid.controllerWidth);
   rect(grid.controller[1].x, grid.controller[1].y, grid.controllerWidth, grid.controllerWidth);

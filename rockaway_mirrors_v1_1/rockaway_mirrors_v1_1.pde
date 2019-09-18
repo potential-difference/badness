@@ -77,11 +77,9 @@ void setup()
   oscAddrSetup();
 
   dimmer = 1; // must come before load control frame
-
   drawingSetup();
   loadImages();
   loadGraphics();
-
   colorSetup();  
   rig.colorArray();
   roof.colorArray();
@@ -99,19 +97,15 @@ void setup()
 
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
   for (int i = 0; i < 9; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen
-  //hint(DISABLE_OPTIMIZED_STROKE);
   cc[1] = 0.75;
   cc[6] = 0.75;
   cc[8] = 1;
-
   frameRate(30);
 }
 float vizTime, colTime;
 int roofViz, rigViz, colStepper = 1;
-
 void draw()
 {
-
   background(0);
   //dimmer = bgDimmer;
   noStroke();
@@ -135,8 +129,6 @@ void draw()
   vizTime = 60*15*vizTimeSlider;
   playWithYourself(vizTime); 
   playWithMe();
-
-  //oscControl();
 
   float rigDimmerPad = cc[4]; // come back to this with wigflex code?!
   float roofDimmerPad = cc[8]; // come back to this with wigflex code?!
@@ -195,7 +187,7 @@ void draw()
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   image(infoWindow, size.info.x, size.info.y);
   //////////////////////////////////////////// SEEDS SHIT ///////////////////////////////////////////////////////////////////////////////
-  if (keyP[48]) { // beatCounter % 100 >   92
+  if (keyP['0']) { // beatCounter % 100 >   92
     rigControl(0, 1);
     cansControl(0, 1);
     // add uv control////
@@ -204,18 +196,7 @@ void draw()
     rect(grid.seed[1].x, grid.seed[1].y, grid.seedLength, 3);
     rect(grid.seed[2].x, grid.seed[2].y, 3, grid.seedLength);
   }
-  /*
-   
-   if (button[0])  cansControl(0,0); 
-   if (button[1]) seedsControlA(0, 0);
-   if (button[2]) rigControl(0,0);
-   if (button[3]) seedsControlB(0, 0);
-   if (button[4]) controllerControl(0, 0);
-   
-   if (keyP[55]) cansControl(flash, stutter); 
-   if (keyP[56]) seedsControlA(flash, stutter);
-   //if (keyP[57])  colorSwap(0.9999999);
-   */
+  
 
   /////////////////////////////////////////////// UV /////////////////////////////////////////////////////////////////////////////////////
   fill(360, ((180*noize)+(180*pulz))*uvDimmer);
@@ -235,9 +216,7 @@ void draw()
   rect(grid.seed[2].x, grid.seed[2].y, 3, grid.seed2Length);
 
   //////////////////////////////// CONTROLLERS //////////////////////////////////////////////////////////////
-
   //controllerControl(flash1, (0.7+(0.3*noize1))*controllerDimmer);
-
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   playWithMeMore();

@@ -117,15 +117,6 @@ void oscAddrSetup() {
   oscAddrToMidiMap.put("/globalEffects/x", new int[]{ CTRL_CHG, TR8CHANNEL, DELAYFEEDBACK});
   oscAddrToMidiMap.put("/globalEffects/y", new int[]{ CTRL_CHG, TR8CHANNEL, DELAYTIME});
 
-  /*
-  int DELAYLEVEL = 16;
-   int DELAYTIME = 17;
-   int DELAYFEEDBACK = 18;
-   int MASTERFXON = 15;
-   int MASTERFXLEVEL = 19;
-   int REVERBLEVEL = 91;
-   */
-
   //oscAddrToMidiMap.put("/globalEffects/kitSelect/", new int[]{ PRGM_CHG, TR8CHANNEL});
 }
 
@@ -216,14 +207,12 @@ void oscEvent(OscMessage theOscMessage) {
     rig.colB =  rig.col[rig.colorA];
     rig.colorB = (rig.colorB + steps) % (rig.col.length-1);
     rig.colD = rig.col[rig.colorB];
-    //co2 = (co2 + steps) % (col.length-1);
-    //co3 = (co3 + steps) % (col.length-1);
-  }
+    }
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////// KEYBOARD COMMANDS //////////////////////////////////// 
-boolean test, work, info, play, stop, hold, hold1, one, two, three, four, five, six, seven, eight, nine, zero, minus, plus, space, shift, colBeat;
+boolean test, work, info, play, stop, space, shift, colBeat, vizHold,colHold;
 boolean[] keyP = new boolean[128];
 boolean[] keyT = new boolean[128];
 int keyNum;
@@ -263,53 +252,23 @@ void keyPressed() {
   if (key == 'd') roof.colorA = (roof.colorA+1)%roof.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
   if (key == 'f') roof.colorB = (roof.colorB+1)%roof.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
 
-  /// switches for function  control
-  switch(key) {
-  case 'q':
-    info = !info;
-    break;
-  case 't':
-    test = !test;
-    break;
-  case 'w':
-    work = !work;
-    break;
-  case '[':
-    hold = !hold;
-    break;
-  case ']':
-    hold1 = !hold1;
-    break;
-  case ';':
-    rig.colFlip = !rig.colFlip;
-    break;
-  case 'l':
-    colBeat = !colBeat;
-    break;
-  }
+  if (key == 'q') info = !info;
+  if (key == 't') test = !test;
+  if ( key == 'w') work = !work;
+  if (key == '[') vizHold = !vizHold; 
+  if (key == ']') colHold = !colHold; 
 
-  //// SHIFT KEY TO SWITCH BETWEEN TOGGLE or HOLD key functions
-  if (key == CODED) {
-    switch(keyCode) {
-    case SHIFT:
-      shift = !shift;
-      break;
-    }
-  }
   /// loops to change keyP[] to true when pressed, false when released to give hold control
   for (int i = 32; i <=63; i++) {
-    // char n = char(i);
     if (key == char(i)) keyP[i]=true;
     if (keyP[i]) {
       fill(300);
       textSize(18);
       textAlign(CENTER);
       text("key press: " + i, size.info.x, 20); //// ptint onscreen ASCII number for key pressed
-      //println(i);  //// print key
     }
   }
   for (int i = 91; i <=127; i++) {
-    //  char n = char(i);
     if (key == char(i)) keyP[i]=true;
     if (keyP[i]) {
       fill(300);
@@ -319,7 +278,6 @@ void keyPressed() {
     }
   }
   for (int i = 32; i <=63; i++) {
-    //  char n = char(i);
     if (key == char(i)) {
       keyT[i] = !keyT[i];
       println(key, i, keyT[i]);  //// print key

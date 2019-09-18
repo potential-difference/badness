@@ -1,16 +1,13 @@
 import controlP5.*;
 ControlFrame controlFrame;
-
 float vizTimeSlider, colorSwapSlider, colorTimerSlider, cansDimmer, boothDimmer, digDimmer, roofPulse, backParsSlider, backDropSlider, cansSlider, movesSlider;
 float cansPulse, cans1Pulse, cans2Pluse, cans3Pulse, speedSlider, tweakSlider, testSlider3, blurSlider, rigDimmer, multiViz1, multiViz2, multiViz3;
 float shimmerSlider, beatSlider, boothParSlider, backParSlider, secondVizSlider, roofDimmer, seedsDimmer, seed2Dimmer, uvDimmer, controllerDimmer;
 
 class ControlFrame extends PApplet {
-
   int controlW, controlH;
   PApplet parent;
   ControlP5 cp5;
-
   public ControlFrame(PApplet _parent, int _w, int _h, String _name) {
     super();   
     parent = _parent;
@@ -18,25 +15,19 @@ class ControlFrame extends PApplet {
     controlH=_h;
     PApplet.runSketch(new String[]{this.getClass().getName()}, this);
   }
-
   public void settings() {
     size(controlW, controlH);
   }
-
   public void setup() {
     surface.setAlwaysOnTop(onTop);
     surface.setLocation(size.surfacePositionX, size.surfacePositionY+parent.height);
-
-    //drawingSetup();
     myFont = createFont("Lucida Sans", 18);
     textFont(myFont);
     rectMode(CENTER);
     ellipseMode(RADIUS);
     imageMode(CENTER);
     noStroke();
-
     cp5 = new ControlP5(this);
-
     // slider colours
     color act = #07E0D3;
     color act1 = #00FC84;
@@ -44,17 +35,12 @@ class ControlFrame extends PApplet {
     color bac1 = #225F01;
     color slider = #E07F07;
     color slider1 = #E0D607;
-    /// font for slider info
-    //PFont pfont = createFont("Abadi MT Condensed Light", 16, true);  // what the fuk?!
-    //ControlFont font = new ControlFont(pfont);
-
     float x = 10;
     float y = 20;
     int wide = 80;           // x size of sliders
     int high = 14;           // y size of slider
     float row = high +4;     // distance between rows
     float clm = 210;         // distance between coloms
-
     //////////////////////////////// FIRST COLOUM OF SLIDERS
     cp5.addSlider("vizTimeSlider") // name used throughout sketch to link to slider
       .plugTo(parent, "vizTimeSlider")

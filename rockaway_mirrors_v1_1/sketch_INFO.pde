@@ -57,7 +57,6 @@ void onScreenInfo() {
   text("func's: " + roofFctIndex + " / " + roofFct1Index, x+100, y);
   text("alph's: " + roofAlphIndex + " / " + roofAlph1Index, x+100, y+20);
 
-  //if (keyT[115]) {
   /////////// info about PLAYWITHYOURSELF functions
   y = 20;
   x=width-5;
@@ -168,10 +167,10 @@ void toggleInfo(float xpos, float ypos) {
   y = 180;
   x = width-5;
   fill(50);
-  if (hold)  fill(300+(60*stutter));
+  if (vizHold)  fill(300+(60*stutter));
   text("[ = VIZ HOLD", x, y);
   fill(50);
-  if (hold1) fill(300+(60*stutter));
+  if (colHold) fill(300+(60*stutter));
   text("] = COL HOLD", x, y+20);
   y +=20;
   fill(50);
@@ -181,15 +180,12 @@ void toggleInfo(float xpos, float ypos) {
   if (!rig.colSwap) fill(300+(60*stutter));
   text("| = color swap", x, y+60);
   fill(50);
-  if (rig.colorFlipped) fill(300+(60*stutter));
+  if (rig.colFlip) fill(300+(60*stutter));
   text("; / ' = color flip", x, y+80);
   fill(50);
   if (colBeat) fill(300+(60*stutter));
   text("L = color beat", x, y+100);
   y+=20;
-  fill(50);
-  if (keyT[120]) fill(300+(60*stutter));
-  text("X = B/P/B2/B2", x, y+120);
   fill(50);
   if (keyT[122]) fill(300+(60*stutter));
   text("Z = viz flip", x, y+140);
