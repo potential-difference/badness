@@ -119,14 +119,10 @@ void oscAddrSetup() {
 
   //oscAddrToMidiMap.put("/globalEffects/kitSelect/", new int[]{ PRGM_CHG, TR8CHANNEL});
 }
-
 HashMap<String, Integer> OscAddrMap = new HashMap<String, Integer>();
 //HashMap<String, int[]> oscAddrToMidiMap = new HashMap<String, int[]>();
 //HashMap<String, int[]> OscAddrMap = new HashMap<String, Triggerable>();
-
-
 //HashMap<String, Triggerable> OscEventMap = new HashMap<String, Triggerable>();
-
 /* incoming osc message are forwarded to the oscEvent method. */
 void oscEvent(OscMessage theOscMessage) {
   //first send it right back out as midi
@@ -143,13 +139,10 @@ void oscEvent(OscMessage theOscMessage) {
    //println("send MIDI message ", +midiaddr[0]+" "+midiaddr[1]+" "+midiaddr[2]+" "+midival);
    }
    }
-   
    catch(Exception e) {
    println("Osc address "+theOscMessage.addrPattern()+" not in oscAddrToMidiMap");
    }
    */
-
-
   /* print the address pattern and the typetag of the received OscMessage */
   print("### received an osc message.");
   print(" addrpattern: "+theOscMessage.addrPattern());
@@ -171,11 +164,9 @@ void oscEvent(OscMessage theOscMessage) {
   //     }catch(Exception e){println(e);}
   /*try {
    OscAddrMap.get(address).trigger(messageType, theOscMessage.arguments());    /// TO DO: sort out the trigger function so this works
-   
    }
    catch(Exception e) {
    };*/
-
   //  if (messageType.equals("masterFXon") == true) {
   //    float rigHue = hue(rig.c), sat = saturation(rig.c), bright = brightness(rig.c);
   //    //float reSat = 
@@ -184,22 +175,17 @@ void oscEvent(OscMessage theOscMessage) {
   //if (messageType.equals("throttleValue"))
   //  if (messageType.equals("throttleButton"))
 
-  if (messageType.equals("oneshot")) {
-    if (argument == 21) rigBgr = int(random(0, 8));
-  }
-  if (messageType.equals("kitChange")) {
-    colorControl(argument);
-  }
+  if (messageType.equals("oneshot"))   if (argument == 21) rigBgr = int(random(0, 8));
+  if (messageType.equals("kitChange")) colorControl(argument);
+
   if (messageType.equals("buttonSelected")) {
     if (argument<5) {
       button[argument]=!button[argument];
       println(button[argument]);
     }
-    if (argument==10) {
-      button[argument]=!button[argument];
-    }
-    if (argument > 4 && argument < 10 ) rigViz = argument-5;
-    if (argument > 10 && argument < 16 ) rigViz = argument-11;
+    if (argument==10)                      button[argument]=!button[argument];
+    if (argument > 4 && argument < 10 )    rigViz = argument-5;
+    if (argument > 10 && argument < 16 )   rigViz = argument-11;
   }
   if (argument==10) {
     int steps = 1;
@@ -207,12 +193,12 @@ void oscEvent(OscMessage theOscMessage) {
     rig.colB =  rig.col[rig.colorA];
     rig.colorB = (rig.colorB + steps) % (rig.col.length-1);
     rig.colD = rig.col[rig.colorB];
-    }
+  }
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////// KEYBOARD COMMANDS //////////////////////////////////// 
-boolean test, work, info, play, stop, space, shift, colBeat, vizHold,colHold;
+boolean test, work, info, play, stop, space, shift, colBeat, vizHold, colHold;
 boolean[] keyP = new boolean[128];
 boolean[] keyT = new boolean[128];
 int keyNum;
@@ -258,36 +244,23 @@ void keyPressed() {
   if (key == '[') vizHold = !vizHold; 
   if (key == ']') colHold = !colHold; 
 
-  /// loops to change keyP[] to true when pressed, false when released to give hold control
-  for (int i = 32; i <=63; i++) {
+  /////////////////////////////////// momentaory key pressed array /////////////////////////////////////////////////
+  for (int i = 32; i <=127; i++) {
     if (key == char(i)) keyP[i]=true;
-    if (keyP[i]) {
-      fill(300);
-      textSize(18);
-      textAlign(CENTER);
-      text("key press: " + i, size.info.x, 20); //// ptint onscreen ASCII number for key pressed
-    }
+    if (key == char(i)) println(key, i, keyP[i]);
   }
   for (int i = 91; i <=127; i++) {
     if (key == char(i)) keyP[i]=true;
-    if (keyP[i]) {
-      fill(300);
-      textSize(18);
-      textAlign(CENTER);
-      text("key press: " + i, size.info.x, 20);
-    }
+    if (key == char(i)) println(key, i, keyP[i]);
   }
-  for (int i = 32; i <=63; i++) {
-    if (key == char(i)) {
-      keyT[i] = !keyT[i];
-      println(key, i, keyT[i]);  //// print key
-    }
+  ///////////////////////////////// toggle key pressed array ///////////////////////////////////////////////////////
+  for (int i = 32; i <=127; i++) {
+    if (key == char(i)) keyT[i] = !keyT[i];
+    if (key == char(i)) println(key, i, keyT[i]);
   }
   for (int i = 91; i <=127; i++) {
-    if (key == char(i)) {
-      keyT[i] = !keyT[i];
-      println(key, i, keyT[i]);  //// print key
-    }
+    if (key == char(i)) keyT[i] = !keyT[i];
+    if (key == char(i)) println(key, i, keyT[i]);
   }
 }
 
@@ -303,14 +276,13 @@ void keyReleased()
     if (key == n) keyP[i]=false;
   }
 } 
-
-///////////////////////////////////////// MIDI FUNCTIONS ///////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////// MIDI FUNCTIONS /////////////////////////////////////////////////////////////////////
 float pad[] = new float[64];
 void noteOn(Note note) {
   println();
   println("BUTTON: ", +note.pitch);
 }
-
 float cc[] = new float[128];                   //// An array where to store the last value received for each knob
 float prevcc[] = new float[128];
 void controllerChange(int channel, int number, int value) {
