@@ -185,17 +185,17 @@ void oscEvent(OscMessage theOscMessage) {
    catch(Exception e) {
    };*/
 
-//  if (messageType.equals("masterFXon") == true) {
-//    float rigHue = hue(rig.c), sat = saturation(rig.c), bright = brightness(rig.c);
-//    //float reSat = 
-//    rig.c = color(hue, sat, bright);
-//  }
+  //  if (messageType.equals("masterFXon") == true) {
+  //    float rigHue = hue(rig.c), sat = saturation(rig.c), bright = brightness(rig.c);
+  //    //float reSat = 
+  //    rig.c = color(hue, sat, bright);
+  //  }
   //if (messageType.equals("throttleValue"))
   //  if (messageType.equals("throttleButton"))
 
-      if (messageType.equals("oneshot")) {
-        if (argument == 21) rigBgr = int(random(0, 8));
-      }
+  if (messageType.equals("oneshot")) {
+    if (argument == 21) rigBgr = int(random(0, 8));
+  }
   if (messageType.equals("kitChange")) {
     colorControl(argument);
   }
@@ -219,4 +219,144 @@ void oscEvent(OscMessage theOscMessage) {
     //co2 = (co2 + steps) % (col.length-1);
     //co3 = (co3 + steps) % (col.length-1);
   }
+}
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////// KEYBOARD COMMANDS //////////////////////////////////// 
+boolean test, work, info, play, stop, hold, hold1, one, two, three, four, five, six, seven, eight, nine, zero, minus, plus, space, shift, colBeat;
+boolean[] keyP = new boolean[128];
+boolean[] keyT = new boolean[128];
+int keyNum;
+int mirrorStep, gridStep;
+void keyPressed() {  
+  /////////////////////////////// RIG KEY FUNCTIONS ////////////////////////
+  if (key == 'n') rigViz = (rigViz+1)%rigVizList;        //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
+  if (key == 'b') rigViz -=1;                            //// STEP BACK TO PREVIOUS RIG VIZ
+  if (rigViz <0) rigViz = rigVizList-1;
+  if (key == 'm') rigBgr = (rigBgr+1)%7;                 //// CYCLE THROUGH RIG BACKGROUNDS
+
+  /////////////////////////////// ROOF KEY FUNCTIONS ////////////////////////
+  if (key == 'h') roofViz = (roofViz+1)%8;               //// STEP FORWARD TO NEXT RIG VIZ
+  if (key == 'g') roofViz -= 1;                          //// STEP BACK TO PREVIOUS RIG VIZ
+  if (roofViz <0) roofViz = 7;
+  if (key == 'j') roofBgr = (roofBgr+1)%7;               //// CYCLE THROUGH ROOF BACKGROUNDS
+
+  if (key == ',') {                                      //// CYCLE THROUGH RIG FUNCS
+    fctIndex = (fctIndex+1)%fct.length; 
+    fct1Index = (fct1Index+1)%fct.length;
+  }  
+  if (key == '.') {                                      //// CYCLE THROUGH RIG ALPHAS
+    rigAlphIndex = (rigAlphIndex+1)%alph.length; 
+    rigAlph1Index = (rigAlph1Index+1)%alph.length;
+  }   
+  if (key == 'k') {                                      //// CYCLE THROUGH ROOF FUNCS
+    roofFctIndex = (roofFctIndex+1)%fct.length; 
+    roofFct1Index = (roofFct1Index+1)%fct.length;
+  }  
+  if (key == 'l') {                                      //// CYCLE THROUGH ROOF ALPHAS
+    roofAlphIndex = (roofAlphIndex+1)%alph.length; 
+    roofAlph1Index = (roofAlph1Index+1)%alph.length;
+  }   
+  if (key == 'c') rig.colorA = (rig.colorA+1)%rig.col.length;         //// CYCLE FORWARD THROUGH RIG COLORS
+  if (key == 'v') rig.colorB = (rig.colorB+1)%rig.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
+
+  if (key == 'd') roof.colorA = (roof.colorA+1)%roof.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
+  if (key == 'f') roof.colorB = (roof.colorB+1)%roof.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
+
+  /// switches for function  control
+  switch(key) {
+  case 'q':
+    info = !info;
+    break;
+  case 't':
+    test = !test;
+    break;
+  case 'w':
+    work = !work;
+    break;
+  case '[':
+    hold = !hold;
+    break;
+  case ']':
+    hold1 = !hold1;
+    break;
+  case ';':
+    rig.colFlip = !rig.colFlip;
+    break;
+  case 'l':
+    colBeat = !colBeat;
+    break;
+  }
+
+  //// SHIFT KEY TO SWITCH BETWEEN TOGGLE or HOLD key functions
+  if (key == CODED) {
+    switch(keyCode) {
+    case SHIFT:
+      shift = !shift;
+      break;
+    }
+  }
+  /// loops to change keyP[] to true when pressed, false when released to give hold control
+  for (int i = 32; i <=63; i++) {
+    // char n = char(i);
+    if (key == char(i)) keyP[i]=true;
+    if (keyP[i]) {
+      fill(300);
+      textSize(18);
+      textAlign(CENTER);
+      text("key press: " + i, size.info.x, 20); //// ptint onscreen ASCII number for key pressed
+      //println(i);  //// print key
+    }
+  }
+  for (int i = 91; i <=127; i++) {
+    //  char n = char(i);
+    if (key == char(i)) keyP[i]=true;
+    if (keyP[i]) {
+      fill(300);
+      textSize(18);
+      textAlign(CENTER);
+      text("key press: " + i, size.info.x, 20);
+    }
+  }
+  for (int i = 32; i <=63; i++) {
+    //  char n = char(i);
+    if (key == char(i)) {
+      keyT[i] = !keyT[i];
+      println(key, i, keyT[i]);  //// print key
+    }
+  }
+  for (int i = 91; i <=127; i++) {
+    if (key == char(i)) {
+      keyT[i] = !keyT[i];
+      println(key, i, keyT[i]);  //// print key
+    }
+  }
+}
+
+void keyReleased()
+{
+  /// loop to change key[] to false when released to give hold control
+  for (int i = 32; i <=63; i++) {
+    char n = char(i);
+    if (key == n) keyP[i]=false;
+  }
+  for (int i = 91; i <=127; i++) {
+    char n = char(i);
+    if (key == n) keyP[i]=false;
+  }
+} 
+
+///////////////////////////////////////// MIDI FUNCTIONS ///////////////////////////////////////////
+float pad[] = new float[64];
+void noteOn(Note note) {
+  println();
+  println("BUTTON: ", +note.pitch);
+}
+
+float cc[] = new float[128];                   //// An array where to store the last value received for each knob
+float prevcc[] = new float[128];
+void controllerChange(int channel, int number, int value) {
+  cc[number] = map(value, 0, 127, 0, 1);
+  println();
+  println("CC: ", number, "....", map(value, 0, 127, 0, 1), "- Channel:", channel);
 }

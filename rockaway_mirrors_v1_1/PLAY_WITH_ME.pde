@@ -3,34 +3,47 @@ void playWithMe() {
   float top = stutter*0.1;
   blendMode(NORMAL);
 
-  //color col1a = c;
-  //color col2a = flash;
-}
+  float sat1, sat2;
+  if (cc[101] > 0) {
+    sat1 = map(cc[1], 0, 1, 40, 100);
+    println(sat1);
+  } else  sat1 = 100;
+  if (cc[105] > 0) {
+    sat2 = map(cc[5], 0, 1, 40, 100);
+    println(sat2);
+  } else  sat2 = 100;
+  rig.col[rig.colorA] = color(hue(rig.col[rig.colorA]), sat1, brightness(rig.col[rig.colorB]));
+  rig.col[rig.colorB] = color(hue(rig.col[rig.colorB]), sat2, brightness(rig.col[rig.colorB]));
 
-void colorControl(int colorSwitch) {
-  switch(colorSwitch) {
-  case 0:
-    rig.c = red;
-    rig.flash = bloo;
-    break;
-  case 1:
-    rig.c = grin;
-    rig.flash = red;
-    break;
-  case 2:
-    rig.c = pink;
-    rig.flash = grin;
-    break;
-  case 3:
-    rig.c = orange;
-    rig.flash = pink;
-    break;
-  case 4:
-    rig.c = orange;
-    rig.flash = teal;
-    break;
+
+    //color col1a = c;
+    //color col2a = flash;
   }
-}
+
+  void colorControl(int colorSwitch) {
+    switch(colorSwitch) {
+    case 0:
+      rig.c = red;
+      rig.flash = bloo;
+      break;
+    case 1:
+      rig.c = grin;
+      rig.flash = red;
+      break;
+    case 2:
+      rig.c = pink;
+      rig.flash = grin;
+      break;
+    case 3:
+      rig.c = orange;
+      rig.flash = pink;
+      break;
+    case 4:
+      rig.c = orange;
+      rig.flash = teal;
+      break;
+    }
+  }
 
 //PGraphics vis[] = new PGraphics[11];
 
@@ -46,15 +59,15 @@ void playWithMeMore() {
   if (button[3]) seedsControlB(0, 1);
   if (button[4]) controllerControl(0, 1);
 
-  if (keyP[49]) cansControl(0, 1);  
-  if (keyP[50]) seedsControlA(0, 1);
-  if (keyP[51]) rigControl(0, 1);
-  if (keyP[52]) seedsControlB(0, 1);
-  if (keyP[53]) controllerControl(0, 1);
+  if (keyP['1']) cansControl(0, 1);  
+  if (keyP['2']) seedsControlA(0, 1);
+  if (keyP['3']) rigControl(0, 1);
+  if (keyP['4']) seedsControlB(0, 1);
+  if (keyP['5']) controllerControl(0, 1);
 
-  if (keyP[55]) cansControl(roof.flash, stutter); 
-  if (keyP[56]) seedsControlA(roof.flash, stutter);
-  if (keyP[57]) rig.colorSwap(0.9999999);
+  if (keyP['7']) cansControl(roof.flash, stutter); 
+  if (keyP['8']) seedsControlA(roof.flash, stutter);
+  if (keyP['9']) rig.colorSwap(0.9999999);
 }
 
 void cansControl(color col, float alpha) {
