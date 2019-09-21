@@ -12,14 +12,14 @@ AudioPlayer player[];
 
 import oscP5.*;
 import netP5.*;
-OscP5 oscP5;
+OscP5 oscP5[] = new OscP5[4];
 
 void setup()
 {
   size(600, 200);
   minim = new Minim(this);
-  player = new AudioPlayer[173];
-  for (int i = 0; i <= 80; i++) {
+  player = new AudioPlayer[81];
+  for (int i = 1; i <= 80; i++) {
     int hundreds = i/100;
     int tens = (i%100)/10;
     int ones = i%10;
@@ -29,7 +29,8 @@ void setup()
   println("audio loaded");
 
   /* start oscP5, listening for incoming messages at port 5000 */
-  oscP5 = new OscP5(this, 5003);
+  for (int i = 0; i < 4; i++) oscP5[i] = new OscP5(this, 5000+i);
+  oscSetup();
 }
 
 void draw()
@@ -90,10 +91,11 @@ void draw()
   }
   catch(Exception e) {
   }
-  try {
-    text("knob 1 "+str(OscAddrMap.get("/knob_box/knob_1")), x, y+(gap*2));
-  }
-  catch(Exception e) {
+  for(int i=0;i<8;i++){
+    try {
+      text("inst "+str(i)+" "+str(OscAddrMap.get("/knob_box/"+str(i)+"/delay")), x, y+(gap*2));
+    }
+    catch(Exception e) {}
   }
   try {
     text("knob 2 "+str(OscAddrMap.get("/knob_box/knob_2")), x, y+(gap*3));
