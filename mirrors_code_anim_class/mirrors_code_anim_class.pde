@@ -159,6 +159,7 @@ void draw()
   if (trigger) animations.add(new Anim());                             // create a new anim object and add it to the arrayList
 
   blendMode(LIGHTEST);
+  //for (Anim anim : animations){
   for (int i = animations.size()-1; i >= 0; i--) {                     // loop backwards through the list so one can be removed
     Anim anim = animations.get(i);                                     // tell the arrayList that it is an array of anim objects
     if (beatCounter % animations.size() == i) anim.trigger(trigger);   // trigger the function and alpha of the animation
