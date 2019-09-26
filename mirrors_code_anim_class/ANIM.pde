@@ -10,6 +10,8 @@ class Anim {
   PShader blur;
   PGraphics src;
   int blury, prevblury;
+  float alphMod=1, funcMod=1;
+  float alpha, function, funcFX=1, alphFX=1, dimmer=1;
   Anim() {
 
     window = createGraphics(int(size.rigWidth*1.2), int(size.rigHeight*1.2), P2D);
@@ -84,7 +86,11 @@ class Anim {
     stroke = 300-(200*noize);
     wide = size.vizWidth+(50);
     high = wide;
-    squareNut(col1, stroke, wide-(wide*func[fctIndex]), high-(high*func[fctIndex]), alph[rigAlphIndex]);
+
+    alpha = alph[rigAlphIndex]*alphFX*dimmer;
+    function = func[fctIndex]*funcFX;
+
+    squareNut(col1, stroke, wide-(wide*function), high-(high*function), alpha);
     subwindow.beginDraw();
     subwindow.background(0);
     subwindow.image(blured, viz.x, viz.y, blured.width*2, blured.height*2);
@@ -96,6 +102,7 @@ class Anim {
   float func[] = new float[8];
   float sineFast, sineSlow, sine, d, e, stutter;
   float timer[] = new float[6];
+
   void alphaFunction() {
     float tm = 0.05+(noize/50);
     timer[2] += beatSlider;            
@@ -125,6 +132,9 @@ class Anim {
     alph[4] = (0.98*pulz)+(beat*0.02*stutter);
     alph[5] = beatFast;
     alph[6] = pulzSlow;
+
+    for (int i = 0; i < alph.length; i++) alph[i] *=alphMod;
+    for (int i = 0; i < func.length; i++) func[i] *=funcMod;
   }
   //////////////////////////////////// BEATS //////////////////////////////////////////////
   float beat, beatSlow, pulz, pulzSlow, pulzFast, beatFast, beatCounter;
@@ -185,7 +195,7 @@ class Anim {
       pass1.beginDraw();            
       pass1.shader(blur); 
       pass1.imageMode(CENTER);
-      pass1.image(vis, pass1.width/2, pass1.height/2,pass1.width,pass1.height);
+      pass1.image(vis, pass1.width/2, pass1.height/2, pass1.width, pass1.height);
       pass1.endDraw();
       blur.set("horizontalPass", 1);
       blured.beginDraw();            
