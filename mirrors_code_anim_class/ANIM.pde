@@ -36,9 +36,8 @@ class Anim {
     vis.endDraw();
     ///////////////////////////////////// LOAD GRAPHICS FOR SHADER LAYERS //////////////////////
     blur = loadShader("blur.glsl");
-    blur.set("blurSize", 10);
+    blur.set("blurSize", 30);
     blur.set("sigma", 10.0f);  
-    src = createGraphics(size.rigWidth, size.rigHeight, P3D); 
     pass1 = createGraphics(int(size.rigWidth*1.2), int(size.rigHeight*1.2), P2D);
     pass1.noSmooth();
     pass1.imageMode(CENTER);
@@ -74,8 +73,6 @@ class Anim {
    colourLayer.endDraw();
    */
 
-
-
   float stroke, wide, high;
   PVector viz;
   Float vizWidth, vizHeight;
@@ -87,10 +84,10 @@ class Anim {
     stroke = 300-(200*noize);
     wide = size.vizWidth+(50);
     high = wide;
-    squareNut(col1, stroke, wide-(wide*func[1]), high-(high*func[1]), alph[0]);
+    squareNut(col1, stroke, wide-(wide*func[fctIndex]), high-(high*func[fctIndex]), alph[rigAlphIndex]);
     subwindow.beginDraw();
     subwindow.background(0);
-    subwindow.image(vis, viz.x, viz.y);
+    subwindow.image(blured, viz.x, viz.y);
     subwindow.endDraw();
     image(subwindow, xpos, ypos);
   }
@@ -164,7 +161,7 @@ class Anim {
 
     if (pulzFast > 1) pulzFast = 1;
     if (beatFast < end) beatFast = end;
-  
+
     if (beatSlow < 0.4+(noize1*0.2)) beatSlow = 0.4+(noize1*0.2);
     if (pulzSlow > 1) pulzSlow = 1;
   }
@@ -184,23 +181,23 @@ class Anim {
       vis.popMatrix();
       vis.endDraw();
 
-      //blur.set("horizontalPass", 0);
-      //pass1.beginDraw();            
-      //pass1.shader(blur); 
-      //pass1.imageMode(CENTER);
-      //pass1.image(vis, pass1.width/2, pass1.height/2);
-      //pass1.endDraw();
-      //blur.set("horizontalPass", 1);
-      //blured.beginDraw();            
-      //blured.shader(blur);  
-      //blured.imageMode(CENTER);
-      //blured.image(pass1, blured.width/2, blured.height/2);
-      //blured.endDraw();
+      blur.set("horizontalPass", 0);
+      pass1.beginDraw();            
+      pass1.shader(blur); 
+      pass1.imageMode(CENTER);
+      pass1.image(vis, pass1.width/2, pass1.height/2);
+      pass1.endDraw();
+      blur.set("horizontalPass", 1);
+      blured.beginDraw();            
+      blured.shader(blur);  
+      blured.imageMode(CENTER);
+      blured.image(pass1, blured.width/2, blured.height/2);
+      blured.endDraw();
     } 
     catch (AssertionError e) {
       println(e);
       println(rigViz, col, stroke, wide, high, func, alph);
     }
-    return vis;
+    return blured;
   }
 }

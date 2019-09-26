@@ -59,7 +59,7 @@ void playWithYourself(float vizTm) {
       if (beatCounter%4 == i) {
         bt = alph[rigAlphIndex][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
         bt1 = alph[rigAlph1Index][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
-      }
+   }   
     } else {
       alpha[i] = alph[rigAlphIndex][i]/1;    //*(0.6+0.4*noize12)/1.5;  //// set alpha to selected alpha with bit of variation
       alpha1[i] = alph[rigAlph1Index][i]/1;   //*(0.6+0.4*noize1)/1.5;  //// set alpha1 to selected alpha with bit of variation
