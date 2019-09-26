@@ -36,15 +36,15 @@ class Anim {
     vis.endDraw();
     ///////////////////////////////////// LOAD GRAPHICS FOR SHADER LAYERS //////////////////////
     blur = loadShader("blur.glsl");
-    blur.set("blurSize", 30);
-    blur.set("sigma", 10.0f);  
-    pass1 = createGraphics(int(size.rigWidth*1.2), int(size.rigHeight*1.2), P2D);
+    blur.set("blurSize", 40);
+    blur.set("sigma", 30.0f);  
+    pass1 = createGraphics(int(size.rigWidth/2), int(size.rigHeight/2), P2D);
     pass1.noSmooth();
     pass1.imageMode(CENTER);
     pass1.beginDraw();
     pass1.noStroke();
     pass1.endDraw();
-    blured = createGraphics(int(size.rigWidth*1.2), int(size.rigHeight*1.2), P2D);
+    blured = createGraphics(int(size.rigWidth/2), int(size.rigHeight/2), P2D);
     blured.noSmooth();
     blured.beginDraw();
     blured.imageMode(CENTER);
@@ -87,7 +87,7 @@ class Anim {
     squareNut(col1, stroke, wide-(wide*func[fctIndex]), high-(high*func[fctIndex]), alph[rigAlphIndex]);
     subwindow.beginDraw();
     subwindow.background(0);
-    subwindow.image(blured, viz.x, viz.y);
+    subwindow.image(blured, viz.x, viz.y, blured.width*2, blured.height*2);
     subwindow.endDraw();
     image(subwindow, xpos, ypos);
   }
@@ -185,7 +185,7 @@ class Anim {
       pass1.beginDraw();            
       pass1.shader(blur); 
       pass1.imageMode(CENTER);
-      pass1.image(vis, pass1.width/2, pass1.height/2);
+      pass1.image(vis, pass1.width/2, pass1.height/2,pass1.width,pass1.height);
       pass1.endDraw();
       blur.set("horizontalPass", 1);
       blured.beginDraw();            
