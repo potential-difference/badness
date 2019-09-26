@@ -161,7 +161,7 @@ void draw()
   blendMode(LIGHTEST);
   for (int i = 0; i < animations.size(); i++) {                     // loop backwards through the list so one can be removed
     Anim anim = animations.get(i);                                     // tell the arrayList that it is an array of anim objects
-    if (beatCounter % animations.size() == i) anim.trigger(trigger);   // trigger the function and alpha of the animation
+    if (beatCounter % animations.size() == i) anim.trigger();   // trigger the function and alpha of the animation
     anim.drawAnim(anim.window, size.rigWidth/2+60, size.rigHeight/2+60);     // draw the animation (TODO figure out why the coordinates are wrong)
     if (animations.size() >= 8) animations.remove(i);                  // limit the array size to 8
   }
