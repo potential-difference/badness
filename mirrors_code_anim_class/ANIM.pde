@@ -81,29 +81,16 @@ class Anim {
   Float vizWidth, vizHeight;
 
   void drawAnim(PGraphics subwindow, float xpos, float ypos) {
-
     alphaFunction();
     decay();
-
-    //  alpction(index);
-    //ggers(index);
-
     PVector viz = new PVector(size.rig.x, size.rig.y);
-
     stroke = 300-(200*noize);
     wide = size.vizWidth+(50);
     high = wide;
-
-    //donutBLUR(int n, color col, float stroke, float sz, float sz1, float func, float alph) {
     squareNut(col1, stroke, wide-(wide*func[1]), high-(high*func[1]), alph[0]);
-    //println(alph[1][1], wide,high,fct[1][1]);
     subwindow.beginDraw();
     subwindow.background(0);
-    for (int i = 0; i <4; i++) {
-      subwindow.image(vis, viz.x, viz.y);
-      //}
-      //break; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    }
+    subwindow.image(vis, viz.x, viz.y);
     subwindow.endDraw();
     image(subwindow, xpos, ypos);
   }

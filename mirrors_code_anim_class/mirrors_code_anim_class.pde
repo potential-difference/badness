@@ -156,17 +156,25 @@ void draw()
     trigger = true;                                                    // or space bar!
     beatCounter = (beatCounter + 1 ) % 8;
   }
-  if (trigger) animations.add(new Anim());                             // create a new anim object and add it to the arrayList
+  if (trigger) animations.add(0, new Anim());                             // create a new anim object and add it to the arrayList
 
   blendMode(LIGHTEST);
-  //for (Anim anim : animations){
-  for (int i = animations.size()-1; i >= 0; i--) {                     // loop backwards through the list so one can be removed
+  for (int i = 0; i < animations.size(); i++) {                     // loop backwards through the list so one can be removed
     Anim anim = animations.get(i);                                     // tell the arrayList that it is an array of anim objects
     if (beatCounter % animations.size() == i) anim.trigger(trigger);   // trigger the function and alpha of the animation
     anim.drawAnim(anim.window, size.rigWidth/2+60, size.rigHeight/2+60);     // draw the animation (TODO figure out why the coordinates are wrong)
     if (animations.size() >= 8) animations.remove(i);                  // limit the array size to 8
   }
-  println(animations.size());
+
+  //for (int i = animations.size()-1; i >= 0; i--) {                     // loop backwards through the list so one can be removed
+  //  Anim anim = animations.get(i);                                     // tell the arrayList that it is an array of anim objects
+  //  if (beatCounter % animations.size() == i) anim.trigger(trigger);   // trigger the function and alpha of the animation
+  //  anim.drawAnim(anim.window, size.rigWidth/2+60, size.rigHeight/2+60);     // draw the animation (TODO figure out why the coordinates are wrong)
+  //  if (animations.size() >= 8) animations.remove(i);                  // limit the array size to 8
+  //}
+  //for (Anim anim : animations) println(anim.alph[0]);
+  if (keyT['a']) for (Anim anim : animations)  anim.alph[0] = 0;
+  //println(animations.size());
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   blendMode(MULTIPLY);
   colorLayer(rigColourLayer, rigBgr);                               // develop colour layer
