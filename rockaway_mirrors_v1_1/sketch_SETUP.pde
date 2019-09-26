@@ -1,3 +1,4 @@
+
 class SizeSettings {
   int rigWidth, rigHeight, roofWidth, roofHeight, sliderHeight, infoWidth, infoHeight, vizWidth, vizHeight;
   PVector rig, roof, info, viz, rigWindow;
@@ -54,7 +55,9 @@ import javax.sound.sampled.*;
 Minim minim;
 AudioInput in;
 BeatDetect beatDetect;
-
+float avgtime, avgvolume;
+float weightedsum, weightedcnt;
+float beatAlpha;
 void audioSetup(int sensitivity) {
   minim = new Minim(this);
   in = minim.getLineIn(Minim.STEREO, 512);
@@ -67,6 +70,21 @@ void audioSetup(int sensitivity) {
   weightedcnt=0;
   avgtime=0;
   avgvolume = 0;
+}
+//////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////
+AudioPlayer player[];
+void loadAudio() {
+  //////////////////////////////// load one shot sounds ///////////////////////////////
+  player = new AudioPlayer[81];
+  for (int i = 1; i <= 80; i++) {
+    int hundreds = i/100;
+    int tens = (i%100)/10;
+    int ones = i%10;
+    String number =str(hundreds)+str(tens)+str(ones);
+    player[i] = minim.loadFile("oneshot_"+number+".wav");
+  }
+  println("audio loaded");
 }
 ////////////////////////////////// SETUP SKETCH DRAWING NORMALS ////////////////////////
 void drawingSetup() {

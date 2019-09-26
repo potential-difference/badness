@@ -58,142 +58,102 @@ int TIMING=ShortMessage.TIMING_CLOCK;
 
 HashMap<String, int[]> oscAddrToMidiMap = new HashMap<String, int[]>();
 void oscAddrSetup() {
-  /*
- oscAddrToMidiMap.put("/instrument/0/noteon", new int[]{  NOTE_ON, TR8CHANNEL, BD });
-   oscAddrToMidiMap.put("/instrument/1/noteon", new int[]{  NOTE_ON, TR8CHANNEL, SD });
-   oscAddrToMidiMap.put("/instrument/2/noteon", new int[]{  NOTE_ON, TR8CHANNEL, LT });
-   oscAddrToMidiMap.put("/instrument/3/noteon", new int[]{  NOTE_ON, TR8CHANNEL, MT });
-   oscAddrToMidiMap.put("/instrument/4/noteon", new int[]{  NOTE_ON, TR8CHANNEL, HT });
-   oscAddrToMidiMap.put("/instrument/5/noteon", new int[]{  NOTE_ON, TR8CHANNEL, RS });
-   oscAddrToMidiMap.put("/instrument/6/noteon", new int[]{  NOTE_ON, TR8CHANNEL, HC });
-   oscAddrToMidiMap.put("/instrument/7/noteon", new int[]{  NOTE_ON, TR8CHANNEL, CH });
-   */
-  oscAddrToMidiMap.put("/instrument/0/volume", new int[]{  CTRL_CHG, TR8CHANNEL, BDLEVEL});
-  oscAddrToMidiMap.put("/instrument/1/volume", new int[]{  CTRL_CHG, TR8CHANNEL, SDLEVEL});
-  oscAddrToMidiMap.put("/instrument/2/volume", new int[]{  CTRL_CHG, TR8CHANNEL, LTLEVEL});
-  oscAddrToMidiMap.put("/instrument/3/volume", new int[]{  CTRL_CHG, TR8CHANNEL, MTLEVEL});
-  oscAddrToMidiMap.put("/instrument/4/volume", new int[]{  CTRL_CHG, TR8CHANNEL, HTLEVEL});
-  oscAddrToMidiMap.put("/instrument/5/volume", new int[]{  CTRL_CHG, TR8CHANNEL, RSLEVEL});
-  oscAddrToMidiMap.put("/instrument/6/volume", new int[]{  CTRL_CHG, TR8CHANNEL, HCLEVEL});
-  oscAddrToMidiMap.put("/instrument/7/volume", new int[]{  CTRL_CHG, TR8CHANNEL, CHLEVEL});
 
-  oscAddrToMidiMap.put("/instrument/0/tune", new int[]{  CTRL_CHG, TR8CHANNEL, BDTUNE});
-  oscAddrToMidiMap.put("/instrument/1/tune", new int[]{  CTRL_CHG, TR8CHANNEL, SDTUNE});
-  oscAddrToMidiMap.put("/instrument/2/tune", new int[]{  CTRL_CHG, TR8CHANNEL, LTTUNE});
-  oscAddrToMidiMap.put("/instrument/3/tune", new int[]{  CTRL_CHG, TR8CHANNEL, MTTUNE});
-  oscAddrToMidiMap.put("/instrument/4/tune", new int[]{  CTRL_CHG, TR8CHANNEL, HTTUNE});
-  oscAddrToMidiMap.put("/instrument/5/tune", new int[]{  CTRL_CHG, TR8CHANNEL, RSTUNE});
-  oscAddrToMidiMap.put("/instrument/6/tune", new int[]{  CTRL_CHG, TR8CHANNEL, HCTUNE});
-  oscAddrToMidiMap.put("/instrument/7/tune", new int[]{  CTRL_CHG, TR8CHANNEL, CHTUNE});
-
-  oscAddrToMidiMap.put("/instrument/0/decay", new int[]{  CTRL_CHG, TR8CHANNEL, BDDECAY});
-  oscAddrToMidiMap.put("/instrument/1/decay", new int[]{  CTRL_CHG, TR8CHANNEL, SDDECAY});
-  oscAddrToMidiMap.put("/instrument/2/decay", new int[]{  CTRL_CHG, TR8CHANNEL, LTDECAY});
-  oscAddrToMidiMap.put("/instrument/3/decay", new int[]{  CTRL_CHG, TR8CHANNEL, MTDECAY});
-  oscAddrToMidiMap.put("/instrument/4/decay", new int[]{  CTRL_CHG, TR8CHANNEL, HTDECAY});
-  oscAddrToMidiMap.put("/instrument/5/decay", new int[]{  CTRL_CHG, TR8CHANNEL, RSDECAY});
-  oscAddrToMidiMap.put("/instrument/6/decay", new int[]{  CTRL_CHG, TR8CHANNEL, HCDECAY});
-  oscAddrToMidiMap.put("/instrument/7/decay", new int[]{  CTRL_CHG, TR8CHANNEL, CHDECAY});
-
-  oscAddrToMidiMap.put("/instrument/0/ctrl", new int[]{  CTRL_CHG, TR8CHANNEL, BDCTRL});
-  oscAddrToMidiMap.put("/instrument/1/ctrl", new int[]{  CTRL_CHG, TR8CHANNEL, SDCTRL});
-  oscAddrToMidiMap.put("/instrument/2/ctrl", new int[]{  CTRL_CHG, TR8CHANNEL, LTCTRL});
-  oscAddrToMidiMap.put("/instrument/3/ctrl", new int[]{  CTRL_CHG, TR8CHANNEL, MTCTRL});
-  oscAddrToMidiMap.put("/instrument/4/ctrl", new int[]{  CTRL_CHG, TR8CHANNEL, HTCTRL});
-  oscAddrToMidiMap.put("/instrument/5/ctrl", new int[]{  CTRL_CHG, TR8CHANNEL, RSCTRL});
-  oscAddrToMidiMap.put("/instrument/6/ctrl", new int[]{  CTRL_CHG, TR8CHANNEL, HCCTRL});
-  oscAddrToMidiMap.put("/instrument/7/ctrl", new int[]{  CTRL_CHG, TR8CHANNEL, CHCTRL});
-
-
-  //oscAddrToMidiMap.put("/global/kitselect/", new int[]{ PRGM_CHG, 10 });   /////////////////////////change once benjamin uploads new code
-  oscAddrToMidiMap.put("/global/patternChange", new int[]{ PRGM_CHG, 9 });
-
-  oscAddrToMidiMap.put("/globalEffects/throttle", new int[]{ CTRL_CHG, TR8CHANNEL, MASTERFXLEVEL });
-  oscAddrToMidiMap.put("/globalEffects/throttleButton", new int[]{ CTRL_CHG, TR8CHANNEL, MASTERFXON});
-
-  oscAddrToMidiMap.put("/globalEffects/control1", new int[]{ CTRL_CHG, TR8CHANNEL, REVERBLEVEL});
-  oscAddrToMidiMap.put("/globalEffects/control2", new int[]{ CTRL_CHG, TR8CHANNEL, DELAYLEVEL});
-
-  oscAddrToMidiMap.put("/globalEffects/x", new int[]{ CTRL_CHG, TR8CHANNEL, DELAYFEEDBACK});
-  oscAddrToMidiMap.put("/globalEffects/y", new int[]{ CTRL_CHG, TR8CHANNEL, DELAYTIME});
-
-  //oscAddrToMidiMap.put("/globalEffects/kitSelect/", new int[]{ PRGM_CHG, TR8CHANNEL});
+  int startVal = 64;
+  OscAddrMap.put("/throttle_box/throttle_button_1", startVal);
+  OscAddrMap.put("/throttle_box/throttle_button_2", startVal);
+  OscAddrMap.put("/throttle_box/trackball_x", startVal);
+  OscAddrMap.put("/throttle_box/trackball_y", startVal);
+  OscAddrMap.put("/throttle_box/throttle", startVal);
+  OscAddrMap.put("/throttle_box/knob_1", startVal);
+  OscAddrMap.put("/throttle_box/knob_2", startVal);
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  OscAddrMap.put("/instrument/0/volume", startVal);
+  OscAddrMap.put("/instrument/1/volume", startVal);
+  OscAddrMap.put("/instrument/2/volume", startVal);
+  OscAddrMap.put("/instrument/3/volume", startVal);
+  OscAddrMap.put("/instrument/4/volume", startVal);
+  OscAddrMap.put("/instrument/5/volume", startVal);
+  OscAddrMap.put("/instrument/6/volume", startVal);
+  OscAddrMap.put("/instrument/7/volume", startVal);
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  OscAddrMap.put("/knob_box/0/tune", startVal);
+  OscAddrMap.put("/knob_box/1/tune", startVal);
+  OscAddrMap.put("/knob_box/2/tune", startVal);
+  OscAddrMap.put("/knob_box/3/tune", startVal);
+  OscAddrMap.put("/knob_box/4/tune", startVal);
+  OscAddrMap.put("/knob_box/5/tune", startVal);
+  OscAddrMap.put("/knob_box/6/tune", startVal);
+  OscAddrMap.put("/knob_box/7/tune", startVal);
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  OscAddrMap.put("/knob_box/0/decay", startVal);
+  OscAddrMap.put("/knob_box/1/decay", startVal);
+  OscAddrMap.put("/knob_box/2/decay", startVal);
+  OscAddrMap.put("/knob_box/3/decay", startVal);
+  OscAddrMap.put("/knob_box/4/decay", startVal);
+  OscAddrMap.put("/knob_box/5/decay", startVal);
+  OscAddrMap.put("/knob_box/6/decay", startVal);
+  OscAddrMap.put("/knob_box/7/decay", startVal);
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  OscAddrMap.put("/knob_box/0/ctrl", startVal);
+  OscAddrMap.put("/knob_box/1/ctrl", startVal);
+  OscAddrMap.put("/knob_box/2/ctrl", startVal);
+  OscAddrMap.put("/knob_box/3/ctrl", startVal);
+  OscAddrMap.put("/knob_box/4/ctrl", startVal);
+  OscAddrMap.put("/knob_box/5/ctrl", startVal);
+  OscAddrMap.put("/knob_box/6/ctrl", startVal);
+  OscAddrMap.put("/knob_box/7/ctrl", startVal);
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  OscAddrMap.put("/knob_box/joystick_1", 0);
+  OscAddrMap.put("/knob_box/joystick_2", 0);
+  ////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////
 }
+int oneshotmap, colorselected;
+boolean buttonT[] = new boolean [16];
+boolean oneshotmessage;
 HashMap<String, Integer> OscAddrMap = new HashMap<String, Integer>();
-//HashMap<String, int[]> oscAddrToMidiMap = new HashMap<String, int[]>();
-//HashMap<String, int[]> OscAddrMap = new HashMap<String, Triggerable>();
-//HashMap<String, Triggerable> OscEventMap = new HashMap<String, Triggerable>();
-/* incoming osc message are forwarded to the oscEvent method. */
 void oscEvent(OscMessage theOscMessage) {
-  //first send it right back out as midi
-  /* try {
-   int midiaddr[] = oscAddrToMidiMap.get(theOscMessage.addrPattern());
-   int midival = (int)theOscMessage.arguments()[0];                                        //bit of an assumption, but it'll work if we send ints<127
-   
-   if (midiaddr.length == 2) {
-   int kitval = midival;
-   TR8bus.sendMessage(midiaddr[0], midiaddr[1], kitval);                                //send PROGRAM CHANGE message  
-   println("send PROGRAM message ", +midiaddr[0]+" "+midiaddr[1]+" "+kitval);
-   } else {
-   TR8bus.sendMessage(midiaddr[0], midiaddr[1], midiaddr[2], midival);                   //send every other message
-   //println("send MIDI message ", +midiaddr[0]+" "+midiaddr[1]+" "+midiaddr[2]+" "+midival);
-   }
-   }
-   catch(Exception e) {
-   println("Osc address "+theOscMessage.addrPattern()+" not in oscAddrToMidiMap");
-   }
-   */
-  /* print the address pattern and the typetag of the received OscMessage */
-  print("### received an osc message.");
-  print(" addrpattern: "+theOscMessage.addrPattern());
-  println(" typetag: "+theOscMessage.typetag());
   //split address into parts
   String addr[]=theOscMessage.addrPattern().split("/");
   String messageType=addr[addr.length-1];
   addr[addr.length-1]="";
   String address=String.join("/", addr);
-  print("address ='"+address+"'");
-  println(" mesgtype ='"+messageType+"'");
   int argument = (int)theOscMessage.arguments()[0];
-  println(" mesgArgument = "+argument);
+
+  if ( !(messageType.equals("throttle") || messageType.equals("throttle_button_2"))) {
+    print("address = '"+address+"'");
+    print(" mesgtype = '"+messageType+"'");
+    println(" mesgArgument = "+argument);
+  }
+  //println();
   OscAddrMap.put(theOscMessage.addrPattern(), argument);
-  //somewhere else:
-  //    to get /global/decay value
-  //    try{
-  //      OscAddrMap.get("/global/decay");//returns int
-  //     }catch(Exception e){println(e);}
-  /*try {
-   OscAddrMap.get(address).trigger(messageType, theOscMessage.arguments());    /// TO DO: sort out the trigger function so this works
-   }
-   catch(Exception e) {
-   };*/
-  //  if (messageType.equals("masterFXon") == true) {
-  //    float rigHue = hue(rig.c), sat = saturation(rig.c), bright = brightness(rig.c);
-  //    //float reSat = 
-  //    rig.c = color(hue, sat, bright);
-  //  }
-  //if (messageType.equals("throttleValue"))
-  //  if (messageType.equals("throttleButton"))
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////// knob box /////////////////////////////////////////////////////////////////////
+  if (messageType.equals("joystick_1") || messageType.equals("joystick_2")) {
+    oneshotmap=int(OscAddrMap.get("/knob_box/joystick_1")*9+OscAddrMap.get("/knob_box/joystick_2"));
+    println("oneshotmap = "+oneshotmap);
+    if (oneshotmap>0) {
+      oneShot(oneshotmap);
+    }
+  }
+  if (messageType.equals("oneshot")) if (argument == 5) rigBgr = int(random(bgList));
 
-  if (messageType.equals("oneshot"))   if (argument == 21) rigBgr = int(random(0, 8));
-  if (messageType.equals("kitChange")) colorControl(argument);
-
+  /////////////////////////////////////// button box //////////////////////////////////////
   if (messageType.equals("buttonSelected")) {
     if (argument<5) {
-      button[argument]=!button[argument];
-      println(button[argument]);
+      buttonT[argument]=!buttonT[argument];
+      println("button "+argument+" is selected");
+      colorselected = argument;
     }
-    if (argument==10)                      button[argument]=!button[argument];
-    if (argument > 4 && argument < 10 )    rigViz = argument-5;
-    if (argument > 10 && argument < 16 )   rigViz = argument-11;
+    if (argument >= 5 && argument < 16 ) rigViz = argument-5;
   }
-  if (argument==10) {
-    int steps = 1;
-    rig.colorA =  (rig.colorA + steps) % (rig.col.length-1);
-    rig.colB =  rig.col[rig.colorA];
-    rig.colorB = (rig.colorB + steps) % (rig.col.length-1);
-    rig.colD = rig.col[rig.colorB];
-  }
+  /////////////////////////////////// fader box /////////////////////////////////////////////
+  //if (messageType.equals("kitChange")) colorControl(argument);
+
+
+  ///////////////////////////////////////// throttle box ./////////////////////////////////////////
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -234,6 +194,7 @@ void keyPressed() {
   }   
   if (key == 'c') rig.colorA = (rig.colorA+1)%rig.col.length;         //// CYCLE FORWARD THROUGH RIG COLORS
   if (key == 'v') rig.colorB = (rig.colorB+1)%rig.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
+  if (key == 'x') colorselected = (colorselected + 1) % 5;
 
   if (key == 'd') roof.colorA = (roof.colorA+1)%roof.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
   if (key == 'f') roof.colorB = (roof.colorB+1)%roof.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
@@ -274,8 +235,8 @@ void keyReleased()
 ///////////////////////////////////////// MIDI FUNCTIONS /////////////////////////////////////////////////////////////////////
 float pad[] = new float[64];
 void noteOn(Note note) {
-  println();
-  println("BUTTON: ", +note.pitch);
+  //println();
+  //println("BUTTON: ", +note.pitch);
 }
 float cc[] = new float[128];                   //// An array where to store the last value received for each knob
 float prevcc[] = new float[128];

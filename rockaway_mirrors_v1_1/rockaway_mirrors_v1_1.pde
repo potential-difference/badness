@@ -44,28 +44,29 @@ void setup()
 
   ///////////////// LOCAL opc /////////////////////
   //opc = new OPC(this, "127.0.0.1", 7890);            // Connect to the local instance of fcserver - MIRRORS
-  opcMirror1 = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRROR 1 - used coz of issues with the remote conneciton
-  opcMirror2 = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRROR 1 - used coz of issues with the remote conneciton
+  //opcMirror1 = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRROR 1 - used coz of issues with the remote conneciton
+  //opcMirror2 = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRROR 1 - used coz of issues with the remote conneciton
   opcSeeds = new OPC(this, "127.0.0.1", 7890);         // Connect to the remote instance of fcserver - SEEDS BOX IN ROOF - also had issues with this one so had to remove it
   opcCans = new OPC(this, "127.0.0.1", 7890);          // Connect to the remote instance of fcserver - CANS BOX
-  opcControllerA = new OPC(this, "127.0.0.1", 7890);   // Connect to the remote instance of fcserver - LEFT TWO CONTROLLERS
-  opcControllerB = new OPC(this, "127.0.0.1", 7890);   // Connect to the remote instance of fcserver - RIGHT PAIR OF CONTROLLERS
+  //opcControllerA = new OPC(this, "127.0.0.1", 7890);   // Connect to the remote instance of fcserver - LEFT TWO CONTROLLERS
+  //opcControllerB = new OPC(this, "127.0.0.1", 7890);   // Connect to the remote instance of fcserver - RIGHT PAIR OF CONTROLLERS
 
   ///////////////// OPC over NETWORK /////////////////////
-  //opcMirror1 = new OPC(this, "10.168.1.58", 7890);       // Connect to the remote instance of fcserver - MIRROR 1
-  //opcMirror2 = new OPC(this, "10.168.1.179", 7890);      // Connect to the remote instance of fcserver - MIRROR 2
+  opcMirror1 = new OPC(this, "192.168.0.70", 7890);       // Connect to the remote instance of fcserver - MIRROR 1
+  //opcMirror2 = new OPC(this, "192.168.0.5", 7890);      // Connect to the remote instance of fcserver - MIRROR 2
   //opcCans = new OPC(this, "10.168.1.86", 7890);          // Connect to the remote instance of fcserver - CANS BOX
-  //opcSeeds = new OPC(this, "127.0.0.1", 7890);           // Connect to the remote instance of fcserver - SEEDS BOX IN ROOF - also had issues with this one so had to remove it
-  //opcControllerA = new OPC(this, "10.168.1.28", 7890);   // Connect to the remote instance of fcserver - LEFT TWO CONTROLLERS
+  opcSeeds = new OPC(this, "192.168.0.20", 7890);           // Connect to the remote instance of fcserver - SEEDS BOX IN ROOF - also had issues with this one so had to remove it
+  opcControllerA = new OPC(this, "192.168.0.80", 7890);   // Connect to the remote instance of fcserver - LEFT TWO CONTROLLERS
   //opcControllerB = new OPC(this, "10.168.1.89", 7890);   // Connect to the remote instance of fcserver - RIGHT PAIR OF CONTROLLERS
 
-  grid.kallidaMirrors(opcMirror1, opcMirror2, 0);               // grids 0-3 MIX IT UPPPPP 
+  grid.kallidaMirrors(opcMirror1, opcMirror1, 0);               // grids 0-3 MIX IT UPPPPP 
   grid.kallidaCans(opcCans);                                  
   grid.kallidaUV(opcCans);
   grid.kallidaSeeds(opcSeeds);
-  grid.kallidaControllers(opcControllerA, opcControllerB, 2);   // grids 0-3 MIX IT UPPPPP 
+  grid.kallidaControllers(opcControllerA, opcControllerA, 2);   // grids 0-3 MIX IT UPPPPP 
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
+  loadAudio();     // load one shot sounds ///
 
   MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
   println();
@@ -92,14 +93,15 @@ void setup()
   rigViz = 4;
   roofViz = 1;
   rigBgr = 1;    
-  rig.colorA = 1;    // set c start
-  rig.colorB = 2;   // set flash start
+  rig.c = purple;    // set c start
+  rig.flash = orange;   // set flash start
 
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
-  for (int i = 0; i < 9; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen
+  for (int i = 0; i < 100; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen
   cc[1] = 0.75;
   cc[6] = 0.75;
   cc[8] = 1;
+  cc[MASTERFXON] = 0;
   frameRate(30);
 }
 float vizTime, colTime;
@@ -119,7 +121,7 @@ void draw()
   roof.clash(func);                         ///// clash colour changes on function in brackets
 
   ////// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
-  blury = int(map(blurSlider, 0, 1, 0, 30));
+  blury = int(map(blurSlider, 0, 1, 0, 100));
   if (blury!=prevblury) {
     prevblury=blury;
     loadShaders(blury);
@@ -135,9 +137,11 @@ void draw()
 
   rigVizSelection(rigWindow, rigDimmerPad*rigDimmer);               // develop rig visulisation
   if (beatCounter%128 == 0) rigBgr = (rigBgr + 1)% 7;               // change colour layer automatically
-  colorLayer(rigColourLayer, rigBgr);                               // develop colour layer
-  image(rigColourLayer, size.rigWidth/2, size.rigHeight/2);         // draw rig colour layer to rig window
-  blendMode(MULTIPLY);
+  if (rigViz != 1) {
+    colorLayer(rigColourLayer, rigBgr);                               // develop colour layer
+    image(rigColourLayer, size.rigWidth/2, size.rigHeight/2);         // draw rig colour layer to rig window
+    blendMode(MULTIPLY);
+  }
   image(rigWindow, size.rigWidth/2, size.rigHeight/2);
   blendMode(NORMAL);
 
@@ -180,9 +184,9 @@ void draw()
    grid.kallidaSeeds(opcSeeds);
    */
   if (int(frameCount % (frameRate*90)) == 0) {                           // change the controller gird every X seconds
-    int controllerGridStep = int(random(5));                 // randomly choose new grid
-    if (rigBgr == 4 ) controllerGridStep = int(random(1, 5));  // dont use grid 0 is bg4 = not symetrical
-    grid.kallidaControllers(opcControllerA, opcControllerB, controllerGridStep);   // grids 0-4 MIX IT UPPPPP
+    grid.controllerGridStep = int(random(5));                 // randomly choose new grid
+    if (rigBgr == 4 ) grid.controllerGridStep = int(random(1, 5));  // dont use grid 0 is bg4 = not symetrical
+    grid.kallidaControllers(opcControllerA, opcControllerA, grid.controllerGridStep);   // grids 0-4 MIX IT UPPPPP
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   image(infoWindow, size.info.x, size.info.y);
@@ -196,8 +200,6 @@ void draw()
     rect(grid.seed[1].x, grid.seed[1].y, grid.seedLength, 3);
     rect(grid.seed[2].x, grid.seed[2].y, 3, grid.seedLength);
   }
-  
-
   /////////////////////////////////////////////// UV /////////////////////////////////////////////////////////////////////////////////////
   fill(360, ((180*noize)+(180*pulz))*uvDimmer);
   ellipse(grid.uv.x, grid.uv.y, 3, 3);

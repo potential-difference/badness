@@ -19,11 +19,13 @@ class SketchColor {
       colB =  col[colorA];
       colorB = (colorB + steps) % (col.length-1);
       colD = col[colorB];
+
+      c = col[colorA];
+      c1 = col[colorA];
+      flash = col[colorB];
+      flash1 = col[colorB];
     }
-    c = col[colorA];
-    c1 = col[colorA];
-    flash = col[colorB];
-    flash1 = col[colorB];
+
     if (go > 0.1) change = true;
     else change = false;
     if (change == true) {
@@ -32,6 +34,8 @@ class SketchColor {
     }
     go *= 0.97;
     if (go < 0.01) go = 0.001;
+
+    colorControl(colorselected); //
   }
   ////////////////////////////////////////////////////// HSB LERP COLOR FUNCTION //////////////////////////////
   // linear interpolate two colors in HSB space 
@@ -77,29 +81,30 @@ class SketchColor {
     color flashHalf = lerpColor(c, flash, 0.75);
     color cHalf = lerpColor(c, flash, 0.25); 
 
-    clash = lerpColorHSB(cHalf, flashHalf, func);     ///// MOVING, HALF RNAGE BETWEEN C and FLASH
-    clash1 = lerpColorHSB(cHalf, flashHalf, 1-func);            ///// MOVING, HALF RANGE BETWEEN FLASH and C
-    clash2 = lerpColorHSB(flash, c, func);          ///// MOVING, FULL RANGE BETWEEN C and FLASH
-    clash12 = lerpColorHSB(flash, c, 1-func);          ///// MOVING, FULL RANGE BETWEEN FLASH and C
-    clashed = lerpColor(c, flash, 0.5);    ///// STATIC - HALFWAY BETWEEN C and FLASH
+    clash = lerpColorHSB(c, flash, func*0.1);     ///// MOVING, HALF RNAGE BETWEEN C and FLASH
+    clash1 = lerpColorHSB(c, flash, 1-(func*0.1));            ///// MOVING, HALF RANGE BETWEEN FLASH and C
+    clash2 = lerpColorHSB(flash, c, func*0.1);          ///// MOVING, FULL RANGE BETWEEN C and FLASH
+    clash12 = lerpColorHSB(flash, c, 1-(func*0.1));          ///// MOVING, FULL RANGE BETWEEN FLASH and C
+    clashed = lerpColor(c, flash, 0.2);    ///// STATIC - HALFWAY BETWEEN C and FLASH
   }
   /////////////////////////////////////// COLOR ARRAY SETUP ////////////////////////////////////////
-  color col[] = new color[14];
+  color col[] = new color[15];
   void colorArray() {
-    col[0] = bloo; 
-    col[1] = bloo; 
-    col[2] = red; 
-    col[3] = red;
-    col[4] = grin;
-    col[5] = grin;
-    col[6] = pink;
-    col[7] = pink;
+    col[0] = purple; 
+    col[1] = pink; 
+    col[2] = orange1; 
+    col[3] = teal;
+    col[4] = red;
+    col[5] = bloo;
+    col[6] = purple;
+    col[7] = grin;
     col[8] = orange;
-    col[9] = orange;
-    col[10] = teal;
-    col[11] = teal;
-    col[12] = red;
-    col[13] = red;
+    col[9] = teal;
+    col[10] = pink;
+    col[11] = purple;
+    col[12] = orange;
+    col[13] = orange1;
+    col[14] = teal;
   }
 }
 
@@ -119,7 +124,7 @@ void colorSetup() {
   bloo = color(239+alt, sat, 100);
   yell = color(50+alt, sat, 100);
   grin = color(115+alt, sat, 100);
-  orange = color(34.02+alt, sat, 90);
+  orange = color(30+alt, sat, 90);
   purple = color(290+alt, sat, 70);
   teal = color(170+alt, sat, 85);
   red = color(7+alt, sat, 100);

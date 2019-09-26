@@ -52,9 +52,6 @@ float pulzsSlow[] = new float[4];
 float pulzsFast[] = new float[4];
 float beatsCounter[] = new float [4];
 long beatTimer;
-float avgtime, avgvolume;
-float weightedsum, weightedcnt;
-float beatAlpha;
 boolean beatTrigger;
 void beats() {             ////// BEAT DETECT THROUGHOUT SKETCH ///////
   beatTimer++;
@@ -65,10 +62,10 @@ void beats() {             ////// BEAT DETECT THROUGHOUT SKETCH ///////
   beatTrigger = beatDetect.isOnset();
   // trigger beats without audio input
   float triggerLimit = (sineFast);
-  if (pause > 5) {
-    if (triggerLimit > 0.9995) beatTrigger = true;
-    else beatTrigger = false;
-  }
+  //if (pause > 3) {
+  //  if (triggerLimit > 0.9995) beatTrigger = true;
+  //  else beatTrigger = false;
+  //}
 
   if (beatTrigger) {
     beat = 1;
@@ -91,9 +88,9 @@ void beats() {             ////// BEAT DETECT THROUGHOUT SKETCH ///////
   }
   if (avgtime>0) {
     beat*=pow(beatSlider, (1/avgtime)); //  changes rate alpha fades out!!
-    for (int i = 0; i < beats.length; i++) beats[i]*=pow(beatSlider*(0.001+cc[5]), (1/avgtime)); //  changes rate alpha fades out!!
+    for (int i = 0; i < beats.length; i++) beats[i]*=pow(beatSlider, (1/avgtime)); //  changes rate alpha fades out!!
     for (int i = 0; i < beats.length; i++) {
-      if (beatCounter % 4 != i) beats[i]*=pow(beatSlider/3*(0.001+cc[5]), (1/avgtime));                               //  else if beat is 1,2 or 3 decay faster
+      if (beatCounter % 4 != i) beats[i]*=pow(beatSlider, (1/avgtime));                               //  else if beat is 1,2 or 3 decay faster
     }
   } else { 
     beat*=0.95;
@@ -137,18 +134,18 @@ void pause(int pau) {
     pause = 0;
     time[4] = millis()/1000;
   }
-  if (beatDetect.isOnset() == false) {
-    if (millis()/1000 - time[4] >= pau) {
-      pause +=1;
-      time[4] = millis()/1000;
-    }
-  }
-  if (pause > 0) {
-    if (millis()/1000 - time[5] >= 4) {
-      beatCounter +=1%120;
-      time[5] = millis()/1000;  //// also update the stored time
-    }
-  }
+  //if (beatDetect.isOnset() == false) {
+  //  if (millis()/1000 - time[4] >= pau) {
+  //    pause +=1;
+  //    time[4] = millis()/1000;
+  //  }
+  //}
+  //if (pause > 0) {
+  //  if (millis()/1000 - time[5] >= 4) {
+  //    //beatCounter +=1%120;
+  //    time[5] = millis()/1000;  //// also update the stored time
+  //  }
+  //}
 }
 
 /////////////////////////////////////////////// OSKP///////////////////////////////////////////

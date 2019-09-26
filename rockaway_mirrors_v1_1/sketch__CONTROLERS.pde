@@ -82,7 +82,7 @@ class ControlFrame extends PApplet {
       .setSize(wide, high)
       //.setFont(font)
       .setRange(0, 1)
-      .setValue(0.32)    // start value of slider
+      .setValue(1)    // start value of slider
       .setColorActive(act1) 
       .setColorBackground(bac1) 
       .setColorForeground(slider1) 
@@ -187,20 +187,21 @@ class ControlFrame extends PApplet {
       .setColorForeground(slider1) 
       ;
 
-
-    clm+=clm;
-    /////////////////////////////// FITH coloum of sliders
-    cp5.addSlider("roofDimmer")
+ cp5.addSlider("roofDimmer")
       .plugTo(parent, "roofDimmer")
-      .setPosition(x+clm, y)
+      .setPosition(x+clm, y+row*3)
       .setSize(wide, high)
       //.setFont(font)
       .setRange(0, 1)
       .setValue(1) // start value of slider
-      .setColorActive(act1) 
-      .setColorBackground(bac1) 
-      .setColorForeground(slider1) 
+      .setColorActive(act) 
+      .setColorBackground(bac) 
+      .setColorForeground(slider) 
       ;
+      
+    clm+=clm;
+    /////////////////////////////// FITH coloum of sliders
+   
 
     //// create a toggle
     //cp5.addToggle("opTop")

@@ -13,7 +13,6 @@ float roofFunction[] = new float[4];
 float roofFunction1[] = new float[4];
 
 void playWithYourself(float vizTm) {
-
   ///////////////// VIZ TIMER ////////////////////////////////////////
   if (millis()/1000 - time[0] >= vizTm) {
     rigViz = int(random(rigVizList));
@@ -74,25 +73,27 @@ void playWithYourself(float vizTm) {
         alpha1[i]  = alph[rigAlph1Index][i];
       }
     }
-    ////////////////// shimmer control for roof ////////////////////////////
-    if (beatCounter % 96 < 64) { 
-      roofAlpha[i] = roofAlph[roofAlphIndex][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
-      roofAlpha1[i] = roofAlph[roofAlph1Index][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
-      if (beatCounter%4 == i) {
-        roofBt = roofAlph[roofAlphIndex][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
-        roofBt1 = roofAlph[roofAlph1Index][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
-      }
-    } else {
-      roofAlpha[i] = roofAlph[roofAlphIndex][i]/1;
-      roofAlpha1[i] = roofAlph[roofAlph1Index][i]/1;
-      if (beatCounter%4 == i) {
-        roofBt = roofAlph[roofAlphIndex][i];
-        roofBt1 = roofAlph[roofAlph1Index][i];
-      }
-      //////////////// bright flash every 12 beats - counters all code above /////////
-      if (beatCounter%12 == 12) {
-        roofAlpha[i]  = roofAlph[roofAlphIndex][i];
-        roofAlpha1[i]  = roofAlph[roofAlph1Index][i];
+    if (size.roofWidth > 0) {
+      ////////////////// shimmer control for roof ////////////////////////////
+      if (beatCounter % 96 < 64) { 
+        roofAlpha[i] = roofAlph[roofAlphIndex][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
+        roofAlpha1[i] = roofAlph[roofAlph1Index][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
+        if (beatCounter%4 == i) {
+          roofBt = roofAlph[roofAlphIndex][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
+          roofBt1 = roofAlph[roofAlph1Index][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
+        }
+      } else {
+        roofAlpha[i] = roofAlph[roofAlphIndex][i]/1;
+        roofAlpha1[i] = roofAlph[roofAlph1Index][i]/1;
+        if (beatCounter%4 == i) {
+          roofBt = roofAlph[roofAlphIndex][i];
+          roofBt1 = roofAlph[roofAlph1Index][i];
+        }
+        //////////////// bright flash every 12 beats - counters all code above /////////
+        if (beatCounter%12 == 12) {
+          roofAlpha[i]  = roofAlph[roofAlphIndex][i];
+          roofAlpha1[i]  = roofAlph[roofAlph1Index][i];
+        }
       }
     }
   }
@@ -126,14 +127,14 @@ void playWithYourself(float vizTm) {
   }
   if (beatCounter%64<2) rig.colorSwap(1000000*noize);  
   if (beatCounter%64>61) roof.colorSwap(1000000*noize);
-  if (colorSwapSlider == 0);
+  //if (colorSwapSlider == 0);
   ////////////////////////////////////////// COLOR FLIP ///////////////////////////////////////////////////////////////////
   for (int i = 16; i<22; i+=2) if ( beatCounter % 128 == i) rig.colFlip = true;
   else rig.colFlip = false;
   rig.colorFlip(rig.colFlip);
   ///////////////////////////////////////// LERP COLOUR //////////////////////////////////////////////////////////////////
-  if (beatCounter % 18 > 13)  colorLerping(rig, beatFast);
-  else colBeat = false;
+  //if (beatCounter % 18 > 13)  colorLerping(rig, beatFast);
+  colBeat = false;
   //rig.c = lerpColor(rig.col[rig.colorB], rig.col[rig.colorA], beatFast);
   //rig.flash = lerpColor(rig.col[rig.colorA], rig.col[rig.colorB], beatFast);
 

@@ -138,6 +138,51 @@ PGraphics solidNut(int n, color col, float stroke, float sz, float sz1, float al
   return blured[n];
 }
 
+////////////////////////////// CHECKERS /////////////////////////////////
+PGraphics checkers(int n, color col, color col1, float alph) {
+  vis[n].beginDraw();
+  vis[n].background(0);
+  vis[n].noStroke();  
+  vis[n].rectMode(CENTER);
+  if (beatCounter % 3 == 0) {
+    vis[n].fill( col, 360*alph);
+    vis[n].rect(grid.mirror[1].x, grid.mirror[1].y, grid.mirrorWidth, grid.mirrorWidth);
+    vis[n].rect(grid.mirror[3].x, grid.mirror[3].y, grid.mirrorWidth, grid.mirrorWidth);
+    vis[n].rect(grid.mirror[4].x, grid.mirror[4].y, grid.mirrorWidth, grid.mirrorWidth);
+    vis[n].rect(grid.mirror[6].x, grid.mirror[6].y, grid.mirrorWidth, grid.mirrorWidth);
+    vis[n].rect(grid.mirror[9].x, grid.mirror[9].y, grid.mirrorWidth, grid.mirrorWidth);
+    vis[n].rect(grid.mirror[11].x, grid.mirror[11].y, grid.mirrorWidth, grid.mirrorWidth);
+  }
+  if (beatCounter % 3 == 1) {
+    vis[n].fill( col1, 360*alph);
+    vis[n].rect(grid.mirror[0].x, grid.mirror[0].y, grid.mirrorWidth, grid.mirrorWidth);
+    vis[n].rect(grid.mirror[2].x, grid.mirror[2].y, grid.mirrorWidth, grid.mirrorWidth);
+    vis[n].rect(grid.mirror[5].x, grid.mirror[5].y, grid.mirrorWidth, grid.mirrorWidth);
+    vis[n].rect(grid.mirror[7].x, grid.mirror[7].y, grid.mirrorWidth, grid.mirrorWidth);
+    vis[n].rect(grid.mirror[8].x, grid.mirror[8].y, grid.mirrorWidth, grid.mirrorWidth); 
+    vis[n].rect(grid.mirror[10].x, grid.mirror[10].y, grid.mirrorWidth, grid.mirrorWidth);
+  }
+
+  if (beatCounter % 3 == 2) {
+    vis[n].fill( col, 360*alph);
+    vis[n].rect(grid.mirror[1].x, grid.mirror[1].y, grid.mirrorWidth, grid.mirrorWidth);
+    vis[n].rect(grid.mirror[3].x, grid.mirror[3].y, grid.mirrorWidth, grid.mirrorWidth);
+    vis[n].rect(grid.mirror[4].x, grid.mirror[4].y, grid.mirrorWidth, grid.mirrorWidth);
+    vis[n].rect(grid.mirror[6].x, grid.mirror[6].y, grid.mirrorWidth, grid.mirrorWidth);
+    vis[n].rect(grid.mirror[9].x, grid.mirror[11].y, grid.mirrorWidth, grid.mirrorWidth);
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    vis[n].fill( col1, 360*alph);
+    vis[n].rect(grid.mirror[0].x, grid.mirror[0].y, grid.mirrorWidth, grid.mirrorWidth);
+    vis[n].rect(grid.mirror[2].x, grid.mirror[2].y, grid.mirrorWidth, grid.mirrorWidth);
+    vis[n].rect(grid.mirror[5].x, grid.mirror[5].y, grid.mirrorWidth, grid.mirrorWidth);
+    vis[n].rect(grid.mirror[7].x, grid.mirror[7].y, grid.mirrorWidth, grid.mirrorWidth);
+    vis[n].rect(grid.mirror[8].x, grid.mirror[8].y, grid.mirrorWidth, grid.mirrorWidth); 
+    vis[n].rect(grid.mirror[10].x, grid.mirror[10].y, grid.mirrorWidth, grid.mirrorWidth);
+  }
+  vis[n].endDraw();
+  return vis[n];
+}
+
 //////////////////////////// STAR ////////////////////////////////
 PGraphics star(int n, float wide, float high, float rotate, color col, float stroke, float alph) {
   vis[n].beginDraw();
@@ -181,9 +226,9 @@ PGraphics rush(int n, color col, float wide, float high, float func, float alph)
   vis[n].beginDraw();
   vis[n].colorMode(HSB, 360, 100, 100);
   vis[n].background(0);
-    vis[n].imageMode(CENTER);
+  vis[n].imageMode(CENTER);
   vis[n].image(bar1, moveA, vis[n].height/2, wide, high);
-  vis[n].tint(col,360*alph);
+  vis[n].tint(col, 360*alph);
   vis[n].endDraw();
   return vis[n];
 }

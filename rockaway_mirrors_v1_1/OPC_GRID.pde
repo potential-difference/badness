@@ -7,7 +7,7 @@ class OPCGrid {
   PVector[] controller = new PVector[4];
   PVector uv; 
 
-  int pd, ld, dist;
+  int pd, ld, dist, controllerGridStep;
   float mirrorAndGap, seedLength, _seedLength, seed2Length, _seed2Length, cansLength, _cansLength, _mirrorWidth, mirrorWidth, controllerWidth;
 
   OPCGrid () {
@@ -239,16 +239,16 @@ class OPCGrid {
     opc.ledStrip(fc+(channel*3), 23, controller[1].x+(leds/2*pd+(pd/2)), controller[1].y, pd, PI/2, false);
     opc.ledStrip(fc+(channel*3)+leds, 23, controller[1].x, controller[1].y+(leds/2*pd+(pd/2)), pd, 0, true);
     /////////////////////////////////// CONTROLLER B 1 ///////////////////////////////
-    fc = 4 * 512;            
-    opc2.ledStrip(fc+(channel*0), 23, controller[2].x-(leds/2*pd+(pd/2)), controller[2].y, pd, PI/2, true);
-    opc2.ledStrip(fc+(channel*0)+leds, 23, controller[2].x, controller[2].y-(leds/2*pd+(pd/2)), pd, 0, false);
-    opc2.ledStrip(fc+(channel*1), 23, controller[2].x+(leds/2*pd+(pd/2)), controller[2].y, pd, PI/2, false);
-    opc2.ledStrip(fc+(channel*1)+leds, 23, controller[2].x, controller[2].y+(leds/2*pd+(pd/2)), pd, 0, true);
+    //fc = 3 * 512;            
+    opc2.ledStrip(fc+(channel*4), 23, controller[2].x-(leds/2*pd+(pd/2)), controller[2].y, pd, PI/2, true);
+    opc2.ledStrip(fc+(channel*4)+leds, 23, controller[2].x, controller[2].y-(leds/2*pd+(pd/2)), pd, 0, false);
+    opc2.ledStrip(fc+(channel*5), 23, controller[2].x+(leds/2*pd+(pd/2)), controller[2].y, pd, PI/2, false);
+    opc2.ledStrip(fc+(channel*5)+leds, 23, controller[2].x, controller[2].y+(leds/2*pd+(pd/2)), pd, 0, true);
     /////////////////////////////////// CONTROLLER B 2 ///////////////////////////////
-    opc2.ledStrip(fc+(channel*2), 23, controller[3].x+(leds/2*pd+(pd/2)), controller[3].y, pd, PI/2, false);
-    opc2.ledStrip(fc+(channel*2)+leds, 23, controller[3].x, controller[3].y+(leds/2*pd+(pd/2)), pd, 0, true);
-    opc2.ledStrip(fc+(channel*3), 23, controller[3].x-(leds/2*pd+(pd/2)), controller[3].y, pd, PI/2, true);
-    opc2.ledStrip(fc+(channel*3)+leds, 23, controller[3].x, controller[3].y-(leds/2*pd+(pd/2)), pd, 0, false);
+    opc2.ledStrip(fc+(channel*6), 23, controller[3].x+(leds/2*pd+(pd/2)), controller[3].y, pd, PI/2, false);
+    opc2.ledStrip(fc+(channel*6)+leds, 23, controller[3].x, controller[3].y+(leds/2*pd+(pd/2)), pd, 0, true);
+    opc2.ledStrip(fc+(channel*7), 23, controller[3].x-(leds/2*pd+(pd/2)), controller[3].y, pd, PI/2, true);
+    opc2.ledStrip(fc+(channel*7)+leds, 23, controller[3].x, controller[3].y-(leds/2*pd+(pd/2)), pd, 0, false);
   }
   void mirrorTest(boolean toggle, int mirrorStep) {
     /////////////////////////// TESTING MIRROR ORENTATION //////////////////

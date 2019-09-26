@@ -49,6 +49,7 @@ void onScreenInfo() {
   text("bkgrnd: " + rigBgr, x, y+20);
   text("func's: " + fctIndex + " / " + fct1Index, x+100, y);
   text("alph's: " + rigAlphIndex + " / " + rigAlph1Index, x+100, y+20);
+  text("controllerGrid " + grid.controllerGridStep, x+220,y);
   //////////// roof info
   fill(roof.flash, 300);
   x = x+size.roof.x-(size.roofWidth/2);
