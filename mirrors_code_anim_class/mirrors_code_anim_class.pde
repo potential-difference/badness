@@ -174,7 +174,6 @@ void draw()
       Anim anim = animations.get(i);  
       if (beatCounter % animations.size() == i) anim.trigger();
       //anim.decay();
-      //anim.drawAnim(anim.window, size.rigWidth/2, size.rigHeight/2);         // draw the animation (TODO figure out why the coordinates are wrong)
       if (animations.size() > 8) animations.remove(i);                            // limit the array size to 8
     }
   }
@@ -184,7 +183,10 @@ void draw()
   if (keyT['a']) for (Anim anim : animations)  anim.alphFX = 1-(anim.stutter*0.2);
   if (keyT['s']) for (Anim anim : animations)  anim.funcFX = 1-(anim.stutter*noize1*0.2);
 
-  for (Anim anim : animations)  anim.decay();
+  for (Anim anim : animations) {
+    anim.decay();
+    anim.drawAnim(anim.window, size.rigWidth/2, size.rigHeight/2);         // draw the animation (TODO figure out why the coordinates are wrong)
+  }
 
   //println(animations.size());
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -245,13 +247,13 @@ void draw()
     rigControl(0, 1);
     cansControl(0, 1);
     // add uv control////
-    fill(roof.flash, 360*(pulz*0.8+(stutter*0.2)));
+    //fill(roof.flash, 360*(pulz*0.8+(stutter*0.2)));
     rect(grid.seed[0].x, grid.seed[0].y, grid.seedLength, 3);
     rect(grid.seed[1].x, grid.seed[1].y, grid.seedLength, 3);
     rect(grid.seed[2].x, grid.seed[2].y, 3, grid.seedLength);
   }
   /////////////////////////////////////////////// UV /////////////////////////////////////////////////////////////////////////////////////
-  fill(360, ((180*noize)+(180*pulz))*uvDimmer);
+  //fill(360, ((180*noize)+(180*pulz))*uvDimmer);
   ellipse(grid.uv.x, grid.uv.y, 3, 3);
 
   ///////////////////////////////////////////CANS //////////////////////////////////////

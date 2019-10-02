@@ -83,7 +83,7 @@ class ControlFrame extends PApplet {
       .setSize(wide, high)
       //.setFont(font)
       .setRange(0, 1)
-      .setValue(0.45) // start value of slider
+      .setValue(0.67) // start value of slider
       .setColorActive(act1) 
       .setColorBackground(bac1) 
       .setColorForeground(slider1) 

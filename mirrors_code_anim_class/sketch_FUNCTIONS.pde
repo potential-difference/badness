@@ -44,7 +44,8 @@ void arrayDraw() {
   alph[6] = pulzsSlow;
 }
 //////////////////////////////////// BEATS //////////////////////////////////////////////
-float beat, beatSlow, pulz, pulzSlow, pulzFast, beatFast, beatCounter;
+//float beat, beatSlow, pulz, pulzSlow, pulzFast, beatFast
+int beatCounter;
 float beats[] = new float[4];
 float beatsSlow[] = new float[4];
 float beatsFast[] = new float[4];

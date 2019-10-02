@@ -170,7 +170,7 @@ void colorInfo() {
   rect(size.rigWidth-20, y, 10, 10);                  // rect to show CURRENT color FLASH 
   fill(rig.col[(rig.colorB+1)%rig.col.length]);  
   rect(size.rigWidth-7.5, y, 10, 10);                 // rect to show NEXT color FLASH1
-  fill(360, beat*360); 
+  //fill(360, beat*360); 
   rect(size.rigWidth-32.5, y, 10, 10);                // rect to show B alpha
   fill(360, bt*360); 
   rect(size.rigWidth-32.5, y-10, 10, 10);             // rect to show CURRENT alpha

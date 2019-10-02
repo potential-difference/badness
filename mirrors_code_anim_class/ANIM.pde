@@ -395,7 +395,7 @@ class Anim implements Animation  {
     beatFast *=0.9;                 
     beatSlow -=0.03;
 
-    float end = 0.01;
+    float end = 0.001;
     if (beat < end) beat = 0;
     if (beatFast < end) beatFast = 0;
     if (beatSlow < end) beatSlow = 0;

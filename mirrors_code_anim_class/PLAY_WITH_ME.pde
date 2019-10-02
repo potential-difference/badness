@@ -43,8 +43,8 @@ void playWithMe() {
   if (keyP[';']) rig.colFlip = !rig.colFlip;                   // COLOR FLIP MOMENTARY
   rig.colorFlip(rig.colFlip);
   ////////////////////////////// LERP COLOUR ON BEAT /////////////////////////////////////////////////////////
-  if (keyP['l']) colorLerping(rig, beatFast);
-  if (keyT['o']) colorLerping(rig, beatFast); 
+  //if (keyP['l']) colorLerping(rig, beatFast);
+  //if (keyT['o']) colorLerping(rig, beatFast); 
   //colBeat = !colBeat;
   // lerpcolor function goes in here
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
