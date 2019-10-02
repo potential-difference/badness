@@ -1,7 +1,7 @@
 
 
 
-class Anim {
+class Anim implements Animation  {
   /////////////////////// LOAD GRAPHICS FOR VISULISATIONS AND COLOR LAYERS //////////////////////////////
   //ArrayList <PGraphics> vis = new ArrayList <PGraphics>(8);
   PGraphics window;
@@ -56,8 +56,8 @@ class Anim {
     blured.noStroke();
     blured.endDraw();
 
-    trigger();
-    decay();
+    //trigger();
+    //decay();
   }
   float stroke, wide, high;
   PVector viz;
@@ -350,34 +350,47 @@ class Anim {
   }
   //////////////////////////////////// BEATS //////////////////////////////////////////////
   float beat, beatSlow, pulz, pulzSlow, pulzFast, beatFast, beatCounter;
-  long beatTimer;
-  float avgtime, avgvolume;
-  float weightedsum, weightedcnt;
-  float beatAlpha;
+
+  //long beatTimer;
+  //float avgtime, avgvolume;
+  //float weightedsum, weightedcnt;
+  //float beatAlpha;
   void trigger() {
     beat = 1;
     beatFast = 1;
     beatSlow = 1;
 
-    beatCounter = (beatCounter + 1) % 120;
-    weightedsum=beatTimer+(1-beatAlpha)*weightedsum;
-    weightedcnt=1+(1-beatAlpha)*weightedcnt;
-    avgtime=weightedsum/weightedcnt;
-    beatTimer=0;
+    //beatCounter = (beatCounter + 1) % 120;
+    //weightedsum=beatTimer+(1-beatAlpha)*weightedsum;
+    //weightedcnt=1+(1-beatAlpha)*weightedcnt;
+    //avgtime=weightedsum/weightedcnt;
+    //beatTimer=0;
   }
   void decay() {             ////// BEAT DETECT THROUGHOUT SKETCH ///////
-    beatTimer++;
-    beatAlpha=0.2;//this affects how quickly code adapts to tempo changes 0.2 averages
+    //beatTimer++;
+    //beatAlpha=0.2;//this affects how quickly code adapts to tempo changes 0.2 averages
     // the last 10 onsets  0.02 would average the last 100
-
+    float rate = map(beatSlider, 0, 1, 0.1, 1.5);
+    if (avgtime>0) {
+      beat*=pow(beatSlider, (1/avgtime)); //  changes rate alpha fades out!!
+      for (int i = 0; i < animations.size(); i++) {
+        if (beatCounter % animations.size() != i) {
+          beat*=pow(rate, (1/avgtime));                               //  else if beat is 1,2 or 3 decay faster
+          println("PREVIOUS BEAT");
+        }
+        if (beatCounter % animations.size() == i) {
+          beat*=pow(rate/3, (1/avgtime)); //  changes rate alpha fades out!!
+          println("CURRENT BEAT");
+        }
+      }
+    } else { 
+      beat*=0.95;
+    }
     //if (avgtime>0) {
-    //  beat*=pow(beatSlider, (1/avgtime)); //  changes rate alpha fades out!!
-    //  for (int i = 0; i < animations.size(); i++) {
-    //    //if (beatCounter % animations.size() == i) 
-    //    if (beatCounter % animations.size() != i) beat*=pow(beatSlider/3, (1/avgtime));                               //  else if beat is 1,2 or 3 decay faster
-    //  }
-    //}  else
-    beat*=0.95;
+    //  beat*=pow(rate, (1/avgtime)); //  changes rate alpha fades out!!
+    //  for (int i = 0; i < animations.size(); i++) if (beatCounter % animations.size() != i) beat*=pow(rate/5, (1/avgtime));  //  else if beat is 1,2 or 3 decay faster
+    //} else beat*=0.95;
+    //beat*=0.95;
     if (beat < 0.8) beat *= 0.98;
     beatFast *=0.9;                 
     beatSlow -=0.03;

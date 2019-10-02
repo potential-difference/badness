@@ -96,7 +96,7 @@ void onScreenInfo() {
     rect(x+gap*3, y, 120, 2);
     rect(x+gap*3, y-distance, 120, 2);
     if (beatCounter % animations.size() == i )fill(rig.c1);
-    else  fill(rig.flash1, 200);
+    else fill(rig.flash1, 200);
     rect(x+gap*i, y-(distance*anim.beat), 10, 10);
 
     if (i == 0 ) {
