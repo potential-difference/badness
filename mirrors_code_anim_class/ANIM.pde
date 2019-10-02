@@ -1,3 +1,6 @@
+
+
+
 class Anim {
   /////////////////////// LOAD GRAPHICS FOR VISULISATIONS AND COLOR LAYERS //////////////////////////////
   //ArrayList <PGraphics> vis = new ArrayList <PGraphics>(8);
@@ -12,6 +15,8 @@ class Anim {
   int blury, prevblury;
   float alphMod=1, funcMod=1;
   float alpha, function, funcFX=1, alphFX=1, dimmer=1;
+
+
   Anim() {
     window = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
     window.beginDraw();
@@ -57,7 +62,6 @@ class Anim {
 
   void drawAnim(PGraphics subwindow, float xpos, float ypos) {
     alphaFunction();
-    decay();
     PVector viz = new PVector(size.rig.x, size.rig.y);
     vizWidth = float(blured.width*2);
     vizHeight = float(blured.height*2);
@@ -186,9 +190,9 @@ class Anim {
       subwindow.beginDraw();
       subwindow.background(0);
       subwindow.blendMode(LIGHTEST);
-      //subwindow.image(visual[0].blured, grid.mirror[4].x, grid.mirror[4].y, vizWidth*1.4, vizHeight*1.4);
-      //subwindow.image(visual[1].blured, grid.mirror[7].x, grid.mirror[7].y, vizWidth*1.4, vizHeight*1.4);
-      subwindow.image(visual[1].blured, viz.x, viz.y, vizWidth*1.4, vizHeight*1.4);
+      subwindow.image(visual[0].blured, grid.mirror[4].x, grid.mirror[4].y, vizWidth*1.4, vizHeight*1.4);
+      subwindow.image(visual[1].blured, grid.mirror[7].x, grid.mirror[7].y, vizWidth*1.4, vizHeight*1.4);
+      //subwindow.image(visual[1].blured, viz.x, viz.y, vizWidth*1.4, vizHeight*1.4);
       subwindow.endDraw();
       image(subwindow, xpos, ypos);
       break; /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -342,6 +346,9 @@ class Anim {
   //////////////////////////////////// BEATS //////////////////////////////////////////////
   float beat, beatSlow, pulz, pulzSlow, pulzFast, beatFast, beatCounter;
   long beatTimer;
+  float avgtime, avgvolume;
+  float weightedsum, weightedcnt;
+  float beatAlpha;
   void trigger() {
     beat = 1;
     beatFast = 1;
@@ -359,23 +366,30 @@ class Anim {
     // the last 10 onsets  0.02 would average the last 100
 
     if (avgtime>0) {
-      beat*=pow(beatSlider*2, (1/avgtime)); //  changes rate alpha fades out!!
-      beatSlow = pow(beatSlider*2, (1/avgtime));
-      beatFast = pow(beatSlider*2, (1/avgtime));
+      for (int i = 0; i < animations.size(); i++) {
+        beat*=pow(beatSlider, (1/avgtime)); //  changes rate alpha fades out!!
+        if (beatCounter % animations.size() != i) beat*=pow(beatSlider/3, (1/avgtime));                               //  else if beat is 1,2 or 3 decay faster
+      }
     } else beat*=0.95;
     if (beat < 0.8) beat *= 0.98;
+    beatFast *=0.9;                 
+    beatSlow -=0.03;
 
-    pulz = 1-beat;                     /// p is opposite of b
-    beatFast *=0.7;                 
-    pulzFast = 1-beatFast;            /// bF is oppiste of pF
-
-    beatSlow -= 0.05;
+    float end = 0.01;
+    if (beat < end) beat = 0;
+    if (beatFast < end) beatFast = 0;
+    if (beatSlow < end) beatSlow = 0;
+    pulz = 1-beat;                     
+    pulzFast = 1-beatFast;            
     pulzSlow = 1-beatSlow;
 
-    float end = 0.001;
-    if (beat < end) beat = end;
-    if (beatFast < end) beatFast = end;
-    if (beatSlow < end) beatSlow = end;
+    println(beat);
+    println(beatSlow);
+    println(beatFast);
+    println(pulz);
+    println(pulzSlow);
+    println(pulzFast);
+    println();
   }
 
   /*

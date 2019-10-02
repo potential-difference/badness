@@ -112,6 +112,8 @@ void setup()
   rigBgr = 1;    
   rig.c = purple;    // set c start
   rig.flash = orange;   // set flash start
+  rig.c1 = rig.c;
+  rig.flash1 = rig.flash;
 
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
   for (int i = 0; i < 100; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen
@@ -171,6 +173,8 @@ void draw()
   for (int i = 0; i < animations.size(); i++) {                                  // loop  through the list 
     Anim anim = animations.get(i);                                               // tell the arrayList that it is an array of anim objects
     if (beatCounter % animations.size() == i) anim.trigger();                    // trigger the function and alpha of the animation
+    anim.decay();
+
     anim.drawAnim(anim.window, size.rigWidth/2, size.rigHeight/2);         // draw the animation (TODO figure out why the coordinates are wrong)
     if (animations.size() >= 8) animations.remove(i);                            // limit the array size to 8
   }

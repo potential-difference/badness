@@ -54,6 +54,9 @@ float pulzsFast[] = new float[4];
 float beatsCounter[] = new float [4];
 long beatTimer;
 boolean beatTrigger;
+float avgtime, avgvolume;
+float weightedsum, weightedcnt;
+float beatAlpha;
 void beats() {             ////// BEAT DETECT THROUGHOUT SKETCH ///////
   beatTimer++;
   beatAlpha=0.2;//this affects how quickly code adapts to tempo changes 0.2 averages
@@ -89,9 +92,9 @@ void beats() {             ////// BEAT DETECT THROUGHOUT SKETCH ///////
   }
   if (avgtime>0) {
     beat*=pow(beatSlider, (1/avgtime)); //  changes rate alpha fades out!!
-    for (int i = 0; i < beats.length; i++) beats[i]*=pow(beatSlider, (1/avgtime)); //  changes rate alpha fades out!!
     for (int i = 0; i < beats.length; i++) {
-      if (beatCounter % 4 != i) beats[i]*=pow(beatSlider, (1/avgtime));                               //  else if beat is 1,2 or 3 decay faster
+      beats[i]*=pow(beatSlider, (1/avgtime)); //  changes rate alpha fades out!!
+      if (beatCounter % 4 != i) beats[i]*=pow(beatSlider/3, (1/avgtime));                               //  else if beat is 1,2 or 3 decay faster
     }
   } else { 
     beat*=0.95;

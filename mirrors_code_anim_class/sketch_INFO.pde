@@ -49,7 +49,7 @@ void onScreenInfo() {
   text("bkgrnd: " + rigBgr, x, y+20);
   text("func's: " + fctIndexA + " / " + fctIndexB, x+100, y);
   text("alph's: " + rigAlphaIndexA + " / " + rigAlphaIndexB, x+100, y+20);
-  text("controllerGrid " + grid.controllerGridStep, x+220,y);
+  text("controllerGrid " + grid.controllerGridStep, x+220, y);
   //////////// roof info
   fill(roof.flash, 300);
   x = x+size.roof.x-(size.roofWidth/2);
@@ -83,6 +83,38 @@ void onScreenInfo() {
   fill(rig.c, 360);
   text("ALPHA", (size.rigWidth-50)/2, height);
   rect((size.rigWidth-50)*bt, height-5, 10, 10); // moving rectangle to show current alpha
+
+
+
+  for (int i = 0; i < animations.size(); i++) {                                  // loop  through the list 
+    Anim anim = animations.get(i);         
+    x = size.info.x-100;
+    y = size.info.y + 250;
+    float gap = 15;
+    float distance = 150;
+    fill(rig.c1, 200);
+    rect(x+gap*3, y, 120, 2);
+    rect(x+gap*3, y-distance, 120, 2);
+    if (beatCounter % animations.size() == i )fill(rig.c1);
+    else  fill(rig.flash1, 200);
+    rect(x+gap*i, y-(distance*anim.beat), 10, 10);
+
+    if (i == 0 ) {
+      x = size.info.x + 50;
+      y = size.info.y + 250;        
+      fill(rig.flash1, 200);
+      rect(x+gap*2.5, y, 100, 2);
+      rect(x+gap*2.5, y-distance, 100, 2);
+      fill(rig.c1, 200);
+      rect(x, y-(distance*anim.beat), 10, 10);
+      rect(x+gap, y-(distance*anim.beatFast), 10, 10);
+      rect(x+gap*2, y-(distance*anim.beatSlow), 10, 10);
+      rect(x+gap*3, y-(distance*anim.pulz), 10, 10);
+      rect(x+gap*4, y-(distance*anim.pulzFast), 10, 10);
+      rect(x+gap*5, y-(distance*anim.pulzSlow), 10, 10);
+    }
+  }
+  //}
 
   // sequencer
   fill(rig.flash);

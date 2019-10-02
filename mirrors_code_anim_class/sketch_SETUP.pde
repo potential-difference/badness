@@ -58,9 +58,9 @@ import javax.sound.sampled.*;
 Minim minim;
 AudioInput in;
 BeatDetect beatDetect;
-float avgtime, avgvolume;
-float weightedsum, weightedcnt;
-float beatAlpha;
+//float avgtime, avgvolume;
+//float weightedsum, weightedcnt;
+//float beatAlpha;
 void audioSetup(int sensitivity) {
   minim = new Minim(this);
   in = minim.getLineIn(Minim.STEREO, 512);
