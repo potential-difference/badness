@@ -14,7 +14,7 @@ class Anim {
   float alpha, function, funcFX=1, alphFX=1, dimmer=1;
   Anim() {
 
-    window = createGraphics(int(size.rigWidth*1.2), int(size.rigHeight*1.2), P2D);
+    window = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
     window.beginDraw();
     window.colorMode(HSB, 360, 100, 100);
     window.blendMode(NORMAL);
@@ -40,13 +40,13 @@ class Anim {
     blur = loadShader("blur.glsl");
     blur.set("blurSize", 40);
     blur.set("sigma", 30.0f);  
-    pass1 = createGraphics(int(size.rigWidth/2), int(size.rigHeight/2), P2D);
+    pass1 = createGraphics(int(size.rigWidth*0.6), int(size.rigHeight*0.6), P2D);
     pass1.noSmooth();
     pass1.imageMode(CENTER);
     pass1.beginDraw();
     pass1.noStroke();
     pass1.endDraw();
-    blured = createGraphics(int(size.rigWidth/2), int(size.rigHeight/2), P2D);
+    blured = createGraphics(int(size.rigWidth*0.6), int(size.rigHeight*0.6), P2D);
     blured.noSmooth();
     blured.beginDraw();
     blured.imageMode(CENTER);
@@ -96,6 +96,7 @@ class Anim {
     subwindow.image(blured, viz.x, viz.y, blured.width*2, blured.height*2);
     subwindow.endDraw();
     image(subwindow, xpos, ypos);
+   
   }
   /////////////////////////////////// FUNCTION AND ALPHA ARRAYS //////////////////////////////////////////////
   float alph[] = new float[7];

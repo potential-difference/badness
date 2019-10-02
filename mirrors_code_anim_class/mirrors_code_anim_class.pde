@@ -1,5 +1,6 @@
 OPC opc;
 OPC opcLocal;
+OPC opcMirrors; 
 OPC opcMirror1; 
 OPC opcMirror2;
 OPC opcSeeds;
@@ -30,24 +31,21 @@ MidiBus LPD8bus;      // midibus for LPD8
 int time[] = new int[12]; // array of timers to use throughout the sketch
 
 PFont myFont;
-boolean onTop = false;
+boolean onTopToggle = true;
 
 void settings() {
   size(size.sizeX, size.sizeY, P2D);
+  size.surfacePositionX = 1000;
+  size.surfacePositionY = 200;
 }
 
 void setup()
 {
-  /// size moved to settings - see above
-  //surface.setAlwaysOnTop(true);
-  size.surfacePositionX = 720;
-  size.surfacePositionY = 200;
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
-  surface.setAlwaysOnTop(onTop);
 
   ///////////////// LOCAL opc /////////////////////
   //opc = new OPC(this, "127.0.0.1", 7890);            // Connect to the local instance of fcserver - MIRRORS
-  //opcMirror1 = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRROR 1 - used coz of issues with the remote conneciton
+  opcMirrors = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRROR 1 - used coz of issues with the remote conneciton
   //opcMirror2 = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRROR 1 - used coz of issues with the remote conneciton
   opcSeeds = new OPC(this, "127.0.0.1", 7890);         // Connect to the remote instance of fcserver - SEEDS BOX IN ROOF - also had issues with this one so had to remove it
   opcCans = new OPC(this, "127.0.0.1", 7890);          // Connect to the remote instance of fcserver - CANS BOX
@@ -55,14 +53,14 @@ void setup()
   //opcControllerB = new OPC(this, "127.0.0.1", 7890);   // Connect to the remote instance of fcserver - RIGHT PAIR OF CONTROLLERS
 
   ///////////////// OPC over NETWORK /////////////////////
-  opcMirror1 = new OPC(this, "192.168.0.70", 7890);       // Connect to the remote instance of fcserver - MIRROR 1
+  //opcMirror1 = new OPC(this, "192.168.0.70", 7890);       // Connect to the remote instance of fcserver - MIRROR 1
   //opcMirror2 = new OPC(this, "192.168.0.5", 7890);      // Connect to the remote instance of fcserver - MIRROR 2
   //opcCans = new OPC(this, "10.168.1.86", 7890);          // Connect to the remote instance of fcserver - CANS BOX
   opcSeeds = new OPC(this, "192.168.0.20", 7890);           // Connect to the remote instance of fcserver - SEEDS BOX IN ROOF - also had issues with this one so had to remove it
   opcControllerA = new OPC(this, "192.168.0.80", 7890);   // Connect to the remote instance of fcserver - LEFT TWO CONTROLLERS
   //opcControllerB = new OPC(this, "10.168.1.89", 7890);   // Connect to the remote instance of fcserver - RIGHT PAIR OF CONTROLLERS
 
-  grid.kallidaMirrors(opcMirror1, opcMirror1, 0);               // grids 0-3 MIX IT UPPPPP 
+  grid.kallidaMirrors(opcMirrors, opcMirrors, 0);               // grids 0-3 MIX IT UPPPPP 
   grid.kallidaCans(opcCans);                                  
   grid.kallidaUV(opcCans);
   grid.kallidaSeeds(opcSeeds);
@@ -95,6 +93,7 @@ void setup()
   rig.colorArray();
   roof.colorArray();
 
+  surface.setAlwaysOnTop(onTopToggle);
   controlFrame = new ControlFrame(this, width, 130, "Controls"); // load control frame must come after shild ring etc
 
   blur = loadShader("blur.glsl");
@@ -118,6 +117,9 @@ float vizTime, colTime;
 int roofViz, rigViz, colStepper = 1;
 void draw()
 {
+  surface.setAlwaysOnTop(onTopToggle);
+  println(onTopToggle);
+
   background(0);
   //dimmer = bgDimmer;
   noStroke();
@@ -163,11 +165,11 @@ void draw()
   for (int i = 0; i < animations.size(); i++) {                                  // loop  through the list 
     Anim anim = animations.get(i);                                               // tell the arrayList that it is an array of anim objects
     if (beatCounter % animations.size() == i) anim.trigger();                    // trigger the function and alpha of the animation
-    anim.drawAnim(anim.window, size.rigWidth/2+60, size.rigHeight/2+60);         // draw the animation (TODO figure out why the coordinates are wrong)
+    anim.drawAnim(anim.window, size.rigWidth/2, size.rigHeight/2);         // draw the animation (TODO figure out why the coordinates are wrong)
     if (animations.size() >= 8) animations.remove(i);                            // limit the array size to 8
   }
 
-  
+
 
   //for (int i = animations.size()-1; i >= 0; i--) {                     // loop backwards through the list so one can be removed
   //  Anim anim = animations.get(i);                                     // tell the arrayList that it is an array of anim objects

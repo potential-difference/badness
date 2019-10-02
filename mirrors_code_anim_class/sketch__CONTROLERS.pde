@@ -2,7 +2,7 @@ import controlP5.*;
 ControlFrame controlFrame;
 float vizTimeSlider, colorSwapSlider, colorTimerSlider, cansDimmer, boothDimmer, digDimmer, roofPulse, backParsSlider, backDropSlider, cansSlider, movesSlider;
 float cansPulse, cans1Pulse, cans2Pluse, cans3Pulse, speedSlider, tweakSlider, testSlider3, blurSlider, rigDimmer, multiViz1, multiViz2, multiViz3;
-float shimmerSlider, beatSlider, boothParSlider, backParSlider, secondVizSlider, roofDimmer, seedsDimmer, seed2Dimmer, uvDimmer, controllerDimmer;
+float shimmerSlider, beatSlider, boothParSlider, backParSlider, secondVizSlider, roofDimmer, seedsDimmer, seed2Dimmer, uvDimmer, controllerDimmer, funcSlider;
 
 class ControlFrame extends PApplet {
   int controlW, controlH;
@@ -19,7 +19,8 @@ class ControlFrame extends PApplet {
     size(controlW, controlH);
   }
   public void setup() {
-    surface.setAlwaysOnTop(onTop);
+
+    surface.setAlwaysOnTop(onTopToggle);
     surface.setLocation(size.surfacePositionX, size.surfacePositionY+parent.height);
     myFont = createFont("Lucida Sans", 18);
     textFont(myFont);
@@ -32,7 +33,7 @@ class ControlFrame extends PApplet {
     color act = #07E0D3;
     color act1 = #00FC84;
     color bac = #370064;
-    color bac1 = #225F01;
+    color bac1 = #4D9315;
     color slider = #E07F07;
     color slider1 = #E0D607;
     float x = 10;
@@ -41,7 +42,8 @@ class ControlFrame extends PApplet {
     int high = 14;           // y size of slider
     float row = high +4;     // distance between rows
     float clm = 210;         // distance between coloms
-    //////////////////////////////// FIRST COLOUM OF SLIDERS
+    ///////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////// FIRST COLOUM OF SLIDERS ////////////////////////////////////////////
     cp5.addSlider("vizTimeSlider") // name used throughout sketch to link to slider
       .plugTo(parent, "vizTimeSlider")
       .setPosition(x, y)
@@ -75,10 +77,34 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
-    ////////////////////////////////// 2nd coloum of sliders
+    cp5.addSlider("beatSlider")
+      .plugTo(parent, "beatSlider")
+      .setPosition(x, y+row*3)
+      .setSize(wide, high)
+      //.setFont(font)
+      .setRange(0, 1)
+      .setValue(0.45) // start value of slider
+      .setColorActive(act1) 
+      .setColorBackground(bac1) 
+      .setColorForeground(slider1) 
+      ;
+    cp5.addSlider("funcSlider")
+      .plugTo(parent, "funcSlider")
+      .setPosition(x, y+row*4)
+      .setSize(wide, high)
+      //.setFont(font)
+      .setRange(0, 1)
+      .setValue(0.5) // start value of slider
+      .setColorActive(act) 
+      .setColorBackground(bac) 
+      .setColorForeground(slider) 
+      ;
+    ///////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////// SECOND coloum of sliders ///////////////////////////////////////
+    x =+ clm;
     cp5.addSlider("seedsDimmer")
       .plugTo(parent, "seedsDimmer")
-      .setPosition(x+clm, y)
+      .setPosition(x, y)
       .setSize(wide, high)
       //.setFont(font)
       .setRange(0, 1)
@@ -89,8 +115,7 @@ class ControlFrame extends PApplet {
       ;
     cp5.addSlider("seed2Dimmer")
       .plugTo(parent, "seed2Dimmer")
-
-      .setPosition(x+clm, y+row)
+      .setPosition(x, y+row)
       .setSize(wide, high)
       //.setFont(font)
       .setRange(0, 1)
@@ -99,9 +124,9 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
-    cp5.addSlider("rigDimmer")
-      .plugTo(parent, "rigDimmer")
-      .setPosition(x+clm, y+row*2)
+    cp5.addSlider("uvDimmer")
+      .plugTo(parent, "uvDimmer")
+      .setPosition(x, y+row*2)
       .setSize(wide, high)
       //.setFont(font)
       .setRange(0, 1)
@@ -111,15 +136,22 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac1) 
       .setColorForeground(slider1) 
       ;
-
-    ////////////// set x to start of 2nd panel
-    //x = x+rx-(rw/2);
-    x +=clm+clm;
-
-    ///////////////////////////////// third coloum of sliders
+    cp5.addSlider("controllerDimmer")
+      .plugTo(parent, "controllerDimmer")
+      .setPosition(x, y+row*3)
+      .setSize(wide, high)
+      //.setFont(font)
+      .setRange(0, 1)
+      .setValue(0.4) // start value of slider
+      .setColorActive(act) 
+      .setColorBackground(bac) 
+      .setColorForeground(slider) 
+      ;
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////// THIRD coloum of sliders //////////////////////////////////
+    x +=clm;
     cp5.addSlider("cansDimmer")
       .plugTo(parent, "cansDimmer")
-
       .setPosition(x, y)
       .setSize(wide, high)
       //.setFont(font)
@@ -129,32 +161,32 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
-    cp5.addSlider("uvDimmer")
-      .plugTo(parent, "uvDimmer")
+    cp5.addSlider("roofDimmer")
+      .plugTo(parent, "roofDimmer")
       .setPosition(x, y+row)
       .setSize(wide, high)
       //.setFont(font)
       .setRange(0, 1)
-      .setValue(0.3) // start value of slider
+      .setValue(dimmer) // start value of slider
       .setColorActive(act1) 
       .setColorBackground(bac1) 
       .setColorForeground(slider1) 
       ;
-    cp5.addSlider("beatSlider")
-      .plugTo(parent, "beatSlider")
+    cp5.addSlider("roigDimmer")
+      .plugTo(parent, "rigDimmer")
       .setPosition(x, y+row*2)
       .setSize(wide, high)
       //.setFont(font)
       .setRange(0, 1)
-      .setValue(0.5) // start value of slider
+      .setValue(dimmer)    // start value []ppof slider
       .setColorActive(act) 
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
-
-    /////////////////////////////// FOURTH coloum of sliders
-    cp5.addSlider("controllerDimmer")
-      .plugTo(parent, "controllerDimmer")
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////// FOURTH coloum of sliders ///////////////////////////////////////
+    cp5.addSlider("blurSlider")
+      .plugTo(parent, "blurSlider")
       .setPosition(x+clm, y)
       .setSize(wide, high)
       //.setFont(font)
@@ -175,42 +207,19 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
-    cp5.addSlider("blurSlider")
-      .plugTo(parent, "blurSlider")
-      .setPosition(x+clm, y+row*2)
-      .setSize(wide, high)
-      //.setFont(font)
-      .setRange(0, 1)
-      .setValue(0.3) // start value of slider
-      .setColorActive(act1) 
-      .setColorBackground(bac1) 
-      .setColorForeground(slider1) 
-      ;
 
- cp5.addSlider("roofDimmer")
-      .plugTo(parent, "roofDimmer")
-      .setPosition(x+clm, y+row*3)
-      .setSize(wide, high)
-      //.setFont(font)
-      .setRange(0, 1)
-      .setValue(1) // start value of slider
-      .setColorActive(act) 
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////// FITH coloum of sliders //////////////////////////////////
+    x +=clm;
+    // create a toggle
+    cp5.addToggle("opTopToggle")
+      .plugTo(parent, "onTopToggle")
+      .setPosition(width-100, y)
+      .setSize(50, 50)
+      .setColorActive(bac1) 
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
-      
-    clm+=clm;
-    /////////////////////////////// FITH coloum of sliders
-   
-
-    //// create a toggle
-    //cp5.addToggle("opTop")
-    //  .setPosition(width-100, y)
-    //  .setSize(50, 50)
-    //  .setColorActive(act) 
-    //  .setColorBackground(bac) 
-    //  .setColorForeground(slider) 
-    //  ;
     //cp5.addSlider("tweakSlider")
     //  .plugTo(parent, "tweakSlider")
     //  .setPosition(x+clm, y+row)
@@ -229,73 +238,6 @@ class ControlFrame extends PApplet {
     //  //.setFont(font)
     //  .setRange(0, 1)
     //  .setValue(1) // start value of slider
-    //  .setColorActive(act1) 
-    //  .setColorBackground(bac1) 
-    //  .setColorForeground(slider1) 
-    //  ;
-
-
-    ///////////////////////////////// FIFTH coloum of sliders
-    //cp5.addSlider("multiViz1")
-    //  .setPosition(x+clm+clm+clm+clm, y)
-    //  .setSize(wide, high)
-    //  .setFont(font)
-    //  .setRange(0, 1)
-    //  .setValue(0)    // start value of slider
-    //  .setColorActive(act) 
-    //  .setColorBackground(bac) 
-    //  .setColorForeground(slider) 
-    //  ;
-    //// extra slider f0r pulse
-    //cp5.addSlider("multiViz2")
-    //  .setPosition(x+clm+clm+clm+clm, y+row)
-    //  .setSize(wide, high)
-    //  .setFont(font)
-    //  .setRange(0, 1)
-    //  .setValue(0) // start value of slider
-    //  .setColorActive(act1) 
-    //  .setColorBackground(bac1) 
-    //  .setColorForeground(slider1) 
-    //  ;
-    //cp5.addSlider("multiViz3")
-    //  .setPosition(x+clm+clm+clm+clm, y+row*2)
-    //  .setSize(wide, high)
-    //  .setFont(font)
-    //  .setRange(0, 1)
-    //  .setValue(0) // start value of slider
-    //  .setColorActive(act) 
-    //  .setColorBackground(bac) 
-    //  .setColorForeground(slider) 
-    //  ;
-
-
-    /////////////////////// test sliders to change variables vertical 
-    //cp5.addSlider("speedSlider")
-    //  .setPosition(5, 130)
-    //  .setSize(high, wide)
-    //  .setFont(font)
-    //  .setRange(0, 1)
-    //  .setValue(0.5) // start value of slider
-    //  .setColorActive(act1) 
-    //  .setColorBackground(bac1) 
-    //  .setColorForeground(slider1) 
-    //  ;
-    //cp5.addSlider("tweakSlider")
-    //  .setPosition(5, 230)
-    //  .setSize(high, wide)
-    //  .setFont(font)
-    //  .setRange(0, 1)
-    //  .setValue(0.2) // start value of slider
-    //  .setColorActive(act) 
-    //  .setColorBackground(bac) 
-    //  .setColorForeground(slider) 
-    //  ;
-    //cp5.addSlider("testSlider3")
-    //  .setPosition(5, 530)
-    //  .setSize(high, wide)
-    //  .setFont(font)
-    //  .setRange(0, 1)
-    //  .setValue(0.5) // start value of slider
     //  .setColorActive(act1) 
     //  .setColorBackground(bac1) 
     //  .setColorForeground(slider1) 
