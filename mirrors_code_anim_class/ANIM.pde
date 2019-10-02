@@ -55,12 +55,17 @@ class Anim {
     blured.imageMode(CENTER);
     blured.noStroke();
     blured.endDraw();
+
+    trigger();
+    decay();
   }
   float stroke, wide, high;
   PVector viz;
   Float vizWidth, vizHeight;
 
   void drawAnim(PGraphics subwindow, float xpos, float ypos) {
+
+
     alphaFunction();
     PVector viz = new PVector(size.rig.x, size.rig.y);
     vizWidth = float(blured.width*2);
@@ -365,12 +370,14 @@ class Anim {
     beatAlpha=0.2;//this affects how quickly code adapts to tempo changes 0.2 averages
     // the last 10 onsets  0.02 would average the last 100
 
-    if (avgtime>0) {
-      for (int i = 0; i < animations.size(); i++) {
-        beat*=pow(beatSlider, (1/avgtime)); //  changes rate alpha fades out!!
-        if (beatCounter % animations.size() != i) beat*=pow(beatSlider/3, (1/avgtime));                               //  else if beat is 1,2 or 3 decay faster
-      }
-    } else beat*=0.95;
+    //if (avgtime>0) {
+    //  beat*=pow(beatSlider, (1/avgtime)); //  changes rate alpha fades out!!
+    //  for (int i = 0; i < animations.size(); i++) {
+    //    //if (beatCounter % animations.size() == i) 
+    //    if (beatCounter % animations.size() != i) beat*=pow(beatSlider/3, (1/avgtime));                               //  else if beat is 1,2 or 3 decay faster
+    //  }
+    //}  else
+    beat*=0.95;
     if (beat < 0.8) beat *= 0.98;
     beatFast *=0.9;                 
     beatSlow -=0.03;
@@ -383,13 +390,13 @@ class Anim {
     pulzFast = 1-beatFast;            
     pulzSlow = 1-beatSlow;
 
-    println(beat);
-    println(beatSlow);
-    println(beatFast);
-    println(pulz);
-    println(pulzSlow);
-    println(pulzFast);
-    println();
+    //println(beat);
+    //println(beatSlow);
+    //println(beatFast);
+    //println(pulz);
+    //println(pulzSlow);
+    //println(pulzFast);
+    //println();
   }
 
   /*

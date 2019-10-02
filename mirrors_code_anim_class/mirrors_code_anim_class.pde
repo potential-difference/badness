@@ -168,28 +168,20 @@ void draw()
     beatCounter = (beatCounter + 1 ) % 8;
     //anim.alphFX = 1-(anim.stutter*0.2);
   }
-  if (trigger) animations.add(0, new Anim());                             // create a new anim object and add it to the beginning of the arrayList
+  if (trigger) animations.add(new Anim());                             // create a new anim object and add it to the beginning of the arrayList
   blendMode(LIGHTEST);
-  for (int i = 0; i < animations.size(); i++) {                                  // loop  through the list 
+  for (int i = animations.size()-1; i >= 0 ; i--) {                                  // loop  through the list 
     Anim anim = animations.get(i);                                               // tell the arrayList that it is an array of anim objects
     if (beatCounter % animations.size() == i) anim.trigger();                    // trigger the function and alpha of the animation
-    anim.decay();
-
-    anim.drawAnim(anim.window, size.rigWidth/2, size.rigHeight/2);         // draw the animation (TODO figure out why the coordinates are wrong)
+    //anim.decay();
     if (animations.size() >= 8) animations.remove(i);                            // limit the array size to 8
   }
 
-
-
-  //for (int i = animations.size()-1; i >= 0; i--) {                     // loop backwards through the list so one can be removed
-  //  Anim anim = animations.get(i);                                     // tell the arrayList that it is an array of anim objects
-  //  if (beatCounter % animations.size() == i) anim.trigger(trigger);   // trigger the function and alpha of the animation
-  //  anim.drawAnim(anim.window, size.rigWidth/2+60, size.rigHeight/2+60);     // draw the animation (TODO figure out why the coordinates are wrong)
-  //  if (animations.size() >= 8) animations.remove(i);                  // limit the array size to 8
-  //}
-  //for (Anim anim : animations) println(anim.alph[0]);
   if (keyT['a']) for (Anim anim : animations)  anim.alphFX = 1-(anim.stutter*0.2);
   if (keyT['s']) for (Anim anim : animations)  anim.funcFX = 1-(anim.stutter*noize1*0.2);
+
+  for (Anim anim : animations)  anim.decay();
+  for (Anim anim : animations)  anim.drawAnim(anim.window, size.rigWidth/2, size.rigHeight/2);         // draw the animation (TODO figure out why the coordinates are wrong)
 
   //println(animations.size());
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
