@@ -22,10 +22,10 @@ void playWithMe() {
   //beatSlider = delaytime*delaylevel;
 
   for (int i = 0; i < 4; i ++) {
-    //alpha[i] = alph[rigAlphIndex][i]+((stutter*0.4*noize1)*cc[DELAYFEEDBACK]*cc[DELAYLEVEL]);
-    //alpha1[i] = alph[rigAlph1Index][i]+((stutter*0.4*noize1)*cc[DELAYFEEDBACK]*cc[DELAYLEVEL]);
-    alpha[i] = map(alph[rigAlphIndex][i]+((stutter*0.4*noize1)*delayfeedback*delaylevel), 0, 1.4, 0, 1);
-    alpha1[i] = map(alph[rigAlph1Index][i]+((stutter*0.4*noize1)*delayfeedback*delaylevel), 0, 1.4, 0, 1);
+    //alpha[i] = alph[rigAlphaIndexA][i]+((stutter*0.4*noize1)*cc[DELAYFEEDBACK]*cc[DELAYLEVEL]);
+    //alpha1[i] = alph[rigAlphaIndexB][i]+((stutter*0.4*noize1)*cc[DELAYFEEDBACK]*cc[DELAYLEVEL]);
+    alpha[i] = map(alph[rigAlphaIndexA][i]+((stutter*0.4*noize1)*delayfeedback*delaylevel), 0, 1.4, 0, 1);
+    alpha1[i] = map(alph[rigAlphaIndexB][i]+((stutter*0.4*noize1)*delayfeedback*delaylevel), 0, 1.4, 0, 1);
   }
 
   if (cc[105] >0) {

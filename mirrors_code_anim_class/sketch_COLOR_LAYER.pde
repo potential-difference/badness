@@ -1,3 +1,4 @@
+//class ColorLayer extends SketchColor {
 int rigBgr, roofBgr; 
 int bgList = 8;
 void colorLayer(PGraphics subwindow, int index) {
@@ -6,15 +7,15 @@ void colorLayer(PGraphics subwindow, int index) {
     color col1 = rig.c;
     color col2 = rig.flash;
     color col3 = rig.clash;
-    
+
     oneColourBG(0, col1);
-    mirrorGradientBG(1, col1,col2, 0.5);  
-    sideBySideBG(2, col2,col1);
-    checkSymmetricalBG(3, col1,col2);
-    cornersBG(4, col2,col1);
-    crossBG(5, col1,col2);
+    mirrorGradientBG(1, col1, col2, 0.5);  
+    sideBySideBG(2, col2, col1);
+    checkSymmetricalBG(3, col1, col2);
+    cornersBG(4, col2, col1);
+    crossBG(5, col1, col2);
     oneColourBG(6, col3);
-    sideBySideBG(7, col1,col2);
+    sideBySideBG(7, col1, col2);
 
     subwindow.beginDraw();
     subwindow.image(bg[index], subwindow.width/2, subwindow.height/2, subwindow.width, subwindow.height);
@@ -320,3 +321,4 @@ PGraphics everyOtherBG(int n, color col1, color col2) {
  return bg[n];
  }
  */
+//}

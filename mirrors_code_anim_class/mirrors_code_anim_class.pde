@@ -14,6 +14,9 @@ Toggle toggle = new Toggle();
 
 SketchColor rig = new SketchColor();
 SketchColor roof = new SketchColor();
+//ColorLayer colorLayer = new ColorLayer();
+
+//Animation animation;
 
 ArrayList <Anim> animations;
 //ArrayList <Visualisation> visualisations;

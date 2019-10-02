@@ -1,4 +1,4 @@
-int counter, rigAlphIndex, rigAlph1Index = 1, fctIndex, fct1Index = 1, swap;
+int counter, rigAlphaIndexA, rigAlphaIndexB = 1, fctIndexA, fctIndexB = 1, swap;
 int roofAlphIndex, roofAlph1Index = 1, roofFctIndex, roofFct1Index = 1;
 float alf, bt, bt1, dimmer, func, func1;
 float roofBt, roofBt1, roofFunc, roofFunc1;
@@ -24,23 +24,23 @@ void playWithYourself(float vizTm) {
   float divide = 4; ///////// NUMBER OF TIMES ALPHA CHANGES PER VIZ
   ///////////// ALPHA TIMER ///////////////////////////////////////////////////////////
   if (millis()/1000 - time[1] >= vizTm/divide) { ///// alpha timer changes 4 times every viz change /////
-    rigAlphIndex = int(random(alph.length));  //// select from alpha array
-    rigAlph1Index = int(random(alph.length)); //// select from alpha array
+    rigAlphaIndexA = int(random(alph.length));  //// select from alpha array
+    rigAlphaIndexB = int(random(alph.length)); //// select from alpha array
     roofAlphIndex = int(random(roofAlph.length));  //// select from alpha array
     roofAlph1Index = int(random(roofAlph.length)); //// select from alpha array
     alf = 0; ////// set  viz to 0 to fade up viz when alpha changes /////
-    println("alpha change @", (hour()+":"+minute()+":"+second()), "new af:", rigAlphIndex, "new af1:", rigAlph1Index);
+    println("alpha change @", (hour()+":"+minute()+":"+second()), "new af:", rigAlphaIndexA, "new af1:", rigAlphaIndexB);
     time[1] = millis()/1000;
   }
   divide = 6; //////////////// NUMBER OF TIMES FUNCTION CHANGES PER VIZ
   //////////// FUNCTION TIMER ////////////////////////////////////////////////////////
   if (millis()/1000 - time[2] >= vizTm/divide) {    ////// change function n times for every state change
-    fctIndex = int(random(fct.length));  //// select from function array
-    fct1Index = int(random(fct.length));  //// select from function array
+    fctIndexA = int(random(fct.length));  //// select from function array
+    fctIndexB = int(random(fct.length));  //// select from function array
     roofFctIndex = int(random(roofFct.length));  //// select from function array
     roofFct1Index = int(random(roofFct.length));  //// select from function array
     alf = 0; ////// set  viz to 0 to fade up viz when fucntion changes /////
-    println("function change @", (hour()+":"+minute()+":"+second()), "new fc:", fctIndex, "new fc1:", fct1Index);
+    println("function change @", (hour()+":"+minute()+":"+second()), "new fc:", fctIndexA, "new fc1:", fctIndexB);
     time[2] = millis()/1000;
   }
   ///////////////////////////////// FADE UP NEXT VIZ ////////////
@@ -53,24 +53,24 @@ void playWithYourself(float vizTm) {
   for (int i =0; i< beats.length; i++) {
     /////////////////////////////////////// SHIMMER control for rig ////////////////////////////
     if (beatCounter % 36 > 24) { 
-      alpha[i] = alph[rigAlphIndex][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
-      alpha1[i] = alph[rigAlph1Index][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
+      alpha[i] = alph[rigAlphaIndexA][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
+      alpha1[i] = alph[rigAlphaIndexB][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
 
       if (beatCounter%4 == i) {
-        bt = alph[rigAlphIndex][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
-        bt1 = alph[rigAlph1Index][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
+        bt = alph[rigAlphaIndexA][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
+        bt1 = alph[rigAlphaIndexB][i]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
    }   
     } else {
-      alpha[i] = alph[rigAlphIndex][i]/1;    //*(0.6+0.4*noize12)/1.5;  //// set alpha to selected alpha with bit of variation
-      alpha1[i] = alph[rigAlph1Index][i]/1;   //*(0.6+0.4*noize1)/1.5;  //// set alpha1 to selected alpha with bit of variation
+      alpha[i] = alph[rigAlphaIndexA][i]/1;    //*(0.6+0.4*noize12)/1.5;  //// set alpha to selected alpha with bit of variation
+      alpha1[i] = alph[rigAlphaIndexB][i]/1;   //*(0.6+0.4*noize1)/1.5;  //// set alpha1 to selected alpha with bit of variation
       if (beatCounter%4 == i) {
-        bt = alph[rigAlphIndex][i];
-        bt1 = alph[rigAlphIndex][i];
+        bt = alph[rigAlphaIndexA][i];
+        bt1 = alph[rigAlphaIndexA][i];
       }
       //////////////// bright flash every 6 beats - counters all code above /////////
       if (beatCounter%6 == 0) {
-        alpha[i]  = alph[rigAlphIndex][i];
-        alpha1[i]  = alph[rigAlph1Index][i];
+        alpha[i]  = alph[rigAlphaIndexA][i];
+        alpha1[i]  = alph[rigAlphaIndexB][i];
       }
     }
     if (size.roofWidth > 0) {
@@ -100,14 +100,14 @@ void playWithYourself(float vizTm) {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////// FUNCTIONS //////////////////////////////////////////////////////////////////////////
   for (int i =0; i< beats.length; i++) {
-    function[i] = fct[fctIndex][i];                                /// set func to selected function
-    function1[i] = fct[fct1Index][i];                              /// set func1 to selected function
+    function[i] = fct[fctIndexA][i];                                /// set func to selected function
+    function1[i] = fct[fctIndexB][i];                              /// set func1 to selected function
     //roof
     roofFunction[i] = roofFct[roofFctIndex][i];                    /// set func to selected function
     roofFunction1[i] = roofFct[roofFct1Index][i];                  /// set func1 to selected function
     if (beatCounter%4 == i) {
-      func = fct[fctIndex][i];
-      func1 = fct[fct1Index][i];
+      func = fct[fctIndexA][i];
+      func1 = fct[fctIndexB][i];
       // roof
       roofFunc = roofFct[roofFctIndex][i];
       roofFunc1 = roofFct[roofFct1Index][i];

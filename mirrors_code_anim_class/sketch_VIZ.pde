@@ -1,40 +1,4 @@
 class Visualisation extends Anim {
-  //PGraphics vis = new PGraphics();
-  //PGraphics pass1 = new PGraphics();
-  //PGraphics blured = new PGraphics();
-  //PShader blur;
-  //PGraphics src;
-  Visualisation() {
-/*
-    //////////////////////////////// RIG VIS GRAPHICS ///////////////////
-    vis = createGraphics(int(size.rigWidth*1.2), int(size.rigHeight*1.2), P2D);
-    vis.beginDraw();
-    vis.colorMode(HSB, 360, 100, 100);
-    vis.blendMode(NORMAL);
-    vis.ellipseMode(CENTER);
-    vis.rectMode(CENTER);
-    vis.imageMode(CENTER);
-    vis.noStroke();
-    vis.noFill();
-    vis.endDraw();
-    ///////////////////////////////////// LOAD GRAPHICS FOR SHADER LAYERS //////////////////////
-    blur = loadShader("blur.glsl");
-    blur.set("blurSize", 40);
-    blur.set("sigma", 30.0f);  
-    pass1 = createGraphics(int(size.rigWidth*0.6), int(size.rigHeight*0.6), P2D);
-    pass1.noSmooth();
-    pass1.imageMode(CENTER);
-    pass1.beginDraw();
-    pass1.noStroke();
-    pass1.endDraw();
-    blured = createGraphics(int(size.rigWidth*0.6), int(size.rigHeight*0.6), P2D);
-    blured.noSmooth();
-    blured.beginDraw();
-    blured.imageMode(CENTER);
-    blured.noStroke();
-    blured.endDraw();
-    */
-  }
 
   void blurPGraphics() {
     blur.set("horizontalPass", 0);
@@ -50,47 +14,19 @@ class Visualisation extends Anim {
     blured.image(pass1, blured.width/2, blured.height/2);
     blured.endDraw();
   }
-
-  /////////////////////////////////// DONUT ////////////////////////////////////
+  /////////////////////////////////// DONUT ///////////////////////////////////////////////////////////////////////////////////////
   PGraphics donut(color col, float stroke, float wide, float high, float alph) {
-    PGraphics subwindow = vis;
-    try {
-      subwindow.beginDraw();
-      subwindow.colorMode(HSB, 360, 100, 100);
-      subwindow.background(0);
-      subwindow.strokeWeight(-stroke);
-      subwindow.stroke(360*alph);
-      subwindow.pushMatrix();
-      subwindow.translate(subwindow.width/2, subwindow.height/2);
-      subwindow.ellipse(0, 0, wide, high);
-      subwindow.popMatrix();
-      subwindow.endDraw();
-      blurPGraphics();
-    } 
-    catch (AssertionError e) {
-      println(e);
-      println(rigViz, col, stroke, wide, high, func, alph);
-    }
-    return blured;
-  }
-
-
-
-  /////////////////////////////////// SQUARE NUT ////////////////////////////////////
-  PGraphics squareNut(color col, float stroke, float wide, float high, float alph) {
-    //
     try {
       vis.beginDraw();
       vis.colorMode(HSB, 360, 100, 100);
       vis.background(0);
       vis.strokeWeight(-stroke);
-      vis.stroke(360*alph);
+      vis.stroke(col,360*alph);
       vis.pushMatrix();
       vis.translate(vis.width/2, vis.height/2);
-      vis.rect(0, 0, wide, high);
+      vis.ellipse(0, 0, wide, high);
       vis.popMatrix();
       vis.endDraw();
-
       blurPGraphics();
     } 
     catch (AssertionError e) {
@@ -99,44 +35,76 @@ class Visualisation extends Anim {
     }
     return blured;
   }
+  /////////////////////////////////// SQUARE NUT /////////////////////////////////////////////////////////////////////////////////////////////////
+  PGraphics squareNut(color col, float stroke, float wide, float high, float alph) {
+    try {
+      vis.beginDraw();
+      vis.colorMode(HSB, 360, 100, 100);
+      vis.background(0);
+      vis.strokeWeight(-stroke);
+      vis.stroke(col,360*alph);
+      vis.pushMatrix();
+      vis.translate(vis.width/2, vis.height/2);
+      vis.rect(0, 0, wide, high);
+      vis.popMatrix();
+      vis.endDraw();
+      blurPGraphics();
+    } 
+    catch (AssertionError e) {
+      println(e);
+      println(rigViz, col, stroke, wide, high, func, alph);
+    }
+    return blured;
+  }
+  /////////////////////////////////////////// DONUT ROTATE //////////////////////////////////////////////////////////////////////////////////////////
+  PGraphics donutRotate(color col, float stroke, float sz, float sz1, float rot, float alph) {
+    try {
+      vis.beginDraw();
+      vis.colorMode(HSB, 360, 100, 100);
+      vis.background(0);
+      vis.strokeWeight(-stroke);
+      vis.stroke(col, 360*alph);
+      vis.pushMatrix();
+      vis.translate(vis.width/2, vis.height/2);
+      vis.rotate(radians(rot));
+      if (!toggle.rect)ellipse(0, 0, 2+(sz), 2+(sz1));
+      else vis.rect(0, 0, 2+(sz), 2+(sz1));
+      vis.popMatrix();
+      vis.endDraw();
+      blurPGraphics();
+    } 
+    catch (AssertionError e) {
+      println(e);
+      println(rigViz, col, stroke, sz, sz1, func, alph);
+    }
+    return blured;
+  }
+  //////////////////////////// STAR ////////////////////////////////////////////////////////////////////////////////////////////
+  PGraphics star(float wide, float high, float rotate, color col, float stroke, float alph) {
+    vis.beginDraw();
+    vis.background(0);
+    vis.pushMatrix();
+    vis.strokeWeight(-stroke);
+    vis.stroke(col, 360*alph);
+    vis.noFill();
+    vis.translate(vis.width/2, vis.height/2);
+    vis.rotate(radians(rotate));
+    if (!toggle.rect)vis.ellipse(0, 0, wide, high);
+    else vis.rect(0, 0, wide, high);
+    vis.rotate(radians(120));
+    if (!toggle.rect)vis.ellipse(0, 0, wide, high);
+    else vis.rect(0, 0, wide, high);
+    vis.rotate(radians(120));
+    if (!toggle.rect)vis.ellipse(0, 0, wide, high);
+    else vis.rect(0, 0, wide, high);
+    vis.popMatrix();
+    vis.noStroke();
+    vis.endDraw();
+    blurPGraphics();
+    return blured;
+  }
   /*
-   PGraphics donutRotate(int n, color col, float stroke, float sz, float sz1, float rot, float alph) {
-   //
-   try {
-   vis[n].beginDraw();
-   vis[n].colorMode(HSB, 360, 100, 100);
-   vis[n].background(0);
-   vis[n].strokeWeight(-stroke);
-   vis[n].stroke(col, 360*alph);
-   vis[n].pushMatrix();
-   vis[n].translate(vis[n].width/2, vis[n].height/2);
-   vis[n].rotate(radians(rot));
-   if (!toggle.rect)ellipse(0, 0, 2+(sz), 2+(sz1));
-   else vis[n].rect(0, 0, 2+(sz), 2+(sz1));
-   vis[n].popMatrix();
-   vis[n].endDraw();
-   
-   blur.set("horizontalPass", 0);
-   pass1[n].beginDraw();            
-   pass1[n].shader(blur); 
-   pass1[n].imageMode(CENTER);
-   pass1[n].image(vis[n], pass1[n].width/2, pass1[n].height/2);
-   pass1[n].endDraw();
-   blur.set("horizontalPass", 1);
-   blured[n].beginDraw();            
-   blured[n].shader(blur);  
-   blured[n].imageMode(CENTER);
-   blured[n].image(pass1[n], blured[n].width/2, blured[n].height/2);
-   blured[n].endDraw();
-   } 
-   catch (AssertionError e) {
-   println(e);
-   println(rigViz, col, stroke, sz, sz1, func, alph);
-   }
-   return blured[n];
-   }
-   
-   /////////////////////////////////// DONUT ////////////////////////////////////
+   /////////////////////////////////// SOLIDNUT ////////////////////////////////////
    PGraphics solidNut(int n, color col, float stroke, float sz, float sz1, float alph) {
    //
    try {
@@ -216,40 +184,7 @@ class Visualisation extends Anim {
    return vis[n];
    }
    
-   //////////////////////////// STAR ////////////////////////////////
-   PGraphics star(int n, float wide, float high, float rotate, color col, float stroke, float alph) {
-   vis[n].beginDraw();
-   vis[n].background(0);
-   vis[n].pushMatrix();
-   vis[n].strokeWeight(-stroke);
-   vis[n].stroke(360*alph);
-   vis[n].noFill();
-   vis[n].translate(vis[n].width/2, vis[n].height/2);
-   vis[n].rotate(radians(rotate));
-   if (!toggle.rect)vis[n].ellipse(0, 0, wide, high);
-   else vis[n].rect(0, 0, wide, high);
-   vis[n].rotate(radians(120));
-   if (!toggle.rect)vis[n].ellipse(0, 0, wide, high);
-   else vis[n].rect(0, 0, wide, high);
-   vis[n].rotate(radians(120));
-   if (!toggle.rect)vis[n].ellipse(0, 0, wide, high);
-   else vis[n].rect(0, 0, wide, high);
-   vis[n].popMatrix();
-   vis[n].noStroke();
-   vis[n].endDraw();
    
-   blur.set("horizontalPass", 0);
-   pass1[n].beginDraw();            
-   pass1[n].shader(blur);  
-   pass1[n].image(vis[n], pass1[n].width/2, pass1[n].height/2);
-   pass1[n].endDraw();
-   blur.set("horizontalPass", 1);
-   blured[n].beginDraw();            
-   blured[n].shader(blur);  
-   blured[n].image(pass1[n], blured[n].width/2, blured[n].height/2);
-   blured[n].endDraw();    
-   return blured[n];
-   }
    
    PGraphics rush(int n, color col, float wide, float high, float func, float alph) {
    float moveA;
