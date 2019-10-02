@@ -28,7 +28,8 @@ class SizeSettings {
     sizeX = rigWidth+roofWidth+infoWidth;
     sizeY = sliderHeight+rigHeight;
 
-   
+    surfacePositionX = 1000;
+    surfacePositionY = 200;
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////

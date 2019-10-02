@@ -52,51 +52,82 @@ class Anim {
     blured.imageMode(CENTER);
     blured.noStroke();
     blured.endDraw();
-  }
-  /*
-     ///////////////////////////// COLOR LAYER / BG GRAPHICS ////////////////////////////
-   for ( int n = 0; n<bg.length; n++) {
-   bg[n] = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
-   bg[n].beginDraw();
-   bg[n].colorMode(HSB, 360, 100, 100);
-   bg[n].ellipseMode(CENTER);
-   bg[n].rectMode(CENTER);
-   bg[n].imageMode(CENTER);
-   bg[n].noStroke();
-   bg[n].noFill();
-   bg[n].endDraw();
-   }
-   ////////////////////////////////  colour layer  ///////////////////
-   colourLayer = createGraphics(int(size.roofWidth), int(size.roofHeight), P2D);
-   colourLayer.beginDraw();
-   colourLayer.colorMode(HSB, 360, 100, 100);
-   colourLayer.imageMode(CENTER);
-   colourLayer.rectMode(CENTER);
-   colourLayer.endDraw();
-   */
 
+    /*
+     ///////////////////////////// COLOR LAYER / BG GRAPHICS ////////////////////////////
+     for ( int n = 0; n<bg.length; n++) {
+     bg[n] = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
+     bg[n].beginDraw();
+     bg[n].colorMode(HSB, 360, 100, 100);
+     bg[n].ellipseMode(CENTER);
+     bg[n].rectMode(CENTER);
+     bg[n].imageMode(CENTER);
+     bg[n].noStroke();
+     bg[n].noFill();
+     bg[n].endDraw();
+     }
+     ////////////////////////////////  colour layer  ///////////////////
+     colourLayer = createGraphics(int(size.roofWidth), int(size.roofHeight), P2D);
+     colourLayer.beginDraw();
+     colourLayer.colorMode(HSB, 360, 100, 100);
+     colourLayer.imageMode(CENTER);
+     colourLayer.rectMode(CENTER);
+     colourLayer.endDraw();
+     */
+  }
   float stroke, wide, high;
   PVector viz;
-  Float vizWidth, vizHeight;
+  Float vizWidth = float(blured.width*2), vizHeight = float(blured.height*2);
 
   void drawAnim(PGraphics subwindow, float xpos, float ypos) {
     alphaFunction();
     decay();
     PVector viz = new PVector(size.rig.x, size.rig.y);
-    stroke = 300-(200*noize);
-    wide = size.vizWidth+(50);
-    high = wide;
-
     alpha = alph[rigAlphIndex]*alphFX*dimmer;
     function = func[fctIndex]*funcFX;
 
-    squareNut(col1, stroke, wide-(wide*function), high-(high*function), alpha);
-    subwindow.beginDraw();
-    subwindow.background(0);
-    subwindow.image(blured, viz.x, viz.y, blured.width*2, blured.height*2);
-    subwindow.endDraw();
-    image(subwindow, xpos, ypos);
-   
+    switch (rigViz) {
+    case 0:
+      stroke = 100-(80*noize);
+      wide = size.vizWidth+(50);
+      high = wide;
+      alpha = alph[rigAlphIndex]*alphFX*dimmer;
+      function = func[fctIndex]*funcFX;
+      visual[0].squareNut(col1, stroke, wide-(wide*function), high-(high*function), alpha);
+      subwindow.beginDraw();
+      subwindow.background(0);
+      subwindow.blendMode(LIGHTEST);
+      subwindow.image(visual[0].blured, grid.mirrorX[1][1].x, grid.mirrorX[1][1].y, blured.width*2.5, blured.height*2.5);
+      subwindow.image(visual[0].blured, grid.mirrorX[3][2].x, grid.mirrorX[3][2].y, blured.width*2.5, blured.height*2.5);
+      subwindow.endDraw();
+      image(subwindow, xpos, ypos);
+      break;
+    case 1:
+
+      wide = size.vizWidth/2;
+      high = size.vizHeight*2;
+      alpha = alph[rigAlphIndex]*alphFX*dimmer;
+      function = func[fctIndex]*funcFX;
+      stroke = 20+(noize1*50*function);
+      visual[0].donut(col1, stroke, wide-(wide*function), high-(high*function), alpha);
+
+      wide = size.vizWidth*2;
+      high = size.vizHeight/2;
+      alpha = alph[rigAlph1Index]*alphFX*dimmer;
+      function = func[fct1Index]*funcFX;
+      stroke = 20+(noize1*50*function);
+      visual[1].donut(col1, stroke, wide-(wide*function), high-(high*function), alpha);
+
+      subwindow.beginDraw();
+      subwindow.background(0);
+      subwindow.blendMode(LIGHTEST);
+      subwindow.image(visual[0].blured, grid.mirror[4].x, grid.mirror[4].y, blured.width*3, blured.height*3);
+      subwindow.image(visual[1].blured, viz.x, viz.y, blured.width*2.5, blured.height*2.5);
+      subwindow.image(visual[0].blured, grid.mirror[7].x, grid.mirror[7].y, blured.width*3, blured.height*3);
+      subwindow.endDraw();
+      image(subwindow, xpos, ypos);
+      break;
+    }
   }
   /////////////////////////////////// FUNCTION AND ALPHA ARRAYS //////////////////////////////////////////////
   float alph[] = new float[7];
@@ -177,38 +208,44 @@ class Anim {
     if (pulzSlow > 1) pulzSlow = 1;
   }
 
+  /*
   /////////////////////////////////// SQUARE NUT ////////////////////////////////////
-  PGraphics squareNut(color col, float stroke, float wide, float high, float alph) {
-    //
-    try {
-      vis.beginDraw();
-      vis.colorMode(HSB, 360, 100, 100);
-      vis.background(0);
-      vis.strokeWeight(-stroke);
-      vis.stroke(360*alph);
-      vis.pushMatrix();
-      vis.translate(vis.width/2, vis.height/2);
-      vis.rect(0, 0, wide, high);
-      vis.popMatrix();
-      vis.endDraw();
-
-      blur.set("horizontalPass", 0);
-      pass1.beginDraw();            
-      pass1.shader(blur); 
-      pass1.imageMode(CENTER);
-      pass1.image(vis, pass1.width/2, pass1.height/2, pass1.width, pass1.height);
-      pass1.endDraw();
-      blur.set("horizontalPass", 1);
-      blured.beginDraw();            
-      blured.shader(blur);  
-      blured.imageMode(CENTER);
-      blured.image(pass1, blured.width/2, blured.height/2);
-      blured.endDraw();
-    } 
-    catch (AssertionError e) {
-      println(e);
-      println(rigViz, col, stroke, wide, high, func, alph);
-    }
-    return blured;
-  }
+   PGraphics squareNut(color col, float stroke, float wide, float high, float alph) {
+   //
+   try {
+   vis.beginDraw();
+   vis.colorMode(HSB, 360, 100, 100);
+   vis.background(0);
+   vis.strokeWeight(-stroke);
+   vis.stroke(360*alph);
+   vis.pushMatrix();
+   vis.translate(vis.width/2, vis.height/2);
+   vis.rect(0, 0, wide, high);
+   vis.popMatrix();
+   vis.endDraw();
+   
+   blurPGraphics();
+   } 
+   catch (AssertionError e) {
+   println(e);
+   println(rigViz, col, stroke, wide, high, func, alph);
+   }
+   return blured;
+   }
+   
+   void blurPGraphics() {
+   blur.set("horizontalPass", 0);
+   pass1.beginDraw();            
+   pass1.shader(blur); 
+   pass1.imageMode(CENTER);
+   pass1.image(vis, pass1.width/2, pass1.height/2, pass1.width, pass1.height);
+   pass1.endDraw();
+   blur.set("horizontalPass", 1);
+   blured.beginDraw();            
+   blured.shader(blur);  
+   blured.imageMode(CENTER);
+   blured.image(pass1, blured.width/2, blured.height/2);
+   blured.endDraw();
+   }
+   */
 }

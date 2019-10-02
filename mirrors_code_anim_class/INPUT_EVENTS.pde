@@ -166,9 +166,9 @@ int mirrorStep, gridStep;
 void keyPressed() {  
 
   /////////////////////////////// RIG KEY FUNCTIONS ////////////////////////
-  //if (key == 'n') rigViz = (rigViz+1)%rigVizList;        //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
+  if (key == 'n') rigViz = (rigViz+1)%rigVizList;        //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
   if (key == 'b') rigViz -=1;                            //// STEP BACK TO PREVIOUS RIG VIZ
-  //if (rigViz <0) rigViz = rigVizList-1;
+  if (rigViz <0) rigViz = rigVizList-1;
   if (key == 'm') rigBgr = (rigBgr+1)%7;                 //// CYCLE THROUGH RIG BACKGROUNDS
 
   /////////////////////////////// ROOF KEY FUNCTIONS ////////////////////////

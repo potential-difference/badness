@@ -16,7 +16,8 @@ SketchColor rig = new SketchColor();
 SketchColor roof = new SketchColor();
 
 ArrayList <Anim> animations;
-Visualisation visualisation = new Visualisation();
+//ArrayList <Visualisation> visualisations;
+Visualisation visual[] = new Visualisation[2];
 
 import javax.sound.midi.ShortMessage;       // shorthand names for each control on the TR8
 import oscP5.*;
@@ -31,16 +32,16 @@ MidiBus LPD8bus;      // midibus for LPD8
 int time[] = new int[12]; // array of timers to use throughout the sketch
 
 PFont myFont;
-boolean onTopToggle = true;
+boolean onTopToggle = false;
 
 void settings() {
   size(size.sizeX, size.sizeY, P2D);
-  size.surfacePositionX = 1000;
-  size.surfacePositionY = 200;
 }
 
 void setup()
 {
+  //size.surfacePositionX = 1000;
+  //size.surfacePositionY = 200;
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
 
   ///////////////// LOCAL opc /////////////////////
@@ -75,11 +76,15 @@ void setup()
   LPD8bus = new MidiBus(this, "LPD8", "LPD8"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
 
   /* start oscP5, listening for incoming messages at port 5000 to 5003 */
-  for (int i = 0; i < 4; i++) oscP5[i] = new OscP5(this, 5000+i);
+  for (int i = 0; i < oscP5.length; i++) oscP5[i] = new OscP5(this, 5000+i);
   oscAddrSetup();
 
   animations = new ArrayList<Anim>();
   animations.add(new Anim());
+  for (int i=0; i < visual.length; i++) visual[i] = new Visualisation();
+  //visualisation = new Visualisation[4];
+  //visualisations = new ArrayList<Visualisation>();
+  //visualisations.add(new Visualisation());
   //for (int i = 0; i < animations.size(); i++)
   //Anim anim = animations.get(i);
   //anim.setupAnim();
@@ -118,7 +123,6 @@ int roofViz, rigViz, colStepper = 1;
 void draw()
 {
   surface.setAlwaysOnTop(onTopToggle);
-  println(onTopToggle);
 
   background(0);
   //dimmer = bgDimmer;
@@ -160,7 +164,6 @@ void draw()
     //anim.alphFX = 1-(anim.stutter*0.2);
   }
   if (trigger) animations.add(0, new Anim());                             // create a new anim object and add it to the beginning of the arrayList
-
   blendMode(LIGHTEST);
   for (int i = 0; i < animations.size(); i++) {                                  // loop  through the list 
     Anim anim = animations.get(i);                                               // tell the arrayList that it is an array of anim objects

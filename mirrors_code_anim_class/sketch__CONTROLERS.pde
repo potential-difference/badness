@@ -211,11 +211,12 @@ class ControlFrame extends PApplet {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////// FITH coloum of sliders //////////////////////////////////
     x +=clm;
-    // create a toggle
-    cp5.addToggle("opTopToggle")
+    // create a toggle button
+    cp5.addToggle("onTopToggle")
       .plugTo(parent, "onTopToggle")
       .setPosition(width-100, y)
       .setSize(50, 50)
+      .setValue(onTopToggle) 
       .setColorActive(bac1) 
       .setColorBackground(bac) 
       .setColorForeground(slider) 
