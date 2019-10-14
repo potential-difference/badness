@@ -1,4 +1,4 @@
-class Anim {
+class Anim implements Animation {
   /////////////////////// LOAD GRAPHICS FOR VISULISATIONS AND COLOR LAYERS //////////////////////////////
   //ArrayList <PGraphics> vis = new ArrayList <PGraphics>(8);
   PGraphics window;
@@ -12,8 +12,9 @@ class Anim {
   int blury, prevblury;
   float alphMod=1, funcMod=1;
   float alpha, function, funcFX=1, alphFX=1, dimmer=1;
-  Anim() {
 
+
+  Anim() {
     window = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
     window.beginDraw();
     window.colorMode(HSB, 360, 100, 100);
@@ -24,7 +25,6 @@ class Anim {
     window.noStroke();
     window.noFill();
     window.endDraw();
-
     //////////////////////////////// RIG VIS GRAPHICS ///////////////////
     vis = createGraphics(int(size.rigWidth*1.2), int(size.rigHeight*1.2), P2D);
     vis.beginDraw();
@@ -52,29 +52,10 @@ class Anim {
     blured.imageMode(CENTER);
     blured.noStroke();
     blured.endDraw();
-  }
-  /*
-     ///////////////////////////// COLOR LAYER / BG GRAPHICS ////////////////////////////
-   for ( int n = 0; n<bg.length; n++) {
-   bg[n] = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
-   bg[n].beginDraw();
-   bg[n].colorMode(HSB, 360, 100, 100);
-   bg[n].ellipseMode(CENTER);
-   bg[n].rectMode(CENTER);
-   bg[n].imageMode(CENTER);
-   bg[n].noStroke();
-   bg[n].noFill();
-   bg[n].endDraw();
-   }
-   ////////////////////////////////  colour layer  ///////////////////
-   colourLayer = createGraphics(int(size.roofWidth), int(size.roofHeight), P2D);
-   colourLayer.beginDraw();
-   colourLayer.colorMode(HSB, 360, 100, 100);
-   colourLayer.imageMode(CENTER);
-   colourLayer.rectMode(CENTER);
-   colourLayer.endDraw();
-   */
 
+    //trigger();
+    //decay();
+  }
   float stroke, wide, high;
   PVector viz;
   Float vizWidth, vizHeight;
@@ -93,11 +74,11 @@ class Anim {
       high = wide;
       alpha = alph[rigAlphIndex]*alphFX*dimmer;
       function = func[fctIndex]*funcFX;
-      squareNut(col1, stroke, wide-(wide*function), high-(high*function), alpha);
+      visual[0].squareNut(col1, stroke, wide-(wide*function), high-(high*function), alpha);
       subwindow.beginDraw();
       subwindow.background(0);
       subwindow.blendMode(LIGHTEST);
-      subwindow.image(blured, viz.x,viz.y, blured.width*2.5, blured.height*2.5);
+      subwindow.image(blured, viz.x, viz.y, blured.width*2.5, blured.height*2.5);
       //subwindow.image(blured, grid.mirrorX[3][2].x, grid.mirrorX[3][2].y, blured.width*2.5, blured.height*2.5);
       subwindow.endDraw();
       image(subwindow, xpos, ypos);
@@ -193,31 +174,32 @@ class Anim {
     if (beatSlow < 0.4+(noize1*0.2)) beatSlow = 0.4+(noize1*0.2);
     if (pulzSlow > 1) pulzSlow = 1;
   }
-
-  /////////////////////////////////// SQUARE NUT ////////////////////////////////////
-  PGraphics squareNut(color col, float stroke, float wide, float high, float alph) {
-    try {
-      vis.beginDraw();
-      vis.colorMode(HSB, 360, 100, 100);
-      vis.background(0);
-      vis.strokeWeight(-stroke);
-      vis.stroke(col, 360*alph);
-      vis.pushMatrix();
-      vis.translate(vis.width/2, vis.height/2);
-      vis.rect(0, 0, wide, high);
-      vis.popMatrix();
-      vis.endDraw();
-      
-      blurPGraphics();
-    } 
-    catch (AssertionError e) {
-      println(e);
-      println(rigViz, col, stroke, wide, high, func, alph);
-    }
-    return blured;
-  }
+  
   /*
-  PGraphics star(float wide, float high, float rotate, color col, float stroke, float alph) {
+  /////////////////////////////////// SQUARE NUT ////////////////////////////////////
+   PGraphics squareNut(color col, float stroke, float wide, float high, float alph) {
+   try {
+   vis.beginDraw();
+   vis.colorMode(HSB, 360, 100, 100);
+   vis.background(0);
+   vis.strokeWeight(-stroke);
+   vis.stroke(col, 360*alph);
+   vis.pushMatrix();
+   vis.translate(vis.width/2, vis.height/2);
+   vis.rect(0, 0, wide, high);
+   vis.popMatrix();
+   vis.endDraw();
+   
+   blurPGraphics();
+   } 
+   catch (AssertionError e) {
+   println(e);
+   println(rigViz, col, stroke, wide, high, func, alph);
+   }
+   return blured;
+   }
+   
+   PGraphics star(float wide, float high, float rotate, color col, float stroke, float alph) {
    vis.beginDraw();
    vis.background(0);
    vis.pushMatrix();

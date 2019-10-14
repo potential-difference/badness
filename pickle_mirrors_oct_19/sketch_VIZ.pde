@@ -35,10 +35,10 @@ class Visualisation {
   }
 
   /////////////////////////////////// SQUARE NUT ////////////////////////////////////
-  PGraphics squareNut(int n, color col, float stroke, float wide, float high, float alph) {
+  PGraphics squareNut(color col, float stroke, float wide, float high, float alph) {
     //
     try {
-      vis[n].beginDraw();
+      vis.beginDraw();
       vis[n].colorMode(HSB, 360, 100, 100);
       vis[n].background(0);
       vis[n].strokeWeight(-stroke);
