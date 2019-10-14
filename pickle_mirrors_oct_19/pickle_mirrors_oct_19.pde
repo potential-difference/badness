@@ -83,6 +83,7 @@ void setup()
 
   animations = new ArrayList<Anim>();
   animations.add(new Anim());
+  for (int i=0; i < visual.length; i++) visual[i] = new Visualisation();
   //for (int i = 0; i < animations.size(); i++)
   //Anim anim = animations.get(i);
   //anim.setupAnim();

@@ -62,10 +62,14 @@ class Anim implements Animation {
 
   void drawAnim(PGraphics subwindow, float xpos, float ypos) {
     alphaFunction();
-    decay();
+    //decay();
     PVector viz = new PVector(size.rig.x, size.rig.y);
     alpha = alph[rigAlphIndex]*alphFX*dimmer;
     function = func[fctIndex]*funcFX;
+    col1 = color(white);
+    col2 = color(white);
+    vizWidth = float(blured.width*2);
+    vizHeight = float(blured.height*2);
 
     switch (rigViz) {
     case 0:
@@ -78,11 +82,10 @@ class Anim implements Animation {
       subwindow.beginDraw();
       subwindow.background(0);
       subwindow.blendMode(LIGHTEST);
-      subwindow.image(blured, viz.x, viz.y, blured.width*2.5, blured.height*2.5);
-      //subwindow.image(blured, grid.mirrorX[3][2].x, grid.mirrorX[3][2].y, blured.width*2.5, blured.height*2.5);
+      subwindow.image(visual[0].blured, viz.x, viz.y, blured.width*2.5, blured.height*2.5);
+      //subwindow.image(visual[0].blured, grid.mirrorX[3][2].x, grid.mirrorX[3][2].y, blured.width*2.5, blured.height*2.5);
       subwindow.endDraw();
       image(subwindow, xpos, ypos);
-      println("DRAW", "ALPHA "+alpha);
       break;
     case 1:
       //stroke = 20;
@@ -174,7 +177,7 @@ class Anim implements Animation {
     if (beatSlow < 0.4+(noize1*0.2)) beatSlow = 0.4+(noize1*0.2);
     if (pulzSlow > 1) pulzSlow = 1;
   }
-  
+
   /*
   /////////////////////////////////// SQUARE NUT ////////////////////////////////////
    PGraphics squareNut(color col, float stroke, float wide, float high, float alph) {
