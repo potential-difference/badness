@@ -75,8 +75,9 @@ class Anim implements Animation {
       window.background(0);
       stroke = 60+(120*functionB*oskP);
       wide = size.vizWidth+(0);
+      wide = wide-(wide*functionB);
       high = wide;
-      donut(viz.x, viz.y, col1, stroke, wide-(wide*functionB), high-(high*functionB), alphaA);
+      if (wide > 120) donut(viz.x, viz.y, col1, stroke, wide, high, alphaA);
       window.endDraw();
       break;
     case 1:
@@ -85,28 +86,28 @@ class Anim implements Animation {
       stroke = 20+(400*tweakSlider); 
       if (beatCounter % 9 <3) { 
         for (int i = 0; i < grid.columns; i+=2) {
-          float reSize = (size.vizWidth*2)-(size.vizWidth/10);
-          wide = 50+(reSize-(reSize*functionA)); 
+          wide = (size.vizWidth*2)-(size.vizWidth/10);
+          wide = 50+(wide-(wide*functionA)); 
           high = wide;
           donut(grid.mirror[i].x, grid.mirror[i].y, col1, stroke, wide, high, alphaA);
           donut(grid.mirror[i+1 % grid.columns+6].x, grid.mirror[i+1 % grid.columns+6].y, col1, stroke, wide, high, alphaA);
 
-          reSize = (size.vizWidth/4)-(size.vizWidth/10);
-          wide = 10+(reSize-(reSize*functionB)); 
+          wide = (size.vizWidth/4)-(size.vizWidth/10);
+          wide = 10+(wide-(wide*functionB)); 
           high = wide;
           donut(grid.mirror[i+1 % grid.columns].x, grid.mirror[i+1 % grid.columns].y, col1, stroke, wide, high, alphaB);
           donut(grid.mirror[i+6].x, grid.mirror[i+6].y, col1, stroke, wide, high, alphaB);
         }
       } else { // opposite way around
         for (int i = 0; i < grid.columns; i+=2) {
-          float reSize = (size.vizWidth*2)-(size.vizWidth/10);
-          wide = 50+(reSize-(reSize*functionA)); 
+          wide  = (size.vizWidth*2)-(size.vizWidth/10);
+          wide = 50+(wide-(wide*functionA)); 
           high = wide;
           donut(grid.mirror[i+1 % grid.columns].x, grid.mirror[i+1 % grid.columns].y, col1, stroke, wide, high, alphaB);
           donut(grid.mirror[i+6].x, grid.mirror[i+6].y, col1, stroke, wide, high, alphaB);
 
-          reSize = (size.vizWidth/4)-(size.vizWidth/10);
-          wide = 10+(reSize-(reSize*functionB)); 
+          wide = (size.vizWidth/4)-(size.vizWidth/10);
+          wide = 10+(wide-(wide*functionB)); 
           high = wide;
           donut(grid.mirror[i].x, grid.mirror[i].y, col1, stroke, wide, high, alphaA);
           donut(grid.mirror[i+1 % grid.columns+6].x, grid.mirror[i+1 % grid.columns+6].y, col1, stroke, wide, high, alphaA);
