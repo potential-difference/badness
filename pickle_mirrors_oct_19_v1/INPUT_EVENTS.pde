@@ -178,21 +178,21 @@ void keyPressed() {
   if (key == 'j') roofBgr = (roofBgr+1)%7;               //// CYCLE THROUGH ROOF BACKGROUNDS
 
   if (key == ',') {                                      //// CYCLE THROUGH RIG FUNCS
-    fctIndex = (fctIndex+1)%fct.length; 
-    fct1Index = (fct1Index+1)%fct.length;
+    fctIndex = (fctIndex+1)%8; //animations.func.length; 
+    fct1Index = (fct1Index+1)%8; //fct.length;
   }  
   if (key == '.') {                                      //// CYCLE THROUGH RIG ALPHAS
-    rigAlphIndex = (rigAlphIndex+1)%alph.length; 
-    rigAlph1Index = (rigAlph1Index+1)%alph.length;
+    rigAlphIndex = (rigAlphIndex+1)% 7; //alph.length; 
+    rigAlph1Index = (rigAlph1Index+1)% 7; //alph.length;
   }   
-  if (key == 'k') {                                      //// CYCLE THROUGH ROOF FUNCS
-    roofFctIndex = (roofFctIndex+1)%fct.length; 
-    roofFct1Index = (roofFct1Index+1)%fct.length;
-  }  
-  if (key == 'l') {                                      //// CYCLE THROUGH ROOF ALPHAS
-    roofAlphIndex = (roofAlphIndex+1)%alph.length; 
-    roofAlph1Index = (roofAlph1Index+1)%alph.length;
-  }   
+  //if (key == 'k') {                                      //// CYCLE THROUGH ROOF FUNCS
+  //  roofFctIndex = (roofFctIndex+1)%fct.length; 
+  //  roofFct1Index = (roofFct1Index+1)%fct.length;
+  //}  
+  //if (key == 'l') {                                      //// CYCLE THROUGH ROOF ALPHAS
+  //  roofAlphIndex = (roofAlphIndex+1)%alph.length; 
+  //  roofAlph1Index = (roofAlph1Index+1)%alph.length;
+  //}   
   if (key == 'c') rig.colorA = (rig.colorA+1)%rig.col.length;         //// CYCLE FORWARD THROUGH RIG COLORS
   if (key == 'v') rig.colorB = (rig.colorB+1)%rig.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
   if (key == 'x') colorselected = (colorselected + 1) % 5;

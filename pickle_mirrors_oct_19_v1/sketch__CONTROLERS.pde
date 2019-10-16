@@ -2,7 +2,7 @@ import controlP5.*;
 ControlFrame controlFrame;
 float vizTimeSlider, colorSwapSlider, colorTimerSlider, cansDimmer, boothDimmer, digDimmer, roofPulse, backParsSlider, backDropSlider, cansSlider, movesSlider;
 float cansPulse, cans1Pulse, cans2Pluse, cans3Pulse, speedSlider, tweakSlider, testSlider3, blurSlider, rigDimmer, multiViz1, multiViz2, multiViz3;
-float shimmerSlider, beatSlider, boothParSlider, backParSlider, secondVizSlider, roofDimmer, seedsDimmer, seed2Dimmer, uvDimmer, controllerDimmer, funcSlider;
+float shimmerSlider, alphaSlider, boothParSlider, backParSlider, secondVizSlider, roofDimmer, seedsDimmer, seed2Dimmer, uvDimmer, controllerDimmer, funcSlider;
 
 class ControlFrame extends PApplet {
   int controlW, controlH;
@@ -77,8 +77,8 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
-    cp5.addSlider("beatSlider")
-      .plugTo(parent, "beatSlider")
+    cp5.addSlider("alphaSlider")
+      .plugTo(parent, "alphaSlider")
       .setPosition(x, y+row*3)
       .setSize(wide, high)
       //.setFont(font)

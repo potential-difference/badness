@@ -51,7 +51,6 @@ class Visualisation {
   }
   /////////////////////////////////// DONUT ///////////////////////////////////////////////////////////////////////////////////////
   PGraphics donut(color col, float stroke, float wide, float high, float alph) {
-    try {
       vis.beginDraw();
       vis.colorMode(HSB, 360, 100, 100);
       vis.background(0);
@@ -63,11 +62,7 @@ class Visualisation {
       vis.popMatrix();
       vis.endDraw();
       blurPGraphics();
-    } 
-    catch (AssertionError e) {
-      println(e);
-      println(rigViz, col, stroke, wide, high, func, alph);
-    }
+   
     return blured;
   }
   ///////////////////////////////////// SQUARE NUT /////////////////////////////////////////////////////////////////////////////////////////////////

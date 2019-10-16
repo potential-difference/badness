@@ -1,25 +1,22 @@
 class Anim implements Animation {
   /////////////////////// LOAD GRAPHICS FOR VISULISATIONS AND COLOR LAYERS //////////////////////////////
-  PGraphics window;
-  int blury, prevblury;
-  float alphMod=1, funcMod=1;
-  float funcFX=1, alphFX=1, dimmer=1;
+  PGraphics window, pass1, blured;
+  int blury, prevblury, vizIndex;
+  float alphMod=1, funcMod=1, funcFX=1, alphFX=1;
   float xpos, ypos;
-  PGraphics vis = new PGraphics();
-  PGraphics bg[] = new PGraphics[bgList];
-  PGraphics colourLayer;
-  PGraphics pass1 = new PGraphics();
-  PGraphics blured = new PGraphics();
   PShader blur;
-  PGraphics src;
-  int vizIndex;
+  color col1, col2;
 
   float alph[] = new float[7];
   float func[] = new float[8];
-  float sineFast, sineSlow, sine, d, e, stutter;
-  float timer[] = new float[6];
 
   Anim(float _xpos, float _ypos, int _vizIndex) {
+    //// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
+    blury = int(map(blurSlider, 0, 1, 0, 100));
+    if (blury!=prevblury) {
+      prevblury=blury;
+    }
+
     window = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
     window.beginDraw();
     window.colorMode(HSB, 360, 100, 100);
@@ -32,8 +29,8 @@ class Anim implements Animation {
     window.endDraw();
     ///////////////////////////////////// LOAD GRAPHICS FOR SHADER LAYERS //////////////////////
     blur = loadShader("blur.glsl");
-    blur.set("blurSize", 30);
-    blur.set("sigma", 30.0f);  
+    blur.set("blurSize", blury);
+    blur.set("sigma", 10.0f);  
     pass1 = createGraphics(int(window.width/2), int(window.height/2), P2D);
     pass1.noSmooth();
     pass1.imageMode(CENTER);
@@ -58,50 +55,69 @@ class Anim implements Animation {
   Float vizWidth, vizHeight;
 
   void drawAnim() {
-    alphaFunction();
     decay();
-    PVector viz = new PVector(size.rig.x, size.rig.y);
+    alphaFunction();
 
+    PVector viz = new PVector(size.rig.x, size.rig.y);
     col1 = white;
     col2 = white;
-    vizWidth = float(visual[0].blured.width*2);
+    vizWidth = float(blured.width*2);
     vizHeight = float(blured.height*2);
 
-    float alphaA = this.alph[rigAlphIndex]*alphFX;
+    float alphaA = alph[rigAlphIndex]*alphFX*dimmer;
     float functionA = func[fctIndex]*funcFX;
-    float alphaB = this.alph[rigAlph1Index]*alphFX;
+    float alphaB = alph[rigAlph1Index]*alphFX*dimmer;
     float functionB = func[fct1Index]*funcFX;
-
 
     switch (vizIndex) {
     case 0:
       window.beginDraw();
       window.background(0);
-
-      stroke = 120;
+      stroke = 60+(120*functionB*oskP);
       wide = size.vizWidth+(0);
       high = wide;
       donut(viz.x, viz.y, col1, stroke, wide-(wide*functionB), high-(high*functionB), alphaA);
-
-      println(alphaA);
-
       window.endDraw();
       break;
     case 1:
       window.beginDraw();
       window.background(0);
-      
-      stroke = 300;
-      high = size.vizWidth+(0);
-      wide = high/2;
-      squareNut(viz.x, viz.y, col1, stroke, wide-(wide*functionB), high-(high*functionB), alphaA);
+      stroke = 20+(400*tweakSlider); 
+      if (beatCounter % 9 <3) { 
+        for (int i = 0; i < grid.columns; i+=2) {
+          float reSize = (size.vizWidth*2)-(size.vizWidth/10);
+          wide = 50+(reSize-(reSize*functionA)); 
+          high = wide;
+          donut(grid.mirror[i].x, grid.mirror[i].y, col1, stroke, wide, high, alphaA);
+          donut(grid.mirror[i+1 % grid.columns+6].x, grid.mirror[i+1 % grid.columns+6].y, col1, stroke, wide, high, alphaA);
 
+          reSize = (size.vizWidth/4)-(size.vizWidth/10);
+          wide = 10+(reSize-(reSize*functionB)); 
+          high = wide;
+          donut(grid.mirror[i+1 % grid.columns].x, grid.mirror[i+1 % grid.columns].y, col1, stroke, wide, high, alphaB);
+          donut(grid.mirror[i+6].x, grid.mirror[i+6].y, col1, stroke, wide, high, alphaB);
+        }
+      } else { // opposite way around
+        for (int i = 0; i < grid.columns; i+=2) {
+          float reSize = (size.vizWidth*2)-(size.vizWidth/10);
+          wide = 50+(reSize-(reSize*functionA)); 
+          high = wide;
+          donut(grid.mirror[i+1 % grid.columns].x, grid.mirror[i+1 % grid.columns].y, col1, stroke, wide, high, alphaB);
+          donut(grid.mirror[i+6].x, grid.mirror[i+6].y, col1, stroke, wide, high, alphaB);
+
+          reSize = (size.vizWidth/4)-(size.vizWidth/10);
+          wide = 10+(reSize-(reSize*functionB)); 
+          high = wide;
+          donut(grid.mirror[i].x, grid.mirror[i].y, col1, stroke, wide, high, alphaA);
+          donut(grid.mirror[i+1 % grid.columns+6].x, grid.mirror[i+1 % grid.columns+6].y, col1, stroke, wide, high, alphaA);
+        }
+      }
       window.endDraw();
       break;
     }
     blurPGraphics();
   }
-
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////// SQUARE NUT /////////////////////////////////////////////////////////////////////////////////////////////////
   void squareNut(float xpos, float ypos, color col, float stroke, float wide, float high, float alph) {
     window.strokeWeight(-stroke);
@@ -120,7 +136,8 @@ class Anim implements Animation {
     window.ellipse(0, 0, wide, high);
     window.popMatrix();
   }
-
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////
   void blurPGraphics() {
     blur.set("horizontalPass", 0);
     pass1.beginDraw();            
@@ -139,62 +156,64 @@ class Anim implements Animation {
 
   /////////////////////////////////// FUNCTION AND ALPHA ARRAYS //////////////////////////////////////////////
   void alphaFunction() {
-    float tm = 0.05+(noize/50);
-    timer[2] += beatSlider;            
-    for (int i = 0; i<timer.length; i++) timer[i] += tm;
-    timer[3] += (0.3*5);
-    sine = map(sin(timer[0]), -1, 1, 0, 1);            //// 0-1-1-0 standard sine wave
-    sineFast = map(sin(timer[5]), -1, 1, 0, 1);            //// 0-1-1-0 standard sine wave
-    sineSlow = map(sin(timer[1]/4), -1, 1, 0, 1);         //// 0-1-1-0 slow sine wave
-    if (cc[102] > 0) stutter = map(sin(timer[4]*cc[2]*8), -1, 1, 0, 1);        //// 0-1-1-0 fast jitter sine wave
-    else stutter = map(sin(timer[4]*50), -1, 1, 0, 1);        //// 0-1-1-0 fast jitter sine wave
     //// array of functions
-    func[0] = pulz;         
-    func[1] = beat;        
-    func[2] = pulzSlow; 
-    func[3] = (beatSlow*0.99)+(0.01*stutter);
-    func[4] = (0.99*pulz)+(stutter*pulz*0.01);       
-    func[5] = (0.99*beatSlow)+(stutter*pulz*0.01);
-    func[6] = pulzSlow;
-    func[7] = beatSlow;
+    func[0] = 1-function;         
+    func[1] = function;        
+    func[2] = 1-functionSlow; 
+    func[3] = (functionSlow*0.99)+(0.01*stutter);
+    func[4] = (0.99*1-function)+(stutter*(1-function)*0.01);       
+    func[5] = (0.99*functionSlow)+(stutter*(1-function)*0.01);
+    func[6] = 1-functionSlow;
+    func[7] = functionSlow;
     //// array of alphas
-    this.alph[0] = beat;
-    this.alph[1] = pulz;
-    alph[2] = beat+(0.05*stutter);
-    alph[3] =(0.98*beat)+(stutter*pulz*0.02);
-    alph[4] = (0.98*pulz)+(beat*0.02*stutter);
-    alph[5] = beatFast;
-    alph[6] = pulzSlow;
+    alph[0] = alpha;
+    alph[1] = 1-alpha;
+    alph[2] = alpha+(0.05*stutter);
+    alph[3] = (0.98*alpha)+(stutter*(1-alpha)*0.02);
+    alph[4] = (0.98*(1-alpha))+(alpha*0.02*stutter);
+    alph[5] = alphaFast;
+    alph[6] = 1-alphaSlow;
 
     for (int i = 0; i < alph.length; i++) alph[i] *=alphMod;
     for (int i = 0; i < func.length; i++) func[i] *=funcMod;
   }
-  //////////////////////////////////// BEATS //////////////////////////////////////////////
-  float beat, beatSlow, pulz, pulzSlow, pulzFast, beatFast;
-  long beatTimer;
+  //////////////////////////////////// TRIGGER //////////////////////////////////////////////
+  float alpha, alphaFast, alphaSlow;
+  float function, functionFast, functionSlow;
   void trigger() {
-    beat = 1;
-    beatFast = 1;
-    beatSlow = 1;
+    alpha = 1;
+    alphaFast = 1;
+    alphaSlow = 1;
+
+    function = 1;
+    functionFast = 1;
+    functionSlow = 1;
   }
-  void decay() {             ////// BEAT DETECT THROUGHOUT SKETCH ///////
-    //beatTimer++;
-    //beatAlpha=0.2;//this affects how quickly code adapts to tempo changes 0.2 averages
-    //// the last 10 onsets  0.02 would average the last 100
-    //if (avgtime>0) beat*=pow(beatSlider, (1/avgtime)); //  changes rate alpha fades out!!
-    //else 
-    beat*=0.95;
-    if (beat < 0.8) beat *= 0.9;
-    pulz = 1-beat;                     /// p is opposite of b
-    beatFast *=0.7;                 
-    pulzFast = 1-pulzFast;            /// bF is oppiste of pF
-    beatSlow -= 0.05;
-    pulzSlow = 1-beatSlow;
+  //////////////////////////////////////// DECAY ////////////////////////////////////////////////
+  void decay() {            
+    if (avgtime>0) {
+      alpha*=pow(alphaSlider, (1/avgtime));       //  changes rate alpha fades out!!
+      function*=pow(funcSlider, (1/avgtime));     //  changes rate alpha fades out!!
+    } else {
+      alpha*=0.95;
+      function*=0.95;
+    }
+    if (alpha < 0.8) alpha *= 0.9;
+    if (function < 0.8) function *= 0.9;
+
+    alphaFast *=0.7;                 
+    alphaSlow -= 0.05;
+
+    functionFast *=0.7;                 
+    functionSlow -= 0.05;
+
     float end = 0.001;
-    if (beat < end) beat = end;
-    if (pulzFast > 1) pulzFast = 1;
-    if (beatFast < end) beatFast = end;
-    if (beatSlow < 0.4+(noize1*0.2)) beatSlow = 0.4+(noize1*0.2);
-    if (pulzSlow > 1) pulzSlow = 1;
+    if (alpha < end) alpha = end;
+    if (alphaFast < end) alphaFast = end;
+    if (alphaSlow < 0.4+(noize1*0.2)) alphaSlow = 0.4+(noize1*0.2);
+
+    if (function < end) function = end;
+    if (functionFast < end) functionFast = end;
+    if (functionSlow < 0.4+(noize1*0.2)) functionSlow = 0.4+(noize1*0.2);
   }
 }

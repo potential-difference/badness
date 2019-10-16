@@ -18,23 +18,23 @@ void playWithMe() {
   delayfeedback = map(OscAddrMap.get("/throttle_box/trackball_y"), 0, 127, 0, 1);
   delaylevel = map(OscAddrMap.get("/throttle_box/knob_1"), 0, 127, 0, 1);
   //if (cc[DELAYLEVEL] > 0) {
-  //beatSlider = map(cc[DELAYTIME], 0, 1, 0.1, 0.96)*cc[DELAYLEVEL];
-  //beatSlider = delaytime*delaylevel;
+  //alphaSlider = map(cc[DELAYTIME], 0, 1, 0.1, 0.96)*cc[DELAYLEVEL];
+  //alphaSlider = delaytime*delaylevel;
 
-//  for (int i = 0; i < 4; i ++) {
-//    //alpha[i] = alph[rigAlphIndex][i]+((stutter*0.4*noize1)*cc[DELAYFEEDBACK]*cc[DELAYLEVEL]);
-//    //alpha1[i] = alph[rigAlph1Index][i]+((stutter*0.4*noize1)*cc[DELAYFEEDBACK]*cc[DELAYLEVEL]);
-//    alpha[i] = map(alph[rigAlphIndex][i]+((stutter*0.4*noize1)*delayfeedback*delaylevel), 0, 1.4, 0, 1);
-//    alpha1[i] = map(alph[rigAlph1Index][i]+((stutter*0.4*noize1)*delayfeedback*delaylevel), 0, 1.4, 0, 1);
-//  }
+  //  for (int i = 0; i < 4; i ++) {
+  //    //alpha[i] = alph[rigAlphIndex][i]+((stutter*0.4*noize1)*cc[DELAYFEEDBACK]*cc[DELAYLEVEL]);
+  //    //alpha1[i] = alph[rigAlph1Index][i]+((stutter*0.4*noize1)*cc[DELAYFEEDBACK]*cc[DELAYLEVEL]);
+  //    alpha[i] = map(alph[rigAlphIndex][i]+((stutter*0.4*noize1)*delayfeedback*delaylevel), 0, 1.4, 0, 1);
+  //    alpha1[i] = map(alph[rigAlph1Index][i]+((stutter*0.4*noize1)*delayfeedback*delaylevel), 0, 1.4, 0, 1);
+  //  }
 
-  if (cc[105] >0) {
-    for (int i = 0; i < 4; i ++) {
-      function[i] = stutter;
-      function1[i] = stutter;
-      func = stutter;
-    }
-  }
+  //if (cc[105] >0) {
+  //  for (int i = 0; i < 4; i ++) {
+  //    function[i] = stutter;
+  //    function1[i] = stutter;
+  //    func = stutter;
+  //  }
+  //}
   //}
   ////////////////////////////////////// COLOR SWAP AND FLIP BUTTONS /////////////////////////////////////////
   if (keyP['\\'] || cc[101] > 0 ) rig.colorSwap(0.9999999999);                // COLOR SWAP MOMENTARY 
@@ -43,8 +43,8 @@ void playWithMe() {
   if (keyP[';']) rig.colFlip = !rig.colFlip;                   // COLOR FLIP MOMENTARY
   rig.colorFlip(rig.colFlip);
   ////////////////////////////// LERP COLOUR ON BEAT /////////////////////////////////////////////////////////
-  if (keyP['l']) colorLerping(rig, beatFast);
-  if (keyT['o']) colorLerping(rig, beatFast); 
+  //if (keyP['l']) colorLerping(rig, beatFast);
+  //if (keyT['o']) colorLerping(rig, beatFast); 
   //colBeat = !colBeat;
   // lerpcolor function goes in here
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////

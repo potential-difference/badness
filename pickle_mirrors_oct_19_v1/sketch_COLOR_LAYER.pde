@@ -29,10 +29,10 @@ void colorLayer(PGraphics subwindow, int index) {
     mirrorGradientBG(0, col1, col2, 0.5);  
     //radialGradientBG(1, roofCol1, roofCol2, 0.1);
     horizontalMirrorGradBG(2, col1, col2, 0);
-    horizontalMirrorGradBG(3, col2, col1, func);
+    horizontalMirrorGradBG(3, col2, col1, 0.5);
     //roofArrangement(4, roofCol2, roofCol1);
     //roofBigSeeds(5, roofCol1, roofCol2);
-    horizontalMirrorGradBG(6, col1, col2, func);
+    horizontalMirrorGradBG(6, col1, col2, 0.5);
 
     subwindow.beginDraw();
     subwindow.image(bg[index], subwindow.width/2, subwindow.height/2, subwindow.width, subwindow.height);

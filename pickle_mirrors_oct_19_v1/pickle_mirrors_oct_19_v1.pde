@@ -43,31 +43,22 @@ void settings() {
   size.surfacePositionY = 200;
 }
 
+float dimmer = 1;
 void setup()
 {
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
   grid = new OPCGrid();
 
   ///////////////// LOCAL opc /////////////////////
-  //opc = new OPC(this, "127.0.0.1", 7890);            // Connect to the local instance of fcserver - MIRRORS
-  opcMirrors = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRROR 1 - used coz of issues with the remote conneciton
-  opcSeeds = new OPC(this, "127.0.0.1", 7890);         // Connect to the remote instance of fcserver - SEEDS BOX IN ROOF - also had issues with this one so had to remove it
+  opcMirrors = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRRORS
+  //opcSeeds = new OPC(this, "127.0.0.1", 7890);         // Connect to the remote instance of fcserver - SEEDS BOX IN ROOF - 
   opcCans = new OPC(this, "127.0.0.1", 7890);          // Connect to the remote instance of fcserver - CANS BOX
-  //opcControllerA = new OPC(this, "127.0.0.1", 7890);   // Connect to the remote instance of fcserver - LEFT TWO CONTROLLERS
-  //opcControllerB = new OPC(this, "127.0.0.1", 7890);   // Connect to the remote instance of fcserver - RIGHT PAIR OF CONTROLLERS
 
   ///////////////// OPC over NETWORK /////////////////////
-  opcMirrors = new OPC(this, "192.168.0.70", 7890);       // Connect to the remote instance of fcserver - MIRROR 1
+  //opcMirrors = new OPC(this, "192.168.0.70", 7890);       // Connect to the remote instance of fcserver - MIRROR 1
   //opcCans = new OPC(this, "10.168.1.86", 7890);          // Connect to the remote instance of fcserver - CANS BOX
-  //opcSeeds = new OPC(this, "192.168.0.20", 7890);           // Connect to the remote instance of fcserver - SEEDS BOX IN ROOF - also had issues with this one so had to remove it
-  //opcControllerA = new OPC(this, "192.168.0.80", 7890);   // Connect to the remote instance of fcserver - LEFT TWO CONTROLLERS
-  //opcControllerB = new OPC(this, "10.168.1.89", 7890);   // Connect to the remote instance of fcserver - RIGHT PAIR OF CONTROLLERS
 
   grid.mirrorsOPC(opcMirrors, opcMirrors, 0);               // grids 0-3 MIX IT UPPPPP 
-  //grid.kallidaCans(opcCans);                                  
-  //grid.kallidaUV(opcCans);
-  //grid.kallidaSeeds(opcSeeds);
-  //grid.kallidaControllers(opcControllerA, opcControllerA, 2);   // grids 0-3 MIX IT UPPPPP 
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
   loadAudio();     // load one shot sounds ///
@@ -88,8 +79,7 @@ void setup()
   //Anim anim = animations.get(i);
   //anim.setupAnim();
 
-
-  dimmer = 1; // must come before load control frame
+  //dimmer = 1; // must come before load control frame
   drawingSetup();
   loadImages();
   loadGraphics();
@@ -99,9 +89,6 @@ void setup()
 
   surface.setAlwaysOnTop(onTopToggle);
   controlFrame = new ControlFrame(this, width, 130, "Controls"); // load control frame must come after shild ring etc
-
-  blur = loadShader("blur.glsl");
-  loadShaders(10);
 
   rigViz = 0;
   roofViz = 1;
@@ -130,23 +117,14 @@ void draw()
   beatDetect.detect(in.mix);
   beats();
   pause(10);                                ////// number of seconds before no music detected
-  noize();
-  oskPulse();
-  //arrayDraw();
-  rig.clash(func);                          ///// clash colour changes on function in brackets
-  roof.clash(func);                         ///// clash colour changes on function in brackets
-
-  ////// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
-  //blury = int(map(blurSlider, 0, 1, 0, 100));
-  //if (blury!=prevblury) {
-  //  prevblury=blury;
-  //  loadShaders(blury);
-  //}
+  globalFunctions();
+  //rig.clash(func);                          ///// clash colour changes on function in brackets
+  //roof.clash(func);                         ///// clash colour changes on function in brackets
 
   //dimmer = cc[4]*rigDimmer;
-  vizTime = 60*15*vizTimeSlider;
+  //vizTime = 60*15*vizTimeSlider;
   //playWithYourself(vizTime); 
-  playWithMe();
+  //playWithMe();
 
   float rigDimmerPad = cc[4]; // come back to this with wigflex code?!
   float roofDimmerPad = cc[8]; // come back to this with wigflex code?!
@@ -157,38 +135,31 @@ void draw()
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  //boolean trigger = beatDetect.isOnset();                              // animations triggered by beats
+  // trigger new animnations 
   if (keyP[' ']) animations.add(new Anim(size.rig.x, size.rig.y, rigViz));                                                    // or space bar!
-
   if ( keyP['d']) animations.add(new Anim(size.rig.x, size.rig.y, 1));
-
   if (cc[101] > 0) {
     animations.add(new Anim(size.rig.x, size.rig.y, 1));
     animations.get(animations.size()-1).funcFX = cc[1];
   }
-
   if (beatDetect.isOnset()) animations.add(new Anim(size.rig.x, size.rig.y, rigViz));   // create a new anim object and add it to the beginning of the arrayList
-
-  if (animations.size() >= 4) animations.remove(0);   // limit the array size to 8
-
-
-  if (keyT['a']) for (Anim anim : animations)  anim.alphFX = 1-(anim.stutter*0.2);
-  if (keyT['s']) for (Anim anim : animations)  anim.funcFX = 1-(anim.stutter*noize1*0.2);
-
+  // limit the number of animations
+  if (animations.size() >= 8) animations.remove(0);  
+  // adjust animations
+  if (keyT['a']) for (Anim anim : animations)  anim.alphFX = 1-(stutter*0.1);
+  if (keyT['s']) for (Anim anim : animations)  anim.funcFX = 1-(stutter*noize1*0.1);
+  //draw animations
   blendMode(LIGHTEST);
   for (int i = animations.size()-1; i >=0; i--) {                                  // loop  through the list
     Anim anim = animations.get(i);  
     anim.drawAnim();           // draw the animation
   }
-
-
-
-  //println(animations.size());
+  // draw colour layer
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //blendMode(MULTIPLY);
-  //colorLayer(rigColourLayer, rigBgr);                               // develop colour layer
-  //image(rigColourLayer, size.rigWidth/2, size.rigHeight/2);         // draw rig colour layer to rig window
-  //blendMode(NORMAL);
+  blendMode(MULTIPLY);
+  colorLayer(rigColourLayer, rigBgr);                               // develop colour layer
+  image(rigColourLayer, size.rigWidth/2, size.rigHeight/2);         // draw rig colour layer to rig window
+  blendMode(NORMAL);
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -239,18 +210,8 @@ void draw()
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   image(infoWindow, size.info.x, size.info.y);
   //////////////////////////////////////////// SEEDS SHIT ///////////////////////////////////////////////////////////////////////////////
-  if (keyP['0']) { // beatCounter % 100 >   92
-    rigControl(0, 1);
-    cansControl(0, 1);
-    // add uv control////
-    fill(roof.flash, 360*(pulz*0.8+(stutter*0.2)));
-    rect(grid.seed[0].x, grid.seed[0].y, grid.seedLength, 3);
-    rect(grid.seed[1].x, grid.seed[1].y, grid.seedLength, 3);
-    rect(grid.seed[2].x, grid.seed[2].y, 3, grid.seedLength);
-  }
+
   /////////////////////////////////////////////// UV /////////////////////////////////////////////////////////////////////////////////////
-  fill(360, ((180*noize)+(180*pulz))*uvDimmer);
-  ellipse(grid.uv.x, grid.uv.y, 3, 3);
 
   ///////////////////////////////////////////CANS //////////////////////////////////////
   fill(0, 360-(360*cansDimmer));
