@@ -1,3 +1,8 @@
+interface Animation {
+  void trigger();
+  void decay();
+}
+
 class Anim implements Animation {
   /////////////////////// LOAD GRAPHICS FOR VISULISATIONS AND COLOR LAYERS //////////////////////////////
   PGraphics window, pass1, blured;

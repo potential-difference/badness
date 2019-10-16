@@ -1,5 +1,7 @@
 int counter, rigAlphIndex, rigAlph1Index = 1, fctIndex, fct1Index = 1, swap;
-
+int steps = 0;
+ int rigVizList = 11;
+ int roofVizList = 6;
 /*
 int roofAlphIndex, roofAlph1Index = 1, roofFctIndex, roofFct1Index = 1;
  float alf, bt, bt1, dimmer, func, func1;

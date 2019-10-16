@@ -51,6 +51,7 @@ void setup()
 
   ///////////////// LOCAL opc /////////////////////
   opcMirrors = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRRORS
+  //opcSeeds = new OPC(this, "127.0.0.1", 7890);         // Connect to the remote instance of fcserver - SEEDS BOX IN ROOF - 
   opcCans = new OPC(this, "127.0.0.1", 7890);          // Connect to the remote instance of fcserver - CANS BOX
 
   ///////////////// OPC over NETWORK /////////////////////
@@ -60,7 +61,7 @@ void setup()
   grid.mirrorsOPC(opcMirrors, opcMirrors, 0);               // grids 0-3 MIX IT UPPPPP 
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
-  loadAudio();     // load one shot sounds ///
+  //loadAudio();     // load one shot sounds ///
 
   MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
   println();
@@ -74,7 +75,7 @@ void setup()
   animations = new ArrayList<Anim>();
   animations.add(new Anim(size.rig.x, size.rig.y, 0));
   for (int i=0; i < visual.length; i++) visual[i] = new Visualisation();
-  
+ 
   //dimmer = 1; // must come before load control frame
   drawingSetup();
   loadImages();
@@ -108,6 +109,7 @@ void draw()
   surface.setAlwaysOnTop(onTopToggle);
 
   background(0);
+  //dimmer = bgDimmer;
   noStroke();
   beatDetect.detect(in.mix);
   beats();
@@ -158,12 +160,13 @@ void draw()
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+   
   ///////////////////////////////////////////CANS //////////////////////////////////////
   fill(0, 360-(360*cansDimmer));
   rect(grid.cans[0].x, grid.cans[0].y, grid.cansLength, 3);
   rect(grid.cans[1].x, grid.cans[1].y, grid.cansLength, 3);
 
-  //////////////////////////////// PLAY WITH ME MORE //////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////// PLAY WITH ME MORE //////////////////////////////////////////////////////////////////////////////
   playWithMeMore();
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -180,8 +183,6 @@ void draw()
     rect(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight);
   }
   /////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
-
-  image(infoWindow, size.info.x, size.info.y);
 
   fill(rig.flash);
   rect(size.rigWidth, height/2, 1, height);                     ///// vertical line to show end of rig viz area

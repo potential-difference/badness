@@ -112,31 +112,9 @@ void drawingSetup() {
 }
 
 /////////////////////// LOAD GRAPHICS FOR VISULISATIONS AND COLOR LAYERS //////////////////////////////
-PGraphics vis[] = new PGraphics[16];
-PGraphics roofVis[] = new PGraphics[16];
 PGraphics bg[] = new PGraphics[bgList];
 PGraphics rigWindow, roofWindow, pg, infoWindow, rigColourLayer, roofColourLayer;
 void loadGraphics() {
-  //////////////////////////////// RIG VIS GRAPHICS ///////////////////
-  for ( int i = 0; i< vis.length; i++ ) {
-    vis[i] = createGraphics(int(size.rigWidth*1.2), int(size.rigHeight*1.2), P2D);
-    vis[i].beginDraw();
-    vis[i].colorMode(HSB, 360, 100, 100);
-    vis[i].blendMode(NORMAL);
-    vis[i].ellipseMode(CENTER);
-    vis[i].rectMode(CENTER);
-    vis[i].imageMode(CENTER);
-    vis[i].noStroke();
-    vis[i].noFill();
-    vis[i].endDraw();
-  }
-  //////////////////////////////// rig subwindow  ///////////////////
-  rigWindow = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
-  rigWindow.beginDraw();
-  rigWindow.colorMode(HSB, 360, 100, 100);
-  rigWindow.imageMode(CENTER);
-  rigWindow.rectMode(CENTER);
-  rigWindow.endDraw();
   //////////////////////////////// rig colour layer  ///////////////////
   rigColourLayer = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
   rigColourLayer.beginDraw();
@@ -146,35 +124,7 @@ void loadGraphics() {
   rigColourLayer.endDraw();
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////// ROOF GRAPHICS SETUP ///////////////////////////////////////////
-  if (size.roofWidth > 0) {
-    ////////////////////////////// ROOF VIS GRAPHICS ///////////////////
-    for ( int i = 0; i< vis.length; i++ ) {
-      roofVis[i] = createGraphics(int(size.roofWidth*1.2), int(size.roofHeight*1.2), P2D);
-      roofVis[i].beginDraw();
-      roofVis[i].colorMode(HSB, 360, 100, 100);
-      roofVis[i].blendMode(NORMAL);
-      roofVis[i].ellipseMode(CENTER);
-      roofVis[i].rectMode(CENTER);
-      roofVis[i].imageMode(CENTER);
-      roofVis[i].noStroke();
-      roofVis[i].noFill();
-      roofVis[i].endDraw();
-    }
-    //////////////////////////////// roof subwindow  ///////////////////
-    roofWindow = createGraphics(int(size.roofWidth), int(size.roofHeight), P2D);
-    roofWindow.beginDraw();
-    roofWindow.colorMode(HSB, 360, 100, 100);
-    roofWindow.imageMode(CENTER);
-    roofWindow.rectMode(CENTER);
-    roofWindow.endDraw();
-    //////////////////////////////// roof colour layer  ///////////////////
-    roofColourLayer = createGraphics(int(size.roofWidth), int(size.roofHeight), P2D);
-    roofColourLayer.beginDraw();
-    roofColourLayer.colorMode(HSB, 360, 100, 100);
-    roofColourLayer.imageMode(CENTER);
-    roofColourLayer.rectMode(CENTER);
-    roofColourLayer.endDraw();
-  }
+
   //////////////////////////////// info subwindow  ///////////////////
   infoWindow = createGraphics(size.infoWidth, size.infoHeight, P2D);
   infoWindow.beginDraw();
@@ -194,33 +144,5 @@ void loadGraphics() {
     bg[n].noStroke();
     bg[n].noFill();
     bg[n].endDraw();
-  }
-}
-///////////////////////////////////// LOAD GRAPHICS FOR SHADER LAYERS //////////////////////
-PGraphics pass1[] = new PGraphics[16];
-PGraphics blured[] = new PGraphics[16];
-PShader blur;
-PGraphics src;
-int blury, prevblury;
-void loadShaders(int blury) {
-  blur = loadShader("blur.glsl");
-  blur.set("blurSize", blury);
-  blur.set("sigma", 10.0f);  
-  src = createGraphics(size.rigWidth, size.rigHeight, P3D); 
-  for (int i = 0; i < pass1.length; i++) {
-    pass1[i] = createGraphics(int(size.rigWidth*1.2), int(size.rigHeight*1.2), P2D);
-    pass1[i].noSmooth();
-    pass1[i].imageMode(CENTER);
-    pass1[i].beginDraw();
-    pass1[i].noStroke();
-    pass1[i].endDraw();
-  }
-  for (int i = 0; i < blured.length; i++) {
-    blured[i] = createGraphics(int(size.rigWidth*1.2), int(size.rigHeight*1.2), P2D);
-    blured[i].noSmooth();
-    blured[i].beginDraw();
-    blured[i].imageMode(CENTER);
-    blured[i].noStroke();
-    blured[i].endDraw();
   }
 }
