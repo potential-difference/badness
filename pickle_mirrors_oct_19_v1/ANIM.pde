@@ -78,11 +78,18 @@ class Anim implements Animation {
     case 0:
       window.beginDraw();
       window.background(0);
+      stroke = 60+(120*functionA*oskP);
+      wide = size.vizWidth+(0);
+      wide = wide-(wide*functionA);
+      high = wide;
+      donut(grid.mirror[2].x, grid.mirror[2].y, col1, stroke, wide, high, alphaA);
+      donut(grid.mirror[9].x, grid.mirror[9].y, col1, stroke, wide, high, alphaA);
       stroke = 60+(120*functionB*oskP);
       wide = size.vizWidth+(0);
       wide = wide-(wide*functionB);
       high = wide;
-      donut(viz.x, viz.y, col1, stroke, wide, high, alphaA);
+      donut(grid.mirror[3].x, grid.mirror[3].y, col1, stroke, wide, high, alphaA);
+      donut(grid.mirror[8].x, grid.mirror[8].y, col1, stroke, wide, high, alphaA);
       window.endDraw();
       break;
     case 1:

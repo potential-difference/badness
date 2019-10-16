@@ -142,7 +142,7 @@ void draw()
   }
   if (beatDetect.isOnset()) animations.add(new Anim(size.rig.x, size.rig.y, rigViz));   // create a new anim object and add it to the beginning of the arrayList
   // limit the number of animations
-  if (animations.size() >= 16) animations.remove(0);  
+  if (animations.size() >= 8) animations.remove(0);  
   // adjust animations
   if (keyT['a']) for (Anim anim : animations)  anim.alphFX = 1-(stutter*0.1);
   if (keyT['s']) for (Anim anim : animations)  anim.funcFX = 1-(stutter*noize1*0.1);
