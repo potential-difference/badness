@@ -55,7 +55,7 @@ class Anim implements Animation {
     vizIndex = _vizIndex;
   }
 
-  float stroke, wide, high;
+  float stroke, wide, high, rotate;
   PVector viz;
   Float vizWidth, vizHeight;
 
@@ -78,51 +78,54 @@ class Anim implements Animation {
     case 0:
       window.beginDraw();
       window.background(0);
-      stroke = 60+(120*functionA*oskP);
-      wide = size.vizWidth+(0);
+      stroke = 30+(90*functionA*oskP);
+      wide = size.vizWidth*1.2;
       wide = wide-(wide*functionA);
-      high = wide;
-      donut(grid.mirror[2].x, grid.mirror[2].y, col1, stroke, wide, high, alphaA);
-      donut(grid.mirror[9].x, grid.mirror[9].y, col1, stroke, wide, high, alphaA);
-      stroke = 60+(120*functionB*oskP);
-      wide = size.vizWidth+(0);
+      high = wide*2;
+      rotate = 90*noize*functionB;
+      donut(grid.mirror[2].x, grid.mirror[2].y, col1, stroke, wide, high, rotate, alphaA);
+      donut(grid.mirror[9].x, grid.mirror[9].y, col1, stroke, wide, high, rotate, alphaA);
+      stroke = 30+(90*functionB*oskP);
+      wide = size.vizWidth*1.2;
       wide = wide-(wide*functionB);
-      high = wide;
-      donut(grid.mirror[3].x, grid.mirror[3].y, col1, stroke, wide, high, alphaA);
-      donut(grid.mirror[8].x, grid.mirror[8].y, col1, stroke, wide, high, alphaA);
+      high = wide*2;
+      rotate = -90*noize*functionA;
+      donut(grid.mirror[3].x, grid.mirror[3].y, col1, stroke, wide, high, rotate, alphaA);
+      donut(grid.mirror[8].x, grid.mirror[8].y, col1, stroke, wide, high, rotate, alphaA);
       window.endDraw();
       break;
     case 1:
       window.beginDraw();
       window.background(0);
-      stroke = 20+(400*tweakSlider); 
+      stroke = 20+(400*tweakSlider);
+      rotate = 0;
       if (beatCounter % 9 <3) { 
         for (int i = 0; i < grid.columns; i+=2) {
           wide = (size.vizWidth*2)-(size.vizWidth/10);
           wide = 50+(wide-(wide*functionA)); 
           high = wide;
-          donut(grid.mirror[i].x, grid.mirror[i].y, col1, stroke, wide, high, alphaA);
-          donut(grid.mirror[i+1 % grid.columns+6].x, grid.mirror[i+1 % grid.columns+6].y, col1, stroke, wide, high, alphaA);
+          donut(grid.mirror[i].x, grid.mirror[i].y, col1, stroke, wide, high, rotate, alphaA);
+          donut(grid.mirror[i+1 % grid.columns+6].x, grid.mirror[i+1 % grid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
 
           wide = (size.vizWidth/4)-(size.vizWidth/10);
           wide = 10+(wide-(wide*functionB)); 
           high = wide;
-          donut(grid.mirror[i+1 % grid.columns].x, grid.mirror[i+1 % grid.columns].y, col1, stroke, wide, high, alphaB);
-          donut(grid.mirror[i+6].x, grid.mirror[i+6].y, col1, stroke, wide, high, alphaB);
+          donut(grid.mirror[i+1 % grid.columns].x, grid.mirror[i+1 % grid.columns].y, col1, stroke, wide, high, rotate, alphaB);
+          donut(grid.mirror[i+6].x, grid.mirror[i+6].y, col1, stroke, wide, high, rotate, alphaB);
         }
       } else { // opposite way around
         for (int i = 0; i < grid.columns; i+=2) {
           wide  = (size.vizWidth*2)-(size.vizWidth/10);
           wide = 50+(wide-(wide*functionA)); 
           high = wide;
-          donut(grid.mirror[i+1 % grid.columns].x, grid.mirror[i+1 % grid.columns].y, col1, stroke, wide, high, alphaB);
-          donut(grid.mirror[i+6].x, grid.mirror[i+6].y, col1, stroke, wide, high, alphaB);
+          donut(grid.mirror[i+1 % grid.columns].x, grid.mirror[i+1 % grid.columns].y, col1, stroke, wide, high, rotate, alphaB);
+          donut(grid.mirror[i+6].x, grid.mirror[i+6].y, col1, stroke, wide, high, rotate, alphaB);
 
           wide = (size.vizWidth/4)-(size.vizWidth/10);
           wide = 10+(wide-(wide*functionB)); 
           high = wide;
-          donut(grid.mirror[i].x, grid.mirror[i].y, col1, stroke, wide, high, alphaA);
-          donut(grid.mirror[i+1 % grid.columns+6].x, grid.mirror[i+1 % grid.columns+6].y, col1, stroke, wide, high, alphaA);
+          donut(grid.mirror[i].x, grid.mirror[i].y, col1, stroke, wide, high, rotate, alphaA);
+          donut(grid.mirror[i+1 % grid.columns+6].x, grid.mirror[i+1 % grid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
         }
       }
       window.endDraw();
@@ -132,20 +135,22 @@ class Anim implements Animation {
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////// SQUARE NUT /////////////////////////////////////////////////////////////////////////////////////////////////
-  void squareNut(float xpos, float ypos, color col, float stroke, float wide, float high, float alph) {
+  void squareNut(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
     window.strokeWeight(-stroke);
     window.stroke(col, 360*alph);
     window.pushMatrix();
     window.translate(xpos, ypos);
+    window.rotate(radians(rotate));
     window.rect(0, 0, wide, high);
     window.popMatrix();
   }
   /////////////////////////////////// DONUT NUT /////////////////////////////////////////////////////////////////////////////////////////////////
-  void donut(float xpos, float ypos, color col, float stroke, float wide, float high, float alph) {
+  void donut(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
     window.strokeWeight(-stroke);
     window.stroke(col, 360*alph);
     window.pushMatrix();
     window.translate(xpos, ypos);
+    window.rotate(radians(rotate));
     window.ellipse(0, 0, wide, high);
     window.popMatrix();
   }
@@ -222,7 +227,7 @@ class Anim implements Animation {
     else functionSlow -= 0.02;
 
     float end = 0.001;
-    if (alpha < end) alpha = end;
+    if (alpha < end) alpha = end+(shimmer*0.1);
     if (alphaFast < end) alphaFast = end;
     if (alphaSlow < 0.4+(noize1*0.2)) alphaSlow = 0.4+(noize1*0.2);
 
