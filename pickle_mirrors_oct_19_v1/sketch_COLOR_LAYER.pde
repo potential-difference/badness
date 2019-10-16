@@ -1,20 +1,18 @@
 int rigBgr, roofBgr; 
-int bgList = 8;
+int bgList = 6;
 void colorLayer(PGraphics subwindow, int index) {
   /////////////////////////////////////////////// RIG COLOR LAYERS ///////////////////////////////////////
   if (subwindow == rigColourLayer) {
     color col1 = rig.c;
     color col2 = rig.flash;
     color col3 = rig.clash;
-    
+
     oneColourBG(0, col1);
-    mirrorGradientBG(1, col1,col2, 0.5);  
-    sideBySideBG(2, col2,col1);
-    checkSymmetricalBG(3, col1,col2);
-    cornersBG(4, col2,col1);
-    crossBG(5, col1,col2);
-    oneColourBG(6, col3);
-    sideBySideBG(7, col1,col2);
+    mirrorGradientBG(1, col1, col2, 0.5);  
+    sideBySideBG(2, col2, col1);
+    checkBG(3, col1, col2);
+    oneColourBG(4, col2);
+    crossBG(5, col1, col2);
 
     subwindow.beginDraw();
     subwindow.image(bg[index], subwindow.width/2, subwindow.height/2, subwindow.width, subwindow.height);
@@ -130,16 +128,12 @@ PGraphics checkSymmetricalBG(int n, color col1, color col2) {
 /// CHECK BACKGROUND ///
 PGraphics checkBG(int n, color col1, color col2) {
   bg[n].beginDraw();
-  bg[n].background(0);
-  /////////////// FILL COLOR ////////////////////
-  bg[n].fill(col1);
-  ///////////////  BACKGROUND /////////////
-  bg[n].rect(bg[n].width/2, bg[n].height/2, bg[n].width, bg[n].height);     
+  bg[n].background(col1);
   ////////////////// Fill OPPOSITE COLOR //////////////
   bg[n].fill(col2);     
-  for (int i = 0; i <grid.mirror.length/3; i+=2)  bg[n].rect(grid.mirror[i].x, grid.mirror[i].y, grid.mirrorWidth, grid.mirrorWidth);
-  for (int i = 5; i <grid.mirror.length/3*2; i+=2)  bg[n].rect(grid.mirror[i].x, grid.mirror[i].y, grid.mirrorWidth, grid.mirrorWidth);
-  for (int i = 8; i <grid.mirror.length; i+=2)  bg[n].rect(grid.mirror[i].x, grid.mirror[i].y, grid.mirrorWidth, grid.mirrorWidth);
+  for (int i = 0; i < grid.mirror.length/grid.rows; i+=2)  bg[n].rect(grid.mirror[i].x, grid.mirror[i].y, grid.mirrorWidth, grid.mirrorWidth);
+  //for (int i = grid.columns+1; i < grid.mirror.length/grid.rows+grid.columns; i++)  bg[n].rect(grid.mirror[i].x, grid.mirror[i].y, grid.mirrorWidth, grid.mirrorWidth);
+  //if(grid.rows == 3) for (int i = grid.columns*grid.rows ; i < grid.mirror.length/grid.rows+(grid.columns*2); i+=2)  bg[n].rect(grid.mirror[i].x, grid.mirror[i].y, grid.mirrorWidth, grid.mirrorWidth);
   bg[n].endDraw();
 
   return bg[n];
@@ -190,8 +184,6 @@ PGraphics crossBG(int n, color col1, color col2) {
   bg[n].endDraw();
   return bg[n];
 }
-
-
 PGraphics gradMirrorBG(int n, color col1, color col2) {
   bg[n].beginDraw();
   bg[n].background(col1);
@@ -251,72 +243,14 @@ PGraphics gradMirrorBG(int n, color col1, color col2) {
   return bg[n];
 }
 
-/*
-PGraphics everyOtherBG(int n, color col1, color col2) {
- bg[n].beginDraw();
- bg[n].background(0);
- bg[n].fill(col1);
- bg[n].rect(bg[n].width/2, bg[n].height/2, bg[n].width, bg[n].height);
- bg[n].fill(0);
- 
- float space = 2;
- float thickness = 3;
- 
- for (int i = 0; i < grid.mirror.length/2; i+=2) {
- for (float o = 0.5; o < ld; o+=space) {
- bg[n].rect(grid.mirror[i].x-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.mirror[i].y, thickness, grid.grid.mirrorAndGap);
- bg[n].rect(grid.mirror[i].x, grid.mirror[i].y-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.grid.mirrorAndGap, thickness);
- }
- } 
- for (int i = 7; i < grid.mirror.length; i+=2) {
- for (float o = 0.5; o < ld; o+=space) {
- bg[n].rect(grid.mirror[i].x-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.mirror[i].y, thickness, grid.grid.mirrorAndGap);
- bg[n].rect(grid.mirror[i].x, grid.mirror[i].y-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.grid.mirrorAndGap, thickness);
- }
- } 
- 
- for (int i = 1; i < grid.mirror.length/2; i+=2) {
- for (float o = 1.5; o < ld; o+=space) {
- bg[n].rect(grid.mirror[i].x-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.mirror[i].y, thickness, grid.grid.mirrorAndGap);
- bg[n].rect(grid.mirror[i].x, grid.mirror[i].y-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.grid.mirrorAndGap, thickness);
- }
- } 
- for (int i = 6; i < grid.mirror.length; i+=2) {
- for (float o = 1.5; o < ld; o+=space) {
- bg[n].rect(grid.mirror[i].x-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.mirror[i].y, thickness, grid.grid.mirrorAndGap);
- bg[n].rect(grid.mirror[i].x, grid.mirror[i].y-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.grid.mirrorAndGap, thickness);
- }
- }
- 
- bg[n].fill(col2, 120);
- for (int i = 0; i < grid.mirror.length/2; i+=2) {
- for (float o = 0.5; o < ld; o+=space) {
- bg[n].rect(grid.mirror[i].x-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.mirror[i].y, thickness, grid.grid.mirrorAndGap);
- bg[n].rect(grid.mirror[i].x, grid.mirror[i].y-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.mirrorAndGap, thickness);
- }
- } 
- for (int i = 7; i < grid.mirror.length; i+=2) {
- for (float o = 0.5; o < ld; o+=space) {
- bg[n].rect(grid.mirror[i].x-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.mirror[i].y, thickness, grid.grid.mirrorAndGap);
- bg[n].rect(grid.mirror[i].x, grid.mirror[i].y-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.grid.mirrorAndGap, thickness);
- }
- } 
- 
- for (int i = 1; i < grid.mirror.length/2; i+=2) {
- for (float o = 1.5; o < ld; o+=space) {
- bg[n].rect(grid.mirror[i].x-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.mirror[i].y, thickness, grid.grid.mirrorAndGap);
- bg[n].rect(grid.mirror[i].x, grid.mirror[i].y-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.grid.mirrorAndGap, thickness);
- }
- } 
- for (int i = 6; i < grid.mirror.length; i+=2) {
- for (float o = 1.5; o < ld; o+=space) {
- bg[n].rect(grid.mirror[i].x-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.mirror[i].y, thickness, grid.grid.mirrorAndGap);
- bg[n].rect(grid.mirror[i].x, grid.mirror[i].y-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.grid.mirrorAndGap, thickness);
- }
- }
- 
- bg[n].endDraw();
- 
- return bg[n];
- }
- */
+PGraphics cansBG(int n, color col1) {
+  bg[n].beginDraw();
+  bg[n].background(0);
+
+  bg[n].fill(col1);
+  bg[n].rect(grid.cans[0].x, grid.cans[0].y, grid.cansLength, 3);
+  bg[n].rect(grid.cans[1].x, grid.cans[1].y, grid.cansLength, 3);
+  bg[n].rect(grid.cans[2].x, grid.cans[2].y, grid.cansLength, 3);
+
+  return bg[n];
+}

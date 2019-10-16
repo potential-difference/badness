@@ -82,7 +82,7 @@ class Anim implements Animation {
       wide = size.vizWidth+(0);
       wide = wide-(wide*functionB);
       high = wide;
-      if (wide > 120) donut(viz.x, viz.y, col1, stroke, wide, high, alphaA);
+      donut(viz.x, viz.y, col1, stroke, wide, high, alphaA);
       window.endDraw();
       break;
     case 1:
@@ -178,7 +178,7 @@ class Anim implements Animation {
     alph[3] = (0.98*alpha)+(stutter*(1-alpha)*0.02);
     alph[4] = (0.98*(1-alpha))+(alpha*0.02*stutter);
     alph[5] = alphaFast;
-    alph[6] = 1-alphaSlow;
+    alph[6] = alphaSlow;
 
     for (int i = 0; i < alph.length; i++) alph[i] *=alphMod;
     for (int i = 0; i < func.length; i++) func[i] *=funcMod;
@@ -210,8 +210,9 @@ class Anim implements Animation {
     alphaFast *=0.7;                 
     alphaSlow -= 0.05;
 
-    functionFast *=0.7;                 
-    functionSlow -= 0.05;
+    functionFast *=0.7;  
+    if (functionSlow < 0.4) functionSlow *= 0.99*noize1;
+    else functionSlow -= 0.02;
 
     float end = 0.001;
     if (alpha < end) alpha = end;
@@ -220,6 +221,6 @@ class Anim implements Animation {
 
     if (function < end) function = end;
     if (functionFast < end) functionFast = end;
-    if (functionSlow < 0.4+(noize1*0.2)) functionSlow = 0.4+(noize1*0.2);
+    if (functionSlow < end) functionSlow = end;
   }
 }

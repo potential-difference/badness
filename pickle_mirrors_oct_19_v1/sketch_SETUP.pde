@@ -31,7 +31,7 @@ class SizeSettings {
 
     sliderHeight = 70;         // height of slider area at bottom of sketch window
 
-    infoWidth = 300;
+    infoWidth = 200;
     infoHeight = rigHeight+sliderHeight;
     info = new PVector (rigWidth+roofWidth+(infoWidth/2), infoHeight/2);
 

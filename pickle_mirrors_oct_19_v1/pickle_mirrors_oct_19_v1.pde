@@ -34,18 +34,20 @@ MidiBus LPD8bus;      // midibus for LPD8
 int time[] = new int[12]; // array of timers to use throughout the sketch
 
 PFont myFont;
-boolean onTopToggle = true;
+boolean onTopToggle = false;
 
 void settings() {
   size = new SizeSettings(LANDSCAPE);
+
   size(size.sizeX, size.sizeY, P2D);
-  size.surfacePositionX = 1000;
-  size.surfacePositionY = 200;
+  size.surfacePositionX = 800;
+  size.surfacePositionY = 300;
 }
 
 float dimmer = 1;
 void setup()
 {
+  surface.setAlwaysOnTop(onTopToggle);
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
   grid = new OPCGrid();
 
@@ -84,7 +86,6 @@ void setup()
   rig.colorArray();
   roof.colorArray();
 
-  surface.setAlwaysOnTop(onTopToggle);
   controlFrame = new ControlFrame(this, width, 130, "Controls"); // load control frame must come after shild ring etc
 
   rigViz = 0;
@@ -141,7 +142,7 @@ void draw()
   }
   if (beatDetect.isOnset()) animations.add(new Anim(size.rig.x, size.rig.y, rigViz));   // create a new anim object and add it to the beginning of the arrayList
   // limit the number of animations
-  if (animations.size() >= 8) animations.remove(0);  
+  if (animations.size() >= 16) animations.remove(0);  
   // adjust animations
   if (keyT['a']) for (Anim anim : animations)  anim.alphFX = 1-(stutter*0.1);
   if (keyT['s']) for (Anim anim : animations)  anim.funcFX = 1-(stutter*noize1*0.1);

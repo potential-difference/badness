@@ -49,7 +49,7 @@ void onScreenInfo() {
   text("bkgrnd: " + rigBgr, x, y+20);
   text("func's: " + fctIndex + " / " + fct1Index, x+100, y);
   text("alph's: " + rigAlphIndex + " / " + rigAlph1Index, x+100, y+20);
-  text("controllerGrid " + grid.controllerGridStep, x+220, y);
+  //text("controllerGrid " + grid.controllerGridStep, x+220, y);
   //////////// roof info
   fill(roof.flash, 300);
   x = x+size.roof.x-(size.roofWidth/2);
@@ -174,15 +174,17 @@ void colorInfo() {
   //fill(360, bt*360); 
   //rect(size.rigWidth-32.5, y-10, 10, 10);             // rect to show CURRENT alpha
   // ROOF ///
-  fill(roof.col[roof.colorA]);          
-  rect(size.rigWidth+7.5, y-10, 10, 10);              // rect to show CURRENT color C 
-  fill(roof.col[(roof.colorA+1)%roof.col.length]);
-  rect(size.rigWidth+20, y-10, 10, 10);               // rect to show NEXT color C 
-  fill(roof.col[roof.colorB]);          
-  rect(size.rigWidth+7.5, y, 10, 10);                 // rect to show CURRENT color FLASH 
-  fill(roof.col[(roof.colorB+1)%roof.col.length]);
-  rect(size.rigWidth+20, y, 10, 10);                  // rect to show NEXT color FLASH1
-  fill(roof.col[roof.colorB]);
+  if (size.roofWidth>0) {
+    fill(roof.col[roof.colorA]);          
+    rect(size.rigWidth+7.5, y-10, 10, 10);              // rect to show CURRENT color C 
+    fill(roof.col[(roof.colorA+1)%roof.col.length]);
+    rect(size.rigWidth+20, y-10, 10, 10);               // rect to show NEXT color C 
+    fill(roof.col[roof.colorB]);          
+    rect(size.rigWidth+7.5, y, 10, 10);                 // rect to show CURRENT color FLASH 
+    fill(roof.col[(roof.colorB+1)%roof.col.length]);
+    rect(size.rigWidth+20, y, 10, 10);                  // rect to show NEXT color FLASH1
+    fill(roof.col[roof.colorB]);
+  }
   //fill(360, roof.beat*360); 
   //rect(size.rigWidth+32.5, y, 10, 10);      // rect to show B alpha
   //fill(360, roof.bt*360); 

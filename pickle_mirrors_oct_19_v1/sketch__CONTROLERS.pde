@@ -20,8 +20,8 @@ class ControlFrame extends PApplet {
   }
   public void setup() {
 
-    surface.setAlwaysOnTop(onTopToggle);
-    surface.setLocation(size.surfacePositionX, size.surfacePositionY+parent.height);
+    this.surface.setAlwaysOnTop(true);
+    this.surface.setLocation(size.surfacePositionX, size.surfacePositionY+parent.height);
     myFont = createFont("Lucida Sans", 18);
     textFont(myFont);
     rectMode(CENTER);
