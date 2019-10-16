@@ -51,7 +51,6 @@ void setup()
 
   ///////////////// LOCAL opc /////////////////////
   opcMirrors = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRRORS
-  //opcSeeds = new OPC(this, "127.0.0.1", 7890);         // Connect to the remote instance of fcserver - SEEDS BOX IN ROOF - 
   opcCans = new OPC(this, "127.0.0.1", 7890);          // Connect to the remote instance of fcserver - CANS BOX
 
   ///////////////// OPC over NETWORK /////////////////////
@@ -75,10 +74,7 @@ void setup()
   animations = new ArrayList<Anim>();
   animations.add(new Anim(size.rig.x, size.rig.y, 0));
   for (int i=0; i < visual.length; i++) visual[i] = new Visualisation();
-  //for (int i = 0; i < animations.size(); i++)
-  //Anim anim = animations.get(i);
-  //anim.setupAnim();
-
+  
   //dimmer = 1; // must come before load control frame
   drawingSetup();
   loadImages();
@@ -112,7 +108,6 @@ void draw()
   surface.setAlwaysOnTop(onTopToggle);
 
   background(0);
-  //dimmer = bgDimmer;
   noStroke();
   beatDetect.detect(in.mix);
   beats();
@@ -163,73 +158,12 @@ void draw()
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  /*
-  //toggle roof viz and posostions of the cans and seeds with tilda key '~' 
-   if (!keyT[96]) {
-   // roof posistion for grid
-   grid._seedLength = size.roofWidth;
-   grid._seed2Length = size.roofHeight;
-   grid.seed[0] = new PVector (size.roof.x, size.roof.y-(size.roofHeight/4)); 
-   grid.seed[1] = new PVector (size.roof.x, size.roof.y+(size.roofHeight/4)); 
-   grid.seed[2] = new PVector (size.roof.x, size.roof.y);
-   
-   grid._cansLength = size.roofWidth/2;
-   grid.cans[0] = new PVector(size.roof.x-( grid._cansLength/2), size.roof.y-( grid.mirrorAndGap/2));
-   grid.cans[1] = new PVector(size.roof.x+( grid._cansLength/2), size.roof.y+( grid.mirrorAndGap/2));
-   grid.uv = new PVector(size.rig.x, size.rig.y);
-   
-   roofVizSelection(roofWindow, roofDimmerPad*roofDimmer);         // develop roof visulisation
-   colorLayer(roofColourLayer, roofBgr);  
-   image(roofColourLayer, size.roof.x, size.roof.y);               // draw roof colour layer to roof window
-   blendMode(MULTIPLY);
-   image(roofWindow, size.roof.x, size.roof.y);                    // draw roof viz to roof window    
-   blendMode(NORMAL);
-   } else {
-   // rig positions for grid
-   grid._seedLength = size.rigWidth;
-   grid._seed2Length = size.rigHeight/1.6;
-   grid.seed[0] = new PVector (size.rig.x, grid.mirrorX[0][0].y+(grid.dist/6)); 
-   grid.seed[1] = new PVector (size.rig.x, grid.mirrorX[0][3].y-(grid.dist/6)); 
-   grid.seed[2] = new PVector (size.rig.x, size.rig.y);
-   
-   grid._cansLength = size.rigWidth/2;
-   grid.cans[0] = new PVector(size.rig.x-(grid._cansLength/2), size.rig.y-(grid.mirrorAndGap/2));
-   grid.cans[1] = new PVector(size.rig.x+(grid._cansLength/2), size.rig.y+(grid.mirrorAndGap/2));
-   grid.uv = new PVector(size.rig.x+10, size.rig.y);
-   }
-   grid.kallidaCans(opcCans);                                  
-   grid.kallidaUV(opcCans);
-   grid.kallidaSeeds(opcSeeds);
-   
-   if (int(frameCount % (frameRate*90)) == 0) {                           // change the controller gird every X seconds
-   grid.controllerGridStep = int(random(5));                 // randomly choose new grid
-   if (rigBgr == 4 ) grid.controllerGridStep = int(random(1, 5));  // dont use grid 0 is bg4 = not symetrical
-   grid.kallidaControllers(opcControllerA, opcControllerA, grid.controllerGridStep);   // grids 0-4 MIX IT UPPPPP
-   }
-   */
-  ////////////////////////////////////////////////////////////////////////////////////////////////////
-  image(infoWindow, size.info.x, size.info.y);
-  //////////////////////////////////////////// SEEDS SHIT ///////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////// UV /////////////////////////////////////////////////////////////////////////////////////
-
   ///////////////////////////////////////////CANS //////////////////////////////////////
   fill(0, 360-(360*cansDimmer));
   rect(grid.cans[0].x, grid.cans[0].y, grid.cansLength, 3);
   rect(grid.cans[1].x, grid.cans[1].y, grid.cansLength, 3);
 
-  /////////////////////////////////////////// SEEDS ///////////////////////////////////////////////////////////
-  fill(0, 360-(360*seedsDimmer));
-  rect(grid.seed[0].x, grid.seed[0].y, grid.seedLength, 3);
-  rect(grid.seed[1].x, grid.seed[1].y, grid.seedLength, 3);
-
-  fill(0, 360-(360*seed2Dimmer));
-  rect(grid.seed[2].x, grid.seed[2].y, 3, grid.seed2Length);
-
-  //////////////////////////////// CONTROLLERS //////////////////////////////////////////////////////////////
-  //controllerControl(flash1, (0.7+(0.3*noize1))*controllerDimmer);
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////// PLAY WITH ME MORE //////////////////////////////////////////////////////////////////////////////
   playWithMeMore();
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -246,6 +180,8 @@ void draw()
     rect(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight);
   }
   /////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
+
+  image(infoWindow, size.info.x, size.info.y);
 
   fill(rig.flash);
   rect(size.rigWidth, height/2, 1, height);                     ///// vertical line to show end of rig viz area
