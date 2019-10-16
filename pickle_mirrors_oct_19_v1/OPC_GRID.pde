@@ -6,9 +6,8 @@ class OPCGrid {
   PVector[] cans = new PVector[3];
   PVector[] controller = new PVector[4];
   PVector uv; 
-  int rows, columns;
 
-  int pd, ld, dist, controllerGridStep;
+  int pd, ld, dist, controllerGridStep, rows, columns;
   float mirrorAndGap, seedLength, _seedLength, seed2Length, _seed2Length, cansLength, _cansLength, _mirrorWidth, mirrorWidth, controllerWidth;
 
   OPCGrid () {
@@ -68,7 +67,6 @@ class OPCGrid {
       for (int i = 0; i < mirrorX.length; i++) mirrorX[i][1] = new PVector (size.rig.x-(mirrorAndGap*columns/2)+((mirrorAndGap)*i), size.rig.y);                   /// PVECTORS for MIDDLE GAPS 0-6
       for (int i = 0; i < mirrorX.length; i++) mirrorX[i][2] = new PVector (size.rig.x-(mirrorAndGap*columns/2)+((mirrorAndGap)*i), size.rig.y+mirrorAndGap);    /// PVECTORS for BOTTOM GAPS 0-6
       for (int i = 0; i < mirrorX.length; i++) mirrorX[i][3] = new PVector (size.rig.x-(mirrorAndGap*columns/2)+((mirrorAndGap)*i), size.rig.y);    /// PVECTORS for TOP GAPS 0-6
-
       // panel 1
       _mirror[0] = new PVector (size.rig.x-(mirrorAndGap*2.5), yBottom);                  /// PVECTORS for CENTER of MIRRORS 0-2
       _mirror[1] = new PVector (size.rig.x-(mirrorAndGap*2.5), yTop);                  /// PVECTORS for CENTER of MIRRORS 0-2
@@ -100,27 +98,11 @@ class OPCGrid {
       break;
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////// ROOF POSISTIONS FOR GRID ////////////////////////////////////////////////////
-    _seedLength = size.roofWidth;
-    _seed2Length = size.roofHeight;
-    seed[0] = new PVector (size.roof.x, size.roof.y-(size.roofHeight/4)); 
-    seed[1] = new PVector (size.roof.x, size.roof.y+(size.roofHeight/4)); 
-    seed[2] = new PVector (size.roof.x, size.roof.y);
-    _cansLength = size.roofWidth/2;
-    cans[0] = new PVector(size.roof.x-(_cansLength/2), size.roof.y-(mirrorAndGap/2));
-    cans[1] = new PVector(size.roof.x+(_cansLength/2), size.roof.y+(mirrorAndGap/2));
-    uv = new PVector(size.rig.x, size.rig.y);
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////// RIG POSITIONS FOR GRID ///////////////////////////////////////////////////////
-    _seedLength = size.rigWidth;
-    _seed2Length = size.rigHeight/1.6;
-    seed[0] = new PVector (size.rig.x, mirrorX[0][0].y+(dist/6)); 
-    seed[1] = new PVector (size.rig.x, mirrorX[0][3].y-(dist/6)); 
-    seed[2] = new PVector (size.rig.x, size.rig.y);
-    _cansLength = size.rigWidth/2;
-    cans[0] = new PVector(size.rig.x-(_cansLength/2), size.rig.y-(mirrorAndGap/2)+2);
-    cans[1] = new PVector(size.rig.x+(_cansLength/2), size.rig.y+(mirrorAndGap/2)-2);
-    uv = new PVector(size.rig.x+10, size.rig.y);
+    _cansLength = size.rigWidth;
+    cans[0] = new PVector(size.rig.x, size.rig.y+(mirrorAndGap*1.2));
+    cans[1] = new PVector(size.rig.x, size.rig.y+(mirrorAndGap*1.2)+6);
+    cans[2] = new PVector(size.rig.x, size.rig.y+(mirrorAndGap*1.2)-6);
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////// MIRRORS //////////////////////////////////////////////
@@ -202,40 +184,7 @@ class OPCGrid {
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////// SEEDS ///////////////////////////////////////////////
-  void kallidaSeeds(OPC opc) {
-    int fc = 2 * 512;                 // fadecandy number (first one used is 0)
-    int channel = 0;                  // pair of holes on fadecandy board
-    int strt = 64*channel+fc;         // starting pixel index
-    int leds = 64;                    // leds in strip
-    int seedLeds = 110;               // leds per seed
-    int pd = int(_seedLength/seedLeds); //int(size.roofWidth/seedLeds*1.49);
 
-    ///////////////////////////////////// SEED 1 ///////////////////////////////////////////////
-    opc.ledStrip(strt, leds, seed[0].x-(seedLeds/2*pd-(leds/2*pd)), seed[0].y, pd, 0, false);     
-    strt = strt+leds;               //next led in same channel
-    leds = 46;
-    opc.ledStrip(strt, leds, seed[0].x+(seedLeds/2*pd-(leds/2*pd)), seed[0].y, pd, 0, true);
-    ///////////////////////////////////// SEED 2 //////////////////////////////////////////////
-    channel = 2;
-    strt = 64*channel+fc;             // starting pixel number for cicle
-    leds = 64;      
-    opc.ledStrip(strt, leds, seed[1].x-(seedLeds/2*pd-(leds/2*pd)), seed[1].y, pd, 0, false);             
-    strt = strt+leds;                 //next led in same channel
-    leds = 46;
-    opc.ledStrip(strt, leds, seed[1].x+(seedLeds/2*pd-(leds/2*pd)), seed[1].y, pd, 0, true);
-    ///////////////////////////////////// SEED 3 //////////////////////////////////////////////
-    channel = 4;
-    strt = 64*channel+fc;         
-    leds = 64;    
-    pd = int (_seed2Length/seedLeds);
-    opc.ledStrip(strt, leds, seed[2].x, seed[2].y-(seedLeds/2*pd-(leds/2*pd)), pd, (PI/2), false);             
-    strt = strt+leds;                 //next led in same channel
-    leds = 46;
-    opc.ledStrip(strt, leds, seed[2].x, seed[2].y+(seedLeds/2*pd-(leds/2*pd)), pd, (PI/2), true);
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
-    seedLength = _seedLength + (pd/2);
-    seed2Length = _seed2Length + (pd/2);
-  }
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////// CANS //////////////////////////////////////////////////
   void kallidaCans(OPC opc) {
@@ -245,6 +194,16 @@ class OPCGrid {
     pd = int(_cansLength/6);
     opc.ledStrip(fc+(channel*0), leds, int(cans[0].x), int(cans[0].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
     opc.ledStrip(fc+(channel*1)+(64*channel), leds, int(cans[1].x), int(cans[1].y), pd, 0, false);      /////  6 CANS PLUG INTO slot 1 on CANS BOX ///////
+    cansLength = _cansLength - (pd/2);
+  }
+  void pickleCansOPC(OPC opc) {
+    int fc = 2 * 512;
+    int channel = 64;
+    int leds = 6;
+    pd = int(_cansLength/6);
+    opc.ledStrip(fc+(channel*6), leds, int(cans[0].x), int(cans[0].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
+    opc.ledStrip(fc+(channel*7), leds, int(cans[1].x), int(cans[1].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
+
     cansLength = _cansLength - (pd/2);
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////

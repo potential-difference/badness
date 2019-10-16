@@ -15,8 +15,8 @@ class SizeSettings {
       break;
     case LANDSCAPE:
       rigWidth = 900;                                    // WIDTH of rigViz
-      rigHeight = 300;    
-      rig = new PVector(rigWidth/2, (rigHeight/2));   // cordinates for center of rig
+      rigHeight = 350;    
+      rig = new PVector(rigWidth/2, (rigHeight/2)-25);   // cordinates for center of rig
       rigWindow = new PVector(rigWidth/2, rigHeight/2);
       break;
     }

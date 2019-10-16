@@ -1,5 +1,5 @@
 /////////////////////////////////// FUNCTION AND ALPHA ARRAYS //////////////////////////////////////////////
-float sineFast, sineSlow, sine, stutter;
+float sineFast, sineSlow, sine, stutter, shimmer;
 float timer[] = new float[6];
 void globalFunctions() {
   float tm = 0.05+(noize/50);
@@ -15,6 +15,8 @@ void globalFunctions() {
   if (cc[102] > 0) stutter = map(sin(timer[4]*cc[2]*8), -1, 1, 0, 1);        //// 0-1-1-0 fast jitter sine wave
   else stutter = map(sin(timer[4]*50), -1, 1, 0, 1);        //// 0-1-1-0 fast jitter sine wave
 
+  shimmer = (shimmerSlider/2+(stutter*0.4*noize1*0.2));
+
   noize();
   oskPulse();
 }
@@ -22,18 +24,25 @@ void globalFunctions() {
 int beatCounter;
 long beatTimer;
 boolean beatTrigger;
+float beat;
 void beats() {             ////// BEAT DETECT THROUGHOUT SKETCH ///////
   beatTimer++;
   beatAlpha=0.2; //this affects how quickly code adapts to tempo changes 0.2 averages the last 10 onsets  0.02 would average the last 100
 
   if (beatDetect.isOnset()) {
+    beat = 1;
     beatCounter = (beatCounter + 1) % 120;
     weightedsum=beatTimer+(1-beatAlpha)*weightedsum;
     weightedcnt=1+(1-beatAlpha)*weightedcnt;
     avgtime=weightedsum/weightedcnt;
     beatTimer=0;
   }
-} 
+  if (avgtime>0) beat*=pow(alphaSlider, (1/avgtime));       //  changes rate alpha fades out!!
+  else beat*=0.95;
+
+  float end = 0.001;
+  if (beat < end) beat = end;
+}
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////// PAUSE ///////////////////////////////////////////////////

@@ -51,7 +51,6 @@ void setup()
 
   ///////////////// LOCAL opc /////////////////////
   opcMirrors = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRRORS
-  //opcSeeds = new OPC(this, "127.0.0.1", 7890);         // Connect to the remote instance of fcserver - SEEDS BOX IN ROOF - 
   opcCans = new OPC(this, "127.0.0.1", 7890);          // Connect to the remote instance of fcserver - CANS BOX
 
   ///////////////// OPC over NETWORK /////////////////////
@@ -59,6 +58,7 @@ void setup()
   //opcCans = new OPC(this, "10.168.1.86", 7890);          // Connect to the remote instance of fcserver - CANS BOX
 
   grid.mirrorsOPC(opcMirrors, opcMirrors, 0);               // grids 0-3 MIX IT UPPPPP 
+  grid.pickleCansOPC(opcCans);               
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
   //loadAudio();     // load one shot sounds ///
@@ -75,7 +75,7 @@ void setup()
   animations = new ArrayList<Anim>();
   animations.add(new Anim(size.rig.x, size.rig.y, 0));
   for (int i=0; i < visual.length; i++) visual[i] = new Visualisation();
- 
+
   //dimmer = 1; // must come before load control frame
   drawingSetup();
   loadImages();
@@ -160,13 +160,19 @@ void draw()
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-   
+
   ///////////////////////////////////////////CANS //////////////////////////////////////
-  fill(0, 360-(360*cansDimmer));
+  fill(0);
   rect(grid.cans[0].x, grid.cans[0].y, grid.cansLength, 3);
   rect(grid.cans[1].x, grid.cans[1].y, grid.cansLength, 3);
 
-    //////////////////////////////// PLAY WITH ME MORE //////////////////////////////////////////////////////////////////////////////
+  if (beat <0.3) {
+    fill(rig.flash, ((1-beat*0.6)+(0.3*noize1)+(0.05*1-beat*stutter))*360*cansDimmer); //       (280*noize)+(100*shimmer)+(120*1-beat));
+    rect(grid.cans[0].x, grid.cans[0].y, grid.cansLength, 3);
+    rect(grid.cans[1].x, grid.cans[1].y, grid.cansLength, 3);
+  }
+
+  //////////////////////////////// PLAY WITH ME MORE //////////////////////////////////////////////////////////////////////////////
   playWithMeMore();
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
