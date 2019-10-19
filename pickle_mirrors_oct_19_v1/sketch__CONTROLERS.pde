@@ -183,11 +183,12 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
+    x+=clm;
     //////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////// FOURTH coloum of sliders ///////////////////////////////////////
     cp5.addSlider("blurSlider")
       .plugTo(parent, "blurSlider")
-      .setPosition(x+clm, y)
+      .setPosition(x, y)
       .setSize(wide, high)
       //.setFont(font)
       .setRange(0, 1)
@@ -198,7 +199,7 @@ class ControlFrame extends PApplet {
       ;
     cp5.addSlider("tweakSlider")
       .plugTo(parent, "tweakSlider")
-      .setPosition(x+clm, y+row)
+      .setPosition(x, y+row)
       .setSize(wide, high)
       //.setFont(font)
       .setRange(0, 1)
@@ -209,7 +210,7 @@ class ControlFrame extends PApplet {
       ;
     cp5.addSlider("bgNoiseSlider")
       .plugTo(parent, "bgNoiseSlider")
-      .setPosition(x+clm, y+row*2)
+      .setPosition(x, y+row*2)
       .setSize(wide, high)
       //.setFont(font)
       .setRange(0, 1)
@@ -220,7 +221,7 @@ class ControlFrame extends PApplet {
       ;
     cp5.addSlider("colorNoiseSlider")
       .plugTo(parent, "colorNoiseSlider")
-      .setPosition(x+clm, y+row*3)
+      .setPosition(x, y+row*3)
       .setSize(wide, high)
       //.setFont(font)
       .setRange(0, 1)
@@ -233,11 +234,20 @@ class ControlFrame extends PApplet {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////// FITH coloum of sliders //////////////////////////////////
     x +=clm;
-    // create a toggle
-    cp5.addToggle("opTopToggle")
-      .plugTo(parent, "onTopToggle")
-      .setPosition(width-100, y)
+    cp5.addToggle("manualToggle")
+      .plugTo(parent, "manualToggle")
+      .setPosition(x, y)
       .setSize(50, 50)
+      .setColorActive(bac1) 
+      .setColorBackground(bac) 
+      .setColorForeground(slider) 
+      ;
+    x += 100;
+    // create a toggle
+    cp5.addToggle("onTop")
+      .plugTo(parent, "onTop")
+      .setPosition(x, y)
+      .setSize(20, 20)
       .setColorActive(bac1) 
       .setColorBackground(bac) 
       .setColorForeground(slider) 

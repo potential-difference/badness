@@ -34,7 +34,7 @@ MidiBus LPD8bus;      // midibus for LPD8
 int time[] = new int[12]; // array of timers to use throughout the sketch
 
 PFont myFont;
-boolean onTopToggle = false;
+boolean onTop = false, manualToggle = false;
 
 void settings() {
   size = new SizeSettings(LANDSCAPE);
@@ -47,7 +47,7 @@ void settings() {
 float dimmer = 1;
 void setup()
 {
-  surface.setAlwaysOnTop(onTopToggle);
+  surface.setAlwaysOnTop(onTop);
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
   grid = new OPCGrid();
 
@@ -106,7 +106,7 @@ int roofViz, rigViz, colStepper = 1;
 int time_since_last_anim=0;
 void draw()
 {
-  surface.setAlwaysOnTop(onTopToggle);
+  surface.setAlwaysOnTop(onTop);
 
   background(0);
   //dimmer = bgDimmer;
@@ -140,7 +140,7 @@ void draw()
     animations.add(new Anim(1));
     animations.get(animations.size()-1).funcFX = cc[1];
   }
-  if (beatDetect.isOnset()) animations.add(new Anim(rigViz));   // create a new anim object and add it to the beginning of the arrayList
+  if (!manualToggle) if (beatDetect.isOnset()) animations.add(new Anim(rigViz));   // create a new anim object and add it to the beginning of the arrayList
   // limit the number of animations
   while (animations.size()>0 && animations.get(0).deleteme) {
     animations.remove(0);
