@@ -224,6 +224,18 @@ class Anim implements Animation {
 
       window.endDraw();
       break;
+      case 7:
+      window.beginDraw();
+      window.background(0);
+
+      stroke = 300-(200*noize);
+      wide = size.vizWidth+(50);
+      high = wide;
+      squareNut(grid.mirrorX[1][0].x, grid.mirrorX[1][0].y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 45, alphaA);
+      squareNut(grid.mirrorX[1][0].x, grid.mirrorX[1][0].y, col1, stroke, wide-(wide*functionA), high-(high*functionA), -45, alphaA);
+
+      window.endDraw();
+      break;
     default:
       break;
     }
