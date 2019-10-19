@@ -57,7 +57,7 @@ void setup()
 
   ///////////////// OPC over NETWORK /////////////////////
   //opcMirrors = new OPC(this, "192.168.0.70", 7890);       // Connect to the remote instance of fcserver - MIRROR 1
-  //opcCans = new OPC(this, "10.168.1.86", 7890);          // Connect to the remote instance of fcserver - CANS BOX
+  opcCans = new OPC(this, "10.168.1.86", 7890);          // Connect to the remote instance of fcserver - CANS BOX
 
   grid.mirrorsOPC(opcMirrors, opcMirrors, 0);               // grids 0-3 MIX IT UPPPPP 
   grid.pickleCansOPC(opcCans);               
@@ -76,7 +76,6 @@ void setup()
 
   animations = new ArrayList<Anim>();
   animations.add(new Anim(size.rig.x, size.rig.y, 0));
-  for (int i=0; i < visual.length; i++) visual[i] = new Visualisation();
 
   //dimmer = 1; // must come before load control frame
   drawingSetup();
@@ -134,7 +133,7 @@ void draw()
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // trigger new animnations 
-  if (keyP[' ']) animations.add(new Anim(size.rig.x, size.rig.y, rigViz));                                                    // or space bar!
+  if (keyP[' '])  animations.add(new Anim(size.rig.x, size.rig.y, rigViz));                                                    // or space bar!
   if ( keyP['d']) animations.add(new Anim(size.rig.x, size.rig.y, 1));
   if (cc[101] > 0) {
     animations.add(new Anim(size.rig.x, size.rig.y, 1));
@@ -142,11 +141,17 @@ void draw()
   }
   if (beatDetect.isOnset()) animations.add(new Anim(size.rig.x, size.rig.y, rigViz));   // create a new anim object and add it to the beginning of the arrayList
   // limit the number of animations
-  if (animations.size() >= 8) animations.remove(0);  
+  while (animations.size()>0 && animations.get(0).deleteme) {
+    animations.remove(0);
+  }
+  if (animations.size() >= 16) animations.remove(0);  
+  println("Number of anims:"+animations.size());
+
   // adjust animations
   if (keyT['a']) for (Anim anim : animations)  anim.alphFX = 1-(stutter*0.1);
   if (keyT['s']) for (Anim anim : animations)  anim.funcFX = 1-(stutter*noize1*0.1);
   //draw animations
+
   blendMode(LIGHTEST);
   for (int i = animations.size()-1; i >=0; i--) {                                  // loop  through the list
     Anim anim = animations.get(i);  
@@ -155,12 +160,21 @@ void draw()
   // draw colour layer
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   blendMode(MULTIPLY);
-  colorLayer(rigColourLayer, rigBgr);                               // develop colour layer
+  colorLayer(rigColourLayer, rigBgr);
+  if (keyT['r'])  bgNoise(rigColourLayer, 0, bgNoiseSlider); //PGraphics layer,color,alpha
+  // develop colour layer
   image(rigColourLayer, size.rigWidth/2, size.rigHeight/2);         // draw rig colour layer to rig window
   blendMode(NORMAL);
+  /////background noise over whole window/////
+  if (keyT['e']) {
+    rigColourLayer.beginDraw();
+    rigColourLayer.background(0, 0, 0, 0);
+    rigColourLayer.endDraw();
+    bgNoise(rigColourLayer, bloo, colorNoiseSlider);   //PGraphics layer,color,alpha
+    image(rigColourLayer, size.rigWidth/2, size.rigHeight/2);
+  }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
 
   ///////////////////////////////////////////CANS //////////////////////////////////////
   fill(0);

@@ -21,7 +21,6 @@ class Anim implements Animation {
     if (blury!=prevblury) {
       prevblury=blury;
     }
-
     window = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
     window.beginDraw();
     window.colorMode(HSB, 360, 100, 100);
@@ -130,6 +129,69 @@ class Anim implements Animation {
       }
       window.endDraw();
       break;
+    case 2:
+      window.beginDraw();
+      window.background(0);
+      stroke = 10+(30*function);
+      rotate = -60*func[0];
+      wide = 10+(func[0]*size.vizWidth);
+      high = 110-(func[1]*size.vizHeight);
+      star(grid.mirrorX[2][0].x, grid.mirrorX[2][0].y, col1, stroke, wide, high, rotate, alphaA);
+      star(grid.mirrorX[4][2].x, grid.mirrorX[4][2].y, col1, stroke, wide, high, rotate, alphaA);
+
+      wide = 10+(func[1]*size.vizWidth);
+      high = 110+(func[0]*size.vizHeight);
+      rotate = 60*func[1];
+      star(grid.mirrorX[4][0].x, grid.mirrorX[4][0].y, col1, stroke, wide, high, rotate, alphaA);
+      star(grid.mirrorX[2][2].x, grid.mirrorX[2][2].y, col1, stroke, wide, high, rotate, alphaA);
+      window.endDraw();
+      break;
+    case 3:
+      window.beginDraw();
+      window.background(0);
+      wide = 500+(noize*150);
+      if (beatCounter % 8 < 3) {
+        rush(grid.mirror[0].x, grid.mirror[0].y, col1, wide, vizHeight/2, functionA, alphaA);
+        rush(grid.mirror[6].x, grid.mirror[6].y, col1, wide, vizHeight/2, 1-functionA, alphaA);
+      } else {
+        rush(grid.mirror[0].x, grid.mirror[0].y, col1, wide, vizHeight/2, 1-functionA, alphaA);
+        rush(grid.mirror[6].x, grid.mirror[6].y, col1, wide, vizHeight/2, functionA, alphaA);
+      }
+      window.endDraw();
+      break;
+    case 4:
+      window.beginDraw();
+      window.background(0);
+
+      wide = 150+(noize*600*functionA);
+      rush(viz.x, grid.mirror[0].y, col1, wide, vizHeight/2, functionA, alphaA);
+      rush(viz.x, grid.mirror[0].y, col1, wide, vizHeight/2, 1-functionB, alphaA);
+      rush(-vizWidth/2, grid.mirror[0].y, col1, wide, vizHeight/2, 1-functionA, alphaA);
+      rush(-vizWidth/2, grid.mirror[0].y, col1, wide, vizHeight/2, functionB, alphaA);
+
+      rush(viz.x, grid.mirror[6].y, col1, wide, vizHeight/2, 1-functionA, alphaA);
+      rush(viz.x, grid.mirror[6].y, col1, wide, vizHeight/2, functionB, alphaA);
+      rush(-vizWidth/2, grid.mirror[6].y, col1, wide, vizHeight/2, functionA, alphaA);
+      rush(-vizWidth/2, grid.mirror[6].y, col1, wide, vizHeight/2, 1-functionB, alphaA);
+
+      window.endDraw();
+      break;
+    case 5:
+
+      break;
+    case 6:
+      window.beginDraw();
+      window.background(0);
+
+      stroke = 300-(200*noize);
+      wide = size.vizWidth+(50);
+      high = wide;
+      //donutBLUR(int n, color col, float stroke, float sz, float sz1, float func, float alph) {
+      squareNut(grid.mirror[1].x, grid.mirrorX[1][1].y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
+      squareNut(grid.mirror[4].x, grid.mirrorX[4][1].y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
+
+      window.endDraw();
+      break;
     }
     blurPGraphics();
   }
@@ -138,23 +200,52 @@ class Anim implements Animation {
   void squareNut(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
     window.strokeWeight(-stroke);
     window.stroke(col, 360*alph);
+    window.noFill();
     window.pushMatrix();
     window.translate(xpos, ypos);
     window.rotate(radians(rotate));
     window.rect(0, 0, wide, high);
     window.popMatrix();
   }
-  /////////////////////////////////// DONUT NUT /////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////// DONUT /////////////////////////////////////////////////////////////////////////////////////////////////
   void donut(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
     window.strokeWeight(-stroke);
     window.stroke(col, 360*alph);
+    window.noFill();
     window.pushMatrix();
     window.translate(xpos, ypos);
     window.rotate(radians(rotate));
     window.ellipse(0, 0, wide, high);
     window.popMatrix();
   }
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////// STAR ////////////////////////////////////////////////////////////////////////
+  void star(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
+    window.strokeWeight(-stroke);
+    window.stroke(col, 360*alph);
+    window.noFill();
+    window.pushMatrix();
+    window.translate(xpos, ypos);
+    window.rotate(radians(rotate));
+    window.ellipse(0, 0, wide, high);
+    window.rotate(radians(120));
+    window.ellipse(0, 0, wide, high);
+    window.rotate(radians(120));
+    window.ellipse(0, 0, wide, high);
+    window.popMatrix();
+  }
+
+
+  void rush(float xpos, float ypos, color col, float wide, float high, float func, float alph) {
+    float moveA;
+    float strt = xpos;
+    moveA = (strt+(window.width)*func);
+    //if (beatCounter % 8 <4 )  moveA = (strt+(window.width-strt)*func);
+    //else  moveA = (window.width-strt)-(strt+(window.width-strt)*func);
+    window.imageMode(CENTER);
+    window.image(bar1, moveA, ypos, wide, high);
+    window.tint(col, 360*alph);
+  }
+
   ////////////////////////////////////////////////////////////////////////////////////////
   void blurPGraphics() {
     blur.set("horizontalPass", 0);
@@ -207,6 +298,7 @@ class Anim implements Animation {
     functionFast = 1;
     functionSlow = 1;
   }
+  boolean deleteme=false;
   //////////////////////////////////////// DECAY ////////////////////////////////////////////////
   void decay() {            
     if (avgtime>0) {
@@ -233,6 +325,9 @@ class Anim implements Animation {
 
     if (function < end) function = end;
     if (functionFast < end) functionFast = end;
-    if (functionSlow < end) functionSlow = end;
+    if (functionSlow < end) {
+      functionSlow = end;
+      deleteme=true;
+    }
   }
 }

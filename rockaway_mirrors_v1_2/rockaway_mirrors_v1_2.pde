@@ -1,6 +1,6 @@
 OPC opc;
 OPC opcLocal;
-OPC opcMirror1;
+OPC opcMirror1; 
 OPC opcMirror2;
 OPC opcSeeds;
 OPC opcCans;
@@ -14,9 +14,7 @@ Toggle toggle = new Toggle();
 SketchColor rig = new SketchColor();
 SketchColor roof = new SketchColor();
 
-AlphaFunction rig = new AlphaFunction();
-AlphaFunction roof = new AlphaFunction();
-
+AlphaFunction rigAlpha = new AlphaFunction();
 
 import javax.sound.midi.ShortMessage;       // shorthand names for each control on the TR8
 import oscP5.*;
@@ -28,8 +26,6 @@ MidiBus TR8bus;       // midibus for TR8
 MidiBus faderBus;     // midibus for APC mini
 MidiBus LPD8bus;      // midibus for LPD8
 
-float cc[] = new float[128];   //// An array where to store the last value received for each knob
-float prevcc[] = new float[128];
 int time[] = new int[12]; // array of timers to use throughout the sketch
 
 PFont myFont;
@@ -83,13 +79,11 @@ void setup()
   oscAddrSetup();
 
   dimmer = 1; // must come before load control frame
-
   drawingSetup();
   loadImages();
   loadGraphics();
-
   colorSetup();  
-  rigCol.colorArray();
+  rig.colorArray();
   roof.colorArray();
 
   controlFrame = new ControlFrame(this, width, 130, "Controls"); // load control frame must come after shild ring etc
@@ -100,34 +94,31 @@ void setup()
   rigViz = 4;
   roofViz = 1;
   rigBgr = 1;    
-  rigCol.color1 = 1;    // set c start
-  rigCol.color2 = 2;   // set flash start
+  rig.colorA = 1;    // set c start
+  rig.colorB = 2;   // set flash start
 
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
   for (int i = 0; i < 9; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen
-  //hint(DISABLE_OPTIMIZED_STROKE);
   cc[1] = 0.75;
   cc[6] = 0.75;
   cc[8] = 1;
-
   frameRate(30);
 }
 float vizTime, colTime;
 int roofViz, rigViz, colStepper = 1;
-
 void draw()
 {
-
   background(0);
   //dimmer = bgDimmer;
   noStroke();
   beatDetect.detect(in.mix);
   beats();
-  pause(10);                        ////// number of seconds before no music detected
+  pause(10);                                ////// number of seconds before no music detected
   noize();
   oskPulse();
-  arrayDraw();
-  rigCol.clash(func);                         ///// clash colour changes on function in brackets
+  rigAlpha.arrayDraw();
+  rig.clash(func);                          ///// clash colour changes on function in brackets
+  roof.clash(func);                         ///// clash colour changes on function in brackets
 
   ////// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
   blury = int(map(blurSlider, 0, 1, 0, 30));
@@ -140,8 +131,6 @@ void draw()
   vizTime = 60*15*vizTimeSlider;
   playWithYourself(vizTime); 
   playWithMe();
-
-  //oscControl();
 
   float rigDimmerPad = cc[4]; // come back to this with wigflex code?!
   float roofDimmerPad = cc[8]; // come back to this with wigflex code?!
@@ -200,27 +189,16 @@ void draw()
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   image(infoWindow, size.info.x, size.info.y);
   //////////////////////////////////////////// SEEDS SHIT ///////////////////////////////////////////////////////////////////////////////
-  if (keyP[48]) { // beatCounter % 100 >   92
+  if (keyP['0']) { // beatCounter % 100 >   92
     rigControl(0, 1);
     cansControl(0, 1);
     // add uv control////
-    fill(roofCol.flash, 360*(pulz*0.8+(stutter*0.2)));
+    fill(roof.flash, 360*(pulz*0.8+(stutter*0.2)));
     rect(grid.seed[0].x, grid.seed[0].y, grid.seedLength, 3);
     rect(grid.seed[1].x, grid.seed[1].y, grid.seedLength, 3);
     rect(grid.seed[2].x, grid.seed[2].y, 3, grid.seedLength);
   }
-  /*
-   
-   if (button[0])  cansControl(0,0); 
-   if (button[1]) seedsControlA(0, 0);
-   if (button[2]) rigControl(0,0);
-   if (button[3]) seedsControlB(0, 0);
-   if (button[4]) controllerControl(0, 0);
-   
-   if (keyP[55]) cansControl(flash, stutter); 
-   if (keyP[56]) seedsControlA(flash, stutter);
-   //if (keyP[57])  colorSwap(0.9999999);
-   */
+  
 
   /////////////////////////////////////////////// UV /////////////////////////////////////////////////////////////////////////////////////
   fill(360, ((180*noize)+(180*pulz))*uvDimmer);
@@ -240,12 +218,10 @@ void draw()
   rect(grid.seed[2].x, grid.seed[2].y, 3, grid.seed2Length);
 
   //////////////////////////////// CONTROLLERS //////////////////////////////////////////////////////////////
-
   //controllerControl(flash1, (0.7+(0.3*noize1))*controllerDimmer);
 
-
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //playWithMeMore();
+  playWithMeMore();
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////// TEST ALL COLOURS - TURN ALL LEDS ON AND CYCLE COLOURS ////////////////////////////////
@@ -262,10 +238,10 @@ void draw()
   }
   /////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
 
-  fill(rigCol.flash);
+  fill(rig.flash);
   rect(size.rigWidth, height/2, 1, height);                     ///// vertical line to show end of rig viz area
   rect(size.rigWidth+size.roofWidth, height/2, 1, height);      ///// vertical line to show end of roof viz area
-  fill(rigCol.flash, 80);    
+  fill(rig.flash, 80);    
   rect((size.rigWidth+size.roofWidth)/2, height-size.sliderHeight, size.rigWidth+size.roofWidth, 1);                              ///// horizontal line to show bottom area
 
   // code to develop and then draw preview boxes 

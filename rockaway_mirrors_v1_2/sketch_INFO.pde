@@ -57,7 +57,6 @@ void onScreenInfo() {
   text("func's: " + roofFctIndex + " / " + roofFct1Index, x+100, y);
   text("alph's: " + roofAlphIndex + " / " + roofAlph1Index, x+100, y+20);
 
-  //if (keyT[115]) {
   /////////// info about PLAYWITHYOURSELF functions
   y = 20;
   x=width-5;
@@ -71,7 +70,7 @@ void onScreenInfo() {
   sec = nf(int(colTime - (millis()/1000 - time[3])) %60, 2, 0);
   min = int(colTime - (millis()/1000 - time[3])) /60 %60;
   text("next color in: "+ min+":"+sec, x, y+20);
-  text("c-" + rig.color1 + "  " + "flash-" + rig.color2, x, y+40);
+  text("c-" + rig.colorA + "  " + "flash-" + rig.colorB, x, y+40);
   text("counter: " + counter, x, y+60);
 
   // moving rectangle displays alpha and functions
@@ -130,28 +129,28 @@ void colorInfo() {
   float y = height-5;
   // RIG ///
 
-  fill(rig.col[rig.color1]);          
+  fill(rig.col[rig.colorA]);          
   rect(size.rigWidth-20, y-10, 10, 10);               // rect to show CURRENT color C 
-  fill(rig.col[(rig.color1+1)%rig.col.length]);
+  fill(rig.col[(rig.colorA+1)%rig.col.length]);
   rect(size.rigWidth-7.5, y-10, 10, 10);              // rect to show NEXT color C 
-  fill(rig.col[rig.color2]);
+  fill(rig.col[rig.colorB]);
   rect(size.rigWidth-20, y, 10, 10);                  // rect to show CURRENT color FLASH 
-  fill(rig.col[(rig.color2+1)%rig.col.length]);  
+  fill(rig.col[(rig.colorB+1)%rig.col.length]);  
   rect(size.rigWidth-7.5, y, 10, 10);                 // rect to show NEXT color FLASH1
   fill(360, beat*360); 
   rect(size.rigWidth-32.5, y, 10, 10);                // rect to show B alpha
   fill(360, bt*360); 
   rect(size.rigWidth-32.5, y-10, 10, 10);             // rect to show CURRENT alpha
   // ROOF ///
-  fill(roof.col[roof.color1]);          
+  fill(roof.col[roof.colorA]);          
   rect(size.rigWidth+7.5, y-10, 10, 10);              // rect to show CURRENT color C 
-  fill(roof.col[(roof.color1+1)%roof.col.length]);
+  fill(roof.col[(roof.colorA+1)%roof.col.length]);
   rect(size.rigWidth+20, y-10, 10, 10);               // rect to show NEXT color C 
-  fill(roof.col[roof.color2]);          
+  fill(roof.col[roof.colorB]);          
   rect(size.rigWidth+7.5, y, 10, 10);                 // rect to show CURRENT color FLASH 
-  fill(roof.col[(roof.color2+1)%roof.col.length]);
+  fill(roof.col[(roof.colorB+1)%roof.col.length]);
   rect(size.rigWidth+20, y, 10, 10);                  // rect to show NEXT color FLASH1
-  fill(roof.col[roof.color2]);
+  fill(roof.col[roof.colorB]);
   //fill(360, roof.beat*360); 
   //rect(size.rigWidth+32.5, y, 10, 10);      // rect to show B alpha
   //fill(360, roof.bt*360); 
@@ -168,10 +167,10 @@ void toggleInfo(float xpos, float ypos) {
   y = 180;
   x = width-5;
   fill(50);
-  if (hold)  fill(300+(60*stutter));
+  if (vizHold)  fill(300+(60*stutter));
   text("[ = VIZ HOLD", x, y);
   fill(50);
-  if (hold1) fill(300+(60*stutter));
+  if (colHold) fill(300+(60*stutter));
   text("] = COL HOLD", x, y+20);
   y +=20;
   fill(50);
@@ -181,15 +180,12 @@ void toggleInfo(float xpos, float ypos) {
   if (!rig.colSwap) fill(300+(60*stutter));
   text("| = color swap", x, y+60);
   fill(50);
-  if (rig.colorFlipped) fill(300+(60*stutter));
+  if (rig.colFlip) fill(300+(60*stutter));
   text("; / ' = color flip", x, y+80);
   fill(50);
   if (colBeat) fill(300+(60*stutter));
   text("L = color beat", x, y+100);
   y+=20;
-  fill(50);
-  if (keyT[120]) fill(300+(60*stutter));
-  text("X = B/P/B2/B2", x, y+120);
   fill(50);
   if (keyT[122]) fill(300+(60*stutter));
   text("Z = viz flip", x, y+140);

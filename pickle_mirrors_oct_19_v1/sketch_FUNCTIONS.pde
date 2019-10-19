@@ -85,3 +85,21 @@ void noize() {
   noize1 = map(noize, -1, 1, 0, 1);
   noize12 = map(noize1, -1, 1, 1, 0);
 }
+
+void bgNoise(PGraphics layer,color col,float alpha){
+  layer.loadPixels();
+  for (int x=0;x<size.rigWidth;x++){
+    for (int y=0;y<size.rigHeight;y++){
+      color pixel=layer.pixels[x+y*size.rigWidth];
+      //col=int(random(255*alpha))<<24 | col&0xffffff;
+      color out;
+      if (random(1.0)<alpha) {
+        out=col;
+      }else{
+        out=pixel;
+      }
+      layer.pixels[x+y*size.rigWidth]=out;
+    }
+  }
+  layer.updatePixels();
+}

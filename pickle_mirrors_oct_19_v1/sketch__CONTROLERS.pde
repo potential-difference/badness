@@ -1,7 +1,7 @@
 import controlP5.*;
 ControlFrame controlFrame;
 float vizTimeSlider, colorSwapSlider, colorTimerSlider, cansDimmer, boothDimmer, digDimmer, roofPulse, backParsSlider, backDropSlider, cansSlider, movesSlider;
-float cansPulse, cans1Pulse, cans2Pluse, cans3Pulse, speedSlider, tweakSlider, testSlider3, blurSlider, rigDimmer, multiViz1, multiViz2, multiViz3;
+float tweakSlider, testSlider3, blurSlider, rigDimmer, bgNoiseSlider, colorNoiseSlider;
 float shimmerSlider, alphaSlider, boothParSlider, backParSlider, secondVizSlider, roofDimmer, seedsDimmer, seed2Dimmer, uvDimmer, controllerDimmer, funcSlider;
 
 class ControlFrame extends PApplet {
@@ -199,6 +199,28 @@ class ControlFrame extends PApplet {
     cp5.addSlider("tweakSlider")
       .plugTo(parent, "tweakSlider")
       .setPosition(x+clm, y+row)
+      .setSize(wide, high)
+      //.setFont(font)
+      .setRange(0, 1)
+      .setValue(0) // start value of slider
+      .setColorActive(act) 
+      .setColorBackground(bac) 
+      .setColorForeground(slider) 
+      ;
+    cp5.addSlider("bgNoiseSlider")
+      .plugTo(parent, "bgNoiseSlider")
+      .setPosition(x+clm, y+row*2)
+      .setSize(wide, high)
+      //.setFont(font)
+      .setRange(0, 1)
+      .setValue(0.3) // start value of slider
+      .setColorActive(act1) 
+      .setColorBackground(bac1) 
+      .setColorForeground(slider1) 
+      ;
+    cp5.addSlider("colorNoiseSlider")
+      .plugTo(parent, "colorNoiseSlider")
+      .setPosition(x+clm, y+row*3)
       .setSize(wide, high)
       //.setFont(font)
       .setRange(0, 1)

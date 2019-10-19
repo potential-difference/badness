@@ -1,6 +1,6 @@
 class SketchColor {
   //////////////////////////////////////////////////// COLOR TIMER ////////////////////////////////
-  color c, flash, c1, flash1, color1, color2 = 1, co2, co3, colA, colB, colC, colD;
+  color c, flash, c1, flash1, colorA, colorB = 1, colA, colB, colC, colD;
   float go;
   boolean change;
   void colorTimer(float colTime, int steps) {
@@ -8,7 +8,6 @@ class SketchColor {
       colA = c;
       colC = flash;
     }
-
     if (millis()/1000 - time[3] >= colTime) {
       change = true;
       println("COLOR CHANGE @", (hour()+":"+minute()+":"+second()));
@@ -16,26 +15,21 @@ class SketchColor {
     } else change = false;
     if (change == true) {
       go = 1;
-      color1 =  (color1 + steps) % (col.length-1);
-      colB =  col[color1];
-      color2 = (color2 + steps) % (col.length-1);
-      colD = col[color2];
-      //co2 = (co2 + steps) % (col.length-1);
-      //co3 = (co3 + steps) % (col.length-1);
+      colorA =  (colorA + steps) % (col.length-1);
+      colB =  col[colorA];
+      colorB = (colorB + steps) % (col.length-1);
+      colD = col[colorB];
     }
-
-    c = col[color1];
-    c1 = col[color1];
-    flash = col[color2];
-    flash1 = col[color2];
-
+    c = col[colorA];
+    c1 = col[colorA];
+    flash = col[colorB];
+    flash1 = col[colorB];
     if (go > 0.1) change = true;
     else change = false;
     if (change == true) {
       c = lerpColorHSB(colB, colA, go);
       flash = lerpColorHSB(colD, colC, go);
     }
-
     go *= 0.97;
     if (go < 0.01) go = 0.001;
   }
@@ -69,17 +63,14 @@ class SketchColor {
   } 
   ////////////////////////////// COLOR FLIP //////////////////////////////////
   boolean colFlip;
-  boolean colorFlipped;
   void colorFlip(boolean toggle) {
     int colA = c;
     int colB = flash;
     if (toggle) {
-      colorFlipped = true;
       c = colB;
       flash = colA;
-    } else colorFlipped = false;
+    }
   }
-
   ///////////////////////////////////////// CLASH COLOR SETUP /////////////////////////////////
   color clash, clash1, clash2, clash12, clashed;
   void clash(float func) { 

@@ -12,9 +12,9 @@ class Anim implements Animation {
   int blury, prevblury;
   float alphMod=1, funcMod=1;
   float alpha, function, funcFX=1, alphFX=1, dimmer=1;
+  float xpos, ypos;
 
-
-  Anim() {
+  Anim(float _xpos, float _ypos) {
     window = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
     window.beginDraw();
     window.colorMode(HSB, 360, 100, 100);
@@ -53,16 +53,18 @@ class Anim implements Animation {
     blured.noStroke();
     blured.endDraw();
 
-    //trigger();
-    //decay();
+    trigger();
+    xpos = _xpos;
+    ypos = _ypos;
   }
+
   float stroke, wide, high;
   PVector viz;
   Float vizWidth, vizHeight;
 
-  void drawAnim(PGraphics subwindow, float xpos, float ypos) {
+  void drawAnim() {
     alphaFunction();
-    //decay();
+    decay();
     PVector viz = new PVector(size.rig.x, size.rig.y);
     alpha = alph[rigAlphIndex]*alphFX*dimmer;
     function = func[fctIndex]*funcFX;
@@ -79,13 +81,15 @@ class Anim implements Animation {
       alpha = alph[rigAlphIndex]*alphFX*dimmer;
       function = func[fctIndex]*funcFX;
       visual[0].squareNut(col1, stroke, wide-(wide*function), high-(high*function), alpha);
-      subwindow.beginDraw();
-      subwindow.background(0);
-      subwindow.blendMode(LIGHTEST);
-      subwindow.image(visual[0].blured, viz.x, viz.y, blured.width*2.5, blured.height*2.5);
+      window.beginDraw();
+      window.background(0);
+      window.blendMode(LIGHTEST);
+      //subwindow.image(visual[0].blured, viz.x, viz.y, blured.width*2.5, blured.height*2.5);
       //subwindow.image(visual[0].blured, grid.mirrorX[3][2].x, grid.mirrorX[3][2].y, blured.width*2.5, blured.height*2.5);
-      subwindow.endDraw();
-      image(subwindow, xpos, ypos);
+      window.fill(360*alpha);
+      window.rect(viz.x, viz.y, 300*function, 300*function);
+      window.endDraw();
+      image(window, xpos, ypos);
       break;
     case 1:
       //stroke = 20;
@@ -145,25 +149,26 @@ class Anim implements Animation {
     for (int i = 0; i < func.length; i++) func[i] *=funcMod;
   }
   //////////////////////////////////// BEATS //////////////////////////////////////////////
-  float beat, beatSlow, pulz, pulzSlow, pulzFast, beatFast, beatCounter;
+  float beat, beatSlow, pulz, pulzSlow, pulzFast, beatFast;
   long beatTimer;
   void trigger() {
     beat = 1;
     beatFast = 1;
     beatSlow = 1;
 
-    beatCounter = (beatCounter + 1) % 120;
-    weightedsum=beatTimer+(1-beatAlpha)*weightedsum;
-    weightedcnt=1+(1-beatAlpha)*weightedcnt;
-    avgtime=weightedsum/weightedcnt;
-    beatTimer=0;
+    //    beatCounter = (beatCounter + 1) % 120;
+    //    weightedsum=beatTimer+(1-beatAlpha)*weightedsum;
+    //    weightedcnt=1+(1-beatAlpha)*weightedcnt;
+    //    avgtime=weightedsum/weightedcnt;
+    //    beatTimer=0;
   }
   void decay() {             ////// BEAT DETECT THROUGHOUT SKETCH ///////
-    beatTimer++;
-    beatAlpha=0.2;//this affects how quickly code adapts to tempo changes 0.2 averages
-    // the last 10 onsets  0.02 would average the last 100
-    if (avgtime>0) beat*=pow(beatSlider, (1/avgtime)); //  changes rate alpha fades out!!
-    else beat*=0.95;
+    //beatTimer++;
+    //beatAlpha=0.2;//this affects how quickly code adapts to tempo changes 0.2 averages
+    //// the last 10 onsets  0.02 would average the last 100
+    //if (avgtime>0) beat*=pow(beatSlider, (1/avgtime)); //  changes rate alpha fades out!!
+    //else 
+    beat*=0.95;
     if (beat < 0.8) beat *= 0.98;
     pulz = 1-beat;                     /// p is opposite of b
     beatFast *=0.7;                 
@@ -176,70 +181,5 @@ class Anim implements Animation {
     if (beatFast < end) beatFast = end;
     if (beatSlow < 0.4+(noize1*0.2)) beatSlow = 0.4+(noize1*0.2);
     if (pulzSlow > 1) pulzSlow = 1;
-  }
-
-  /*
-  /////////////////////////////////// SQUARE NUT ////////////////////////////////////
-   PGraphics squareNut(color col, float stroke, float wide, float high, float alph) {
-   try {
-   vis.beginDraw();
-   vis.colorMode(HSB, 360, 100, 100);
-   vis.background(0);
-   vis.strokeWeight(-stroke);
-   vis.stroke(col, 360*alph);
-   vis.pushMatrix();
-   vis.translate(vis.width/2, vis.height/2);
-   vis.rect(0, 0, wide, high);
-   vis.popMatrix();
-   vis.endDraw();
-   
-   blurPGraphics();
-   } 
-   catch (AssertionError e) {
-   println(e);
-   println(rigViz, col, stroke, wide, high, func, alph);
-   }
-   return blured;
-   }
-   
-   PGraphics star(float wide, float high, float rotate, color col, float stroke, float alph) {
-   vis.beginDraw();
-   vis.background(0);
-   vis.pushMatrix();
-   vis.strokeWeight(-stroke);
-   vis.stroke(col*alph);
-   vis.noFill();
-   vis.translate(vis.width/2, vis.height/2);
-   vis.rotate(radians(rotate));
-   if (!toggle.rect)vis.ellipse(0, 0, wide, high);
-   else vis.rect(0, 0, wide, high);
-   vis.rotate(radians(120));
-   if (!toggle.rect)vis.ellipse(0, 0, wide, high);
-   else vis.rect(0, 0, wide, high);
-   vis.rotate(radians(120));
-   if (!toggle.rect)vis.ellipse(0, 0, wide, high);
-   else vis.rect(0, 0, wide, high);
-   vis.popMatrix();
-   vis.noStroke();
-   vis.endDraw();
-   blurPGraphics();
-   return blured;
-   }
-   */
-
-  void blurPGraphics() {
-    blur.set("horizontalPass", 0);
-    pass1.beginDraw();            
-    pass1.shader(blur); 
-    pass1.imageMode(CENTER);
-    pass1.image(vis, pass1.width/2, pass1.height/2, pass1.width, pass1.height);
-    pass1.endDraw();
-    blur.set("horizontalPass", 1);
-    blured.beginDraw();            
-    blured.shader(blur);  
-    blured.imageMode(CENTER);
-    blured.image(pass1, blured.width/2, blured.height/2);
-    blured.endDraw();
-    println("BLURRED");
   }
 }

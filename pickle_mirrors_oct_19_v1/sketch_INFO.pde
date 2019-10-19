@@ -79,7 +79,7 @@ void onScreenInfo() {
   textAlign(CENTER);
   fill(rig.flash);
   text("FUNCTION", (size.rigWidth-50)/2, height-10);
-  //rect((size.rigWidth-50)*func, height-15, 10, 10); // moving rectangle to show current function
+  //rect((size.rigWidth-50)*animations.get(animations.alph[rigAlphIndex]), height-15, 10, 10); // moving rectangle to show current function
   fill(rig.c, 360);
   text("ALPHA", (size.rigWidth-50)/2, height);
   //rect((size.rigWidth-50)*bt, height-5, 10, 10); // moving rectangle to show current alpha

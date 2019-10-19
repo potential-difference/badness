@@ -69,63 +69,63 @@ void beats() {             ////// BEAT DETECT THROUGHOUT SKETCH ///////
   //}
 
   if (beatTrigger) {
-    beat = 1;
-    beatFast = 1;
-    beatSlow = 1;
+    //beat = 1;
+    //beatFast = 1;
+    //beatSlow = 1;
 
     beatCounter = (beatCounter + 1) % 120;
-    for (int i = 0; i < beats.length; i++) {
-      if (beatCounter % 4 == i) { 
-        beats[i] = 1; 
-        beatsSlow[i] = 1;
-        beatsFast[i] = 1;
-        beatsCounter[i] = (beatsCounter[i] + 1) % 120;
-      }
-    }
+    //for (int i = 0; i < beats.length; i++) {
+    //  if (beatCounter % 4 == i) { 
+    //    beats[i] = 1; 
+    //    beatsSlow[i] = 1;
+    //    beatsFast[i] = 1;
+    //    beatsCounter[i] = (beatsCounter[i] + 1) % 120;
+    //  }
+    //}
     weightedsum=beatTimer+(1-beatAlpha)*weightedsum;
     weightedcnt=1+(1-beatAlpha)*weightedcnt;
     avgtime=weightedsum/weightedcnt;
     beatTimer=0;
   }
-  if (avgtime>0) {
-    beat*=pow(beatSlider, (1/avgtime)); //  changes rate alpha fades out!!
-    for (int i = 0; i < beats.length; i++) beats[i]*=pow(beatSlider, (1/avgtime)); //  changes rate alpha fades out!!
-    for (int i = 0; i < beats.length; i++) {
-      if (beatCounter % 4 != i) beats[i]*=pow(beatSlider, (1/avgtime));                               //  else if beat is 1,2 or 3 decay faster
-    }
-  } else { 
-    beat*=0.95;
-    for (int i = 0; i < beats.length; i++) beats[i]*=0.95;
-  }
-  if (beat < 0.8) beat *= 0.98;
+  //if (avgtime>0) {
+  //  beat*=pow(beatSlider, (1/avgtime)); //  changes rate alpha fades out!!
+  //  for (int i = 0; i < beats.length; i++) beats[i]*=pow(beatSlider, (1/avgtime)); //  changes rate alpha fades out!!
+  //  for (int i = 0; i < beats.length; i++) {
+  //    if (beatCounter % 4 != i) beats[i]*=pow(beatSlider, (1/avgtime));                               //  else if beat is 1,2 or 3 decay faster
+  //  }
+  //} else { 
+  //  beat*=0.95;
+  //  for (int i = 0; i < beats.length; i++) beats[i]*=0.95;
+  //}
+  //if (beat < 0.8) beat *= 0.98;
 
-  for (int i = 0; i < pulzs.length; i++) pulzs[i] = 1-beats[i];
-  for (int i = 0; i < beatsFast.length; i++) beatsFast[i] *=0.9;
-  for (int i = 0; i < pulzsFast.length; i++) pulzsFast[i] = 1-beatsFast[i];
+  //for (int i = 0; i < pulzs.length; i++) pulzs[i] = 1-beats[i];
+  //for (int i = 0; i < beatsFast.length; i++) beatsFast[i] *=0.9;
+  //for (int i = 0; i < pulzsFast.length; i++) pulzsFast[i] = 1-beatsFast[i];
 
-  for (int i = 0; i < beatsSlow.length; i++) beatsSlow[i] -= 0.05;
-  for (int i = 0; i < pulzsSlow.length; i++) pulzsSlow[i] = 1-beatsSlow[i];
+  //for (int i = 0; i < beatsSlow.length; i++) beatsSlow[i] -= 0.05;
+  //for (int i = 0; i < pulzsSlow.length; i++) pulzsSlow[i] = 1-beatsSlow[i];
 
-  pulz = 1-beat;                     /// p is opposite of b
-  beatFast *=0.7;                 
-  pulzFast = 1-pulzFast;            /// bF is oppiste of pF
+  //pulz = 1-beat;                     /// p is opposite of b
+  //beatFast *=0.7;                 
+  //pulzFast = 1-pulzFast;            /// bF is oppiste of pF
 
-  beatSlow -= 0.05;
-  pulzSlow = 1-beatSlow;
+  //beatSlow -= 0.05;
+  //pulzSlow = 1-beatSlow;
 
-  float end = 0.01;
-  if (beat < end) beat = end;
-  for (int i = 0; i < beats.length; i++) if (beats[i] < end) beats[i] = end;
+  //float end = 0.01;
+  //if (beat < end) beat = end;
+  //for (int i = 0; i < beats.length; i++) if (beats[i] < end) beats[i] = end;
 
-  if (pulzFast > 1) pulzFast = 1;
-  if (beatFast < end) beatFast = end;
-  for (int i = 0; i < beatsFast.length; i++) if (beatsFast[i] < end) beatsFast[i] = end;
-  for (int i = 0; i < pulzsFast.length; i++) if (pulzsFast[i] > 1) pulzsFast[i] = 1;
+  //if (pulzFast > 1) pulzFast = 1;
+  //if (beatFast < end) beatFast = end;
+  //for (int i = 0; i < beatsFast.length; i++) if (beatsFast[i] < end) beatsFast[i] = end;
+  //for (int i = 0; i < pulzsFast.length; i++) if (pulzsFast[i] > 1) pulzsFast[i] = 1;
 
-  if (beatSlow < 0.4+(noize1*0.2)) beatSlow = 0.4+(noize1*0.2);
-  for (int i = 0; i < beatsSlow.length; i++) if (beatsSlow[i] < end) beatsSlow[i] = end;
-  if (pulzSlow > 1) pulzSlow = 1;
-  for (int i = 0; i < pulzsSlow.length; i++) if (pulzsSlow[i] > 1) pulzsSlow[i] = 1;
+  //if (beatSlow < 0.4+(noize1*0.2)) beatSlow = 0.4+(noize1*0.2);
+  //for (int i = 0; i < beatsSlow.length; i++) if (beatsSlow[i] < end) beatsSlow[i] = end;
+  //if (pulzSlow > 1) pulzSlow = 1;
+  //for (int i = 0; i < pulzsSlow.length; i++) if (pulzsSlow[i] > 1) pulzsSlow[i] = 1;
 } 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
