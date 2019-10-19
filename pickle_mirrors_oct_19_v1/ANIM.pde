@@ -3,8 +3,8 @@ interface Animation {
   void decay();
 }
 
-class ManualAnim extends Anim{
-  ManualAnim(){
+class ManualAnim extends Anim {
+  ManualAnim() {
     super(-1);
   }
 }
@@ -166,7 +166,6 @@ class Anim implements Animation {
     case 4:
       window.beginDraw();
       window.background(0);
-
       wide = 150+(noize*600*functionA);
       rush(viz.x, grid.mirror[0].y, col1, wide, vizHeight/2, functionA, alphaA);
       rush(viz.x, grid.mirror[0].y, col1, wide, vizHeight/2, 1-functionB, alphaA);
@@ -177,11 +176,19 @@ class Anim implements Animation {
       rush(viz.x, grid.mirror[6].y, col1, wide, vizHeight/2, functionB, alphaA);
       rush(-vizWidth/2, grid.mirror[6].y, col1, wide, vizHeight/2, functionA, alphaA);
       rush(-vizWidth/2, grid.mirror[6].y, col1, wide, vizHeight/2, 1-functionB, alphaA);
-
       window.endDraw();
       break;
     case 5:
-
+      window.beginDraw();
+      window.background(0);
+      wide = 10+(functionA*size.vizWidth*1.5);
+      high = 10+(functionB*size.vizHeight*1.5);
+      stroke = 30+(60*functionA*noize1);
+      rotate = 30;
+      star(grid.mirrorX[1][1].x, grid.mirrorX[1][1].y, col1, stroke, wide, high, rotate, alphaA);
+      rotate = -30;
+      star(grid.mirrorX[5][1].x, grid.mirrorX[5][1].y, col1, stroke, wide, high, rotate, alphaA);
+      window.endDraw();
       break;
     case 6:
       window.beginDraw();
@@ -190,7 +197,6 @@ class Anim implements Animation {
       stroke = 300-(200*noize);
       wide = size.vizWidth+(50);
       high = wide;
-      //donutBLUR(int n, color col, float stroke, float sz, float sz1, float func, float alph) {
       squareNut(grid.mirror[1].x, grid.mirrorX[1][1].y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
       squareNut(grid.mirror[4].x, grid.mirrorX[4][1].y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
 
