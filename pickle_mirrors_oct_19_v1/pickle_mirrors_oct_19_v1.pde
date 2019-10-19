@@ -133,7 +133,8 @@ void draw()
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // trigger new animnations 
-  if (keyP[' '])  animations.add(new Anim( rigViz));                                                    // or space bar!
+  if (keyP[' '])  animations.add(new Anim( rigViz));   // or space bar!
+  if (keyP['x']) animations.add(new AllOn());
   if ( keyP['d']) animations.add(new Anim(1));
   if (cc[101] > 0) {
     animations.add(new Anim(1));

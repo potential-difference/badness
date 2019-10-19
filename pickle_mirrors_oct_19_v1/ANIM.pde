@@ -3,11 +3,31 @@ interface Animation {
   void decay();
 }
 
-class ManualAnim extends Anim{
+
+class AllOn extends ManualAnim{
+  void draw(){
+    window.background(360*alpha);
+    //window.rect(window.width,window.height,window.width/2,window.height/2);
+  }
+}
+
+abstract class ManualAnim extends Anim{
   ManualAnim(){
     super(-1);
   }
+  void draw(){}
+  void drawAnim(){
+    decay();
+    alphaFunction();
+    window.beginDraw();
+    window.background(0);
+    draw();
+    window.endDraw();
+    blurPGraphics();
+  }
 }
+
+
 
 class Anim implements Animation {
   /////////////////////// LOAD GRAPHICS FOR VISULISATIONS AND COLOR LAYERS //////////////////////////////
