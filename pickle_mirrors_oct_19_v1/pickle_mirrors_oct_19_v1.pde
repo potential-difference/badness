@@ -123,7 +123,7 @@ void draw()
   playWithYourself(vizTime); 
   //playWithMe();
 
-  float rigDimmerPad = cc[4]; // come back to this with wigflex code?!
+  dimmer = cc[4]; // come back to this with wigxxxflex code?!
   float roofDimmerPad = cc[8]; // come back to this with wigflex code?!
 
   //rigVizSelection(rigWindow, rigDimmerPad*rigDimmer);               // develop rig visulisation
@@ -134,7 +134,7 @@ void draw()
 
   // trigger new animnations 
   if (keyP[' '])  animations.add(new Anim( rigViz));   // or space bar!
-  if (keyP['x']) animations.add(new AllOn(alphaSlider,funcSlider));
+  if (keyP['x']) animations.add(new AllOn(alphaSlider, funcSlider));
   if ( keyP['d']) animations.add(new Anim(1));
   if (cc[101] > 0) {
     animations.add(new Anim(1));
@@ -146,7 +146,8 @@ void draw()
     animations.remove(0);
   }
   if (animations.size() >= 16) animations.remove(0);  
-  println("Number of anims:"+animations.size());
+  textAlign(RIGHT);
+  text("# of anims: "+animations.size(), width - 5, height - 10);
 
   // adjust animations
   if (keyT['a']) for (Anim anim : animations)  anim.alphFX = 1-(stutter*0.1);
@@ -162,7 +163,7 @@ void draw()
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   blendMode(MULTIPLY);
   colorLayer(rigColourLayer, rigBgr);
-  if (keyT['r'])  bgNoise(rigColourLayer, 0,0, bgNoiseDensitySlider); //PGraphics layer,color,alpha
+  if (keyT['r'])  bgNoise(rigColourLayer, 0, 0, bgNoiseDensitySlider); //PGraphics layer,color,alpha
   // develop colour layer
   image(rigColourLayer, size.rigWidth/2, size.rigHeight/2);         // draw rig colour layer to rig window
   blendMode(NORMAL);
@@ -171,7 +172,7 @@ void draw()
     rigColourLayer.beginDraw();
     rigColourLayer.background(0, 0, 0, 0);
     rigColourLayer.endDraw();
-    bgNoise(rigColourLayer, rig.col[rig.colorB],bgNoiseBrightnessSlider,bgNoiseDensitySlider);   //PGraphics layer,color,alpha
+    bgNoise(rigColourLayer, rig.col[rig.colorB], bgNoiseBrightnessSlider, bgNoiseDensitySlider);   //PGraphics layer,color,alpha
     image(rigColourLayer, size.rigWidth/2, size.rigHeight/2);
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

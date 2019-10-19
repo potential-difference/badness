@@ -21,12 +21,11 @@ class SketchColor {
       colorB = (colorB + steps) % (col.length-1);
       colD = col[colorB];
     }
+      c = col[this.colorA];
+      c1 = col[this.colorA];
+      flash = col[colorB];
+      flash1 = col[colorB];
     
-    c = col[colorA];
-    c1 = col[colorA];
-    flash = col[colorB];
-    flash1 = col[colorB];
-
 
     if (go > 0.1) change = true;
     else change = false;
@@ -37,7 +36,7 @@ class SketchColor {
     go *= 0.97;
     if (go < 0.01) go = 0.001;
 
-    colorControl(colorselected); //
+    //colorControl(colorselected); //
   }
   ////////////////////////////////////////////////////// HSB LERP COLOR FUNCTION //////////////////////////////
   // linear interpolate two colors in HSB space 
@@ -97,7 +96,7 @@ class SketchColor {
     col[2] = orange1; 
     col[3] = teal;
     col[4] = red;
-    col[5] = bloo;
+    col[5] = orange1;
     col[6] = purple;
     col[7] = grin;
     col[8] = orange;

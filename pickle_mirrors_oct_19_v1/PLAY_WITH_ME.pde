@@ -83,34 +83,6 @@ void oneShot(int index) {
   }
 }
 
-void colorControl(int colorSelected) {
-  switch(colorSelected) {
-  case 0:
-    rig.c = pink;
-    rig.flash = bloo;
-    break;
-  case 1:
-    rig.c = bloo;
-    rig.flash = teal;
-    break;
-  case 2:
-    rig.c = purple;
-    rig.flash = orange;
-    break;
-  case 3:
-    rig.c = orange;
-    rig.flash = teal;
-    break;
-  case 4:
-    rig.c = teal;
-    rig.flash = purple;
-    break;
-  default:
-    rig.c = pink;
-    rig.flash = grin;
-    break;
-  }
-}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////// PLAY WITH DRAWING FUNCTIONS ////////////////////////////////////////////////////////////// 
 void playWithMeMore() {
@@ -130,22 +102,14 @@ void playWithMeMore() {
 
   if (cc[104]>0) controllerControl(0, 1);
 
-  if (cc[106]>0) rigControl(rig.flash, stutter*cc[106]); 
-  if (cc[107]>0) seedsControlA(rig.c, stutter*cc[107]);
-  if (cc[107]>0) seedsControlB(rig.c, stutter*cc[107]);
+//  if (cc[106]>0) rigControl(rig.flash, stutter*cc[106]); 
+//  if (cc[107]>0) seedsControlA(rig.c, stutter*cc[107]);
+//  if (cc[107]>0) seedsControlB(rig.c, stutter*cc[107]);
 
-  if (cc[108]>0) controllerControl(rig.flash, stutter*cc[108]);
+  //if (cc[108]>0) controllerControl(rig.flash, stutter*cc[108]);
 
 
-  if (oneshotmessage) {
-    fill(rig.flash, 300*stutter);
-    rect(grid.seed[0].x, grid.seed[0].y, grid.seedLength, 3);
-    rect(grid.seed[1].x, grid.seed[1].y, grid.seedLength, 3);
-
-    fill(rig.c, 300*stutter);
-    for (int i = 0; i < 4; i++) rect(grid.controller[i].x, grid.controller[i].y, grid.controllerWidth, grid.controllerWidth);
-  }
-  oneshotmessage = false;
+  
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

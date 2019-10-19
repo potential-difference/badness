@@ -49,15 +49,7 @@ void onScreenInfo() {
   text("bkgrnd: " + rigBgr, x, y+20);
   text("func's: " + fctIndex + " / " + fct1Index, x+100, y);
   text("alph's: " + rigAlphIndex + " / " + rigAlph1Index, x+100, y+20);
-  //text("controllerGrid " + grid.controllerGridStep, x+220, y);
-  //////////// roof info
-  fill(roof.flash, 300);
-  x = x+size.roof.x-(size.roofWidth/2);
-  text("roofViz: " + roofViz, x, y);
-  text("bkgrnd: " + roofBgr, x, y+20);
-  //text("func's: " + roofFctIndex + " / " + roofFct1Index, x+100, y);
-  //text("alph's: " + roofAlphIndex + " / " + roofAlph1Index, x+100, y+20);
-
+ 
   /////////// info about PLAYWITHYOURSELF functions
   y = 20;
   x=width-5;
@@ -119,12 +111,12 @@ void colorInfo() {
   ///// RECTANGLES TO SHOW BEAT DETECTION AND CURRENT COLOURS /////
   float y = height-5;
   // RIG ///
-//fill(rig.c);
-  fill(rig.col[rig.colorA]);          
+  //fill(rig.c);
+  fill(rig.c);          
   rect(size.rigWidth-20, y-10, 10, 10);               // rect to show CURRENT color C 
   fill(rig.col[(rig.colorA+1)%rig.col.length]);
   rect(size.rigWidth-7.5, y-10, 10, 10);              // rect to show NEXT color C 
-  fill(rig.col[rig.colorB]);
+  fill(rig.flash);
   rect(size.rigWidth-20, y, 10, 10);                  // rect to show CURRENT color FLASH 
   fill(rig.col[(rig.colorB+1)%rig.col.length]);  
   rect(size.rigWidth-7.5, y, 10, 10);                 // rect to show NEXT color FLASH1

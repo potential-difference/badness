@@ -55,10 +55,10 @@ void playWithYourself(float vizTm) {
   rig.colorTimer(colTime, 1); //// seconds between colour change, number of steps to cycle through colours
   roof.colorTimer(colTime, 1); //// seconds between colour change, number of steps to cycle through colours
   ///////////////////////////////////// COLORSWAP TIMER /////////////////////////////////////////////////////////////////
-  if (colorSwapSlider > 0) {
-    rig.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
-    roof.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
-  }
+  //if (colorSwapSlider > 0) {
+  //  rig.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
+  //  roof.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
+  //}
   if (beatCounter%64<2) rig.colorSwap(1000000*noize);  
   if (beatCounter%64>61) roof.colorSwap(1000000*noize);
   //if (colorSwapSlider == 0);
@@ -67,7 +67,7 @@ void playWithYourself(float vizTm) {
   else rig.colFlip = false;
   rig.colorFlip(rig.colFlip);
   ///////////////////////////////////////// LERP COLOUR //////////////////////////////////////////////////////////////////
-  if (beatCounter % 18 > 13)  colorLerping(rig, beat*2);
+  //if (beatCounter % 64 > 60)  colorLerping(rig, beat*2);
   colBeat = false;
   //rig.c = lerpColor(rig.col[rig.colorB], rig.col[rig.colorA], beatFast);
   //rig.flash = lerpColor(rig.col[rig.colorA], rig.col[rig.colorB], beatFast);

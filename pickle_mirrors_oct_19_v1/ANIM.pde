@@ -109,7 +109,7 @@ class Anim implements Animation {
 
     /////////////// sovle this later /////////////
     /////////////////////////////////////// SHIMMER control for rig ////////////////////////////
-    if (beatCounter % 36 > 24) { 
+    if (beatCounter % 42 > 36) { 
       alphaA = alph[rigAlphIndex]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
       alphaB = alph[rigAlph1Index]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
     } else {
@@ -122,8 +122,8 @@ class Anim implements Animation {
       alphaB  = alph[rigAlph1Index];
     }
 
-    alphaA *=alphFX*dimmer;
-    alphaB *=alphFX*dimmer;
+    alphaA *=alphFX*dimmer*alf;
+    alphaB *=alphFX*dimmer*alf;
     ///////////////////////////////////////////////
 
 
