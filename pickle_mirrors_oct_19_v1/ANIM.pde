@@ -3,6 +3,7 @@ interface Animation {
   void decay();
 }
 
+
 class AllOn extends ManualAnim{
   AllOn(float _alphaSlider, float _funcSlider){
     super(_alphaSlider,_funcSlider);
@@ -13,6 +14,7 @@ class AllOn extends ManualAnim{
   }
 }
 
+
 abstract class ManualAnim extends Anim{
   float alphaSlider;
   float funcSlider;
@@ -21,8 +23,9 @@ abstract class ManualAnim extends Anim{
     alphaSlider=_alphaSlider;
     funcSlider=_funcSlider;
   }
-  void draw(){}
-  void drawAnim(){
+  void draw() {
+  }
+  void drawAnim() {
     decay();
     alphaFunction();
     window.beginDraw();
@@ -164,7 +167,8 @@ class Anim implements Animation {
       window.beginDraw();
       window.background(0);
       stroke = 10+(30*function);
-      rotate = -60*func[0];
+      if (beatCounter % 8 < 3) rotate = -60*func[0];
+      else rotate = 60* func[0];
       wide = 10+(func[0]*size.vizWidth);
       high = 110-(func[1]*size.vizHeight);
       star(grid.mirrorX[2][0].x, grid.mirrorX[2][0].y, col1, stroke, wide, high, rotate, alphaA);
@@ -172,7 +176,8 @@ class Anim implements Animation {
 
       wide = 10+(func[1]*size.vizWidth);
       high = 110+(func[0]*size.vizHeight);
-      rotate = 60*func[1];
+      if (beatCounter % 8 < 3) rotate = 60*func[1];
+      else rotate = -60*func[1];
       star(grid.mirrorX[4][0].x, grid.mirrorX[4][0].y, col1, stroke, wide, high, rotate, alphaA);
       star(grid.mirrorX[2][2].x, grid.mirrorX[2][2].y, col1, stroke, wide, high, rotate, alphaA);
       window.endDraw();
@@ -344,8 +349,8 @@ class Anim implements Animation {
       alpha*=pow(alphaSlider, (1/avgtime));       //  changes rate alpha fades out!!
       function*=pow(funcSlider, (1/avgtime));     //  changes rate alpha fades out!!
     } else {
-      alpha*=0.95;
-      function*=0.95;
+      alpha*=0.95*alphaSlider;
+      function*=0.95*funcSlider;
     }
     if (alpha < 0.8) alpha *= 0.9;
     if (function < 0.8) function *= 0.9;
