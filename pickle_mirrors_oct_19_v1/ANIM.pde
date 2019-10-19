@@ -3,6 +3,12 @@ interface Animation {
   void decay();
 }
 
+class ManualAnim extends Anim{
+  ManualAnim(){
+    super(-1);
+  }
+}
+
 class Anim implements Animation {
   /////////////////////// LOAD GRAPHICS FOR VISULISATIONS AND COLOR LAYERS //////////////////////////////
   PGraphics window, pass1, blured;
@@ -15,7 +21,7 @@ class Anim implements Animation {
   float alph[] = new float[7];
   float func[] = new float[8];
 
-  Anim(float _xpos, float _ypos, int _vizIndex) {
+  Anim(int _vizIndex) {
     //// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
     blury = int(map(blurSlider, 0, 1, 0, 100));
     if (blury!=prevblury) {
@@ -49,8 +55,6 @@ class Anim implements Animation {
     blured.endDraw();
 
     trigger();
-    xpos = _xpos;
-    ypos = _ypos;
     vizIndex = _vizIndex;
   }
 
@@ -191,6 +195,8 @@ class Anim implements Animation {
       squareNut(grid.mirror[4].x, grid.mirrorX[4][1].y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
 
       window.endDraw();
+      break;
+    default:
       break;
     }
     blurPGraphics();

@@ -75,7 +75,7 @@ void setup()
   oscAddrSetup();
 
   animations = new ArrayList<Anim>();
-  animations.add(new Anim(size.rig.x, size.rig.y, 0));
+  animations.add(new Anim(0));
 
   //dimmer = 1; // must come before load control frame
   drawingSetup();
@@ -133,13 +133,13 @@ void draw()
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   // trigger new animnations 
-  if (keyP[' '])  animations.add(new Anim(size.rig.x, size.rig.y, rigViz));                                                    // or space bar!
-  if ( keyP['d']) animations.add(new Anim(size.rig.x, size.rig.y, 1));
+  if (keyP[' '])  animations.add(new Anim( rigViz));                                                    // or space bar!
+  if ( keyP['d']) animations.add(new Anim(1));
   if (cc[101] > 0) {
-    animations.add(new Anim(size.rig.x, size.rig.y, 1));
+    animations.add(new Anim(1));
     animations.get(animations.size()-1).funcFX = cc[1];
   }
-  if (beatDetect.isOnset()) animations.add(new Anim(size.rig.x, size.rig.y, rigViz));   // create a new anim object and add it to the beginning of the arrayList
+  if (beatDetect.isOnset()) animations.add(new Anim(rigViz));   // create a new anim object and add it to the beginning of the arrayList
   // limit the number of animations
   while (animations.size()>0 && animations.get(0).deleteme) {
     animations.remove(0);
