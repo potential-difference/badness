@@ -4,21 +4,21 @@ interface Animation {
 }
 
 
-class AllOn extends ManualAnim{
-  AllOn(float _alphaSlider, float _funcSlider){
-    super(_alphaSlider,_funcSlider);
+class AllOn extends ManualAnim {
+  AllOn(float _alphaSlider, float _funcSlider) {
+    super(_alphaSlider, _funcSlider);
   }
-  void draw(){
+  void draw() {
     window.background(360*alpha);
     //window.rect(window.width,window.height,window.width/2,window.height/2);
   }
 }
 
 
-abstract class ManualAnim extends Anim{
+abstract class ManualAnim extends Anim {
   float alphaSlider;
   float funcSlider;
-  ManualAnim(float _alphaSlider, float _funcSlider){
+  ManualAnim(float _alphaSlider, float _funcSlider) {
     super(-1);
     alphaSlider=_alphaSlider;
     funcSlider=_funcSlider;
@@ -234,15 +234,36 @@ class Anim implements Animation {
 
       window.endDraw();
       break;
-      case 7:
+    case 7:
       window.beginDraw();
       window.background(0);
 
-      stroke = 300-(200*noize);
+      stroke = 150-(200*oskP);
       wide = size.vizWidth+(50);
+      wide = wide-(wide*functionA);
       high = wide;
-      squareNut(grid.mirrorX[1][0].x, grid.mirrorX[1][0].y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 45, alphaA);
-      squareNut(grid.mirrorX[1][0].x, grid.mirrorX[1][0].y, col1, stroke, wide-(wide*functionA), high-(high*functionA), -45, alphaA);
+      squareNut(grid.mirrorX[0][2].x, grid.mirrorX[0][2].y, col1, stroke, wide, high, -45, alphaA);
+      squareNut(grid.mirrorX[1][0].x, grid.mirrorX[1][0].y, col1, stroke,  wide, high, -45, alphaA);
+      squareNut(grid.mirrorX[2][2].x, grid.mirrorX[2][2].y, col1, stroke,  wide, high, -45, alphaA);
+      squareNut(grid.mirrorX[3][0].x, grid.mirrorX[3][0].y, col1, stroke,  wide, high, -45, alphaA);
+      squareNut(grid.mirrorX[4][2].x, grid.mirrorX[4][2].y, col1, stroke,  wide, high, -45, alphaA);
+      squareNut(grid.mirrorX[5][0].x, grid.mirrorX[5][0].y, col1, stroke,  wide, high, -45, alphaA);
+      squareNut(grid.mirrorX[6][2].x, grid.mirrorX[6][2].y, col1, stroke,  wide, high, -45, alphaA);
+
+      wide = size.vizWidth+(200);
+      wide = wide-(wide*functionB);
+      high = wide;
+      stroke = 300-(200*1-oskP);
+      if ( wide > 100) squareNut(viz.x, viz.y, col1, stroke, wide, high, 0, alphaB);
+
+      window.endDraw();
+      break;
+    case 8:
+      window.beginDraw();
+      window.background(0);
+      wide = 500+(noize*150);
+      if   (beatCounter % 8 < 3) rush(grid.mirror[0].x, viz.y, col1, wide, vizHeight, functionA, alphaA);
+      else rush(grid.mirror[0].x, viz.y, col1, wide, vizHeight, 1-functionB, alphaA);
 
       window.endDraw();
       break;

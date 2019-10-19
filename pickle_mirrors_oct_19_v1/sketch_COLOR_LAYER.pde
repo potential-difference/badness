@@ -5,7 +5,6 @@ void colorLayer(PGraphics subwindow, int index) {
   if (subwindow == rigColourLayer) {
     color col1 = rig.c;
     color col2 = rig.flash;
-    color col3 = rig.clash;
 
     oneColourBG(0, col1);
     mirrorGradientBG(1, col1, col2, 0.5);  
@@ -22,7 +21,6 @@ void colorLayer(PGraphics subwindow, int index) {
   if (subwindow == roofColourLayer) {
     color col1 = roof.c;
     color col2 = roof.flash;
-    color col3 = roof.clash;
 
     mirrorGradientBG(0, col1, col2, 0.5);  
     //radialGradientBG(1, roofCol1, roofCol2, 0.1);
@@ -99,9 +97,9 @@ PGraphics mirrorGradient2BG(int n, color col1, color col2, float func) {
   bg[n].vertex(bg[n].width*func, bg[n].height/2);
   bg[n].endShape(CLOSE);
   bg[n].endDraw();
-  
+
   func = 1-func;
-    bg[n].beginDraw();
+  bg[n].beginDraw();
   ///// BOTTOM
   //// LEFT SIDE OF GRADIENT
   bg[n].beginShape(POLYGON); 
