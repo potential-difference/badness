@@ -82,10 +82,10 @@ class SketchColor {
     color flashHalf = lerpColor(c, flash, 0.75);
     color cHalf = lerpColor(c, flash, 0.25); 
 
-    clash = lerpColorHSB(c, flash, func*0.1);     ///// MOVING, HALF RNAGE BETWEEN C and FLASH
-    clash1 = lerpColorHSB(c, flash, 1-(func*0.1));            ///// MOVING, HALF RANGE BETWEEN FLASH and C
-    clash2 = lerpColorHSB(flash, c, func*0.1);          ///// MOVING, FULL RANGE BETWEEN C and FLASH
-    clash12 = lerpColorHSB(flash, c, 1-(func*0.1));          ///// MOVING, FULL RANGE BETWEEN FLASH and C
+    clash = lerpColorHSB(c, flash, func*0.3);     ///// MOVING, HALF RNAGE BETWEEN C and FLASH
+    clash1 = lerpColorHSB(c, flash, 1-(func*0.3));            ///// MOVING, HALF RANGE BETWEEN FLASH and C
+    clash2 = lerpColorHSB(flash, c, func*0.3);          ///// MOVING, FULL RANGE BETWEEN C and FLASH
+    clash12 = lerpColorHSB(flash, c, 1-(func*0.3));          ///// MOVING, FULL RANGE BETWEEN FLASH and C
     clashed = lerpColor(c, flash, 0.2);    ///// STATIC - HALFWAY BETWEEN C and FLASH
   }
   /////////////////////////////////////// COLOR ARRAY SETUP ////////////////////////////////////////

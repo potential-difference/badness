@@ -5,23 +5,30 @@ interface Animation {
 
 
 class AllOn extends ManualAnim {
+  float manualAlpha;
+  void trigger(){
+    super.trigger();
+    manualAlpha=1;
+  }
+  void decay(){
+    super.decay();
+    manualAlpha*=0.95;
+  }
+  
   AllOn(float _alphaSlider, float _funcSlider) {
     super(_alphaSlider, _funcSlider);
   }
   void draw() {
-    window.background(360*alpha);
+    window.background(360*manualAlpha);
     //window.rect(window.width,window.height,window.width/2,window.height/2);
   }
 }
 
 
 abstract class ManualAnim extends Anim {
-  float alphaSlider;
-  float funcSlider;
+
   ManualAnim(float _alphaSlider, float _funcSlider) {
-    super(-1);
-    alphaSlider=_alphaSlider;
-    funcSlider=_funcSlider;
+    super(-1, _alphaSlider, _funcSlider);
   }
   void draw() {
   }
@@ -39,6 +46,9 @@ abstract class ManualAnim extends Anim {
 
 
 class Anim implements Animation {
+
+  float alphaSlider;
+  float funcSlider;
   /////////////////////// LOAD GRAPHICS FOR VISULISATIONS AND COLOR LAYERS //////////////////////////////
   PGraphics window, pass1, blured;
   int blury, prevblury, vizIndex;
@@ -50,7 +60,9 @@ class Anim implements Animation {
   float alph[] = new float[7];
   float func[] = new float[8];
 
-  Anim(int _vizIndex) {
+  Anim(int _vizIndex, float _alphaSlider, float _funcSlider) {
+    alphaSlider=_alphaSlider;
+    funcSlider=_funcSlider;
     resetbeats(); 
     //// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
     blury = int(map(blurSlider, 0, 1, 0, 100));
@@ -397,6 +409,7 @@ class Anim implements Animation {
     functionSlow = 1;
   }
   boolean deleteme=false;
+
   //////////////////////////////////////// DECAY ////////////////////////////////////////////////
   void decay() {            
     if (avgtime>0) {
@@ -406,6 +419,7 @@ class Anim implements Animation {
       alpha*=0.95*alphaSlider;
       function*=0.95*funcSlider;
     }
+
     if (alpha < 0.8) alpha *= 0.9;
     if (function < 0.8) function *= 0.9;
 
@@ -417,6 +431,7 @@ class Anim implements Animation {
     else functionSlow -= 0.02;
 
     float end = 0.001;
+
     if (alpha < end) alpha = end+(shimmer*0.1);
     if (alphaFast < end) alphaFast = end;
     if (alphaSlow < 0.4+(noize1*0.2)) alphaSlow = 0.4+(noize1*0.2);

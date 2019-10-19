@@ -75,7 +75,7 @@ void setup()
   oscAddrSetup();
 
   animations = new ArrayList<Anim>();
-  animations.add(new Anim(0));
+  animations.add(new Anim(0,alphaSlider,funcSlider));
 
   //dimmer = 1; // must come before load control frame
   drawingSetup();
@@ -115,7 +115,7 @@ void draw()
   beats();
   pause(10);                                ////// number of seconds before no music detected
   globalFunctions();
-  //rig.clash(func);                          ///// clash colour changes on function in brackets
+  //rig.clash(beat);                          ///// clash colour changes on function in brackets
   //roof.clash(func);                         ///// clash colour changes on function in brackets
 
   //dimmer = cc[4]*rigDimmer;
@@ -131,16 +131,10 @@ void draw()
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+  playWithMe();
   // trigger new animnations 
-  if (keyP[' '])  animations.add(new Anim( rigViz));   // or space bar!
-  if (keyP['x']) animations.add(new AllOn(alphaSlider, funcSlider));
-  if ( keyP['d']) animations.add(new Anim(1));
-  if (cc[101] > 0) {
-    animations.add(new Anim(1));
-    animations.get(animations.size()-1).funcFX = cc[1];
-  }
-  if (!manualToggle) if (beatDetect.isOnset()) animations.add(new Anim(rigViz));   // create a new anim object and add it to the beginning of the arrayList
+ 
+  if (!manualToggle) if (beatDetect.isOnset()) animations.add(new Anim(rigViz, alphaSlider,funcSlider));   // create a new anim object and add it to the beginning of the arrayList
   // limit the number of animations
   while (animations.size()>0 && animations.get(0).deleteme) {
     animations.remove(0);
@@ -163,18 +157,12 @@ void draw()
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   blendMode(MULTIPLY);
   colorLayer(rigColourLayer, rigBgr);
-  if (keyT['r'])  bgNoise(rigColourLayer, 0, 0, bgNoiseDensitySlider); //PGraphics layer,color,alpha
+  if (cc[106] > 0)  bgNoise(rigColourLayer, 0, 0, cc[6]); //PGraphics layer,color,alpha
   // develop colour layer
   image(rigColourLayer, size.rigWidth/2, size.rigHeight/2);         // draw rig colour layer to rig window
   blendMode(NORMAL);
-  /////background noise over whole window/////
-  if (keyT['e']) {
-    rigColourLayer.beginDraw();
-    rigColourLayer.background(0, 0, 0, 0);
-    rigColourLayer.endDraw();
-    bgNoise(rigColourLayer, rig.col[rig.colorB], bgNoiseBrightnessSlider, bgNoiseDensitySlider);   //PGraphics layer,color,alpha
-    image(rigColourLayer, size.rigWidth/2, size.rigHeight/2);
-  }
+
+
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

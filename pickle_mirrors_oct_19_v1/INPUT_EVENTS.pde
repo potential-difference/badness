@@ -131,15 +131,7 @@ void oscEvent(OscMessage theOscMessage) {
   OscAddrMap.put(theOscMessage.addrPattern(), argument);
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////// knob box /////////////////////////////////////////////////////////////////////
-  if (messageType.equals("joystick_1") || messageType.equals("joystick_2")) {
-    oneshotmap=int(OscAddrMap.get("/knob_box/joystick_1")*9+OscAddrMap.get("/knob_box/joystick_2"));
-    println("oneshotmap = "+oneshotmap);
-    if (oneshotmap>0) {
-      oneShot(oneshotmap);
-    }
-  }
-  if (messageType.equals("oneshot")) if (argument == 5) rigBgr = int(random(bgList));
-
+  
   /////////////////////////////////////// button box //////////////////////////////////////
   if (messageType.equals("buttonSelected")) {
     if (argument<5) {
