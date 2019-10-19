@@ -119,15 +119,15 @@ void draw()
   //roof.clash(func);                         ///// clash colour changes on function in brackets
 
   //dimmer = cc[4]*rigDimmer;
-  //vizTime = 60*15*vizTimeSlider;
-  //playWithYourself(vizTime); 
+  vizTime = 60*15*vizTimeSlider;
+  playWithYourself(vizTime); 
   //playWithMe();
 
   float rigDimmerPad = cc[4]; // come back to this with wigflex code?!
   float roofDimmerPad = cc[8]; // come back to this with wigflex code?!
 
   //rigVizSelection(rigWindow, rigDimmerPad*rigDimmer);               // develop rig visulisation
-  //if (beatCounter%128 == 0) rigBgr = (rigBgr + 1)% 7;               // change colour layer automatically
+  if (beatCounter%128 == 0) rigBgr = (rigBgr + 1) % bgList;               // change colour layer automatically
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -171,7 +171,7 @@ void draw()
     rigColourLayer.beginDraw();
     rigColourLayer.background(0, 0, 0, 0);
     rigColourLayer.endDraw();
-    bgNoise(rigColourLayer, bloo,bgNoiseBrightnessSlider,bgNoiseDensitySlider);   //PGraphics layer,color,alpha
+    bgNoise(rigColourLayer, rig.col[rig.colorB],bgNoiseBrightnessSlider,bgNoiseDensitySlider);   //PGraphics layer,color,alpha
     image(rigColourLayer, size.rigWidth/2, size.rigHeight/2);
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

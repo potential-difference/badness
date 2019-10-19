@@ -102,10 +102,31 @@ class Anim implements Animation {
     vizWidth = float(blured.width*2);
     vizHeight = float(blured.height*2);
 
-    float alphaA = alph[rigAlphIndex]*alphFX*dimmer;
+    float alphaA = alph[rigAlphIndex];
     float functionA = func[fctIndex]*funcFX;
-    float alphaB = alph[rigAlph1Index]*alphFX*dimmer;
+    float alphaB = alph[rigAlph1Index];
     float functionB = func[fct1Index]*funcFX;
+
+    /////////////// sovle this later /////////////
+    /////////////////////////////////////// SHIMMER control for rig ////////////////////////////
+    if (beatCounter % 36 > 24) { 
+      alphaA = alph[rigAlphIndex]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
+      alphaB = alph[rigAlph1Index]+(shimmerSlider/2+(stutter*0.4*noize1*0.2));
+    } else {
+      alphaA = alph[rigAlphIndex]/1;    //*(0.6+0.4*noize12)/1.5;  //// set alpha to selected alpha with bit of variation
+      alphaB = alph[rigAlph1Index]/1;   //*(0.6+0.4*noize1)/1.5;  //// set alpha1 to selected alpha with bit of variation
+    }
+    //////////////// bright flash every 6 beats - counters all code above /////////
+    if (beatCounter%6 == 0) {
+      alphaA  = alph[rigAlphIndex];
+      alphaB  = alph[rigAlph1Index];
+    }
+
+    alphaA *=alphFX*dimmer;
+    alphaB *=alphFX*dimmer;
+    ///////////////////////////////////////////////
+
+
 
     switch (vizIndex) {
     case 0:
@@ -243,12 +264,12 @@ class Anim implements Animation {
       wide = wide-(wide*functionA);
       high = wide;
       squareNut(grid.mirrorX[0][2].x, grid.mirrorX[0][2].y, col1, stroke, wide, high, -45, alphaA);
-      squareNut(grid.mirrorX[1][0].x, grid.mirrorX[1][0].y, col1, stroke,  wide, high, -45, alphaA);
-      squareNut(grid.mirrorX[2][2].x, grid.mirrorX[2][2].y, col1, stroke,  wide, high, -45, alphaA);
-      squareNut(grid.mirrorX[3][0].x, grid.mirrorX[3][0].y, col1, stroke,  wide, high, -45, alphaA);
-      squareNut(grid.mirrorX[4][2].x, grid.mirrorX[4][2].y, col1, stroke,  wide, high, -45, alphaA);
-      squareNut(grid.mirrorX[5][0].x, grid.mirrorX[5][0].y, col1, stroke,  wide, high, -45, alphaA);
-      squareNut(grid.mirrorX[6][2].x, grid.mirrorX[6][2].y, col1, stroke,  wide, high, -45, alphaA);
+      squareNut(grid.mirrorX[1][0].x, grid.mirrorX[1][0].y, col1, stroke, wide, high, -45, alphaA);
+      squareNut(grid.mirrorX[2][2].x, grid.mirrorX[2][2].y, col1, stroke, wide, high, -45, alphaA);
+      squareNut(grid.mirrorX[3][0].x, grid.mirrorX[3][0].y, col1, stroke, wide, high, -45, alphaA);
+      squareNut(grid.mirrorX[4][2].x, grid.mirrorX[4][2].y, col1, stroke, wide, high, -45, alphaA);
+      squareNut(grid.mirrorX[5][0].x, grid.mirrorX[5][0].y, col1, stroke, wide, high, -45, alphaA);
+      squareNut(grid.mirrorX[6][2].x, grid.mirrorX[6][2].y, col1, stroke, wide, high, -45, alphaA);
 
       wide = size.vizWidth+(200);
       wide = wide-(wide*functionB);
@@ -261,9 +282,9 @@ class Anim implements Animation {
     case 8:
       window.beginDraw();
       window.background(0);
-      wide = 500+(noize*150);
-      if   (beatCounter % 8 < 3) rush(grid.mirror[0].x, viz.y, col1, wide, vizHeight, functionA, alphaA);
-      else rush(grid.mirror[0].x, viz.y, col1, wide, vizHeight, 1-functionB, alphaA);
+      wide = 500+(noize*300);
+      if   (beatCounter % 3 < 1) rush(grid.mirror[0].x, viz.y, col1, wide, vizHeight, functionA, alphaA);
+      else rush(grid.mirror[0].x, viz.y, col1, wide, vizHeight, 1-functionA, alphaA);
 
       window.endDraw();
       break;

@@ -14,17 +14,19 @@ class SketchColor {
       time[3] = millis()/1000;
     } else change = false;
     if (change == true) {
+
       go = 1;
       colorA =  (colorA + steps) % (col.length-1);
       colB =  col[colorA];
       colorB = (colorB + steps) % (col.length-1);
       colD = col[colorB];
-
-      c = col[colorA];
-      c1 = col[colorA];
-      flash = col[colorB];
-      flash1 = col[colorB];
     }
+    
+    c = col[colorA];
+    c1 = col[colorA];
+    flash = col[colorB];
+    flash1 = col[colorB];
+
 
     if (go > 0.1) change = true;
     else change = false;

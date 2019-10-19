@@ -225,7 +225,7 @@ class ControlFrame extends PApplet {
       .setSize(wide, high)
       //.setFont(font)
       .setRange(0, 1)
-      .setValue(0) // start value of slider
+      .setValue(0.5) // start value of slider
       .setColorActive(act) 
       .setColorBackground(bac) 
       .setColorForeground(slider) 
@@ -236,10 +236,10 @@ class ControlFrame extends PApplet {
       .setSize(wide, high)
       //.setFont(font)
       .setRange(0, 1)
-      .setValue(0) // start value of slider
-      .setColorActive(act) 
-      .setColorBackground(bac) 
-      .setColorForeground(slider) 
+      .setValue(0.1) // start value of slider
+      .setColorActive(act1) 
+      .setColorBackground(bac1) 
+      .setColorForeground(slider1) 
       ;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -292,22 +292,7 @@ class ControlFrame extends PApplet {
     fill(rig.c);
     rect(width/2, 0, width, 2);
 
-    //if (keyT[97]) {
-    //  y = 80;
-    //  x=20;
-    //  textAlign(LEFT);
-    //  fill(c, 300);
-    //  ///// NEXT VIZ IN....
-    //  String sec = nf(int(vizTime - (millis()/1000 - time[0])) % 60, 2, 0);
-    //  int min = int(vizTime - (millis()/1000 - time[0])) /60 % 60;
-    //  text("next viz in: "+min+":"+sec, x, y);
-    //  ///// NEXT COLOR CHANGE IN....
-    //  sec = nf(int(colTime - (millis()/1000 - time[3])) %60, 2, 0);
-    //  min = int(colTime - (millis()/1000 - time[3])) /60 %60;
-    //  text("color change in: "+ min+":"+sec, x, y+20);
-    //  text("c-" + co + "  " + "flash-" + co1, x, y+40);
-    //  text("counter: " + counter, x, y+60);
-    //}
+    
   }
 
   //////////////////////////////////////// CALL BACK FOR SLIDER CONTROL FROM OTHER VARIABLES

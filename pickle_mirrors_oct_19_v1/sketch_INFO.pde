@@ -92,47 +92,6 @@ void onScreenInfo() {
   fill(rig.c, 100);
   for (int i = 0; i<(size.infoHeight-size.sliderHeight)/dist-(y/dist); i++) rect(size.info.x-(size.infoWidth/2)+10, 10+i*dist+y, 10, 10);
 
-  // beats[] visulization
-  y=10;
-  dist = 15;
-  /*
-  for (int i = 0; i<beats.length; i++) {
-   if (beatCounter % 4 == i) fill(rig.flash1, 360);
-   else fill(rig.c1, 100);
-   rect((size.info.x-(size.infoWidth/2)+10)+(beats[i]*100), y+(dist*i), 10, 10);
-   fill(rig.c1, 65);
-   rect((size.info.x-(size.infoWidth/2)+10)+(50), y+(dist*i), 110, 10);
-   }
-   
-   for (int i = 0; i < animations.size(); i++) {                                  // loop  through the list 
-   Anim anim = animations.get(i);         
-   x = size.info.x;
-   y = size.info.y - 100;
-   float gap = 15;
-   float distance = 150;
-   fill(rig.c1, 200);
-   rect(x+gap*3, y, 120, 2);
-   rect(x+gap*3, y-distance, 120, 2);
-   if (beatCounter % animations.size() == i )fill(rig.c1);
-   else fill(rig.flash1, 200);
-   rect(x+gap*i, y-(distance*anim.beat), 10, 10);
-   
-   if (i == 0 ) {
-   x = size.info.x + 50;
-   y = size.info.y + 250;        
-   fill(rig.flash1, 200);
-   rect(x+gap*2.5, y, 100, 2);
-   rect(x+gap*2.5, y-distance, 100, 2);
-   fill(rig.c1, 200);
-   rect(x, y-(distance*anim.beat), 10, 10);
-   rect(x+gap, y-(distance*anim.beatFast), 10, 10);
-   rect(x+gap*2, y-(distance*anim.beatSlow), 10, 10);
-   rect(x+gap*3, y-(distance*anim.pulz), 10, 10);
-   rect(x+gap*4, y-(distance*anim.pulzFast), 10, 10);
-   rect(x+gap*5, y-(distance*anim.pulzSlow), 10, 10);
-   }
-   }
-   */
 
   // text to show no audio
   if (pause >0) { 
@@ -160,7 +119,7 @@ void colorInfo() {
   ///// RECTANGLES TO SHOW BEAT DETECTION AND CURRENT COLOURS /////
   float y = height-5;
   // RIG ///
-
+//fill(rig.c);
   fill(rig.col[rig.colorA]);          
   rect(size.rigWidth-20, y-10, 10, 10);               // rect to show CURRENT color C 
   fill(rig.col[(rig.colorA+1)%rig.col.length]);
