@@ -12,7 +12,7 @@ void colorLayer(PGraphics subwindow, int index) {
     sideBySideBG(2, col2, col1);
     checkBG(3, col1, col2);
     oneColourBG(4, col2);
-    crossBG(5, col1, col2);
+    mirrorGradient2BG(5, col1, col2, 1);
 
     subwindow.beginDraw();
     subwindow.image(bg[index], subwindow.width/2, subwindow.height/2, subwindow.width, subwindow.height);
@@ -67,6 +67,65 @@ PGraphics mirrorGradientBG(int n, color col1, color col2, float func) {
   bg[n].fill(col2);
   bg[n].vertex(bg[n].width*func, bg[n].height);
   bg[n].endShape(CLOSE);
+  bg[n].endDraw();
+  return bg[n];
+}
+/// MIRROR GRADIENT BACKGROUND ///
+PGraphics mirrorGradient2BG(int n, color col1, color col2, float func) {
+  bg[n].beginDraw();
+  bg[n].background(0);
+  //////// TOP
+
+  //// LEFT SIDE OF GRADIENT
+  bg[n].beginShape(POLYGON); 
+  bg[n].fill(col1);
+  bg[n].vertex(0, 0);
+  bg[n].fill(col2);
+  bg[n].vertex(bg[n].width*func, 0);
+  bg[n].fill(col2);
+  bg[n].vertex(bg[n].width*func, bg[n].height/2);
+  bg[n].fill(col1);
+  bg[n].vertex(0, bg[n].height/2);
+  bg[n].endShape(CLOSE);
+  //// RIGHT SIDE OF bg[n]IENT
+  bg[n].beginShape(POLYGON); 
+  bg[n].fill(col2);
+  bg[n].vertex(bg[n].width*func, 0);
+  bg[n].fill(col1);
+  bg[n].vertex(bg[n].width, 0);
+  bg[n].fill(col1);
+  bg[n].vertex(bg[n].width, bg[n].height/2);
+  bg[n].fill(col2);
+  bg[n].vertex(bg[n].width*func, bg[n].height/2);
+  bg[n].endShape(CLOSE);
+  bg[n].endDraw();
+  
+  func = 1-func;
+    bg[n].beginDraw();
+  ///// BOTTOM
+  //// LEFT SIDE OF GRADIENT
+  bg[n].beginShape(POLYGON); 
+  bg[n].fill(col1);
+  bg[n].vertex(0, bg[n].height/2);
+  bg[n].fill(col2);
+  bg[n].vertex(bg[n].width*func, bg[n].height);
+  bg[n].fill(col2);
+  bg[n].vertex(bg[n].width*func, bg[n].height);
+  bg[n].fill(col1);
+  bg[n].vertex(0, bg[n].height/2);
+  bg[n].endShape(CLOSE);
+  //// RIGHT SIDE OF bg[n]IENT
+  bg[n].beginShape(POLYGON); 
+  bg[n].fill(col2);
+  bg[n].vertex(bg[n].width*func, bg[n].height/2);
+  bg[n].fill(col1);
+  bg[n].vertex(bg[n].width, bg[n].height/2);
+  bg[n].fill(col1);
+  bg[n].vertex(bg[n].width, bg[n].height);
+  bg[n].fill(col2);
+  bg[n].vertex(bg[n].width*func, bg[n].height);
+  bg[n].endShape(CLOSE);
+
   bg[n].endDraw();
   return bg[n];
 }
