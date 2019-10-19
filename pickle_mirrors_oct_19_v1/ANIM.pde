@@ -3,16 +3,25 @@ interface Animation {
   void decay();
 }
 
-class AllOn extends ManualAnim {
-  void draw() {
+
+class AllOn extends ManualAnim{
+  AllOn(float _alphaSlider, float _funcSlider){
+    super(_alphaSlider,_funcSlider);
+  }
+  void draw(){
     window.background(360*alpha);
     //window.rect(window.width,window.height,window.width/2,window.height/2);
   }
 }
 
-abstract class ManualAnim extends Anim {
-  ManualAnim() {
+
+abstract class ManualAnim extends Anim{
+  float alphaSlider;
+  float funcSlider;
+  ManualAnim(float _alphaSlider, float _funcSlider){
     super(-1);
+    alphaSlider=_alphaSlider;
+    funcSlider=_funcSlider;
   }
   void draw() {
   }
@@ -42,6 +51,7 @@ class Anim implements Animation {
   float func[] = new float[8];
 
   Anim(int _vizIndex) {
+    resetbeats(); 
     //// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
     blury = int(map(blurSlider, 0, 1, 0, 100));
     if (blury!=prevblury) {

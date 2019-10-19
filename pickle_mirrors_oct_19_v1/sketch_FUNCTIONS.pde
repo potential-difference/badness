@@ -25,17 +25,20 @@ int beatCounter;
 long beatTimer;
 boolean beatTrigger;
 float beat;
-void beats() {             ////// BEAT DETECT THROUGHOUT SKETCH ///////
-  beatTimer++;
-  beatAlpha=0.2; //this affects how quickly code adapts to tempo changes 0.2 averages the last 10 onsets  0.02 would average the last 100
-
-  if (beatDetect.isOnset()) {
-    beat = 1;
+void resetbeats(){
+      beat = 1;
     beatCounter = (beatCounter + 1) % 120;
     weightedsum=beatTimer+(1-beatAlpha)*weightedsum;
     weightedcnt=1+(1-beatAlpha)*weightedcnt;
     avgtime=weightedsum/weightedcnt;
     beatTimer=0;
+}
+void beats() {             ////// BEAT DETECT THROUGHOUT SKETCH ///////
+  beatTimer++;
+  beatAlpha=0.2; //this affects how quickly code adapts to tempo changes 0.2 averages the last 10 onsets  0.02 would average the last 100
+
+  if (beatDetect.isOnset()) { 
+    resetbeats();
   }
   if (avgtime>0) beat*=pow(alphaSlider, (1/avgtime));       //  changes rate alpha fades out!!
   else beat*=0.95;
