@@ -162,7 +162,7 @@ void draw()
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   blendMode(MULTIPLY);
   colorLayer(rigColourLayer, rigBgr);
-  if (keyT['r'])  bgNoise(rigColourLayer, 0, bgNoiseSlider); //PGraphics layer,color,alpha
+  if (keyT['r'])  bgNoise(rigColourLayer, 0,0, bgNoiseDensitySlider); //PGraphics layer,color,alpha
   // develop colour layer
   image(rigColourLayer, size.rigWidth/2, size.rigHeight/2);         // draw rig colour layer to rig window
   blendMode(NORMAL);
@@ -171,7 +171,7 @@ void draw()
     rigColourLayer.beginDraw();
     rigColourLayer.background(0, 0, 0, 0);
     rigColourLayer.endDraw();
-    bgNoise(rigColourLayer, bloo, colorNoiseSlider);   //PGraphics layer,color,alpha
+    bgNoise(rigColourLayer, bloo,bgNoiseBrightnessSlider,bgNoiseDensitySlider);   //PGraphics layer,color,alpha
     image(rigColourLayer, size.rigWidth/2, size.rigHeight/2);
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
