@@ -41,7 +41,7 @@ class CansOn extends ManualAnim {
   void draw() {
     window.fill(rig.flash, 360*manualAlpha);
     window.rect(grid.cans[0].x, grid.cans[0].y, grid.cansLength, 3);
-    window.rect(grid.cans[1].x, grid.cans[1].y, grid.cansLength, 3);
+     window.rect(grid.cans[1].x, grid.cans[1].y, grid.cansLength, 3);
   }
 }
 
