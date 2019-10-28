@@ -20,7 +20,7 @@ void colorLayer(PGraphics subwindow, int index) {
     subwindow.image(bg[index], subwindow.width/2, subwindow.height/2, subwindow.width, subwindow.height);
     subwindow.endDraw();
   }
-
+/*
   if (subwindow == roofColourLayer) {
     color col1 = roof.c;
     color col2 = roof.flash;
@@ -37,6 +37,7 @@ void colorLayer(PGraphics subwindow, int index) {
     subwindow.image(bg[index], subwindow.width/2, subwindow.height/2, subwindow.width, subwindow.height);
     subwindow.endDraw();
   }
+  */
 }
 ///////////////////////////// END OF BACKGROUNDS ///////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////

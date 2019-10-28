@@ -1,4 +1,4 @@
-class SketchColor {
+class SketchColor extends Rig {
   //////////////////////////////////////////////////// COLOR TIMER ////////////////////////////////
   color c, flash, c1, flash1, colorA, colorB = 1, colA, colB, colC, colD;
   float go;

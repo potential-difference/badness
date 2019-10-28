@@ -16,9 +16,14 @@ OPCGrid grid;
 Toggle toggle = new Toggle();
 
 SketchColor rig = new SketchColor();
-SketchColor roof = new SketchColor();
+//SketchColor roof = new SketchColor();
 
 ArrayList <Anim> animations;
+ArrayList <Anim> backdrop;
+ArrayList <Anim> roof;
+
+//ArrayList <Anim> animations;
+
 Visualisation visual[] = new Visualisation[2];
 
 import javax.sound.midi.ShortMessage;       // shorthand names for each control on the TR8
@@ -78,13 +83,20 @@ void setup()
   animations = new ArrayList<Anim>();
   animations.add(new Anim(0, alphaSlider, funcSlider));
 
+  backdrop = new ArrayList<Anim>();
+  backdrop.add(new Anim(0, alphaSlider, funcSlider));
+
+  roof = new ArrayList<Anim>();
+  roof.add(new Anim(0, alphaSlider, funcSlider));
+
+
   //dimmer = 1; // must come before load control frame
   drawingSetup();
   loadImages();
   loadGraphics();
   colorSetup();  
   rig.colorArray();
-  roof.colorArray();
+  //roof.colorArray();
 
   controlFrame = new ControlFrame(this, width, 130, "Controls"); // load control frame must come after shild ring etc
 

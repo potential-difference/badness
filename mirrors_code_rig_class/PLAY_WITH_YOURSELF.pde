@@ -53,7 +53,7 @@ void playWithYourself(float vizTm) {
   //else colStepper = 1;
   colTime = colorTimerSlider*60*30;
   rig.colorTimer(colTime, 1); //// seconds between colour change, number of steps to cycle through colours
-  roof.colorTimer(colTime, 1); //// seconds between colour change, number of steps to cycle through colours
+  //roof.colorTimer(colTime, 1); //// seconds between colour change, number of steps to cycle through colours
   
   
     //if (millis()/1000* == 0) rigBgr = (rigBgr + 1) % bgList;               // change colour layer automatically
@@ -61,10 +61,10 @@ void playWithYourself(float vizTm) {
   ///////////////////////////////////// COLORSWAP TIMER /////////////////////////////////////////////////////////////////
   if (colorSwapSlider > 0) {
     rig.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
-    roof.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
+    //roof.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
   }
   if (beatCounter%64<2) rig.colorSwap(1000000*noize);  
-  if (beatCounter%64>61) roof.colorSwap(1000000*noize);
+  //if (beatCounter%64>61) roof.colorSwap(1000000*noize);
   ////////////////////////////////////////// COLOR FLIP ///////////////////////////////////////////////////////////////////
   for (int i = 16; i<22; i+=2) if ( beatCounter % 128 == i) rig.colFlip = true;
   else rig.colFlip = false;

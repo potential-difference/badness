@@ -190,8 +190,8 @@ void keyPressed() {
   if (key == 'v') rig.colorB = (rig.colorB+1)%rig.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
   if (key == 'x') colorselected = (colorselected + 1) % 5;
 
-  if (key == 'd') roof.colorA = (roof.colorA+1)%roof.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
-  if (key == 'f') roof.colorB = (roof.colorB+1)%roof.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
+  //if (key == 'd') roof.colorA = (roof.colorA+1)%roof.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
+  //if (key == 'f') roof.colorB = (roof.colorB+1)%roof.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
 
   if (key == 'q') info = !info;
   if (key == 't') test = !test;

@@ -125,6 +125,7 @@ void colorInfo() {
   //fill(360, bt*360); 
   //rect(size.rigWidth-32.5, y-10, 10, 10);             // rect to show CURRENT alpha
   // ROOF ///
+  /*
   if (size.roofWidth>0) {
     fill(roof.col[roof.colorA]);          
     rect(size.rigWidth+7.5, y-10, 10, 10);              // rect to show CURRENT color C 
@@ -136,6 +137,7 @@ void colorInfo() {
     rect(size.rigWidth+20, y, 10, 10);                  // rect to show NEXT color FLASH1
     fill(roof.col[roof.colorB]);
   }
+  */
   //fill(360, roof.beat*360); 
   //rect(size.rigWidth+32.5, y, 10, 10);      // rect to show B alpha
   //fill(360, roof.bt*360); 
