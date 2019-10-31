@@ -2,11 +2,11 @@ class Installation {
 
   float xPos, yPos;
   PVector viz;
-  Installation(float _xPos, float _yPos) {
-    xPos = _xPos;
-    yPos = _yPos;
-    //viz = new PVector(xPos, yPos);
-  }
+  //Installation(float _xPos, float _yPos) {
+  //  xPos = _xPos;
+  //  yPos = _yPos;
+  //  //viz = new PVector(xPos, yPos);
+  //}
   void setPosition(float _xPos, float _yPos) {
     viz = new PVector (_xPos, _yPos);
   }
@@ -92,7 +92,7 @@ class Anim extends Installation {
   float func[] = new float[8];
 
   Anim(int _vizIndex, float _alphaRate, float _funcRate, float _dimmer) {
-    super(0,0);
+    //super(0,0);
     alphaRate = _alphaRate;
     funcRate = _funcRate;
     dimmer = _dimmer;
@@ -144,12 +144,14 @@ class Anim extends Installation {
     decay();
     alphaFunction();
 
-    //viz  = new PVector(size.rig.x, size.rig.y);
+    viz  = new PVector(size.rig.x, size.rig.y);
 
     col1 = white;
     col2 = white;
     vizWidth = float(blured.width*2);
     vizHeight = float(blured.height*2);
+    
+
 
     float alphaA = alph[rigAlphIndex];
     float functionA = func[fctIndex]*funcFX;
@@ -174,8 +176,6 @@ class Anim extends Installation {
     alphaA *=alphFX*dimmer*alf;
     alphaB *=alphFX*dimmer*alf;
     ///////////////////////////////////////////////
-
-
 
     switch (vizIndex) {
     case 0:

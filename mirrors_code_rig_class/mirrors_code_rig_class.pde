@@ -18,8 +18,8 @@ Toggle toggle = new Toggle();
 SketchColor rigColor = new SketchColor();
 //SketchColor roof = new SketchColor();
 
-Installation rig = new Installation(size.rig.x,size.rig.y);
-Installation roof = new Installation(size.roof.x,size.roof.y);
+//Installation rig = new Installation(size.rig.x,size.rig.y);
+//Installation roof = new Installation(size.roof.x,size.roof.y);
 
 ArrayList <Anim> animations;
 //ArrayList <Anim> rig.Anim;
