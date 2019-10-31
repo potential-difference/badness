@@ -298,7 +298,7 @@ class ControlFrame extends PApplet {
 
   void draw() {
     background(0);
-    fill(rig.c);
+    fill(rigColor.c);
     rect(width/2, 0, width, 2);
 
     

@@ -100,10 +100,10 @@ class OPCGrid {
     }
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////// RIG POSITIONS FOR GRID ///////////////////////////////////////////////////////
-    _cansLength = size.rigWidth;
-    cans[0] = new PVector(size.rig.x, size.rig.y+(mirrorAndGap*1.2));
-    cans[1] = new PVector(size.rig.x, size.rig.y+(mirrorAndGap*1.2)+6);
-    cans[2] = new PVector(size.rig.x, size.rig.y+(mirrorAndGap*1.2)-6);
+    _cansLength = size.roofWidth;
+    cans[0] = new PVector(size.roof.x, size.roof.y-(size.roofHeight/4));
+    cans[1] = new PVector(size.roof.x, size.roof.y);
+    cans[2] = new PVector(size.roof.x, size.roof.y+(size.roofHeight/4));
 
     booth = new PVector (width - 30, 110);
     dig = new PVector (width - 30, 125);
@@ -205,8 +205,9 @@ class OPCGrid {
     int channel = 64;
     int leds = 6;
     pd = int(_cansLength/6);
-    opc.ledStrip(fc+(channel*6), leds, int(cans[0].x), int(cans[0].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
-    opc.ledStrip(fc+(channel*7), leds, int(cans[1].x), int(cans[1].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
+    opc.ledStrip(fc+(channel*5), leds, int(cans[0].x), int(cans[0].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
+    opc.ledStrip(fc+(channel*6), leds, int(cans[1].x), int(cans[1].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
+    opc.ledStrip(fc+(channel*7), leds, int(cans[2].x), int(cans[2].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
 
     cansLength = _cansLength - (pd/2);
   }

@@ -1,19 +1,34 @@
-class Rig {
+class Installation {
 
   float xPos, yPos;
   PVector viz;
-
-  Rig(float _xPos, float _yPos) {
-    PVector viz  = new PVector(_xPos, _yPos);
+  Installation(float _xPos, float _yPos) {
+    xPos = _xPos;
+    yPos = _yPos;
+    //viz = new PVector(xPos, yPos);
+  }
+  void setPosition(float _xPos, float _yPos) {
+    viz = new PVector (_xPos, _yPos);
+  }
+  PVector getPostion() {
+    return viz;
   }
 }
 
+//class Animation extends Installation {
 
-//class Animation extends Rig {
+//  //PVector viz;
+//  //float xPos, yPos;
+  
+//  setPosition
 
-//  Animation(){
-
+//  Animation() {
+//    super (xPos,yPos);
+//    //xPos = _xPos;
+//    //yPos = _yPos;
+//    //viz = new PVector(xPos,yPos);
 //  }
+
 //  //void position();
 //  //void trigger();
 //  //void decay();
@@ -32,18 +47,19 @@ class AllOn extends ManualAnim {
     manualAlpha*=0.95;
   }
 
-  AllOn(float _alphaRate, float _funcRate) {
-    super( _alphaRate, _funcRate);
+  AllOn(float _alphaRate, float _funcRate, float _dimmer) {
+    super( _alphaRate, _funcRate, _dimmer);
+    dimmer = _dimmer;
   }
   void draw() {
-    window.background(360*manualAlpha);
+    window.background(360*manualAlpha*dimmer);
   }
 }
 
 abstract class ManualAnim extends Anim {
 
-  ManualAnim(float _alphaRate, float _funcRate) {
-    super(-1, _alphaRate, _funcRate);
+  ManualAnim(float _alphaRate, float _funcRate, float _dimmer) {
+    super(-1, _alphaRate, _funcRate, _dimmer);
   }
   void draw() {
   }
@@ -60,25 +76,26 @@ abstract class ManualAnim extends Anim {
 
 
 
-class Anim extends Rig {
+class Anim extends Installation {
 
-  float alphaRate;
-  float funcRate;
+  float alphaRate, funcRate, dimmer;
   /////////////////////// LOAD GRAPHICS FOR VISULISATIONS AND COLOR LAYERS //////////////////////////////
   PGraphics window, pass1, blured;
   int blury, prevblury, vizIndex;
   float alphMod=1, funcMod=1, funcFX=1, alphFX=1;
-  float xpos, ypos;
+  float _xPos, _yPos;
   PShader blur;
   color col1, col2;
-  PVector viz;
+  //PVector viz;
 
   float alph[] = new float[7];
   float func[] = new float[8];
 
-  Anim(int _vizIndex, float _alphaRate, float _funcRate) {
+  Anim(int _vizIndex, float _alphaRate, float _funcRate, float _dimmer) {
+    super(0,0);
     alphaRate = _alphaRate;
     funcRate = _funcRate;
+    dimmer = _dimmer;
     resetbeats(); 
     //// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
     blury = int(map(blurSlider, 0, 1, 0, 100));
@@ -114,10 +131,11 @@ class Anim extends Rig {
 
     trigger();
     vizIndex = _vizIndex;
+    
+    viz = new PVector(xPos,yPos);
   }
 
-  void position() {
-  }
+ 
 
   float stroke, wide, high, rotate;
   Float vizWidth, vizHeight;
@@ -126,7 +144,7 @@ class Anim extends Rig {
     decay();
     alphaFunction();
 
-    //PVector viz  = new PVector(size.rig.x, size.rig.y);
+    //viz  = new PVector(size.rig.x, size.rig.y);
 
     col1 = white;
     col2 = white;

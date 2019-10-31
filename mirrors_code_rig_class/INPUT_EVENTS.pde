@@ -185,9 +185,9 @@ void keyPressed() {
   //  roofAlphIndex = (roofAlphIndex+1)%alph.length; 
   //  roofAlph1Index = (roofAlph1Index+1)%alph.length;
   //}   
-  if (key == 'c')  rig.colorA = (rig.colorA+1)%rig.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
+  if (key == 'c')  rigColor.colorA = (rigColor.colorA+1)%rigColor.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
   
-  if (key == 'v') rig.colorB = (rig.colorB+1)%rig.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
+  if (key == 'v') rigColor.colorB = (rigColor.colorB+1)%rigColor.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
   if (key == 'x') colorselected = (colorselected + 1) % 5;
 
   //if (key == 'd') roof.colorA = (roof.colorA+1)%roof.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS

@@ -10,24 +10,25 @@ class SizeSettings {
     case PORTRAIT:
       rigWidth = 600;                                    // WIDTH of rigViz
       rigHeight = 550;                                   // HEIGHT of rigViz
-      rig = new PVector(rigWidth/2, (rigHeight/2)-30);   // cordinates for center of rig
+      rig = new PVector(rigWidth/2, (rigHeight/2));   // cordinates for center of rig
       rigWindow = new PVector(rigWidth/2, rigHeight/2);
       break;
     case LANDSCAPE:
       rigWidth = 900;                                    // WIDTH of rigViz
       rigHeight = 350;    
-      rig = new PVector(rigWidth/2, (rigHeight/2)-20);   // cordinates for center of rig
+      rig = new PVector(rigWidth/2, (rigHeight/2));   // cordinates for center of rig
       rigWindow = new PVector(rigWidth/2, rigHeight/2);
       break;
     }
 
+    //////////////////////////////// LANDSCAPE ROOF SETUP UNDER RIG ///////////////////////
+    roofWidth = rigWidth;
+    roofHeight = 60;
+    roof = new PVector (rig.x, rigHeight+(roofHeight/2));
+
     vizWidth = rigWidth;
     vizHeight = rigHeight;
     viz = new PVector (rig.x, rig.y);
-
-    roofWidth = 0;
-    roofHeight = rigHeight;
-    roof = new PVector (rigWidth+roofWidth/2, roofHeight/2);
 
     sliderHeight = 70;         // height of slider area at bottom of sketch window
 
@@ -35,8 +36,8 @@ class SizeSettings {
     infoHeight = rigHeight+sliderHeight;
     info = new PVector (rigWidth+roofWidth+(infoWidth/2), infoHeight/2);
 
-    sizeX = rigWidth+roofWidth+infoWidth;
-    sizeY = sliderHeight+rigHeight;
+    sizeX = rigWidth+infoWidth;
+    sizeY = sliderHeight+rigHeight+roofHeight;
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////

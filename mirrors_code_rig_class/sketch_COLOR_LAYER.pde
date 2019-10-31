@@ -3,11 +3,11 @@ int bgList = 6;
 void colorLayer(PGraphics subwindow, int index) {
   /////////////////////////////////////////////// RIG COLOR LAYERS ///////////////////////////////////////
   if (subwindow == rigColourLayer) {
-    color col1 = rig.c;
-    color col2 = rig.flash;
+    color col1 = rigColor.c;
+    color col2 = rigColor.flash;
 
-    //col1 = rig.col[rig.colorA];
-    //col2 = rig.col[rig.colorB];
+    //col1 = rigColor.col[rigColor.colorA];
+    //col2 = rigColor.col[rigColor.colorB];
 
     oneColourBG(0, col1);
     mirrorGradientBG(1, col1, col2, 0.5);  

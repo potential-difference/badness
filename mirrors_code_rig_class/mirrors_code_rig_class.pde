@@ -15,12 +15,15 @@ SizeSettings size;
 OPCGrid grid;
 Toggle toggle = new Toggle();
 
-SketchColor rig = new SketchColor();
+SketchColor rigColor = new SketchColor();
 //SketchColor roof = new SketchColor();
 
+Installation rig = new Installation(size.rig.x,size.rig.y);
+Installation roof = new Installation(size.roof.x,size.roof.y);
+
 ArrayList <Anim> animations;
-ArrayList <Anim> backdrop;
-ArrayList <Anim> roof;
+//ArrayList <Anim> rig.Anim;
+//ArrayList <Anim> roof.Anim;
 
 //ArrayList <Anim> animations;
 
@@ -81,13 +84,13 @@ void setup()
   //oscAddrSetup();
 
   animations = new ArrayList<Anim>();
-  animations.add(new Anim(0, alphaSlider, funcSlider));
+  animations.add(new Anim(0, alphaSlider, funcSlider, rigDimmer));
 
-  backdrop = new ArrayList<Anim>();
-  backdrop.add(new Anim(0, alphaSlider, funcSlider));
+  //rigAnim = new ArrayList<Anim>();
+  //rigAnim.add(new Anim(0, alphaSlider, funcSlider, rigDimmer));
 
-  roof = new ArrayList<Anim>();
-  roof.add(new Anim(0, alphaSlider, funcSlider));
+  //roofAnim = new ArrayList<Anim>();
+  //roofAnim.add(new Anim(0, alphaSlider, funcSlider, roofDimmer));
 
 
   //dimmer = 1; // must come before load control frame
@@ -95,7 +98,7 @@ void setup()
   loadImages();
   loadGraphics();
   colorSetup();  
-  rig.colorArray();
+  rigColor.colorArray();
   //roof.colorArray();
 
   controlFrame = new ControlFrame(this, width, 130, "Controls"); // load control frame must come after shild ring etc
@@ -103,8 +106,8 @@ void setup()
   rigViz = 0;
   roofViz = 1;
   rigBgr = 1;    
-  rig.c = purple;    // set c start
-  rig.flash = orange;   // set flash start
+  rigColor.c = purple;    // set c start
+  rigColor.flash = orange;   // set flash start
 
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
   for (int i = 0; i < 100; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen
@@ -128,7 +131,7 @@ void draw()
   beats();
   pause(10);                                ////// number of seconds before no music detected
   globalFunctions();
-  //rig.clash(beat);                          ///// clash colour changes on function in brackets
+  //rigColor.clash(beat);                          ///// clash colour changes on function in brackets
   //roof.clash(func);                         ///// clash colour changes on function in brackets
 
   //dimmer = cc[4]*rigDimmer;
@@ -146,7 +149,7 @@ void draw()
   playWithMe();
   // trigger new animnations 
 
-  if (!manualToggle) if (beatDetect.isOnset()) animations.add(new Anim(rigViz, alphaSlider, funcSlider));   // create a new anim object and add it to the beginning of the arrayList
+  if (!manualToggle) if (beatDetect.isOnset()) animations.add(new Anim(rigViz, alphaSlider, funcSlider, rigDimmer));   // create a new anim object and add it to the beginning of the arrayList
   // limit the number of animations
   while (animations.size()>0 && animations.get(0).deleteme) {
     animations.remove(0);
@@ -185,7 +188,7 @@ void draw()
   rect(grid.cans[1].x, grid.cans[1].y, grid.cansLength, 3);
 
   if (beat <0.3) {
-    fill(rig.flash, (((1-beat)*0.6)+(0.3*noize1)+(0.05*(1-beat)*stutter))*360*cansDimmer*cc[8]); //       (280*noize)+(100*shimmer)+(120*1-beat));
+    fill(rigColor.flash, (((1-beat)*0.6)+(0.3*noize1)+(0.05*(1-beat)*stutter))*360*cansDimmer*cc[8]); //       (280*noize)+(100*shimmer)+(120*1-beat));
     rect(grid.cans[0].x, grid.cans[0].y, grid.cansLength, 3);
     rect(grid.cans[1].x, grid.cans[1].y, grid.cansLength, 3);
   }
@@ -194,9 +197,9 @@ void draw()
   playWithMeMore();
 
   ///////////////////////////////////// BOOTH & DIG //////////////////////////////////////////////////////////////
-  fill(rig.c1, 360*boothDimmer);
+  fill(rigColor.c1, 360*boothDimmer);
   rect(grid.booth.x, grid.booth.y, 30, 10);
-  fill(rig.flash1, 360*digDimmer);
+  fill(rigColor.flash1, 360*digDimmer);
   rect(grid.dig.x, grid.dig.y, 30, 10);
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -214,12 +217,11 @@ void draw()
   }
   /////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
 
-
-
-  fill(rig.flash);
+  fill(rigColor.flash);
   rect(size.rigWidth, height/2, 1, height);                     ///// vertical line to show end of rig viz area
+  rect(size.rig.x, size.rigHeight, size.rigWidth, 1);             //// horizontal line to divide landscape rig / roof areas
   rect(size.rigWidth+size.roofWidth, height/2, 1, height);      ///// vertical line to show end of roof viz area
-  fill(rig.flash, 80);    
+  fill(rigColor.flash, 80);    
   rect((size.rigWidth+size.roofWidth)/2, height-size.sliderHeight, size.rigWidth+size.roofWidth, 1);                              ///// horizontal line to show bottom area
 
   // code to develop and then draw preview boxes 
