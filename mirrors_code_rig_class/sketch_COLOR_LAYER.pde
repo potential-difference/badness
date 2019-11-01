@@ -1,5 +1,5 @@
 int rigBgr, roofBgr; 
-int bgList = 6;
+int rigBgList = 6, roofBgList = 4;
 void colorLayer(PGraphics subwindow, int index) {
   /////////////////////////////////////////////// RIG COLOR LAYERS ///////////////////////////////////////
   if (subwindow == rigColourLayer) {
@@ -20,24 +20,20 @@ void colorLayer(PGraphics subwindow, int index) {
     subwindow.image(bg[index], subwindow.width/2, subwindow.height/2, subwindow.width, subwindow.height);
     subwindow.endDraw();
   }
-/*
+
   if (subwindow == roofColourLayer) {
-    color col1 = roof.c;
-    color col2 = roof.flash;
+    color col1 = roofColor.c;
+    color col2 = roofColor.flash;
 
     mirrorGradientBG(0, col1, col2, 0.5);  
-    //radialGradientBG(1, roofCol1, roofCol2, 0.1);
-    horizontalMirrorGradBG(2, col1, col2, 0);
-    horizontalMirrorGradBG(3, col2, col1, 0.5);
-    //roofArrangement(4, roofCol2, roofCol1);
-    //roofBigSeeds(5, roofCol1, roofCol2);
-    horizontalMirrorGradBG(6, col1, col2, 0.5);
+    oneColourBG(1, col2);
+    oneColourBG(2, col1);
+    sideBySideBG(3, col1, col2);
 
     subwindow.beginDraw();
     subwindow.image(bg[index], subwindow.width/2, subwindow.height/2, subwindow.width, subwindow.height);
     subwindow.endDraw();
   }
-  */
 }
 ///////////////////////////// END OF BACKGROUNDS ///////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////

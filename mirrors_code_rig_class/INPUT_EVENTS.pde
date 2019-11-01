@@ -131,7 +131,7 @@ void oscEvent(OscMessage theOscMessage) {
   OscAddrMap.put(theOscMessage.addrPattern(), argument);
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////// knob box /////////////////////////////////////////////////////////////////////
-  
+
   /////////////////////////////////////// button box //////////////////////////////////////
   if (messageType.equals("buttonSelected")) {
     if (argument<5) {
@@ -161,13 +161,13 @@ void keyPressed() {
   if (key == 'n') rigViz = (rigViz+1)%rigVizList;        //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
   if (key == 'b') rigViz -=1;                            //// STEP BACK TO PREVIOUS RIG VIZ
   if (rigViz <0) rigViz = rigVizList-1;
-  if (key == 'm') rigBgr = (rigBgr+1)%bgList;                 //// CYCLE THROUGH RIG BACKGROUNDS
+  if (key == 'm') rigBgr = (rigBgr+1)%rigBgList;                 //// CYCLE THROUGH RIG BACKGROUNDS
 
   /////////////////////////////// ROOF KEY FUNCTIONS ////////////////////////
   if (key == 'h') roofViz = (roofViz+1)%8;               //// STEP FORWARD TO NEXT RIG VIZ
   if (key == 'g') roofViz -= 1;                          //// STEP BACK TO PREVIOUS RIG VIZ
   if (roofViz <0) roofViz = 7;
-  if (key == 'j') roofBgr = (roofBgr+1)%7;               //// CYCLE THROUGH ROOF BACKGROUNDS
+  if (key == 'j') roofBgr = (roofBgr+1)%roofBgList;               //// CYCLE THROUGH ROOF BACKGROUNDS
 
   if (key == ',') {                                      //// CYCLE THROUGH RIG FUNCS
     fctIndex = (fctIndex+1)%8; //animations.func.length; 
@@ -185,17 +185,15 @@ void keyPressed() {
   //  roofAlphIndex = (roofAlphIndex+1)%alph.length; 
   //  roofAlph1Index = (roofAlph1Index+1)%alph.length;
   //}   
-  if (key == 'c')  rigColor.colorA = (rigColor.colorA+1)%rigColor.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
-  
+  if (key == 'c') rigColor.colorA = (rigColor.colorA+1)%rigColor.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
   if (key == 'v') rigColor.colorB = (rigColor.colorB+1)%rigColor.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
-  if (key == 'x') colorselected = (colorselected + 1) % 5;
 
-  //if (key == 'd') roof.colorA = (roof.colorA+1)%roof.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
-  //if (key == 'f') roof.colorB = (roof.colorB+1)%roof.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
+  if (key == 'd') roofColor.colorA = (roofColor.colorA+1)%roofColor.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
+  if (key == 'f') roofColor.colorB = (roofColor.colorB+1)%roofColor.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
 
   if (key == 'q') info = !info;
   if (key == 't') test = !test;
-  if ( key == 'w') work = !work;
+  if (key == 'w') work = !work;
   if (key == '[') vizHold = !vizHold; 
   if (key == ']') colHold = !colHold; 
 

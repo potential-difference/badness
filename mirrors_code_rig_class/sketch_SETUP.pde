@@ -113,7 +113,7 @@ void drawingSetup() {
 }
 
 /////////////////////// LOAD GRAPHICS FOR VISULISATIONS AND COLOR LAYERS //////////////////////////////
-PGraphics bg[] = new PGraphics[bgList];
+PGraphics bg[] = new PGraphics[rigBgList];
 PGraphics rigWindow, roofWindow, pg, infoWindow, rigColourLayer, roofColourLayer;
 void loadGraphics() {
   //////////////////////////////// rig colour layer  ///////////////////
@@ -123,9 +123,14 @@ void loadGraphics() {
   rigColourLayer.imageMode(CENTER);
   rigColourLayer.rectMode(CENTER);
   rigColourLayer.endDraw();
-  ////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////// ROOF GRAPHICS SETUP ///////////////////////////////////////////
-
+  roofColourLayer = createGraphics(int(size.roofWidth), int(size.roofHeight), P2D);
+  roofColourLayer.beginDraw();
+  roofColourLayer.colorMode(HSB, 360, 100, 100);
+  roofColourLayer.imageMode(CENTER);
+  roofColourLayer.rectMode(CENTER);
+  roofColourLayer.endDraw();
+  ////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////// info subwindow  ///////////////////
   infoWindow = createGraphics(size.infoWidth, size.infoHeight, P2D);
   infoWindow.beginDraw();

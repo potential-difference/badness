@@ -1,6 +1,6 @@
 class Visualisation {
   PGraphics vis = new PGraphics();
-  PGraphics bg[] = new PGraphics[bgList];
+  PGraphics bg[] = new PGraphics[rigBgList];
   PGraphics colourLayer;
   PGraphics pass1 = new PGraphics();
   PGraphics blured = new PGraphics();

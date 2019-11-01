@@ -10,24 +10,18 @@ OPC opcControllerB;
 
 final int PORTRAIT = 0;
 final int LANDSCAPE = 1;
+final int RIG = 0;
+final int ROOF = 1;
 
 SizeSettings size;
 OPCGrid grid;
+ControlFrame controlFrame;
 Toggle toggle = new Toggle();
 
 SketchColor rigColor = new SketchColor();
-//SketchColor roof = new SketchColor();
-
-//Installation rig = new Installation(size.rig.x,size.rig.y);
-//Installation roof = new Installation(size.roof.x,size.roof.y);
+SketchColor roofColor = new SketchColor();
 
 ArrayList <Anim> animations;
-//ArrayList <Anim> rig.Anim;
-//ArrayList <Anim> roof.Anim;
-
-//ArrayList <Anim> animations;
-
-Visualisation visual[] = new Visualisation[2];
 
 import javax.sound.midi.ShortMessage;       // shorthand names for each control on the TR8
 import oscP5.*;
@@ -60,11 +54,11 @@ void setup()
   grid = new OPCGrid();
 
   ///////////////// LOCAL opc /////////////////////
-  //opcMirrors = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRRORS
+  opcMirrors = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRRORS
   opcCans = new OPC(this, "127.0.0.1", 7890);          // Connect to the remote instance of fcserver - CANS BOX
 
   ///////////////// OPC over NETWORK /////////////////////
-  opcMirrors = new OPC(this, "192.168.0.70", 7890);       // Connect to the remote instance of fcserver - MIRROR 1
+  //opcMirrors = new OPC(this, "192.168.0.70", 7890);       // Connect to the remote instance of fcserver - MIRROR 1
   //opcCans = new OPC(this, "192.168.0.10", 7890);          // Connect to the remote instance of fcserver - CANS BOX
 
   grid.mirrorsOPC(opcMirrors, opcMirrors, 0);               // grids 0-3 MIX IT UPPPPP 
@@ -72,26 +66,14 @@ void setup()
   grid.pickleBoothOPC(opcCans);               
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
-  //loadAudio();     // load one shot sounds ///
 
   MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
   println();
   TR8bus = new MidiBus(this, "TR-8S", "TR8-S"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
   LPD8bus = new MidiBus(this, "LPD8", "LPD8"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
 
-  /* start oscP5, listening for incoming messages at port 5000 to 5003 */
-  //for (int i = 0; i < 4; i++) oscP5[i] = new OscP5(this, 5000+i);
-  //oscAddrSetup();
-
   animations = new ArrayList<Anim>();
-  animations.add(new Anim(0, alphaSlider, funcSlider, rigDimmer));
-
-  //rigAnim = new ArrayList<Anim>();
-  //rigAnim.add(new Anim(0, alphaSlider, funcSlider, rigDimmer));
-
-  //roofAnim = new ArrayList<Anim>();
-  //roofAnim.add(new Anim(0, alphaSlider, funcSlider, roofDimmer));
-
+  animations.add(new Anim(RIG, 0, alphaSlider, funcSlider, rigDimmer));
 
   //dimmer = 1; // must come before load control frame
   drawingSetup();
@@ -99,15 +81,17 @@ void setup()
   loadGraphics();
   colorSetup();  
   rigColor.colorArray();
-  //roof.colorArray();
-
-  controlFrame = new ControlFrame(this, width, 130, "Controls"); // load control frame must come after shild ring etc
-
+  roofColor.colorArray();
   rigViz = 0;
   roofViz = 1;
-  rigBgr = 1;    
-  rigColor.c = purple;    // set c start
-  rigColor.flash = orange;   // set flash start
+  rigBgr = 1;
+  roofBgr = 1;
+  rigColor.c = purple;        // set c start
+  rigColor.flash = orange;    // set flash start
+  roofColor.c = orange;       // set c start
+  roofColor.flash = purple;   // set flash start
+  dimmer = 1;
+
 
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
   for (int i = 0; i < 100; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen
@@ -115,6 +99,9 @@ void setup()
   cc[6] = 0.75;
   cc[8] = 1;
   cc[MASTERFXON] = 0;
+
+  controlFrame = new ControlFrame(this, width, 130, "Controls"); // load control frame must come after shild ring etc
+
   frameRate(30);
 }
 float vizTime, colTime;
@@ -123,33 +110,41 @@ int time_since_last_anim=0;
 void draw()
 {
   surface.setAlwaysOnTop(onTop);
-
   background(0);
-  //dimmer = bgDimmer;
   noStroke();
   beatDetect.detect(in.mix);
   beats();
   pause(10);                                ////// number of seconds before no music detected
   globalFunctions();
-  //rigColor.clash(beat);                          ///// clash colour changes on function in brackets
-  //roof.clash(func);                         ///// clash colour changes on function in brackets
 
-  //dimmer = cc[4]*rigDimmer;
   vizTime = 60*15*vizTimeSlider;
   playWithYourself(vizTime); 
-  //playWithMe();
 
-  dimmer = cc[4]; // come back to this with wigxxxflex code?!
-  float roofDimmerPad = cc[8]; // come back to this with wigflex code?!
+  //////////// WHY DOESN't THIS WORK???? ?/////////////////////////////
+  ///// ECHO RIG DIMMER SLIDER AND MIDI SLIDER 4 to control rig dimmer but only whne slider is changed
+  //if (cc[4]!=prevcc[4]) {
+  //  prevcc[4]=cc[4];
+  //  if (cc[4] != rigDimmer) cp5.getController("rigDimmer").setValue(cc[4]);
+  //}  
 
-  //rigVizSelection(rigWindow, rigDimmerPad*rigDimmer);               // develop rig visulisation
+  //if (cc[8]!=prevcc[8]) {
+  //   prevcc[8]=cc[8];
+  //   if (cc[8] != roofDimmer) cp5.getController("roofDimmer").setValue(cc[8]);
+  // }  
+
+  rigDimmer = cc[4]; // come back to this with wigxxxflex code?!
+  roofDimmer = cc[8]; // come back to this with wigflex code?!
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   playWithMe();
   // trigger new animnations 
-
-  if (!manualToggle) if (beatDetect.isOnset()) animations.add(new Anim(rigViz, alphaSlider, funcSlider, rigDimmer));   // create a new anim object and add it to the beginning of the arrayList
+  if (!manualToggle) if (beatDetect.isOnset()) {
+    animations.add(new Anim(ROOF, 10, cansAlpha, funcSlider, roofDimmer));     // create an anim object for the cans specficially doing something simple
+    animations.add(new Anim(RIG, rigViz, alphaSlider, funcSlider, rigDimmer));   // create a new anim object and add it to the beginning of the arrayList
+  }
+  //////////////////////////////// NEED TO LOOK AT A BETTER WAY OF DOING THIS ...................///////////////////////////////
+  //////////////////////////////////// MAYBE SORTED THIS WITH  deleteMeSliderr and deleteMeSlider 
   // limit the number of animations
   while (animations.size()>0 && animations.get(0).deleteme) {
     animations.remove(0);
@@ -157,41 +152,27 @@ void draw()
   if (animations.size() >= 16) animations.remove(0);  
   textAlign(RIGHT);
   text("# of anims: "+animations.size(), width - 5, height - 10);
-
   // adjust animations
   if (keyT['a']) for (Anim anim : animations)  anim.alphFX = 1-(stutter*0.1);
   if (keyT['s']) for (Anim anim : animations)  anim.funcFX = 1-(stutter*noize1*0.1);
   //draw animations
-
   blendMode(LIGHTEST);
   for (int i = animations.size()-1; i >=0; i--) {                                  // loop  through the list
     Anim anim = animations.get(i);  
     anim.drawAnim();           // draw the animation
   }
-  // draw colour layer
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////// draw colour layer /////////////////////////////////////////////////////////////////////////////////////////////////////
   blendMode(MULTIPLY);
   colorLayer(rigColourLayer, rigBgr);
+  colorLayer(roofColourLayer, roofBgr);
+
   if (cc[106] > 0 || keyT['r'] || glitchToggle) bgNoise(rigColourLayer, 0, 0, cc[6]); //PGraphics layer,color,alpha
   // develop colour layer
-  image(rigColourLayer, size.rigWidth/2, size.rigHeight/2);         // draw rig colour layer to rig window
+  image(rigColourLayer, size.rig.x, size.rig.y);            // draw rig colour layer to rig window
+  image(roofColourLayer, size.roof.x, size.roof.y);         // draw roof colour layer to rig window
   blendMode(NORMAL);
-
-
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  ///////////////////////////////////////////CANS //////////////////////////////////////
-  //cansDimmer = cc[108];
-  fill(0);
-  rect(grid.cans[0].x, grid.cans[0].y, grid.cansLength, 3);
-  rect(grid.cans[1].x, grid.cans[1].y, grid.cansLength, 3);
-
-  if (beat <0.3) {
-    fill(rigColor.flash, (((1-beat)*0.6)+(0.3*noize1)+(0.05*(1-beat)*stutter))*360*cansDimmer*cc[8]); //       (280*noize)+(100*shimmer)+(120*1-beat));
-    rect(grid.cans[0].x, grid.cans[0].y, grid.cansLength, 3);
-    rect(grid.cans[1].x, grid.cans[1].y, grid.cansLength, 3);
-  }
 
   //////////////////////////////// PLAY WITH ME MORE //////////////////////////////////////////////////////////////////////////////
   playWithMeMore();
@@ -216,16 +197,6 @@ void draw()
     rect(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight);
   }
   /////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
-
-  fill(rigColor.flash);
-  rect(size.rigWidth, height/2, 1, height);                     ///// vertical line to show end of rig viz area
-  rect(size.rig.x, size.rigHeight, size.rigWidth, 1);             //// horizontal line to divide landscape rig / roof areas
-  rect(size.rigWidth+size.roofWidth, height/2, 1, height);      ///// vertical line to show end of roof viz area
-  fill(rigColor.flash, 80);    
-  rect((size.rigWidth+size.roofWidth)/2, height-size.sliderHeight, size.rigWidth+size.roofWidth, 1);                              ///// horizontal line to show bottom area
-
-  // code to develop and then draw preview boxes 
-  image(infoWindow, size.info.x, size.info.y);
   onScreenInfo();                ///// display info about current settings, viz, funcs, alphs etc
   colorInfo();                   ///// rects to show current color and next colour
   frameRateInfo(5, 20);          ///// display frame rate X, Y /////

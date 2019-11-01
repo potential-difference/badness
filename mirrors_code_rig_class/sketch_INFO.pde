@@ -28,14 +28,15 @@ void frameRateInfo(float x, float y) {
 }
 
 void onScreenInfo() {
+  textSize(18);
   toggleInfo(width/2+90, 20);
   fill(300+(60*stutter));
   textAlign(RIGHT);
+  textLeading(18);
   text("RIG PANEL", size.rigWidth-5, size.rig.y-(size.rigHeight/2)+20);
-  if (size.roofWidth >0)  text("ROOF PANEL", size.rigWidth+size.roofWidth-5, size.roof.y-(size.roofHeight/2)+20);
+  if (size.roofWidth >0)  text("ROOF PANEL", size.roofWidth-5, size.rigHeight-5);
 
   textAlign(LEFT);
-  textSize(18);
   fill(360);
   float x = 10;
   float y = 20;
@@ -49,7 +50,16 @@ void onScreenInfo() {
   text("bkgrnd: " + rigBgr, x, y+20);
   text("func's: " + fctIndex + " / " + fct1Index, x+100, y);
   text("alph's: " + rigAlphIndex + " / " + rigAlph1Index, x+100, y+20);
- 
+  if (size.roofWidth > 0) {
+    ///////////// roof info
+    textAlign(RIGHT);
+    x = size.roofWidth - 5;
+    text("roofViz: " + roofViz, x, y);
+    text("bkgrnd: " + roofBgr, x, y+20);
+    //text("func's: " + fctIndex + " / " + fct1Index, x+100, y);
+    //text("alph's: " + rigAlphIndex + " / " + rigAlph1Index, x+100, y+20);
+  }
+
   /////////// info about PLAYWITHYOURSELF functions
   y = 20;
   x=width-5;
@@ -67,13 +77,13 @@ void onScreenInfo() {
   text("counter: " + counter, x, y+60);
 
   // moving rectangle displays alpha and functions
-  textSize(12);
-  textAlign(CENTER);
-  fill(rigColor.flash);
-  text("FUNCTION", (size.rigWidth-50)/2, height-10);
-  //rect((size.rigWidth-50)*animations.get(animations.alph[rigAlphIndex]), height-15, 10, 10); // moving rectangle to show current function
-  fill(rigColor.c, 360);
-  text("ALPHA", (size.rigWidth-50)/2, height);
+  //textSize(12);
+  //textAlign(CENTER);
+  //fill(rigColor.flash);
+  //text("FUNCTION", (size.rigWidth-50)/2, height-10);
+  ////rect((size.rigWidth-50)*animations.get(animations.alph[rigAlphIndex]), height-15, 10, 10); // moving rectangle to show current function
+  //fill(rigColor.c, 360);
+  //text("ALPHA", (size.rigWidth-50)/2, height);
   //rect((size.rigWidth-50)*bt, height-5, 10, 10); // moving rectangle to show current alpha
 
   // sequencer
@@ -83,7 +93,6 @@ void onScreenInfo() {
   for (int i = 0; i<(size.infoHeight-size.sliderHeight)/dist-(y/dist); i++) if (int(beatCounter%(dist-(y/dist))) == i) rect(size.info.x-(size.infoWidth/2)+10, 10+i*dist+y, 10, 10);
   fill(rigColor.c, 100);
   for (int i = 0; i<(size.infoHeight-size.sliderHeight)/dist-(y/dist); i++) rect(size.info.x-(size.infoWidth/2)+10, 10+i*dist+y, 10, 10);
-
 
   // text to show no audio
   if (pause >0) { 
@@ -106,38 +115,50 @@ void onScreenInfo() {
     textAlign(CENTER);
     for (int i = 0; i < 12; i++) text(i, grid.mirror[i].x, grid.mirror[i].y);   /// Ball Position info
   }
+  dividers();
+  // code to develop and then draw preview boxes 
+  image(infoWindow, size.info.x, size.info.y);
+}
+void dividers() {
+  fill(rigColor.flash);
+  rect(size.rigWidth, height/2, 1, height);                     ///// vertical line to show end of rig viz area
+  rect(size.rig.x, size.rigHeight, size.rigWidth, 1);             //// horizontal line to divide landscape rig / roof areas
+  rect(size.rigWidth+size.roofWidth, height/2, 1, height);      ///// vertical line to show end of roof viz area
+  fill(rigColor.flash, 80);    
+  rect((size.rigWidth+size.roofWidth)/2, height-size.sliderHeight, size.rigWidth+size.roofWidth, 1);                              ///// horizontal line to show bottom area
 }
 void colorInfo() {
   ///// RECTANGLES TO SHOW BEAT DETECTION AND CURRENT COLOURS /////
-  float y = height-5;
+  float y = height-7.5;
+  float x = 17;
   // RIG ///
   //fill(rigColor.c);
   fill(rigColor.c);          
-  rect(size.rigWidth-20, y-10, 10, 10);               // rect to show CURRENT color C 
-  fill(rigColor.col[(rigColor.colorA+1)%rigColor.col.length]);
-  rect(size.rigWidth-7.5, y-10, 10, 10);              // rect to show NEXT color C 
+  rect(x, y-10, 10, 10);               // rect to show CURRENT color C 
+  fill(rigColor.col[(rigColor.colorA+1)%rigColor.col.length], 100);
+  rect(x+15, y-10, 10, 10);              // rect to show NEXT color C 
   fill(rigColor.flash);
-  rect(size.rigWidth-20, y, 10, 10);                  // rect to show CURRENT color FLASH 
-  fill(rigColor.col[(rigColor.colorB+1)%rigColor.col.length]);  
-  rect(size.rigWidth-7.5, y, 10, 10);                 // rect to show NEXT color FLASH1
+  rect(x, y, 10, 10);                  // rect to show CURRENT color FLASH 
+  fill(rigColor.col[(rigColor.colorB+1)%rigColor.col.length], 100);  
+  rect(x+15, y, 10, 10);                 // rect to show NEXT color FLASH1
   //fill(360, beat*360); 
   //rect(size.rigWidth-32.5, y, 10, 10);                // rect to show B alpha
   //fill(360, bt*360); 
   //rect(size.rigWidth-32.5, y-10, 10, 10);             // rect to show CURRENT alpha
   // ROOF ///
-  /*
+
   if (size.roofWidth>0) {
-    fill(roof.col[roof.colorA]);          
-    rect(size.rigWidth+7.5, y-10, 10, 10);              // rect to show CURRENT color C 
-    fill(roof.col[(roof.colorA+1)%roof.col.length]);
-    rect(size.rigWidth+20, y-10, 10, 10);               // rect to show NEXT color C 
-    fill(roof.col[roof.colorB]);          
-    rect(size.rigWidth+7.5, y, 10, 10);                 // rect to show CURRENT color FLASH 
-    fill(roof.col[(roof.colorB+1)%roof.col.length]);
-    rect(size.rigWidth+20, y, 10, 10);                  // rect to show NEXT color FLASH1
-    fill(roof.col[roof.colorB]);
+    x = size.roofWidth - 25;
+    fill(roofColor.c);          
+    rect(x, y-10, 10, 10);              // rect to show CURRENT color C 
+    fill(roofColor.col[(roofColor.colorA+1)%roofColor.col.length], 100);
+    rect(x+15, y-10, 10, 10);               // rect to show NEXT color C 
+    fill(roofColor.flash);          
+    rect(x, y, 10, 10);                 // rect to show CURRENT color FLASH 
+    fill(roofColor.col[(roofColor.colorB+1)%roofColor.col.length], 100);
+    rect(x+15, y, 10, 10);                  // rect to show NEXT color FLASH1
   }
-  */
+
   //fill(360, roof.beat*360); 
   //rect(size.rigWidth+32.5, y, 10, 10);      // rect to show B alpha
   //fill(360, roof.bt*360); 

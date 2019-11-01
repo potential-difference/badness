@@ -15,41 +15,32 @@ class Installation {
   }
 }
 
-//class Animation extends Installation {
+interface Animation {
 
-//  //PVector viz;
-//  //float xPos, yPos;
-  
-//  setPosition
-
-//  Animation() {
-//    super (xPos,yPos);
-//    //xPos = _xPos;
-//    //yPos = _yPos;
-//    //viz = new PVector(xPos,yPos);
-//  }
-
-//  //void position();
-//  //void trigger();
-//  //void decay();
-//  //void colorTimer(100,1);
-//}
+  void trigger();
+  void decay();
+  //void colorTimer(100,1);
+}
 
 
 class AllOn extends ManualAnim {
   float manualAlpha;
+
   void trigger() {
     super.trigger();
     manualAlpha=1;
   }
   void decay() {
     super.decay();
-    manualAlpha*=0.95;
+    manualAlpha*=map(this.alphaRate, 0, 1, 0.5, 0.97);
+    manualAlpha*=this.funcRate;
   }
 
-  AllOn(float _alphaRate, float _funcRate, float _dimmer) {
-    super( _alphaRate, _funcRate, _dimmer);
+  AllOn(int _position, float _alphaRate, float _funcRate, float _dimmer) {
+    super( _position, _alphaRate, _funcRate, _dimmer);
     dimmer = _dimmer;
+    alphaRate=_alphaRate;
+    funcRate=_funcRate;
   }
   void draw() {
     window.background(360*manualAlpha*dimmer);
@@ -58,8 +49,8 @@ class AllOn extends ManualAnim {
 
 abstract class ManualAnim extends Anim {
 
-  ManualAnim(float _alphaRate, float _funcRate, float _dimmer) {
-    super(-1, _alphaRate, _funcRate, _dimmer);
+  ManualAnim(int _position, float _alphaRate, float _funcRate, float _dimmer) {
+    super(_position, -1, _alphaRate, _funcRate, _dimmer);
   }
   void draw() {
   }
@@ -70,13 +61,31 @@ abstract class ManualAnim extends Anim {
     window.background(0);
     draw();
     window.endDraw();
-    image(window, window.width/2, window.height/2, window.width, window.height);
+    image(window, viz.x, viz.y, window.width, window.height);
   }
 }
 
+//abstract class RoofAnim extends Anim {
+
+//  RoofAnim(int _position, float _alphaRate, float _funcRate, float _dimmer) {
+//    super(_position, -1, _alphaRate, _funcRate, _dimmer);
+//    this.dimmer =_dimmer;
+//  }
+//  void draw() {
+//  }
+//  void drawAnim() {
+//    decay();
+//    alphaFunction();
+//    window.beginDraw();
+//    draw();
+//    window.endDraw();
+//    image(window, viz.x, viz.y, window.width, window.height);
+//  }
+//}
 
 
-class Anim extends Installation {
+
+class Anim implements Animation {
 
   float alphaRate, funcRate, dimmer;
   /////////////////////// LOAD GRAPHICS FOR VISULISATIONS AND COLOR LAYERS //////////////////////////////
@@ -86,23 +95,41 @@ class Anim extends Installation {
   float _xPos, _yPos;
   PShader blur;
   color col1, col2;
-  //PVector viz;
+  PVector viz;
 
   float alph[] = new float[7];
   float func[] = new float[8];
 
-  Anim(int _vizIndex, float _alphaRate, float _funcRate, float _dimmer) {
-    //super(0,0);
+  Anim(int installation, int _vizIndex, float _alphaRate, float _funcRate, float _dimmer) {
     alphaRate = _alphaRate;
     funcRate = _funcRate;
-    dimmer = _dimmer;
+    alphMod = _dimmer;
     resetbeats(); 
     //// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
     blury = int(map(blurSlider, 0, 1, 0, 100));
     if (blury!=prevblury) {
       prevblury=blury;
     }
-    window = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
+    int windowWidth, windowHeight;
+    switch (installation) {
+      case (RIG): 
+      windowWidth = size.rigWidth;
+      windowHeight = size.rigHeight;
+      viz  = new PVector(size.rig.x, size.rig.y);
+      break;
+      case (ROOF):
+      windowWidth = size.roofWidth;
+      windowHeight = size.roofHeight;
+      viz  = new PVector(size.roof.x, size.roof.y);
+      break;
+    default:
+      windowWidth = size.rigWidth;
+      windowHeight = size.rigHeight;
+      viz  = new PVector(size.rig.x, size.rig.y);
+      break;
+    }
+
+    window = createGraphics(int(windowWidth), int(windowHeight), P2D);
     window.beginDraw();
     window.colorMode(HSB, 360, 100, 100);
     window.blendMode(NORMAL);
@@ -131,11 +158,7 @@ class Anim extends Installation {
 
     trigger();
     vizIndex = _vizIndex;
-    
-    viz = new PVector(xPos,yPos);
   }
-
- 
 
   float stroke, wide, high, rotate;
   Float vizWidth, vizHeight;
@@ -144,14 +167,10 @@ class Anim extends Installation {
     decay();
     alphaFunction();
 
-    viz  = new PVector(size.rig.x, size.rig.y);
-
     col1 = white;
     col2 = white;
     vizWidth = float(blured.width*2);
     vizHeight = float(blured.height*2);
-    
-
 
     float alphaA = alph[rigAlphIndex];
     float functionA = func[fctIndex]*funcFX;
@@ -173,8 +192,8 @@ class Anim extends Installation {
       alphaB  = alph[rigAlph1Index];
     }
 
-    alphaA *=alphFX*dimmer*alf;
-    alphaB *=alphFX*dimmer*alf;
+    alphaA *=alphFX*alf;
+    alphaB *=alphFX*alf;
     ///////////////////////////////////////////////
 
     switch (vizIndex) {
@@ -319,13 +338,6 @@ class Anim extends Installation {
       squareNut(grid.mirrorX[4][2].x, grid.mirrorX[4][2].y, col1, stroke, wide, high, -45, alphaA);
       squareNut(grid.mirrorX[5][0].x, grid.mirrorX[5][0].y, col1, stroke, wide, high, -45, alphaA);
       squareNut(grid.mirrorX[6][2].x, grid.mirrorX[6][2].y, col1, stroke, wide, high, -45, alphaA);
-
-      //wide = size.vizWidth+(200);
-      //wide = wide-(wide*functionB);
-      //high = wide;
-      //stroke = 300-(200*1-oskP);
-      //if ( wide > 100) squareNut(viz.x, viz.y, col1, stroke, wide, high, 0, alphaB);
-
       window.endDraw();
       break;
     case 8:
@@ -334,13 +346,34 @@ class Anim extends Installation {
       wide = 500+(noize*300);
       if   (beatCounter % 3 < 1) rush(grid.mirror[0].x, viz.y, col1, wide, vizHeight, functionA, alphaA);
       else rush(grid.mirror[0].x, viz.y, col1, wide, vizHeight, 1-functionA, alphaA);
-
       window.endDraw();
+      break;
+    case 9:
+      window.beginDraw();
+      window.background(0);
+      wide = 150+(noize1*500*functionA);
+      rush(viz.x, viz.y, col1, wide, vizHeight, func[6], alphaA);
+      rush(-vizWidth/2, viz.y, col1, wide, vizHeight, 1-func[6], alphaA);
+      window.endDraw();
+      break;
+    case 10:
+      window.beginDraw();
+      window.background(0);
+      // fade up
+      alphaA = (((alph[1])*0.6))+(0.2*noize1*(alph[0]))+(0.05*(alph[1])*stutter);
+      window.fill(col1, 360*alphaA);
+      window.rect(window.width/2, window.height/2, window.width, window.height);
+      // fade out
+      alphaA *=pow((1-alpha*1), 2);      
+      window.fill(0, 360*alphaA);
+      window.rect(window.width/2, window.height/2, window.width, window.height);
+      window.endDraw();
+      image(window, viz.x, viz.y, window.width, window.height);
       break;
     default:
       break;
     }
-    blurPGraphics();
+    if (vizIndex != 10) blurPGraphics();
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////// SQUARE NUT /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -386,11 +419,10 @@ class Anim extends Installation {
     float moveA;
     float strt = xpos;
     moveA = (strt+(window.width)*func);
-    //if (beatCounter % 8 <4 )  moveA = (strt+(window.width-strt)*func);
-    //else  moveA = (window.width-strt)-(strt+(window.width-strt)*func);
     window.imageMode(CENTER);
-    window.image(bar1, moveA, ypos, wide, high);
     window.tint(col, 360*alph);
+    window.image(bar1, moveA, ypos, wide, high);
+    window.noTint();
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////
@@ -407,7 +439,7 @@ class Anim extends Installation {
     blured.imageMode(CENTER);
     blured.image(pass1, blured.width/2, blured.height/2);
     blured.endDraw();
-    image(blured, window.width/2, window.height/2, window.width, window.height);
+    image(blured, viz.x, viz.y, window.width, window.height);
   }
 
   /////////////////////////////////// FUNCTION AND ALPHA ARRAYS //////////////////////////////////////////////
@@ -436,6 +468,7 @@ class Anim extends Installation {
   //////////////////////////////////// TRIGGER //////////////////////////////////////////////
   float alpha, alphaFast, alphaSlow;
   float function, functionFast, functionSlow;
+  float deleteMeTimer;
   void trigger() {
     alpha = 1;
     alphaFast = 1;
@@ -444,17 +477,21 @@ class Anim extends Installation {
     function = 1;
     functionFast = 1;
     functionSlow = 1;
+
+    deleteMeTimer = 1;
   }
   boolean deleteme=false;
 
   //////////////////////////////////////// DECAY ////////////////////////////////////////////////
   void decay() {            
     if (avgtime>0) {
-      alpha*=pow(alphaSlider, (1/avgtime));       //  changes rate alpha fades out!!
-      function*=pow(funcSlider, (1/avgtime));     //  changes rate alpha fades out!!
+      alpha*=pow(alphaRate, (1/avgtime));       //  changes rate alpha fades out!!
+      function*=pow(funcRate, (1/avgtime));     //  changes rate alpha fades out!!
+      deleteMeTimer*=pow(deleteMeSlider, 1/avgtime);
     } else {
-      alpha*=0.95*alphaSlider;
-      function*=0.95*funcSlider;
+      alpha*=0.95*alphaRate;
+      function*=0.95*funcRate;
+      deleteMeTimer*=0.98*deleteMeSlider;
     }
 
     if (alpha < 0.8) alpha *= 0.9;
@@ -475,9 +512,8 @@ class Anim extends Installation {
 
     if (function < end) function = end;
     if (functionFast < end) functionFast = end;
-    if (functionSlow < end) {
-      functionSlow = end;
-      deleteme=true;
-    }
+    if (functionSlow < end)  functionSlow = end;
+
+    if (deleteMeTimer < end) deleteme = true;
   }
 }

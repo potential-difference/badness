@@ -1,14 +1,14 @@
 import controlP5.*;
+ControlP5 cp5;
+
 boolean glitchToggle;
-ControlFrame controlFrame;
-float vizTimeSlider, colorSwapSlider, colorTimerSlider, cansDimmer, boothDimmer, digDimmer, roofPulse, backParsSlider, backDropSlider, cansSlider, movesSlider;
-float tweakSlider, testSlider3, blurSlider, rigDimmer, bgNoiseBrightnessSlider, bgNoiseDensitySlider;
-float shimmerSlider, alphaSlider, boothParSlider, backParSlider, secondVizSlider, roofDimmer, seedsDimmer, seed2Dimmer, uvDimmer, controllerDimmer, funcSlider;
+float vizTimeSlider, colorSwapSlider, colorTimerSlider, cansDimmer, boothDimmer, digDimmer, backDropSlider, cansSlider;
+float tweakSlider, blurSlider, bgNoiseBrightnessSlider, bgNoiseDensitySlider, manualSlider,stutterSlider, cansAlpha, deleteMeSlider;
+float shimmerSlider, alphaSlider, rigDimmer, roofDimmer, seedsDimmer, seed2Dimmer, uvDimmer, controllerDimmer, funcSlider;
 
 class ControlFrame extends PApplet {
   int controlW, controlH;
   PApplet parent;
-  ControlP5 cp5;
   public ControlFrame(PApplet _parent, int _w, int _h, String _name) {
     super();   
     parent = _parent;
@@ -20,7 +20,6 @@ class ControlFrame extends PApplet {
     size(controlW, controlH);
   }
   public void setup() {
-
     this.surface.setAlwaysOnTop(true);
     this.surface.setLocation(size.surfacePositionX, size.surfacePositionY+parent.height);
     myFont = createFont("Lucida Sans", 18);
@@ -100,6 +99,17 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
+      cp5.addSlider("manualSlider")
+      .plugTo(parent, "manualSlider")
+      .setPosition(x, y+row*5)
+      .setSize(wide, high)
+      //.setFont(font)
+      .setRange(0, 1)
+      .setValue(0.9) // start value of slider
+      .setColorActive(act1) 
+      .setColorBackground(bac1) 
+      .setColorForeground(slider1) 
+      ;
     ///////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////// SECOND coloum of sliders ///////////////////////////////////////
     x =+ clm;
@@ -132,7 +142,6 @@ class ControlFrame extends PApplet {
       //.setFont(font)
       .setRange(0, 1)
       .setValue(0.32) // start value of slider
-      .setValue(dimmer) // start value of slider
       .setColorActive(act1) 
       .setColorBackground(bac1) 
       .setColorForeground(slider1) 
@@ -144,6 +153,28 @@ class ControlFrame extends PApplet {
       //.setFont(font)
       .setRange(0, 1)
       .setValue(0.4) // start value of slider
+      .setColorActive(act) 
+      .setColorBackground(bac) 
+      .setColorForeground(slider) 
+      ;
+      cp5.addSlider("cansAlpha")
+      .plugTo(parent, "cansAlpha")
+      .setPosition(x, y+row*4)
+      .setSize(wide, high)
+      //.setFont(font)
+      .setRange(0, 1)
+      .setValue(0.6) // start value of slider
+      .setColorActive(act1) 
+      .setColorBackground(bac1) 
+      .setColorForeground(slider1) 
+      ;
+      cp5.addSlider("deleteMeSlider")
+      .plugTo(parent, "deleteMeSlider")
+      .setPosition(x, y+row*5)
+      .setSize(wide, high)
+      //.setFont(font)
+      .setRange(0, 1)
+      .setValue(0.65) // start value of slider
       .setColorActive(act) 
       .setColorBackground(bac) 
       .setColorForeground(slider) 
@@ -198,8 +229,8 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac1) 
       .setColorForeground(slider1) 
       ;
-    cp5.addSlider("tweakSlider")
-      .plugTo(parent, "tweakSlider")
+    cp5.addSlider("stutterSlider")
+      .plugTo(parent, "stutterSlider")
       .setPosition(x, y+row)
       .setSize(wide, high)
       //.setFont(font)
@@ -231,7 +262,7 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;    
-      cp5.addSlider("bgNoiseDensitySlider")
+    cp5.addSlider("bgNoiseDensitySlider")
       .plugTo(parent, "bgNoiseDensitySlider")
       .setPosition(x, y+row*4)
       .setSize(wide, high)
@@ -264,7 +295,7 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
-      cp5.addToggle("glitchToggle")
+    cp5.addToggle("glitchToggle")
       .plugTo(parent, "glitchToggle")
       .setPosition(x, y+35)
       .setSize(20, 20)
@@ -300,16 +331,13 @@ class ControlFrame extends PApplet {
     background(0);
     fill(rigColor.c);
     rect(width/2, 0, width, 2);
-
-    
   }
 
   //////////////////////////////////////// CALL BACK FOR SLIDER CONTROL FROM OTHER VARIABLES
   // an event from slider sliderA will change the value of textfield textA here
-  /* public void rigDimmer(float theValue) {
-   int value = int(map(theValue, 0, 1, 0, 127));
-   println(theValue, value);
-   LPD8bus.sendControllerChange(0, 4, value) ;
-   }
-   */
+  public void rigDimmer(float theValue) {
+    int value = int(map(theValue, 0, 1, 0, 127));
+    println(theValue, value);
+    LPD8bus.sendControllerChange(0, 4, value) ;
+  }
 }
