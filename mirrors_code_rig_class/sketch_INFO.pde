@@ -33,8 +33,9 @@ void onScreenInfo() {
   fill(300+(60*stutter));
   textAlign(RIGHT);
   textLeading(18);
-  text("RIG PANEL", size.rigWidth-5, size.rig.y-(size.rigHeight/2)+20);
-  if (size.roofWidth >0)  text("ROOF PANEL", size.roofWidth-5, size.rigHeight-5);
+  text("RIG PANEL", size.rig.x+(size.rigWidth/2)-5, size.rig.y-(size.rigHeight/2)+20);
+  if (size.roofWidth >0|| size.roofHeight>0)  text("ROOF PANEL", size.roof.x+(size.roofWidth/2)-5, size.rig.y-(size.rigHeight/2)+20);
+  if (size.cansWidth >0|| size.cansHeight>0) text("CANS PANEL", size.rig.x+(size.rigWidth/2)-5, size.rig.y+(size.rigHeight/2)-5);
 
   textAlign(LEFT);
   fill(360);
@@ -45,16 +46,25 @@ void onScreenInfo() {
   fill(rigColor.flash, 300);
   textSize(18);
   y = height-size.sliderHeight+20;
-  ///////////// rig info
+  ///////////// rig info/ ///////////////////////////////////////////////////////////////////
   text("rigViz: " + rigViz, x, y);
   text("bkgrnd: " + rigBgr, x, y+20);
   text("func's: " + rigFunctionIndexA + " / " + rigFunctionIndexB, x+100, y);
   text("alph's: " + rigAlphaIndexA + " / " + rigAlphaIndexB, x+100, y+20);
-  if (size.roofWidth > 0) {
-    ///////////// roof info
+  ///////////// roof info ////////////////////////////////////////////////////////
+  if (size.roofWidth > 0 || size.roofHeight>0) {
     textAlign(RIGHT);
-    x = size.roofWidth - 130;
+    x = size.roof.x+(size.roofWidth/2) - 130;
     text("roofViz: " + roofViz, x, y);
+    text("bkgrnd: " + roofBgr, x, y+20);
+    text("func's: " + roofFunctionIndexA + " / " + roofFunctionIndexB, x+120, y);
+    text("alph's: " + roofAlphaIndexA + " / " + roofAlphaIndexB, x+120, y+20);
+  }
+  ///////////// cans info ////////////////////////////////////////////////////////
+  if (size.cansHeight > 0 || size.cansWidth > 0) {
+    textAlign(RIGHT);
+    x = size.cans.x+(size.cansWidth/2) - 130;
+    text("cansViz: " + roofViz, x, y);
     text("bkgrnd: " + roofBgr, x, y+20);
     text("func's: " + roofFunctionIndexA + " / " + roofFunctionIndexB, x+120, y);
     text("alph's: " + roofAlphaIndexA + " / " + roofAlphaIndexB, x+120, y+20);
@@ -76,15 +86,6 @@ void onScreenInfo() {
   text("c-" + rigColor.colorA + "  " + "flash-" + rigColor.colorB, x, y+40);
   text("counter: " + counter, x, y+60);
 
-  // moving rectangle displays alpha and functions
-  //textSize(12);
-  //textAlign(CENTER);
-  //fill(rigColor.flash);
-  //text("FUNCTION", (size.rigWidth-50)/2, height-10);
-  ////rect((size.rigWidth-50)*animations.get(animations.alph[rigAlphaIndexA]), height-15, 10, 10); // moving rectangle to show current function
-  //fill(rigColor.c, 360);
-  //text("ALPHA", (size.rigWidth-50)/2, height);
-  //rect((size.rigWidth-50)*bt, height-5, 10, 10); // moving rectangle to show current alpha
 
   // sequencer
   fill(rigColor.flash);
@@ -140,14 +141,9 @@ void colorInfo() {
   rect(x, y, 10, 10);                  // rect to show CURRENT color FLASH 
   fill(rigColor.col[(rigColor.colorB+1)%rigColor.col.length], 100);  
   rect(x+15, y, 10, 10);                 // rect to show NEXT color FLASH1
-  //fill(360, beat*360); 
-  //rect(size.rigWidth-32.5, y, 10, 10);                // rect to show B alpha
-  //fill(360, bt*360); 
-  //rect(size.rigWidth-32.5, y-10, 10, 10);             // rect to show CURRENT alpha
-  // ROOF ///
-
-  if (size.roofWidth>0) {
-    x = size.roofWidth - 25;
+  // roof
+  if (size.roofWidth>0|| size.roofHeight>0) {
+    x = size.roof.x+(size.roofWidth/2)-25;
     fill(roofColor.c);          
     rect(x, y-10, 10, 10);              // rect to show CURRENT color C 
     fill(roofColor.col[(roofColor.colorA+1)%roofColor.col.length], 100);
@@ -157,11 +153,18 @@ void colorInfo() {
     fill(roofColor.col[(roofColor.colorB+1)%roofColor.col.length], 100);
     rect(x+15, y, 10, 10);                  // rect to show NEXT color FLASH1
   }
-
-  //fill(360, roof.beat*360); 
-  //rect(size.rigWidth+32.5, y, 10, 10);      // rect to show B alpha
-  //fill(360, roof.bt*360); 
-  //rect(size.rigWidth+32.5, y-10, 10, 10);   // rect to show CURRENT alpha
+  // cans
+  if (size.cansWidth>0|| size.cansHeight>0) {
+    x = size.cans.x+(size.cansWidth/2)-25;
+    fill(roofColor.c);          
+    rect(x, y-10, 10, 10);              // rect to show CURRENT color C 
+    fill(roofColor.col[(roofColor.colorA+1)%roofColor.col.length], 100);
+    rect(x+15, y-10, 10, 10);               // rect to show NEXT color C 
+    fill(roofColor.flash);          
+    rect(x, y, 10, 10);                 // rect to show CURRENT color FLASH 
+    fill(roofColor.col[(roofColor.colorB+1)%roofColor.col.length], 100);
+    rect(x+15, y, 10, 10);                  // rect to show NEXT color FLASH1
+  }
 }
 
 void toggleInfo(float xpos, float ypos) {
@@ -194,5 +197,4 @@ void toggleInfo(float xpos, float ypos) {
   text("Y = color beat", x, y+100);
   y+=20;
   fill(50);
- 
 }

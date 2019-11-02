@@ -25,6 +25,7 @@ void playWithMe() {
 
   if (keyP[' ']) animations.add(new Anim(rigViz, alphaSlider, funcSlider, rigDimmer));         // or space bar!
   if (keyP[' ']) animations.add(new RoofAnim(roofViz, alphaSlider, funcSlider, roofDimmer));   // or space bar!
+  if (keyP[' ']) animations.add(new CansAnim(roofViz, alphaSlider, funcSlider, roofDimmer));   // or space bar!
 
   if (keyP['a']) animations.add(new RoofOn(manualSlider, stutter, rigDimmer));
   if (keyP['s']) {
@@ -49,8 +50,8 @@ void playWithMe() {
   }
   if (cc[107] > 0) animations.add(new RoofOn(manualSlider, 1-(stutter*stutterSlider), cc[107]));
   if (cc[108] > 0) { 
-    animations.add(new RoofOn(manualSlider, 1-(stutter*stutterSlider), cc[108]));
-    roofColor.colorFlip(true);
+    animations.add(new CansOn(manualSlider, 1-(stutter*stutterSlider), cc[108]));
+    cansColor.colorFlip(true);
   }
 }
 

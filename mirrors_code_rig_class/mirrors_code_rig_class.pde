@@ -18,8 +18,9 @@ OPCGrid grid;
 ControlFrame controlFrame;
 Toggle toggle = new Toggle();
 
-SketchColor rigColor = new SketchColor();
-SketchColor roofColor = new SketchColor();
+SketchColor rigColor, roofColor, cansColor;
+ColorLayer rigLayer, roofLayer, cansLayer;
+Buffer rigBuffer, roofBuffer, cansBuffer;
 
 ArrayList <Anim> animations;
 
@@ -42,7 +43,7 @@ void settings() {
   size = new SizeSettings(LANDSCAPE);
 
   size(size.sizeX, size.sizeY, P2D);
-  size.surfacePositionX = 800;
+  size.surfacePositionX = 550;
   size.surfacePositionY = 300;
 }
 
@@ -72,15 +73,19 @@ void setup()
   TR8bus = new MidiBus(this, "TR-8S", "TR8-S"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
   LPD8bus = new MidiBus(this, "LPD8", "LPD8"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
 
+  rigBuffer = new Buffer(size.rigWidth, size.rigHeight);
+  roofBuffer = new Buffer(size.roofWidth, size.roofHeight);
+  cansBuffer = new Buffer(size.cansWidth, size.cansHeight);
 
   drawingSetup();
   loadImages();
   loadGraphics();
   loadShaders();
   colorSetup();  
+  rigColor = new SketchColor();
+  roofColor = new SketchColor(); 
+  cansColor = new SketchColor();
 
-  rigColor.colorArray();
-  roofColor.colorArray();
   rigViz = 0;
   roofViz = 1;
   rigBgr = 1;
@@ -89,6 +94,8 @@ void setup()
   rigColor.flash = orange;    // set flash start
   roofColor.c = orange;       // set c start
   roofColor.flash = purple;   // set flash start
+  cansColor.c = orange;       // set c start
+  cansColor.flash = purple;   // set flash start
   dimmer = 1;
 
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
@@ -102,7 +109,6 @@ void setup()
 
   animations = new ArrayList<Anim>();
   animations.add(new Anim(0, alphaSlider, funcSlider, rigDimmer));
-
 
   frameRate(30);
 }
@@ -144,7 +150,7 @@ void draw()
   playWithMe();
   // trigger new animnations 
   if (!manualToggle) if (beatDetect.isOnset()) {
-    animations.add(new RoofAnim(roofViz, cansAlpha, funcSlider, roofDimmer));     // create an anim object for the cans specficially doing something simple
+    animations.add(new CansAnim(roofViz, cansAlpha, funcSlider, roofDimmer));     // create an anim object for the cans specficially doing something simple
     animations.add(new Anim(rigViz, alphaSlider, funcSlider, rigDimmer));   // create a new anim object and add it to the beginning of the arrayList
   }
   //////////////////////////////// NEED TO LOOK AT A BETTER WAY OF DOING THIS ...................///////////////////////////////
@@ -167,13 +173,14 @@ void draw()
   }
   ////////////////////// draw colour layer /////////////////////////////////////////////////////////////////////////////////////////////////////
   blendMode(MULTIPLY);
-  colorLayer(rigColourLayer, rigBgr);
-  colorLayer(roofColourLayer, roofBgr);
-
   if (cc[106] > 0 || keyT['r'] || glitchToggle) bgNoise(rigColourLayer, 0, 0, cc[6]); //PGraphics layer,color,alpha
-  // develop colour layer
-  image(rigColourLayer, size.rig.x, size.rig.y);            // draw rig colour layer to rig window
-  image(roofColourLayer, size.roof.x, size.roof.y);         // draw roof colour layer to rig window
+  rigLayer = new ColorLayer(rigBgr);
+  roofLayer = new RoofColorLayer(roofBgr);
+  cansLayer = new CansColorLayer(roofBgr);
+  rigLayer.drawColorLayer();
+  roofLayer.drawColorLayer();
+  cansLayer.drawColorLayer();
+
   blendMode(NORMAL);
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

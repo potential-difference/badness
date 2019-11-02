@@ -1,6 +1,27 @@
-class SketchColor  {
-  //////////////////////////////////////////////////// COLOR TIMER ////////////////////////////////
+class SketchColor {
   color c, flash, c1, flash1, colorA, colorB = 1, colA, colB, colC, colD;
+  color col[] = new color[15];
+
+  SketchColor() {
+    /////////////////////////////////////// COLOR ARRAY SETUP ////////////////////////////////////////
+    col[0] = purple; 
+    col[1] = pink; 
+    col[2] = orange1; 
+    col[3] = teal;
+    col[4] = red;
+    col[5] = orange1;
+    col[6] = purple;
+    col[7] = grin;
+    col[8] = orange;
+    col[9] = teal;
+    col[10] = pink;
+    col[11] = purple;
+    col[12] = orange;
+    col[13] = orange1;
+    col[14] = teal;
+  }
+
+  //////////////////////////////////////////////////// COLOR TIMER ////////////////////////////////
   float go;
   boolean change;
   void colorTimer(float colTime, int steps) {
@@ -21,11 +42,10 @@ class SketchColor  {
       colorB = (colorB + steps) % (col.length-1);
       colD = col[colorB];
     }
-      c = col[this.colorA];
-      c1 = col[this.colorA];
-      flash = col[colorB];
-      flash1 = col[colorB];
-    
+    c = col[this.colorA];
+    c1 = col[this.colorA];
+    flash = col[colorB];
+    flash1 = col[colorB];
 
     if (go > 0.1) change = true;
     else change = false;
@@ -87,25 +107,6 @@ class SketchColor  {
     clash2 = lerpColorHSB(flash, c, func*0.3);          ///// MOVING, FULL RANGE BETWEEN C and FLASH
     clash12 = lerpColorHSB(flash, c, 1-(func*0.3));          ///// MOVING, FULL RANGE BETWEEN FLASH and C
     clashed = lerpColor(c, flash, 0.2);    ///// STATIC - HALFWAY BETWEEN C and FLASH
-  }
-  /////////////////////////////////////// COLOR ARRAY SETUP ////////////////////////////////////////
-  color col[] = new color[15];
-  void colorArray() {
-    col[0] = purple; 
-    col[1] = pink; 
-    col[2] = orange1; 
-    col[3] = teal;
-    col[4] = red;
-    col[5] = orange1;
-    col[6] = purple;
-    col[7] = grin;
-    col[8] = orange;
-    col[9] = teal;
-    col[10] = pink;
-    col[11] = purple;
-    col[12] = orange;
-    col[13] = orange1;
-    col[14] = teal;
   }
 }
 

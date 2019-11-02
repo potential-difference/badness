@@ -1,7 +1,7 @@
 
 class SizeSettings {
-  int rigWidth, rigHeight, roofWidth, roofHeight, sliderHeight, infoWidth, infoHeight, vizWidth, vizHeight;
-  PVector rig, roof, info, viz, rigWindow;
+  int rigWidth, rigHeight, roofWidth, roofHeight, sliderHeight, infoWidth, infoHeight, vizWidth, vizHeight, cansWidth, cansHeight;
+  PVector rig, roof, info, cans;
   int surfacePositionX, surfacePositionY, sizeX, sizeY, orientation;
 
   SizeSettings(int _orientation) {
@@ -11,24 +11,21 @@ class SizeSettings {
       rigWidth = 600;                                    // WIDTH of rigViz
       rigHeight = 550;                                   // HEIGHT of rigViz
       rig = new PVector(rigWidth/2, (rigHeight/2));   // cordinates for center of rig
-      rigWindow = new PVector(rigWidth/2, rigHeight/2);
       break;
     case LANDSCAPE:
       rigWidth = 900;                                    // WIDTH of rigViz
       rigHeight = 350;    
       rig = new PVector(rigWidth/2, (rigHeight/2));   // cordinates for center of rig
-      rigWindow = new PVector(rigWidth/2, rigHeight/2);
       break;
     }
 
     //////////////////////////////// LANDSCAPE ROOF SETUP UNDER RIG ///////////////////////
-    roofWidth = rigWidth;
-    roofHeight = 60;
-    roof = new PVector (rig.x, rigHeight+(roofHeight/2));
-
-    vizWidth = rigWidth;
-    vizHeight = rigHeight;
-    viz = new PVector (rig.x, rig.y);
+    cansWidth = rigWidth;
+    cansHeight = 60;
+    cans = new PVector (rig.x, rigHeight+(cansHeight/2));
+    roofWidth = 250;
+    roofHeight = rigHeight+cansHeight;
+    roof = new PVector (rigWidth+(roofWidth/2), roofHeight/2);
 
     sliderHeight = 70;         // height of slider area at bottom of sketch window
 
@@ -36,8 +33,8 @@ class SizeSettings {
     infoHeight = rigHeight+sliderHeight;
     info = new PVector (rigWidth+roofWidth+(infoWidth/2), infoHeight/2);
 
-    sizeX = rigWidth+infoWidth;
-    sizeY = sliderHeight+rigHeight+roofHeight;
+    sizeX = rigWidth+infoWidth+roofWidth;
+    sizeY = sliderHeight+rigHeight+cansHeight;
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -111,25 +108,62 @@ void drawingSetup() {
   strokeWeight(20);
   //hint(DISABLE_OPTIMIZED_STROKE);
 }
+class Buffer {
+  PGraphics colorLayer, buffer, pass1, pass2;
+  Buffer(int wide, int high) {
 
+    colorLayer = createGraphics(wide, high, P2D);
+    colorLayer.beginDraw();
+    colorLayer.colorMode(HSB, 360, 100, 100);
+    colorLayer.imageMode(CENTER);
+    colorLayer.rectMode(CENTER);
+    colorLayer.endDraw();
+
+    buffer = createGraphics(wide, high, P2D);
+    buffer.beginDraw();
+    buffer.colorMode(HSB, 360, 100, 100);
+    buffer.blendMode(NORMAL);
+    buffer.ellipseMode(CENTER);
+    buffer.rectMode(CENTER);
+    buffer.imageMode(CENTER);
+    buffer.noStroke();
+    buffer.noFill();
+    buffer.endDraw();
+
+    ///////////////////////////////////// LOAD GRAPHICS FOR SHADER LAYERS //////////////////////
+    pass1 = createGraphics(wide/2, high/2, P2D);
+    pass1.noSmooth();
+    pass1.imageMode(CENTER);
+    pass1.beginDraw();
+    pass1.noStroke();
+    pass1.endDraw();
+
+    pass2 = createGraphics(wide/2, high/2, P2D);
+    pass2.noSmooth();
+    pass2.beginDraw();
+    pass2.imageMode(CENTER);
+    pass2.noStroke();
+    pass2.endDraw();
+  }
+}
 /////////////////////// LOAD GRAPHICS FOR VISULISATIONS AND COLOR LAYERS //////////////////////////////
 PGraphics bg[] = new PGraphics[rigBgList];
-PGraphics rigWindow, roofWindow, cansWindow, infoWindow, rigColourLayer, roofColourLayer, rigBluredA, rigBluredB, roofBluredA,roofBluredB;
+PGraphics rigWindow, roofWindow, cansWindow, infoWindow, rigColourLayer, roofColourLayer, rigBluredA, rigBluredB, roofBluredA, roofBluredB;
 void loadGraphics() {
-  //////////////////////////////// rig colour layer  ///////////////////
-  rigColourLayer = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
-  rigColourLayer.beginDraw();
-  rigColourLayer.colorMode(HSB, 360, 100, 100);
-  rigColourLayer.imageMode(CENTER);
-  rigColourLayer.rectMode(CENTER);
-  rigColourLayer.endDraw();
-  ////////////////////////////// ROOF GRAPHICS SETUP ///////////////////////////////////////////
-  roofColourLayer = createGraphics(int(size.roofWidth), int(size.roofHeight), P2D);
-  roofColourLayer.beginDraw();
-  roofColourLayer.colorMode(HSB, 360, 100, 100);
-  roofColourLayer.imageMode(CENTER);
-  roofColourLayer.rectMode(CENTER);
-  roofColourLayer.endDraw();
+  ////////////////////////////////// rig colour layer  ///////////////////
+  //rigColourLayer = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
+  //rigColourLayer.beginDraw();
+  //rigColourLayer.colorMode(HSB, 360, 100, 100);
+  //rigColourLayer.imageMode(CENTER);
+  //rigColourLayer.rectMode(CENTER);
+  //rigColourLayer.endDraw();
+  //////////////////////////////// ROOF GRAPHICS SETUP ///////////////////////////////////////////
+  //roofColourLayer = createGraphics(int(size.roofWidth), int(size.roofHeight), P2D);
+  //roofColourLayer.beginDraw();
+  //roofColourLayer.colorMode(HSB, 360, 100, 100);
+  //roofColourLayer.imageMode(CENTER);
+  //roofColourLayer.rectMode(CENTER);
+  //roofColourLayer.endDraw();
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////// info subwindow  ///////////////////
   infoWindow = createGraphics(size.infoWidth, size.infoHeight, P2D);
@@ -152,55 +186,54 @@ void loadGraphics() {
     bg[n].endDraw();
   }
 
-  rigWindow = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
-  rigWindow.beginDraw();
-  rigWindow.colorMode(HSB, 360, 100, 100);
-  rigWindow.blendMode(NORMAL);
-  rigWindow.ellipseMode(CENTER);
-  rigWindow.rectMode(CENTER);
-  rigWindow.imageMode(CENTER);
-  rigWindow.noStroke();
-  rigWindow.noFill();
-  rigWindow.endDraw();
+  //rigWindow = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
+  //rigWindow.beginDraw();
+  //rigWindow.colorMode(HSB, 360, 100, 100);
+  //rigWindow.blendMode(NORMAL);
+  //rigWindow.ellipseMode(CENTER);
+  //rigWindow.rectMode(CENTER);
+  //rigWindow.imageMode(CENTER);
+  //rigWindow.noStroke();
+  //rigWindow.noFill();
+  //rigWindow.endDraw();
 
-  roofWindow = createGraphics(int(size.roofWidth), int(size.roofHeight), P2D);
-  roofWindow.beginDraw();
-  roofWindow.colorMode(HSB, 360, 100, 100);
-  roofWindow.blendMode(NORMAL);
-  roofWindow.ellipseMode(CENTER);
-  roofWindow.rectMode(CENTER);
-  roofWindow.imageMode(CENTER);
-  roofWindow.noStroke();
-  roofWindow.noFill();
-  roofWindow.endDraw();
+  //roofWindow = createGraphics(int(size.roofWidth), int(size.roofHeight), P2D);
+  //roofWindow.beginDraw();
+  //roofWindow.colorMode(HSB, 360, 100, 100);
+  //roofWindow.blendMode(NORMAL);
+  //roofWindow.ellipseMode(CENTER);
+  //roofWindow.rectMode(CENTER);
+  //roofWindow.imageMode(CENTER);
+  //roofWindow.noStroke();
+  //roofWindow.noFill();
+  //roofWindow.endDraw();
 
-  ///////////////////////////////////// LOAD GRAPHICS FOR SHADER LAYERS //////////////////////
-  rigBluredA = createGraphics(int(size.rigWidth/2), int(size.rigHeight/2), P2D);
-  rigBluredA.noSmooth();
-  rigBluredA.imageMode(CENTER);
-  rigBluredA.beginDraw();
-  rigBluredA.noStroke();
-  rigBluredA.endDraw();
-  rigBluredB = createGraphics(int(size.rigWidth/2), int(size.rigHeight/2), P2D);
-  rigBluredB.noSmooth();
-  rigBluredB.beginDraw();
-  rigBluredB.imageMode(CENTER);
-  rigBluredB.noStroke();
-  rigBluredB.endDraw();
-  ///////////////////////////////////// LOAD GRAPHICS FOR SHADER LAYERS //////////////////////
-  roofBluredA = createGraphics(int(size.roofWidth/2), int(size.roofHeight/2), P2D);
-  roofBluredA.noSmooth();
-  roofBluredA.imageMode(CENTER);
-  roofBluredA.beginDraw();
-  roofBluredA.noStroke();
-  roofBluredA.endDraw();
-  roofBluredB = createGraphics(int(size.roofWidth/2), int(size.roofHeight/2), P2D);
-  roofBluredB.noSmooth();
-  roofBluredB.beginDraw();
-  roofBluredB.imageMode(CENTER);
-  roofBluredB.noStroke();
-  roofBluredB.endDraw();
-
+  /////////////////////////////////////// LOAD GRAPHICS FOR SHADER LAYERS //////////////////////
+  //rigBluredA = createGraphics(int(size.rigWidth/2), int(size.rigHeight/2), P2D);
+  //rigBluredA.noSmooth();
+  //rigBluredA.imageMode(CENTER);
+  //rigBluredA.beginDraw();
+  //rigBluredA.noStroke();
+  //rigBluredA.endDraw();
+  //rigBluredB = createGraphics(int(size.rigWidth/2), int(size.rigHeight/2), P2D);
+  //rigBluredB.noSmooth();
+  //rigBluredB.beginDraw();
+  //rigBluredB.imageMode(CENTER);
+  //rigBluredB.noStroke();
+  //rigBluredB.endDraw();
+  /////////////////////////////////////// LOAD GRAPHICS FOR SHADER LAYERS //////////////////////
+  //roofBluredA = createGraphics(int(size.roofWidth/2), int(size.roofHeight/2), P2D);
+  //roofBluredA.noSmooth();
+  //roofBluredA.imageMode(CENTER);
+  //roofBluredA.beginDraw();
+  //roofBluredA.noStroke();
+  //roofBluredA.endDraw();
+  //roofBluredB = createGraphics(int(size.roofWidth/2), int(size.roofHeight/2), P2D);
+  //roofBluredB.noSmooth();
+  //roofBluredB.beginDraw();
+  //roofBluredB.imageMode(CENTER);
+  //roofBluredB.noStroke();
+  //roofBluredB.endDraw();
 }
 PShader blur;
 void loadShaders() {

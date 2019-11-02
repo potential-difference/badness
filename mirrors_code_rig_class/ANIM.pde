@@ -59,7 +59,31 @@ class RoofOn extends ManualAnim {
     alphaRate=_alphaRate;
     funcRate=_funcRate;
     viz = size.roof;
-    window = roofWindow;
+    window = roofBuffer.buffer;
+  }
+  void draw() {
+    window.background(360*manualAlpha*dimmer);
+  }
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+class CansOn extends ManualAnim {
+  float manualAlpha;
+  void trigger() {
+    super.trigger();
+    manualAlpha=1;
+  }
+  void decay() {
+    super.decay();
+    manualAlpha*=map(this.alphaRate, 0, 1, 0.5, 0.97);
+    manualAlpha*=this.funcRate;
+  }
+  CansOn(float _alphaRate, float _funcRate, float _dimmer) {
+    super(_alphaRate, _funcRate, _dimmer);
+    dimmer = _dimmer;
+    alphaRate=_alphaRate;
+    funcRate=_funcRate;
+    viz = size.cans;
+    window = cansBuffer.buffer;
   }
   void draw() {
     window.background(360*manualAlpha*dimmer);
@@ -74,10 +98,47 @@ class RoofAnim extends Anim {
     alphaIndexB = roofAlphaIndexB;
     functionIndexA = roofFunctionIndexA;
     functionIndexB = roofFunctionIndexB;
-    bluredA = roofBluredA;
-    bluredB = roofBluredB;
-    window = roofWindow;
+    bluredA = roofBuffer.pass1;
+    bluredB = roofBuffer.pass2;
+    window = roofBuffer.buffer;
     viz = size.roof;
+  }
+  void drawAnim() {
+    super.drawAnim();
+    switch (vizIndex) {
+    case 10:
+      window.beginDraw();
+      window.background(0);
+      window.noStroke();
+      // fade up
+      alphaA = (((alph[1])*0.6))+(0.2*noize1*(alph[0]))+(0.05*(alph[1])*stutter);
+      window.fill(col1, 360*alphaA);
+      window.rect(window.width/2, window.height/2, window.width, window.height);
+      // fade out
+      alphaA *=pow((1-alpha*1), 2);      
+      window.fill(0, 360*alphaA);
+      window.rect(window.width/2, window.height/2, window.width, window.height);
+      window.endDraw();
+      image(window, viz.x, viz.y, window.width, window.height);
+      break;
+    default:
+      break;
+    }
+  }
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+class CansAnim extends Anim {
+  CansAnim(int _vizIndex, float _alphaRate, float _funcRate, float _dimmer) {
+    super(_vizIndex, _alphaRate, _funcRate, _dimmer);
+    //Roof specific code:
+    alphaIndexA = roofAlphaIndexA;
+    alphaIndexB = roofAlphaIndexB;
+    functionIndexA = roofFunctionIndexA;
+    functionIndexB = roofFunctionIndexB;
+    bluredA = cansBuffer.pass1;
+    bluredB = cansBuffer.pass2;
+    window = cansBuffer.buffer;
+    viz = size.cans;
   }
   void drawAnim() {
     super.drawAnim();
@@ -129,9 +190,9 @@ class Anim implements Animation {
 
     vizIndex = _vizIndex;
     viz = size.rig;
-    window = rigWindow;
-    bluredA = rigBluredA;
-    bluredB = rigBluredB;
+    window = rigBuffer.buffer;
+    bluredA = rigBuffer.pass1;
+    bluredB = rigBuffer.pass2;
     alphaIndexA = rigAlphaIndexA;
     alphaIndexB = rigAlphaIndexB;
     functionIndexA = rigFunctionIndexA;
@@ -144,8 +205,8 @@ class Anim implements Animation {
     decay();
     alphaFunction();
 
-    vizWidth = float(window.width);
-    vizHeight = float(window.height);
+    vizWidth = float(this.window.width);
+    vizHeight = float(this.window.height);
 
     /////////////////////////////////////// SHIMMER control for rig ////////////////////////////
     if (beatCounter % 42 > 36) { 
