@@ -14,15 +14,15 @@ class SketchColor {
     col[7] = grin;
     col[8] = orange;
     col[9] = teal;
-    col[10] = pink;
-    col[11] = purple;
+    col[10] = purple;
+    col[11] = pink;
     col[12] = orange;
     col[13] = orange1;
     col[14] = teal;
   }
 
   //////////////////////////////////////////////////// COLOR TIMER ////////////////////////////////
-  float go;
+  float go = 0;
   boolean change;
   void colorTimer(float colTime, int steps) {
     if (change == false) {
@@ -35,15 +35,14 @@ class SketchColor {
       time[3] = millis()/1000;
     } else change = false;
     if (change == true) {
-
       go = 1;
       colorA =  (colorA + steps) % (col.length-1);
       colB =  col[colorA];
       colorB = (colorB + steps) % (col.length-1);
       colD = col[colorB];
     }
-    c = col[this.colorA];
-    c1 = col[this.colorA];
+    c = col[colorA];
+    c1 = col[colorA];
     flash = col[colorB];
     flash1 = col[colorB];
 

@@ -87,15 +87,16 @@ void setup()
   cansColor = new SketchColor();
 
   rigViz = 0;
-  roofViz = 1;
+  roofViz = 10;
   rigBgr = 1;
-  roofBgr = 1;
-  rigColor.c = purple;        // set c start
-  rigColor.flash = orange;    // set flash start
-  roofColor.c = orange;       // set c start
-  roofColor.flash = purple;   // set flash start
-  cansColor.c = orange;       // set c start
-  cansColor.flash = purple;   // set flash start
+  roofBgr = 3;
+
+  rigColor.colorA = 0;
+  rigColor.colorB = 2;
+  roofColor.colorA = 9;
+  roofColor.colorB = 10;
+  cansColor.colorA = 7;
+  cansColor.colorB = 11;
   dimmer = 1;
 
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
@@ -126,7 +127,8 @@ void draw()
   globalFunctions();
 
   vizTime = 60*15*vizTimeSlider;
-  playWithYourself(vizTime); 
+
+  if (frameCount > 10) playWithYourself(vizTime); 
 
   //blur.set("blurSize", 0);
 

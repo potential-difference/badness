@@ -17,7 +17,7 @@ class RoofColorLayer extends ColorLayer {
   }
 }
 int rigBgr, roofBgr; 
-int rigBgList = 6, roofBgList = 4;
+int rigBgList = 6, roofBgList = 6;
 class ColorLayer extends SketchColor {
   PGraphics window;
   color col1, col2;
@@ -57,13 +57,13 @@ class ColorLayer extends SketchColor {
       check(col1, col2);
       window.endDraw();
       break;
-    case 5:
+    case 4:
       window.beginDraw();
       window.background(0);
       oneColour(col2);
       window.endDraw();
       break;
-    case 6:
+    case 5:
       window.beginDraw();
       window.background(0);
       mirrorGradient2(col1, col2, 1);

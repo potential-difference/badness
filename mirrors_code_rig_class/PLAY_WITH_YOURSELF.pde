@@ -53,8 +53,8 @@ void playWithYourself(float vizTm) {
   //else colStepper = 1;
   colTime = colorTimerSlider*60*30;
   rigColor.colorTimer(colTime, 1); //// seconds between colour change, number of steps to cycle through colours
-  roofColor.colorTimer(colTime, 1); //// seconds between colour change, number of steps to cycle through colours
-  cansColor.colorTimer(colTime, 1); //// seconds between colour change, number of steps to cycle through colours
+  roofColor.colorTimer(colTime/1.5, 2); //// seconds between colour change, number of steps to cycle through colours
+  cansColor.colorTimer(colTime/2, 2); //// seconds between colour change, number of steps to cycle through colours
 
   //if (millis()/1000* == 0) rigBgr = (rigBgr + 1) % bgList;               // change colour layer automatically
 
