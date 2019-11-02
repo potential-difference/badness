@@ -44,7 +44,7 @@ void settings() {
 
   size(size.sizeX, size.sizeY, P2D);
   size.surfacePositionX = 550;
-  size.surfacePositionY = 300;
+  size.surfacePositionY = 150;
 }
 
 float dimmer = 1;
@@ -152,8 +152,9 @@ void draw()
   playWithMe();
   // trigger new animnations 
   if (!manualToggle) if (beatDetect.isOnset()) {
-    animations.add(new CansAnim(roofViz, cansAlpha, funcSlider, roofDimmer));     // create an anim object for the cans specficially doing something simple
+    animations.add(new CansAnim(roofViz, cansAlpha, funcSlider, cansDimmer));     // create an anim object for the cans specficially doing something simple
     animations.add(new Anim(rigViz, alphaSlider, funcSlider, rigDimmer));   // create a new anim object and add it to the beginning of the arrayList
+    animations.add(new RoofAnim(rigViz, alphaSlider, funcSlider, roofDimmer));   // create a new anim object and add it to the beginning of the arrayList
   }
   //////////////////////////////// NEED TO LOOK AT A BETTER WAY OF DOING THIS ...................///////////////////////////////
   //////////////////////////////////// MAYBE SORTED THIS WITH  deleteMeSliderr and deleteMeSlider 
@@ -175,10 +176,12 @@ void draw()
   }
   ////////////////////// draw colour layer /////////////////////////////////////////////////////////////////////////////////////////////////////
   blendMode(MULTIPLY);
-  if (cc[106] > 0 || keyT['r'] || glitchToggle) bgNoise(rigColourLayer, 0, 0, cc[6]); //PGraphics layer,color,alpha
   rigLayer = new ColorLayer(rigBgr);
   roofLayer = new RoofColorLayer(roofBgr);
   cansLayer = new CansColorLayer(roofBgr);
+  // this donesnt work anymore....
+  if (cc[106] > 0 || keyT['r'] || glitchToggle) bgNoise(rigBuffer.colorLayer, 0, 0, cc[6]); //PGraphics layer,color,alpha
+
   rigLayer.drawColorLayer();
   roofLayer.drawColorLayer();
   cansLayer.drawColorLayer();

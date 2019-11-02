@@ -58,14 +58,13 @@ void playWithMe() {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////// PLAY WITH DRAWING FUNCTIONS ////////////////////////////////////////////////////////////// 
 void playWithMeMore() {
-
   /////background noise over whole window/////
   if (cc[105] > 0) {
-    rigColourLayer.beginDraw();
-    rigColourLayer.background(0, 0, 0, 0);
-    rigColourLayer.endDraw();
-    bgNoise(rigColourLayer, rigColor.flash, map(cc[105], 0, 1, 0.2, 1), cc[5]);   //PGraphics layer,color,alpha
-    image(rigColourLayer, size.rigWidth/2, size.rigHeight/2);
+    rigBuffer.colorLayer.beginDraw();
+    rigBuffer.colorLayer.background(0, 0, 0, 0);
+    rigBuffer.colorLayer.endDraw();
+    bgNoise(rigBuffer.colorLayer, rigColor.flash, map(cc[105], 0, 1, 0.2, 1), cc[5]);   //PGraphics layer,color,alpha
+    image(rigBuffer.colorLayer, size.rigWidth/2, size.rigHeight/2);
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
