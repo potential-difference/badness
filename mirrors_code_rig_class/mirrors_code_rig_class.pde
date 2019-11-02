@@ -72,14 +72,13 @@ void setup()
   TR8bus = new MidiBus(this, "TR-8S", "TR8-S"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
   LPD8bus = new MidiBus(this, "LPD8", "LPD8"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
 
-  animations = new ArrayList<Anim>();
-  animations.add(new Anim(RIG, 0, alphaSlider, funcSlider, rigDimmer));
 
-  //dimmer = 1; // must come before load control frame
   drawingSetup();
   loadImages();
   loadGraphics();
+  loadShaders();
   colorSetup();  
+
   rigColor.colorArray();
   roofColor.colorArray();
   rigViz = 0;
@@ -92,7 +91,6 @@ void setup()
   roofColor.flash = purple;   // set flash start
   dimmer = 1;
 
-
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
   for (int i = 0; i < 100; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen
   cc[1] = 0.75;
@@ -101,6 +99,10 @@ void setup()
   cc[MASTERFXON] = 0;
 
   controlFrame = new ControlFrame(this, width, 130, "Controls"); // load control frame must come after shild ring etc
+
+  animations = new ArrayList<Anim>();
+  animations.add(new Anim(0, alphaSlider, funcSlider, rigDimmer));
+
 
   frameRate(30);
 }
@@ -119,6 +121,8 @@ void draw()
 
   vizTime = 60*15*vizTimeSlider;
   playWithYourself(vizTime); 
+
+  //blur.set("blurSize", 0);
 
   //////////// WHY DOESN't THIS WORK???? ?/////////////////////////////
   ///// ECHO RIG DIMMER SLIDER AND MIDI SLIDER 4 to control rig dimmer but only whne slider is changed
@@ -140,8 +144,8 @@ void draw()
   playWithMe();
   // trigger new animnations 
   if (!manualToggle) if (beatDetect.isOnset()) {
-    animations.add(new Anim(ROOF, 10, cansAlpha, funcSlider, roofDimmer));     // create an anim object for the cans specficially doing something simple
-    animations.add(new Anim(RIG, rigViz, alphaSlider, funcSlider, rigDimmer));   // create a new anim object and add it to the beginning of the arrayList
+    animations.add(new RoofAnim(roofViz, cansAlpha, funcSlider, roofDimmer));     // create an anim object for the cans specficially doing something simple
+    animations.add(new Anim(rigViz, alphaSlider, funcSlider, rigDimmer));   // create a new anim object and add it to the beginning of the arrayList
   }
   //////////////////////////////// NEED TO LOOK AT A BETTER WAY OF DOING THIS ...................///////////////////////////////
   //////////////////////////////////// MAYBE SORTED THIS WITH  deleteMeSliderr and deleteMeSlider 
@@ -149,7 +153,7 @@ void draw()
   while (animations.size()>0 && animations.get(0).deleteme) {
     animations.remove(0);
   }
-  if (animations.size() >= 16) animations.remove(0);  
+  if (animations.size() >= 24) animations.remove(0);  
   textAlign(RIGHT);
   text("# of anims: "+animations.size(), width - 5, height - 10);
   // adjust animations

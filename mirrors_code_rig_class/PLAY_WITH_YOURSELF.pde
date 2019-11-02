@@ -1,9 +1,9 @@
-int counter, rigAlphIndex, rigAlph1Index = 1, fctIndex, fct1Index = 1, swap;
+int counter, rigAlphaIndexA, rigAlphaIndexB = 1, rigFunctionIndexA, rigFunctionIndexB = 1, swap;
 int steps = 0;
 int rigVizList = 9;
-int roofVizList = 6;
+int roofVizList = 11;
 
-int roofAlphIndex, roofAlph1Index = 1, roofFctIndex, roofFct1Index = 1;
+int roofAlphaIndexA, roofAlphaIndexB = 1, roofFunctionIndexA, roofFunctionIndexB = 1;
 float alf, bt, bt1, func, func1;
 float roofBt, roofBt1, roofFunc, roofFunc1;
 color col1, col2;
@@ -22,23 +22,23 @@ void playWithYourself(float vizTm) {
   float divide = 4; ///////// NUMBER OF TIMES ALPHA CHANGES PER VIZ
   ///////////// ALPHA TIMER ///////////////////////////////////////////////////////////
   if (millis()/1000 - time[1] >= vizTm/divide) { ///// alpha timer changes 4 times every viz change /////
-    rigAlphIndex = int(random(alphLength));  //// select from alpha array
-    rigAlph1Index = int(random(alphLength)); //// select from alpha array
-    //roofAlphIndex = int(random(roofAlph.length));  //// select from alpha array
-    //roofAlph1Index = int(random(roofAlph.length)); //// select from alpha array
+    rigAlphaIndexA = int(random(alphLength));  //// select from alpha array
+    rigAlphaIndexB = int(random(alphLength)); //// select from alpha array
+    roofAlphaIndexA = int(random(alphLength));  //// select from alpha array
+    roofAlphaIndexB = int(random(alphLength)); //// select from alpha array
     alf = 0; ////// set  viz to 0 to fade up viz when alpha changes /////
-    println("alpha change @", (hour()+":"+minute()+":"+second()), "new af:", rigAlphIndex, "new af1:", rigAlph1Index);
+    println("alpha change @", (hour()+":"+minute()+":"+second()), "new af:", rigAlphaIndexA, "new af1:", rigAlphaIndexB);
     time[1] = millis()/1000;
   }
   divide = 6; //////////////// NUMBER OF TIMES FUNCTION CHANGES PER VIZ
   //////////// FUNCTION TIMER ////////////////////////////////////////////////////////
   if (millis()/1000 - time[2] >= vizTm/divide) {    ////// change function n times for every state change
-    fctIndex = int(random(funcLength));  //// select from function array
-    fct1Index = int(random(funcLength));  //// select from function array
-    //roofFctIndex = int(random(roofFct.length));  //// select from function array
-    //roofFct1Index = int(random(roofFct.length));  //// select from function array
+    rigFunctionIndexA = int(random(funcLength));  //// select from function array
+    rigFunctionIndexB = int(random(funcLength));  //// select from function array
+    roofFunctionIndexA = int(random(funcLength));  //// select from function array
+    roofFunctionIndexB = int(random(funcLength));  //// select from function array
     alf = 0; ////// set  viz to 0 to fade up viz when fucntion changes /////
-    println("function change @", (hour()+":"+minute()+":"+second()), "new fc:", fctIndex, "new fc1:", fct1Index);
+    println("function change @", (hour()+":"+minute()+":"+second()), "new fc:", rigFunctionIndexA, "new fc1:", rigFunctionIndexB);
     time[2] = millis()/1000;
   }
   ///////////////////////////////// FADE UP NEXT VIZ ////////////
@@ -63,7 +63,7 @@ void playWithYourself(float vizTm) {
     roofColor.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
   }
   if (beatCounter%64<2) rigColor.colorSwap(1000000*noize);  
-  //if (beatCounter%64>61) roof.colorSwap(1000000*noize);
+  if (beatCounter%64>61) roofColor.colorSwap(1000000*noize);
   ////////////////////////////////////////// COLOR FLIP ///////////////////////////////////////////////////////////////////
   for (int i = 16; i<22; i+=2) if ( beatCounter % 128 == i) rigColor.colFlip = true;
   else rigColor.colFlip = false;

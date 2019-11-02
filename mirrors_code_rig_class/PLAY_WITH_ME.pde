@@ -2,15 +2,15 @@ void playWithMe() {
 
 
   ////////////////////////////////////// COLOR SWAP AND FLIP BUTTONS /////////////////////////////////////////
-  if (keyP['\\']) rigColor.colorSwap(0.9999999999);                // COLOR SWAP MOMENTARY 
+  if (keyP['o']) rigColor.colorSwap(0.9999999999);                // COLOR SWAP MOMENTARY 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  if (keyT['\'']) rigColor.colFlip = (keyT['\'']);                  // COLOR FLIP TOGGLE 
-  if (keyP[';']) rigColor.colFlip = !rigColor.colFlip;                   // COLOR FLIP MOMENTARY
+  if (keyT['i']) rigColor.colFlip = (keyT['i']);                  // COLOR FLIP TOGGLE 
+  if (keyP['u']) rigColor.colFlip = !rigColor.colFlip;                   // COLOR FLIP MOMENTARY
   rigColor.colorFlip(rigColor.colFlip);
   ////////////////////////////// LERP COLOUR ON BEAT /////////////////////////////////////////////////////////
-  if (keyT['l']) {
+  if (keyT['y']) {
     colorLerping(rigColor, (1-beat)*2);
-        colorLerping(roofColor, (1-beat)*1.5);
+    colorLerping(roofColor, (1-beat)*1.5);
   }
   //if (keyT['o']) colorLerping(rig, beatFast); 
   //colBeat = !colBeat;
@@ -23,31 +23,33 @@ void playWithMe() {
   if (colHold) time[3] = millis()/1000;              // hold color change timer
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  if (keyP[' ']) animations.add(new Anim(RIG, rigViz, alphaSlider, funcSlider, rigDimmer));   // or space bar!
-  if (keyP['a']) animations.add(new AllOn(RIG, manualSlider, stutter, rigDimmer));
+  if (keyP[' ']) animations.add(new Anim(rigViz, alphaSlider, funcSlider, rigDimmer));         // or space bar!
+  if (keyP[' ']) animations.add(new RoofAnim(roofViz, alphaSlider, funcSlider, roofDimmer));   // or space bar!
+
+  if (keyP['a']) animations.add(new RoofOn(manualSlider, stutter, rigDimmer));
   if (keyP['s']) {
-    animations.add(new AllOn(RIG, manualSlider, stutter, rigDimmer));
+    animations.add(new RoofOn(manualSlider, stutter, rigDimmer));
     rigColor.colorFlip(true);
   }
-  if (keyP['z'] ) animations.add(new AllOn(ROOF, manualSlider, stutter, roofDimmer));
+  if (keyP['z'] ) animations.add(new AllOn(manualSlider, stutter, roofDimmer));
   if (keyP['`'] ) { 
-    animations.add(new AllOn(ROOF, manualSlider, stutter, roofDimmer));
+    animations.add(new AllOn(manualSlider, stutter, roofDimmer));
     roofColor.colorFlip(true);
   }
 
-  if (cc[101] > 0) animations.add(new Anim(RIG, rigViz, cc[1], cc[2], cc[101])); // current animation
-  if (cc[102] > 0) animations.add(new Anim(RIG, 9, cc[1], cc[2], cc[102])); // current animation
+  if (cc[101] > 0) animations.add(new Anim(rigViz, cc[1], cc[2], cc[101])); // current animation
+  if (cc[102] > 0) animations.add(new Anim(9, cc[1], cc[2], cc[102])); // current animation
   if (cc[103] > 0) { 
     rigColor.colorSwap(0.9999999999);                // COLOR SWAP MOMENTARY
     roofColor.colorSwap(0.9999999999);
   }
   if (cc[104] > 0) {
-    animations.add(new AllOn(RIG, manualSlider, 1-(stutter*stutterSlider), cc[104]));
+    animations.add(new AllOn(manualSlider, 1-(stutter*stutterSlider), cc[104]));
     rigColor.colorFlip(true);
   }
-  if (cc[107] > 0) animations.add(new AllOn(ROOF, manualSlider, 1-(stutter*stutterSlider), cc[107]));
+  if (cc[107] > 0) animations.add(new RoofOn(manualSlider, 1-(stutter*stutterSlider), cc[107]));
   if (cc[108] > 0) { 
-    animations.add(new AllOn(ROOF, manualSlider, 1-(stutter*stutterSlider), cc[108]));
+    animations.add(new RoofOn(manualSlider, 1-(stutter*stutterSlider), cc[108]));
     roofColor.colorFlip(true);
   }
 }

@@ -48,16 +48,16 @@ void onScreenInfo() {
   ///////////// rig info
   text("rigViz: " + rigViz, x, y);
   text("bkgrnd: " + rigBgr, x, y+20);
-  text("func's: " + fctIndex + " / " + fct1Index, x+100, y);
-  text("alph's: " + rigAlphIndex + " / " + rigAlph1Index, x+100, y+20);
+  text("func's: " + rigFunctionIndexA + " / " + rigFunctionIndexB, x+100, y);
+  text("alph's: " + rigAlphaIndexA + " / " + rigAlphaIndexB, x+100, y+20);
   if (size.roofWidth > 0) {
     ///////////// roof info
     textAlign(RIGHT);
-    x = size.roofWidth - 5;
+    x = size.roofWidth - 130;
     text("roofViz: " + roofViz, x, y);
     text("bkgrnd: " + roofBgr, x, y+20);
-    //text("func's: " + fctIndex + " / " + fct1Index, x+100, y);
-    //text("alph's: " + rigAlphIndex + " / " + rigAlph1Index, x+100, y+20);
+    text("func's: " + roofFunctionIndexA + " / " + roofFunctionIndexB, x+120, y);
+    text("alph's: " + roofAlphaIndexA + " / " + roofAlphaIndexB, x+120, y+20);
   }
 
   /////////// info about PLAYWITHYOURSELF functions
@@ -81,7 +81,7 @@ void onScreenInfo() {
   //textAlign(CENTER);
   //fill(rigColor.flash);
   //text("FUNCTION", (size.rigWidth-50)/2, height-10);
-  ////rect((size.rigWidth-50)*animations.get(animations.alph[rigAlphIndex]), height-15, 10, 10); // moving rectangle to show current function
+  ////rect((size.rigWidth-50)*animations.get(animations.alph[rigAlphaIndexA]), height-15, 10, 10); // moving rectangle to show current function
   //fill(rigColor.c, 360);
   //text("ALPHA", (size.rigWidth-50)/2, height);
   //rect((size.rigWidth-50)*bt, height-5, 10, 10); // moving rectangle to show current alpha
@@ -132,7 +132,6 @@ void colorInfo() {
   float y = height-7.5;
   float x = 17;
   // RIG ///
-  //fill(rigColor.c);
   fill(rigColor.c);          
   rect(x, y-10, 10, 10);               // rect to show CURRENT color C 
   fill(rigColor.col[(rigColor.colorA+1)%rigColor.col.length], 100);
@@ -182,19 +181,18 @@ void toggleInfo(float xpos, float ypos) {
   text("] = COL HOLD", x, y+20);
   y +=20;
   fill(50);
-  if (keyT[107]) fill(300+(60*stutter));
-  text("K = shimmer", x, y+40);
+  if (keyT['p']) fill(300+(60*stutter));
+  text("P = shimmer", x, y+40);
   fill(50);
   if (!rigColor.colSwap) fill(300+(60*stutter));
-  text("| = color swap", x, y+60);
+  text("O = color swap", x, y+60);
   fill(50);
   if (rigColor.colFlip) fill(300+(60*stutter));
-  text("; / ' = color flip", x, y+80);
+  text("I / U = color flip", x, y+80);
   fill(50);
   if (colBeat) fill(300+(60*stutter));
-  text("L = color beat", x, y+100);
+  text("Y = color beat", x, y+100);
   y+=20;
   fill(50);
-  if (keyT[122]) fill(300+(60*stutter));
-  text("Z = viz flip", x, y+140);
+ 
 }

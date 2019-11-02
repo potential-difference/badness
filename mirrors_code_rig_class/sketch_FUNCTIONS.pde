@@ -25,13 +25,13 @@ int beatCounter;
 long beatTimer;
 boolean beatTrigger;
 float beat;
-void resetbeats(){
-      beat = 1;
-    beatCounter = (beatCounter + 1) % 120;
-    weightedsum=beatTimer+(1-beatAlpha)*weightedsum;
-    weightedcnt=1+(1-beatAlpha)*weightedcnt;
-    avgtime=weightedsum/weightedcnt;
-    beatTimer=0;
+void resetbeats() {
+  beat = 1;
+  beatCounter = (beatCounter + 1) % 120;
+  weightedsum=beatTimer+(1-beatAlpha)*weightedsum;
+  weightedcnt=1+(1-beatAlpha)*weightedcnt;
+  avgtime=weightedsum/weightedcnt;
+  beatTimer=0;
 }
 void beats() {             ////// BEAT DETECT THROUGHOUT SKETCH ///////
   beatTimer++;
@@ -89,17 +89,17 @@ void noize() {
   noize12 = map(noize1, -1, 1, 1, 0);
 }
 
-void bgNoise(PGraphics layer,color _col,float bright,float alpha){
-  color col=color(hue(_col),saturation(_col),100*bright);
+void bgNoise(PGraphics layer, color _col, float bright, float alpha) {
+  color col=color(hue(_col), saturation(_col), 100*bright);
   layer.loadPixels();
-  for (int x=0;x<size.rigWidth;x++){
-    for (int y=0;y<size.rigHeight;y++){
+  for (int x=0; x<size.rigWidth; x++) {
+    for (int y=0; y<size.rigHeight; y++) {
       color pixel=layer.pixels[x+y*size.rigWidth];
       //col=int(random(255*alpha))<<24 | col&0xffffff;
       color out;
       if (random(1.0)<alpha) {
         out=col;
-      }else{
+      } else {
         out=pixel;
       }
       layer.pixels[x+y*size.rigWidth]=out;

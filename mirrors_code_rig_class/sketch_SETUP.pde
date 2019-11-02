@@ -114,7 +114,7 @@ void drawingSetup() {
 
 /////////////////////// LOAD GRAPHICS FOR VISULISATIONS AND COLOR LAYERS //////////////////////////////
 PGraphics bg[] = new PGraphics[rigBgList];
-PGraphics rigWindow, roofWindow, pg, infoWindow, rigColourLayer, roofColourLayer;
+PGraphics rigWindow, roofWindow, cansWindow, infoWindow, rigColourLayer, roofColourLayer, rigBluredA, rigBluredB, roofBluredA,roofBluredB;
 void loadGraphics() {
   //////////////////////////////// rig colour layer  ///////////////////
   rigColourLayer = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
@@ -151,4 +151,61 @@ void loadGraphics() {
     bg[n].noFill();
     bg[n].endDraw();
   }
+
+  rigWindow = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
+  rigWindow.beginDraw();
+  rigWindow.colorMode(HSB, 360, 100, 100);
+  rigWindow.blendMode(NORMAL);
+  rigWindow.ellipseMode(CENTER);
+  rigWindow.rectMode(CENTER);
+  rigWindow.imageMode(CENTER);
+  rigWindow.noStroke();
+  rigWindow.noFill();
+  rigWindow.endDraw();
+
+  roofWindow = createGraphics(int(size.roofWidth), int(size.roofHeight), P2D);
+  roofWindow.beginDraw();
+  roofWindow.colorMode(HSB, 360, 100, 100);
+  roofWindow.blendMode(NORMAL);
+  roofWindow.ellipseMode(CENTER);
+  roofWindow.rectMode(CENTER);
+  roofWindow.imageMode(CENTER);
+  roofWindow.noStroke();
+  roofWindow.noFill();
+  roofWindow.endDraw();
+
+  ///////////////////////////////////// LOAD GRAPHICS FOR SHADER LAYERS //////////////////////
+  rigBluredA = createGraphics(int(size.rigWidth/2), int(size.rigHeight/2), P2D);
+  rigBluredA.noSmooth();
+  rigBluredA.imageMode(CENTER);
+  rigBluredA.beginDraw();
+  rigBluredA.noStroke();
+  rigBluredA.endDraw();
+  rigBluredB = createGraphics(int(size.rigWidth/2), int(size.rigHeight/2), P2D);
+  rigBluredB.noSmooth();
+  rigBluredB.beginDraw();
+  rigBluredB.imageMode(CENTER);
+  rigBluredB.noStroke();
+  rigBluredB.endDraw();
+  ///////////////////////////////////// LOAD GRAPHICS FOR SHADER LAYERS //////////////////////
+  roofBluredA = createGraphics(int(size.roofWidth/2), int(size.roofHeight/2), P2D);
+  roofBluredA.noSmooth();
+  roofBluredA.imageMode(CENTER);
+  roofBluredA.beginDraw();
+  roofBluredA.noStroke();
+  roofBluredA.endDraw();
+  roofBluredB = createGraphics(int(size.roofWidth/2), int(size.roofHeight/2), P2D);
+  roofBluredB.noSmooth();
+  roofBluredB.beginDraw();
+  roofBluredB.imageMode(CENTER);
+  roofBluredB.noStroke();
+  roofBluredB.endDraw();
+
+}
+PShader blur;
+void loadShaders() {
+  float blury = int(map(blurSlider, 0, 1, 0, 100));
+  blur = loadShader("blur.glsl");
+  blur.set("blurSize", blury);
+  blur.set("sigma", 10.0f);
 }
