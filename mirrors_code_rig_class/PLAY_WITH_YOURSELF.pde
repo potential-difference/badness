@@ -62,9 +62,12 @@ void playWithYourself(float vizTm) {
   if (colorSwapSlider > 0) {
     rigColor.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
     roofColor.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
+    cansColor.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
   }
   if (beatCounter%64<2) rigColor.colorSwap(1000000*noize);  
-  if (beatCounter%64>61) roofColor.colorSwap(1000000*noize);
+  if (beatCounter%82>79) roofColor.colorSwap(1000000*noize);
+  if (beatCounter%64>61) cansColor.colorSwap(1000000*noize);
+
   ////////////////////////////////////////// COLOR FLIP ///////////////////////////////////////////////////////////////////
   for (int i = 16; i<22; i+=2) if ( beatCounter % 128 == i) rigColor.colFlip = true;
   else rigColor.colFlip = false;
@@ -72,11 +75,13 @@ void playWithYourself(float vizTm) {
   else roofColor.colFlip = false;
 
   rigColor.colorFlip(rigColor.colFlip);
-  roofColor.colorFlip(rigColor.colFlip);
+  roofColor.colorFlip(roofColor.colFlip);
+  cansColor.colorFlip(cansColor.colFlip);
 
   ///////////////////////////////////////// LERP COLOUR //////////////////////////////////////////////////////////////////
   if (beatCounter % 64 > 60)  colorLerping(rigColor, (1-beat)*2);
   if (beatCounter % 96 > 90)  colorLerping(roofColor, (1-beat)*1.5);
+  if (beatCounter % 32 > 28)  colorLerping(cansColor, (1-beat)*1.5);
 
   colBeat = false;
   //rigColor.c = lerpColor(rigColor.col[rigColor.colorB], rigColor.col[rigColor.colorA], beatFast);

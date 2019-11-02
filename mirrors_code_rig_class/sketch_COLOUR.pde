@@ -55,8 +55,6 @@ class SketchColor {
     }
     go *= 0.97;
     if (go < 0.01) go = 0.001;
-
-    //colorControl(colorselected); //
   }
   ////////////////////////////////////////////////////// HSB LERP COLOR FUNCTION //////////////////////////////
   // linear interpolate two colors in HSB space 
