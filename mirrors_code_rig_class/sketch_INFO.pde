@@ -158,11 +158,11 @@ void colorInfo() {
     x = size.cans.x+(size.cansWidth/2)-25;
     fill(roofColor.c);          
     rect(x, y-10, 10, 10);              // rect to show CURRENT color C 
-    fill(roofColor.col[(roofColor.colorA+1)%roofColor.col.length], 100);
+    fill(cansColor.col[(cansColor.colorA+1)%cansColor.col.length], 100);
     rect(x+15, y-10, 10, 10);               // rect to show NEXT color C 
-    fill(roofColor.flash);          
+    fill(cansColor.flash);          
     rect(x, y, 10, 10);                 // rect to show CURRENT color FLASH 
-    fill(roofColor.col[(roofColor.colorB+1)%roofColor.col.length], 100);
+    fill(cansColor.col[(cansColor.colorB+1)%cansColor.col.length], 100);
     rect(x+15, y, 10, 10);                  // rect to show NEXT color FLASH1
   }
 }

@@ -188,9 +188,14 @@ void keyPressed() {
   if (key == 'c') rigColor.colorA = (rigColor.colorA+1)%rigColor.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
   if (key == 'v') rigColor.colorB = (rigColor.colorB+1)%rigColor.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
 
-  if (key == 'd') roofColor.colorA = (roofColor.colorA+1)%roofColor.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
-  if (key == 'f') roofColor.colorB = (roofColor.colorB+1)%roofColor.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
-
+  if (key == 'd') {
+    roofColor.colorA = (roofColor.colorA+1)%roofColor.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
+    cansColor.colorA = (cansColor.colorA+1)%cansColor.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
+  }
+  if (key == 'f') {
+    roofColor.colorB = (roofColor.colorB+1)%roofColor.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
+    cansColor.colorB = (cansColor.colorB+1)%cansColor.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
+  }
   if (key == 'q') info = !info;
   if (key == 't') test = !test;
   if (key == 'w') work = !work;
