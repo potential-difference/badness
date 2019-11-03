@@ -337,13 +337,11 @@ class ControlFrame extends PApplet {
       .setColorForeground(slider) 
       ;
   }
-
   void draw() {
     background(0);
     fill(rigColor.c);
     rect(width/2, 0, width, 2);
   }
-
   //////////////////////////////////////// CALL BACK FOR SLIDER CONTROL FROM OTHER VARIABLES
   // an event from slider sliderA will change the value of textfield textA here
   public void rigDimmer(float theValue) {
