@@ -35,7 +35,7 @@ MidiBus faderBus;     // midibus for APC mini
 MidiBus LPD8bus;      // midibus for LPD8
 
 PFont myFont;
-boolean onTop = false, manualToggle = false;
+boolean onTop = false;
 void settings() {
   size = new SizeSettings(LANDSCAPE);
 
@@ -141,11 +141,11 @@ void draw()
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   playWithMe();
-  // trigger new animnations 
-  if (!manualToggle) if (beatTrigger) {
-    animations.add(new CansAnim(roofViz, cansAlpha, funcSlider, cansDimmer));     // create an anim object for the cans specficially doing something simple
-    animations.add(new Anim(rigViz, alphaSlider, funcSlider, rigDimmer));   // create a new anim object and add it to the beginning of the arrayList
-    animations.add(new RoofAnim(rigViz, alphaSlider, funcSlider, roofDimmer));   // create a new anim object and add it to the beginning of the arrayList
+  // create a new anim object and add it to the beginning of the arrayList
+  if (beatTrigger) {
+    if (rigToggle) animations.add(new Anim(rigViz, alphaSlider, funcSlider, rigDimmer));   
+    if (cansToggle)   animations.add(new CansAnim(roofViz, cansAlpha, funcSlider, cansDimmer));              // create an anim object for the cans 
+    if (roofToggle)   animations.add(new RoofAnim(rigViz, alphaSlider, funcSlider, roofDimmer));         // create a new anim object for the roof
   }
   // limit the number of animations
   while (animations.size()>0 && animations.get(0).deleteme) animations.remove(0);

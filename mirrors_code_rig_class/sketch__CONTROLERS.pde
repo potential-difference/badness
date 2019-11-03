@@ -1,9 +1,9 @@
 import controlP5.*;
 ControlP5 cp5;
 
-boolean glitchToggle;
+boolean glitchToggle, cansToggle = true, roofToggle = false, rigToggle = true;
 float vizTimeSlider, colorSwapSlider, colorTimerSlider, cansDimmer, boothDimmer, digDimmer, backDropSlider, cansSlider;
-float tweakSlider, blurSlider, bgNoiseBrightnessSlider, bgNoiseDensitySlider, manualSlider,stutterSlider, cansAlpha, deleteMeSlider;
+float tweakSlider, blurSlider, bgNoiseBrightnessSlider, bgNoiseDensitySlider, manualSlider, stutterSlider, cansAlpha, deleteMeSlider;
 float shimmerSlider, alphaSlider, rigDimmer, roofDimmer, seedsDimmer, seed2Dimmer, uvDimmer, controllerDimmer, funcSlider, pauseSlider;
 
 class ControlFrame extends PApplet {
@@ -99,7 +99,7 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
-      cp5.addSlider("manualSlider")
+    cp5.addSlider("manualSlider")
       .plugTo(parent, "manualSlider")
       .setPosition(x, y+row*5)
       .setSize(wide, high)
@@ -157,7 +157,7 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
-      cp5.addSlider("cansAlpha")
+    cp5.addSlider("cansAlpha")
       .plugTo(parent, "cansAlpha")
       .setPosition(x, y+row*4)
       .setSize(wide, high)
@@ -168,7 +168,7 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac1) 
       .setColorForeground(slider1) 
       ;
-      cp5.addSlider("deleteMeSlider")
+    cp5.addSlider("deleteMeSlider")
       .plugTo(parent, "deleteMeSlider")
       .setPosition(x, y+row*5)
       .setSize(wide, high)
@@ -273,7 +273,7 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac1) 
       .setColorForeground(slider1) 
       ;
-      cp5.addSlider("pauseSlider")
+    cp5.addSlider("pauseSlider")
       .plugTo(parent, "pauseSlider")
       .setPosition(x, y+row*5)
       .setSize(wide, high)
@@ -288,11 +288,31 @@ class ControlFrame extends PApplet {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////// FITH coloum of sliders //////////////////////////////////
     x +=clm;
-    cp5.addToggle("manualToggle")
-      .plugTo(parent, "manualToggle")
+    cp5.addToggle("rigToggle")
+      .plugTo(parent, "rigToggle")
       .setPosition(x, y)
       .setSize(50, 50)      
-      .setValue(manualToggle)
+      .setValue(rigToggle)
+      .setColorActive(bac1) 
+      .setColorBackground(bac) 
+      .setColorForeground(slider) 
+      ; 
+    x += 100;
+    cp5.addToggle("roofToggle")
+      .plugTo(parent, "roofToggle")
+      .setPosition(x, y)
+      .setSize(50, 50)      
+      .setValue(roofToggle)
+      .setColorActive(bac1) 
+      .setColorBackground(bac) 
+      .setColorForeground(slider) 
+      ;
+    x += 100;
+    cp5.addToggle("cansToggle")
+      .plugTo(parent, "cansToggle")
+      .setPosition(x, y)
+      .setSize(50, 50)      
+      .setValue(cansToggle)
       .setColorActive(bac1) 
       .setColorBackground(bac) 
       .setColorForeground(slider) 
@@ -317,7 +337,6 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
-    
   }
 
   void draw() {
