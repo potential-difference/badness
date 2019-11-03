@@ -8,6 +8,7 @@ float shimmerSlider, alphaSlider, rigDimmer, roofDimmer, seedsDimmer, seed2Dimme
 
 class ControlFrame extends PApplet {
   int controlW, controlH;
+  float clm, row;
   PApplet parent;
   public ControlFrame(PApplet _parent, int _w, int _h, String _name) {
     super();   
@@ -40,8 +41,8 @@ class ControlFrame extends PApplet {
     float y = 20;
     int wide = 80;           // x size of sliders
     int high = 14;           // y size of slider
-    float row = high +4;     // distance between rows
-    float clm = 210;         // distance between coloms
+    row = high +4;     // distance between rows
+    clm = 210;         // distance between coloms
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// FIRST COLOUM OF SLIDERS ////////////////////////////////////////////
     cp5.addSlider("vizTimeSlider") // name used throughout sketch to link to slider
@@ -284,9 +285,8 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;  
-
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////// FITH coloum of sliders //////////////////////////////////
+    /////////////////////////////// BUTTONS ///////////////////////////////////////////////////////////////
     x +=clm;
     cp5.addToggle("rigToggle")
       .plugTo(parent, "rigToggle")
@@ -297,7 +297,7 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ; 
-    x += 100;
+    x += 60;
     cp5.addToggle("roofToggle")
       .plugTo(parent, "roofToggle")
       .setPosition(x, y)
@@ -307,7 +307,7 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
-    x += 100;
+    x += 60;
     cp5.addToggle("cansToggle")
       .plugTo(parent, "cansToggle")
       .setPosition(x, y)
@@ -317,8 +317,7 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
-    x += 100;
-    // create a toggle
+    x += 80;
     cp5.addToggle("onTop")
       .plugTo(parent, "onTop")
       .setPosition(x, y)
