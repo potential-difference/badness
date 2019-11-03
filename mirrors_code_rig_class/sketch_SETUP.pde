@@ -114,6 +114,7 @@ class Buffer {
 
     colorLayer = createGraphics(wide, high, P2D);
     colorLayer.beginDraw();
+    colorLayer.noStroke();
     colorLayer.colorMode(HSB, 360, 100, 100);
     colorLayer.imageMode(CENTER);
     colorLayer.rectMode(CENTER);

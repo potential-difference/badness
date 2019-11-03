@@ -1,10 +1,8 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////// KEYBOARD COMMANDS //////////////////////////////////// 
-boolean play, stop, space, shift, colBeat, vizHold, colHold;
+boolean vizHold, colHold, colBeat;
 boolean[] keyP = new boolean[128];
 boolean[] keyT = new boolean[128];
-int keyNum;
-int mirrorStep, gridStep;
 void keyPressed() {  
 
   //// debound or thorttle this ////

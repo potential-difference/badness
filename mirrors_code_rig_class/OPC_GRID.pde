@@ -57,7 +57,6 @@ class OPCGrid {
       mirror[9] = new PVector (size.rig.x-(mirrorAndGap/2), yBottom);                 
       mirror[10]= new PVector (size.rig.x+(mirrorAndGap/2), yBottom);                  
       mirror[11]= new PVector (size.rig.x+(mirrorAndGap/2)+mirrorAndGap, yBottom); 
-      mirrorWidth = _mirrorWidth+16;
       break;
     case LANDSCAPE: 
       yTop = size.rig.y - (mirrorAndGap/2);                              // height Valuve for top line of mirrors
@@ -98,12 +97,13 @@ class OPCGrid {
       mirror[11]= new PVector (size.rig.x+(mirrorAndGap*2.5), yBottom);
       break;
     }
+    mirrorWidth = _mirrorWidth+16;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////// RIG POSITIONS FOR GRID ///////////////////////////////////////////////////////
-    _cansLength = size.roofWidth;
-    cans[0] = new PVector(size.roof.x, size.roof.y-(size.roofHeight/4));
-    cans[1] = new PVector(size.roof.x, size.roof.y);
-    cans[2] = new PVector(size.roof.x, size.roof.y+(size.roofHeight/4));
+    ////////////////////////////////// CANS POSTIONS ///////////////////////////////////////////////////////////////
+    _cansLength = size.cansWidth;
+    cans[0] = new PVector(size.cans.x, size.cans.y-(size.cansHeight/4));
+    cans[1] = new PVector(size.cans.x, size.cans.y);
+    cans[2] = new PVector(size.cans.x, size.cans.y+(size.cansHeight/4));
 
     booth = new PVector (width - 30, 110);
     dig = new PVector (width - 30, 125);

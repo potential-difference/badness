@@ -17,7 +17,7 @@ class RoofColorLayer extends ColorLayer {
   }
 }
 int rigBgr, roofBgr; 
-int rigBgList = 6, roofBgList = 6;
+int rigBgList = 7, roofBgList = 6;
 class ColorLayer extends SketchColor {
   PGraphics window;
   color col1, col2;
@@ -66,7 +66,13 @@ class ColorLayer extends SketchColor {
     case 5:
       window.beginDraw();
       window.background(0);
-      mirrorGradient2(col1, col2, 1);
+      mirrorGradientHalfHalf(col1, col2, 1);
+      window.endDraw();
+      break;
+    case 6:
+      window.beginDraw();
+      window.background(0);
+      horizontalMirrorGradient(col1, col2, 0.5);
       window.endDraw();
       break;
     default:
@@ -86,6 +92,7 @@ class ColorLayer extends SketchColor {
   void mirrorGradient(color col1, color col2, float func) {
     //// LEFT SIDE OF GRADIENT
     window.beginShape(POLYGON); 
+    //window.noStroke();
     window.fill(col1);
     window.vertex(0, 0);
     window.fill(col2);
@@ -107,11 +114,9 @@ class ColorLayer extends SketchColor {
     window.vertex(window.width*func, window.height);
     window.endShape(CLOSE);
   }
-  /// MIRROR GRADIENT BACKGROUND ///
-  void mirrorGradient2(color col1, color col2, float func) {
-
-    //////// TOP
-    //// LEFT SIDE OF GRADIENT
+  /// MIRROR GRADIENT BACKGROUND top one direction - bottom opposite direction ///
+  void mirrorGradientHalfHalf(color col1, color col2, float func) {
+    //////// TOP //// LEFT SIDE OF GRADIENT
     window.beginShape(POLYGON); 
     window.fill(col1);
     window.vertex(0, 0);
@@ -162,8 +167,7 @@ class ColorLayer extends SketchColor {
     window.endShape(CLOSE);
   }
 
-  void horizontalMirrorGrad(color col1, color col2, float func) {
-
+  void horizontalMirrorGradient(color col1, color col2, float func) {
     //// TOP HALF OF GRADIENT
     window.beginShape(POLYGON); 
     window.fill(col2);
@@ -206,29 +210,15 @@ class ColorLayer extends SketchColor {
 
   /// CHECK BACKGROUND ///
   void check(color col1, color col2) {
-
-    window.background(col1);
-    ////////////////// Fill OPPOSITE COLOR //////////////
-    window.fill(col2);     
-    for (int i = 0; i < grid.mirror.length/grid.rows; i+=2)  window.rect(grid.mirror[i].x, grid.mirror[i].y, grid.mirrorWidth, grid.mirrorWidth);
-    //for (int i = grid.columns+1; i < grid.mirror.length/grid.rows+grid.columns; i++)  window.rect(grid.mirror[i].x, grid.mirror[i].y, grid.mirrorWidth, grid.mirrorWidth);
-    //if(grid.rows == 3) for (int i = grid.columns*grid.rows ; i < grid.mirror.length/grid.rows+(grid.columns*2); i+=2)  window.rect(grid.mirror[i].x, grid.mirror[i].y, grid.mirrorWidth, grid.mirrorWidth);
-  }
-
-  void corners( color col1, color col2) {
-    /////////////// TOP RECTANGLE ////////////////////
     window.fill(col2);
-    window.rect(window.width/2, window.height/2, window.width, window.height);     
-    /////////////// BOTTOM RECTANGLE ////////////////////
-    window.fill(col1);                                
-    window.rect(grid.mirror[0].x, grid.mirror[0].y, grid.mirrorWidth, grid.mirrorWidth);
-    window.rect(grid.mirror[1].x, grid.mirror[1].y, grid.mirrorWidth, grid.mirrorWidth);
-    window.rect(grid.mirror[4].x, grid.mirror[4].y, grid.mirrorWidth, grid.mirrorWidth);
-
-    window.rect(grid.mirror[7].x, grid.mirror[7].y, grid.mirrorWidth, grid.mirrorWidth);
-    window.rect(grid.mirror[10].x, grid.mirror[10].y, grid.mirrorWidth, grid.mirrorWidth);
-    window.rect(grid.mirror[11].x, grid.mirror[11].y, grid.mirrorWidth, grid.mirrorWidth);
+    window.rect(window.width/2, window.height/2, window.width, window.height);        
+    ////////////////// Fill OPPOSITE COLOR //////////////
+    window.fill(col1);  
+    for (int i = 0; i < grid.mirror.length/grid.rows; i+=2)  window.rect(grid.mirror[i].x, grid.mirror[i].y, grid.mirrorWidth, grid.mirrorWidth);
+    for (int i = grid.columns+1; i < grid.mirror.length/grid.rows+grid.columns; i+=2)  window.rect(grid.mirror[i].x, grid.mirror[i].y, grid.mirrorWidth, grid.mirrorWidth);
+    if (grid.rows == 3) for (int i = grid.columns*grid.rows; i < grid.mirror.length/grid.rows+(grid.columns*2); i+=2)  window.rect(grid.mirror[i].x, grid.mirror[i].y, grid.mirrorWidth, grid.mirrorWidth);
   }
+
   /// TOP ROW ONE COLOUR BOTTOM ROW THE OTHER BACKGORUND///
   void sideBySide( color col1, color col2) {
     /////////////// TOP RECTANGLE ////////////////////
@@ -237,74 +227,5 @@ class ColorLayer extends SketchColor {
     /////////////// BOTTOM RECTANGLE ////////////////////
     window.fill(col1);                                
     window.rect(window.width/4*3, window.height/2, window.width/2, window.height);
-  }
-
-  //// top left and bottom right 3 mirror opposite colours /////
-  void cross( color col1, color col2) {
-    window.background(col1);
-    window.fill(col2);
-    window.rect(grid.mirror[5].x, grid.mirror[5].y, grid.mirrorAndGap*3, grid.mirrorWidth);    
-    window.rect(grid.mirror[6].x, grid.mirror[6].y, grid.mirrorAndGap*3, grid.mirrorWidth);
-  }
-  void gradMirror(color col1, color col2) {
-    window.background(col1);
-
-    //// TOP HALF OF GRADIENT
-    //window.beginShape(POLYGON); 
-    //window.fill(col2);
-    //window.vertex(grid.mirror[0].x-(grid.mirrorWidth/2),grid.mirror[0].y-(grid.mirrorWidth/2));
-    //window.vertex(grid.mirror[0].x+(grid.mirrorWidth/2),grid.mirror[0].y+(grid.mirrorWidth/2));
-    //window.fill(col1);
-    //window.vertex(grid.mirror[0].x-(grid.mirrorWidth/2),grid.mirror[0].y+(grid.mirrorWidth/2));
-    for (int i = 0; i < 6; i++) {
-      window.beginShape(POLYGON); 
-      window.fill(col1);
-      window.vertex(grid.mirror[i].x+(grid.mirrorWidth/2), grid.mirror[i].y-(grid.mirrorWidth/2));
-      window.fill(col2);
-      window.vertex(grid.mirror[i].x-(grid.mirrorWidth/2), grid.mirror[i].y-(grid.mirrorWidth/2));
-      window.vertex(grid.mirror[i].x+(grid.mirrorWidth/2), grid.mirror[i].y+(grid.mirrorWidth/2));
-      window.fill(col1);
-      window.vertex(grid.mirror[i].x+(grid.mirrorWidth/2), grid.mirror[i].y-(grid.mirrorWidth/2));
-      window.endShape(CLOSE);
-
-      window.beginShape(POLYGON); 
-      window.fill(col1);
-      window.vertex(grid.mirror[i].x-(grid.mirrorWidth/2), grid.mirror[i].y+(grid.mirrorWidth/2));
-      window.fill(col2);
-      window.vertex(grid.mirror[i].x-(grid.mirrorWidth/2), grid.mirror[i].y-(grid.mirrorWidth/2));
-      window.vertex(grid.mirror[i].x+(grid.mirrorWidth/2), grid.mirror[i].y+(grid.mirrorWidth/2));
-      window.fill(col1);
-      window.vertex(grid.mirror[i].x-(grid.mirrorWidth/2), grid.mirror[i].y+(grid.mirrorWidth/2));
-      window.endShape(CLOSE);
-    }
-
-    for (int i = 6; i < 12; i++) {
-      window.beginShape(POLYGON); 
-      window.fill(col1);
-      window.vertex(grid.mirror[i].x-(grid.mirrorWidth/2), grid.mirror[i].y-(grid.mirrorWidth/2));
-      window.fill(col2);
-      window.vertex(grid.mirror[i].x+(grid.mirrorWidth/2), grid.mirror[i].y-(grid.mirrorWidth/2));
-      window.vertex(grid.mirror[i].x-(grid.mirrorWidth/2), grid.mirror[i].y+(grid.mirrorWidth/2));
-      window.fill(col1);
-      window.vertex(grid.mirror[i].x-(grid.mirrorWidth/2), grid.mirror[i].y-(grid.mirrorWidth/2));
-      window.endShape(CLOSE);
-
-      window.beginShape(POLYGON); 
-      window.fill(col1);
-      window.vertex(grid.mirror[i].x+(grid.mirrorWidth/2), grid.mirror[i].y+(grid.mirrorWidth/2));
-      window.fill(col2);
-      window.vertex(grid.mirror[i].x+(grid.mirrorWidth/2), grid.mirror[i].y-(grid.mirrorWidth/2));
-      window.vertex(grid.mirror[i].x-(grid.mirrorWidth/2), grid.mirror[i].y+(grid.mirrorWidth/2));
-      window.fill(col1);
-      window.vertex(grid.mirror[i].x+(grid.mirrorWidth/2), grid.mirror[i].y+(grid.mirrorWidth/2));
-      window.endShape(CLOSE);
-    }
-  }
-
-  void cans(color col1) {
-    window.fill(col1);
-    window.rect(grid.cans[0].x, grid.cans[0].y, grid.cansLength, 3);
-    window.rect(grid.cans[1].x, grid.cans[1].y, grid.cansLength, 3);
-    window.rect(grid.cans[2].x, grid.cans[2].y, grid.cansLength, 3);
   }
 }

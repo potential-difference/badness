@@ -84,7 +84,7 @@ void setup()
   rigViz = 0;
   roofViz = 10;
   rigBgr = 1;
-  roofBgr = 3;
+  roofBgr = 4;
 
   rigColor.colorA = 0;
   rigColor.colorB = 2;
@@ -178,7 +178,7 @@ void draw()
   //////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
   workLights(keyT['w']);
   testColors(keyT['t']);
-  onScreenInfo();                ///// display info about current settings, viz, funcs, alphs etc
+  onScreenInfo();                   // display info about current settings, viz, funcs, alphs etc
   //gid.mirrorTest(false);          // true to test physical mirror orientation
 } 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
