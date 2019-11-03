@@ -54,7 +54,7 @@ class ColorLayer extends SketchColor {
     case 3:
       window.beginDraw();
       window.background(0);
-      check(col1, col2);
+      horizontalMirrorGradient(col1, col2, 1);
       window.endDraw();
       break;
     case 4:
@@ -72,7 +72,7 @@ class ColorLayer extends SketchColor {
     case 6:
       window.beginDraw();
       window.background(0);
-      horizontalMirrorGradient(col1, col2, 0.5);
+      check(col1, col2);
       window.endDraw();
       break;
     default:
@@ -84,11 +84,9 @@ class ColorLayer extends SketchColor {
     }
     image(window, layer.x, layer.y);
   }
-
-  ///////////////////////////// END OF BACKGROUNDS ///////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////
-
-  /// MIRROR GRADIENT BACKGROUND ///
+  //////////////////////////////////////// END OF BACKGROUND CONTROL /////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////// VERTICAL MIRROR GRADIENT BACKGROUND ////////////////////////////////////////////////
   void mirrorGradient(color col1, color col2, float func) {
     //// LEFT SIDE OF GRADIENT
     window.beginShape(POLYGON); 
@@ -139,7 +137,7 @@ class ColorLayer extends SketchColor {
     window.vertex(window.width*func, window.height/2);
     window.endShape(CLOSE);
     window.endDraw();
-
+    //////////////////////////////////
     func = 1-func;
     window.beginDraw();
     ///// BOTTOM
@@ -166,7 +164,7 @@ class ColorLayer extends SketchColor {
     window.vertex(window.width*func, window.height);
     window.endShape(CLOSE);
   }
-
+  /////////////////////////////////////////////////// HORIZONAL GRADIENT ///////////////////////////////////////////////////////
   void horizontalMirrorGradient(color col1, color col2, float func) {
     //// TOP HALF OF GRADIENT
     window.beginShape(POLYGON); 
@@ -187,39 +185,21 @@ class ColorLayer extends SketchColor {
     window.vertex(0, window.height);
     window.endShape(CLOSE);
   }
-
-  /// ONE COLOUR BACKGOUND ///
+  ///////////////////////////////////////// ONE COLOUR BACKGOUND ////////////////////////////////////////////////////////////////
   void oneColour(color col1) {
     window.background(col1);
   }
-
-  void checkSymmetrical(color col1, color col2) {
-    /////////////// FILL COLOR ////////////////////
-    window.fill(col1);
-    ///////////////  BACKGROUND /////////////
-    window.rect(window.width/2, window.height/2, window.width, window.height);     
-    ////////////////// Fill OPPOSITE COLOR //////////////
-    window.fill(col2);    
-    window.rect(grid.mirror[0].x, grid.mirror[0].y, grid.mirrorWidth, grid.mirrorWidth);
-    window.rect(grid.mirror[3].x, grid.mirror[3].y, grid.mirrorWidth, grid.mirrorWidth);
-    window.rect(grid.mirror[5].x, grid.mirror[5].y, grid.mirrorWidth, grid.mirrorWidth);
-    window.rect(grid.mirror[6].x, grid.mirror[6].y, grid.mirrorWidth, grid.mirrorWidth);
-    window.rect(grid.mirror[8].x, grid.mirror[8].y, grid.mirrorWidth, grid.mirrorWidth);
-    window.rect(grid.mirror[11].x, grid.mirror[11].y, grid.mirrorWidth, grid.mirrorWidth);
-  }
-
-  /// CHECK BACKGROUND ///
+  ////////////////////////////////////////// CHECK BACKGROUND //////////////////////////////////////////////////////////////////////////////
   void check(color col1, color col2) {
     window.fill(col2);
     window.rect(window.width/2, window.height/2, window.width, window.height);        
-    ////////////////// Fill OPPOSITE COLOR //////////////
+    ////////////////////////// Fill OPPOSITE COLOR //////////////
     window.fill(col1);  
     for (int i = 0; i < grid.mirror.length/grid.rows; i+=2)  window.rect(grid.mirror[i].x, grid.mirror[i].y, grid.mirrorWidth, grid.mirrorWidth);
     for (int i = grid.columns+1; i < grid.mirror.length/grid.rows+grid.columns; i+=2)  window.rect(grid.mirror[i].x, grid.mirror[i].y, grid.mirrorWidth, grid.mirrorWidth);
     if (grid.rows == 3) for (int i = grid.columns*grid.rows; i < grid.mirror.length/grid.rows+(grid.columns*2); i+=2)  window.rect(grid.mirror[i].x, grid.mirror[i].y, grid.mirrorWidth, grid.mirrorWidth);
   }
-
-  /// TOP ROW ONE COLOUR BOTTOM ROW THE OTHER BACKGORUND///
+  /////////////////////////// TOP ROW ONE COLOUR BOTTOM ROW THE OTHER BACKGORUND ////////////////////////////////////////////////////////////////
   void sideBySide( color col1, color col2) {
     /////////////// TOP RECTANGLE ////////////////////
     window.fill(col2);

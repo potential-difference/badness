@@ -83,11 +83,11 @@ void setup()
 
   rigViz = 0;
   roofViz = 10;
-  rigBgr = 1;
+  rigBgr = 5;
   roofBgr = 4;
 
-  rigColor.colorA = 0;
-  rigColor.colorB = 2;
+  rigColor.colorA = 1;
+  rigColor.colorB = 12;
   roofColor.colorA = 9;
   roofColor.colorB = 10;
   cansColor.colorA = 7;
