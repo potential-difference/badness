@@ -53,7 +53,7 @@ void playWithMe() {
   }
 
   for (int i = 0; i < 8; i++) if (padPressed[101+i]) animations.add(new Anim(i, alphaRate, funcRate, pad[101+i])); // use pad buttons to play differnt viz
-  for (int i = 0; i<8; i++) if (keyP[49+i]) animations.add(new Anim(i, alphaSlider, funcSlider, rigDimmer));       // use number buttons to play differnt viz
+  for (int i = 0; i<8; i++) if (keyP[49+i]) animations.add(new Anim(i, manualSlider, funcSlider, rigDimmer));       // use number buttons to play differnt viz
   if (keyP[48]) animations.add(new AllOn(manualSlider, 1, rigDimmer));                                             // '0' triggers all on for the rig
 }
 
