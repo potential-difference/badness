@@ -46,16 +46,15 @@ void beats() {
   if (beat < end) beat = end;
 }
 //////////////////////////////////////// PAUSE ///////////////////////////////////////////////////
-int pause;
+int pause, pauseTimer;
 void pause(int secondsToWait) {
   if (beatDetect.isOnset()) {
     pause = 0;
-    time[4] = millis()/1000;
-  }
-  if (beatDetect.isOnset() == false) {
-    if (millis()/1000 - time[4] >= secondsToWait) {
+    pauseTimer = millis()/1000;
+  } else {
+    if (millis()/1000 - pauseTimer >= secondsToWait) {
       pause +=1;
-      time[4] = millis()/1000;
+      pauseTimer = millis()/1000;
     }
   }
 }

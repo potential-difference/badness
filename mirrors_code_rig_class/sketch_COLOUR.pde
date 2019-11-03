@@ -24,15 +24,16 @@ class SketchColor {
   //////////////////////////////////////////////////// COLOR TIMER ////////////////////////////////
   float go = 0;
   boolean change;
+  int colorTimer;
   void colorTimer(float colTime, int steps) {
     if (change == false) {
       colA = c;
       colC = flash;
     }
-    if (millis()/1000 - time[3] >= colTime) {
+    if (millis()/1000 - colorTimer >= colTime) {
       change = true;
       println("COLOR CHANGE @", (hour()+":"+minute()+":"+second()));
-      time[3] = millis()/1000;
+      colorTimer = millis()/1000;
     } else change = false;
     if (change == true) {
       go = 1;

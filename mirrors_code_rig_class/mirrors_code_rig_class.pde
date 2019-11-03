@@ -34,8 +34,6 @@ MidiBus TR8bus;       // midibus for TR8
 MidiBus faderBus;     // midibus for APC mini
 MidiBus LPD8bus;      // midibus for LPD8
 
-int time[] = new int[12]; // array of timers to use throughout the sketch
-
 PFont myFont;
 boolean onTop = true, manualToggle = false;
 

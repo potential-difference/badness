@@ -19,8 +19,12 @@ void playWithMe() {
 
 
   ////////////////////////////////////////// HOLD BUTTONS FOR VIZ AND COLOUR /////////////////////////////////
-  if (vizHold) time[0] = millis()/1000;              // hold viz change timer
-  if (colHold) time[3] = millis()/1000;              // hold color change timer
+  if (vizHold) vizTimer = millis()/1000;              // hold viz change timer
+  if (colHold) {
+    rigColor.colorTimer = millis()/1000;              // hold color change timer
+    roofColor.colorTimer = millis()/1000;              // hold color change timer
+    cansColor.colorTimer = millis()/1000;              // hold color change timer
+  }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   if (keyP[' ']) animations.add(new Anim(rigViz, alphaSlider, funcSlider, rigDimmer));         // or space bar!

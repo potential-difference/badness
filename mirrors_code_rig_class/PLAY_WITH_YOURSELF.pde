@@ -1,45 +1,39 @@
 int counter, rigAlphaIndexA, rigAlphaIndexB = 1, rigFunctionIndexA, rigFunctionIndexB = 1, swap;
-int steps = 0;
-int rigVizList = 9;
-int roofVizList = 11;
-
+int steps = 0, rigVizList = 9, roofVizList = 11, alphLength = 7, funcLength = 8;
 int roofAlphaIndexA, roofAlphaIndexB = 1, roofFunctionIndexA, roofFunctionIndexB = 1;
-float alf, bt, bt1, func, func1;
-float roofBt, roofBt1, roofFunc, roofFunc1;
-color col1, col2;
-
-int alphLength = 7, funcLength = 8;
+float alf, bt, bt1, func, func1, roofBt, roofBt1, roofFunc, roofFunc1;
+int vizTimer, alphaTimer, functionTimer;
 
 void playWithYourself(float vizTm) {
   ///////////////// VIZ TIMER ////////////////////////////////////////
-  if (millis()/1000 - time[0] >= vizTm) {
+  if (millis()/1000 - vizTimer >= vizTm) {
     rigViz = int(random(rigVizList));
     roofViz = int(random(roofVizList));
     alf = 0; ////// set new viz to 0 to fade up viz /////
     println("VIZ:", rigViz, "COUNTER:", counter, "@", (hour()+":"+minute()+":"+second()));
-    time[0] = millis()/1000;
+    vizTimer = millis()/1000;
   }
   float divide = 4; ///////// NUMBER OF TIMES ALPHA CHANGES PER VIZ
   ///////////// ALPHA TIMER ///////////////////////////////////////////////////////////
-  if (millis()/1000 - time[1] >= vizTm/divide) { ///// alpha timer changes 4 times every viz change /////
+  if (millis()/1000 - alphaTimer >= vizTm/divide) { ///// alpha timer changes 4 times every viz change /////
     rigAlphaIndexA = int(random(alphLength));  //// select from alpha array
     rigAlphaIndexB = int(random(alphLength)); //// select from alpha array
     roofAlphaIndexA = int(random(alphLength));  //// select from alpha array
     roofAlphaIndexB = int(random(alphLength)); //// select from alpha array
     alf = 0; ////// set  viz to 0 to fade up viz when alpha changes /////
     println("alpha change @", (hour()+":"+minute()+":"+second()), "new af:", rigAlphaIndexA, "new af1:", rigAlphaIndexB);
-    time[1] = millis()/1000;
+    alphaTimer = millis()/1000;
   }
   divide = 6; //////////////// NUMBER OF TIMES FUNCTION CHANGES PER VIZ
   //////////// FUNCTION TIMER ////////////////////////////////////////////////////////
-  if (millis()/1000 - time[2] >= vizTm/divide) {    ////// change function n times for every state change
+  if (millis()/1000 - functionTimer >= vizTm/divide) {    ////// change function n times for every state change
     rigFunctionIndexA = int(random(funcLength));  //// select from function array
     rigFunctionIndexB = int(random(funcLength));  //// select from function array
     roofFunctionIndexA = int(random(funcLength));  //// select from function array
     roofFunctionIndexB = int(random(funcLength));  //// select from function array
     alf = 0; ////// set  viz to 0 to fade up viz when fucntion changes /////
     println("function change @", (hour()+":"+minute()+":"+second()), "new fc:", rigFunctionIndexA, "new fc1:", rigFunctionIndexB);
-    time[2] = millis()/1000;
+    functionTimer = millis()/1000;
   }
   ///////////////////////////////// FADE UP NEXT VIZ ////////////
   if (alf < 1)  alf += 0.05;

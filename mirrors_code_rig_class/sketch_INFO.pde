@@ -66,12 +66,12 @@ void onScreenInfo() {
   textAlign(RIGHT);
   fill(rigColor.c, 300);
   ///// NEXT VIZ IN....
-  String sec = nf(int(vizTime - (millis()/1000 - time[0])) % 60, 2, 0);
-  int min = int(vizTime - (millis()/1000 - time[0])) /60 % 60;
+  String sec = nf(int(vizTime - (millis()/1000 - vizTimer)) % 60, 2, 0);
+  int min = int(vizTime - (millis()/1000 - vizTimer)) /60 % 60;
   text("next viz in: "+min+":"+sec, x, y);
   ///// NEXT COLOR CHANGE IN....
-  sec = nf(int(colTime - (millis()/1000 - time[3])) %60, 2, 0);
-  min = int(colTime - (millis()/1000 - time[3])) /60 %60;
+  sec = nf(int(colTime - (millis()/1000 - rigColor.colorTimer)) %60, 2, 0);
+  min = int(colTime - (millis()/1000 - rigColor.colorTimer)) /60 %60;
   text("next color in: "+ min+":"+sec, x, y+20);
   text("c-" + rigColor.colorA + "  " + "flash-" + rigColor.colorB, x, y+40);
   text("counter: " + counter, x, y+60);
