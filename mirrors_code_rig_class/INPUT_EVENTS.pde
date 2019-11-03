@@ -127,35 +127,21 @@ void oscEvent(OscMessage theOscMessage) {
     print(" mesgtype = '"+messageType+"'");
     println(" mesgArgument = "+argument);
   }
-  //println();
   OscAddrMap.put(theOscMessage.addrPattern(), argument);
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////// knob box /////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////// button box //////////////////////////////////////
-  if (messageType.equals("buttonSelected")) {
-    if (argument<5) {
-      buttonT[argument]=!buttonT[argument];
-      println("button "+argument+" is selected");
-      colorselected = argument;
-    }
-    if (argument >= 5 && argument < 16 ) rigViz = argument-5;
-  }
-  /////////////////////////////////// fader box /////////////////////////////////////////////
-  //if (messageType.equals("kitChange")) colorControl(argument);
-
-
-  ///////////////////////////////////////// throttle box ./////////////////////////////////////////
 }
+
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////// KEYBOARD COMMANDS //////////////////////////////////// 
-boolean test, work, info, play, stop, space, shift, colBeat, vizHold, colHold;
+boolean play, stop, space, shift, colBeat, vizHold, colHold;
 boolean[] keyP = new boolean[128];
 boolean[] keyT = new boolean[128];
 int keyNum;
 int mirrorStep, gridStep;
 void keyPressed() {  
+
+  //// debound or thorttle this ////
 
   /////////////////////////////// RIG KEY FUNCTIONS ////////////////////////
   if (key == 'n') rigViz = (rigViz+1)%rigVizList;        //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
@@ -196,10 +182,7 @@ void keyPressed() {
     roofColor.colorB = (roofColor.colorB+1)%roofColor.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
     cansColor.colorB = (cansColor.colorB+1)%cansColor.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
   }
-  if (key == 'q') info = !info;
-  if (key == 't') test = !test;
-  if (key == 'w') work = !work;
-  if (key == '[') vizHold = !vizHold; 
+   if (key == '[') vizHold = !vizHold; 
   if (key == ']') colHold = !colHold; 
 
   /////////////////////////////////// momentaory key pressed array /////////////////////////////////////////////////
@@ -230,15 +213,20 @@ void keyReleased()
 } 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////// MIDI FUNCTIONS /////////////////////////////////////////////////////////////////////
-float pad[] = new float[64];
+//HashMap<Integer, Float> midiNoteMap = new HashMap<Integer, Float>();
+float pad[] = new float[128];                //// An array where to store the last value received for each midi Note controller
 void noteOn(Note note) {
-  //println();
-  //println("BUTTON: ", +note.pitch);
+  float velocity = map(note.velocity, 0, 127, 0, 1);
+  //midiNoteMap.put(note.pitch, velocity);
+  pad[note.pitch] = velocity;
+  println();
+  println("PAD: "+note.pitch, "Velocity: "+velocity);
 }
-float cc[] = new float[128];                   //// An array where to store the last value received for each knob
+//HashMap<Integer, Integer> midiCCMap = new HashMap<Integer, Integer>();
+float cc[] = new float[128];                   //// An array where to store the last value received for each CC controller
 float prevcc[] = new float[128];
 void controllerChange(int channel, int number, int value) {
   cc[number] = map(value, 0, 127, 0, 1);
   println();
-  println("CC: ", number, "....", map(value, 0, 127, 0, 1), "- Channel:", channel);
+  println("CC: "+number, "Velocity: "+map(value, 0, 127, 0, 1));
 }

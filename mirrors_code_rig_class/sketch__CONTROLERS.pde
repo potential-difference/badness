@@ -4,7 +4,7 @@ ControlP5 cp5;
 boolean glitchToggle;
 float vizTimeSlider, colorSwapSlider, colorTimerSlider, cansDimmer, boothDimmer, digDimmer, backDropSlider, cansSlider;
 float tweakSlider, blurSlider, bgNoiseBrightnessSlider, bgNoiseDensitySlider, manualSlider,stutterSlider, cansAlpha, deleteMeSlider;
-float shimmerSlider, alphaSlider, rigDimmer, roofDimmer, seedsDimmer, seed2Dimmer, uvDimmer, controllerDimmer, funcSlider;
+float shimmerSlider, alphaSlider, rigDimmer, roofDimmer, seedsDimmer, seed2Dimmer, uvDimmer, controllerDimmer, funcSlider, pauseSlider;
 
 class ControlFrame extends PApplet {
   int controlW, controlH;
@@ -273,6 +273,17 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac1) 
       .setColorForeground(slider1) 
       ;
+      cp5.addSlider("pauseSlider")
+      .plugTo(parent, "pauseSlider")
+      .setPosition(x, y+row*5)
+      .setSize(wide, high)
+      //.setFont(font)
+      .setRange(0.5, 5)
+      .setValue(1) // start value of slider
+      .setColorActive(act) 
+      .setColorBackground(bac) 
+      .setColorForeground(slider) 
+      ;  
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////// FITH coloum of sliders //////////////////////////////////
@@ -303,28 +314,7 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
-    //cp5.addSlider("tweakSlider")
-    //  .plugTo(parent, "tweakSlider")
-    //  .setPosition(x+clm, y+row)
-    //  .setSize(wide, high)
-    //  //.setFont(font)
-    //  .setRange(0, 1)
-    //  .setValue(0) // start value of slider
-    //  .setColorActive(act) 
-    //  .setColorBackground(bac) 
-    //  .setColorForeground(slider) 
-    //  ;
-    //cp5.addSlider("blurSlider")
-    //  .plugTo(parent, "blurSlider")
-    //  .setPosition(x+clm, y+row*2)
-    //  .setSize(wide, high)
-    //  //.setFont(font)
-    //  .setRange(0, 1)
-    //  .setValue(1) // start value of slider
-    //  .setColorActive(act1) 
-    //  .setColorBackground(bac1) 
-    //  .setColorForeground(slider1) 
-    //  ;
+    
   }
 
   void draw() {
@@ -337,7 +327,6 @@ class ControlFrame extends PApplet {
   // an event from slider sliderA will change the value of textfield textA here
   public void rigDimmer(float theValue) {
     int value = int(map(theValue, 0, 1, 0, 127));
-    println(theValue, value);
     LPD8bus.sendControllerChange(0, 4, value) ;
   }
 }

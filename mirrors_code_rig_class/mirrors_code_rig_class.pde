@@ -67,7 +67,6 @@ void setup()
   grid.pickleBoothOPC(opcCans);               
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
-
   MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
   println();
   TR8bus = new MidiBus(this, "TR-8S", "TR8-S"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
@@ -107,10 +106,8 @@ void setup()
   cc[MASTERFXON] = 0;
 
   controlFrame = new ControlFrame(this, width, 130, "Controls"); // load control frame must come after shild ring etc
-
   animations = new ArrayList<Anim>();
   animations.add(new Anim(0, alphaSlider, funcSlider, rigDimmer));
-
   frameRate(30);
 }
 float vizTime, colTime;
@@ -123,14 +120,10 @@ void draw()
   noStroke();
   beatDetect.detect(in.mix);
   beats();
-  pause(10);                                ////// number of seconds before no music detected
+  pause(10);                                ////// number of seconds before no music detected and auto kicks in
   globalFunctions();
-
   vizTime = 60*15*vizTimeSlider;
-
   if (frameCount > 10) playWithYourself(vizTime); 
-
-  //blur.set("blurSize", 0);
 
   //////////// WHY DOESN't THIS WORK???? ?/////////////////////////////
   ///// ECHO RIG DIMMER SLIDER AND MIDI SLIDER 4 to control rig dimmer but only whne slider is changed
@@ -151,20 +144,14 @@ void draw()
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   playWithMe();
   // trigger new animnations 
-  if (!manualToggle) if (beatDetect.isOnset()) {
+  if (!manualToggle) if (beatTrigger) {
     animations.add(new CansAnim(roofViz, cansAlpha, funcSlider, cansDimmer));     // create an anim object for the cans specficially doing something simple
     animations.add(new Anim(rigViz, alphaSlider, funcSlider, rigDimmer));   // create a new anim object and add it to the beginning of the arrayList
     animations.add(new RoofAnim(rigViz, alphaSlider, funcSlider, roofDimmer));   // create a new anim object and add it to the beginning of the arrayList
   }
-  //////////////////////////////// NEED TO LOOK AT A BETTER WAY OF DOING THIS ...................///////////////////////////////
-  //////////////////////////////////// MAYBE SORTED THIS WITH  deleteMeSliderr and deleteMeSlider 
   // limit the number of animations
-  while (animations.size()>0 && animations.get(0).deleteme) {
-    animations.remove(0);
-  }
+  while (animations.size()>0 && animations.get(0).deleteme) animations.remove(0);
   if (animations.size() >= 24) animations.remove(0);  
-  textAlign(RIGHT);
-  text("# of anims: "+animations.size(), width - 5, height - 10);
   // adjust animations
   if (keyT['a']) for (Anim anim : animations)  anim.alphFX = 1-(stutter*0.1);
   if (keyT['s']) for (Anim anim : animations)  anim.funcFX = 1-(stutter*noize1*0.1);
@@ -181,41 +168,19 @@ void draw()
   cansLayer = new CansColorLayer(roofBgr);
   // this donesnt work anymore....
   if (cc[106] > 0 || keyT['r'] || glitchToggle) bgNoise(rigBuffer.colorLayer, 0, 0, cc[6]); //PGraphics layer,color,alpha
-
+  ////
   rigLayer.drawColorLayer();
   roofLayer.drawColorLayer();
   cansLayer.drawColorLayer();
-
   blendMode(NORMAL);
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  //////////////////////////////// PLAY WITH ME MORE //////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////// PLAY WITH ME MORE /////////////////////////////////////////////////////////////////////////////////
   playWithMeMore();
-
-  ///////////////////////////////////// BOOTH & DIG //////////////////////////////////////////////////////////////
-  fill(rigColor.c1, 360*boothDimmer);
-  rect(grid.booth.x, grid.booth.y, 30, 10);
-  fill(rigColor.flash1, 360*digDimmer);
-  rect(grid.dig.x, grid.dig.y, 30, 10);
-
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-  /////////////////// TEST ALL COLOURS - TURN ALL LEDS ON AND CYCLE COLOURS ////////////////////////////////
-  if (test) {
-    fill((millis()/50)%360, 100, 100);           
-    rect(size.rig.x, size.rig.y, width, height);
-  }
-  /////////////////// WORK LIGHTS - ALL ON WHITE SO YOU CAN SEE SHIT ///////////////////////////
-  if (work) {
-    pause = 10;
-    fill(360*cc[9], 360*cc[10]);
-    rect(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight);
-    rect(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight);
-  }
-  /////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////// BOOTH & DIG ///////////////////////////////////////////////////////////////////////////////////////
+  boothLights();
+  //////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
+  workLights(keyT['w']);
+  testColors(keyT['t']);
   onScreenInfo();                ///// display info about current settings, viz, funcs, alphs etc
-  colorInfo();                   ///// rects to show current color and next colour
-  frameRateInfo(5, 20);          ///// display frame rate X, Y /////
   //gid.mirrorTest(false);          // true to test physical mirror orientation
 } 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

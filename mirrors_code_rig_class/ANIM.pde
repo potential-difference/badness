@@ -42,22 +42,15 @@ class AllOn extends ManualAnim {
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-class RoofOn extends ManualAnim {
-  float manualAlpha;
+class RoofOn extends AllOn {
   void trigger() {
     super.trigger();
-    manualAlpha=1;
   }
   void decay() {
     super.decay();
-    manualAlpha*=map(this.alphaRate, 0, 1, 0.5, 0.97);
-    manualAlpha*=this.funcRate;
   }
   RoofOn(float _alphaRate, float _funcRate, float _dimmer) {
     super(_alphaRate, _funcRate, _dimmer);
-    dimmer = _dimmer;
-    alphaRate=_alphaRate;
-    funcRate=_funcRate;
     viz = size.roof;
     window = roofBuffer.buffer;
   }
@@ -66,22 +59,15 @@ class RoofOn extends ManualAnim {
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-class CansOn extends ManualAnim {
-  float manualAlpha;
+class CansOn extends AllOn {
   void trigger() {
     super.trigger();
-    manualAlpha=1;
   }
   void decay() {
     super.decay();
-    manualAlpha*=map(this.alphaRate, 0, 1, 0.5, 0.97);
-    manualAlpha*=this.funcRate;
   }
   CansOn(float _alphaRate, float _funcRate, float _dimmer) {
     super(_alphaRate, _funcRate, _dimmer);
-    dimmer = _dimmer;
-    alphaRate=_alphaRate;
-    funcRate=_funcRate;
     viz = size.cans;
     window = cansBuffer.buffer;
   }
@@ -130,7 +116,7 @@ class RoofAnim extends Anim {
 class CansAnim extends Anim {
   CansAnim(int _vizIndex, float _alphaRate, float _funcRate, float _dimmer) {
     super(_vizIndex, _alphaRate, _funcRate, _dimmer);
-    //Roof specific code:
+    //cans specific code:
     alphaIndexA = roofAlphaIndexA;
     alphaIndexB = roofAlphaIndexB;
     functionIndexA = roofFunctionIndexA;
