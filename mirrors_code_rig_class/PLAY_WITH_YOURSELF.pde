@@ -1,20 +1,19 @@
-int counter, rigAlphaIndexA, rigAlphaIndexB = 1, rigFunctionIndexA, rigFunctionIndexB = 1, swap;
-int steps = 0, rigVizList = 9, roofVizList = 11, alphLength = 7, funcLength = 8;
+int rigAlphaIndexA, rigAlphaIndexB = 1, rigFunctionIndexA, rigFunctionIndexB = 1;
+int rigVizList = 9, roofVizList = 11, alphLength = 7, funcLength = 8;
 int roofAlphaIndexA, roofAlphaIndexB = 1, roofFunctionIndexA, roofFunctionIndexB = 1;
-float alf, bt, bt1, func, func1, roofBt, roofBt1, roofFunc, roofFunc1;
+float alf;
 int vizTimer, alphaTimer, functionTimer;
-
 void playWithYourself(float vizTm) {
-  ///////////////// VIZ TIMER ////////////////////////////////////////
+  ///////////////// VIZ TIMER /////////////////////////////////////////////////////////////////////////////////////////////////
   if (millis()/1000 - vizTimer >= vizTm) {
     rigViz = int(random(rigVizList));
     roofViz = int(random(roofVizList));
     alf = 0; ////// set new viz to 0 to fade up viz /////
-    println("VIZ:", rigViz, "COUNTER:", counter, "@", (hour()+":"+minute()+":"+second()));
+    println("VIZ:", rigViz, "@", (hour()+":"+minute()+":"+second()));
     vizTimer = millis()/1000;
   }
   float divide = 4; ///////// NUMBER OF TIMES ALPHA CHANGES PER VIZ
-  ///////////// ALPHA TIMER ///////////////////////////////////////////////////////////
+  ///////////// ALPHA TIMER ////////////////////////////////////////////////////////////////////////////////////////////////////
   if (millis()/1000 - alphaTimer >= vizTm/divide) { ///// alpha timer changes 4 times every viz change /////
     rigAlphaIndexA = int(random(alphLength));  //// select from alpha array
     rigAlphaIndexB = int(random(alphLength)); //// select from alpha array
@@ -25,7 +24,7 @@ void playWithYourself(float vizTm) {
     alphaTimer = millis()/1000;
   }
   divide = 6; //////////////// NUMBER OF TIMES FUNCTION CHANGES PER VIZ
-  //////////// FUNCTION TIMER ////////////////////////////////////////////////////////
+  //////////// FUNCTION TIMER ////////////////////////////////////////////////////////////////////////////////////////////////////
   if (millis()/1000 - functionTimer >= vizTm/divide) {    ////// change function n times for every state change
     rigFunctionIndexA = int(random(funcLength));  //// select from function array
     rigFunctionIndexB = int(random(funcLength));  //// select from function array
@@ -35,22 +34,22 @@ void playWithYourself(float vizTm) {
     println("function change @", (hour()+":"+minute()+":"+second()), "new fc:", rigFunctionIndexA, "new fc1:", rigFunctionIndexB);
     functionTimer = millis()/1000;
   }
-  ///////////////////////////////// FADE UP NEXT VIZ ////////////
+  ///////////////////////////////// FADE UP NEXT VIZ //////////////////////////////////////////////////////////////////////////
   if (alf < 1)  alf += 0.05;
   if (alf > 1) alf = 1;
-  //////////////////////////////////////////////////// END OF PLAY WITH YOURSELF AUTO CONTROL //////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////// PLAY WITH COLOUR ////////////////////////////////////////////////////////////////
-  //if (keyT[97]) colStepper = 2;
-  //else colStepper = 1;
   colTime = colorTimerSlider*60*30;
   rigColor.colorTimer(colTime, 1); //// seconds between colour change, number of steps to cycle through colours
   roofColor.colorTimer(colTime/1.5, 2); //// seconds between colour change, number of steps to cycle through colours
   cansColor.colorTimer(colTime/2, 2); //// seconds between colour change, number of steps to cycle through colours
 
   //if (millis()/1000* == 0) rigBgr = (rigBgr + 1) % bgList;               // change colour layer automatically
+
+  //////////////////////////////////////////////////// END OF PLAY WITH YOURSELF AUTO CONTROL //////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
   ///////////////////////////////////// COLORSWAP TIMER /////////////////////////////////////////////////////////////////
   if (colorSwapSlider > 0) {

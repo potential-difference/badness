@@ -35,8 +35,7 @@ MidiBus faderBus;     // midibus for APC mini
 MidiBus LPD8bus;      // midibus for LPD8
 
 PFont myFont;
-boolean onTop = true, manualToggle = false;
-
+boolean onTop = false, manualToggle = false;
 void settings() {
   size = new SizeSettings(LANDSCAPE);
 
@@ -44,7 +43,6 @@ void settings() {
   size.surfacePositionX = 550;
   size.surfacePositionY = 150;
 }
-
 float dimmer = 1;
 void setup()
 {
@@ -99,6 +97,8 @@ void setup()
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
   for (int i = 0; i < 100; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen
   cc[1] = 0.75;
+  cc[2] = 0.75;
+  cc[5] = 0.3;
   cc[6] = 0.75;
   cc[8] = 1;
   cc[MASTERFXON] = 0;
@@ -149,7 +149,7 @@ void draw()
   }
   // limit the number of animations
   while (animations.size()>0 && animations.get(0).deleteme) animations.remove(0);
-  if (animations.size() >= 24) animations.remove(0);  
+  if (animations.size() >= 28) animations.remove(0);  
   // adjust animations
   if (keyT['a']) for (Anim anim : animations)  anim.alphFX = 1-(stutter*0.1);
   if (keyT['s']) for (Anim anim : animations)  anim.funcFX = 1-(stutter*noize1*0.1);

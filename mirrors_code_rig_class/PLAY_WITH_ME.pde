@@ -1,23 +1,15 @@
 void playWithMe() {
-
-
   ////////////////////////////////////// COLOR SWAP AND FLIP BUTTONS /////////////////////////////////////////
-  if (keyP['o']) rigColor.colorSwap(0.9999999999);                // COLOR SWAP MOMENTARY 
+  if (keyP['o']) rigColor.colorSwap(0.9999999999);               // COLOR SWAP MOMENTARY 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  if (keyT['i']) rigColor.colFlip = (keyT['i']);                  // COLOR FLIP TOGGLE 
-  if (keyP['u']) rigColor.colFlip = !rigColor.colFlip;                   // COLOR FLIP MOMENTARY
-  rigColor.colorFlip(rigColor.colFlip);
+  if (keyT['i']) rigColor.colorFlip(keyT['i']);                  // COLOR FLIP TOGGLE 
+  if (keyP['u']) rigColor.colorFlip(keyP['u']);                  // COLOR FLIP MOMENTARY
+
   ////////////////////////////// LERP COLOUR ON BEAT /////////////////////////////////////////////////////////
   if (keyT['y']) {
     colorLerping(rigColor, (1-beat)*2);
     colorLerping(roofColor, (1-beat)*1.5);
   }
-  //if (keyT['o']) colorLerping(rig, beatFast); 
-  //colBeat = !colBeat;
-  // lerpcolor function goes in here
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
   ////////////////////////////////////////// HOLD BUTTONS FOR VIZ AND COLOUR /////////////////////////////////
   if (vizHold) vizTimer = millis()/1000;              // hold viz change timer
   if (colHold) {
@@ -26,7 +18,7 @@ void playWithMe() {
     cansColor.colorTimer = millis()/1000;              // hold color change timer
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   if (keyP[' ']) animations.add(new Anim(rigViz, alphaSlider, funcSlider, rigDimmer));         // or space bar!
   if (keyP[' ']) animations.add(new RoofAnim(roofViz, alphaSlider, funcSlider, roofDimmer));   // or space bar!
   if (keyP[' ']) animations.add(new CansAnim(roofViz, alphaSlider, funcSlider, roofDimmer));   // or space bar!
@@ -41,9 +33,11 @@ void playWithMe() {
     animations.add(new AllOn(manualSlider, stutter, roofDimmer));
     roofColor.colorFlip(true);
   }
+  float alphaRate = cc[1];
+  float funcRate = cc[2];
 
-  if (cc[101] > 0) animations.add(new Anim(rigViz, cc[1], cc[2], cc[101])); // current animation
-  if (cc[102] > 0) animations.add(new Anim(9, cc[1], cc[2], cc[102])); // current animation
+  if (cc[101] > 0) animations.add(new Anim(rigViz, alphaRate, funcRate, cc[101])); // current animation
+  if (cc[102] > 0) animations.add(new Anim(9, alphaRate, funcRate, cc[102])); // current animation
   if (cc[103] > 0) { 
     rigColor.colorSwap(0.9999999999);                // COLOR SWAP MOMENTARY
     roofColor.colorSwap(0.9999999999);
@@ -57,6 +51,7 @@ void playWithMe() {
     animations.add(new CansOn(manualSlider, 1-(stutter*stutterSlider), cc[108]));
     cansColor.colorFlip(true);
   }
+  for(int i = 0;i < 8; i++) if (padPressed[101+i]) animations.add(new Anim(i, alphaRate, funcRate, pad[101+i])); // current animation
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
