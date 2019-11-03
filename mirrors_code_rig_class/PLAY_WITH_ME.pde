@@ -28,7 +28,7 @@ void playWithMe() {
     animations.add(new RoofOn(manualSlider, stutter, rigDimmer));
     rigColor.colorFlip(true);
   }
-  if (keyP['z'] ) animations.add(new AllOn(manualSlider, stutter, roofDimmer));
+  if (keyP['z'] ) animations.add(new AllOn(manualSlider, stutter, rigDimmer));
   if (keyP['`'] ) { 
     animations.add(new AllOn(manualSlider, stutter, roofDimmer));
     roofColor.colorFlip(true);
@@ -51,7 +51,10 @@ void playWithMe() {
     animations.add(new CansOn(manualSlider, 1-(stutter*stutterSlider), cc[108]));
     cansColor.colorFlip(true);
   }
-  for(int i = 0;i < 8; i++) if (padPressed[101+i]) animations.add(new Anim(i, alphaRate, funcRate, pad[101+i])); // current animation
+
+  for (int i = 0; i < 8; i++) if (padPressed[101+i]) animations.add(new Anim(i, alphaRate, funcRate, pad[101+i])); // use pad buttons to play differnt viz
+  for (int i = 0; i<8; i++) if (keyP[49+i]) animations.add(new Anim(i, alphaSlider, funcSlider, rigDimmer));       // use number buttons to play differnt viz
+  if (keyP[48]) animations.add(new AllOn(manualSlider, 1, rigDimmer));                                             // '0' triggers all on for the rig
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
