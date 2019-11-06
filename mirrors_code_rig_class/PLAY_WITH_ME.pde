@@ -19,7 +19,7 @@ void playWithMe() {
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  if (keyP[' ']) animations.add(new Anim(rigViz, alphaSlider, funcSlider, rigDimmer));         // or space bar!
+  if (keyP[' ']) animations.add(new MirrorsAnim(rigViz, alphaSlider, funcSlider, rigDimmer));         // or space bar!
   if (keyP[' ']) animations.add(new RoofAnim(roofViz, alphaSlider, funcSlider, roofDimmer));   // or space bar!
   if (keyP[' ']) animations.add(new CansAnim(roofViz, alphaSlider, funcSlider, roofDimmer));   // or space bar!
 
@@ -28,22 +28,22 @@ void playWithMe() {
     animations.add(new RoofOn(manualSlider, stutter, rigDimmer));
     rigColor.colorFlip(true);
   }
-  if (keyP['z'] ) animations.add(new AllOn(manualSlider, stutter, rigDimmer));
+  if (keyP['z'] ) animations.add(new MirrorsOn(manualSlider, stutter, rigDimmer));
   if (keyP['`'] ) { 
-    animations.add(new AllOn(manualSlider, stutter, roofDimmer));
+    animations.add(new MirrorsOn(manualSlider, stutter, roofDimmer));
     roofColor.colorFlip(true);
   }
   float alphaRate = cc[1];
   float funcRate = cc[2];
 
-  if (cc[101] > 0) animations.add(new Anim(rigViz, alphaRate, funcRate, cc[101])); // current animation
-  if (cc[102] > 0) animations.add(new Anim(9, alphaRate, funcRate, cc[102])); // current animation
+  if (cc[101] > 0) animations.add(new MirrorsAnim(rigViz, alphaRate, funcRate, cc[101])); // current animation
+  if (cc[102] > 0) animations.add(new MirrorsAnim(9, alphaRate, funcRate, cc[102])); // current animation
   if (cc[103] > 0) { 
     rigColor.colorSwap(0.9999999999);                // COLOR SWAP MOMENTARY
     roofColor.colorSwap(0.9999999999);
   }
   if (cc[104] > 0) {
-    animations.add(new AllOn(manualSlider, 1-(stutter*stutterSlider), cc[104]));
+    animations.add(new MirrorsOn(manualSlider, 1-(stutter*stutterSlider), cc[104]));
     rigColor.colorFlip(true);
   }
   if (cc[107] > 0) animations.add(new RoofOn(manualSlider, 1-(stutter*stutterSlider), cc[107]));
@@ -52,9 +52,9 @@ void playWithMe() {
     cansColor.colorFlip(true);
   }
 
-  for (int i = 0; i < 8; i++) if (padPressed[101+i]) animations.add(new Anim(i, alphaRate, funcRate, pad[101+i])); // use pad buttons to play differnt viz
-  for (int i = 0; i<8; i++) if (keyP[49+i]) animations.add(new Anim(i, manualSlider, funcSlider, rigDimmer));       // use number buttons to play differnt viz
-  if (keyP[48]) animations.add(new AllOn(manualSlider, 1, rigDimmer));                                             // '0' triggers all on for the rig
+  for (int i = 0; i < 8; i++) if (padPressed[101+i]) animations.add(new MirrorsAnim(i, alphaRate, funcRate, pad[101+i])); // use pad buttons to play differnt viz
+  for (int i = 0; i<8; i++) if (keyP[49+i]) animations.add(new MirrorsAnim(i, manualSlider, funcSlider, rigDimmer));       // use number buttons to play differnt viz
+  if (keyP[48]) animations.add(new MirrorsOn(manualSlider, 1, rigDimmer));                                             // '0' triggers all on for the rig
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

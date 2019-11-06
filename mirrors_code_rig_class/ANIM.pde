@@ -76,6 +76,24 @@ class CansOn extends AllOn {
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
+class MirrorsOn extends AllOn {
+  void trigger() {
+    super.trigger();
+  }
+  void decay() {
+    super.decay();
+  }
+  MirrorsOn(float _alphaRate, float _funcRate, float _dimmer) {
+    super(_alphaRate, _funcRate, _dimmer);
+    viz = size.rig;
+    window = rigBuffer.buffer;
+  }
+  void draw() {
+    window.background(360*manualAlpha*dimmer);
+  }
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class RoofAnim extends Anim {
   RoofAnim(int _vizIndex, float _alphaRate, float _funcRate, float _dimmer) {
     super(_vizIndex, _alphaRate, _funcRate, _dimmer);
@@ -88,6 +106,14 @@ class RoofAnim extends Anim {
     bluredB = roofBuffer.pass2;
     window = roofBuffer.buffer;
     viz = size.roof;
+
+    for (int i=0; i<position.length/2; i++) position[i]   = new PVector(window.width/(position.length/2+1)*(i+1), window.height/3*1);
+    for (int i=0; i<position.length/2; i++) position[i+6] = new PVector(window.width/(position.length/2+1)*(i+1), window.height/3*2);
+
+    for (int i=0; i<positionX.length; i++)  positionX[i][0] = new PVector(window.width/(positionX.length+1)*(i+1), window.height/5*1);
+    for (int i=0; i<positionX.length; i++)  positionX[i][1] = new PVector(window.width/(positionX.length+1)*(i+1), window.height/5*2);
+    for (int i=0; i<positionX.length; i++)  positionX[i][2] = new PVector(window.width/(positionX.length+1)*(i+1), window.height/5*3);
+    for (int i=0; i<positionX.length; i++)  positionX[i][3] = new PVector(window.width/(positionX.length+1)*(i+1), window.height/5*4);
   }
   void drawAnim() {
     super.drawAnim();
@@ -149,12 +175,35 @@ class CansAnim extends Anim {
     }
   }
 }
+class MirrorsAnim extends Anim {
+  MirrorsAnim(int _vizIndex, float _alphaRate, float _funcRate, float _dimmer) {
+    super(_vizIndex, _alphaRate, _funcRate, _dimmer);
+    //mirrors specific code:
+    vizIndex = _vizIndex;
+    viz = size.rig;
+    window = rigBuffer.buffer;
+    bluredA = rigBuffer.pass1;
+    bluredB = rigBuffer.pass2;
+    alphaIndexA = rigAlphaIndexA;
+    alphaIndexB = rigAlphaIndexB;
+    functionIndexA = rigFunctionIndexA;
+    functionIndexB = rigFunctionIndexB;
+
+    position = grid.mirror;
+    positionX = grid.mirrorX;
+  }
+  void drawAnim() {
+    super.drawAnim();
+  }
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 class Anim implements Animation {
   float alphaRate, funcRate, dimmer, alphaA, functionA, alphaB, functionB, alphMod=1, funcMod=1, funcFX=1, alphFX=1;
   int blury, prevblury, vizIndex, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB;
   color col1, col2;
   PVector viz;
+  PVector[] position = new PVector[18];
+  PVector[][] positionX = new PVector[7][4];  
   PGraphics window, bluredA, bluredB;
   float alph[] = new float[7];
   float func[] = new float[8];
@@ -183,6 +232,9 @@ class Anim implements Animation {
     alphaIndexB = rigAlphaIndexB;
     functionIndexA = rigFunctionIndexA;
     functionIndexB = rigFunctionIndexB;
+
+    position = grid.mirror;
+    positionX = grid.mirrorX;
   }
 
   float stroke, wide, high, rotate;
@@ -193,6 +245,12 @@ class Anim implements Animation {
 
     vizWidth = float(this.window.width);
     vizHeight = float(this.window.height);
+    for (int i = 0; i < position.length; i++) text(i, position[i].x, position[i].y);   /// mirrors Position info
+    for (int i = 0; i < positionX.length; i++) text(i, positionX[i][0].x, positionX[i][0].y);   /// mirrors Position info
+
+    //
+    // this should probably be moved to playwithyourself
+    //
 
     /////////////////////////////////////// SHIMMER control for rig ////////////////////////////
     if (beatCounter % 42 > 36) { 
@@ -212,7 +270,8 @@ class Anim implements Animation {
     alphaB *=alphFX*alf;
     functionA =func[functionIndexA]*funcFX;
     functionB =func[functionIndexB]*funcFX;
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     switch (vizIndex) {
     case 0:
       window.beginDraw();
@@ -222,15 +281,15 @@ class Anim implements Animation {
       wide = wide-(wide*functionA);
       high = wide*2;
       rotate = 90*noize*functionB;
-      donut(grid.mirror[2].x, grid.mirror[2].y, col1, stroke, wide, high, rotate, alphaA);
-      donut(grid.mirror[9].x, grid.mirror[9].y, col1, stroke, wide, high, rotate, alphaA);
+      donut(position[2].x, position[2].y, col1, stroke, wide, high, rotate, alphaA);
+      donut(position[9].x, position[9].y, col1, stroke, wide, high, rotate, alphaA);
       stroke = 30+(90*functionB*oskP);
       wide = vizWidth*1.2;
       wide = wide-(wide*functionB);
       high = wide*2;
       rotate = -90*noize*functionA;
-      donut(grid.mirror[3].x, grid.mirror[3].y, col1, stroke, wide, high, rotate, alphaA);
-      donut(grid.mirror[8].x, grid.mirror[8].y, col1, stroke, wide, high, rotate, alphaA);
+      donut(position[3].x, position[3].y, col1, stroke, wide, high, rotate, alphaA);
+      donut(position[8].x, position[8].y, col1, stroke, wide, high, rotate, alphaA);
       window.endDraw();
       break;
     case 1:
@@ -243,28 +302,28 @@ class Anim implements Animation {
           wide = (vizWidth*2)-(vizWidth/10);
           wide = 50+(wide-(wide*functionA)); 
           high = wide;
-          donut(grid.mirror[i].x, grid.mirror[i].y, col1, stroke, wide, high, rotate, alphaA);
-          donut(grid.mirror[i+1 % grid.columns+6].x, grid.mirror[i+1 % grid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
+          donut(position[i].x, position[i].y, col1, stroke, wide, high, rotate, alphaA);
+          donut(position[i+1 % grid.columns+6].x, position[i+1 % grid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
           //
           wide = (vizWidth/4)-(vizWidth/10);
           wide = 10+(wide-(wide*functionB)); 
           high = wide;
-          donut(grid.mirror[i+1 % grid.columns].x, grid.mirror[i+1 % grid.columns].y, col1, stroke, wide, high, rotate, alphaB);
-          donut(grid.mirror[i+6].x, grid.mirror[i+6].y, col1, stroke, wide, high, rotate, alphaB);
+          donut(position[i+1 % grid.columns].x, position[i+1 % grid.columns].y, col1, stroke, wide, high, rotate, alphaB);
+          donut(position[i+6].x, position[i+6].y, col1, stroke, wide, high, rotate, alphaB);
         }
       } else { // opposite way around
         for (int i = 0; i < grid.columns; i+=2) {
           wide  = (vizWidth*2)-(vizWidth/10);
           wide = 50+(wide-(wide*functionA)); 
           high = wide;
-          donut(grid.mirror[i+1 % grid.columns].x, grid.mirror[i+1 % grid.columns].y, col1, stroke, wide, high, rotate, alphaB);
-          donut(grid.mirror[i+6].x, grid.mirror[i+6].y, col1, stroke, wide, high, rotate, alphaB);
+          donut(position[i+1 % grid.columns].x, position[i+1 % grid.columns].y, col1, stroke, wide, high, rotate, alphaB);
+          donut(position[i+6].x, position[i+6].y, col1, stroke, wide, high, rotate, alphaB);
           //
           wide = (vizWidth/4)-(vizWidth/10);
           wide = 10+(wide-(wide*functionB)); 
           high = wide;
-          donut(grid.mirror[i].x, grid.mirror[i].y, col1, stroke, wide, high, rotate, alphaA);
-          donut(grid.mirror[i+1 % grid.columns+6].x, grid.mirror[i+1 % grid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
+          donut(position[i].x, position[i].y, col1, stroke, wide, high, rotate, alphaA);
+          donut(position[i+1 % grid.columns+6].x, position[i+1 % grid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
         }
       }
       window.endDraw();
@@ -277,15 +336,15 @@ class Anim implements Animation {
       else rotate = 60* func[0];
       wide = 10+(func[0]*vizWidth);
       high = 110-(func[1]*vizHeight);
-      star(grid.mirrorX[2][0].x, grid.mirrorX[2][0].y, col1, stroke, wide, high, rotate, alphaA);
-      star(grid.mirrorX[4][2].x, grid.mirrorX[4][2].y, col1, stroke, wide, high, rotate, alphaA);
+      star(positionX[2][0].x, positionX[2][0].y, col1, stroke, wide, high, rotate, alphaA);
+      star(positionX[4][2].x, positionX[4][2].y, col1, stroke, wide, high, rotate, alphaA);
       //
       wide = 10+(func[1]*vizWidth);
       high = 110+(func[0]*vizHeight);
       if (beatCounter % 8 < 3) rotate = 60*func[1];
       else rotate = -60*func[1];
-      star(grid.mirrorX[4][0].x, grid.mirrorX[4][0].y, col1, stroke, wide, high, rotate, alphaA);
-      star(grid.mirrorX[2][2].x, grid.mirrorX[2][2].y, col1, stroke, wide, high, rotate, alphaA);
+      star(positionX[4][0].x, positionX[4][0].y, col1, stroke, wide, high, rotate, alphaA);
+      star(positionX[2][2].x, positionX[2][2].y, col1, stroke, wide, high, rotate, alphaA);
       window.endDraw();
       break;
     case 3:
@@ -293,11 +352,11 @@ class Anim implements Animation {
       window.background(0);
       wide = 500+(noize*150);
       if (beatCounter % 8 < 3) {
-        rush(grid.mirror[0].x, grid.mirror[0].y, col1, wide, vizHeight/2, functionA, alphaA);
-        rush(grid.mirror[6].x, grid.mirror[6].y, col1, wide, vizHeight/2, 1-functionA, alphaA);
+        rush(position[0].x, position[0].y, col1, wide, vizHeight/2, functionA, alphaA);
+        rush(position[6].x, position[6].y, col1, wide, vizHeight/2, 1-functionA, alphaA);
       } else {
-        rush(grid.mirror[0].x, grid.mirror[0].y, col1, wide, vizHeight/2, 1-functionA, alphaA);
-        rush(grid.mirror[6].x, grid.mirror[6].y, col1, wide, vizHeight/2, functionA, alphaA);
+        rush(position[0].x, position[0].y, col1, wide, vizHeight/2, 1-functionA, alphaA);
+        rush(position[6].x, position[6].y, col1, wide, vizHeight/2, functionA, alphaA);
       }
       window.endDraw();
       break;
@@ -305,15 +364,15 @@ class Anim implements Animation {
       window.beginDraw();
       window.background(0);
       wide = 150+(noize*600*functionA);
-      rush(viz.x, grid.mirror[0].y, col1, wide, vizHeight/2, functionA, alphaA);
-      rush(viz.x, grid.mirror[0].y, col1, wide, vizHeight/2, 1-functionB, alphaA);
-      rush(-vizWidth/2, grid.mirror[0].y, col1, wide, vizHeight/2, 1-functionA, alphaA);
-      rush(-vizWidth/2, grid.mirror[0].y, col1, wide, vizHeight/2, functionB, alphaA);
+      rush(viz.x, position[0].y, col1, wide, vizHeight/2, functionA, alphaA);
+      rush(viz.x, position[0].y, col1, wide, vizHeight/2, 1-functionB, alphaA);
+      rush(-vizWidth/2, position[0].y, col1, wide, vizHeight/2, 1-functionA, alphaA);
+      rush(-vizWidth/2, position[0].y, col1, wide, vizHeight/2, functionB, alphaA);
       //
-      rush(viz.x, grid.mirror[6].y, col1, wide, vizHeight/2, 1-functionA, alphaA);
-      rush(viz.x, grid.mirror[6].y, col1, wide, vizHeight/2, functionB, alphaA);
-      rush(-vizWidth/2, grid.mirror[6].y, col1, wide, vizHeight/2, functionA, alphaA);
-      rush(-vizWidth/2, grid.mirror[6].y, col1, wide, vizHeight/2, 1-functionB, alphaA);
+      rush(viz.x, position[6].y, col1, wide, vizHeight/2, 1-functionA, alphaA);
+      rush(viz.x, position[6].y, col1, wide, vizHeight/2, functionB, alphaA);
+      rush(-vizWidth/2, position[6].y, col1, wide, vizHeight/2, functionA, alphaA);
+      rush(-vizWidth/2, position[6].y, col1, wide, vizHeight/2, 1-functionB, alphaA);
       window.endDraw();
       break;
     case 5:
@@ -323,9 +382,9 @@ class Anim implements Animation {
       high = 10+(functionB*vizHeight*1.5);
       stroke = 30+(60*functionA*noize1);
       rotate = 30;
-      star(grid.mirrorX[1][1].x, viz.y, col1, stroke, wide, high, rotate, alphaA);
+      star(positionX[1][1].x, viz.y, col1, stroke, wide, high, rotate, alphaA);
       rotate = -30;
-      star(grid.mirrorX[5][1].x, viz.y, col1, stroke, wide, high, rotate, alphaA);
+      star(positionX[5][1].x, viz.y, col1, stroke, wide, high, rotate, alphaA);
       window.endDraw();
       break;
     case 6:
@@ -334,8 +393,8 @@ class Anim implements Animation {
       stroke = 300-(200*noize);
       wide = vizWidth+(50);
       high = wide;
-      squareNut(grid.mirror[1].x, viz.y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
-      squareNut(grid.mirror[4].x, viz.y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
+      squareNut(position[1].x, viz.y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
+      squareNut(position[4].x, viz.y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
       window.endDraw();
       break;
     case 7:
@@ -345,21 +404,21 @@ class Anim implements Animation {
       wide = vizWidth+(50);
       wide = wide-(wide*functionA);
       high = wide;
-      squareNut(grid.mirrorX[0][2].x, grid.mirrorX[0][2].y, col1, stroke, wide, high, -45, alphaA);
-      squareNut(grid.mirrorX[1][0].x, grid.mirrorX[1][0].y, col1, stroke, wide, high, -45, alphaA);
-      squareNut(grid.mirrorX[2][2].x, grid.mirrorX[2][2].y, col1, stroke, wide, high, -45, alphaA);
-      squareNut(grid.mirrorX[3][0].x, grid.mirrorX[3][0].y, col1, stroke, wide, high, -45, alphaA);
-      squareNut(grid.mirrorX[4][2].x, grid.mirrorX[4][2].y, col1, stroke, wide, high, -45, alphaA);
-      squareNut(grid.mirrorX[5][0].x, grid.mirrorX[5][0].y, col1, stroke, wide, high, -45, alphaA);
-      squareNut(grid.mirrorX[6][2].x, grid.mirrorX[6][2].y, col1, stroke, wide, high, -45, alphaA);
+      squareNut(positionX[0][2].x, positionX[0][2].y, col1, stroke, wide, high, -45, alphaA);
+      squareNut(positionX[1][0].x, positionX[1][0].y, col1, stroke, wide, high, -45, alphaA);
+      squareNut(positionX[2][2].x, positionX[2][2].y, col1, stroke, wide, high, -45, alphaA);
+      squareNut(positionX[3][0].x, positionX[3][0].y, col1, stroke, wide, high, -45, alphaA);
+      squareNut(positionX[4][2].x, positionX[4][2].y, col1, stroke, wide, high, -45, alphaA);
+      squareNut(positionX[5][0].x, positionX[5][0].y, col1, stroke, wide, high, -45, alphaA);
+      squareNut(positionX[6][2].x, positionX[6][2].y, col1, stroke, wide, high, -45, alphaA);
       window.endDraw();
       break;
     case 8:
       window.beginDraw();
       window.background(0);
       wide = 500+(noize*300);
-      if   (beatCounter % 3 < 1) rush(grid.mirror[0].x, viz.y, col1, wide, vizHeight, functionA, alphaA);
-      else rush(grid.mirror[0].x, viz.y, col1, wide, vizHeight, 1-functionA, alphaA);
+      if   (beatCounter % 3 < 1) rush(position[0].x, viz.y, col1, wide, vizHeight, functionA, alphaA);
+      else rush(position[0].x, viz.y, col1, wide, vizHeight, 1-functionA, alphaA);
       window.endDraw();
       break;
     case 9:

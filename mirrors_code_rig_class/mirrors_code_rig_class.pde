@@ -81,7 +81,7 @@ void setup()
   roofColor = new SketchColor(); 
   cansColor = new SketchColor();
 
-  rigViz = 0;
+  rigViz = 1;
   roofViz = 10;
   rigBgr = 5;
   roofBgr = 4;
@@ -143,9 +143,9 @@ void draw()
   playWithMe();
   // create a new anim object and add it to the beginning of the arrayList
   if (beatTrigger) {
-    if (rigToggle) animations.add(new Anim(rigViz, alphaSlider, funcSlider, rigDimmer));   
+    if (rigToggle)    animations.add(new MirrorsAnim(rigViz, alphaSlider, funcSlider, rigDimmer));   
     if (cansToggle)   animations.add(new CansAnim(roofViz, cansAlpha, funcSlider, cansDimmer));              // create an anim object for the cans 
-    if (roofToggle)   animations.add(new RoofAnim(rigViz, alphaSlider, funcSlider, roofDimmer));         // create a new anim object for the roof
+    if (roofToggle)   animations.add(new RoofAnim(roofViz, alphaSlider, funcSlider, roofDimmer));            // create a new anim object for the roof
   }
   // limit the number of animations
   while (animations.size()>0 && animations.get(0).deleteme) animations.remove(0);

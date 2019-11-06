@@ -4,6 +4,7 @@ class OPCGrid {
   PVector[] _mirror = new PVector[12];
   PVector[] seed = new PVector[3];
   PVector[] cans = new PVector[3];
+  PVector[] roof = new PVector[18];
   PVector[] controller = new PVector[4];
   PVector uv; 
   PVector booth, dig;
@@ -104,7 +105,16 @@ class OPCGrid {
     cans[0] = new PVector(size.cans.x, size.cans.y-(size.cansHeight/4));
     cans[1] = new PVector(size.cans.x, size.cans.y);
     cans[2] = new PVector(size.cans.x, size.cans.y+(size.cansHeight/4));
-
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////// ROOF POSITION /////////////////////////////////////////////////////////////////////
+    float xw = 6;
+    for (int i=0; i<roof.length/6; i++) roof[i] =     new PVector (size.roof.x-(size.roofWidth/2)+size.roofWidth/(roof.length/xw+1)*(i+1), size.roofHeight/7*1);
+    for (int i=0; i<roof.length/6; i++) roof[i+3] =   new PVector (size.roof.x-(size.roofWidth/2)+size.roofWidth/(roof.length/xw+1)*(i+1), size.roofHeight/7*2);
+    for (int i=0; i<roof.length/6; i++) roof[i+6] =   new PVector (size.roof.x-(size.roofWidth/2)+size.roofWidth/(roof.length/xw+1)*(i+1), size.roofHeight/7*3);
+    for (int i=0; i<roof.length/6; i++) roof[i+9] =   new PVector (size.roof.x-(size.roofWidth/2)+size.roofWidth/(roof.length/xw+1)*(i+1), size.roofHeight/7*4);
+    for (int i=0; i<roof.length/6; i++) roof[i+12] =  new PVector (size.roof.x-(size.roofWidth/2)+size.roofWidth/(roof.length/xw+1)*(i+1), size.roofHeight/7*5);
+    for (int i=0; i<roof.length/6; i++) roof[i+15] =  new PVector (size.roof.x-(size.roofWidth/2)+size.roofWidth/(roof.length/xw+1)*(i+1), size.roofHeight/7*6);
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     booth = new PVector (width - 30, 110);
     dig = new PVector (width - 30, 125);
   }

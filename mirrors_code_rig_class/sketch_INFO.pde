@@ -104,7 +104,8 @@ void cordinatesInfo(boolean _info) {
     /////  LABLELS to show what PVectors are what 
     textSize(12);
     textAlign(CENTER);
-    for (int i = 0; i < 12; i++) text(i, grid.mirror[i].x, grid.mirror[i].y);   /// Ball Position info
+    for (int i = 0; i < grid.mirror.length; i++) text(i, grid.mirror[i].x, grid.mirror[i].y);   /// mirrors Position info
+    for (int i = 0; i < grid.roof.length; i++) if (size.roof.x>0) text(i, grid.roof[i].x, grid.roof[i].y);
   }
 }
 void sequencer() {
