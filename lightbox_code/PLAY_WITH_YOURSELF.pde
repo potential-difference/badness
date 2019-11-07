@@ -1,5 +1,5 @@
 int rigAlphaIndexA, rigAlphaIndexB = 1, rigFunctionIndexA, rigFunctionIndexB = 1;
-int rigVizList = 9, roofVizList = 11, alphLength = 7, funcLength = 8;
+int rigVizList = 7, roofVizList = 11, alphLength = 7, funcLength = 8;
 int roofAlphaIndexA, roofAlphaIndexB = 1, roofFunctionIndexA, roofFunctionIndexB = 1;
 float alf;
 int vizTimer, alphaTimer, functionTimer;
@@ -40,12 +40,12 @@ void playWithYourself(float vizTm) {
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////// PLAY WITH COLOUR ////////////////////////////////////////////////////////////////
-  colTime = colorTimerSlider*60*30;
+  colTime = 60*2;
   rigColor.colorTimer(colTime, 1); //// seconds between colour change, number of steps to cycle through colours
-  roofColor.colorTimer(colTime/1.5, 2); //// seconds between colour change, number of steps to cycle through colours
-  cansColor.colorTimer(colTime/2, 2); //// seconds between colour change, number of steps to cycle through colours
-
-  //if (millis()/1000* == 0) rigBgr = (rigBgr + 1) % bgList;               // change colour layer automatically
+  //roofColor.colorTimer(colTime/1.5, 2); //// seconds between colour change, number of steps to cycle through colours
+  //cansColor.colorTimer(colTime/2, 2); //// seconds between colour change, number of steps to cycle through colours
+ 
+  if (millis()/1000 % (colTime/3) == 0) rigBgr = (rigBgr + 1) % rigBgList;               // change colour layer automatically
 
   //////////////////////////////////////////////////// END OF PLAY WITH YOURSELF AUTO CONTROL //////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
