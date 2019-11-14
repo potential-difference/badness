@@ -51,14 +51,15 @@ abstract class ManualAnim extends Anim {
 }
 
 
-
+DonutFactory df;
 class Anim implements Animation {
-
+  float squareness;
   float alphaSlider;
   float funcSlider;
   /////////////////////// LOAD GRAPHICS FOR VISULISATIONS AND COLOR LAYERS //////////////////////////////
-  PGraphics window, pass1, blured;
-  int blury, prevblury, vizIndex;
+  //PGraphics window, pass1, blured;
+  //int blury, prevblury, vizIndex;
+  int prevblury, vizIndex;
   float alphMod=1, funcMod=1, funcFX=1, alphFX=1;
   float xpos, ypos;
   PShader blur;
@@ -68,14 +69,25 @@ class Anim implements Animation {
   float func[] = new float[8];
 
   Anim(int _vizIndex, float _alphaSlider, float _funcSlider) {
+    squareness=blurSlider;
+    //workaround lack of static methods
+    if (null==df){
+      df=new DonutFactory();
+    }//workaround
+    
     alphaSlider=_alphaSlider;
     funcSlider=_funcSlider;
     resetbeats(); 
+    
+
+    
+    
     //// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
     blury = int(map(blurSlider, 0, 1, 0, 100));
     if (blury!=prevblury) {
       prevblury=blury;
     }
+    /*
     window = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
     window.beginDraw();
     window.colorMode(HSB, 360, 100, 100);
@@ -101,7 +113,7 @@ class Anim implements Animation {
     blured.beginDraw();
     blured.imageMode(CENTER);
     blured.noStroke();
-    blured.endDraw();
+    blured.endDraw();*/
 
     trigger();
     vizIndex = _vizIndex;
@@ -156,15 +168,15 @@ class Anim implements Animation {
       wide = wide-(wide*functionA);
       high = wide*2;
       rotate = 90*noize*functionB;
-      donut(grid.mirror[2].x, grid.mirror[2].y, col1, stroke, wide, high, rotate, alphaA);
-      donut(grid.mirror[9].x, grid.mirror[9].y, col1, stroke, wide, high, rotate, alphaA);
+      fastdonut(grid.mirror[2].x, grid.mirror[2].y, col1, stroke, wide, high, rotate, alphaA);
+      fastdonut(grid.mirror[9].x, grid.mirror[9].y, col1, stroke, wide, high, rotate, alphaA);
       stroke = 30+(90*functionB*oskP);
       wide = size.vizWidth*1.2;
       wide = wide-(wide*functionB);
       high = wide*2;
       rotate = -90*noize*functionA;
-      donut(grid.mirror[3].x, grid.mirror[3].y, col1, stroke, wide, high, rotate, alphaA);
-      donut(grid.mirror[8].x, grid.mirror[8].y, col1, stroke, wide, high, rotate, alphaA);
+      fastdonut(grid.mirror[3].x, grid.mirror[3].y, col1, stroke, wide, high, rotate, alphaA);
+      fastdonut(grid.mirror[8].x, grid.mirror[8].y, col1, stroke, wide, high, rotate, alphaA);
       window.endDraw();
       break;
     case 1:
@@ -177,28 +189,28 @@ class Anim implements Animation {
           wide = (size.vizWidth*2)-(size.vizWidth/10);
           wide = 50+(wide-(wide*functionA)); 
           high = wide;
-          donut(grid.mirror[i].x, grid.mirror[i].y, col1, stroke, wide, high, rotate, alphaA);
-          donut(grid.mirror[i+1 % grid.columns+6].x, grid.mirror[i+1 % grid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
+          fastdonut(grid.mirror[i].x, grid.mirror[i].y, col1, stroke, wide, high, rotate, alphaA);
+          fastdonut(grid.mirror[i+1 % grid.columns+6].x, grid.mirror[i+1 % grid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
 
           wide = (size.vizWidth/4)-(size.vizWidth/10);
           wide = 10+(wide-(wide*functionB)); 
           high = wide;
-          donut(grid.mirror[i+1 % grid.columns].x, grid.mirror[i+1 % grid.columns].y, col1, stroke, wide, high, rotate, alphaB);
-          donut(grid.mirror[i+6].x, grid.mirror[i+6].y, col1, stroke, wide, high, rotate, alphaB);
+          fastdonut(grid.mirror[i+1 % grid.columns].x, grid.mirror[i+1 % grid.columns].y, col1, stroke, wide, high, rotate, alphaB);
+          fastdonut(grid.mirror[i+6].x, grid.mirror[i+6].y, col1, stroke, wide, high, rotate, alphaB);
         }
       } else { // opposite way around
         for (int i = 0; i < grid.columns; i+=2) {
           wide  = (size.vizWidth*2)-(size.vizWidth/10);
           wide = 50+(wide-(wide*functionA)); 
           high = wide;
-          donut(grid.mirror[i+1 % grid.columns].x, grid.mirror[i+1 % grid.columns].y, col1, stroke, wide, high, rotate, alphaB);
-          donut(grid.mirror[i+6].x, grid.mirror[i+6].y, col1, stroke, wide, high, rotate, alphaB);
+          fastdonut(grid.mirror[i+1 % grid.columns].x, grid.mirror[i+1 % grid.columns].y, col1, stroke, wide, high, rotate, alphaB);
+          fastdonut(grid.mirror[i+6].x, grid.mirror[i+6].y, col1, stroke, wide, high, rotate, alphaB);
 
           wide = (size.vizWidth/4)-(size.vizWidth/10);
           wide = 10+(wide-(wide*functionB)); 
           high = wide;
-          donut(grid.mirror[i].x, grid.mirror[i].y, col1, stroke, wide, high, rotate, alphaA);
-          donut(grid.mirror[i+1 % grid.columns+6].x, grid.mirror[i+1 % grid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
+          fastdonut(grid.mirror[i].x, grid.mirror[i].y, col1, stroke, wide, high, rotate, alphaA);
+          fastdonut(grid.mirror[i+1 % grid.columns+6].x, grid.mirror[i+1 % grid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
         }
       }
       window.endDraw();
@@ -310,7 +322,8 @@ class Anim implements Animation {
     default:
       break;
     }
-    blurPGraphics();
+    //blurPGraphics();
+    image(window,window.width/2,window.height/2);
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////// SQUARE NUT /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -322,6 +335,14 @@ class Anim implements Animation {
     window.translate(xpos, ypos);
     window.rotate(radians(rotate));
     window.rect(0, 0, wide, high);
+    window.popMatrix();
+  }
+  void fastdonut(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph){
+    window.pushMatrix();
+    window.translate(xpos,ypos);
+    window.rotate(radians(rotate));
+    tint(col,alph*360);
+    df.blurryellipse(window,0.0,0.0,wide,high,stroke,squareness);
     window.popMatrix();
   }
   /////////////////////////////////// DONUT /////////////////////////////////////////////////////////////////////////////////////////////////

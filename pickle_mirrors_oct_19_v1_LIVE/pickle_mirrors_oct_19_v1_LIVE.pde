@@ -45,8 +45,41 @@ void settings() {
 }
 
 float dimmer = 1;
+PGraphics window,blured,pass1;
+PShader blur;
+int blury;
 void setup()
 {
+      window = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
+    window.beginDraw();
+    window.colorMode(HSB, 360, 100, 100);
+    window.blendMode(NORMAL);
+    window.ellipseMode(CENTER);
+    window.rectMode(CENTER);
+    window.imageMode(CENTER);
+    window.noStroke();
+    window.noFill();
+    window.endDraw();
+    ///////////////////////////////////// LOAD GRAPHICS FOR SHADER LAYERS //////////////////////
+    blur = loadShader("blur.glsl");
+    blur.set("blurSize", blury);
+    blur.set("sigma", 10.0f);  
+    pass1 = createGraphics(int(window.width/2), int(window.height/2), P2D);
+    pass1.noSmooth();
+    pass1.imageMode(CENTER);
+    pass1.beginDraw();
+    pass1.noStroke();
+    pass1.endDraw();
+    blured = createGraphics(int(window.width/2), int(window.height/2), P2D);
+    blured.noSmooth();
+    blured.beginDraw();
+    blured.imageMode(CENTER);
+    blured.noStroke();
+    blured.endDraw();
+  
+  
+  
+  
   surface.setAlwaysOnTop(onTop);
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
   grid = new OPCGrid();
@@ -139,7 +172,7 @@ void draw()
   while (animations.size()>0 && animations.get(0).deleteme) {
     animations.remove(0);
   }
-  if (animations.size() >= 16) animations.remove(0);  
+  if (animations.size() >= 99) animations.remove(0);  
   textAlign(RIGHT);
   text("# of anims: "+animations.size(), width - 5, height - 10);
 

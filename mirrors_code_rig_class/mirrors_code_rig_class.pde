@@ -36,6 +36,8 @@ MidiBus LPD8bus;      // midibus for LPD8
 
 PFont myFont;
 boolean onTop = false;
+
+
 void settings() {
   size = new SizeSettings(LANDSCAPE);
 

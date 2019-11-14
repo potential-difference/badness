@@ -1,5 +1,5 @@
 int rigAlphaIndexA, rigAlphaIndexB = 1, rigFunctionIndexA, rigFunctionIndexB = 1;
-int rigVizList = 9, roofVizList = 11, alphLength = 7, funcLength = 8;
+int rigVizList = 11, roofVizList = 11, alphLength = 7, funcLength = 8;
 int roofAlphaIndexA, roofAlphaIndexB = 1, roofFunctionIndexA, roofFunctionIndexB = 1;
 float alf;
 int vizTimer, alphaTimer, functionTimer;

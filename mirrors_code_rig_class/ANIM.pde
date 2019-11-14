@@ -196,9 +196,11 @@ class MirrorsAnim extends Anim {
     super.drawAnim();
   }
 }
+
+DonutFactory df;
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 class Anim implements Animation {
-  float alphaRate, funcRate, dimmer, alphaA, functionA, alphaB, functionB, alphMod=1, funcMod=1, funcFX=1, alphFX=1;
+  float alphaRate, funcRate, dimmer, alphaA, functionA, alphaB, functionB, alphMod=1, funcMod=1, funcFX=1, alphFX=1,squareness;
   int blury, prevblury, vizIndex, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB;
   color col1, col2;
   PVector viz;
@@ -209,6 +211,11 @@ class Anim implements Animation {
   float func[] = new float[8];
 
   Anim(int _vizIndex, float _alphaRate, float _funcRate, float _dimmer) {
+    //workaround for lack of static fields
+    if (null==df){
+      df=new DonutFactory();
+    }//workaround
+    
     alphaRate = _alphaRate;
     funcRate = _funcRate;
     alphMod = _dimmer;
@@ -220,6 +227,9 @@ class Anim implements Animation {
     if (blury!=prevblury) {
       prevblury=blury;
     }
+    
+    squareness=0.5; //
+    
     col1 = white;
     col2 = white;
 
@@ -429,10 +439,17 @@ class Anim implements Animation {
       rush(-vizWidth/2, viz.y, col1, wide, vizHeight, 1-func[6], alphaA);
       window.endDraw();
       break;
+    case 10:
+      window.beginDraw();
+      window.background(0);
+      wide = 100*functionA;
+      fastdonut(viz.x,viz.y,col1,wide,vizHeight, func[6],0,alphaA);
+      window.endDraw();
+      break; 
     default:
       break;
     }
-    blurPGraphics();
+    //blurPGraphics();
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////// SQUARE NUT /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -444,6 +461,15 @@ class Anim implements Animation {
     window.translate(xpos, ypos);
     window.rotate(radians(rotate));
     window.rect(0, 0, wide, high);
+    window.popMatrix();
+  }
+
+  void fastdonut(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph){
+    window.pushMatrix();
+    window.translate(xpos,ypos);
+    window.rotate(radians(rotate));
+    tint(col,alph*360);
+    df.blurryellipse(window,0.0,0.0,wide,high,stroke,squareness);
     window.popMatrix();
   }
   /////////////////////////////////// DONUT /////////////////////////////////////////////////////////////////////////////////////////////////
