@@ -38,9 +38,9 @@ void onScreenInfo() {
   y = height-size.sliderHeight+20;
   ///////////// rig info/ ///////////////////////////////////////////////////////////////////
   text("rigViz: " + rigViz, x, y);
-  text("bkgrnd: " + rig.bgIndex, x, y+20);
-  text("func's: " + rig.functionIndexA + " / " + rig.functionIndexB, x+100, y);
-  text("alph's: " + rig.alphaIndexA + " / " + rig.alphaIndexB, x+100, y+20);
+  text("bkgrnd: " + rigg.bgIndex, x, y+20);
+  text("func's: " + rigg.functionIndexA + " / " + rigg.functionIndexB, x+100, y);
+  text("alph's: " + rigg.alphaIndexA + " / " + rigg.alphaIndexB, x+100, y+20);
   ///////////// roof info ////////////////////////////////////////////////////////
   if (size.roofWidth > 0 || size.roofHeight>0) {
     textAlign(RIGHT);
@@ -82,8 +82,8 @@ void onScreenInfo() {
   frameRateInfo(5, 20);          ///// display frame rate X, Y /////
   sequencer();
   toggleKeysInfo();
-  cordinatesInfo(roofGrid, keyT['q']);
-    cordinatesInfo(rigGrid, keyT['q']);
+  cordinatesInfo(roof, keyT['q']);
+  cordinatesInfo(rigg, keyT['q']);
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   dividerLines();
@@ -109,16 +109,16 @@ void mouseInfo(boolean _info) {
     textAlign(CENTER);
   }
 }
-void cordinatesInfo(Grid _grid, boolean _info) {
+void cordinatesInfo(Rig _grid, boolean _info) {
   if (_info) {
     textSize(12);
     textAlign(CENTER);
     fill(360);  
-    for (int i = 0; i < _grid.grid.length; i++) text(i, _grid.grid[i].x, _grid.grid[i].y);   /// mirrors Position info
-    for (int i = 0; i < _grid.gridX.length; i++) {
-      text(i, _grid.gridX[i][0].x, _grid.gridX[i][0].y);   /// mirrors Position info
-      text(i, _grid.gridX[i][1].x, _grid.gridX[i][1].y);   /// mirrors Position info
-      text(i, _grid.gridX[i][2].x, _grid.gridX[i][2].y);   /// mirrors Position info
+    for (int i = 0; i < _grid.position.length; i++) text(i, _grid.position[i].x, _grid.position[i].y);   /// mirrors Position info
+    for (int i = 0; i < _grid.positionX.length; i++) {
+      text(i+".", _grid.positionX[i][0].x, _grid.positionX[i][0].y);   /// mirrors Position info
+      text(i+".", _grid.positionX[i][1].x, _grid.positionX[i][1].y);   /// mirrors Position info
+      text(i+".", _grid.positionX[i][2].x, _grid.positionX[i][2].y);   /// mirrors Position info
       //text(i, rigGrid.gridX[i][3].x, rigGrid.gridX[i][3].y);   /// mirrors Position info
     }
     //for (int i = 0; i < grid.roof.length; i++) if (size.roof.x>0) text(i, grid.roof[i].x, grid.roof[i].y);
@@ -145,13 +145,13 @@ void colorInfo() {
   float y = height-7.5;
   float x = 17;
   // RIG ///
-  fill(rig.c);          
+  fill(rigg.c);          
   rect(x, y-10, 10, 10);               // rect to show CURRENT color C 
-  fill(rig.col[(rig.colorIndexA+1)%rig.col.length], 100);
+  fill(rigg.col[(rigg.colorIndexA+1)%rigg.col.length], 100);
   rect(x+15, y-10, 10, 10);              // rect to show NEXT color C 
-  fill(rig.flash);
+  fill(rigg.flash);
   rect(x, y, 10, 10);                  // rect to show CURRENT color FLASH 
-  fill(rig.col[(rig.colorIndexB+1)%rig.col.length], 100);  
+  fill(rigg.col[(rigg.colorIndexB+1)%rigg.col.length], 100);  
   rect(x+15, y, 10, 10);                 // rect to show NEXT color FLASH1
   // roof
   if (size.roofWidth>0|| size.roofHeight>0) {

@@ -1,37 +1,14 @@
-class Grid {
-  Rig rig;
-  PVector grid[] = new PVector[12];
-  PVector gridX[][] = new PVector[7][3];
-
-  Grid(Rig _rig) {
-    rig = _rig;
-    int xw = 2;
-    for (int i = 0; i < grid.length/xw; i++) grid[i] = new PVector (rig.size.x-(rig.wide/2)+rig.wide/(grid.length/xw+1)*(i+1), rig.size.y-(rig.high/2)+rig.high/(xw+1)*1);
-    for (int i = 0; i < grid.length/xw; i++) grid[i+(grid.length/xw)] = new PVector (rig.size.x-(rig.wide/2)+rig.wide/(grid.length/xw+1)*(i+1), rig.size.y-(rig.high/2)+rig.high/(xw+1)*2);
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    xw = 6;
-    //for (int i = 0; i < gridX.length/xw; i++) gridX[i][0] = new PVector (rig.size.x-(rig.wide/2)+rig.wide/(grid.length/xw+1)*(i+1), rig.high/(xw+1)*(i+1));
-    //for (int i = 0; i < gridX.length/xw; i++) gridX[i+(grid.length/xw)][1] = new PVector (rig.size.x-(rig.wide/2)+rig.wide/(grid.length/xw+1)*(i+1), rig.high/(xw+1)*(i+2));
-    for (int i=0; i<gridX.length; i++)  gridX[i][0] = new PVector(rig.size.x-(rig.wide/2)+rig.wide/(gridX.length)*(i+0.5), rig.size.y-(rig.high/2)+rig.high/6*1);
-    for (int i=0; i<gridX.length; i++)  gridX[i][1] = new PVector(rig.size.x-(rig.wide/2)+rig.wide/(gridX.length)*(i+0.5), rig.size.y-(rig.high/2)+rig.high/4*2);
-    for (int i=0; i<gridX.length; i++)  gridX[i][2] = new PVector(rig.size.x-(rig.wide/2)+rig.wide/(gridX.length)*(i+0.5), rig.size.y-(rig.high/2)+rig.high/6*5);
-    //for (int i=0; i<gridX.length; i++)  gridX[i][3] = new PVector(rig.wide/(gridX.length)*(i+0.5), rig.high/5*4);
-  }
-}
-
-
-
 class OPCGrid {
   PVector[] mirror = new PVector[12];
   PVector[][] mirrorX = new PVector[7][4];
   PVector[] _mirror = new PVector[12];
   PVector[] seed = new PVector[3];
-  PVector[] cans = new PVector[3];
-  PVector[] roof = new PVector[18];
+  PVector[] cansString = new PVector[3];
+  PVector[] cans = new PVector[18];
   PVector[] strip = new PVector[6];
-  PVector[] rigGrid = new PVector[12];
-  PVector[][] rigGridX = new PVector[7][4]; 
-  PVector[][] roofGridX = new PVector[7][4];
+  //PVector[] rigGrid = new PVector[12];
+  //PVector[][] rigGridX = new PVector[7][4]; 
+  //PVector[][] roofGridX = new PVector[7][4];
   PVector[] controller = new PVector[4];
   PVector uv; 
   PVector booth, dig;
@@ -129,34 +106,18 @@ class OPCGrid {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////// CANS POSTIONS ///////////////////////////////////////////////////////////////
     _cansLength = size.cansWidth;
-    cans[0] = new PVector(size.rig.x, size.rig.y-(size.rigHeight/4));
-    cans[1] = new PVector(size.rig.x, size.rig.y);
-    cans[2] = new PVector(size.rig.x, size.rig.y+(size.rigHeight/4));
+    cansString[0] = new PVector(size.rig.x, size.rig.y-(size.rigHeight/4));
+    cansString[1] = new PVector(size.rig.x, size.rig.y);
+    cansString[2] = new PVector(size.rig.x, size.rig.y+(size.rigHeight/4));
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// ROOF POSITION /////////////////////////////////////////////////////////////////////
     float xw = 6;
-    for (int i=0; i<roof.length/6; i++) roof[i] =     new PVector (size.roof.x-(size.roofWidth/2)+size.roofWidth/(roof.length/xw+1)*(i+1), size.roofHeight/7*1);
-    for (int i=0; i<roof.length/6; i++) roof[i+3] =   new PVector (size.roof.x-(size.roofWidth/2)+size.roofWidth/(roof.length/xw+1)*(i+1), size.roofHeight/7*2);
-    for (int i=0; i<roof.length/6; i++) roof[i+6] =   new PVector (size.roof.x-(size.roofWidth/2)+size.roofWidth/(roof.length/xw+1)*(i+1), size.roofHeight/7*3);
-    for (int i=0; i<roof.length/6; i++) roof[i+9] =   new PVector (size.roof.x-(size.roofWidth/2)+size.roofWidth/(roof.length/xw+1)*(i+1), size.roofHeight/7*4);
-    for (int i=0; i<roof.length/6; i++) roof[i+12] =  new PVector (size.roof.x-(size.roofWidth/2)+size.roofWidth/(roof.length/xw+1)*(i+1), size.roofHeight/7*5);
-    for (int i=0; i<roof.length/6; i++) roof[i+15] =  new PVector (size.roof.x-(size.roofWidth/2)+size.roofWidth/(roof.length/xw+1)*(i+1), size.roofHeight/7*6);
-
-    for (int i=0; i<roofGridX.length; i++)  roofGridX[i][0] = new PVector(size.roofWidth/(roofGridX.length+1)*(i+1), size.roofHeight/5*1);
-    for (int i=0; i<roofGridX.length; i++)  roofGridX[i][1] = new PVector(size.roofWidth/(roofGridX.length+1)*(i+1), size.roofHeight/5*2);
-    for (int i=0; i<roofGridX.length; i++)  roofGridX[i][2] = new PVector(size.roofWidth/(roofGridX.length+1)*(i+1), size.roofHeight/5*3);
-    for (int i=0; i<roofGridX.length; i++)  roofGridX[i][3] = new PVector(size.roofWidth/(roofGridX.length+1)*(i+1), size.roofHeight/5*4);
-
-    /////////////////////// RIG GRID /////////////////////////////////////////////////////////////////////////////////////////////
-    for (int i = 0; i < rigGrid.length/2; i++) rigGrid[i] = new PVector (size.rigWidth/(rigGrid.length/2+1)*(i+1), size.rigHeight/3*1);
-    for (int i = 0; i < rigGrid.length/2; i++) rigGrid[i+(rigGrid.length/2)] = new PVector (size.rigWidth/(rigGrid.length/2+1)*(i+1), size.rigHeight/3*2);
-
-    for (int i=0; i<rigGridX.length; i++)  rigGridX[i][0] = new PVector(size.rigWidth/(rigGridX.length+1)*(i+1), size.rigHeight/5*1);
-    for (int i=0; i<rigGridX.length; i++)  rigGridX[i][1] = new PVector(size.rigWidth/(rigGridX.length+1)*(i+1), size.rigHeight/5*2);
-    for (int i=0; i<rigGridX.length; i++)  rigGridX[i][2] = new PVector(size.rigWidth/(rigGridX.length+1)*(i+1), size.rigHeight/5*3);
-    for (int i=0; i<rigGridX.length; i++)  rigGridX[i][3] = new PVector(size.rigWidth/(rigGridX.length+1)*(i+1), size.rigHeight/5*4);
-
-
+    for (int i=0; i<cans.length/6; i++) cans[i] =     new PVector (size.roof.x-(size.roofWidth/2)+size.roofWidth/(cans.length/xw+1)*(i+1), size.roofHeight/7*1);
+    for (int i=0; i<cans.length/6; i++) cans[i+3] =   new PVector (size.roof.x-(size.roofWidth/2)+size.roofWidth/(cans.length/xw+1)*(i+1), size.roofHeight/7*2);
+    for (int i=0; i<cans.length/6; i++) cans[i+6] =   new PVector (size.roof.x-(size.roofWidth/2)+size.roofWidth/(cans.length/xw+1)*(i+1), size.roofHeight/7*3);
+    for (int i=0; i<cans.length/6; i++) cans[i+9] =   new PVector (size.roof.x-(size.roofWidth/2)+size.roofWidth/(cans.length/xw+1)*(i+1), size.roofHeight/7*4);
+    for (int i=0; i<cans.length/6; i++) cans[i+12] =  new PVector (size.roof.x-(size.roofWidth/2)+size.roofWidth/(cans.length/xw+1)*(i+1), size.roofHeight/7*5);
+    for (int i=0; i<cans.length/6; i++) cans[i+15] =  new PVector (size.roof.x-(size.roofWidth/2)+size.roofWidth/(cans.length/xw+1)*(i+1), size.roofHeight/7*6);
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     booth = new PVector (width - 30, 110);
@@ -245,13 +206,13 @@ class OPCGrid {
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////// CANS //////////////////////////////////////////////////
-  void kallidaCans(OPC opc) {
+  void kallidaCansOPC(OPC opc) {
     int fc = 5 * 512;
     int channel = 64;
     int leds = 6;
     pd = int(_cansLength/6);
-    opc.ledStrip(fc+(channel*0), leds, int(cans[0].x), int(cans[0].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
-    opc.ledStrip(fc+(channel*1)+(64*channel), leds, int(cans[1].x), int(cans[1].y), pd, 0, false);      /////  6 CANS PLUG INTO slot 1 on CANS BOX ///////
+    opc.ledStrip(fc+(channel*0), leds, int(cansString[0].x), int(cansString[0].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
+    opc.ledStrip(fc+(channel*1)+(64*channel), leds, int(cansString[1].x), int(cansString[1].y), pd, 0, false);      /////  6 CANS PLUG INTO slot 1 on CANS BOX ///////
     cansLength = _cansLength - (pd/2);
   }
   void pickleCansOPC(OPC opc) {
@@ -259,9 +220,9 @@ class OPCGrid {
     int channel = 64;
     int leds = 6;
     pd = int(_cansLength/6);
-    opc.ledStrip(fc+(channel*5), leds, int(cans[0].x), int(cans[0].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
-    opc.ledStrip(fc+(channel*6), leds, int(cans[1].x), int(cans[1].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
-    opc.ledStrip(fc+(channel*7), leds, int(cans[2].x), int(cans[2].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
+    opc.ledStrip(fc+(channel*5), leds, int(cansString[0].x), int(cansString[0].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
+    opc.ledStrip(fc+(channel*6), leds, int(cansString[1].x), int(cansString[1].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
+    opc.ledStrip(fc+(channel*7), leds, int(cansString[2].x), int(cansString[2].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
 
     cansLength = _cansLength - (pd/2);
   }
@@ -270,9 +231,9 @@ class OPCGrid {
     int channel = 64;
     int leds = 6;
     pd = int(_cansLength/6);
-    opc.ledStrip(fc+(channel*0), leds, int(cans[0].x), int(cans[0].y), pd, 0, true);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
-    opc.ledStrip(fc+(channel*1), leds, int(cans[1].x), int(cans[1].y), pd, 0, true);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
-    opc.ledStrip(fc+(channel*2), leds, int(cans[2].x), int(cans[2].y), pd, 0, true);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
+    opc.ledStrip(fc+(channel*0), leds, int(cansString[0].x), int(cansString[0].y), pd, 0, true);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
+    opc.ledStrip(fc+(channel*1), leds, int(cansString[1].x), int(cansString[1].y), pd, 0, true);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
+    opc.ledStrip(fc+(channel*2), leds, int(cansString[2].x), int(cansString[2].y), pd, 0, true);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
     cansLength = _cansLength - (pd/2);
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -16,11 +16,11 @@ final int RIG = 0;
 final int ROOF = 1;
 
 SizeSettings size;
-OPCGrid grid;
+OPCGrid opcGrid;
 ControlFrame controlFrame;
 
-Rig rig, roof, cans, mirrors, strips;
-Grid rigGrid, roofGrid, cansGrid;
+Rig rigg, roof, cans, mirrors, strips;
+//Grids rigGrid, roofGrid, cansGrid;
 SketchColor rigColor, roofColor, cansColor;
 ColorLayer rigLayer, roofLayer, cansLayer;
 
@@ -53,7 +53,8 @@ void setup()
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
 
 
-  grid = new OPCGrid();
+  opcGrid = new OPCGrid();
+  println(opcGrid.mirror);
   dmx = new DMXGrid();
 
   ///////////////// LOCAL opc /////////////////////
@@ -66,20 +67,17 @@ void setup()
   opcCans = new OPC(this, "192.168.0.10", 7890);          // Connect to the remote instance of fcserver - CANS BOX
   opcStrip = new OPC(this, "192.168.0.20", 7890);          // Connect to the remote instance of fcserver - CANS BOX
 
-  grid.mirrorsOPC(opcLocal, opcLocal, 0);               // grids 0-3 MIX IT UPPPPP 
-  //grid.kingsHeadCansOPC(opcLocal);               
+  opcGrid.mirrorsOPC(opcLocal, opcLocal, 0);               // grids 0-3 MIX IT UPPPPP 
+  opcGrid.pickleCansOPC(opcLocal);               
   //grid.kingsHeadStripOPC(opcLocal);
   //grid.kingsHeadBoothOPC(opcLocal);
 
-  rig = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, grid.mirror, grid.mirrorX);
-  roof = new Rig(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, grid.roof, grid.roofGridX);
-  cans = new Rig(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, grid.cans, grid.roofGridX);
-
-  rigGrid = new Grid(rig);
-  roofGrid = new Grid(roof);
-  println(rigGrid.grid);
+  rigg = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, rigg);
+  roof = new Rig(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, roof);
+  cans = new Rig(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, cans);
   println();
-  println(roofGrid.grid);
+ 
+  //println(roofGrid.grid);
 
   dmx.FMSmoke(opcLocal, width - 120, 115);
 
@@ -96,17 +94,17 @@ void setup()
   loadGraphics();
   loadShaders();
   colorSetup();  
-  rigColor = new SketchColor(rig);
+  rigColor = new SketchColor(rigg);
   roofColor = new SketchColor(roof); 
   cansColor = new SketchColor(cans);
 
   rigViz = 2;
   roofViz = 1;
-  rig.bgIndex = 0;
+  rigg.bgIndex = 0;
   roof.bgIndex = 4;
 
-  rig.colorIndexA = 9;
-  rig.colorIndexB = 6;
+  rigg.colorIndexA = 9;
+  rigg.colorIndexB = 6;
   roof.colorIndexA = 3;
   roof.colorIndexB = 4;
   cans.colorIndexA = 7;
@@ -127,7 +125,7 @@ void setup()
 
   controlFrame = new ControlFrame(this, width, 130, "Controls"); // load control frame must come after shild ring etc
   animations = new ArrayList<Anim>();
-  animations.add(new Anim(0, alphaSlider, funcSlider, rig));
+  animations.add(new Anim(0, alphaSlider, funcSlider, rigg));
   frameRate(30);
 }
 float vizTime, colTime;
@@ -158,7 +156,7 @@ void draw()
   //   if (cc[8] != roofDimmer) cp5.getController("roofDimmer").setValue(cc[8]);
   // }  
 
-  rig.dimmer = cc[4]; // come back to this with wigxxxflex code?!
+  rigg.dimmer = cc[4]; // come back to this with wigxxxflex code?!
   roof.dimmer = cc[8]; // come back to this with wigflex code?!
   cans.dimmer = cc[7];
 
@@ -167,7 +165,7 @@ void draw()
   playWithMe();
   // create a new anim object and add it to the beginning of the arrayList
   if (beatTrigger) {
-    if (rigToggle)    animations.add(new Anim(rigViz, alphaSlider, funcSlider, rig));   
+    if (rigToggle)    animations.add(new Anim(rigViz, alphaSlider, funcSlider, rigg));   
     if (cansToggle)   animations.add(new Anim(10, cansAlpha, funcSlider, cans));              // create an anim object for the cans 
     if (roofToggle) {
       if (roofBasic) animations.add(new Anim(10, alphaSlider, funcSlider, roof));            // create a new anim object for the roof
@@ -193,7 +191,7 @@ void draw()
   }
   ////////////////////// draw colour layer /////////////////////////////////////////////////////////////////////////////////////////////////////
   blendMode(MULTIPLY);
-  rigLayer = new ColorLayer(rig);
+  rigLayer = new ColorLayer(rigg);
   roofLayer = new ColorLayer(roof);
   cansLayer = new ColorLayer(cans);
   // this donesnt work anymore....

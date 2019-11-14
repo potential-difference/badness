@@ -2,20 +2,29 @@ class Rig {
   float dimmer;
   int wide, high, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, bgIndex;
   PGraphics colorLayer, buffer, pass1, pass2, window;
-  PVector position[], positionX[][], size;
+  PVector size;
   color c, flash, c1, flash1, clash, colorIndexA, colorIndexB = 1;
   color col[] = new color[15];
+  PVector position[] = new PVector[12];
+  PVector positionX[][] = new PVector[7][3];
 
-  Rig(float _xpos, float _ypos, int _wide, int _high, PVector _position[],PVector _positionX[][]) {
+  Rig(float _xpos, float _ypos, int _wide, int _high, Rig _rig) {
     wide = _wide;
     high = _high;
-        
-    println("rig.size", _xpos, _ypos);
-    println();
-
-    position = _position;
-    positionX = _positionX;
     size = new PVector (_xpos, _ypos);
+
+    int xw = 2;
+    for (int i = 0; i < position.length/xw; i++) position[i] = new PVector (size.x-(wide/2)+wide/(position.length/xw+1)*(i+1), size.y-(high/2)+high/(xw+1)*1);
+    for (int i = 0; i < position.length/xw; i++) position[i+(position.length/xw)] = new PVector (size.x-(wide/2)+wide/(position.length/xw+1)*(i+1), size.y-(high/2)+high/(xw+1)*2);
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    for (int i=0; i<positionX.length; i++)  positionX[i][0] = new PVector(size.x-(wide/2)+wide/(positionX.length)*(i+0.5), size.y-(high/2)+high/6*1);
+    for (int i=0; i<positionX.length; i++)  positionX[i][1] = new PVector(size.x-(wide/2)+wide/(positionX.length)*(i+0.5), size.y-(high/2)+high/4*2);
+    for (int i=0; i<positionX.length; i++)  positionX[i][2] = new PVector(size.x-(wide/2)+wide/(positionX.length)*(i+0.5), size.y-(high/2)+high/6*5);
+
+    if (_rig == rigg) {
+      position=opcGrid.mirror;
+      positionX=opcGrid.mirrorX;
+    }
 
     colorLayer = createGraphics(wide, high, P2D);
     colorLayer.beginDraw();
@@ -35,7 +44,7 @@ class Rig {
     buffer.noStroke();
     buffer.noFill();
     buffer.endDraw();
-    
+
     window = buffer;
 
     ///////////////////////////////////// LOAD GRAPHICS FOR SHADER LAYERS //////////////////////

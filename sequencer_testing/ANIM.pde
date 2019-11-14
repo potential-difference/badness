@@ -123,7 +123,7 @@ class Anim implements Animation {
   color col1, col2;
   PVector viz;
   PVector[] position = new PVector[18];
-  PVector[][] positionX = new PVector[7][4];  
+  PVector[][] positionX = new PVector[7][3];  
   PGraphics window, bluredA, bluredB;
   float alph[] = new float[7];
   float func[] = new float[8];

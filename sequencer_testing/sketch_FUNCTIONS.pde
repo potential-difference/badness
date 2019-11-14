@@ -62,9 +62,9 @@ void pause(int secondsToWait) {
 ////////////////////////////////////// BOOTH AND DIG LIGHTS /////////////////////////////////////////////////////////////////////
 void boothLights() {
   fill(rigColor.flash1, 360*boothDimmer);
-  rect(grid.booth.x, grid.booth.y, 30, 10);
+  rect(opcGrid.booth.x, opcGrid.booth.y, 30, 10);
   fill(rigColor.flash1, 360*digDimmer);
-  rect(grid.dig.x, grid.dig.y, 30, 10);
+  rect(opcGrid.dig.x, opcGrid.dig.y, 30, 10);
 }
 /////////////////// TEST ALL COLOURS - TURN ALL LEDS ON AND CYCLE COLOURS ////////////////////////////////
 void testColors(boolean _test) {
@@ -73,8 +73,8 @@ void testColors(boolean _test) {
     rect(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight);
     rect(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight);
     rect(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight);
-    rect(grid.booth.x, grid.booth.y, 30, 10);
-    rect(grid.dig.x, grid.dig.y, 30, 10);
+    rect(opcGrid.booth.x, opcGrid.booth.y, 30, 10);
+    rect(opcGrid.dig.x, opcGrid.dig.y, 30, 10);
   }
 }
 /////////////////// WORK LIGHTS - ALL ON WHITE SO YOU CAN SEE SHIT ///////////////////////////
@@ -85,8 +85,8 @@ void workLights(boolean _work) {
     rect(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight);
     rect(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight);
     rect(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight);
-    rect(grid.booth.x, grid.booth.y, 30, 10);
-    rect(grid.dig.x, grid.dig.y, 30, 10);
+    rect(opcGrid.booth.x, opcGrid.booth.y, 30, 10);
+    rect(opcGrid.dig.x, opcGrid.dig.y, 30, 10);
   }
 }
 /////////////////////////////////////////////// OSKP///////////////////////////////////////////

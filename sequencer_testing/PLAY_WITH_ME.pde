@@ -19,13 +19,13 @@ void playWithMe() {
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  if (keyP[' ']) animations.add(new Anim(rigViz, alphaSlider, funcSlider, rig));         // or space bar!
+  if (keyP[' ']) animations.add(new Anim(rigViz, alphaSlider, funcSlider, rigg));         // or space bar!
   if (keyP[' ']) animations.add(new Anim(roofViz, alphaSlider, funcSlider, roof));   // or space bar!
   if (keyP[' ']) animations.add(new Anim(10, alphaSlider, funcSlider, cans));   // or space bar!
 
-  if (keyP['a']) animations.add(new AllOn(manualSlider, stutter, rig));
+  if (keyP['a']) animations.add(new AllOn(manualSlider, stutter, rigg));
   if (keyP['s']) {
-    animations.add(new AllOn(manualSlider, stutter, rig));
+    animations.add(new AllOn(manualSlider, stutter, rigg));
     rigColor.colorFlip(true);
   }
   if (keyP['z'] ) animations.add(new AllOn(manualSlider, stutter, roof));
@@ -53,8 +53,8 @@ void playWithMe() {
   //}
 
   for (int i = 0; i < 4; i++) if (padPressed[101+i]){
-   rig.dimmer = pad[101+i];
-    animations.add(new Anim(i, manualSlider, funcRate, rig)); // use pad buttons to play differnt viz
+   rigg.dimmer = pad[101+i];
+    animations.add(new Anim(i, manualSlider, funcRate, rigg)); // use pad buttons to play differnt viz
   }
   for (int i = 0; i < 3; i++) if (padPressed[105+i]) {
     roof.dimmer = pad[105+i];
@@ -66,12 +66,12 @@ void playWithMe() {
   }
 
   for (int i =0; i < 8; i++)if (padPressed[i]) {
-    rig.dimmer = padVelocity[i];
-    animations.add(new Anim(i, alphaRate, funcRate, rig)); // use pad buttons to play differnt viz
+    rigg.dimmer = padVelocity[i];
+    animations.add(new Anim(i, alphaRate, funcRate, rigg)); // use pad buttons to play differnt viz
   }
 
 
-  for (int i = 0; i<8; i++) if (keyP[49+i]) animations.add(new Anim(i, manualSlider, funcSlider, rig));       // use number buttons to play differnt viz
+  for (int i = 0; i<8; i++) if (keyP[49+i]) animations.add(new Anim(i, manualSlider, funcSlider, rigg));       // use number buttons to play differnt viz
   //if (keyP[48]) animations.add(new AllOn(manualSlider, 1, rigDimmer));   
 
   // '0' triggers all on for the rig
@@ -101,41 +101,41 @@ void playWithMe() {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void cansControl(color col, float alpha) {
   fill(col, 360*alpha);
-  rect(grid.cans[0].x, grid.cans[0].y, grid.cansLength, 3);
-  rect(grid.cans[1].x, grid.cans[1].y, grid.cansLength, 3);
+  rect(opcGrid.cans[0].x, opcGrid.cans[0].y, opcGrid.cansLength, 3);
+  rect(opcGrid.cans[1].x, opcGrid.cans[1].y, opcGrid.cansLength, 3);
 }
 void rigControl(color col, float alpha) {
   noFill();
   strokeWeight(5);
   stroke( col, 360*alpha);
-  for (int i  = 0; i < grid.mirror.length; i++) rect(grid.mirror[i].x, grid.mirror[i].y, grid._mirrorWidth, grid._mirrorWidth);
+  for (int i  = 0; i < opcGrid.mirror.length; i++) rect(opcGrid.mirror[i].x, opcGrid.mirror[i].y, opcGrid._mirrorWidth, opcGrid._mirrorWidth);
   noStroke();
 }
 void seedsControlA(color col, float alpha) {
   noFill();
   strokeWeight(5);
   stroke(col, 360*alpha);  
-  rect(grid.seed[0].x, grid.seed[0].y, grid.seedLength, 3);
+  rect(opcGrid.seed[0].x, opcGrid.seed[0].y, opcGrid.seedLength, 3);
   noStroke();
 }
 void seedsControlB(color col, float alpha) {
   noFill();
   strokeWeight(5);
   stroke(col, 360*alpha);  
-  rect(grid.seed[1].x, grid.seed[1].y, grid.seedLength, 3);
+  rect(opcGrid.seed[1].x, opcGrid.seed[1].y, opcGrid.seedLength, 3);
   noStroke();
 }
 void seedsControlC(color col, float alpha) {
   noFill();
   strokeWeight(5);
   stroke(col, 360*alpha);  
-  rect(grid.seed[2].x, grid.seed[2].y, 3, grid.seed2Length);
+  rect(opcGrid.seed[2].x, opcGrid.seed[2].y, 3, opcGrid.seed2Length);
   noStroke();
 }
 void controllerControl(color col, float alpha) {
   fill(col, 360*alpha);
-  rect(grid.controller[0].x, grid.controller[0].y, grid.controllerWidth, grid.controllerWidth);
-  rect(grid.controller[1].x, grid.controller[1].y, grid.controllerWidth, grid.controllerWidth);
-  rect(grid.controller[2].x, grid.controller[2].y, grid.controllerWidth, grid.controllerWidth);
-  rect(grid.controller[3].x, grid.controller[3].y, grid.controllerWidth, grid.controllerWidth);
+  rect(opcGrid.controller[0].x, opcGrid.controller[0].y, opcGrid.controllerWidth, opcGrid.controllerWidth);
+  rect(opcGrid.controller[1].x, opcGrid.controller[1].y, opcGrid.controllerWidth, opcGrid.controllerWidth);
+  rect(opcGrid.controller[2].x, opcGrid.controller[2].y, opcGrid.controllerWidth, opcGrid.controllerWidth);
+  rect(opcGrid.controller[3].x, opcGrid.controller[3].y, opcGrid.controllerWidth, opcGrid.controllerWidth);
 }

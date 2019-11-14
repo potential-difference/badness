@@ -197,9 +197,9 @@ class ColorLayer extends SketchColor {
     window.rect(window.width/2, window.height/2, window.width, window.height);        
     ////////////////////////// Fill OPPOSITE COLOR //////////////
     window.fill(col1);  
-    for (int i = 0; i < grid.mirror.length/grid.rows; i+=2)  window.rect(grid.mirror[i].x, grid.mirror[i].y, grid.mirrorWidth, grid.mirrorWidth);
-    for (int i = grid.columns+1; i < grid.mirror.length/grid.rows+grid.columns; i+=2)  window.rect(grid.mirror[i].x, grid.mirror[i].y, grid.mirrorWidth, grid.mirrorWidth);
-    if (grid.rows == 3) for (int i = grid.columns*grid.rows; i < grid.mirror.length/grid.rows+(grid.columns*2); i+=2)  window.rect(grid.mirror[i].x, grid.mirror[i].y, grid.mirrorWidth, grid.mirrorWidth);
+    for (int i = 0; i < opcGrid.mirror.length/opcGrid.rows; i+=2)  window.rect(opcGrid.mirror[i].x, opcGrid.mirror[i].y, opcGrid.mirrorWidth, opcGrid.mirrorWidth);
+    for (int i = opcGrid.columns+1; i < opcGrid.mirror.length/opcGrid.rows+opcGrid.columns; i+=2)  window.rect(opcGrid.mirror[i].x, opcGrid.mirror[i].y, opcGrid.mirrorWidth, opcGrid.mirrorWidth);
+    if (opcGrid.rows == 3) for (int i = opcGrid.columns*opcGrid.rows; i < opcGrid.mirror.length/opcGrid.rows+(opcGrid.columns*2); i+=2)  window.rect(opcGrid.mirror[i].x, opcGrid.mirror[i].y, opcGrid.mirrorWidth, opcGrid.mirrorWidth);
   }
   /////////////////////////// TOP ROW ONE COLOUR BOTTOM ROW THE OTHER BACKGORUND ////////////////////////////////////////////////////////////////
   void sideBySide( color col1, color col2) {

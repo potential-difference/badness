@@ -11,7 +11,7 @@ void keyPressed() {
   if (key == 'n') rigViz = (rigViz+1)%rigVizList;        //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
   if (key == 'b') rigViz -=1;                            //// STEP BACK TO PREVIOUS RIG VIZ
   if (rigViz <0) rigViz = rigVizList-1;
-  if (key == 'm') rig.bgIndex = (rig.bgIndex+1)%rigBgList;                 //// CYCLE THROUGH RIG BACKGROUNDS
+  if (key == 'm') rigg.bgIndex = (rigg.bgIndex+1)%rigBgList;                 //// CYCLE THROUGH RIG BACKGROUNDS
 
   /////////////////////////////// ROOF KEY FUNCTIONS ////////////////////////
   if (key == 'h') roofViz = (roofViz+1)%roofVizList;               //// STEP FORWARD TO NEXT RIG VIZ
@@ -20,12 +20,12 @@ void keyPressed() {
   if (key == 'j') roof.bgIndex = (roof.bgIndex+1)%roofBgList;               //// CYCLE THROUGH ROOF BACKGROUNDS
 
   if (key == ',') {                                      //// CYCLE THROUGH RIG FUNCS
-    rig.functionIndexA = (rig.functionIndexA+1)%funcLength; //animations.func.length; 
-    rig.functionIndexB = (rig.functionIndexB+1)%funcLength; //fct.length;
+    rigg.functionIndexA = (rigg.functionIndexA+1)%funcLength; //animations.func.length; 
+    rigg.functionIndexB = (rigg.functionIndexB+1)%funcLength; //fct.length;
   }  
   if (key == '.') {                                      //// CYCLE THROUGH RIG ALPHAS
-    rig.alphaIndexA = (rig.alphaIndexA+1)% alphLength; //alph.length; 
-    rig.alphaIndexB = (rig.alphaIndexB+1)% alphLength; //alph.length;
+    rigg.alphaIndexA = (rigg.alphaIndexA+1)% alphLength; //alph.length; 
+    rigg.alphaIndexB = (rigg.alphaIndexB+1)% alphLength; //alph.length;
   }   
   if (key == 'k') {                                      //// CYCLE THROUGH ROOF FUNCS
     roof.functionIndexA = (roof.functionIndexA+1)%funcLength; 
@@ -35,8 +35,8 @@ void keyPressed() {
     roof.alphaIndexA = (roof.alphaIndexA+1)%alphLength; 
     roof.alphaIndexB = (roof.alphaIndexB+1)%alphLength;
   }   
-  if (key == 'c') rig.colorIndexA = (rig.colorIndexA+1)%rig.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
-  if (key == 'v') rig.colorIndexB = (rig.colorIndexB+1)%rig.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
+  if (key == 'c') rigg.colorIndexA = (rigg.colorIndexA+1)%rigg.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
+  if (key == 'v') rigg.colorIndexB = (rigg.colorIndexB+1)%rigg.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
 
   if (key == 'd') {
     roof.colorIndexA = (roof.colorIndexA+1)%roof.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
