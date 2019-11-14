@@ -5,7 +5,7 @@ boolean glitchToggle, cansToggle = false, roofToggle = true, rigToggle = true, r
 float vizTimeSlider, colorSwapSlider, colorTimerSlider, cansDimmer, boothDimmer, digDimmer, backDropSlider, cansSlider;
 float tweakSlider, blurSlider, bgNoiseBrightnessSlider, bgNoiseDensitySlider, manualSlider, stutterSlider, cansAlpha, deleteMeSlider;
 float shimmerSlider, alphaSlider, rigDimmer, roofDimmer, seedsDimmer, seed2Dimmer, uvDimmer, controllerDimmer, funcSlider, pauseSlider;
-float smokePump, smokeFan, smokeOnTime,smokeOffTime;
+float smokePump, smokeFan, smokeOnTime, smokeOffTime;
 
 class ControlFrame extends PApplet {
   int controlW, controlH;
@@ -227,7 +227,7 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
-      cp5.addSlider("smokeOnTime")
+    cp5.addSlider("smokeOnTime")
       .plugTo(parent, "smokeOnTime")      .setPosition(x, y+row)
       .setPosition(x, y+row*4)
       .setSize(wide, high)
@@ -237,7 +237,7 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac1) 
       .setColorForeground(slider1) 
       ;
-       cp5.addSlider("smokeOffTime")
+    cp5.addSlider("smokeOffTime")
       .plugTo(parent, "smokeOffTime")      .setPosition(x, y+row)
       .setPosition(x, y+row*5)
       .setSize(wide, high)
@@ -367,7 +367,7 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
-      x += 80;
+    x += 80;
     cp5.addToggle("roofbasic")
       .plugTo(parent, "roofBasic")
       .setPosition(x, y)
@@ -382,6 +382,19 @@ class ControlFrame extends PApplet {
     background(0);
     fill(rigColor.c);
     rect(width/2, 0, width, 2);
+
+    if (cc[4]!=prevcc[4]) {
+      prevcc[4]=cc[4];
+      if (cc[4] != rigDimmer) cp5.getController("rigDimmer").setValue(cc[4]);
+    }
+    if (cc[7]!=prevcc[7]) {
+      prevcc[7]=cc[7];
+      if (cc[7] != cansDimmer) cp5.getController("cansDimmer").setValue(cc[7]);
+    }
+    if (cc[8]!=prevcc[8]) {
+      prevcc[8]=cc[8];
+      if (cc[8] != roofDimmer) cp5.getController("roofDimmer").setValue(cc[8]);
+    }
   }
   //////////////////////////////////////// CALL BACK FOR SLIDER CONTROL FROM OTHER VARIABLES
   // an event from slider sliderA will change the value of textfield textA here

@@ -52,32 +52,26 @@ void setup()
   surface.setAlwaysOnTop(onTop);
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
 
-
   opcGrid = new OPCGrid();
-  println(opcGrid.mirror);
   dmx = new DMXGrid();
-
-  ///////////////// LOCAL opc /////////////////////
-  opcLocal = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRRORS
-  //opcCans = new OPC(this, "127.0.0.1", 7890);          // Connect to the remote instance of fcserver - CANS BOX
-  //opcStrip = new OPC(this, "127.0.0.1", 7890);          // Connect to the remote instance of fcserver - CANS BOX
-
-  ///////////////// OPC over NETWORK /////////////////////
-  //opcMirrors = new OPC(this, "192.168.0.70", 7890);       // Connect to the remote instance of fcserver - MIRROR 1
-  opcCans = new OPC(this, "192.168.0.10", 7890);          // Connect to the remote instance of fcserver - CANS BOX
-  opcStrip = new OPC(this, "192.168.0.20", 7890);          // Connect to the remote instance of fcserver - CANS BOX
-
-  opcGrid.mirrorsOPC(opcLocal, opcLocal, 0);               // grids 0-3 MIX IT UPPPPP 
-  opcGrid.pickleCansOPC(opcLocal);               
-  //grid.kingsHeadStripOPC(opcLocal);
-  //grid.kingsHeadBoothOPC(opcLocal);
 
   rigg = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, rigg);
   roof = new Rig(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, roof);
   cans = new Rig(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, cans);
   println();
- 
-  //println(roofGrid.grid);
+
+  ///////////////// LOCAL opc /////////////////////
+  opcLocal = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRRORS
+
+  ///////////////// OPC over NETWORK /////////////////////
+  opcMirrors = new OPC(this, "192.168.0.70", 7890);       // Connect to the remote instance of fcserver - MIRROR 1
+  opcCans = new OPC(this, "192.168.0.10", 7890);          // Connect to the remote instance of fcserver - CANS BOX
+  opcStrip = new OPC(this, "192.168.0.20", 7890);          // Connect to the remote instance of fcserver - CANS BOX
+
+  opcGrid.mirrorsOPC(opcLocal, opcLocal, 0);               // grids 0-3 MIX IT UPPPPP 
+  opcGrid.pickleCansOPC(cans, opcLocal);               
+  opcGrid.kingsHeadStripOPC(roof, opcLocal);
+  //grid.kingsHeadBoothOPC(opcLocal);
 
   dmx.FMSmoke(opcLocal, width - 120, 115);
 
@@ -87,7 +81,6 @@ void setup()
   TR8bus = new MidiBus(this, "TR-8S", "TR8-S"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
   LPD8bus = new MidiBus(this, "LPD8", "LPD8"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
   beatStepBus = new MidiBus(this, "Arturia BeatStep", "Arturia BeatStep"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
-
 
   drawingSetup();
   loadImages();
@@ -109,7 +102,6 @@ void setup()
   roof.colorIndexB = 4;
   cans.colorIndexA = 7;
   cans.colorIndexB = 11;
-  //dimmer = 0.3;
 
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
   for (int i = 0; i < 100; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen
@@ -121,11 +113,11 @@ void setup()
   cc[8] = 0.015;
   cc[MASTERFXON] = 0;
 
-  vizHold=true;
+  //vizHold=true;
 
   controlFrame = new ControlFrame(this, width, 130, "Controls"); // load control frame must come after shild ring etc
   animations = new ArrayList<Anim>();
-  animations.add(new Anim(0, alphaSlider, funcSlider, rigg));
+  //animations.add(new Anim(0, alphaSlider, funcSlider, rigg));
   frameRate(30);
 }
 float vizTime, colTime;
@@ -144,20 +136,9 @@ void draw()
   if (frameCount > 10) playWithYourself(vizTime);
   rigColor.clash(beat);
 
-  //////////// WHY DOESN't THIS WORK???? ?/////////////////////////////
-  ///// ECHO RIG DIMMER SLIDER AND MIDI SLIDER 4 to control rig dimmer but only whne slider is changed
-  //if (cc[4]!=prevcc[4]) {
-  //  prevcc[4]=cc[4];
-  //  if (cc[4] != rigDimmer) cp5.getController("rigDimmer").setValue(cc[4]);
-  //}  
-
-  //if (cc[8]!=prevcc[8]) {
-  //   prevcc[8]=cc[8];
-  //   if (cc[8] != roofDimmer) cp5.getController("roofDimmer").setValue(cc[8]);
-  // }  
-
-  rigg.dimmer = cc[4]; // come back to this with wigxxxflex code?!
-  roof.dimmer = cc[8]; // come back to this with wigflex code?!
+  // dimmer knobs are ehcoed by on screen sliders - code in controller tab
+  rigg.dimmer = cc[4]; 
+  roof.dimmer = cc[8]; 
   cans.dimmer = cc[7];
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -179,7 +160,7 @@ void draw()
   //if (keyT['a']) 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  for (Anim anim : animations)  anim.alphFX *=rigDimmer;
+  //for (Anim anim : animations)  anim.alphFX *=rigDimmer;
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   if (keyT['s']) for (Anim anim : animations)  anim.funcFX = 1-(stutter*noize1*0.1);

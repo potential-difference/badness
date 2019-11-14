@@ -12,6 +12,7 @@ class OPCGrid {
   PVector[] controller = new PVector[4];
   PVector uv; 
   PVector booth, dig;
+  Rig rig;
 
   int pd, ld, dist, controllerGridStep, rows, columns;
   float mirrorAndGap, seedLength, _seedLength, seed2Length, _seed2Length, cansLength, _cansLength, _mirrorWidth, mirrorWidth, controllerWidth;
@@ -104,11 +105,7 @@ class OPCGrid {
     }
     mirrorWidth = _mirrorWidth+16;
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////////// CANS POSTIONS ///////////////////////////////////////////////////////////////
-    _cansLength = size.cansWidth;
-    cansString[0] = new PVector(size.rig.x, size.rig.y-(size.rigHeight/4));
-    cansString[1] = new PVector(size.rig.x, size.rig.y);
-    cansString[2] = new PVector(size.rig.x, size.rig.y+(size.rigHeight/4));
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// ROOF POSITION /////////////////////////////////////////////////////////////////////
     float xw = 6;
@@ -214,8 +211,14 @@ class OPCGrid {
     opc.ledStrip(fc+(channel*0), leds, int(cansString[0].x), int(cansString[0].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
     opc.ledStrip(fc+(channel*1)+(64*channel), leds, int(cansString[1].x), int(cansString[1].y), pd, 0, false);      /////  6 CANS PLUG INTO slot 1 on CANS BOX ///////
     cansLength = _cansLength - (pd/2);
-  }
-  void pickleCansOPC(OPC opc) {
+  } /////////////////////////////////////////////////////////////////////////////////////////////////////
+  void pickleCansOPC(Rig _rig, OPC opc) {
+    rig = _rig;
+    _cansLength = size.cansWidth;
+    cansString[0] = new PVector(rig.size.x, rig.size.y-(rig.high/4));
+    cansString[1] = new PVector(rig.size.x, rig.size.y);
+    cansString[2] = new PVector(rig.size.x, rig.size.y+(rig.high/4));
+
     int fc = 2 * 512;
     int channel = 64;
     int leds = 6;
@@ -225,8 +228,14 @@ class OPCGrid {
     opc.ledStrip(fc+(channel*7), leds, int(cansString[2].x), int(cansString[2].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
 
     cansLength = _cansLength - (pd/2);
-  }
-  void kingsHeadCansOPC(OPC opc) {
+  } /////////////////////////////////////////////////////////////////////////////////////////////////////
+  void kingsHeadCansOPC(Rig _rig, OPC opc) {
+    rig = _rig;
+    _cansLength = size.cansWidth;
+    cansString[0] = new PVector(rig.size.x, rig.size.y-(rig.high/4));
+    cansString[1] = new PVector(rig.size.x, rig.size.y);
+    cansString[2] = new PVector(rig.size.x, rig.size.y+(rig.high/4));
+
     int fc = 0 * 512;
     int channel = 64;
     int leds = 6;
@@ -244,15 +253,15 @@ class OPCGrid {
     opc.led(fc+(channel*7), int(uv.x), int(uv.y));
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  void kingsHeadStripOPC(OPC opc) {
+  /////////////////////////////// STRIP ///////////////////////////////////////////////////////////////
+  void kingsHeadStripOPC(Rig _rig, OPC opc) {
+    rig = _rig;
     int fc = 3 * 512;
     int channel = 64;
     int leds = 64;
-    int pd = 6;
-    for (int i = 0; i < 3; i++) strip[i] = new PVector (size.roof.x-(pd*leds/2), size.roofHeight/6*(i*2+1));
-    for (int i = 0; i < 3; i++) strip[i+3] = new PVector (size.roof.x+(pd*leds/2), size.roofHeight/6*(i*2+1));
+    int pd = rig.wide/2/leds;
+    for (int i = 0; i < 3; i++) strip[i] = new PVector (rig.size.x-(pd*leds/2), rig.size.y-(rig.high/2)+rig.high/6*(i*2+1));
+    for (int i = 0; i < 3; i++) strip[i+3] = new PVector (rig.size.x+(pd*leds/2), rig.size.y-(rig.high/2)+rig.high/6*(i*2+1));
 
     for (int i=0; i<6; i++) opc.ledStrip(fc+(channel*i), leds, int(strip[i].x), int(strip[i].y), pd, 0, true);
   }
