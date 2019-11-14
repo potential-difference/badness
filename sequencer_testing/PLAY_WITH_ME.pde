@@ -19,75 +19,83 @@ void playWithMe() {
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //if (keyP[' ']) animations.add(new MirrorsAnim(rigViz, alphaSlider, funcSlider, rigDimmer));         // or space bar!
-  if (keyP[' ']) animations.add(new RoofAnim(roofViz, alphaSlider, funcSlider, roofDimmer));   // or space bar!
-  //if (keyP[' ']) animations.add(new CansAnim(roofViz, alphaSlider, funcSlider, roofDimmer));   // or space bar!
+  if (keyP[' ']) animations.add(new Anim(rigViz, alphaSlider, funcSlider, rig));         // or space bar!
+  if (keyP[' ']) animations.add(new Anim(roofViz, alphaSlider, funcSlider, roof));   // or space bar!
+  if (keyP[' ']) animations.add(new Anim(10, alphaSlider, funcSlider, cans));   // or space bar!
 
-  if (keyP['a']) animations.add(new RoofOn(manualSlider, stutter, rigDimmer));
+  if (keyP['a']) animations.add(new AllOn(manualSlider, stutter, rig));
   if (keyP['s']) {
-    animations.add(new RoofOn(manualSlider, stutter, rigDimmer));
+    animations.add(new AllOn(manualSlider, stutter, rig));
     rigColor.colorFlip(true);
   }
-  if (keyP['z'] ) animations.add(new MirrorsOn(manualSlider, stutter, rigDimmer));
+  if (keyP['z'] ) animations.add(new AllOn(manualSlider, stutter, roof));
   if (keyP['`'] ) { 
-    animations.add(new MirrorsOn(manualSlider, stutter, roofDimmer));
+    animations.add(new AllOn(manualSlider, stutter, roof));
     roofColor.colorFlip(true);
   }
   float alphaRate = cc[1];
   float funcRate = cc[2];
 
-  if (cc[101] > 0) animations.add(new MirrorsAnim(rigViz, alphaRate, funcRate, cc[101]*rigDimmer/2)); // current animation
- if (cc[102] > 0) animations.add(new RoofAnim(rigViz, alphaRate, funcRate, cc[102]*roofDimmer/2)); // current animation
+  //if (cc[101] > 0) animations.add(new MirrorsAnim(rigViz, alphaRate, funcRate, cc[101]*rigDimmer/2)); // current animation
+  //if (cc[102] > 0) animations.add(new RoofAnim(rigViz, alphaRate, funcRate, cc[102]*roofDimmer/2)); // current animation
   if (cc[103] > 0) { 
     rigColor.colorSwap(0.9999999999);                // COLOR SWAP MOMENTARY
     roofColor.colorSwap(0.9999999999);
   }
-  if (cc[104] > 0) {
-    animations.add(new MirrorsOn(manualSlider, 1-(stutter*stutterSlider), cc[104]*rigDimmer));
-    rigColor.colorFlip(true);
+  //if (cc[104] > 0) {
+  //  animations.add(new MirrorsOn(manualSlider, 1-(stutter*stutterSlider), cc[104]*rigDimmer));
+  //  rigColor.colorFlip(true);
+  //}
+  //if (cc[107] > 0) animations.add(new RoofOn(manualSlider, 1-(stutter*stutterSlider), cc[107]*roofDimmer));
+  //if (cc[108] > 0) { 
+  //  roofColor.colorFlip(true);
+  //  animations.add(new RoofOn(manualSlider, 1-(stutter*stutterSlider), cc[108]*roofDimmer));
+  //}
+
+  for (int i = 0; i < 4; i++) if (padPressed[101+i]){
+   rig.dimmer = pad[101+i];
+    animations.add(new Anim(i, manualSlider, funcRate, rig)); // use pad buttons to play differnt viz
   }
-  if (cc[107] > 0) animations.add(new RoofOn(manualSlider, 1-(stutter*stutterSlider), cc[107]*roofDimmer));
-  if (cc[108] > 0) { 
-    roofColor.colorFlip(true);
-    animations.add(new RoofOn(manualSlider, 1-(stutter*stutterSlider), cc[108]*roofDimmer));
+  for (int i = 0; i < 3; i++) if (padPressed[105+i]) {
+    roof.dimmer = pad[105+i];
+    animations.add(new Anim(i, manualSlider, funcRate, roof)); // use pad buttons to play differnt viz
+  }
+  if (padPressed[108]) {
+    roof.dimmer = pad[108];
+    animations.add(new Anim(10, manualSlider, funcRate, roof)); // use pad buttons to play differnt viz
   }
 
-  for (int i = 0; i < 4; i++) if (padPressed[101+i]) animations.add(new MirrorsAnim(i, manualSlider, funcRate, pad[101+i]*rigDimmer)); // use pad buttons to play differnt viz
-  for (int i = 0; i < 3; i++) if (padPressed[105+i]) animations.add(new RoofAnim(i, manualSlider, funcRate, pad[105+i]*roofDimmer)); // use pad buttons to play differnt viz
-  if (padPressed[108]) animations.add(new RoofAnim(4, manualSlider, funcRate, pad[108]/2)); // use pad buttons to play differnt viz
+  for (int i =0; i < 8; i++)if (padPressed[i]) {
+    rig.dimmer = padVelocity[i];
+    animations.add(new Anim(i, alphaRate, funcRate, rig)); // use pad buttons to play differnt viz
+  }
 
 
-for(int i =0;i < 8; i++) if (padPressed[i]) animations.add(new MirrorsAnim(i, alphaRate, funcRate, padMapped[i])); // use pad buttons to play differnt viz
-  //if (padPressed[62]) animations.add(new MirrorsAnim(1, alphaRate, funcRate, pad[62])); // use pad buttons to play differnt viz
-  //if (padPressed[63]) animations.add(new MirrorsAnim(2, alphaRate, funcRate, pad[63])); // use pad buttons to play differnt viz
-  //if (padPressed[64]) animations.add(new MirrorsAnim(3, alphaRate, funcRate, pad[64])); // use pad buttons to play differnt viz
-  //if (padPressed[67]) animations.add(new MirrorsAnim(4, alphaRate, funcRate, pad[67])); // use pad buttons to play differnt viz
-  //if (padPressed[68]) animations.add(new MirrorsAnim(5, alphaRate, funcRate, pad[68])); // use pad buttons to play differnt viz
+  for (int i = 0; i<8; i++) if (keyP[49+i]) animations.add(new Anim(i, manualSlider, funcSlider, rig));       // use number buttons to play differnt viz
+  //if (keyP[48]) animations.add(new AllOn(manualSlider, 1, rigDimmer));   
 
-
-  for (int i = 0; i<8; i++) if (keyP[49+i]) animations.add(new MirrorsAnim(i, manualSlider, funcSlider, rigDimmer));       // use number buttons to play differnt viz
-  if (keyP[48]) animations.add(new MirrorsOn(manualSlider, 1, rigDimmer));                                             // '0' triggers all on for the rig
+  // '0' triggers all on for the rig
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////// PLAY WITH DRAWING FUNCTIONS ////////////////////////////////////////////////////////////// 
-void playWithMeMore() {
-  /////background noise over whole window/////
-  if (cc[105] > 0) {
-    rigBuffer.colorLayer.beginDraw();
-    rigBuffer.colorLayer.background(0, 0, 0, 0);
-    rigBuffer.colorLayer.endDraw();
-    bgNoise(rigBuffer.colorLayer, rigColor.flash, map(cc[105], 0, 1, 0.2, 1), cc[5]*rigDimmer/2);   //PGraphics layer,color,alpha
-    image(rigBuffer.colorLayer, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight);
-  }
-  if (cc[106] > 0) {
-    roofBuffer.colorLayer.beginDraw();
-    roofBuffer.colorLayer.background(0, 0, 0, 0);
-    roofBuffer.colorLayer.endDraw();
-    bgNoise(roofBuffer.colorLayer, roofColor.flash, map(cc[106], 0, 1, 0.2, 1), cc[6]*roofDimmer);   //PGraphics layer,color,alpha
-    image(roofBuffer.colorLayer, size.roof.x, size.roof.y*1.5, size.roofWidth, size.roofHeight*2);
-  }
-}
+//void playWithMeMore() {
+//  /////background noise over whole window/////
+//  if (cc[105] > 0) {
+//    rigBuffer.colorLayer.beginDraw();
+//    rigBuffer.colorLayer.background(0, 0, 0, 0);
+//    rigBuffer.colorLayer.endDraw();
+//    bgNoise(rigBuffer.colorLayer, rigColor.flash, map(cc[105], 0, 1, 0.2, 1), cc[5]*rigDimmer/2);   //PGraphics layer,color,alpha
+//    image(rigBuffer.colorLayer, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight);
+//  }
+//  if (cc[106] > 0) {
+//    roofBuffer.colorLayer.beginDraw();
+//    roofBuffer.colorLayer.background(0, 0, 0, 0);
+//    roofBuffer.colorLayer.endDraw();
+//    bgNoise(roofBuffer.colorLayer, roofColor.flash, map(cc[106], 0, 1, 0.2, 1), cc[6]*roofDimmer);   //PGraphics layer,color,alpha
+//    image(roofBuffer.colorLayer, size.roof.x, size.roof.y*1.5, size.roofWidth, size.roofHeight*2);
+//  }
+//}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

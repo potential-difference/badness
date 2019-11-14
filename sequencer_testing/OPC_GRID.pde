@@ -1,3 +1,26 @@
+class Grid {
+  Rig rig;
+  PVector grid[] = new PVector[12];
+  PVector gridX[][] = new PVector[7][3];
+
+  Grid(Rig _rig) {
+    rig = _rig;
+    int xw = 2;
+    for (int i = 0; i < grid.length/xw; i++) grid[i] = new PVector (rig.size.x-(rig.wide/2)+rig.wide/(grid.length/xw+1)*(i+1), rig.size.y-(rig.high/2)+rig.high/(xw+1)*1);
+    for (int i = 0; i < grid.length/xw; i++) grid[i+(grid.length/xw)] = new PVector (rig.size.x-(rig.wide/2)+rig.wide/(grid.length/xw+1)*(i+1), rig.size.y-(rig.high/2)+rig.high/(xw+1)*2);
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    xw = 6;
+    //for (int i = 0; i < gridX.length/xw; i++) gridX[i][0] = new PVector (rig.size.x-(rig.wide/2)+rig.wide/(grid.length/xw+1)*(i+1), rig.high/(xw+1)*(i+1));
+    //for (int i = 0; i < gridX.length/xw; i++) gridX[i+(grid.length/xw)][1] = new PVector (rig.size.x-(rig.wide/2)+rig.wide/(grid.length/xw+1)*(i+1), rig.high/(xw+1)*(i+2));
+    for (int i=0; i<gridX.length; i++)  gridX[i][0] = new PVector(rig.size.x-(rig.wide/2)+rig.wide/(gridX.length)*(i+0.5), rig.size.y-(rig.high/2)+rig.high/6*1);
+    for (int i=0; i<gridX.length; i++)  gridX[i][1] = new PVector(rig.size.x-(rig.wide/2)+rig.wide/(gridX.length)*(i+0.5), rig.size.y-(rig.high/2)+rig.high/4*2);
+    for (int i=0; i<gridX.length; i++)  gridX[i][2] = new PVector(rig.size.x-(rig.wide/2)+rig.wide/(gridX.length)*(i+0.5), rig.size.y-(rig.high/2)+rig.high/6*5);
+    //for (int i=0; i<gridX.length; i++)  gridX[i][3] = new PVector(rig.wide/(gridX.length)*(i+0.5), rig.high/5*4);
+  }
+}
+
+
+
 class OPCGrid {
   PVector[] mirror = new PVector[12];
   PVector[][] mirrorX = new PVector[7][4];
@@ -8,6 +31,7 @@ class OPCGrid {
   PVector[] strip = new PVector[6];
   PVector[] rigGrid = new PVector[12];
   PVector[][] rigGridX = new PVector[7][4]; 
+  PVector[][] roofGridX = new PVector[7][4];
   PVector[] controller = new PVector[4];
   PVector uv; 
   PVector booth, dig;
@@ -117,6 +141,12 @@ class OPCGrid {
     for (int i=0; i<roof.length/6; i++) roof[i+9] =   new PVector (size.roof.x-(size.roofWidth/2)+size.roofWidth/(roof.length/xw+1)*(i+1), size.roofHeight/7*4);
     for (int i=0; i<roof.length/6; i++) roof[i+12] =  new PVector (size.roof.x-(size.roofWidth/2)+size.roofWidth/(roof.length/xw+1)*(i+1), size.roofHeight/7*5);
     for (int i=0; i<roof.length/6; i++) roof[i+15] =  new PVector (size.roof.x-(size.roofWidth/2)+size.roofWidth/(roof.length/xw+1)*(i+1), size.roofHeight/7*6);
+
+    for (int i=0; i<roofGridX.length; i++)  roofGridX[i][0] = new PVector(size.roofWidth/(roofGridX.length+1)*(i+1), size.roofHeight/5*1);
+    for (int i=0; i<roofGridX.length; i++)  roofGridX[i][1] = new PVector(size.roofWidth/(roofGridX.length+1)*(i+1), size.roofHeight/5*2);
+    for (int i=0; i<roofGridX.length; i++)  roofGridX[i][2] = new PVector(size.roofWidth/(roofGridX.length+1)*(i+1), size.roofHeight/5*3);
+    for (int i=0; i<roofGridX.length; i++)  roofGridX[i][3] = new PVector(size.roofWidth/(roofGridX.length+1)*(i+1), size.roofHeight/5*4);
+
     /////////////////////// RIG GRID /////////////////////////////////////////////////////////////////////////////////////////////
     for (int i = 0; i < rigGrid.length/2; i++) rigGrid[i] = new PVector (size.rigWidth/(rigGrid.length/2+1)*(i+1), size.rigHeight/3*1);
     for (int i = 0; i < rigGrid.length/2; i++) rigGrid[i+(rigGrid.length/2)] = new PVector (size.rigWidth/(rigGrid.length/2+1)*(i+1), size.rigHeight/3*2);
@@ -125,6 +155,7 @@ class OPCGrid {
     for (int i=0; i<rigGridX.length; i++)  rigGridX[i][1] = new PVector(size.rigWidth/(rigGridX.length+1)*(i+1), size.rigHeight/5*2);
     for (int i=0; i<rigGridX.length; i++)  rigGridX[i][2] = new PVector(size.rigWidth/(rigGridX.length+1)*(i+1), size.rigHeight/5*3);
     for (int i=0; i<rigGridX.length; i++)  rigGridX[i][3] = new PVector(size.rigWidth/(rigGridX.length+1)*(i+1), size.rigHeight/5*4);
+
 
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

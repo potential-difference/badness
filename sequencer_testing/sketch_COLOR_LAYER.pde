@@ -1,35 +1,19 @@
-class CansColorLayer extends ColorLayer {
-  CansColorLayer(int bgIndex) {
-    super(bgIndex);
-    col1 = cansColor.c;
-    col2 = cansColor.flash;
-    window = cansBuffer.colorLayer;
-    layer = size.cans;
-  }
-}
-class RoofColorLayer extends ColorLayer {
-  RoofColorLayer(int bgIndex) {
-    super(bgIndex);
-    col1 = roofColor.c;
-    col2 = roofColor.flash;
-    window = roofBuffer.colorLayer;
-    layer = size.roof;
-  }
-}
-int rigBgr, roofBgr; 
 int rigBgList = 6, roofBgList = 6;
 class ColorLayer extends SketchColor {
   PGraphics window;
   color col1, col2;
   PVector layer;
   int bgIndex;
+  Rig rig;
 
-  ColorLayer(int _bgIndex) {
-    window = rigBuffer.colorLayer;
-    layer = size.rig;
-    col1 = rigColor.c;
-    col2 = rigColor.flash;
-    bgIndex =_bgIndex;
+  ColorLayer(Rig _rig) {
+    super(_rig);
+    rig = _rig;
+    bgIndex = rig.bgIndex;
+    window = rig.colorLayer;
+    layer = rig.size;
+    col1 = rig.c;
+    col2 = rig.flash;
   }
   void drawColorLayer() {
     switch(bgIndex) {

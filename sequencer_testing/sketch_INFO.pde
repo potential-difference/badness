@@ -38,28 +38,28 @@ void onScreenInfo() {
   y = height-size.sliderHeight+20;
   ///////////// rig info/ ///////////////////////////////////////////////////////////////////
   text("rigViz: " + rigViz, x, y);
-  text("bkgrnd: " + rigBgr, x, y+20);
-  text("func's: " + rigFunctionIndexA + " / " + rigFunctionIndexB, x+100, y);
-  text("alph's: " + rigAlphaIndexA + " / " + rigAlphaIndexB, x+100, y+20);
+  text("bkgrnd: " + rig.bgIndex, x, y+20);
+  text("func's: " + rig.functionIndexA + " / " + rig.functionIndexB, x+100, y);
+  text("alph's: " + rig.alphaIndexA + " / " + rig.alphaIndexB, x+100, y+20);
   ///////////// roof info ////////////////////////////////////////////////////////
   if (size.roofWidth > 0 || size.roofHeight>0) {
     textAlign(RIGHT);
     x = size.roof.x+(size.roofWidth/2) - 130;
     text("roofViz: " + roofViz, x, y);
-    text("bkgrnd: " + roofBgr, x, y+20);
-    text("func's: " + roofFunctionIndexA + " / " + roofFunctionIndexB, x+120, y);
-    text("alph's: " + roofAlphaIndexA + " / " + roofAlphaIndexB, x+120, y+20);
+    text("bkgrnd: " + roof.bgIndex, x, y+20);
+    text("func's: " + roof.functionIndexA + " / " + roof.functionIndexB, x+120, y);
+    text("alph's: " + roof.alphaIndexA + " / " + roof.alphaIndexB, x+120, y+20);
   }
   /*
   ///////////// cans info ////////////////////////////////////////////////////////
-  if (size.cansHeight > 0 || size.cansWidth > 0) {
-    textAlign(RIGHT);
-    x = size.cans.x+(size.cansWidth/2) - 130;
-    text("cansViz: " + roofViz, x, y);
-    text("bkgrnd: " + roofBgr, x, y+20);
-    text("func's: " + roofFunctionIndexA + " / " + roofFunctionIndexB, x+120, y);
-    text("alph's: " + roofAlphaIndexA + " / " + roofAlphaIndexB, x+120, y+20);
-  }*/
+   if (size.cansHeight > 0 || size.cansWidth > 0) {
+   textAlign(RIGHT);
+   x = size.cans.x+(size.cansWidth/2) - 130;
+   text("cansViz: " + roofViz, x, y);
+   text("bkgrnd: " + roofBgr, x, y+20);
+   text("func's: " + roofFunctionIndexA + " / " + roofFunctionIndexB, x+120, y);
+   text("alph's: " + roofAlphaIndexA + " / " + roofAlphaIndexB, x+120, y+20);
+   }*/
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////// info about PLAYWITHYOURSELF functions /////////////////////////////////////////////////////////////////////////////////////////////
   y = 20;
@@ -74,7 +74,7 @@ void onScreenInfo() {
   sec = nf(int(colTime - (millis()/1000 - rigColor.colorTimer)) %60, 2, 0);
   min = int(colTime - (millis()/1000 - rigColor.colorTimer)) /60 %60;
   text("next color in: "+ min+":"+sec, x, y+20);
-  text("c-" + rigColor.colorA + "  " + "flash-" + rigColor.colorB, x, y+40);
+  text("c-" + rigColor.colorIndexA + "  " + "flash-" + rigColor.colorIndexB, x, y+40);
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   pauseInfo();
@@ -82,7 +82,9 @@ void onScreenInfo() {
   frameRateInfo(5, 20);          ///// display frame rate X, Y /////
   sequencer();
   toggleKeysInfo();
-  cordinatesInfo(keyT['q']);
+  cordinatesInfo(roofGrid, keyT['q']);
+    cordinatesInfo(rigGrid, keyT['q']);
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   dividerLines();
 }
@@ -94,7 +96,7 @@ void pauseInfo() {
     text(pause*10+" sec NO AUDIO!!", width-5, height-52);
   }
 }
-void cordinatesInfo(boolean _info) {
+void mouseInfo(boolean _info) {
   if (_info) {
     /////// DISPLAY MOUSE COORDINATES
     textAlign(LEFT);
@@ -105,7 +107,20 @@ void cordinatesInfo(boolean _info) {
     /////  LABLELS to show what PVectors are what 
     textSize(12);
     textAlign(CENTER);
-    //for (int i = 0; i < grid.mirror.length; i++) text(i, grid.mirror[i].x, grid.mirror[i].y);   /// mirrors Position info
+  }
+}
+void cordinatesInfo(Grid _grid, boolean _info) {
+  if (_info) {
+    textSize(12);
+    textAlign(CENTER);
+    fill(360);  
+    for (int i = 0; i < _grid.grid.length; i++) text(i, _grid.grid[i].x, _grid.grid[i].y);   /// mirrors Position info
+    for (int i = 0; i < _grid.gridX.length; i++) {
+      text(i, _grid.gridX[i][0].x, _grid.gridX[i][0].y);   /// mirrors Position info
+      text(i, _grid.gridX[i][1].x, _grid.gridX[i][1].y);   /// mirrors Position info
+      text(i, _grid.gridX[i][2].x, _grid.gridX[i][2].y);   /// mirrors Position info
+      //text(i, rigGrid.gridX[i][3].x, rigGrid.gridX[i][3].y);   /// mirrors Position info
+    }
     //for (int i = 0; i < grid.roof.length; i++) if (size.roof.x>0) text(i, grid.roof[i].x, grid.roof[i].y);
   }
 }
@@ -130,36 +145,36 @@ void colorInfo() {
   float y = height-7.5;
   float x = 17;
   // RIG ///
-  fill(rigColor.c);          
+  fill(rig.c);          
   rect(x, y-10, 10, 10);               // rect to show CURRENT color C 
-  fill(rigColor.col[(rigColor.colorA+1)%rigColor.col.length], 100);
+  fill(rig.col[(rig.colorIndexA+1)%rig.col.length], 100);
   rect(x+15, y-10, 10, 10);              // rect to show NEXT color C 
-  fill(rigColor.flash);
+  fill(rig.flash);
   rect(x, y, 10, 10);                  // rect to show CURRENT color FLASH 
-  fill(rigColor.col[(rigColor.colorB+1)%rigColor.col.length], 100);  
+  fill(rig.col[(rig.colorIndexB+1)%rig.col.length], 100);  
   rect(x+15, y, 10, 10);                 // rect to show NEXT color FLASH1
   // roof
   if (size.roofWidth>0|| size.roofHeight>0) {
     x = size.roof.x+(size.roofWidth/2)-25;
-    fill(roofColor.c);          
+    fill(roof.c);          
     rect(x, y-10, 10, 10);              // rect to show CURRENT color C 
-    fill(roofColor.col[(roofColor.colorA+1)%roofColor.col.length], 100);
+    fill(roof.col[(roof.colorIndexA+1)%roof.col.length], 100);
     rect(x+15, y-10, 10, 10);               // rect to show NEXT color C 
-    fill(roofColor.flash);          
+    fill(roof.flash);          
     rect(x, y, 10, 10);                 // rect to show CURRENT color FLASH 
-    fill(roofColor.col[(roofColor.colorB+1)%roofColor.col.length], 100);
+    fill(roof.col[(roof.colorIndexB+1)%roof.col.length], 100);
     rect(x+15, y, 10, 10);                  // rect to show NEXT color FLASH1
   }
   // cans
   if (size.cansWidth>0|| size.cansHeight>0) {
     x = size.cans.x+(size.cansWidth/2)-25;
-    fill(roofColor.c);          
+    fill(cans.c);          
     rect(x, y-10, 10, 10);              // rect to show CURRENT color C 
-    fill(cansColor.col[(cansColor.colorA+1)%cansColor.col.length], 100);
+    fill(cans.col[(cans.colorIndexA+1)%cans.col.length], 100);
     rect(x+15, y-10, 10, 10);               // rect to show NEXT color C 
-    fill(cansColor.flash);          
+    fill(cans.flash);          
     rect(x, y, 10, 10);                 // rect to show CURRENT color FLASH 
-    fill(cansColor.col[(cansColor.colorB+1)%cansColor.col.length], 100);
+    fill(cans.col[(cans.colorIndexB+1)%cans.col.length], 100);
     rect(x+15, y, 10, 10);                  // rect to show NEXT color FLASH1
   }
 }

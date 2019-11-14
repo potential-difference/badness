@@ -1,6 +1,4 @@
-int rigAlphaIndexA, rigAlphaIndexB = 2, rigFunctionIndexA = 2, rigFunctionIndexB = 3;
 int rigVizList = 6, roofVizList =6, alphLength = 5, funcLength = 8;
-int roofAlphaIndexA=6, roofAlphaIndexB = 4, roofFunctionIndexA = 4, roofFunctionIndexB = 5;
 float alf;
 int vizTimer, alphaTimer, functionTimer;
 void playWithYourself(float vizTm) {
@@ -15,23 +13,23 @@ void playWithYourself(float vizTm) {
   float divide = 4; ///////// NUMBER OF TIMES ALPHA CHANGES PER VIZ
   ///////////// ALPHA TIMER ////////////////////////////////////////////////////////////////////////////////////////////////////
   if (millis()/1000 - alphaTimer >= vizTm/divide) { ///// alpha timer changes 4 times every viz change /////
-    rigAlphaIndexA = int(random(alphLength));  //// select from alpha array
-    rigAlphaIndexB = int(random(alphLength)); //// select from alpha array
-    roofAlphaIndexA = int(random(alphLength));  //// select from alpha array
-    roofAlphaIndexB = int(random(alphLength)); //// select from alpha array
+    rig.alphaIndexA = int(random(alphLength));  //// select from alpha array
+    rig.alphaIndexB = int(random(alphLength)); //// select from alpha array
+    roof.alphaIndexA = int(random(alphLength));  //// select from alpha array
+    roof.alphaIndexB = int(random(alphLength)); //// select from alpha array
     alf = 0; ////// set  viz to 0 to fade up viz when alpha changes /////
-    println("alpha change @", (hour()+":"+minute()+":"+second()), "new af:", rigAlphaIndexA, "new af1:", rigAlphaIndexB);
+    println("alpha change @", (hour()+":"+minute()+":"+second()), "new af:", rig.alphaIndexA, "new af1:", rig.alphaIndexB);
     alphaTimer = millis()/1000;
   }
   divide = 6; //////////////// NUMBER OF TIMES FUNCTION CHANGES PER VIZ
   //////////// FUNCTION TIMER ////////////////////////////////////////////////////////////////////////////////////////////////////
   if (millis()/1000 - functionTimer >= vizTm/divide) {    ////// change function n times for every state change
-    rigFunctionIndexA = int(random(funcLength));  //// select from function array
-    rigFunctionIndexB = int(random(funcLength));  //// select from function array
-    roofFunctionIndexA = int(random(funcLength));  //// select from function array
-    roofFunctionIndexB = int(random(funcLength));  //// select from function array
+    rig.functionIndexA = int(random(funcLength));  //// select from function array
+    rig.functionIndexB = int(random(funcLength));  //// select from function array
+    roof.functionIndexA = int(random(funcLength));  //// select from function array
+    roof.functionIndexB = int(random(funcLength));  //// select from function array
     alf = 0; ////// set  viz to 0 to fade up viz when fucntion changes /////
-    println("function change @", (hour()+":"+minute()+":"+second()), "new fc:", rigFunctionIndexA, "new fc1:", rigFunctionIndexB);
+    println("function change @", (hour()+":"+minute()+":"+second()), "new fc:", rig.functionIndexA, "new fc1:", rig.functionIndexB);
     functionTimer = millis()/1000;
   }
   ///////////////////////////////// FADE UP NEXT VIZ //////////////////////////////////////////////////////////////////////////
@@ -77,15 +75,15 @@ void playWithYourself(float vizTm) {
   if (beatCounter % 32 > 28)  colorLerping(cansColor, (1-beat)*1.5);
 
   colBeat = false;
-  //rigColor.c = lerpColor(rigColor.col[rigColor.colorB], rigColor.col[rigColor.colorA], beatFast);
-  //rigColor.flash = lerpColor(rigColor.col[rigColor.colorA], rigColor.col[rigColor.colorB], beatFast);
+  //rigColor.c = lerpColor(rigColor.col[rigColor.colorIndexB], rigColor.col[rigColor.colorIndexA], beatFast);
+  //rigColor.flash = lerpColor(rigColor.col[rigColor.colorIndexA], rigColor.col[rigColor.colorIndexB], beatFast);
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 void colorLerping(SketchColor object, float function) {
-  object.c = lerpColor(object.col[object.colorB], object.col[object.colorA], function);
-  object.flash = lerpColor(object.col[object.colorA], object.col[object.colorB], function);
+  object.c = lerpColor(object.col[object.colorIndexB], object.col[object.colorIndexA], function);
+  object.flash = lerpColor(object.col[object.colorIndexA], object.col[object.colorIndexB], function);
   colBeat = true;
 }

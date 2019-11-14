@@ -3,8 +3,8 @@ interface Animation {
   void decay();
 }
 abstract class ManualAnim extends Anim {
-  ManualAnim(float _alphaRate, float _funcRate, float _dimmer) {
-    super( -1, _alphaRate, _funcRate, _dimmer);
+  ManualAnim(float _alphaRate, float _funcRate, Rig rig) {
+    super( -1, _alphaRate, _funcRate, rig);
   }
   void draw() {
   }
@@ -31,9 +31,8 @@ class AllOn extends ManualAnim {
     manualAlpha*=map(this.alphaRate, 0, 1, 0.5, 0.97);
     manualAlpha*=this.funcRate;
   }
-  AllOn(float _alphaRate, float _funcRate, float _dimmer) {
-    super(_alphaRate, _funcRate, _dimmer);
-    dimmer = _dimmer;
+  AllOn(float _alphaRate, float _funcRate, Rig _rig) {
+    super(_alphaRate, _funcRate, _rig);
     alphaRate=_alphaRate;
     funcRate=_funcRate;
   }
@@ -42,169 +41,81 @@ class AllOn extends ManualAnim {
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-class RoofOn extends AllOn {
-  void trigger() {
-    super.trigger();
-  }
-  void decay() {
-    super.decay();
-  }
-  RoofOn(float _alphaRate, float _funcRate, float _dimmer) {
-    super(_alphaRate, _funcRate, _dimmer);
-    viz = size.roof;
-    window = roofBuffer.buffer;
-  }
-  void draw() {
-    window.background(360*manualAlpha*dimmer);
-  }
-}
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-class CansOn extends AllOn {
-  void trigger() {
-    super.trigger();
-  }
-  void decay() {
-    super.decay();
-  }
-  CansOn(float _alphaRate, float _funcRate, float _dimmer) {
-    super(_alphaRate, _funcRate, _dimmer);
-    viz = size.cans;
-    window = cansBuffer.buffer;
-  }
-  void draw() {
-    window.background(360*manualAlpha*dimmer);
-  }
-}
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-class MirrorsOn extends AllOn {
-  void trigger() {
-    super.trigger();
-  }
-  void decay() {
-    super.decay();
-  }
-  MirrorsOn(float _alphaRate, float _funcRate, float _dimmer) {
-    super(_alphaRate, _funcRate, _dimmer);
-    viz = size.rig;
-    window = rigBuffer.buffer;
-  }
-  void draw() {
-    window.background(360*manualAlpha*dimmer);
-  }
-}
+
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class RoofAnim extends Anim {
-  RoofAnim(int _vizIndex, float _alphaRate, float _funcRate, float _dimmer) {
-    super(_vizIndex, _alphaRate, _funcRate, _dimmer);
-    //Roof specific code:
-    alphaIndexA = roofAlphaIndexA;
-    alphaIndexB = roofAlphaIndexB;
-    functionIndexA = roofFunctionIndexA;
-    functionIndexB = roofFunctionIndexB;
-    bluredA = roofBuffer.pass1;
-    bluredB = roofBuffer.pass2;
-    window = roofBuffer.buffer;
-    viz = size.roof;
+/*
+ class RoofAnim extends Anim {
+ RoofAnim(int _vizIndex, float _alphaRate, float _funcRate, Rig _rig) {
+ super(_vizIndex, _alphaRate, _funcRate, _rig);
+ //Roof specific code:
+ 
+ alphaA = 1-alphaA;
+ alphaB = 1-alphaB;
+ 
+ for (int i=0; i<position.length/2; i++) position[i]   = new PVector(window.width/(position.length/2+1)*(i+1), window.height/3*1);
+ for (int i=0; i<position.length/2; i++) position[i+6] = new PVector(window.width/(position.length/2+1)*(i+1), window.height/3*2);
+ 
+ for (int i=0; i<positionX.length; i++)  positionX[i][0] = new PVector(window.width/(positionX.length+1)*(i+1), window.height/5*1);
+ for (int i=0; i<positionX.length; i++)  positionX[i][1] = new PVector(window.width/(positionX.length+1)*(i+1), window.height/5*2);
+ for (int i=0; i<positionX.length; i++)  positionX[i][2] = new PVector(window.width/(positionX.length+1)*(i+1), window.height/5*3);
+ for (int i=0; i<positionX.length; i++)  positionX[i][3] = new PVector(window.width/(positionX.length+1)*(i+1), window.height/5*4);
+ }
+ void drawAnim() {
+ super.drawAnim();
+ switch (vizIndex) {
+ case 10:
+ window.beginDraw();
+ window.background(0);
+ window.noStroke();
+ // fade up
+ alphaA = (((alph[1])*0.6))+(0.2*noize1*(alph[0]))+(0.05*(alph[1])*stutter);
+ window.fill(col1, 360*alphaA);
+ window.rect(window.width/2, window.height/2, window.width, window.height);
+ // fade out
+ alphaA *=pow((1-alpha*1), 2);      
+ window.fill(0, 360*alphaA);
+ window.rect(window.width/2, window.height/2, window.width, window.height);
+ window.endDraw();
+ image(window, viz.x, viz.y, window.width, window.height);
+ break;
+ default:
+ break;
+ }
+ }
+ }
+ ///////////////////////////////////////////////////////////////////////////////////////////////////////
+ class CansAnim extends Anim {
+ CansAnim(int _vizIndex, float _alphaRate, float _funcRate, Rig _rig) {
+ super(_vizIndex, _alphaRate, _funcRate, _rig);
+ //cans specific code:
+ }
+ void drawAnim() {
+ super.drawAnim();
+ switch (vizIndex) {
+ case 10:
+ window.beginDraw();
+ window.background(0);
+ window.noStroke();
+ // fade up
+ alphaA = ((((alph[1])*0.6))+(0.2*noize1*(alph[0]))+(0.05*(alph[1])*stutter))*rig.dimmer;
+ window.fill(360*alphaA);
+ window.rect(window.width/2, window.height/2, window.width, window.height);
+ // fade out
+ alphaA *=pow((1-alpha*1), 2);      
+ window.fill(0, 360*alphaA);
+ window.rect(window.width/2, window.height/2, window.width, window.height);
+ window.endDraw();
+ image(window, viz.x, viz.y, window.width, window.height);
+ break;
+ default:
+ break;
+ }
+ }
+ }
+ */
 
-    //positionX = grid.roofX;
-
-
-    alphaA = 1-alphaA;
-    alphaB = 1-alphaB;
-
-    for (int i=0; i<position.length/2; i++) position[i]   = new PVector(window.width/(position.length/2+1)*(i+1), window.height/3*1);
-    for (int i=0; i<position.length/2; i++) position[i+6] = new PVector(window.width/(position.length/2+1)*(i+1), window.height/3*2);
-
-    //position = grid.roof;
-
-
-    for (int i=0; i<positionX.length; i++)  positionX[i][0] = new PVector(window.width/(positionX.length+1)*(i+1), window.height/5*1);
-    for (int i=0; i<positionX.length; i++)  positionX[i][1] = new PVector(window.width/(positionX.length+1)*(i+1), window.height/5*2);
-    for (int i=0; i<positionX.length; i++)  positionX[i][2] = new PVector(window.width/(positionX.length+1)*(i+1), window.height/5*3);
-    for (int i=0; i<positionX.length; i++)  positionX[i][3] = new PVector(window.width/(positionX.length+1)*(i+1), window.height/5*4);
-  }
-  void drawAnim() {
-    super.drawAnim();
-    switch (vizIndex) {
-    case 10:
-      window.beginDraw();
-      window.background(0);
-      window.noStroke();
-      // fade up
-      alphaA = (((alph[1])*0.6))+(0.2*noize1*(alph[0]))+(0.05*(alph[1])*stutter);
-      window.fill(col1, 360*alphaA);
-      window.rect(window.width/2, window.height/2, window.width, window.height);
-      // fade out
-      alphaA *=pow((1-alpha*1), 2);      
-      window.fill(0, 360*alphaA);
-      window.rect(window.width/2, window.height/2, window.width, window.height);
-      window.endDraw();
-      image(window, viz.x, viz.y, window.width, window.height);
-      break;
-    default:
-      break;
-    }
-  }
-}
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-class CansAnim extends Anim {
-  CansAnim(int _vizIndex, float _alphaRate, float _funcRate, float _dimmer) {
-    super(_vizIndex, _alphaRate, _funcRate, _dimmer);
-    //cans specific code:
-    alphaIndexA = roofAlphaIndexA;
-    alphaIndexB = roofAlphaIndexB;
-    functionIndexA = roofFunctionIndexA;
-    functionIndexB = roofFunctionIndexB;
-    bluredA = cansBuffer.pass1;
-    bluredB = cansBuffer.pass2;
-    window = cansBuffer.buffer;
-    viz = size.cans;
-  }
-  void drawAnim() {
-    super.drawAnim();
-    switch (vizIndex) {
-    case 10:
-      window.beginDraw();
-      window.background(0);
-      window.noStroke();
-      // fade up
-      alphaA = (((alph[1])*0.6))+(0.2*noize1*(alph[0]))+(0.05*(alph[1])*stutter);
-      window.fill(col1, 360*alphaA);
-      window.rect(window.width/2, window.height/2, window.width, window.height);
-      // fade out
-      alphaA *=pow((1-alpha*1), 2);      
-      window.fill(0, 360*alphaA);
-      window.rect(window.width/2, window.height/2, window.width, window.height);
-      window.endDraw();
-      image(window, viz.x, viz.y, window.width, window.height);
-      break;
-    default:
-      break;
-    }
-  }
-}
-class MirrorsAnim extends Anim {
-  MirrorsAnim(int _vizIndex, float _alphaRate, float _funcRate, float _dimmer) {
-    super(_vizIndex, _alphaRate, _funcRate, _dimmer);
-    //mirrors specific code:
-    vizIndex = _vizIndex;
-    viz = size.rig;
-    window = rigBuffer.buffer;
-    bluredA = rigBuffer.pass1;
-    bluredB = rigBuffer.pass2;
-    alphaIndexA = rigAlphaIndexA;
-    alphaIndexB = rigAlphaIndexB;
-    functionIndexA = rigFunctionIndexA;
-    functionIndexB = rigFunctionIndexB;
-
-    position = grid.mirror;
-    positionX = grid.mirrorX;
-  }
-  void drawAnim() {
-    super.drawAnim();
-  }
-}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 class Anim implements Animation {
   float alphaRate, funcRate, dimmer, alphaA, functionA, alphaB, functionB, alphMod=1, funcMod=1, funcFX=1, alphFX=1;
@@ -216,12 +127,12 @@ class Anim implements Animation {
   PGraphics window, bluredA, bluredB;
   float alph[] = new float[7];
   float func[] = new float[8];
+  Rig rig;
 
-  Anim(int _vizIndex, float _alphaRate, float _funcRate, float _dimmer) {
+  Anim(int _vizIndex, float _alphaRate, float _funcRate, Rig _rig) {
     alphaRate = _alphaRate;
     funcRate = _funcRate;
-    alphMod = _dimmer;
-    dimmer = _dimmer;
+    rig = _rig;
     resetbeats(); 
     trigger();
 
@@ -234,17 +145,17 @@ class Anim implements Animation {
     col2 = white;
 
     vizIndex = _vizIndex;
-    viz = size.rig;
-    window = rigBuffer.buffer;
-    bluredA = rigBuffer.pass1;
-    bluredB = rigBuffer.pass2;
-    alphaIndexA = rigAlphaIndexA;
-    alphaIndexB = rigAlphaIndexB;
-    functionIndexA = rigFunctionIndexA;
-    functionIndexB = rigFunctionIndexB;
+    viz = rig.size;
+    window = rig.buffer;
+    bluredA = rig.pass1;
+    bluredB = rig.pass2;
+    alphaIndexA = rig.alphaIndexA;
+    alphaIndexB = rig.alphaIndexB;
+    functionIndexA = rig.functionIndexA;
+    functionIndexB = rig.functionIndexB;
 
-    position = grid.rigGrid;
-    positionX = grid.rigGridX;
+    position = rig.position; //grid.rigGrid;
+    positionX = rig.positionX;
   }
 
   float stroke, wide, high, rotate;
@@ -255,18 +166,6 @@ class Anim implements Animation {
 
     vizWidth = float(this.window.width);
     vizHeight = float(this.window.height);
-
-    //alphaA *= dimmer;
-    //alphaB *= dimmer;
-
-    //println(dimmer, alphaA);
-
-    //for (int i = 0; i < position.length; i++) text(i, position[i].x, position[i].y);   /// mirrors Position info
-    //for (int i = 0; i < positionX.length; i++) text(i, positionX[i][0].x, positionX[i][0].y);   /// mirrors Position info
-
-    //
-    // this should probably be moved to playwithyourself
-    //
 
     /////////////////////////////////////// SHIMMER control for rig ////////////////////////////
     /*
@@ -287,11 +186,12 @@ class Anim implements Animation {
     alphaA = alph[alphaIndexA];
     alphaB  = alph[alphaIndexB];
 
-    alphaA*=dimmer;
-    alphaB+=dimmer;
+    alphaA*=rig.dimmer;
+    alphaB*=rig.dimmer;
 
     functionA =func[functionIndexA]*funcFX;
     functionB =func[functionIndexB]*funcFX;
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     switch (vizIndex) {
@@ -314,7 +214,7 @@ class Anim implements Animation {
       donut(position[8].x, position[8].y, col1, stroke, wide, high, rotate, alphaA);
       window.endDraw();
       break;
-
+      //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     case 1:
       window.beginDraw();
       window.background(0);
@@ -334,8 +234,7 @@ class Anim implements Animation {
       star(positionX[2][2].x, positionX[2][2].y, col1, stroke, wide, high, rotate, alphaA);
       window.endDraw();
       break;
-
-
+      //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     case 2:
       window.beginDraw();
       window.background(0);
@@ -348,7 +247,7 @@ class Anim implements Animation {
       star(positionX[4][1].x, viz.y, col1, stroke, wide, high, rotate, alphaA);
       window.endDraw();
       break;
-
+      //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     case 3:
       window.beginDraw();
       window.background(0);
@@ -365,6 +264,7 @@ class Anim implements Animation {
       squareNut(positionX[6][2].x, positionX[6][2].y, col1, stroke, wide, high, -45, alphaA);
       window.endDraw();
       break;
+      //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     case 4:
       window.beginDraw();
       window.background(0);
@@ -373,6 +273,7 @@ class Anim implements Animation {
       else rush(position[0].x, viz.y, col1, wide, vizHeight, 1-functionA, alphaA);
       window.endDraw();
       break;
+      //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     case 5:
       window.beginDraw();
       window.background(0);
@@ -381,6 +282,23 @@ class Anim implements Animation {
       //rush(viz.x+(vizWidth/2), viz.y, col1, wide, vizHeight, 1-func[6], alphaA);
       window.endDraw();
       break;
+      //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    case 10:
+      window.beginDraw();
+      window.background(0);
+      window.noStroke();
+      // fade up
+      alphaA = ((((alph[1])*0.6))+(0.2*noize1*(alph[0]))+(0.05*(alph[1])*stutter))*rig.dimmer;
+      window.fill(360,360*alphaA);
+      window.rect(window.width/2, window.height/2, window.width, window.height);
+      // fade out
+      alphaA *=pow((1-alpha*1), 2);      
+      window.fill(0, 360*alphaA);
+      window.rect(window.width/2, window.height/2, window.width, window.height);
+      window.endDraw();
+      image(window, viz.x, viz.y, window.width, window.height);
+      break;
+      //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     default:
       break;
     }
@@ -451,6 +369,8 @@ class Anim implements Animation {
     bluredB.endDraw();
     image(bluredB, viz.x, viz.y, window.width, window.height);
   }
+  ///////////////////////////////////// DIMMER //////////////////////////////////////////////////////////////
+
   /////////////////////////////////// FUNCTION AND ALPHA ARRAYS //////////////////////////////////////////////
   void alphaFunction() {
     //// array of functions
@@ -465,13 +385,13 @@ class Anim implements Animation {
     //// array of alphas
     alph[0] = alpha;
     alph[1] = 1-alpha;
-    alph[2] = alpha+(0.05*stutter);
+    alph[2] = alpha+(0.05*stutter*alpha);
     alph[3] = (0.98*alpha)+(stutter*(1-alpha)*0.02);
     alph[4] = (0.98*(1-alpha))+(alpha*0.02*stutter);
     alph[5] = alphaFast;
     alph[6] = alphaSlow;
-    //for (int i = 0; i < alph.length; i++) alph[i] *=alphMod;
-    for (int i = 0; i < func.length; i++) func[i] *=funcMod;
+    //for (int i = 0; i < alph.length; i++) alph[i] *=dimmer;
+    //for (int i = 0; i < func.length; i++) func[i] *=funcMod;
   }
   //////////////////////////////////// TRIGGER //////////////////////////////////////////////
   float alpha, alphaFast, alphaSlow;

@@ -18,11 +18,11 @@ final int ROOF = 1;
 SizeSettings size;
 OPCGrid grid;
 ControlFrame controlFrame;
-Toggle toggle = new Toggle();
 
+Rig rig, roof, cans, mirrors, strips;
+Grid rigGrid, roofGrid, cansGrid;
 SketchColor rigColor, roofColor, cansColor;
 ColorLayer rigLayer, roofLayer, cansLayer;
-Buffer rigBuffer, roofBuffer, cansBuffer;
 
 ArrayList <Anim> animations;
 
@@ -51,6 +51,8 @@ void setup()
 {
   surface.setAlwaysOnTop(onTop);
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
+
+
   grid = new OPCGrid();
   dmx = new DMXGrid();
 
@@ -64,10 +66,20 @@ void setup()
   opcCans = new OPC(this, "192.168.0.10", 7890);          // Connect to the remote instance of fcserver - CANS BOX
   opcStrip = new OPC(this, "192.168.0.20", 7890);          // Connect to the remote instance of fcserver - CANS BOX
 
-  //grid.mirrorsOPC(opcMirrors, opcMirrors, 0);               // grids 0-3 MIX IT UPPPPP 
-  grid.kingsHeadCansOPC(opcLocal);               
-  grid.kingsHeadStripOPC(opcLocal);
-  grid.kingsHeadBoothOPC(opcLocal);
+  grid.mirrorsOPC(opcLocal, opcLocal, 0);               // grids 0-3 MIX IT UPPPPP 
+  //grid.kingsHeadCansOPC(opcLocal);               
+  //grid.kingsHeadStripOPC(opcLocal);
+  //grid.kingsHeadBoothOPC(opcLocal);
+
+  rig = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, grid.mirror, grid.mirrorX);
+  roof = new Rig(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, grid.roof, grid.roofGridX);
+  cans = new Rig(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, grid.cans, grid.roofGridX);
+
+  rigGrid = new Grid(rig);
+  roofGrid = new Grid(roof);
+  println(rigGrid.grid);
+  println();
+  println(roofGrid.grid);
 
   dmx.FMSmoke(opcLocal, width - 120, 115);
 
@@ -78,30 +90,27 @@ void setup()
   LPD8bus = new MidiBus(this, "LPD8", "LPD8"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
   beatStepBus = new MidiBus(this, "Arturia BeatStep", "Arturia BeatStep"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
 
-  rigBuffer = new Buffer(size.rigWidth, size.rigHeight);
-  roofBuffer = new Buffer(size.roofWidth, size.roofHeight);
-  cansBuffer = new Buffer(size.cansWidth, size.cansHeight);
 
   drawingSetup();
   loadImages();
   loadGraphics();
   loadShaders();
   colorSetup();  
-  rigColor = new SketchColor();
-  roofColor = new SketchColor(); 
-  cansColor = new SketchColor();
+  rigColor = new SketchColor(rig);
+  roofColor = new SketchColor(roof); 
+  cansColor = new SketchColor(cans);
 
   rigViz = 2;
   roofViz = 1;
-  rigBgr = 0;
-  roofBgr = 4;
+  rig.bgIndex = 0;
+  roof.bgIndex = 4;
 
-  rigColor.colorA = 9;
-  rigColor.colorB = 6;
-  roofColor.colorA = 3;
-  roofColor.colorB = 4;
-  cansColor.colorA = 7;
-  cansColor.colorB = 11;
+  rig.colorIndexA = 9;
+  rig.colorIndexB = 6;
+  roof.colorIndexA = 3;
+  roof.colorIndexB = 4;
+  cans.colorIndexA = 7;
+  cans.colorIndexB = 11;
   //dimmer = 0.3;
 
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
@@ -118,7 +127,7 @@ void setup()
 
   controlFrame = new ControlFrame(this, width, 130, "Controls"); // load control frame must come after shild ring etc
   animations = new ArrayList<Anim>();
-  animations.add(new Anim(0, alphaSlider, funcSlider, rigDimmer));
+  animations.add(new Anim(0, alphaSlider, funcSlider, rig));
   frameRate(30);
 }
 float vizTime, colTime;
@@ -149,19 +158,20 @@ void draw()
   //   if (cc[8] != roofDimmer) cp5.getController("roofDimmer").setValue(cc[8]);
   // }  
 
-  rigDimmer = cc[4]; // come back to this with wigxxxflex code?!
-  roofDimmer = cc[8]; // come back to this with wigflex code?!
+  rig.dimmer = cc[4]; // come back to this with wigxxxflex code?!
+  roof.dimmer = cc[8]; // come back to this with wigflex code?!
+  cans.dimmer = cc[7];
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   playWithMe();
   // create a new anim object and add it to the beginning of the arrayList
   if (beatTrigger) {
-    if (rigToggle)    animations.add(new MirrorsAnim(rigViz, alphaSlider, funcSlider, rigDimmer));   
-    if (cansToggle)   animations.add(new CansAnim(roofViz, cansAlpha, funcSlider, cansDimmer));              // create an anim object for the cans 
+    if (rigToggle)    animations.add(new Anim(rigViz, alphaSlider, funcSlider, rig));   
+    if (cansToggle)   animations.add(new Anim(10, cansAlpha, funcSlider, cans));              // create an anim object for the cans 
     if (roofToggle) {
-      if (roofBasic) animations.add(new RoofAnim(10, alphaSlider, funcSlider, roofDimmer));            // create a new anim object for the roof
-      else animations.add(new RoofAnim(roofViz, alphaSlider, funcSlider, roofDimmer));
+      if (roofBasic) animations.add(new Anim(10, alphaSlider, funcSlider, roof));            // create a new anim object for the roof
+      else animations.add(new Anim(roofViz, alphaSlider, funcSlider, roof));
     }
   }
   // limit the number of animations
@@ -183,9 +193,9 @@ void draw()
   }
   ////////////////////// draw colour layer /////////////////////////////////////////////////////////////////////////////////////////////////////
   blendMode(MULTIPLY);
-  rigLayer = new ColorLayer(rigBgr);
-  roofLayer = new RoofColorLayer(roofBgr);
-  cansLayer = new CansColorLayer(roofBgr);
+  rigLayer = new ColorLayer(rig);
+  roofLayer = new ColorLayer(roof);
+  cansLayer = new ColorLayer(cans);
   // this donesnt work anymore....
   //if (cc[106] > 0 || keyT['r'] || glitchToggle) bgNoise(rigBuffer.colorLayer, 0, 0, cc[6]); //PGraphics layer,color,alpha
   ////
@@ -194,17 +204,14 @@ void draw()
   cansLayer.drawColorLayer();
   blendMode(NORMAL);
   //////////////////////////////////////////// PLAY WITH ME MORE /////////////////////////////////////////////////////////////////////////////////
-  playWithMeMore();
+  //playWithMeMore();
   //////////////////////////////////////////// BOOTH & DIG ///////////////////////////////////////////////////////////////////////////////////////
   boothLights();
   ////////////////////////////////////// MONKY WITH AN AK //////////////////////////////////
-
   fill(0, 360-(360*cansDimmer));
   rect(600, 450, 320, 10);
   if (beatCounter %64 < 4) fill(rigColor.clash, 200*stutter*roofDimmer);
   rect(600, 450, 320, 10);
-
-
   //////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
   workLights(keyT['w']);
   testColors(keyT['t']);

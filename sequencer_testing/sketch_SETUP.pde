@@ -13,8 +13,8 @@ class SizeSettings {
       rig = new PVector(rigWidth/2, (rigHeight/2));   // cordinates for center of rig
       break;
     case LANDSCAPE:
-      rigWidth = 800;                                    // WIDTH of rigViz
-      rigHeight = 600;    
+      rigWidth = 900;                                    // WIDTH of rigViz
+      rigHeight = 350;    
       rig = new PVector(rigWidth/2, (rigHeight/2));   // cordinates for center of rig
       break;
     }
@@ -23,11 +23,11 @@ class SizeSettings {
     cansWidth = rigWidth;
     cansHeight = 60;
     cans = new PVector (rig.x, rigHeight+(cansHeight/2));
-    roofWidth = 800;
+    roofWidth = 300;
     roofHeight = rigHeight+cansHeight;
     roof = new PVector (rigWidth+(roofWidth/2), roofHeight/2);
 
-    sliderHeight = 70;         // height of slider area at bottom of sketch window
+    sliderHeight = 90;         // height of slider area at bottom of sketch window
 
     infoWidth = 200;
     infoHeight = rigHeight+sliderHeight;
@@ -108,45 +108,7 @@ void drawingSetup() {
   strokeWeight(20);
   //hint(DISABLE_OPTIMIZED_STROKE);
 }
-class Buffer {
-  PGraphics colorLayer, buffer, pass1, pass2;
-  Buffer(int wide, int high) {
 
-    colorLayer = createGraphics(wide, high, P2D);
-    colorLayer.beginDraw();
-    colorLayer.noStroke();
-    colorLayer.colorMode(HSB, 360, 100, 100);
-    colorLayer.imageMode(CENTER);
-    colorLayer.rectMode(CENTER);
-    colorLayer.endDraw();
-
-    buffer = createGraphics(wide, high, P2D);
-    buffer.beginDraw();
-    buffer.colorMode(HSB, 360, 100, 100);
-    buffer.blendMode(NORMAL);
-    buffer.ellipseMode(CENTER);
-    buffer.rectMode(CENTER);
-    buffer.imageMode(CENTER);
-    buffer.noStroke();
-    buffer.noFill();
-    buffer.endDraw();
-
-    ///////////////////////////////////// LOAD GRAPHICS FOR SHADER LAYERS //////////////////////
-    pass1 = createGraphics(wide/2, high/2, P2D);
-    pass1.noSmooth();
-    pass1.imageMode(CENTER);
-    pass1.beginDraw();
-    pass1.noStroke();
-    pass1.endDraw();
-
-    pass2 = createGraphics(wide/2, high/2, P2D);
-    pass2.noSmooth();
-    pass2.beginDraw();
-    pass2.imageMode(CENTER);
-    pass2.noStroke();
-    pass2.endDraw();
-  }
-}
 /////////////////////// LOAD GRAPHICS FOR VISULISATIONS AND COLOR LAYERS //////////////////////////////
 PGraphics bg[] = new PGraphics[rigBgList];
 PGraphics rigWindow, roofWindow, cansWindow, infoWindow, rigColourLayer, roofColourLayer, rigBluredA, rigBluredB, roofBluredA, roofBluredB;

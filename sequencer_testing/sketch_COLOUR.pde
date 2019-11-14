@@ -1,9 +1,11 @@
 class SketchColor {
-  color c, flash, c1, flash1, colorA, colorB = 1, colA, colB, colC, colD;
+  Rig rig;
+  color c, flash, c1, flash1, colorIndexA, colorIndexB = 1, colA, colB, colC, colD;
   color col[] = new color[15];
 
-  SketchColor() {
-    /////////////////////////////////////// COLOR ARRAY SETUP ////////////////////////////////////////
+  SketchColor(Rig _rig) {
+    rig = _rig;
+       /////////////////////////////////////// COLOR ARRAY SETUP ////////////////////////////////////////
     col[0] = purple; 
     col[1] = pink; 
     col[2] = orange1; 
@@ -26,6 +28,9 @@ class SketchColor {
   boolean change;
   int colorTimer;
   void colorTimer(float colTime, int steps) {
+    colorIndexA = rig.colorIndexA;
+    colorIndexB = rig.colorIndexB;
+   
     if (change == false) {
       colA = c;
       colC = flash;
@@ -37,15 +42,15 @@ class SketchColor {
     } else change = false;
     if (change == true) {
       go = 1;
-      colorA =  (colorA + steps) % (col.length-1);
-      colB =  col[colorA];
-      colorB = (colorB + steps) % (col.length-1);
-      colD = col[colorB];
+      colorIndexA =  (colorIndexA + steps) % (col.length-1);
+      colB =  col[colorIndexA];
+      colorIndexB = (colorIndexB + steps) % (col.length-1);
+      colD = col[colorIndexB];
     }
-    c = col[colorA];
-    c1 = col[colorA];
-    flash = col[colorB];
-    flash1 = col[colorB];
+    c = col[colorIndexA];
+    c1 = col[colorIndexA];
+    flash = col[colorIndexB];
+    flash1 = col[colorIndexB];
 
     if (go > 0.1) change = true;
     else change = false;
@@ -55,6 +60,11 @@ class SketchColor {
     }
     go *= 0.97;
     if (go < 0.01) go = 0.001;
+    rig.c=c;
+    rig.c1=c1;
+    rig.flash=flash;
+    rig.flash1=flash1;
+    rig.col=col;
   }
   ////////////////////////////////////////////////////// HSB LERP COLOR FUNCTION //////////////////////////////
   // linear interpolate two colors in HSB space 

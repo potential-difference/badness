@@ -11,40 +11,40 @@ void keyPressed() {
   if (key == 'n') rigViz = (rigViz+1)%rigVizList;        //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
   if (key == 'b') rigViz -=1;                            //// STEP BACK TO PREVIOUS RIG VIZ
   if (rigViz <0) rigViz = rigVizList-1;
-  if (key == 'm') rigBgr = (rigBgr+1)%rigBgList;                 //// CYCLE THROUGH RIG BACKGROUNDS
+  if (key == 'm') rig.bgIndex = (rig.bgIndex+1)%rigBgList;                 //// CYCLE THROUGH RIG BACKGROUNDS
 
   /////////////////////////////// ROOF KEY FUNCTIONS ////////////////////////
   if (key == 'h') roofViz = (roofViz+1)%roofVizList;               //// STEP FORWARD TO NEXT RIG VIZ
   if (key == 'g') roofViz -= 1;                          //// STEP BACK TO PREVIOUS RIG VIZ
   if (roofViz <0) roofViz = roofVizList-1;
-  if (key == 'j') roofBgr = (roofBgr+1)%roofBgList;               //// CYCLE THROUGH ROOF BACKGROUNDS
+  if (key == 'j') roof.bgIndex = (roof.bgIndex+1)%roofBgList;               //// CYCLE THROUGH ROOF BACKGROUNDS
 
   if (key == ',') {                                      //// CYCLE THROUGH RIG FUNCS
-    rigFunctionIndexA = (rigFunctionIndexA+1)%funcLength; //animations.func.length; 
-    rigFunctionIndexB = (rigFunctionIndexB+1)%funcLength; //fct.length;
+    rig.functionIndexA = (rig.functionIndexA+1)%funcLength; //animations.func.length; 
+    rig.functionIndexB = (rig.functionIndexB+1)%funcLength; //fct.length;
   }  
   if (key == '.') {                                      //// CYCLE THROUGH RIG ALPHAS
-    rigAlphaIndexA = (rigAlphaIndexA+1)% alphLength; //alph.length; 
-    rigAlphaIndexB = (rigAlphaIndexB+1)% alphLength; //alph.length;
+    rig.alphaIndexA = (rig.alphaIndexA+1)% alphLength; //alph.length; 
+    rig.alphaIndexB = (rig.alphaIndexB+1)% alphLength; //alph.length;
   }   
   if (key == 'k') {                                      //// CYCLE THROUGH ROOF FUNCS
-    roofFunctionIndexA = (roofFunctionIndexA+1)%funcLength; 
-    roofFunctionIndexB = (roofFunctionIndexB+1)%funcLength;
+    roof.functionIndexA = (roof.functionIndexA+1)%funcLength; 
+    roof.functionIndexB = (roof.functionIndexB+1)%funcLength;
   }  
   if (key == 'l') {                                      //// CYCLE THROUGH ROOF ALPHAS
-    roofAlphaIndexA = (roofAlphaIndexA+1)%alphLength; 
-    roofAlphaIndexB = (roofAlphaIndexB+1)%alphLength;
+    roof.alphaIndexA = (roof.alphaIndexA+1)%alphLength; 
+    roof.alphaIndexB = (roof.alphaIndexB+1)%alphLength;
   }   
-  if (key == 'c') rigColor.colorA = (rigColor.colorA+1)%rigColor.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
-  if (key == 'v') rigColor.colorB = (rigColor.colorB+1)%rigColor.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
+  if (key == 'c') rig.colorIndexA = (rig.colorIndexA+1)%rig.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
+  if (key == 'v') rig.colorIndexB = (rig.colorIndexB+1)%rig.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
 
   if (key == 'd') {
-    roofColor.colorA = (roofColor.colorA+1)%roofColor.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
-    cansColor.colorA = (cansColor.colorA+1)%cansColor.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
+    roof.colorIndexA = (roof.colorIndexA+1)%roof.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
+    cans.colorIndexA = (cans.colorIndexA+1)%cans.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
   }
   if (key == 'f') {
-    roofColor.colorB = (roofColor.colorB+1)%roofColor.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
-    cansColor.colorB = (cansColor.colorB+1)%cansColor.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
+    roof.colorIndexB = (roof.colorIndexB+1)%roof.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
+    cans.colorIndexB = (cans.colorIndexB+1)%cans.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
   }
   if (key == '[') vizHold = !vizHold; 
   if (key == ']') colHold = !colHold; 
@@ -78,7 +78,7 @@ void keyReleased()
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////// MIDI FUNCTIONS /////////////////////////////////////////////////////////////////////
 float pad[] = new float[128];                //// An array where to store the last value received for each midi Note controller
-float padMapped[] = new float[16];
+float padVelocity[] = new float[16];
 boolean padPressed[] = new boolean[128];
 int midiMap;
 void noteOn(Note note) {
@@ -90,7 +90,7 @@ void noteOn(Note note) {
 
   midiMap = int(map(note.pitch, 36, 84, 0, 7));
   padPressed[midiMap] = true;
-  padMapped[midiMap] = velocity;
+  padVelocity[midiMap] = velocity;
 }
 void noteOff(Note note) {
   padPressed[note.pitch] = false;
