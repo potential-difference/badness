@@ -111,9 +111,9 @@ void noize() {
 void bgNoise(PGraphics layer, color _col, float bright, float alpha) {
   color col=color(hue(_col), saturation(_col), 100*bright);
   layer.loadPixels();
-  for (int x=0; x<size.rigWidth; x++) {
-    for (int y=0; y<size.rigHeight; y++) {
-      color pixel=layer.pixels[x+y*size.rigWidth];
+  for (int x=0; x<layer.width; x++) {
+    for (int y=0; y<layer.height; y++) {
+      color pixel=layer.pixels[x+y*layer.width];
       //col=int(random(255*alpha))<<24 | col&0xffffff;
       color out;
       if (random(1.0)<alpha) {
@@ -121,7 +121,7 @@ void bgNoise(PGraphics layer, color _col, float bright, float alpha) {
       } else {
         out=pixel;
       }
-      layer.pixels[x+y*size.rigWidth]=out;
+      layer.pixels[x+y*layer.width]=out;
     }
   }
   layer.updatePixels();

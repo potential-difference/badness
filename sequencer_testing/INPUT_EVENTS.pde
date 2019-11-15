@@ -81,20 +81,21 @@ float pad[] = new float[128];                //// An array where to store the la
 float padVelocity[] = new float[16];
 boolean padPressed[] = new boolean[128];
 int midiMap;
-void noteOn(Note note) {
-  float velocity = map(note.velocity, 0, 127, 0, 1);
-  pad[note.pitch] = velocity;
-  padPressed[note.pitch] = true;
+void noteOn( int channel, int pitch, int _velocity) {
+  float velocity = map(_velocity, 0, 127, 0, 1);
+  pad[pitch] = velocity;
+  padPressed[pitch] = true;
   println();
-  println("PAD: "+note.pitch, "Velocity: "+velocity);
+  println("Note: "+pitch, "Velocity: "+velocity, "Channel: "+channel);
 
-  midiMap = int(map(note.pitch, 36, 84, 0, 7));
+  midiMap = int(map(pitch, 36, 84, 0, 7));
   padPressed[midiMap] = true;
   padVelocity[midiMap] = velocity;
 }
 void noteOff(Note note) {
   padPressed[note.pitch] = false;
   padPressed[midiMap] = false;
+  //padVelocity[midiMap] = 0;
 }
 float cc[] = new float[128];                   //// An array where to store the last value received for each CC controller
 float prevcc[] = new float[128];

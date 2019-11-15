@@ -190,7 +190,7 @@ class ControlFrame extends PApplet {
       .setSize(wide, high)
       //.setFont(font)
       .setRange(0, 1)
-      .setValue(cc[7])    // start value []ppof slider
+      .setValue(cc[5])    // start value []ppof slider
       .setColorActive(act) 
       .setColorBackground(bac) 
       .setColorForeground(slider) 
@@ -387,9 +387,9 @@ class ControlFrame extends PApplet {
       prevcc[4]=cc[4];
       if (cc[4] != rigDimmer) cp5.getController("rigDimmer").setValue(cc[4]);
     }
-    if (cc[7]!=prevcc[7]) {
-      prevcc[7]=cc[7];
-      if (cc[7] != cansDimmer) cp5.getController("cansDimmer").setValue(cc[7]);
+    if (cc[5]!=prevcc[5]) {
+      prevcc[5]=cc[5];
+      if (cc[5] != cansDimmer) cp5.getController("cansDimmer").setValue(cc[5]);
     }
     if (cc[8]!=prevcc[8]) {
       prevcc[8]=cc[8];

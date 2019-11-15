@@ -79,23 +79,23 @@ void playWithMe() {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////// PLAY WITH DRAWING FUNCTIONS ////////////////////////////////////////////////////////////// 
-//void playWithMeMore() {
-//  /////background noise over whole window/////
-//  if (cc[105] > 0) {
-//    rigBuffer.colorLayer.beginDraw();
-//    rigBuffer.colorLayer.background(0, 0, 0, 0);
-//    rigBuffer.colorLayer.endDraw();
-//    bgNoise(rigBuffer.colorLayer, rigColor.flash, map(cc[105], 0, 1, 0.2, 1), cc[5]*rigDimmer/2);   //PGraphics layer,color,alpha
-//    image(rigBuffer.colorLayer, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight);
-//  }
-//  if (cc[106] > 0) {
-//    roofBuffer.colorLayer.beginDraw();
-//    roofBuffer.colorLayer.background(0, 0, 0, 0);
-//    roofBuffer.colorLayer.endDraw();
-//    bgNoise(roofBuffer.colorLayer, roofColor.flash, map(cc[106], 0, 1, 0.2, 1), cc[6]*roofDimmer);   //PGraphics layer,color,alpha
-//    image(roofBuffer.colorLayer, size.roof.x, size.roof.y*1.5, size.roofWidth, size.roofHeight*2);
-//  }
-//}
+void playWithMeMore() {
+  /////background noise over whole window/////
+  if (cc[105] > 0) {
+    rigg.colorLayer.beginDraw();
+    rigg.colorLayer.background(0, 0, 0, 0);
+    rigg.colorLayer.endDraw();
+    bgNoise(rigg.colorLayer, rigg.flash, map(cc[105], 0, 1, 0.2, 1), cc[5]*rigg.dimmer);   //PGraphics layer,color,alpha
+    image(rigg.colorLayer, rigg.size.x, rigg.size.y, rigg.wide, rigg.high);
+  }
+  if (cc[106] > 0) {
+    roof.colorLayer.beginDraw();
+    roof.colorLayer.background(0, 0, 0, 0);
+    roof.colorLayer.endDraw();
+    bgNoise(roof.colorLayer, roof.flash, map(cc[106], 0, 1, 0.2, 1), cc[6]*roof.dimmer);   //PGraphics layer,color,alpha
+    image(roof.colorLayer, roof.size.x, roof.size.y, roof.wide, roof.high);
+  }
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
