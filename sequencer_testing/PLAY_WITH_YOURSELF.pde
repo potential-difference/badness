@@ -4,10 +4,10 @@ int vizTimer, alphaTimer, functionTimer;
 void playWithYourself(float vizTm) {
   ///////////////// VIZ TIMER /////////////////////////////////////////////////////////////////////////////////////////////////
   if (millis()/1000 - vizTimer >= vizTm) {
-    rigViz = int(random(rigVizList));
-    roofViz = int(random(roofVizList));
+    rigg.vizIndex = int(random(rigVizList));
+    roof.vizIndex = int(random(roofVizList));
     alf = 0; ////// set new viz to 0 to fade up viz /////
-    println("VIZ:", rigViz, "@", (hour()+":"+minute()+":"+second()));
+    println("VIZ:", rigg.vizIndex, "@", (hour()+":"+minute()+":"+second()));
     vizTimer = millis()/1000;
   }
   float divide = 4; ///////// NUMBER OF TIMES ALPHA CHANGES PER VIZ
@@ -43,8 +43,10 @@ void playWithYourself(float vizTm) {
   roofColor.colorTimer(colTime/1.5, 2); //// seconds between colour change, number of steps to cycle through colours
   cansColor.colorTimer(colTime/2, 2); //// seconds between colour change, number of steps to cycle through colours
 
-  //if (millis()/1000* == 0) rigBgr = (rigBgr + 1) % bgList;               // change colour layer automatically
-
+  if (millis()/1000 % 60 == 0) {
+    rigg.bgIndex = (rigg.bgIndex + 1) % rigBgList;               // change colour layer automatically
+    roof.bgIndex = (roof.bgIndex + 1) % roofBgList;               // change colour layer automatically
+  }
   //////////////////////////////////////////////////// END OF PLAY WITH YOURSELF AUTO CONTROL //////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -82,8 +84,8 @@ void playWithYourself(float vizTm) {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
-void colorLerping(SketchColor object, float function) {
-  object.c = lerpColor(object.col[object.colorIndexB], object.col[object.colorIndexA], function);
-  object.flash = lerpColor(object.col[object.colorIndexA], object.col[object.colorIndexB], function);
+void colorLerping(SketchColor _rig, float function) {
+  _rig.c = lerpColor(_rig.col[_rig.colorIndexB], _rig.col[_rig.colorIndexA], function);
+  _rig.flash = lerpColor(_rig.col[_rig.colorIndexA], _rig.col[_rig.colorIndexB], function);
   colBeat = true;
 }

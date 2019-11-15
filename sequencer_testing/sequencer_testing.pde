@@ -41,12 +41,10 @@ PFont myFont;
 boolean onTop = false;
 void settings() {
   size = new SizeSettings(LANDSCAPE);
-
   size(size.sizeX, size.sizeY, P2D);
   size.surfacePositionX = 1920-width-50;
   size.surfacePositionY = 150;
 }
-float dimmer = 1;
 void setup()
 {
   surface.setAlwaysOnTop(onTop);
@@ -61,17 +59,18 @@ void setup()
   println();
 
   ///////////////// LOCAL opc /////////////////////
-  opcLocal = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRRORS
+  opcLocal   = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRRORS
 
   ///////////////// OPC over NETWORK /////////////////////
-  opcMirrors = new OPC(this, "192.168.0.70", 7890);       // Connect to the remote instance of fcserver - MIRROR 1
-  opcCans = new OPC(this, "192.168.0.10", 7890);          // Connect to the remote instance of fcserver - CANS BOX
-  opcStrip = new OPC(this, "192.168.0.20", 7890);          // Connect to the remote instance of fcserver - CANS BOX
+  opcMirrors = new OPC(this, "192.168.0.70", 7890);        // Connect to the remote instance of fcserver - MIRROR 1
+  opcCans    = new OPC(this, "192.168.0.10", 7890);           // Connect to the remote instance of fcserver - CANS BOX
+  opcStrip   = new OPC(this, "192.168.0.20", 7890);          // Connect to the remote instance of fcserver - CANS BOX
 
   opcGrid.mirrorsOPC(opcLocal, opcLocal, 0);               // grids 0-3 MIX IT UPPPPP 
-  opcGrid.pickleCansOPC(cans, opcLocal);               
-  opcGrid.kingsHeadStripOPC(roof, opcLocal);
+  //opcGrid.pickleCansOPC(cans, opcLocal);               
+  opcGrid.kingsHeadStripOPC(cans, opcLocal);
   //grid.kingsHeadBoothOPC(opcLocal);
+  opcGrid.individualCansOPC(roof, opcLocal);
 
   dmx.FMSmoke(opcLocal, width - 120, 115);
 
@@ -91,8 +90,8 @@ void setup()
   roofColor = new SketchColor(roof); 
   cansColor = new SketchColor(cans);
 
-  rigViz = 2;
-  roofViz = 1;
+  rigg.vizIndex = 2;
+  roof.vizIndex = 1;
   rigg.bgIndex = 0;
   roof.bgIndex = 4;
 
@@ -113,15 +112,12 @@ void setup()
   cc[8] = 0.015;
   cc[MASTERFXON] = 0;
 
-  //vizHold=true;
-
   controlFrame = new ControlFrame(this, width, 130, "Controls"); // load control frame must come after shild ring etc
   animations = new ArrayList<Anim>();
-  //animations.add(new Anim(0, alphaSlider, funcSlider, rigg));
   frameRate(30);
 }
 float vizTime, colTime;
-int roofViz, rigViz, colStepper = 1;
+int colStepper = 1;
 int time_since_last_anim=0;
 void draw()
 {
@@ -137,20 +133,21 @@ void draw()
   rigColor.clash(beat);
 
   // dimmer knobs are ehcoed by on screen sliders - code in controller tab
-  rigg.dimmer = cc[4]; 
-  roof.dimmer = cc[8]; 
-  cans.dimmer = cc[7];
+  /// DIMMING CONTROL STILL NOT QUITE AS EXPECTED 
+  rigg.dimmer = rigDimmer;     // cc[4]
+  roof.dimmer = roofDimmer;    // cc[8]
+  cans.dimmer = cansDimmer;    // cc[7]
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   playWithMe();
   // create a new anim object and add it to the beginning of the arrayList
   if (beatTrigger) {
-    if (rigToggle)    animations.add(new Anim(rigViz, alphaSlider, funcSlider, rigg));   
+    if (rigToggle)    animations.add(new Anim(rigg.vizIndex, alphaSlider, funcSlider, rigg));   
     if (cansToggle)   animations.add(new Anim(10, cansAlpha, funcSlider, cans));              // create an anim object for the cans 
     if (roofToggle) {
       if (roofBasic) animations.add(new Anim(10, alphaSlider, funcSlider, roof));            // create a new anim object for the roof
-      else animations.add(new Anim(roofViz, alphaSlider, funcSlider, roof));
+      else animations.add(new Anim(roof.vizIndex, alphaSlider, funcSlider, roof));
     }
   }
   // limit the number of animations
@@ -160,7 +157,6 @@ void draw()
   //if (keyT['a']) 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //for (Anim anim : animations)  anim.alphFX *=rigDimmer;
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   if (keyT['s']) for (Anim anim : animations)  anim.funcFX = 1-(stutter*noize1*0.1);

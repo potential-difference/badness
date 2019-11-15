@@ -19,8 +19,8 @@ void playWithMe() {
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  if (keyP[' ']) animations.add(new Anim(rigViz, alphaSlider, funcSlider, rigg));         // or space bar!
-  if (keyP[' ']) animations.add(new Anim(roofViz, alphaSlider, funcSlider, roof));   // or space bar!
+  if (keyP[' ']) animations.add(new Anim(rigg.vizIndex, alphaSlider, funcSlider, rigg));         // or space bar!
+  if (keyP[' ']) animations.add(new Anim(roof.vizIndex, alphaSlider, funcSlider, roof));   // or space bar!
   if (keyP[' ']) animations.add(new Anim(10, alphaSlider, funcSlider, cans));   // or space bar!
 
   if (keyP['a']) animations.add(new AllOn(manualSlider, stutter, rigg));

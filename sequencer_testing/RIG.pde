@@ -1,7 +1,7 @@
 class Rig {
   float dimmer;
-  int wide, high, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, bgIndex;
-  PGraphics colorLayer, buffer, pass1, pass2, window;
+  int wide, high, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, bgIndex, vizIndex;
+  PGraphics colorLayer, buffer, pass1, pass2;
   PVector size;
   color c, flash, c1, flash1, clash, colorIndexA, colorIndexB = 1;
   color col[] = new color[15];
@@ -44,8 +44,6 @@ class Rig {
     buffer.noStroke();
     buffer.noFill();
     buffer.endDraw();
-
-    window = buffer;
 
     ///////////////////////////////////// LOAD GRAPHICS FOR SHADER LAYERS //////////////////////
     pass1 = createGraphics(wide/2, high/2, P2D);

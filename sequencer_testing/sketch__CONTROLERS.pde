@@ -190,7 +190,7 @@ class ControlFrame extends PApplet {
       .setSize(wide, high)
       //.setFont(font)
       .setRange(0, 1)
-      .setValue(0.8)    // start value []ppof slider
+      .setValue(cc[7])    // start value []ppof slider
       .setColorActive(act) 
       .setColorBackground(bac) 
       .setColorForeground(slider) 

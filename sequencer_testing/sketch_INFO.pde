@@ -37,7 +37,7 @@ void onScreenInfo() {
   textSize(18);
   y = height-size.sliderHeight+20;
   ///////////// rig info/ ///////////////////////////////////////////////////////////////////
-  text("rigViz: " + rigViz, x, y);
+  text("rigViz: " + rigg.vizIndex, x, y);
   text("bkgrnd: " + rigg.bgIndex, x, y+20);
   text("func's: " + rigg.functionIndexA + " / " + rigg.functionIndexB, x+100, y);
   text("alph's: " + rigg.alphaIndexA + " / " + rigg.alphaIndexB, x+100, y+20);
@@ -45,7 +45,7 @@ void onScreenInfo() {
   if (size.roofWidth > 0 || size.roofHeight>0) {
     textAlign(RIGHT);
     x = size.roof.x+(size.roofWidth/2) - 130;
-    text("roofViz: " + roofViz, x, y);
+    text("roofViz: " + roof.vizIndex, x, y);
     text("bkgrnd: " + roof.bgIndex, x, y+20);
     text("func's: " + roof.functionIndexA + " / " + roof.functionIndexB, x+120, y);
     text("alph's: " + roof.alphaIndexA + " / " + roof.alphaIndexB, x+120, y+20);
@@ -84,7 +84,7 @@ void onScreenInfo() {
   toggleKeysInfo();
   cordinatesInfo(roof, keyT['q']);
   cordinatesInfo(rigg, keyT['q']);
-
+mouseInfo(keyT['q']);
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   dividerLines();
 }

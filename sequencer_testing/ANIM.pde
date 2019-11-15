@@ -133,6 +133,7 @@ class Anim implements Animation {
     alphaRate = _alphaRate;
     funcRate = _funcRate;
     rig = _rig;
+    vizIndex = rig.vizIndex; 
     resetbeats(); 
     trigger();
 
