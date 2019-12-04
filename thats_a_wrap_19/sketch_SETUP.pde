@@ -21,15 +21,15 @@ class SizeSettings {
 
     //////////////////////////////// LANDSCAPE CANS SETUP UNDER RIG ///////////////////////
     cansWidth = rigWidth;
-    cansHeight = 60;
+    cansHeight = 300;
     cans = new PVector (rig.x, rigHeight+(cansHeight/2));
     
     //////////////////////////////// PORTRAIT ROOF SETUP RIGHT OF RIG ///////////////////////
-    roofWidth = 300;
-    roofHeight = rigHeight+cansHeight;
+    roofWidth = 500;
+    roofHeight = rigHeight;
     roof = new PVector (rigWidth+(roofWidth/2), roofHeight/2);
 
-    sliderHeight = 90;         // height of slider area at bottom of sketch window
+    sliderHeight = 70;         // height of slider area at bottom of sketch window
 
     infoWidth = 200;
     infoHeight = rigHeight+sliderHeight;

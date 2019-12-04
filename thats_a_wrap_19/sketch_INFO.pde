@@ -24,8 +24,8 @@ void onScreenInfo() {
   textAlign(RIGHT);
   textLeading(18);
   text("RIG PANEL", size.rig.x+(size.rigWidth/2)-5, size.rig.y-(size.rigHeight/2)+20);
-  if (size.roofWidth >0|| size.roofHeight>0)  text("ROOF PANEL", size.roof.x+(size.roofWidth/2)-5, size.rig.y-(size.rigHeight/2)+20);
-  if (size.cansWidth >0|| size.cansHeight>0) text("CANS PANEL", size.rig.x+(size.rigWidth/2)-5, size.rig.y+(size.rigHeight/2)-5);
+  if (size.roofWidth >0|| size.roofHeight>0)  text("CATAPILLAR PANEL", size.roof.x+(size.roofWidth/2)-5, size.rig.y-(size.rigHeight/2)+20);
+  if (size.cansWidth >0|| size.cansHeight>0) text("CANS / DONUT PANEL", size.rig.x+(size.rigWidth/2)-5, size.rig.y+(size.rigHeight/2)-5);
   text("# of anims: "+animations.size(), width - 5, height - 30);
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////// SHOW INFO ABOUT CURRENT ARRAY SELECTION ////////////////////////////////////////////////////////////////
@@ -140,6 +140,8 @@ void dividerLines() {
   rect(size.rigWidth, height/2, 1, height);                     ///// vertical line to show end of rig viz area
   rect(size.rig.x, size.rigHeight, size.rigWidth, 1);             //// horizontal line to divide landscape rig / roof areas
   rect(size.rigWidth+size.roofWidth, height/2, 1, height);      ///// vertical line to show end of roof viz area
+  rect(size.roof.x, size.roofHeight, size.roofWidth, 1);             //// horizontal line to divide landscape rig / roof areas
+
   fill(rigColor.flash, 80);    
   rect((size.rigWidth+size.roofWidth)/2, height-size.sliderHeight, size.rigWidth+size.roofWidth, 1);                              ///// horizontal line to show bottom area
 }

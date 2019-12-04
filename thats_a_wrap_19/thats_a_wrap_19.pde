@@ -1,5 +1,4 @@
 OPC opc;
-OPC opcESP;
 OPC opcLocal;
 OPC opcMirrors; 
 OPC opcMirror1; 
@@ -38,14 +37,9 @@ MidiBus LPD8bus;          // midibus for LPD8
 MidiBus beatStepBus;      // midibus for Artuia BeatStep
 
 import codeanticode.syphon.*;
-PGraphics syphonImageReceived, syphonImageReceived2;
-PGraphics syphonImageSent;
+PGraphics syphonImageReceived, syphonImageSent;
 SyphonClient syphonClient;
-SyphonClient syphonClient2;
 SyphonServer syphonServer;
-
-
-
 
 PFont myFont;
 boolean onTop = false;
@@ -76,14 +70,13 @@ void setup()
   //opcCans    = new OPC(this, "192.168.0.10", 7890);           // Connect to the remote instance of fcserver - CANS BOX
   //opcStrip   = new OPC(this, "192.168.0.20", 7890);          // Connect to the remote instance of fcserver - CANS BOX
 
-  opcESP       = new OPC(this, "192.168.0.153", 7890);          // Connect to the remote instance of fcserver - CANS BOX
-
   opcGrid.mirrorsOPC(opcLocal, opcLocal, 0);               // grids 0-3 MIX IT UPPPPP 
+  opcGrid.catipillarsOPC(roof, opcLocal);
   //opcGrid.pickleCansOPC(cans, opcLocal);               
   //opcGrid.kingsHeadStripOPC(cans, opcESP);
   //opcGrid.espTestOPC(rigg, opcLocal);
   //grid.kingsHeadBoothOPC(opcLocal);
-  opcGrid.individualCansOPC(roof, opcLocal);
+  //opcGrid.individualCansOPC(roof, opcLocal);
   dmx.FMSmoke(opcLocal, width - 120, 115);
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
