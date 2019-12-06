@@ -11,6 +11,18 @@ void playWithYourself(float vizTm) {
     vizTimer = millis()/1000;
   }
   float divide = 4; ///////// NUMBER OF TIMES ALPHA CHANGES PER VIZ
+  ///////////////////////////////////////////////////////////////////////
+  /* envelope selection
+  if (millis()/1000 - alphaTimer >= vizTm/divide) {
+    rigg.envelope_factory=envelopesByName.get("fastup");
+    //rigg.envelope_factory=envelopesByName.get("slowdown");
+    //rigg.envelope_factory=envelopesByName.get(envelopesByName.keySet().toArray()[random(envelopesByName.size()]);
+    //rigg.envelope_factory=envelopesByName[random(envelopesByName.length];
+    //rigg.envelope_factory=envelopesByName[FASTUP];
+  
+  
+  */
+  //////////////////////////////////////////////////////////////////////
   ///////////// ALPHA TIMER ////////////////////////////////////////////////////////////////////////////////////////////////////
   if (millis()/1000 - alphaTimer >= vizTm/divide) { ///// alpha timer changes 4 times every viz change /////
     rigg.alphaIndexA = int(random(alphLength));  //// select from alpha array

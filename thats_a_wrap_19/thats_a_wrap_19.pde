@@ -68,8 +68,9 @@ void setup()
 
   ///////////////// LOCAL opc /////////////////////
   opcLocal   = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRRORS
-  opcMirror1 = new OPC(this, "192.168.10.1", 7890);
-  opcMirror2 = new OPC(this, "192.168.10.2", 7890);
+  opcMirror1 = new OPC(this, "GL-AR300m-c4c", 7890);
+  opcMirror2 = new OPC(this, "GL-AR300M-cb9", 7890);
+
 
   ///////////////// OPC over NETWORK /////////////////////
   //opcMirrors = new OPC(this, "192.168.0.70", 7890);        // Connect to the remote instance of fcserver - MIRROR 1
