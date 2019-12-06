@@ -1,5 +1,5 @@
 class Rig {
-  float dimmer;
+  float dimmer = 1;
   int wide, high, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, bgIndex, vizIndex;
   PGraphics colorLayer, buffer, pass1, pass2;
   PVector size;
@@ -7,11 +7,26 @@ class Rig {
   color col[] = new color[15];
   PVector position[] = new PVector[12];
   PVector positionX[][] = new PVector[7][3];
+  String name;
+  SketchColor scolor;
+  ColorLayer clayer;
+  //PApplet parent;
+  Rig rig;
 
-  Rig(float _xpos, float _ypos, int _wide, int _high) {
+  Rig(PApplet parent, float _xpos, float _ypos, int _wide, int _high, String _name) {
+    //parent = getparent();
+    //parent = _parent;
+    //println(parent);
+    //parent.registeethod("draw", this);
+
+
+    rig = this;
+    name = _name;
     wide = _wide;
     high = _high;
     size = new PVector (_xpos, _ypos);
+    scolor = new SketchColor(this);//e.g rigColor -> rigg.scolor.flash
+    clayer = new ColorLayer(this);
 
     int xw = 2;
     for (int i = 0; i < position.length/xw; i++) position[i] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*1);
@@ -55,4 +70,76 @@ class Rig {
     pass2.noStroke();
     pass2.endDraw();
   }
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  void rigInfo() {
+    float textHeight = 18;
+    textSize(textHeight);
+    String panelName = name;
+    float nameWidth = textWidth(panelName);
+    float x = size.x+(wide/2)-(nameWidth/2)-12;
+    float y = size.y-(high/2)+21;
+
+    fill(360);
+    textAlign(CENTER);
+    textLeading(18);
+    text(panelName, x, y);
+
+    fill(0, 100);
+    stroke(rigg.flash,60);
+    strokeWeight(1);
+    rect(x, y-(textHeight/2)+3, nameWidth+17, 30);
+    noStroke();
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///// RECTANGLES TO SHOW CURRENT COLOURS /////
+    x = size.x+(wide/2)-(nameWidth+17)-30;
+    y = size.y-(high/2)+20;
+
+    fill(0);
+    rect(x, y-10, 10, 10);               // rect to show CURRENT color C 
+    rect(x+15, y-10, 10, 10);              // rect to show NEXT color C 
+    rect(x, y, 10, 10);                  // rect to show CURRENT color FLASH 
+    rect(x+15, y, 10, 10);                 // rect to show NEXT color FLASH1
+
+    fill(0, 100);
+    stroke(rigg.flash,60);
+    strokeWeight(1);
+    rect(x+7.5, y-5, 30, 30);
+
+    stroke(0);
+    fill(rig.c);          
+    rect(x, y-10, 10, 10);               // rect to show CURRENT color C 
+    fill(rig.col[(rig.colorIndexA+1)%rig.col.length], 100);
+    rect(x+15, y-10, 10, 10);              // rect to show NEXT color C 
+    fill(rig.flash);
+    rect(x, y, 10, 10);                  // rect to show CURRENT color FLASH 
+    fill(rig.col[(rig.colorIndexB+1)%rig.col.length], 100);  
+    rect(x+15, y, 10, 10);                 // rect to show NEXT color FLASH1
+    noStroke();
+  }
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+  PApplet getparent () {
+    try {
+      return (PApplet) getClass().getDeclaredField("this$0").get(this);
+    }
+    catch (ReflectiveOperationException cause) {
+      throw new RuntimeException(cause);
+    }
+  }
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  void draw() {
+    //info();
+  }
 }
+
+
+
+
+//void clash (){
+//  scolor.clash();
+//}

@@ -8,6 +8,7 @@ class ColorLayer extends SketchColor {
 
   ColorLayer(Rig _rig) {
     super(_rig);
+
     rig = _rig;
     bgIndex = rig.bgIndex;
     window = rig.colorLayer;
@@ -59,11 +60,16 @@ class ColorLayer extends SketchColor {
       check(col1, col2);
       window.endDraw();
       break;
-    default:
+    case 7:
       window.beginDraw();
       window.background(0);
-      oneColour(col1);
+      radiator(col1, col2);
       window.endDraw();
+    default:
+      //window.beginDraw();
+      //window.background(0);
+      //oneColour(col1);
+      //window.endDraw();
       break;
     }
     image(window, layer.x, layer.y);
@@ -190,6 +196,12 @@ class ColorLayer extends SketchColor {
   ///////////////////////////////////////// ONE COLOUR BACKGOUND ////////////////////////////////////////////////////////////////
   void oneColour(color col1) {
     window.background(col1);
+  }
+
+  void radiator(color col1, color col2) {
+    window.fill(col2);
+    //color colorStep  
+    for (int i = 0; i < opcGrid.rad.length; i++) window.rect(rig.position[i].x, rig.position[i].y, 15, rig.high/2.2);
   }
   ////////////////////////////////////////// CHECK BACKGROUND //////////////////////////////////////////////////////////////////////////////
   void check(color col1, color col2) {

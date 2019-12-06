@@ -1,9 +1,14 @@
+boolean firsttime_sketchcolor=true;
 class SketchColor {
   Rig rig;
   color c, flash, c1, flash1, colorIndexA, colorIndexB = 1, colA, colB, colC, colD;
   color col[] = new color[15];
 
   SketchColor(Rig _rig) {
+    if (firsttime_sketchcolor) {
+      colorSetup();
+      firsttime_sketchcolor = false;
+    }
     rig = _rig;
        /////////////////////////////////////// COLOR ARRAY SETUP ////////////////////////////////////////
     col[0] = purple; 
@@ -122,6 +127,7 @@ class SketchColor {
 color red, pink, yell, grin, bloo, purple, teal, orange, aqua, white, black;
 color red1, pink1, yell1, grin1, bloo1, purple1, teal1, aqua1, orange1;
 color red2, pink2, yell2, grin2, bloo2, purple2, teal2, aqua2, orange2;
+color c,flash;
 void colorSetup() {
   colorMode(HSB, 360, 100, 100);
   white = color(0, 0, 100);

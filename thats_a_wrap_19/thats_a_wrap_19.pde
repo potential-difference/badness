@@ -9,6 +9,7 @@ OPC opcStrip;
 OPC opcControllerA;
 OPC opcControllerB;
 DMXGrid dmx;
+OPC opcWifi;
 
 final int PORTRAIT = 0;
 final int LANDSCAPE = 1;
@@ -19,9 +20,9 @@ SizeSettings size;
 OPCGrid opcGrid;
 ControlFrame controlFrame;
 
-Rig rigg, roof, cans, mirrors, strips;
-SketchColor rigColor, roofColor, cansColor;
-ColorLayer rigLayer, roofLayer, cansLayer;
+Rig rigg, roof, cans, mirrors, strips, donut;
+SketchColor rigColor, roofColor, cansColor, donutColor;
+ColorLayer rigLayer, roofLayer, cansLayer, donutLayer;
 
 ArrayList <Anim> animations;
 
@@ -57,27 +58,29 @@ void setup()
   opcGrid = new OPCGrid();
   dmx = new DMXGrid();
 
-  rigg = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight);
-  roof = new Rig(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight);
-  cans = new Rig(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight);
-  //println(size.rigHeight,size.rigWidth);
+  rigg = new Rig(this, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
+  roof = new Rig(this, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
+  cans = new Rig(this, size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "CANS");
+  donut = new Rig(this, size.donut.x, size.donut.y, size.donutWidth, size.donutHeight, "DONUT");
 
   ///////////////// LOCAL opc /////////////////////
   opcLocal   = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRRORS
+  opcMirror1 = new OPC(this, "192.168.10.1", 7890);
+  opcMirror2 = new OPC(this, "192.168.10.2", 7890);
 
   ///////////////// OPC over NETWORK /////////////////////
   //opcMirrors = new OPC(this, "192.168.0.70", 7890);        // Connect to the remote instance of fcserver - MIRROR 1
   //opcCans    = new OPC(this, "192.168.0.10", 7890);           // Connect to the remote instance of fcserver - CANS BOX
   //opcStrip   = new OPC(this, "192.168.0.20", 7890);          // Connect to the remote instance of fcserver - CANS BOX
 
-  opcGrid.mirrorsOPC(opcLocal, opcLocal, 0);               // grids 0-3 MIX IT UPPPPP 
-  opcGrid.catipillarsOPC(roof, opcLocal);
+  opcGrid.mirrorsOPC(opcMirror1, opcMirror2, 0);               // grids 0-3 MIX IT UPPPPP 
+  opcGrid.radiatorsOPC(cans, opcLocal);
+  opcGrid.donutOPC(donut, opcLocal);
   //opcGrid.pickleCansOPC(cans, opcLocal);               
   //opcGrid.kingsHeadStripOPC(cans, opcESP);
   //opcGrid.espTestOPC(rigg, opcLocal);
   //grid.kingsHeadBoothOPC(opcLocal);
   //opcGrid.individualCansOPC(roof, opcLocal);
-  dmx.FMSmoke(opcLocal, width - 120, 115);
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
   MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
@@ -90,10 +93,11 @@ void setup()
   loadImages();
   loadGraphics();
   loadShaders();
-  colorSetup();  
+  //colorSetup();  
   rigColor = new SketchColor(rigg);
   roofColor = new SketchColor(roof); 
   cansColor = new SketchColor(cans);
+  donutColor = new SketchColor(donut);
 
   rigg.vizIndex = 2;
   roof.vizIndex = 1;
@@ -121,9 +125,8 @@ void setup()
   cc[8] = 1;
   cc[MASTERFXON] = 0;
 
-  controlFrame = new ControlFrame(this, width, 130, "Controls"); // load control frame must come after shild ring etc
+  controlFrame = new ControlFrame(this); // load control frame must come after shild ring etc
   animations = new ArrayList<Anim>(); 
-
 
   HashMap<String, String>[] allServers = SyphonClient.listServers();
   print("Available Syphon servers: ");
@@ -140,12 +143,10 @@ void setup()
   //println("Appnames equal:", real_appname.equals(matt_appname));
   //println("Appname length:", real_appname.length()==matt_appname.length());
 
-
   syphonClient = new SyphonClient(this, matt_appname, matt_servname);// create syphon client to receive frames
   //syphonClient2 = new SyphonClient(this, matt_appname, matt_servname2);// create syphon client to receive frames
 
   syphonServer = new SyphonServer(this, "mirrors syphon");   // Create syhpon server to send frames out.
-  //println(SyphonClient.listServers());
   println();
   syphonImageSent = createGraphics(rigg.wide, rigg.high, P2D);
   syphonImageSent.imageMode(CENTER);
@@ -163,10 +164,12 @@ void draw()
   beats();
   pause(10);                                ////// number of seconds before no music detected and auto kicks in
   globalFunctions();
+
   vizTime = 60*15*vizTimeSlider;
   if (frameCount > 10) playWithYourself(vizTime);
   rigColor.clash(beat);
-
+  c = rigg.c;
+  flash = rigg.flash;
   // dimmer knobs are ehcoed by on screen sliders - code in controller tab
   /// DIMMING CONTROL STILL NOT QUITE AS EXPECTED 
   rigg.dimmer = rigDimmer;     // cc[4]
@@ -181,6 +184,7 @@ void draw()
   if (beatTrigger) {
     if (rigToggle)    animations.add(new Anim(rigg.vizIndex, alphaSlider, funcSlider, rigg));   
     if (cansToggle)   animations.add(new Anim(cans.vizIndex, cansAlpha, funcSlider, cans));              // create an anim object for the cans 
+    if (donutToggle)  animations.add(new Anim(roof.vizIndex, alphaSlider, funcSlider, donut));              // create an anim object for the cans 
     if (roofToggle) {
       if (roofBasic) animations.add(new Anim(10, alphaSlider, funcSlider, roof));            // create a new anim object for the roof
       else animations.add(new Anim(roof.vizIndex, alphaSlider, funcSlider, roof));
@@ -211,6 +215,7 @@ void draw()
   rigLayer = new ColorLayer(rigg);
   roofLayer = new ColorLayer(roof);
   cansLayer = new ColorLayer(cans);
+  donutLayer = new ColorLayer(donut);
   // this donesnt work anymore....
   if (cc[107] > 0 || keyT['r'] || glitchToggle) bgNoise(rigg.colorLayer, 0, 0, cc[7]); //PGraphics layer,color,alpha
   ////
@@ -224,7 +229,9 @@ void draw()
   } else { 
     rigLayer.drawColorLayer();
     roofLayer.drawColorLayer();
+    cans.bgIndex = 7;
     cansLayer.drawColorLayer();
+    donutLayer.drawColorLayer();
   }
 
   blendMode(NORMAL);
@@ -236,7 +243,12 @@ void draw()
   //////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
   workLights(keyT['w']);
   testColors(keyT['t']);
+  rigg.rigInfo();
+  roof.rigInfo();
+  cans.rigInfo();
+  donut.rigInfo();
   onScreenInfo();                   // display info about current settings, viz, funcs, alphs etc
+
   //gid.mirrorTest(false);          // true to test physical mirror orientation
   if (syphonToggle) {
     syphonServer.sendImage(syphonImageSent);

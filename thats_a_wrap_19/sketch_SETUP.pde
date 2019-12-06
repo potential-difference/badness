@@ -1,7 +1,7 @@
 
 class SizeSettings {
-  int rigWidth, rigHeight, roofWidth, roofHeight, sliderHeight, infoWidth, infoHeight, vizWidth, vizHeight, cansWidth, cansHeight;
-  PVector rig, roof, info, cans;
+  int rigWidth, rigHeight, roofWidth, roofHeight, infoWidth, vizWidth, vizHeight, cansWidth, cansHeight, donutWidth, donutHeight;
+  PVector rig, roof, info, cans, donut;
   int surfacePositionX, surfacePositionY, sizeX, sizeY, orientation;
 
   SizeSettings(int _orientation) {
@@ -19,24 +19,23 @@ class SizeSettings {
       break;
     }
 
-    //////////////////////////////// LANDSCAPE CANS SETUP UNDER RIG ///////////////////////
+    ////////////////////////////////  CANS SETUP UNDER RIG ///////////////////////
     cansWidth = rigWidth;
-    cansHeight = 300;
+    cansHeight = 400;
     cans = new PVector (rig.x, rigHeight+(cansHeight/2));
-    
-    //////////////////////////////// PORTRAIT ROOF SETUP RIGHT OF RIG ///////////////////////
+
+    ////////////////////////////////  ROOF SETUP RIGHT OF RIG ///////////////////////
     roofWidth = 500;
     roofHeight = rigHeight;
     roof = new PVector (rigWidth+(roofWidth/2), roofHeight/2);
 
-    sliderHeight = 70;         // height of slider area at bottom of sketch window
-
-    infoWidth = 200;
-    infoHeight = rigHeight+sliderHeight;
-    info = new PVector (rigWidth+roofWidth+(infoWidth/2), infoHeight/2);
-
-    sizeX = rigWidth+infoWidth+roofWidth;
-    sizeY = sliderHeight+rigHeight+cansHeight;
+    //////////////////////////////// DONUT SETUP ///////////////////////
+    donutWidth = roofWidth;
+    donutHeight = cansHeight;
+    donut = new PVector (roof.x, cans.y);
+ 
+    sizeX = rigWidth+roofWidth;
+    sizeY = rigHeight+cansHeight;
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -113,16 +112,8 @@ void drawingSetup() {
 
 /////////////////////// LOAD GRAPHICS FOR VISULISATIONS AND COLOR LAYERS //////////////////////////////
 PGraphics bg[] = new PGraphics[rigBgList];
-PGraphics rigWindow, roofWindow, cansWindow, infoWindow, rigColourLayer, roofColourLayer, rigBluredA, rigBluredB, roofBluredA, roofBluredB;
+PGraphics rigWindow, roofWindow, cansWindow, rigColourLayer, roofColourLayer, rigBluredA, rigBluredB, roofBluredA, roofBluredB;
 void loadGraphics() {
-  //////////////////////////////// info subwindow  ///////////////////
-  infoWindow = createGraphics(size.infoWidth, size.infoHeight, P2D);
-  infoWindow.beginDraw();
-  infoWindow.colorMode(HSB, 360, 100, 100);
-  infoWindow.ellipseMode(CENTER);
-  infoWindow.imageMode(CENTER);
-  infoWindow.rectMode(CENTER);
-  infoWindow.endDraw();
   ///////////////////////////// COLOR LAYER / BG GRAPHICS ////////////////////////////
   for ( int n = 0; n<bg.length; n++) {
     bg[n] = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);

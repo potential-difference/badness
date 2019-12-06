@@ -63,10 +63,25 @@ void pause(int secondsToWait) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////// BOOTH AND DIG LIGHTS /////////////////////////////////////////////////////////////////////
 void boothLights() {
+  fill(0);
+  rect(opcGrid.booth.x, opcGrid.booth.y, 40, 15);
+  rect(opcGrid.dig.x, opcGrid.dig.y, 40, 15);
+  fill(0, 150);
+  strokeWeight(1);
+  stroke(rigg.flash, 60);
+  rect(opcGrid.booth.x+70, opcGrid.booth.y, 200, 30);
+  noStroke();
   fill(rigColor.flash1, 360*boothDimmer);
-  rect(opcGrid.booth.x, opcGrid.booth.y, 30, 10);
+  rect(opcGrid.booth.x, opcGrid.booth.y, 40, 15);
   fill(rigColor.flash1, 360*digDimmer);
-  rect(opcGrid.dig.x, opcGrid.dig.y, 30, 10);
+  rect(opcGrid.dig.x, opcGrid.dig.y, 40, 15);
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  fill(rigg.c, 360);
+  textAlign(LEFT);
+  textSize(16);
+  text("BOOTH", opcGrid.booth.x+25, opcGrid.booth.y+6);
+  text("DIG", opcGrid.dig.x+25, opcGrid.dig.y+6);
 }
 /////////////////// TEST ALL COLOURS - TURN ALL LEDS ON AND CYCLE COLOURS ////////////////////////////////
 void testColors(boolean _test) {
