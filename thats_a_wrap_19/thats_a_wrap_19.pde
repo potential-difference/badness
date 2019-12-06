@@ -45,6 +45,7 @@ SyphonServer syphonServer;
 PFont myFont;
 boolean onTop = false;
 void settings() {
+  fullScreen();
   size = new SizeSettings(LANDSCAPE);
   size(size.sizeX, size.sizeY, P2D);
   size.surfacePositionX = 1920-width-50;
@@ -52,6 +53,8 @@ void settings() {
 }
 void setup()
 {
+  surface.setSize(size.sizeX, size.sizeY);
+
   surface.setAlwaysOnTop(onTop);
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
 

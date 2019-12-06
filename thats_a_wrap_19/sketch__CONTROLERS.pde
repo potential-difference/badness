@@ -19,11 +19,13 @@ class ControlFrame extends PApplet {
     PApplet.runSketch(new String[]{this.getClass().getName()}, this);
   }
   public void settings() {
+    fullScreen();
     size(controlW, controlH);
   }
   public void setup() {
+    this.surface.setSize(controlW, controlH);
     this.surface.setAlwaysOnTop(true);
-    this.surface.setLocation(size.surfacePositionX, size.surfacePositionY+parent.height+30);
+    this.surface.setLocation(size.surfacePositionX, size.surfacePositionY+parent.height+5);
     colorMode(HSB, 360, 100, 100);
     myFont = createFont("Lucida Sans", 18);
     textFont(myFont);
@@ -401,9 +403,6 @@ class ControlFrame extends PApplet {
   }
   void draw() {
     background(0);
-    fill(rigColor.c);
-    rect(width/2, 0, width, 2);
-    rect(width/2, sliderY-7.5, width, 1);
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// SHOW INFO ABOUT CURRENT RIG ARRAY SELECTION //////////////////////////////////////////////////////////////// 
     float x = 10;
@@ -484,6 +483,9 @@ class ControlFrame extends PApplet {
   }
 
   void dividerLines() {
+    fill(rigColor.c);   
+    rect(width/2, sliderY-7.5, width, 1);
+
     // box around the outside
     fill(rigColor.c, 100);   
     rect(width/2, height-1, width, 1);  
