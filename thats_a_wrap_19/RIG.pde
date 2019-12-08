@@ -10,6 +10,7 @@ public class Rig {
   String name;
   boolean firsttime_sketchcolor=true;
   int bgList = 8;
+  ArrayList <Anim> animations;
   Rig rig;
 
   Rig(PApplet parent, float _xpos, float _ypos, int _wide, int _high, String _name) {
@@ -22,6 +23,8 @@ public class Rig {
     wide = _wide;
     high = _high;
     size = new PVector (_xpos, _ypos);
+
+    animations = new ArrayList<Anim>(); 
 
     int xw = 2;
     for (int i = 0; i < position.length/xw; i++) position[i] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*1);
@@ -153,8 +156,6 @@ public class Rig {
   /////////////////////////////////// VERTICAL MIRROR GRADIENT BACKGROUND ////////////////////////////////////////////////
   void mirrorGradient(color col1, color col2, float func) {
     //// LEFT SIDE OF GRADIENT
-    //parent = getparent();
-
     colorLayer.beginShape(POLYGON); 
     //colorLayer.noStroke();
     colorLayer.fill(col1);
@@ -448,6 +449,16 @@ public class Rig {
   void draw() {
     rigInfo();
     clash(beat);
+  }
+
+  void drawAnimations() {
+    for (int i = rig.animations.size()-1; i >=0; i--) {                                  // loop  through the list
+      Anim anim = rig.animations.get(i);  
+      anim.drawAnim();           // draw the animation
+    }
+  }
+  void removeAnimations() {
+    while (rig.animations.size()>0 && rig.animations.get(0).deleteme) rig.animations.remove(0);
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

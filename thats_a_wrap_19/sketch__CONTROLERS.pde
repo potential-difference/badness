@@ -403,17 +403,15 @@ class ControlFrame extends PApplet {
   }
   void draw() {
     background(0);
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// SHOW INFO ABOUT CURRENT RIG ARRAY SELECTION //////////////////////////////////////////////////////////////// 
     float x = 10;
     float y = 25;
     textAlign(LEFT);
     textSize(18);
     fill(360);
-    text("# of anims: "+animations.size(), x, y+45);
-
-    fill(rigg.flash, 300);
+    text("# of anims: "+rigg.animations.size(), x, y+45);
     ///////////// rig info/ ///////////////////////////////////////////////////////////////////
+    fill(rigg.flash, 300);
     text("rigViz: " + rigg.vizIndex, x, y);
     text("bkgrnd: " + rigg.bgIndex, x, y+20);
     text("func's: " + rigg.functionIndexA + " / " + rigg.functionIndexB, x+100, y);
@@ -422,7 +420,7 @@ class ControlFrame extends PApplet {
     ///// NEXT VIZ IN....
     x=250;
     fill(rigg.c, 300);
-      if (!rigToggle) fill(rigg.c, 100);
+    if (!rigToggle) fill(rigg.c, 100);
     String sec = nf(int(vizTime - (millis()/1000 - vizTimer)) % 60, 2, 0);
     int min = int(vizTime - (millis()/1000 - vizTimer)) /60 % 60;
     text("next viz in: "+min+":"+sec, x, y);
@@ -431,11 +429,7 @@ class ControlFrame extends PApplet {
     min = int(colTime - (millis()/1000 - rigg.colorTimer)) /60 %60;
     text("next color in: "+ min+":"+sec, x, y+20);
     text("c-" + rigg.colorIndexA + "  " + "flash-" + rigg.colorIndexB, x, y+40);
-
-
-
-
-    ///////////// roof info ////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////// roof info ////////////////////////////////////////////////////////
     if (size.roofWidth > 0 && size.roofHeight > 0) {
       fill(rigg.c, 300);
       if (!roofToggle) fill(rigg.c, 100);
@@ -447,8 +441,7 @@ class ControlFrame extends PApplet {
       text("func's: " + roof.functionIndexA + " / " + roof.functionIndexB, x+120, y);
       text("alph's: " + roof.alphaIndexA + " / " + roof.alphaIndexB, x+120, y+20);
     }
-
-    ///////////// cans info ////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////// cans info ////////////////////////////////////////////////////////
     if (size.cansHeight > 0 && size.cansWidth > 0) {
       fill(rigg.c, 300);
       if (!cansToggle) fill(rigg.c, 100);
@@ -460,13 +453,24 @@ class ControlFrame extends PApplet {
       text("func's: " + cans.functionIndexA + " / " + cans.functionIndexB, x+120, y);
       text("alph's: " + cans.alphaIndexA + " / " + cans.alphaIndexB, x+120, y+20);
     }
-
-
-    sequencer(x+100, y);
+    /////////////////////////////////////////////////// cans info ////////////////////////////////////////////////////////
+    if (size.donutHeight > 0 && size.donutHeight > 0) {
+      fill(rigg.c, 300);
+      if (!donutToggle) fill(rigg.c, 100);
+      textSize(18);
+      textAlign(LEFT);
+      x = size.cans.x+(size.cansWidth/2) +25;
+      text("donutViz: " + donut.vizIndex, x, y);
+      text("bkgrnd: " + donut.bgIndex, x, y+20);
+      text("func's: " + donut.functionIndexA + " / " + donut.functionIndexB, x+120, y);
+      text("alph's: " + donut.alphaIndexA + " / " + donut.alphaIndexB, x+120, y+20);
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    sequencer(675, sliderY-20);
+    pauseInfo(width-5, sliderY-15);
     dividerLines();
-    //pauseInfo();
-
-
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if (cc[4]!=prevcc[4]) {
       prevcc[4]=cc[4];
       if (cc[4] != rigDimmer) cp5.getController("rigDimmer").setValue(cc[4]);
@@ -486,36 +490,28 @@ class ControlFrame extends PApplet {
     int value = int(map(theValue, 0, 1, 0, 127));
     LPD8bus.sendControllerChange(0, 4, value) ;
   }
-
   void dividerLines() {
-    fill(rigg.c);   
+    fill(rigg.c);                              // divider for sliders
     rect(width/2, sliderY-7.5, width, 1);
-
-    // box around the outside
-    fill(rigg.c, 100);   
+    fill(rigg.c, 100);                         // box around the outside
     rect(width/2, height-1, width, 1);  
     rect(width/2, 1, width, 1);                              
     rect(0, height/2, 1, height);
     rect(width-1, height/2, 1, height);
   }
   void sequencer(float x, float y) {
-    //fill(rigg.flash);
-    fill(flash);
     int dist = 20;
-    for (int i = 0; i<(16); i++) if (int(beatCounter%(dist-(y/dist))) == i) rect(10+i*dist+x, height-10, 10, 10);
-    //fill(rigg.c, 100);
-    fill(c);
-    for (int i = 0; i<(16); i++) rect(10+i*dist+x, height-10, 10, 10);
+    fill(rigg.flash, 100);
+    for (int i = 0; i<(16); i++) rect(10+i*dist+x, y, 10, 10);
+    fill(rigg.c);
+    for (int i = 0; i<(16); i++) if (int(beatCounter%(16)) == i) rect(10+i*dist+x, y, 10, 10);
   }
-  void pauseInfo() {
-    //pause = 0;
+  void pauseInfo(float x, float y) {
     if (pause > 0) { 
-      float x = width-5;
-      float y = sliderY;
       textAlign(RIGHT);
       textSize(20); 
-      fill(300);
-      text(" sec NO AUDIO!!", x, y); //pause*10+
+      fill(300+(60*stutter));
+      text(pause*10+" sec NO AUDIO!!", x, y); //
     }
   }
 }

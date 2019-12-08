@@ -19,12 +19,7 @@ final int ROOF = 1;
 SizeSettings size;
 OPCGrid opcGrid;
 ControlFrame controlFrame;
-
 Rig rigg, roof, cans, mirrors, strips, donut;
-//SketchColor rigg, roof, cans, donutColor;
-//ColorLayer rigLayer, roofLayer, cansLayer, donutLayer;
-
-ArrayList <Anim> animations;
 
 import javax.sound.midi.ShortMessage;       // shorthand names for each control on the TR8
 import oscP5.*;
@@ -45,8 +40,8 @@ SyphonServer syphonServer;
 PFont myFont;
 boolean onTop = false;
 void settings() {
-  fullScreen();
   size = new SizeSettings(LANDSCAPE);
+  fullScreen();
   size(size.sizeX, size.sizeY, P2D);
   size.surfacePositionX = 1920-width-50;
   size.surfacePositionY = 150;
@@ -54,7 +49,6 @@ void settings() {
 void setup()
 {
   surface.setSize(size.sizeX, size.sizeY);
-
   surface.setAlwaysOnTop(onTop);
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
 
@@ -96,7 +90,7 @@ void setup()
   drawingSetup();
   loadImages();
   loadShaders();
-  
+
   rigg.vizIndex = 2;
   roof.vizIndex = 1;
   rigg.functionIndexA = 0;
@@ -112,6 +106,8 @@ void setup()
   roof.colorIndexB = 4;
   cans.colorIndexA = 7;
   cans.colorIndexB = 11;
+  donut.colorIndexA = 0;
+  donut.colorIndexB = 14;
 
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
   for (int i = 0; i < 100; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen
@@ -124,7 +120,6 @@ void setup()
   cc[MASTERFXON] = 0;
 
   controlFrame = new ControlFrame(this); // load control frame must come after shild ring etc
-  animations = new ArrayList<Anim>(); 
 
   HashMap<String, String>[] allServers = SyphonClient.listServers();
   print("Available Syphon servers: ");
@@ -180,40 +175,43 @@ void draw()
   cans.vizIndex=roof.vizIndex;
   // create a new anim object and add it to the beginning of the arrayList
   if (beatTrigger) {
-    if (rigToggle)    animations.add(new Anim(rigg.vizIndex, alphaSlider, funcSlider, rigg));   
-    if (cansToggle)   animations.add(new Anim(cans.vizIndex, cansAlpha, funcSlider, cans));              // create an anim object for the cans 
-    if (donutToggle)  animations.add(new Anim(roof.vizIndex, alphaSlider, funcSlider, donut));              // create an anim object for the cans 
+    if (rigToggle)    rigg.animations.add(new Checkers(alphaSlider, funcSlider, rigg));   
+    if (cansToggle)   cans.animations.add(new Anim(cans.vizIndex, cansAlpha, funcSlider, cans));              // create an anim object for the cans 
+    if (donutToggle)  donut.animations.add(new Anim(roof.vizIndex, alphaSlider, funcSlider, donut));              // create an anim object for the cans 
     if (roofToggle) {
-      if (roofBasic) animations.add(new Anim(10, alphaSlider, funcSlider, roof));            // create a new anim object for the roof
-      else animations.add(new Anim(roof.vizIndex, alphaSlider, funcSlider, roof));
+      if (roofBasic) roof.animations.add(new Anim(10, alphaSlider, funcSlider, roof));            // create a new anim object for the roof
+      else roof.animations.add(new Anim(roof.vizIndex, alphaSlider, funcSlider, roof));
     }
   }
   // limit the number of animations
-  while (animations.size()>0 && animations.get(0).deleteme) animations.remove(0);
-  if (animations.size() >= 28) animations.remove(0);  
+  rigg.removeAnimations();
+  roof.removeAnimations();
+  cans.removeAnimations();
+  donut.removeAnimations();
+  //while (rigg.animations.size()>0 && rigg.animations.get(0).deleteme) rigg.animations.remove(0);
+  //if (animations.size() >= 28) animations.remove(0);  
+  
   // adjust animations
   //if (keyT['a']) 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  if (keyT['s']) for (Anim anim : animations)  anim.funcFX = 1-(stutter*noize1*0.1);
+  if (keyT['s']) for (Anim anim : rigg.animations)  anim.funcFX = 1-(stutter*noize1*0.1);
   //draw animations
   syphonImageSent.beginDraw();
   syphonImageSent.background(0);
   syphonImageSent.endDraw();
 
   blendMode(LIGHTEST);
-  for (int i = animations.size()-1; i >=0; i--) {                                  // loop  through the list
-    Anim anim = animations.get(i);  
-    anim.drawAnim();           // draw the animation
-  }
+  rigg.drawAnimations();
+  roof.drawAnimations();
+  cans.drawAnimations();
+  donut.drawAnimations();
+
+
   ////////////////////// draw colour layer /////////////////////////////////////////////////////////////////////////////////////////////////////
   blendMode(MULTIPLY);
-  //rigLayer = new ColorLayer(rigg);
-  //roofLayer = new ColorLayer(roof);
-  //cansLayer = new ColorLayer(cans);
-  //donutLayer = new ColorLayer(donut);
   // this donesnt work anymore....
   if (cc[107] > 0 || keyT['r'] || glitchToggle) bgNoise(rigg.colorLayer, 0, 0, cc[7]); //PGraphics layer,color,alpha
   ////
@@ -231,7 +229,6 @@ void draw()
     cans.drawColorLayer();
     donut.drawColorLayer();
   }
-
   blendMode(NORMAL);
 
   //////////////////////////////////////////// PLAY WITH ME MORE /////////////////////////////////////////////////////////////////////////////////
