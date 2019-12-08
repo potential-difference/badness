@@ -277,7 +277,7 @@ class Anim implements Animation {
   boolean deleteme=false;
   Rig rig;
   Envelope alphaEnvelopeA, alphaEnvelopeB, functionEnvelopeA, functionEnvelopeB;
-  Envelopes _alphaEnvelopeA, _alphaEnvelopeB, _functionEnvelopeA, _functionEnvelopeB;
+  EnvelopeFactory _alphaEnvelopeA, _alphaEnvelopeB, _functionEnvelopeA, _functionEnvelopeB;
 
   Anim(int _vizIndex, float _alphaRate, float _funcRate, Rig _rig) {
     alphaRate = _alphaRate;
@@ -320,14 +320,14 @@ class Anim implements Animation {
       //alphaEnvelopeA = new Envelope(this, 1500, 1000, 200, 0.2, 0, 1);
       //alphaEnvelopeB = new Envelope(this, 1500, 1000, 200, 0.2, 0, 1);
 
-      _alphaEnvelopeA = new Envelopes(this, alphaIndexA);
+      _alphaEnvelopeA = new EnvelopeFactory(this, alphaIndexA);
       alphaEnvelopeA = _alphaEnvelopeA.envelope;
-      _alphaEnvelopeB = new Envelopes(this, alphaIndexB);
+      _alphaEnvelopeB = new EnvelopeFactory(this, alphaIndexB);
       alphaEnvelopeB = _alphaEnvelopeB.envelope;
 
-      _functionEnvelopeA = new Envelopes(this, functionIndexA);// = new Envelope(this, 1000, 0, 2000, -manualSlider, 0, -funcSlider);
+      _functionEnvelopeA = new EnvelopeFactory(this, functionIndexA);// = new Envelope(this, 1000, 0, 2000, -manualSlider, 0, -funcSlider);
       functionEnvelopeA = _functionEnvelopeA.envelope;
-      _functionEnvelopeB = new Envelopes (this, functionIndexB);//= new Envelope(this, 500, 0, 4000, 0.2, 0, -manualSlider);
+      _functionEnvelopeB = new EnvelopeFactory (this, functionIndexB);//= new Envelope(this, 500, 0, 4000, 0.2, 0, -manualSlider);
       functionEnvelopeB = _functionEnvelopeB.envelope;
     }
   }

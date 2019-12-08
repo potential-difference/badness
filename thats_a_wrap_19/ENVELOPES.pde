@@ -14,12 +14,12 @@ int now() {
 }
 
 
-class Envelopes {
+class EnvelopeFactory {
   int envelope_index;
   Anim parent;
   Envelope envelope;
 
-  Envelopes(Anim _parent, int _envelope_index) {
+  EnvelopeFactory(Anim _parent, int _envelope_index) {
     envelope_index = _envelope_index;
     parent = _parent;
     switch (envelope_index) {
