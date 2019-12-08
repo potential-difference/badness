@@ -41,10 +41,35 @@ class AllOn extends ManualAnim {
     window.background(360*manualAlpha);
   }
 }
-
-
-class Checkers extends Anim {
-  Checkers(float _alphaRate, float _funcRate, Rig _rig) {
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Anim0 extends Anim {
+  Anim0(float _alphaRate, float _funcRate, Rig _rig) {
+    super(-1, _alphaRate, _funcRate, _rig);
+  }
+  void draw() {
+    window.beginDraw();
+    window.background(0);
+    stroke = 30+(90*functionA*oskP);
+    wide = vizWidth*1.2;
+    wide = wide-(wide*functionA);
+    high = wide*2;
+    rotate = 90*noize*functionB;
+    donut(position[2].x, position[2].y, col1, stroke, wide, high, rotate, alphaA);
+    donut(position[9].x, position[9].y, col1, stroke, wide, high, rotate, alphaA);
+    stroke = 30+(90*functionB*oskP);
+    wide = vizWidth*1.2;
+    wide = wide-(wide*functionB);
+    high = wide*2;
+    rotate = -90*noize*functionA;
+    donut(position[3].x, position[3].y, col1, stroke, wide, high, rotate, alphaA);
+    donut(position[8].x, position[8].y, col1, stroke, wide, high, rotate, alphaA);
+    window.endDraw();
+  }
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Anim1 extends Anim {
+  Anim1(float _alphaRate, float _funcRate, Rig _rig) {
     super(-1, _alphaRate, _funcRate, _rig);
     //anim specific setup code;
     //this.adsr=new Envelope(blay blay);
@@ -53,16 +78,40 @@ class Checkers extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
+    stroke = 10+(30*function);
+    if (_beatCounter % 8 < 3) rotate = -60*functionA;   /////////// CHANGE THIS TO A SPECIFIC FUNCTION IN THE ABOVE SECTION OF CODE
+    else rotate = 60*functionB;                         /////////// CHANGE THIS TO A SPECIFIC FUNCTION IN THE ABOVE SECTION OF CODE
+    wide = 10+(func[0]*vizWidth);
+    high = 110-(func[1]*vizHeight);
+    star(positionX[2][0].x, positionX[2][0].y, col1, stroke, wide, high, rotate, alphaA);
+    star(positionX[4][2].x, positionX[4][2].y, col1, stroke, wide, high, rotate, alphaA);
+    //
+    wide = 10+(func[1]*vizWidth);
+    high = 110+(func[0]*vizHeight);
+    if (_beatCounter % 8 < 3) rotate = 60*functionA;    /////////// CHANGE THIS TO A SPECIFIC FUNCTION IN THE ABOVE SECTION OF CODE
+    else rotate = -60*functionB;                        /////////// CHANGE THIS TO A SPECIFIC FUNCTION IN THE ABOVE SECTION OF CODE
+    star(positionX[4][0].x, positionX[4][0].y, col1, stroke, wide, high, rotate, alphaA);
+    star(positionX[2][2].x, positionX[2][2].y, col1, stroke, wide, high, rotate, alphaA);
+    window.endDraw();
+  }
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Checkers extends Anim {
+  Checkers(float _alphaRate, float _funcRate, Rig _rig) {
+    super(-1, _alphaRate, _funcRate, _rig);
+  }
+  void draw() {
+    window.beginDraw();
+    window.background(0);
     stroke = 20+(400*tweakSlider);
     rotate = 0;
-    if (beatCounter % 9 <3) { 
+    if (_beatCounter % 9 <4) { 
       for (int i = 0; i < opcGrid.columns; i+=2) {
         wide = (vizWidth*2)-(vizWidth/10);
         wide = 50+(wide-(wide*functionA)); 
         high = wide;
         donut(position[i].x, position[i].y, col1, stroke, wide, high, rotate, alphaA);
         donut(position[i+1 % opcGrid.columns+6].x, position[i+1 % opcGrid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
-        //
         wide = (vizWidth/4)-(vizWidth/10);
         wide = 10+(wide-(wide*functionB)); 
         high = wide;
@@ -76,7 +125,6 @@ class Checkers extends Anim {
         high = wide;
         donut(position[i+1 % opcGrid.columns].x, position[i+1 % opcGrid.columns].y, col1, stroke, wide, high, rotate, alphaB);
         donut(position[i+6].x, position[i+6].y, col1, stroke, wide, high, rotate, alphaB);
-        //
         wide = (vizWidth/4)-(vizWidth/10);
         wide = 10+(wide-(wide*functionB)); 
         high = wide;
@@ -87,14 +135,138 @@ class Checkers extends Anim {
     window.endDraw();
   }
 }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Rush extends Anim {
+  Rush (float _alphaRate, float _funcRate, Rig _rig) {
+    super(-1, _alphaRate, _funcRate, _rig);
+  }
+  void draw() {
+    window.beginDraw();
+    window.background(0);
+    wide = 500+(noize*150);
+    if (_beatCounter % 8 < 3) {
+      rush(position[0].x, position[3].y, col1, wide, vizHeight/2, functionA, alphaA);
+      rush(position[11].x, position[8].y, col1, wide, vizHeight/2, -functionA, alphaA);
+    } else {    
+      rush(position[0]. x, position[3].y, col1, wide, vizHeight/2, -functionA, alphaA);
+      rush(position[11].x, position[8].y, col1, wide, vizHeight/2, functionA, alphaA);
+    }
+    window.endDraw();
+  }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Rushed extends Anim {
+  Rushed(float _alphaRate, float _funcRate, Rig _rig) {
+    super(-1, _alphaRate, _funcRate, _rig);
+  }
+  void draw() {
+    window.beginDraw();
+    window.background(0);
+    wide = 150+(noize*600*functionA);
+    high = vizHeight/2;
+    if (beatCounter % 6 < 4) {
+      rush(viz.x, position[3].y, col1, wide, high, functionA, alphaA);
+      rush(viz.x, position[3].y, col1, wide, high, -functionB, alphaB);
+      rush(viz.x, position[3].y, col1, wide, high, -functionA, alphaA);
+      rush(viz.x, position[3].y, col1, wide, high, functionB, alphaB);
+      //
+      rush(viz.x, position[8].y, col1, wide, high, -functionA, alphaB);
+      rush(viz.x, position[8].y, col1, wide, high, functionB, alphaA);
+      rush(viz.x, position[8].y, col1, wide, high, functionA, alphaB);
+      rush(viz.x, position[8].y, col1, wide, high, -functionB, alphaA);
+    } else {
+      rush(viz.x, position[3].y, col1, wide, high, functionB, alphaB);
+      rush(viz.x, position[3].y, col1, wide, high, -functionA, alphaA);
+      rush(viz.x, position[3].y, col1, wide, high, -functionB, alphaB);
+      rush(viz.x, position[3].y, col1, wide, high, functionA, alphaA);
+      //
+      rush(viz.x, position[8].y, col1, wide, high, -functionB, alphaA);
+      rush(viz.x, position[8].y, col1, wide, high, functionA, alphaB);
+      rush(viz.x, position[8].y, col1, wide, high, functionB, alphaA);
+      rush(viz.x, position[8].y, col1, wide, high, -functionA, alphaB);
+    }
+    window.endDraw();
+  }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Stars extends Anim {
+  Stars(float _alphaRate, float _funcRate, Rig _rig) {
+    super(-1, _alphaRate, _funcRate, _rig);
+  }
+  void draw() {
+    window.beginDraw();
+    window.background(0);
+    wide = 10+(functionA*vizWidth*1.5);
+    high = 10+(functionB*vizHeight*1.5);
+    stroke = 30+(60*functionA*noize1);
+    rotate = 30;
+    star(positionX[1][1].x, viz.y, col1, stroke, wide, high, rotate, alphaA);
+    rotate = -30;
+    star(positionX[5][1].x, viz.y, col1, stroke, wide, high, rotate, alphaA);
+    window.endDraw();
+  }
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class SquareNuts extends Anim {
+  SquareNuts(float _alphaRate, float _funcRate, Rig _rig) {
+    super(-1, _alphaRate, _funcRate, _rig);
+  }
+  void draw() {
+    window.beginDraw();
+    window.background(0);
+    stroke = 300-(200*noize);
+    wide = vizWidth+(50);
+    high = wide;
+    squareNut(position[1].x, viz.y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
+    squareNut(position[4].x, viz.y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
+    window.endDraw();
+  }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Anim3 extends Anim {
+  Anim3(float _alphaRate, float _funcRate, Rig _rig) {
+    super(-1, _alphaRate, _funcRate, _rig);
+  }
+  void draw() {
+    window.beginDraw();
+    window.background(0);
+    stroke = 50+(100*oskP);
+    wide = vizWidth+(50);
+    wide = wide-(wide*functionA);
+    high = wide;
+    squareNut(positionX[0][2].x, positionX[0][2].y, col1, stroke, wide, high, -45, alphaA);
+    squareNut(positionX[1][0].x, positionX[1][0].y, col1, stroke, wide, high, -45, alphaA);
+    squareNut(positionX[2][2].x, positionX[2][2].y, col1, stroke, wide, high, -45, alphaA);
+    squareNut(positionX[3][0].x, positionX[3][0].y, col1, stroke, wide, high, -45, alphaA);
+    squareNut(positionX[4][2].x, positionX[4][2].y, col1, stroke, wide, high, -45, alphaA);
+    squareNut(positionX[5][0].x, positionX[5][0].y, col1, stroke, wide, high, -45, alphaA);
+    squareNut(positionX[6][2].x, positionX[6][2].y, col1, stroke, wide, high, -45, alphaA);
+    window.endDraw();
+  }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Test extends Anim {
+  Test(float _alphaRate, float _funcRate, Rig _rig) {
+    super(-1, _alphaRate, _funcRate, _rig);
+  }
+  void draw() {  
+    window.beginDraw();
+    window.background(0);
+    window.fill(360*alphaA);
+
+    window.rect(viz.x-(window.width/2)+(window.width*functionA), viz.y, 20, 20);
+    fill(360*alphaB);
+    window.rect(viz.x-(window.width/2)+(window.width*functionB), viz.y+100, 20, 20);
+    window.endDraw();
+  }
+}
 
 
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Anim implements Animation {
   float alphaRate, funcRate, dimmer, alphMod=1, funcMod=1, funcFX=1, alphFX=1, alphaA, alphaB, functionA, functionB;
-  int blury, prevblury, vizIndex, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB;
+  int blury, prevblury, vizIndex, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, _beatCounter;
   color col1, col2;
   PVector viz;
   PVector[] position = new PVector[18];
@@ -102,25 +274,25 @@ class Anim implements Animation {
   PGraphics window, pass1, pass2;
   float alph[] = new float[7];
   float func[] = new float[8];
+  boolean deleteme=false;
   Rig rig;
-  Envelope alphaEnvA, alphaEnvB, functionEnvA, functionEnvB;
-
+  Envelope alphaEnvelopeA, alphaEnvelopeB, functionEnvelopeA, functionEnvelopeB;
+  Envelopes _alphaEnvelopeA, _alphaEnvelopeB, _functionEnvelopeA, _functionEnvelopeB;
 
   Anim(int _vizIndex, float _alphaRate, float _funcRate, Rig _rig) {
     alphaRate = _alphaRate;
     funcRate = _funcRate;
     rig = _rig;
     vizIndex = rig.vizIndex; 
-    resetbeats(); 
-    trigger();
+    resetbeats();
+    _beatCounter = beatCounter;
+    col1 = white;
+    col2 = white;
 
-    //// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
-    blury = int(map(blurSlider, 0, 1, 0, 100));
+    blury = int(map(blurSlider, 0, 1, 0, 100));     //// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
     if (blury!=prevblury) {
       prevblury=blury;
     }
-    col1 = white;
-    col2 = white;
 
     vizIndex = _vizIndex;
     window = rig.buffer;
@@ -145,10 +317,18 @@ class Anim implements Animation {
       }
 
     default: 
-      alphaEnvA = new Envelope(this, 800, 1000, 1500, 0.2, 0, 1);
-      alphaEnvB = new Envelope(this, 1500, 1000, 200, 0.2, 0, 1);
-      functionEnvA = new Envelope(this, 1600, 0, 1500, 0.2, 0, 1);
-      functionEnvB = new Envelope(this, 1500, 0, 4000, 0.2, 0, 1);
+      //alphaEnvelopeA = new Envelope(this, 1500, 1000, 200, 0.2, 0, 1);
+      //alphaEnvelopeB = new Envelope(this, 1500, 1000, 200, 0.2, 0, 1);
+
+      _alphaEnvelopeA = new Envelopes(this, alphaIndexA);
+      alphaEnvelopeA = _alphaEnvelopeA.envelope;
+      _alphaEnvelopeB = new Envelopes(this, alphaIndexB);
+      alphaEnvelopeB = _alphaEnvelopeB.envelope;
+
+      _functionEnvelopeA = new Envelopes(this, functionIndexA);// = new Envelope(this, 1000, 0, 2000, -manualSlider, 0, -funcSlider);
+      functionEnvelopeA = _functionEnvelopeA.envelope;
+      _functionEnvelopeB = new Envelopes (this, functionIndexB);//= new Envelope(this, 500, 0, 4000, 0.2, 0, -manualSlider);
+      functionEnvelopeB = _functionEnvelopeB.envelope;
     }
   }
   void draw() {
@@ -180,17 +360,17 @@ class Anim implements Animation {
      alphaB  = alph[alphaIndexB]*1.2;
      }
      */
-    //alphaA = alph[alphaIndexA];
-    alphaA = alphaEnvA.current_alpha();
-    //alphaB  = alph[alphaIndexB];
-    alphaB = alphaEnvB.current_alpha();
+    alphaA = alphaEnvelopeA.current_alpha();
+    alphaB = alphaEnvelopeB.current_alpha();
 
     alphaA*=rig.dimmer;
     alphaB*=rig.dimmer;
 
-    functionA = functionEnvA.current_alpha(); //func[functionIndexA]*funcFX;
-    functionB = functionEnvB.current_alpha(); // func[functionIndexB]*funcFX;
-    //vizIndex = 10;
+    functionA = functionEnvelopeA.current_function(); //func[functionIndexA]*funcFX;
+    functionB = functionEnvelopeB.current_function(); // func[functionIndexB]*funcFX;
+
+    if (alphaEnvelopeA.finished && alphaEnvelopeB.finished && functionEnvelopeA.finished && functionEnvelopeB.finished) deleteme = true;  // only delete when all finished
+
     this.draw();
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -496,7 +676,6 @@ class Anim implements Animation {
     deleteMeTimer = 1;
   }
   //////////////////////////////////////// DECAY ////////////////////////////////////////////////
-  boolean deleteme=false;
   void decay() {            
     if (avgtime>0) {
       alpha*=pow(alphaRate, (1/avgtime));       //  changes rate alpha fades out!!

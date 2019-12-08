@@ -19,7 +19,7 @@ void playWithMe() {
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  if (keyP[' ']) rigg.animations.add(new Anim(rigg.vizIndex, alphaSlider, funcSlider, rigg));         // or space bar!
+  if (keyP[' ']) rigg.animations.add(new Test( alphaSlider, funcSlider, rigg));         // or space bar!
   //if (keyP[' ']) animations.add(new Anim(roof.vizIndex, alphaSlider, funcSlider, roof));         // or space bar!
   //if (keyP[' ']) animations.add(new AllOn( alphaSlider, funcSlider, cans));                    // or space bar!
   //if (keyP[' ']) animations.add(new Anim(rigg.vizIndex, alphaSlider, funcSlider, donut));              // create an anim object for the cans 

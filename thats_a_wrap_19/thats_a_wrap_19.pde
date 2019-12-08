@@ -175,7 +175,7 @@ void draw()
   cans.vizIndex=roof.vizIndex;
   // create a new anim object and add it to the beginning of the arrayList
   if (beatTrigger) {
-    if (rigToggle)    rigg.animations.add(new Checkers(alphaSlider, funcSlider, rigg));   
+    if (rigToggle)    rigg.animations.add(new SquareNuts(alphaSlider, funcSlider, rigg));   
     if (cansToggle)   cans.animations.add(new Anim(cans.vizIndex, cansAlpha, funcSlider, cans));              // create an anim object for the cans 
     if (donutToggle)  donut.animations.add(new Anim(roof.vizIndex, alphaSlider, funcSlider, donut));              // create an anim object for the cans 
     if (roofToggle) {

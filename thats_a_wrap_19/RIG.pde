@@ -458,7 +458,13 @@ public class Rig {
     }
   }
   void removeAnimations() {
-    while (rig.animations.size()>0 && rig.animations.get(0).deleteme) rig.animations.remove(0);
+
+    for (int i = 0; i < rig.animations.size(); i++) {                                  // loop  through the list
+      //Anim anim = rig.animations.get(i);  
+      while (rig.animations.size()>0  && rig.animations.get(i).deleteme) animations.remove(i);           // remove the animations with deleteme = true
+    }
+
+    //while (rig.animations.size()>0 && rig.animations.get(0).deleteme) rig.animations.remove(0);
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
