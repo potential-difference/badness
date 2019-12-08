@@ -21,8 +21,8 @@ OPCGrid opcGrid;
 ControlFrame controlFrame;
 
 Rig rigg, roof, cans, mirrors, strips, donut;
-SketchColor rigColor, roofColor, cansColor, donutColor;
-ColorLayer rigLayer, roofLayer, cansLayer, donutLayer;
+//SketchColor rigg, roof, cans, donutColor;
+//ColorLayer rigLayer, roofLayer, cansLayer, donutLayer;
 
 ArrayList <Anim> animations;
 
@@ -95,14 +95,8 @@ void setup()
 
   drawingSetup();
   loadImages();
-  loadGraphics();
   loadShaders();
-  //colorSetup();  
-  rigColor = new SketchColor(rigg);
-  roofColor = new SketchColor(roof); 
-  cansColor = new SketchColor(cans);
-  donutColor = new SketchColor(donut);
-
+  
   rigg.vizIndex = 2;
   roof.vizIndex = 1;
   rigg.functionIndexA = 0;
@@ -171,7 +165,7 @@ void draw()
 
   vizTime = 60*15*vizTimeSlider;
   if (frameCount > 10) playWithYourself(vizTime);
-  rigColor.clash(beat);
+  rigg.clash(beat);
   c = rigg.c;
   flash = rigg.flash;
   // dimmer knobs are ehcoed by on screen sliders - code in controller tab
@@ -216,10 +210,10 @@ void draw()
   }
   ////////////////////// draw colour layer /////////////////////////////////////////////////////////////////////////////////////////////////////
   blendMode(MULTIPLY);
-  rigLayer = new ColorLayer(rigg);
-  roofLayer = new ColorLayer(roof);
-  cansLayer = new ColorLayer(cans);
-  donutLayer = new ColorLayer(donut);
+  //rigLayer = new ColorLayer(rigg);
+  //roofLayer = new ColorLayer(roof);
+  //cansLayer = new ColorLayer(cans);
+  //donutLayer = new ColorLayer(donut);
   // this donesnt work anymore....
   if (cc[107] > 0 || keyT['r'] || glitchToggle) bgNoise(rigg.colorLayer, 0, 0, cc[7]); //PGraphics layer,color,alpha
   ////
@@ -231,11 +225,11 @@ void draw()
       image(syphonImageReceived, cans.size.x, cans.size.y, cans.wide, cans.high);
     }
   } else { 
-    rigLayer.drawColorLayer();
-    roofLayer.drawColorLayer();
+    rigg.drawColorLayer();
+    roof.drawColorLayer();
     cans.bgIndex = 7;
-    cansLayer.drawColorLayer();
-    donutLayer.drawColorLayer();
+    cans.drawColorLayer();
+    donut.drawColorLayer();
   }
 
   blendMode(NORMAL);
@@ -247,10 +241,6 @@ void draw()
   //////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
   workLights(keyT['w']);
   testColors(keyT['t']);
-  //rigg.rigInfo();
-  //roof.rigInfo();
-  //cans.rigInfo();
-  //donut.rigInfo();
   onScreenInfo();                   // display info about current settings, viz, funcs, alphs etc
 
   //gid.mirrorTest(false);          // true to test physical mirror orientation

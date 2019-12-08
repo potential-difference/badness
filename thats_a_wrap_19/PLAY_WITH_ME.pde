@@ -1,21 +1,21 @@
 void playWithMe() {
   ////////////////////////////////////// COLOR SWAP AND FLIP BUTTONS /////////////////////////////////////////
-  if (keyP['o']) rigColor.colorSwap(0.9999999999);               // COLOR SWAP MOMENTARY 
+  if (keyP['o']) rigg.colorSwap(0.9999999999);               // COLOR SWAP MOMENTARY 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  if (keyT['i']) rigColor.colorFlip(keyT['i']);                  // COLOR FLIP TOGGLE 
-  if (keyP['u']) rigColor.colorFlip(keyP['u']);                  // COLOR FLIP MOMENTARY
+  if (keyT['i']) rigg.colorFlip(keyT['i']);                  // COLOR FLIP TOGGLE 
+  if (keyP['u']) rigg.colorFlip(keyP['u']);                  // COLOR FLIP MOMENTARY
 
   ////////////////////////////// LERP COLOUR ON BEAT /////////////////////////////////////////////////////////
   if (keyT['y']) {
-    colorLerping(rigColor, (1-beat)*2);
-    colorLerping(roofColor, (1-beat)*1.5);
+    colorLerping(rigg, (1-beat)*2);
+    colorLerping(roof, (1-beat)*1.5);
   }
   ////////////////////////////////////////// HOLD BUTTONS FOR VIZ AND COLOUR /////////////////////////////////
   if (vizHold) vizTimer = millis()/1000;              // hold viz change timer
   if (colHold) {
-    rigColor.colorTimer = millis()/1000;              // hold color change timer
-    roofColor.colorTimer = millis()/1000;              // hold color change timer
-    cansColor.colorTimer = millis()/1000;              // hold color change timer
+    rigg.colorTimer = millis()/1000;              // hold color change timer
+    roof.colorTimer = millis()/1000;              // hold color change timer
+    cans.colorTimer = millis()/1000;              // hold color change timer
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -28,12 +28,12 @@ void playWithMe() {
   if (keyP['a']) animations.add(new AllOn(manualSlider, stutter, rigg));
   if (keyP['s']) {
     animations.add(new AllOn(manualSlider, stutter, rigg));
-    rigColor.colorFlip(true);
+    rigg.colorFlip(true);
   }
   if (keyP['z'] ) animations.add(new AllOn(manualSlider, stutter, roof));
   if (keyP['`'] ) { 
     animations.add(new AllOn(manualSlider, stutter, roof));
-    roofColor.colorFlip(true);
+    roof.colorFlip(true);
   }
   float alphaRate = cc[1];
   float funcRate = cc[2];
@@ -41,16 +41,16 @@ void playWithMe() {
   //if (cc[101] > 0) animations.add(new MirrorsAnim(rigViz, alphaRate, funcRate, cc[101]*rigDimmer/2)); // current animation
   //if (cc[102] > 0) animations.add(new RoofAnim(rigViz, alphaRate, funcRate, cc[102]*roofDimmer/2)); // current animation
   if (cc[103] > 0) { 
-    rigColor.colorSwap(0.9999999999);                // COLOR SWAP MOMENTARY
-    roofColor.colorSwap(0.9999999999);
+    rigg.colorSwap(0.9999999999);                // COLOR SWAP MOMENTARY
+    roof.colorSwap(0.9999999999);
   }
   //if (cc[104] > 0) {
   //  animations.add(new MirrorsOn(manualSlider, 1-(stutter*stutterSlider), cc[104]*rigDimmer));
-  //  rigColor.colorFlip(true);
+  //  rigg.colorFlip(true);
   //}
   //if (cc[107] > 0) animations.add(new RoofOn(manualSlider, 1-(stutter*stutterSlider), cc[107]*roofDimmer));
   //if (cc[108] > 0) { 
-  //  roofColor.colorFlip(true);
+  //  roof.colorFlip(true);
   //  animations.add(new RoofOn(manualSlider, 1-(stutter*stutterSlider), cc[108]*roofDimmer));
   //}
 

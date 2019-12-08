@@ -110,23 +110,6 @@ void drawingSetup() {
   //hint(DISABLE_OPTIMIZED_STROKE);
 }
 
-/////////////////////// LOAD GRAPHICS FOR VISULISATIONS AND COLOR LAYERS //////////////////////////////
-PGraphics bg[] = new PGraphics[rigBgList];
-PGraphics rigWindow, roofWindow, cansWindow, rigColourLayer, roofColourLayer, rigBluredA, rigBluredB, roofBluredA, roofBluredB;
-void loadGraphics() {
-  ///////////////////////////// COLOR LAYER / BG GRAPHICS ////////////////////////////
-  for ( int n = 0; n<bg.length; n++) {
-    bg[n] = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
-    bg[n].beginDraw();
-    bg[n].colorMode(HSB, 360, 100, 100);
-    bg[n].ellipseMode(CENTER);
-    bg[n].rectMode(CENTER);
-    bg[n].imageMode(CENTER);
-    bg[n].noStroke();
-    bg[n].noFill();
-    bg[n].endDraw();
-  }
-}
 PShader blur;
 void loadShaders() {
   float blury = int(map(blurSlider, 0, 1, 0, 100));

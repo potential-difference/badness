@@ -29,7 +29,6 @@ void onScreenInfo() {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //colorInfo();                   ///// rects to show current color and next colour
   frameRateInfo(5, 20);          ///// display frame rate X, Y /////
   //toggleKeysInfo();
   cordinatesInfo(roof, keyT['q']);
@@ -81,13 +80,13 @@ void cordinatesInfo(Rig rig, boolean _info) {
 }
 
 void dividerLines() {
-  fill(rigColor.flash);
+  fill(rigg.flash);
   rect(size.rigWidth, height/2, 1, height);                     ///// vertical line to show end of rig viz area
   rect(size.rig.x, size.rigHeight, size.rigWidth, 1);             //// horizontal line to divide landscape rig / roof areas
   rect(size.rigWidth+size.roofWidth, height/2, 1, height);      ///// vertical line to show end of roof viz area
   rect(size.roof.x, size.roofHeight, size.roofWidth, 1);             //// horizontal line to divide landscape rig / roof areas
   // box around the outside
-  fill(rigColor.flash, 100);   
+  fill(rigg.flash, 100);   
   rect(width/2, height-1, width, 1);  
   rect(width/2, 1, width, 1);                              
   rect(0, height/2, 1, height);
@@ -123,10 +122,10 @@ void toggleKeysInfo() {
   if (keyT['p']) fill(300+(60*stutter));
   text("P = shimmer", x, y+40);
   fill(50);
-  if (!rigColor.colSwap) fill(300+(60*stutter));
+  if (!rigg.colSwap) fill(300+(60*stutter));
   text("O = color swap", x, y+60);
   fill(50);
-  if (rigColor.colFlip) fill(300+(60*stutter));
+  if (rigg.colFlip) fill(300+(60*stutter));
   text("I / U = color flip", x, y+80);
   fill(50);
   if (colBeat) fill(300+(60*stutter));

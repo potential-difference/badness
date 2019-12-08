@@ -48,12 +48,12 @@ enum Env_State {
   ATTACK, SUSTAIN, DECAY
 }
 
-int now(){
-    if (ENV_TICK == ENV_FRAMES) {
-      return frameCount;
-    } else {
-      return millis();
-    }
+int now() {
+  if (ENV_TICK == ENV_FRAMES) {
+    return frameCount;
+  } else {
+    return millis();
+  }
 }
 
 class Envelope {
@@ -89,7 +89,7 @@ class Envelope {
   }
   float supercurviness(float normalized_time, float curvitude) {
     //curvitude from -1 to 1
-    
+
     if (curvitude >= 1) curvitude = 0.999999;
     if (curvitude <= -1) curvitude = -0.999999;
     if (curvitude == 0) return normalized_time;
@@ -100,7 +100,7 @@ class Envelope {
     int now=now();
     float alpha=-1;
     float normalized_time = -1;
-    
+
 
     switch (state) {
     case ATTACK: 
@@ -111,8 +111,7 @@ class Envelope {
     case SUSTAIN:
       if (now > sustain_time) state = Env_State.DECAY;
       alpha = 0.4+(stutter*0.6);
-      println(alpha,stutter);
-     
+
       break;
     case DECAY: 
       if (now > decay_time) parent.deleteme=true;
@@ -126,97 +125,97 @@ class Envelope {
 
 /*
   Envelope newEnvelope(int overallTime){
-    float attack_percent=0.2;
-    float sustain_percent=0.7;
-    float decay_percent=0.1;
-    return new Envelope(int(overallTime*attack_percent),int(overallTime*sustain_percent),int(overallTime*decay_percent),0,0.0);
-  }
-*/
+ float attack_percent=0.2;
+ float sustain_percent=0.7;
+ float decay_percent=0.1;
+ return new Envelope(int(overallTime*attack_percent),int(overallTime*sustain_percent),int(overallTime*decay_percent),0,0.0);
+ }
+ */
 
 
 
 /*
 list of useful envelopes:
-Class EnvelopeFactory{
-  int attack_time;
-  int decay_time;
-  int sustain_time;
-  float attack_curv;
-  int sustain_func_idx;
-  float decay_curv;
-  EnvelopeFactory(int at;int st;int dt;float ac;int sf;float dc){
-    attack_time=at;
-    decay_time=dt;
-    sustain....etc.
-  }
-  Envelope newEnvelope(int envelopeIndex){
-    switch (envelopseIndex){
-      case 0: return new Envelope(attack_time,sustain_time,decay_time,attack_curv,sustain_func_idx,decay_curv);
-      case 1: ...
-  }
-}
-*/
+ Class EnvelopeFactory{
+ int attack_time;
+ int decay_time;
+ int sustain_time;
+ float attack_curv;
+ int sustain_func_idx;
+ float decay_curv;
+ EnvelopeFactory(int at;int st;int dt;float ac;int sf;float dc){
+ attack_time=at;
+ decay_time=dt;
+ sustain....etc.
+ }
+ Envelope newEnvelope(int envelopeIndex){
+ switch (envelopseIndex){
+ case 0: return new Envelope(attack_time,sustain_time,decay_time,attack_curv,sustain_func_idx,decay_curv);
+ case 1: ...
+ }
+ }
+ */
 /* or...
-   Envelope newEnvelope(int envelopeIndex){
-     switch (envelope In                        
-   }
-
-
-*/
+ Envelope newEnvelope(int envelopeIndex){
+ switch (envelope In                        
+ }
+ 
+ 
+ */
 /*
 
-
-
-
-enum EnvelopeNames {
-  FASTUP,SLOWDOWN,TURNAROUNDANDSLAPME }
-EnvelopeFactory[] envelopesByName = {
-  new EnvelopeFactory(500,2000,0.5,3.0.8),//FASTUP
-  new EnvelopeFactory(2000,300,35,......),//SLOWDOWN
-                                         ,//TURNAROUNDANDSLAPME
-}
-*/
+ 
+ 
+ 
+ enum EnvelopeNames {
+ FASTUP,SLOWDOWN,TURNAROUNDANDSLAPME }
+ EnvelopeFactory[] envelopesByName = {
+ new EnvelopeFactory(500,2000,0.5,3.0.8),//FASTUP
+ new EnvelopeFactory(2000,300,35,......),//SLOWDOWN
+ ,//TURNAROUNDANDSLAPME
+ }
+ */
 
 /*
 HashMap<String,EnvelopeFactory> envelopeNames = {
-  "fastup":new EnvelopeFactory(500,2000,3000,0.5,3,0.8),
-  "slowdown":new EnvelopeFactory(2000,300,35,-0.7,2,-0.1),
-  ...
-  }
-}
-*/
+ "fastup":new EnvelopeFactory(500,2000,3000,0.5,3,0.8),
+ "slowdown":new EnvelopeFactory(2000,300,35,-0.7,2,-0.1),
+ ...
+ }
+ }
+ */
 /*
 
-
-animations.add(new Anim11(blah blah blah,rigg.envelopFactory.newEnvelope());
-animations.add(new Anim11(blah blah blah,envelopesByName[6].newEnvelope());
-animations.add(new Anim11(blah blah blah,envelopesByName[FASTUP].newEnvelope());
-
-env = new Envelope(blay blay blarg);
-env = envelopeFactory.newEnvelope(6);
-env = envelopeFactory.newEnvelope(FASTUP);
-env = envelopeFactory.newEnvelope(rigg.envelope_index);
-env = envelopeFactory.newEnvelope(random(envelopeFactory.length));
-animations.add(new Anim11(blah blah blah,env);
-
-*/
+ 
+ animations.add(new Anim11(blah blah blah,rigg.envelopFactory.newEnvelope());
+ animations.add(new Anim11(blah blah blah,envelopesByName[6].newEnvelope());
+ animations.add(new Anim11(blah blah blah,envelopesByName[FASTUP].newEnvelope());
+ 
+ env = new Envelope(blay blay blarg);
+ env = envelopeFactory.newEnvelope(6);
+ env = envelopeFactory.newEnvelope(FASTUP);
+ env = envelopeFactory.newEnvelope(rigg.envelope_index);
+ env = envelopeFactory.newEnvelope(random(envelopeFactory.length));
+ animations.add(new Anim11(blah blah blah,env);
+ 
+ */
 /*
 class Anim11 extends Anim{
-  Anim11(blah blah blah,Envelope e){
-   super(blah blah blah);
-   //anim specific setup code;
-   //this.adsr=new Envelope(blay blay);
-   //this.adsr=e;
-  }
-  void draw(){
-    //everything in case 11:
-  }
-}
-
-
-
-
-*/
+ Anim11(blah blah blah,Envelope e){
+ super(blah blah blah);
+ //anim specific setup code;
+ //this.adsr=new Envelope(blay blay);
+ //this.adsr=e;
+ }
+ void draw(){
+ //everything in case 11:
+ }
+ }
+ 
+ 
+ 
+ 
+ */
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 class Anim implements Animation {
@@ -261,21 +260,21 @@ class Anim implements Animation {
     position = rig.position; 
     positionX = rig.positionX;
     switch (vizIndex) {
-      case 11: //replace all other anims
+    case 11: //replace all other anims
       //loop over anim hashmap, set them all to start decaying
-      for (Anim anim:animations){
+      for (Anim anim : animations) {
         //anim.adsr.decay_time=now()+100;
         //anim.adsr.decay_curvitude=0.9;
         //anim.adsr.state = Env_State.DECAY;
         //anim.deleteme=true;
       }
-      
+
     default: 
       adsr = new Envelope(this, 800, 1000, 1500, 0.2, 0, 1);
     }
   }
   //void draw(){
-    //Override Me in subclass
+  //Override Me in subclass
   //}
   float stroke, wide, high, rotate;
   Float vizWidth, vizHeight;
@@ -499,8 +498,8 @@ class Anim implements Animation {
       window.rect(viz.x, viz.y, window.width, window.height);
       window.endDraw();
 
-    
-    break;
+
+      break;
     default: 
       break; ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
