@@ -22,6 +22,26 @@ void playWithYourself(float vizTm) {
   
   
   */
+  
+  
+  /*
+  
+  if (invertUnfction){
+      if(beat.isOnset){
+      for (Anim anim:animations){
+        //anim.adsr.decay_time=now()+100;
+        //anim.adsr.decay_curvitude=0.9;
+        //anim.adsr.state = Env_State.DECAY;
+        //anim.deleteme=true;
+      } 
+      new anim = (make an anim)
+      }
+    
+  }
+  
+  
+  */
+  
   //////////////////////////////////////////////////////////////////////
   ///////////// ALPHA TIMER ////////////////////////////////////////////////////////////////////////////////////////////////////
   if (millis()/1000 - alphaTimer >= vizTm/divide) { ///// alpha timer changes 4 times every viz change /////

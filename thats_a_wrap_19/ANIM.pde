@@ -266,7 +266,7 @@ class Anim implements Animation {
       for (Anim anim:animations){
         //anim.adsr.decay_time=now()+100;
         //anim.adsr.decay_curvitude=0.9;
-        anim.adsr.state = Env_State.DECAY;
+        //anim.adsr.state = Env_State.DECAY;
         //anim.deleteme=true;
       }
       
@@ -498,6 +498,9 @@ class Anim implements Animation {
       window.noStroke();
       window.rect(viz.x, viz.y, window.width, window.height);
       window.endDraw();
+
+    
+    break;
     default: 
       break; ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }

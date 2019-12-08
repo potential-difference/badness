@@ -1,4 +1,4 @@
-class Rig {
+public class Rig  {
   float dimmer = 1;
   int wide, high, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, bgIndex, vizIndex;
   PGraphics colorLayer, buffer, pass1, pass2;
@@ -13,11 +13,12 @@ class Rig {
   //PApplet parent;
   Rig rig;
 
+
   Rig(PApplet parent, float _xpos, float _ypos, int _wide, int _high, String _name) {
     //parent = getparent();
     //parent = _parent;
     //println(parent);
-    //parent.registeethod("draw", this);
+     parent.registerMethod("draw", this);
 
 
     rig = this;
@@ -133,7 +134,7 @@ class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void draw() {
-    //info();
+    rigInfo();
   }
 }
 

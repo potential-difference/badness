@@ -90,7 +90,7 @@ public class OPC implements Runnable
     }
   }
 
-  // Set the location of 64 LEDs arranged in a uniform 8x8 grid.
+  // Set the location of 64 LEDs   arranged in a uniform 8x8 grid.
   // (x,y) is the center of the grid.
   void ledGrid8x8(int index, float x, float y, float spacing, float angle, boolean zigzag)
   {

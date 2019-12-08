@@ -247,10 +247,10 @@ void draw()
   //////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
   workLights(keyT['w']);
   testColors(keyT['t']);
-  rigg.rigInfo();
-  roof.rigInfo();
-  cans.rigInfo();
-  donut.rigInfo();
+  //rigg.rigInfo();
+  //roof.rigInfo();
+  //cans.rigInfo();
+  //donut.rigInfo();
   onScreenInfo();                   // display info about current settings, viz, funcs, alphs etc
 
   //gid.mirrorTest(false);          // true to test physical mirror orientation
