@@ -88,6 +88,7 @@ public class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void drawColorLayer() {
+    
     switch(bgIndex) {
     case 0:
       colorLayer.beginDraw();
@@ -143,6 +144,12 @@ public class Rig {
       colorLayer.endDraw();
       break;
     }
+        blendMode(MULTIPLY);
+      /*
+    if (syphonToggle) { 
+      if (syphonImageReceived != null) image(syphonImageReceived, size.x, size.y, wide, high);
+    } else 
+    */
     image(colorLayer, size.x, size.y);
   }
   //////////////////////////////////////// END OF BACKGROUND CONTROL /////////////////////////////////////////////////////
@@ -441,11 +448,7 @@ public class Rig {
     // this donesnt work anymore....
     if (cc[107] > 0 || keyT['r'] || glitchToggle) bgNoise(colorLayer, 0, 0, cc[7]); //PGraphics layer,color,alpha
     ////
-    /*
-    if (syphonToggle) { 
-      if (syphonImageReceived != null) image(syphonImageReceived, size.x, size.y, wide, high);
-    } else 
-    */
+  
     drawColorLayer();
     blendMode(NORMAL);
     rigInfo();
@@ -460,11 +463,7 @@ public class Rig {
       anims.drawAnim();           // draw the animation
     }
   }
-  //void drawColourLayer(){
-    
-    
-  //}
-  
+ 
   void removeAnimations() {
     for (int i = 0; i < this.animations.size(); i++) {                                  // loop  through the list
       while (this.animations.size()>0  && this.animations.get(i).deleteme) animations.remove(i);           // remove the animations with deleteme = true
