@@ -335,13 +335,13 @@ class Anim implements Animation {
      alphaB  = alph[alphaIndexB]*1.2;
      }
      */
-    alphaA = alphaEnvelopeA.value();
-    alphaB = alphaEnvelopeB.value();
+    alphaA = alphaEnvelopeA.value(millis());
+    alphaB = alphaEnvelopeB.value(millis());
     alphaA*=rig.dimmer;
     alphaB*=rig.dimmer;
 
-    functionA = functionEnvelopeA.value(); 
-    functionB = functionEnvelopeB.value();
+    functionA = functionEnvelopeA.value(millis()); 
+    functionB = functionEnvelopeB.value(millis());
     functionA*=funcFX;
     functionB*=funcFX;
 
@@ -540,7 +540,7 @@ class Anim implements Animation {
      */
     //image(window, viz.x, viz.y, window.width, window.height);
     blurPGraphics();
-
+/*
     if (this.rig == rigg) {
       ///// only send the rig animations???!!!???!!! /////
       syphonImageSent.beginDraw();
@@ -548,6 +548,7 @@ class Anim implements Animation {
       syphonImageSent.image(pass2, syphonImageSent.width/2, syphonImageSent.height/2, syphonImageSent.width, syphonImageSent.height);
       syphonImageSent.endDraw();
     }
+    */
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////// SQUARE NUT /////////////////////////////////////////////////////////////////////////////////////////////////

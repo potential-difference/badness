@@ -441,9 +441,12 @@ public class Rig {
     // this donesnt work anymore....
     if (cc[107] > 0 || keyT['r'] || glitchToggle) bgNoise(colorLayer, 0, 0, cc[7]); //PGraphics layer,color,alpha
     ////
+    /*
     if (syphonToggle) { 
       if (syphonImageReceived != null) image(syphonImageReceived, size.x, size.y, wide, high);
-    } else  drawColorLayer();
+    } else 
+    */
+    drawColorLayer();
     blendMode(NORMAL);
     rigInfo();
     removeAnimations();

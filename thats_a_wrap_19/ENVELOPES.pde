@@ -14,7 +14,7 @@ int now() {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Envelope EnvelopeFactory( int envelope_index) {
+Envelope envelopeFactory(int envelope_index) {
     switch (envelope_index) {
     case 0: 
       return new ADSR(800, 0, 1500, 0.2, 0, 1);
