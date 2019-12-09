@@ -118,7 +118,7 @@ void setup()
   cc[8] = 1;
   cc[MASTERFXON] = 0;
 
-  syphonSetup(syphonToggle);
+  //syphonSetup(syphonToggle);
   controlFrame = new ControlFrame(this); // load control frame must come after shild ring etc
 
   frameRate(30);
@@ -136,7 +136,7 @@ void draw()
   pause(10);                                ////// number of seconds before no music detected and auto kicks in
   globalFunctions();
 
-  syphonLoadSentImage(syphonToggle);
+  //syphonLoadSentImage(syphonToggle);
 
   vizTime = 60*15*vizTimeSlider;
   if (frameCount > 10) playWithYourself(vizTime);
@@ -173,7 +173,7 @@ void draw()
   dividerLines();
   //gid.mirrorTest(false);                  // true to test physical mirror orientation
   
-  syphonSendImage(syphonToggle);
+  //syphonSendImage(syphonToggle);
 
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
