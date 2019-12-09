@@ -43,7 +43,7 @@ PFont myFont;
 boolean onTop = false;
 void settings() {
   size = new SizeSettings(LANDSCAPE);
-  fullScreen();
+  //fullScreen();
   size(size.sizeX, size.sizeY, P2D);
   size.surfacePositionX = 1920-width-50;
   size.surfacePositionY = 150;

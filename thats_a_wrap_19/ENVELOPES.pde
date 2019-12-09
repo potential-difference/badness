@@ -141,7 +141,6 @@ class ADSR extends Envelope {
   float attack_curve, decay_curve;
   Env_State state;
   boolean finished = false;
-  int end_time;
 
 
   ADSR(int _atime, int _stime, int _dtime, float _acurv, int _sfunc, float _dcurv) {

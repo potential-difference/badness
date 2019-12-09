@@ -346,7 +346,7 @@ class Anim implements Animation {
     functionA*=funcFX;
     functionB*=funcFX;
     
-    if (alphaEnvelopeA.end_time<now && alphaEnvelopeB.end_time<now) deleteme = true;  // only delete when all finished
+    if ((alphaEnvelopeA.end_time<now) && (alphaEnvelopeB.end_time<now)) deleteme = true;  // only delete when all finished
 
     this.draw();
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
