@@ -33,11 +33,6 @@ MidiBus faderBus;         // midibus for APC mini
 MidiBus LPD8bus;          // midibus for LPD8
 MidiBus beatStepBus;      // midibus for Artuia BeatStep
 
-//import codeanticode.syphon.*;
-//PGraphics syphonImageReceived, syphonImageSent;
-//SyphonClient syphonClient;
-//SyphonServer syphonServer;
-
 PFont myFont;
 boolean onTop = false;
 void settings() {
@@ -123,23 +118,9 @@ void setup()
   cc[8] = 1;
   cc[MASTERFXON] = 0;
 
+  syphonSetup(syphonToggle);
   controlFrame = new ControlFrame(this); // load control frame must come after shild ring etc
-  /*
-  HashMap<String, String>[] allServers = SyphonClient.listServers();
-   print("Available Syphon servers: ");
-   print(allServers);
-   if (allServers.length == 0) print("NO Syphon servers avaliable");
-   String matt_servname = "MATTS-MACBOOK-PRO.LOCAL (VDMX-NDI® Output 1)";
-   //String matt_servname2 = "MATTS-MACBOOK-PRO.LOCAL (VDMX-NDI® Output 2)";
-   String matt_appname = "NDISyphon";
-   syphonClient = new SyphonClient(this, matt_appname, matt_servname);// create syphon client to receive frames
-   //syphonClient2 = new SyphonClient(this, matt_appname, matt_servname2);// create syphon client to receive frames
-   
-   syphonServer = new SyphonServer(this, "mirrors syphon");   // Create syhpon server to send frames out.
-   println();
-   syphonImageSent = createGraphics(rigg.wide, rigg.high, P2D);
-   syphonImageSent.imageMode(CENTER);
-   */
+
   frameRate(30);
 }
 float vizTime, colTime;
@@ -155,10 +136,7 @@ void draw()
   pause(10);                                ////// number of seconds before no music detected and auto kicks in
   globalFunctions();
 
-  //syphonImageSent.beginDraw();
-  //syphonImageSent.background(0);
-  //syphonImageSent.endDraw();
-  //if (syphonToggle) if (syphonClient.newFrame()) syphonImageReceived = syphonClient.getGraphics(syphonImageReceived); // load the pixels array with the updated image info (slow)
+  syphonLoadSentImage(syphonToggle);
 
   vizTime = 60*15*vizTimeSlider;
   if (frameCount > 10) playWithYourself(vizTime);
@@ -169,24 +147,14 @@ void draw()
   roof.dimmer = roofDimmer;    // cc[8]
   cans.dimmer = cansDimmer;    // cc[5]
 
-  //rigg.animDimmer[0] = cc[48];
-  //rigg.animDimmer[1] = cc[49];
-
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   playWithMe();
   cans.vizIndex=roof.vizIndex;
-  // create a new anim object and add it to the beginning of the arrayList
 
-  if (beatTrigger) {
-    for (Rig rig : rigs) if (rig.toggle) rig.addAnim(rig.availableAnims[int(random(0, rig.availableAnims.length))]);
-    //if (rigToggle)    rigg.animations.add(new SquareNuts(rigg));   
-    //if (cansToggle)   cans.animations.add(new Anim0(cans));          ?    // create an anim object for the cans 
-    //if (donutToggle)  donut.animations.add(new Anim1(donut));              // create an anim object for the cans 
-    //if (roofToggle) {
-    //if (roofBasic) roof.animations.add(new AllOn(roof));            // create a new anim object for the roof
-    //else roof.animations.add(new Stars(roof));
-    //}
+  // create a new anim object and add it to the beginning of the arrayList
+  if (beatTrigger) { 
+    for (Rig rig : rigs) if (rig.toggle) rig.addAnim(rig.availableAnims[rig.vizIndex]);
   }
 
   if (keyT['s']) for (Anim anims : rigg.animations)  anims.funcFX = 1-(stutter*noize1*0.1);
@@ -204,13 +172,9 @@ void draw()
   frameRateInfo(5, 20);                     // display frame rate X, Y /////
   dividerLines();
   //gid.mirrorTest(false);                  // true to test physical mirror orientation
-  /*
-  if (syphonToggle) {
-   syphonServer.sendImage(syphonImageSent);
-   image(syphonImageSent, size.rig.x+112.5, 455, 225, 87.5);
-   if (syphonImageReceived != null) image(syphonImageReceived, size.rig.x-112.5, 455, 225, 87.5);
-   }
-   */
+  
+  syphonSendImage(syphonToggle);
+
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////// THE END //////////////////////////////////////////////////////////////////////////////////////////////
