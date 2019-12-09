@@ -1,4 +1,3 @@
-
 class SizeSettings {
   int rigWidth, rigHeight, roofWidth, roofHeight, infoWidth, vizWidth, vizHeight, cansWidth, cansHeight, donutWidth, donutHeight;
   PVector rig, roof, info, cans, donut;

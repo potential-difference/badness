@@ -275,7 +275,7 @@ class Anim implements Animation {
   float func[] = new float[8];
   boolean deleteme=false;
   Rig rig;
-  EnvelopeFactory alphaEnvelopeA, alphaEnvelopeB, functionEnvelopeA, functionEnvelopeB;
+  Envelope alphaEnvelopeA, alphaEnvelopeB, functionEnvelopeA, functionEnvelopeB;
 
   Anim(int _vizIndex, float _alphaRate, float _funcRate, Rig _rig) {
     alphaRate = _alphaRate;
@@ -318,11 +318,19 @@ class Anim implements Animation {
       //alphaEnvelopeA = new Envelope(this, 1500, 1000, 200, 0.2, 0, 1);
       //alphaEnvelopeB = new Envelope(this, 1500, 1000, 200, 0.2, 0, 1);
 
+<<<<<<< HEAD
       alphaEnvelopeA = EnvelopeFactory(this, alphaIndexA);
       alphaEnvelopeB = EnvelopeFactory(this, alphaIndexB);
 
       functionEnvelopeA = EnvelopeFactory(this, functionIndexA);// = new Envelope(this, 1000, 0, 2000, -manualSlider, 0, -funcSlider);
       functionEnvelopeB = EnvelopeFactory(this, functionIndexB);//= new Envelope(this, 500, 0, 4000, 0.2, 0, -manualSlider);
+=======
+      alphaEnvelopeA = envelopeFactory(alphaIndexA);
+      alphaEnvelopeB = envelopeFactory(alphaIndexB);
+
+      functionEnvelopeA = envelopeFactory(functionIndexA);// = new Envelope(this, 1000, 0, 2000, -manualSlider, 0, -funcSlider);
+      functionEnvelopeB = envelopeFactory(functionIndexB);//= new Envelope(this, 500, 0, 4000, 0.2, 0, -manualSlider);
+>>>>>>> 416f0abbf3d06972120b1d422e20d31536d0aa2a
     }
   }
   void draw() {
@@ -354,16 +362,15 @@ class Anim implements Animation {
      alphaB  = alph[alphaIndexB]*1.2;
      }
      */
-    alphaA = alphaEnvelopeA.envelope.current_alpha();
-    alphaB = alphaEnvelopeB.envelope.current_alpha();
-
+    alphaA = alphaEnvelopeA.value();
+    alphaB = alphaEnvelopeB.value();
     alphaA*=rig.dimmer;
     alphaB*=rig.dimmer;
 
-    functionA = functionEnvelopeA.envelope.current_function(); //func[functionIndexA]*funcFX;
-    functionB = functionEnvelopeB.envelope.current_function(); // func[functionIndexB]*funcFX;
+    functionA = functionEnvelopeA.value(); //func[functionIndexA]*funcFX;
+    functionB = functionEnvelopeB.value(); // func[functionIndexB]*funcFX;
 
-    if (alphaEnvelopeA.envelope.finished && alphaEnvelopeB.envelope.finished && functionEnvelopeA.envelope.finished && functionEnvelopeB.envelope.finished) deleteme = true;  // only delete when all finished
+    if (alphaEnvelopeA.finished && alphaEnvelopeB.finished) deleteme = true;  // only delete when all finished
 
     this.draw();
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
