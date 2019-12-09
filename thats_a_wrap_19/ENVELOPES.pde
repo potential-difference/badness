@@ -132,17 +132,14 @@ abstract class CompositeEnvelope extends Envelope {
   abstract float value(int time);
 }
 
-
 class ADSR extends Envelope {
-
   int attack_time, sustain_time, decay_time;
   int sustain_func_index, envelope_index;
   int start_time;
   float attack_curve, decay_curve;
   Env_State state;
   boolean finished = false;
-  int end_time;
-
+  //int end_time;
 
   ADSR(int _atime, int _stime, int _dtime, float _acurv, int _sfunc, float _dcurv) {
     start_time = now();

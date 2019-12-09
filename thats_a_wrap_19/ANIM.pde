@@ -338,6 +338,7 @@ class Anim implements Animation {
     int now = millis();
     alphaA = alphaEnvelopeA.value(now);
     alphaB = alphaEnvelopeB.value(now);
+    
     alphaA*=rig.dimmer;
     alphaB*=rig.dimmer;
 
@@ -345,7 +346,7 @@ class Anim implements Animation {
     functionB = functionEnvelopeB.value(now);
     functionA*=funcFX;
     functionB*=funcFX;
-    
+
     if (alphaEnvelopeA.end_time<now && alphaEnvelopeB.end_time<now) deleteme = true;  // only delete when all finished
 
     this.draw();
