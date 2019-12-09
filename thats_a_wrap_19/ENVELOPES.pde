@@ -13,39 +13,30 @@ int now() {
   }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class EnvelopeFactory {
-  int envelope_index;
-  Anim parent;         // remove??
-  Envelope envelope;
 
-  EnvelopeFactory( int _envelope_index) {
-    envelope_index = _envelope_index;
+Envelope EnvelopeFactory( int envelope_index) {
     switch (envelope_index) {
     case 0: 
-      envelope = new ADSR(800, 0, 1500, 0.2, 0, 1);
-      break;
+      return new ADSR(800, 0, 1500, 0.2, 0, 1);
     case 1:
-      envelope = new ADSR(1500, 1000, 200, 0.2, 0, 1);
-      break;
+      return new ADSR(1500, 1000, 200, 0.2, 0, 1);
     case 2:
-      envelope = new ADSR(1000, 0, 2000, -manualSlider, 0, -funcSlider);
-      break;
+      return new ADSR(1000, 0, 2000, -manualSlider, 0, -funcSlider);
     default: 
-      envelope = new ADSR( 200, 1000, 1500, 0.2, 0, 1);
+      return new ADSR( 200, 1000, 1500, 0.2, 0, 1);
     }
-  }
 }
 
 abstract class Envelope{
   int end_time;
-  abstract float now(int time);
+  abstract float value(int time);
 }
 
 class ConstEnvelope extends Envelope{
   float val;
   ConstEnvelope(float val){
     end_time=-1;
-    this.val=val
+    this.val=val;
   }
   float now(int time){
     return val;
@@ -114,6 +105,7 @@ class Ramp extends Envelope{
   }
 }
 
+//e.g. t=millis();Env_Sequence(Ramp(t,t+1000,{0.0,0.0,1.0}),Ramp(t+1500,t+2500,{1.0,1.0,0.0})
 class SeqEnvelope extends CompositeEnvelope{
   SeqEnvelope(int start_time,Envelope...e){
     end_time=0

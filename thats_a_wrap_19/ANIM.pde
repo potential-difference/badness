@@ -318,11 +318,11 @@ class Anim implements Animation {
       //alphaEnvelopeA = new Envelope(this, 1500, 1000, 200, 0.2, 0, 1);
       //alphaEnvelopeB = new Envelope(this, 1500, 1000, 200, 0.2, 0, 1);
 
-      alphaEnvelopeA = new EnvelopeFactory(this, alphaIndexA);
-      alphaEnvelopeB = new EnvelopeFactory(this, alphaIndexB);
+      alphaEnvelopeA = EnvelopeFactory(this, alphaIndexA);
+      alphaEnvelopeB = EnvelopeFactory(this, alphaIndexB);
 
-      functionEnvelopeA = new EnvelopeFactory(this, functionIndexA);// = new Envelope(this, 1000, 0, 2000, -manualSlider, 0, -funcSlider);
-      functionEnvelopeB = new EnvelopeFactory (this, functionIndexB);//= new Envelope(this, 500, 0, 4000, 0.2, 0, -manualSlider);
+      functionEnvelopeA = EnvelopeFactory(this, functionIndexA);// = new Envelope(this, 1000, 0, 2000, -manualSlider, 0, -funcSlider);
+      functionEnvelopeB = EnvelopeFactory(this, functionIndexB);//= new Envelope(this, 500, 0, 4000, 0.2, 0, -manualSlider);
     }
   }
   void draw() {

@@ -18,7 +18,7 @@ public class Rig {
     //parent = _parent;
     //println(parent);
     //parent.registerMethod("draw", this);
-    rig = this;
+    rig = this;//superfluous
     name = _name;
     wide = _wide;
     high = _high;
