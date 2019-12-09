@@ -11,6 +11,9 @@ public class Rig {
   boolean firsttime_sketchcolor=true, toggle;
   int bgList = 8;
   ArrayList <Anim> animations;
+  HashMap<Integer, Tup> dimmers;
+  int arrayListIndex;
+
   int[] availableAnims;
 
   Rig(float _xpos, float _ypos, int _wide, int _high, String _name) {
@@ -19,9 +22,13 @@ public class Rig {
     high = _high;
     size = new PVector (_xpos, _ypos);
 
+    availableAnims = new int[] {0, 1, 2, 3};  // default - changed when initalised;
     animations = new ArrayList<Anim>();
     rigs.add(this);
+    arrayListIndex = rigs.indexOf(this);      // where this is the rig object
 
+    dimmers = new HashMap<Integer, Tup>();
+    
     int xw = 2;
     for (int i = 0; i < position.length/xw; i++) position[i] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*1);
     for (int i = 0; i < position.length/xw; i++) position[i+(position.length/xw)] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*2);
@@ -150,7 +157,7 @@ public class Rig {
      if (syphonImageReceived != null) image(syphonImageReceived, size.x, size.y, wide, high);
      } else 
      */
-     image(colorLayer, size.x, size.y);
+    image(colorLayer, size.x, size.y);
   }
   //////////////////////////////////////// END OF BACKGROUND CONTROL /////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -437,17 +444,44 @@ public class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void addAnim(int animindex) {
+<<<<<<< HEAD
     Anim anim;
+=======
+    Anim anim = new Anim(this);
+>>>>>>> 3cf58976f3388a2f5bffd1e3681d14ca9a4068c4
     switch (animindex) {
     case 0:  
       anim = new Rush(this);
       break;
     case 1:  
+<<<<<<< HEAD
        anim=new Anim0(this);
+=======
+      anim  = new Rushed(this);
+      break;
+    case 2:  
+      anim = new SquareNuts(this);
+      break;
+    case 3:  
+      anim = new Stars(this);
+      break;
+    case 4:  
+      anim = new Checkers(this);
+      break;
+    case 5:  
+      anim = new Anim1(this);
+      break;
+    case 6:  
+      anim = new Anim0(this);
+>>>>>>> 3cf58976f3388a2f5bffd1e3681d14ca9a4068c4
       break;
     default:
        anim=new defaultAnim(this);
     }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 3cf58976f3388a2f5bffd1e3681d14ca9a4068c4
     anim.dimmerpointer = this.dimmers.get(animindex);
     this.animations.add(anim);
   }

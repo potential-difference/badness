@@ -4,8 +4,8 @@ interface Animation {
   void draw();
 }
 abstract class ManualAnim extends Anim {
-  ManualAnim(Rig rig) {
-    super( -1, rig);
+  ManualAnim(Rig _rig) {
+    super(_rig);
     alphaRate = manualSlider;
   }
   void draw() {
@@ -46,7 +46,7 @@ class AllOn extends ManualAnim {
 class Anim0 extends Anim {
   float animDimmer;
   Anim0(Rig _rig) {
-    super(-1, _rig);
+    super(_rig);
   }
   void draw() {
     window.beginDraw();
@@ -71,7 +71,7 @@ class Anim0 extends Anim {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Anim1 extends Anim {
   Anim1(Rig _rig) {
-    super(-1, _rig);
+    super(_rig);
     //anim specific setup code;
     //this.adsr=new Envelope(blay blay);
     //this.adsr=e;
@@ -99,7 +99,7 @@ class Anim1 extends Anim {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Checkers extends Anim {
   Checkers(Rig _rig) {
-    super(-1, _rig);
+    super(_rig);
   }
   void draw() {
     window.beginDraw();
@@ -139,7 +139,7 @@ class Checkers extends Anim {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Rush extends Anim {
   Rush (Rig _rig) {
-    super(-1, _rig);
+    super(_rig);
   }
   void draw() {
     window.beginDraw();
@@ -158,7 +158,7 @@ class Rush extends Anim {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Rushed extends Anim {
   Rushed(Rig _rig) {
-    super(-1, _rig);
+    super(_rig);
   }
   void draw() {
     window.beginDraw();
@@ -192,7 +192,7 @@ class Rushed extends Anim {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Stars extends Anim {
   Stars(Rig _rig) {
-    super(-1, _rig);
+    super(_rig);
   }
   void draw() {
     window.beginDraw();
@@ -210,7 +210,7 @@ class Stars extends Anim {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SquareNuts extends Anim {
   SquareNuts(Rig _rig) {
-    super(-1, _rig);
+    super(_rig);
   }
   void draw() {
     window.beginDraw();
@@ -224,10 +224,9 @@ class SquareNuts extends Anim {
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-float anim3dimmer=1.0;
-class Anim3 extends Anim {
-  Anim3(Rig _rig) {
-    super(-1, _rig);
+class Teeth extends Anim {
+  Teeth(Rig _rig) {
+    super( _rig);
   }
   void draw() {
     window.beginDraw();
@@ -236,7 +235,6 @@ class Anim3 extends Anim {
     wide = vizWidth+(50);
     wide = wide-(wide*functionA);
     high = wide;
-    alphaA *= anim3dimmer;
     squareNut(positionX[0][2].x, positionX[0][2].y, col1, stroke, wide, high, -45, alphaA);
     squareNut(positionX[1][0].x, positionX[1][0].y, col1, stroke, wide, high, -45, alphaA);
     squareNut(positionX[2][2].x, positionX[2][2].y, col1, stroke, wide, high, -45, alphaA);
@@ -250,7 +248,7 @@ class Anim3 extends Anim {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Test extends Anim {
   Test(Rig _rig) {
-    super(-1, _rig);
+    super(_rig);
   }
   void draw() {  
     window.beginDraw();
@@ -279,8 +277,9 @@ class Anim implements Animation {
   float animDimmer = 1;
   Rig rig;
   Envelope alphaEnvelopeA, alphaEnvelopeB, functionEnvelopeA, functionEnvelopeB;
+  Tup dimmerpointer;
 
-  Anim(int _vizIndex, Rig _rig) {
+  Anim(Rig _rig) {
     rig = _rig;
     alphaRate = rig.alphaRate;
     funcRate = rig.funcRate;
@@ -295,7 +294,6 @@ class Anim implements Animation {
       prevblury=blury;
     }
 
-    vizIndex = _vizIndex;
     window = rig.buffer;
     viz = new PVector(window.width/2, window.height/2);
     vizWidth = float(this.window.width);
@@ -315,12 +313,19 @@ class Anim implements Animation {
 
   void draw() {
     //Override Me in subclass
+    //window.beginDraw();
+    //window.background(0);
+    fill(300+(60*stutter));
+    textSize(60);
+    textAlign(CENTER);
+    text("OOPS!!\nCHECK YOUR ANIM LIST", viz.x, viz.y-30);
+    //window.endDraw();
   }
   float stroke, wide, high, rotate;
   Float vizWidth, vizHeight;
   void drawAnim() {
-    decay();
-    alphaFunction();
+    //decay();
+    //alphaFunction();
 
     /////////////////////////////////////// SHIMMER control for rig ////////////////////////////
     /* ////////////////////// should probably go inside play withyourself //////////////////////
@@ -543,19 +548,27 @@ class Anim implements Animation {
      break; ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
      }
      */
-    //image(window, viz.x, viz.y, window.width, window.height);
     blurPGraphics();
     /*
     if (syphonToggle) {
-      if (this.rig == rigg) {
-        ///// only send the rig animations???!!!???!!! /////
-        syphonImageSent.beginDraw();
-        syphonImageSent.blendMode(LIGHTEST);
-        syphonImageSent.image(pass2, syphonImageSent.width/2, syphonImageSent.height/2, syphonImageSent.width, syphonImageSent.height);
-        syphonImageSent.endDraw();
-      }
+     if (this.rig == rigg) {
+     ///// only send the rig animations???!!!???!!! /////
+     syphonImageSent.beginDraw();
+     syphonImageSent.blendMode(LIGHTEST);
+     syphonImageSent.image(pass2, syphonImageSent.width/2, syphonImageSent.height/2, syphonImageSent.width, syphonImageSent.height);
+     syphonImageSent.endDraw();
+     }
+     }
+     */
+  }
+
+  float getval() {
+    try {
+      return dimmerpointer.f[dimmerpointer.i];
+    } 
+    catch (Exception e) {
+      return 1;
     }
-    */
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////// SQUARE NUT /////////////////////////////////////////////////////////////////////////////////////////////////

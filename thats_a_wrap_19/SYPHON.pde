@@ -19,29 +19,29 @@ void syphonSetup(boolean toggle) {
  
  syphonServer = new SyphonServer(this, "mirrors syphon");   // Create syhpon server to send frames out.
  println();
-  syphonImageSent = createGraphics(rigg.wide, rigg.high, P2D);
-  syphonImageSent.imageMode(CENTER);
+ syphonImageSent = createGraphics(rigg.wide, rigg.high, P2D);
+ syphonImageSent.imageMode(CENTER);
  }
  syphonToggle = false;
  }
  
-
-void syphonLoadSentImage(boolean toggle) {
-  if (toggle) {
-    syphonImageSent.beginDraw();
-    syphonImageSent.background(0);
-    syphonImageSent.endDraw();
-    if (syphonClient.newFrame()) syphonImageReceived = syphonClient.getGraphics(syphonImageReceived); // load the pixels array with the updated image info (slow)
-  }
-}
-
-
-
-void syphonSendImage(boolean toggle) {
-  if (toggle) {
-    syphonServer.sendImage(syphonImageSent);
-    image(syphonImageSent, size.rig.x+112.5, 455, 225, 87.5);
-    if (syphonImageReceived != null) image(syphonImageReceived, size.rig.x-112.5, 455, 225, 87.5);
-  }
-}
-*/
+ 
+ void syphonLoadSentImage(boolean toggle) {
+ if (toggle) {
+ syphonImageSent.beginDraw();
+ syphonImageSent.background(0);
+ syphonImageSent.endDraw();
+ if (syphonClient.newFrame()) syphonImageReceived = syphonClient.getGraphics(syphonImageReceived); // load the pixels array with the updated image info (slow)
+ }
+ }
+ 
+ 
+ 
+ void syphonSendImage(boolean toggle) {
+ if (toggle) {
+ syphonServer.sendImage(syphonImageSent);
+ image(syphonImageSent, size.rig.x+112.5, 455, 225, 87.5);
+ if (syphonImageReceived != null) image(syphonImageReceived, size.rig.x-112.5, 455, 225, 87.5);
+ }
+ }
+ */
