@@ -11,6 +11,8 @@ public class Rig {
   boolean firsttime_sketchcolor=true, toggle;
   int bgList = 8;
   ArrayList <Anim> animations;
+    HashMap<Integer, Tup> dimmers;
+
   int[] availableAnims;
 
   Rig(float _xpos, float _ypos, int _wide, int _high, String _name) {
@@ -21,6 +23,9 @@ public class Rig {
 
     animations = new ArrayList<Anim>();
     rigs.add(this);
+
+    dimmers = new HashMap<Integer, Tup>();
+
 
     int xw = 2;
     for (int i = 0; i < position.length/xw; i++) position[i] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*1);
@@ -150,7 +155,7 @@ public class Rig {
      if (syphonImageReceived != null) image(syphonImageReceived, size.x, size.y, wide, high);
      } else 
      */
-     image(colorLayer, size.x, size.y);
+    image(colorLayer, size.x, size.y);
   }
   //////////////////////////////////////// END OF BACKGROUND CONTROL /////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -440,8 +445,27 @@ public class Rig {
     switch (animindex) {
     case 0:  
       this.animations.add(new Rush(this));
+      anim.dimmerpointer = (this.dimmers.get(animindex));
       break;
     case 1:  
+      this.animations.add(new Rushed(this));
+      break;
+    case 2:  
+      this.animations.add(new SquareNuts(this));
+      break;
+    case 3:  
+      this.animations.add(new Stars(this));
+      break;
+    case 4:  
+      this.animations.add(new Checkers(this));
+      break;
+    case 5:  
+      this.animations.add(new Anim1(this));
+      break;
+    case 6:  
+      this.animations.add(new Anim0(this));
+      break;
+    default:
       this.animations.add(new Anim0(this));
       break;
     }

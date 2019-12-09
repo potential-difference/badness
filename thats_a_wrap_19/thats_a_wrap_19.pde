@@ -55,8 +55,11 @@ void setup()
   roof = new Rig(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
   cans = new Rig(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "CANS");
   donut = new Rig(size.donut.x, size.donut.y, size.donutWidth, size.donutHeight, "DONUT");
-  rigg.availableAnims = new int[] {0, 1, 3, 5};
-  roof.availableAnims = new int[] {0, 2, 4, 3};
+  rigg.availableAnims = new int[] {0, 1, 2, 3};
+  roof.availableAnims = new int[] {4, 5, 6, 0};
+    
+    rigg.dimmers.put(3, new Tup(cc, 34));
+
   rigg.toggle = true;
 
   ///////////////// LOCAL opc /////////////////////

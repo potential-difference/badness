@@ -1,3 +1,11 @@
+class Tup {
+  float[] f;
+  int i;
+  Tup(float[] f, int i) {
+    this.f=f;
+    this.i=i;
+  }
+}
 /////////////////////////////////// FUNCTION AND ALPHA ARRAYS //////////////////////////////////////////////
 float sineFast, sineSlow, sine, stutter, shimmer;
 float timer[] = new float[6];

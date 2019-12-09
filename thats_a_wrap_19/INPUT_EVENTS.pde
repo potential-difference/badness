@@ -8,15 +8,15 @@ void keyPressed() {
   //// debound or thorttle this ////
 
   /////////////////////////////// RIG KEY FUNCTIONS ////////////////////////
-  if (key == 'n') rigg.vizIndex = (rigg.vizIndex+1)%rigVizList;        //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
+  if (key == 'n') rigg.vizIndex = (rigg.vizIndex+1)%rigg.availableAnims.length;        //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
   if (key == 'b') rigg.vizIndex -=1;                            //// STEP BACK TO PREVIOUS RIG VIZ
-  if (rigg.vizIndex <0) rigg.vizIndex = rigVizList-1;
+  if (rigg.vizIndex <0) rigg.vizIndex = rigg.availableAnims.length-1;
   if (key == 'm') rigg.bgIndex = (rigg.bgIndex+1)%rigg.bgList;                 //// CYCLE THROUGH RIG BACKGROUNDS
 
   /////////////////////////////// ROOF KEY FUNCTIONS ////////////////////////
-  if (key == 'h') roof.vizIndex = (roof.vizIndex+1)%roofVizList;               //// STEP FORWARD TO NEXT RIG VIZ
+  if (key == 'h') roof.vizIndex = (roof.vizIndex+1)%roof.availableAnims.length;               //// STEP FORWARD TO NEXT RIG VIZ
   if (key == 'g') roof.vizIndex -= 1;                          //// STEP BACK TO PREVIOUS RIG VIZ
-  if (roof.vizIndex <0) roof.vizIndex = roofVizList-1;
+  if (roof.vizIndex <0) roof.vizIndex = roof.availableAnims.length-1;
   if (key == 'j') roof.bgIndex = (roof.bgIndex+1)%roof.bgList;               //// CYCLE THROUGH ROOF BACKGROUNDS
 
   if (key == ',') {                                      //// CYCLE THROUGH RIG FUNCS

@@ -279,8 +279,9 @@ class Anim implements Animation {
   float animDimmer = 1;
   Rig rig;
   Envelope alphaEnvelopeA, alphaEnvelopeB, functionEnvelopeA, functionEnvelopeB;
+  Tup dimmerpointer;
 
-  Anim(int _vizIndex, Rig _rig) {
+  Anim(Rig _rig, Tup _dimmerpointer) {
     rig = _rig;
     alphaRate = rig.alphaRate;
     funcRate = rig.funcRate;
@@ -289,6 +290,7 @@ class Anim implements Animation {
     _beatCounter = beatCounter;
     col1 = white;
     col2 = white;
+    dimmerpointer = _dimmerpointer;
 
     blury = int(map(blurSlider, 0, 1, 0, 100));     //// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
     if (blury!=prevblury) {
@@ -547,15 +549,15 @@ class Anim implements Animation {
     blurPGraphics();
     /*
     if (syphonToggle) {
-      if (this.rig == rigg) {
-        ///// only send the rig animations???!!!???!!! /////
-        syphonImageSent.beginDraw();
-        syphonImageSent.blendMode(LIGHTEST);
-        syphonImageSent.image(pass2, syphonImageSent.width/2, syphonImageSent.height/2, syphonImageSent.width, syphonImageSent.height);
-        syphonImageSent.endDraw();
-      }
-    }
-    */
+     if (this.rig == rigg) {
+     ///// only send the rig animations???!!!???!!! /////
+     syphonImageSent.beginDraw();
+     syphonImageSent.blendMode(LIGHTEST);
+     syphonImageSent.image(pass2, syphonImageSent.width/2, syphonImageSent.height/2, syphonImageSent.width, syphonImageSent.height);
+     syphonImageSent.endDraw();
+     }
+     }
+     */
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////// SQUARE NUT /////////////////////////////////////////////////////////////////////////////////////////////////
