@@ -1,5 +1,5 @@
 public class Rig {
-  float dimmer = 1, alphaRate,funcRate;
+  float dimmer = 1, alphaRate, funcRate;
   int wide, high, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, bgIndex, vizIndex;
   PGraphics colorLayer, buffer, pass1, pass2;
   PVector size;
@@ -8,9 +8,10 @@ public class Rig {
   PVector position[] = new PVector[12];
   PVector positionX[][] = new PVector[7][3];
   String name;
-  boolean firsttime_sketchcolor=true;
+  boolean firsttime_sketchcolor=true, toggle;
   int bgList = 8;
   ArrayList <Anim> animations;
+  int[] availableAnims;
 
   Rig(float _xpos, float _ypos, int _wide, int _high, String _name) {
     name = _name;
@@ -20,7 +21,19 @@ public class Rig {
 
     animations = new ArrayList<Anim>();
     rigs.add(this);
-    
+    /*
+    switch (this) {
+     case rigg:
+     break;
+     case roof:
+     availableAnims = {2, 3, 4, 5, 6};//or put in Rig constructor, whatever.
+     break;
+     }
+     */
+
+    int [] availableAnims = {1, 4, 3, 6};
+
+
     int xw = 2;
     for (int i = 0; i < position.length/xw; i++) position[i] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*1);
     for (int i = 0; i < position.length/xw; i++) position[i+(position.length/xw)] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*2);
@@ -87,7 +100,7 @@ public class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void drawColorLayer() {
-    
+
     switch(bgIndex) {
     case 0:
       colorLayer.beginDraw();
@@ -143,12 +156,12 @@ public class Rig {
       colorLayer.endDraw();
       break;
     }
-        blendMode(MULTIPLY);
-      /*
+    blendMode(MULTIPLY);
+    /*
     if (syphonToggle) { 
-      if (syphonImageReceived != null) image(syphonImageReceived, size.x, size.y, wide, high);
-    } else 
-    */
+     if (syphonImageReceived != null) image(syphonImageReceived, size.x, size.y, wide, high);
+     } else 
+     */
     image(colorLayer, size.x, size.y);
   }
   //////////////////////////////////////// END OF BACKGROUND CONTROL /////////////////////////////////////////////////////
@@ -435,7 +448,16 @@ public class Rig {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+  Anim addAnim(int animindex) {
+    switch (animindex) {
+    case 0:  
+      this.animations.add(new Rush(this));
+      break;
+    case 1:  
+      this.animations.add(new Anim0(this));
+      break;
+    }
+  }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -447,7 +469,7 @@ public class Rig {
     // this donesnt work anymore....
     if (cc[107] > 0 || keyT['r'] || glitchToggle) bgNoise(colorLayer, 0, 0, cc[7]); //PGraphics layer,color,alpha
     ////
-  
+
     drawColorLayer();
     blendMode(NORMAL);
     rigInfo();
@@ -462,7 +484,7 @@ public class Rig {
       anims.drawAnim();           // draw the animation
     }
   }
- 
+
   void removeAnimations() {
     for (int i = 0; i < this.animations.size(); i++) {                                  // loop  through the list
       while (this.animations.size()>0  && this.animations.get(i).deleteme) animations.remove(i);           // remove the animations with deleteme = true

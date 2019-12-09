@@ -1,7 +1,7 @@
 import controlP5.*;
 ControlP5 cp5;
 
-boolean glitchToggle, cansToggle = false, roofToggle = false, rigToggle = true, roofBasic = false, syphonToggle = false, donutToggle = false;
+boolean glitchToggle, roofBasic = false, syphonToggle = false, donutToggle = false;
 float vizTimeSlider, colorSwapSlider, colorTimerSlider, cansDimmer, boothDimmer, digDimmer, backDropSlider, cansSlider;
 float tweakSlider, blurSlider, bgNoiseBrightnessSlider, bgNoiseDensitySlider, manualSlider, stutterSlider, cansAlpha, deleteMeSlider;
 float shimmerSlider, alphaSlider, rigDimmer, roofDimmer, seedsDimmer, seed2Dimmer, uvDimmer, controllerDimmer, funcSlider, pauseSlider;
@@ -323,41 +323,41 @@ class ControlFrame extends PApplet {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////// BUTTONS ///////////////////////////////////////////////////////////////
     x +=clm;
-    cp5.addToggle("rigToggle")
-      .plugTo(parent, "rigToggle")
+    cp5.addToggle("rigg.toggle")
+      .plugTo(parent, "rigg.toggle")
       .setPosition(x, y)
       .setSize(50, 50)      
-      .setValue(rigToggle)
+      .setValue(rigg.toggle)
       .setColorActive(bac1) 
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ; 
     x += 60;
-    cp5.addToggle("roofToggle")
-      .plugTo(parent, "roofToggle")
+    cp5.addToggle("roof.toggle")
+      .plugTo(parent, "roof.toggle")
       .setPosition(x, y)
       .setSize(50, 50)      
-      .setValue(roofToggle)
+      .setValue(roof.toggle)
       .setColorActive(bac1) 
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
     x += 60;
-    cp5.addToggle("cansToggle")
-      .plugTo(parent, "cansToggle")
+    cp5.addToggle("cans.toggle")
+      .plugTo(parent, "cans.toggle")
       .setPosition(x, y)
       .setSize(50, 50)      
-      .setValue(cansToggle)
+      .setValue(cans.toggle)
       .setColorActive(bac1) 
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
     x += 60;
-    cp5.addToggle("donutToggle")
-      .plugTo(parent, "donutToggle")
+    cp5.addToggle("donut.toggle")
+      .plugTo(parent, "donut.toggle")
       .setPosition(x, y)
       .setSize(50, 50)      
-      .setValue(cansToggle)
+      .setValue(cans.toggle)
       .setColorActive(bac1) 
       .setColorBackground(bac) 
       .setColorForeground(slider) 

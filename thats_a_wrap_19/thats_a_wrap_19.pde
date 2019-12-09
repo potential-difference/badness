@@ -22,7 +22,6 @@ ControlFrame controlFrame;
 Rig rigg, roof, cans, mirrors, strips, donut;
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
 
-
 import javax.sound.midi.ShortMessage;       // shorthand names for each control on the TR8
 import oscP5.*;
 import netP5.*;
@@ -62,6 +61,7 @@ void setup()
   cans = new Rig(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "CANS");
   donut = new Rig(size.donut.x, size.donut.y, size.donutWidth, size.donutHeight, "DONUT");
 
+ 
   ///////////////// LOCAL opc /////////////////////
   opcLocal   = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRRORS
   opcMirror1 = new OPC(this, "GL-AR300m-c4c", 7890);
@@ -167,19 +167,24 @@ void draw()
   roof.dimmer = roofDimmer;    // cc[8]
   cans.dimmer = cansDimmer;    // cc[5]
 
+  //rigg.animDimmer[0] = cc[48];
+  //rigg.animDimmer[1] = cc[49];
+
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   playWithMe();
   cans.vizIndex=roof.vizIndex;
   // create a new anim object and add it to the beginning of the arrayList
+
   if (beatTrigger) {
-    if (rigToggle)    rigg.animations.add(new SquareNuts(rigg));   
-    if (cansToggle)   cans.animations.add(new Anim0(cans));              // create an anim object for the cans 
-    if (donutToggle)  donut.animations.add(new Anim1(donut));              // create an anim object for the cans 
-    if (roofToggle) {
-      if (roofBasic) roof.animations.add(new AllOn(roof));            // create a new anim object for the roof
-      else roof.animations.add(new Stars(roof));
-    }
+    for (Rig rig : rigs) if (rig.toggle) rig.addAnim(rig.availableAnims[int(random(0, rig.availableAnims.length))]);
+    //if (rigToggle)    rigg.animations.add(new SquareNuts(rigg));   
+    //if (cansToggle)   cans.animations.add(new Anim0(cans));          ?    // create an anim object for the cans 
+    //if (donutToggle)  donut.animations.add(new Anim1(donut));              // create an anim object for the cans 
+    //if (roofToggle) {
+    //if (roofBasic) roof.animations.add(new AllOn(roof));            // create a new anim object for the roof
+    //else roof.animations.add(new Stars(roof));
+    //}
   }
 
   if (keyT['s']) for (Anim anims : rigg.animations)  anims.funcFX = 1-(stutter*noize1*0.1);
