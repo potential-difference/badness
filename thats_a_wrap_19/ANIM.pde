@@ -306,6 +306,7 @@ class Anim implements Animation {
     functionEnvelopeA = envelopeFactory(rig.functionIndexA);
     functionEnvelopeB = envelopeFactory(rig.functionIndexB);
   }
+
   void draw() {
     //Override Me in subclass
   }

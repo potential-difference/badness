@@ -14,6 +14,117 @@ int now() {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+<<<<<<< HEAD
+Envelope EnvelopeFactory( int envelope_index) {
+    switch (envelope_index) {
+    case 0: 
+      return new ADSR(800, 0, 1500, 0.2, 0, 1);
+    case 1:
+      return new ADSR(1500, 1000, 200, 0.2, 0, 1);
+    case 2:
+      return new ADSR(1000, 0, 2000, -manualSlider, 0, -funcSlider);
+    default: 
+      return new ADSR( 200, 1000, 1500, 0.2, 0, 1);
+    }
+}
+
+abstract class Envelope{
+  int end_time;
+  abstract float value(int time);
+}
+
+class ConstEnvelope extends Envelope{
+  float val;
+  ConstEnvelope(float val){
+    end_time=-1;
+    this.val=val;
+  }
+  float now(int time){
+    return val;
+  } 
+}
+
+class AddEnvelope extends CompositeEnvelope{
+  AddEnvelope(Envelope...e){
+    super(e);
+  }
+  float now(int time){
+    float res=0.0;
+    for (Envelope c:children){
+      res+=c.now(time);
+    }
+    return res;
+  }
+}
+
+class MulEnvelope extends CompositeEnvelope{
+  MulEnvelope(Envelope...e){
+    super(e);
+  }
+  float now(int time){
+    float res=1.0;
+    for (Envelope c:children){
+      res*=c.now(time);
+    }
+    return res;
+  }
+}
+
+class Ramp extends Envelope{
+  int start_time;
+  ArrayList<float> values;
+  Ramp(int start_time,int end_time,float values...){
+    this.start_time=start_time;
+    this.end_time=end_time;
+    this.values=Arrays.asList(values);
+  }
+  float fact(int a){
+    if (a<=1) return 1;
+    return a * fact(a-1);
+  }
+  float binom(int a,int b){
+    //n!/(k!(n-k)!
+    return float(fact(a)/(fact(b)*(fact(a-b))))`;
+  }
+  float now(int time){
+    /*nim code
+                if (time<e.start_time): return e.points[0]
+            if (time>e.end_time): return e.points[^1]
+            let normt = float(time-e.start_time)/float(e.end_time-e.start_time)
+            let n = e.points.len - 1
+            for i,p in e.points.pairs:
+                result += float(binom(n,i))*(1-normt)^(n-i)*normt^i*p
+    */
+    if (time<start_time) return values.get(0);
+    if (time>end_time) return values.get(values.size()-1);//god arraylists are rubbish
+    float normt = float(time-start_time)/float(end_time-start_time);
+    int n = values.size()-1;
+    float result=0.0;
+    for (int i=0;i<values.size();i++){
+      result += binom(n,i)*pow(1-normt,n-i)*pow(normt,i)*values.get(i);
+    }
+  }
+}
+
+//e.g. t=millis();Env_Sequence(Ramp(t,t+1000,{0.0,0.0,1.0}),Ramp(t+1500,t+2500,{1.0,1.0,0.0})
+class SeqEnvelope extends CompositeEnvelope{
+  SeqEnvelope(int start_time,Envelope...e){
+    end_time=0
+    //we add up the end_times
+  }
+}
+
+abstract class CompositeEnvelope extends Envelope{
+  ArrayList<Envelope> children;
+  CompositeEnvelope(Envelope...e){
+    end_time=-1;
+    children = Arrays.asList(e);
+    for (Envelope e:children){
+      if (e.end_time>end_time){
+        end_time=e.end_time;
+      }
+    }
+=======
 Envelope envelopeFactory(int envelope_index) {
   switch (envelope_index) {
   case 0: 
@@ -24,24 +135,35 @@ Envelope envelopeFactory(int envelope_index) {
     return new Envelope( 1000, 0, 2000, -manualSlider, 0, -funcSlider);
   default: 
     return new Envelope( 200, 1000, 1500, 0.2, 0, 1);
+>>>>>>> 416f0abbf3d06972120b1d422e20d31536d0aa2a
   }
+  abstract float now();
 }
 
+<<<<<<< HEAD
+class ADSR extends Envelope {
+=======
 
 class Envelope {
+>>>>>>> 416f0abbf3d06972120b1d422e20d31536d0aa2a
   int attack_time, sustain_time, decay_time;
   int sustain_func_index, envelope_index;
   int start_time;
   float attack_curve, decay_curve;
-  Anim parent;
   Env_State state;
   boolean finished = false;
+  int end_time;
 
+<<<<<<< HEAD
+  ADSR(Anim _parent, int _atime, int _stime, int _dtime, float _acurv, int _sfunc, float _dcurv) {
+=======
   Envelope( int _atime, int _stime, int _dtime, float _acurv, int _sfunc, float _dcurv) {
+>>>>>>> 416f0abbf3d06972120b1d422e20d31536d0aa2a
     start_time = now();
     attack_time = start_time + _atime;
     sustain_time = attack_time + _stime;
     decay_time = sustain_time + _dtime;
+    end_time = decay_time;//new Envelope formulation
     attack_curve = _acurv;
     decay_curve = _dcurv;
     sustain_func_index = _sfunc;
