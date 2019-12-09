@@ -4,8 +4,9 @@ interface Animation {
   void draw();
 }
 abstract class ManualAnim extends Anim {
-  ManualAnim(float _alphaRate, float _funcRate, Rig rig) {
-    super( -1, _alphaRate, _funcRate, rig);
+  ManualAnim(Rig rig) {
+    super( -1, rig);
+    alphaRate = manualSlider;
   }
   void draw() {
   }
@@ -32,10 +33,9 @@ class AllOn extends ManualAnim {
     manualAlpha*=map(this.alphaRate, 0, 1, 0.5, 0.97);
     manualAlpha*=this.funcRate;
   }
-  AllOn(float _alphaRate, float _funcRate, Rig _rig) {
-    super(_alphaRate, _funcRate, _rig);
-    alphaRate=_alphaRate;
-    funcRate=_funcRate;
+  AllOn(Rig _rig) {
+    super( _rig);
+    alphaRate=manualSlider;
   }
   void draw() {
     window.background(360*manualAlpha);
@@ -44,8 +44,9 @@ class AllOn extends ManualAnim {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Anim0 extends Anim {
-  Anim0(float _alphaRate, float _funcRate, Rig _rig) {
-    super(-1, _alphaRate, _funcRate, _rig);
+  float animDimmer;
+  Anim0(Rig _rig) {
+    super(-1, _rig);
   }
   void draw() {
     window.beginDraw();
@@ -69,8 +70,8 @@ class Anim0 extends Anim {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Anim1 extends Anim {
-  Anim1(float _alphaRate, float _funcRate, Rig _rig) {
-    super(-1, _alphaRate, _funcRate, _rig);
+  Anim1(Rig _rig) {
+    super(-1, _rig);
     //anim specific setup code;
     //this.adsr=new Envelope(blay blay);
     //this.adsr=e;
@@ -97,8 +98,8 @@ class Anim1 extends Anim {
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Checkers extends Anim {
-  Checkers(float _alphaRate, float _funcRate, Rig _rig) {
-    super(-1, _alphaRate, _funcRate, _rig);
+  Checkers(Rig _rig) {
+    super(-1, _rig);
   }
   void draw() {
     window.beginDraw();
@@ -137,8 +138,8 @@ class Checkers extends Anim {
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Rush extends Anim {
-  Rush (float _alphaRate, float _funcRate, Rig _rig) {
-    super(-1, _alphaRate, _funcRate, _rig);
+  Rush (Rig _rig) {
+    super(-1, _rig);
   }
   void draw() {
     window.beginDraw();
@@ -156,8 +157,8 @@ class Rush extends Anim {
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Rushed extends Anim {
-  Rushed(float _alphaRate, float _funcRate, Rig _rig) {
-    super(-1, _alphaRate, _funcRate, _rig);
+  Rushed(Rig _rig) {
+    super(-1, _rig);
   }
   void draw() {
     window.beginDraw();
@@ -190,8 +191,8 @@ class Rushed extends Anim {
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Stars extends Anim {
-  Stars(float _alphaRate, float _funcRate, Rig _rig) {
-    super(-1, _alphaRate, _funcRate, _rig);
+  Stars(Rig _rig) {
+    super(-1, _rig);
   }
   void draw() {
     window.beginDraw();
@@ -208,8 +209,8 @@ class Stars extends Anim {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SquareNuts extends Anim {
-  SquareNuts(float _alphaRate, float _funcRate, Rig _rig) {
-    super(-1, _alphaRate, _funcRate, _rig);
+  SquareNuts(Rig _rig) {
+    super(-1, _rig);
   }
   void draw() {
     window.beginDraw();
@@ -223,9 +224,10 @@ class SquareNuts extends Anim {
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+float anim3dimmer=1.0;
 class Anim3 extends Anim {
-  Anim3(float _alphaRate, float _funcRate, Rig _rig) {
-    super(-1, _alphaRate, _funcRate, _rig);
+  Anim3(Rig _rig) {
+    super(-1, _rig);
   }
   void draw() {
     window.beginDraw();
@@ -234,6 +236,7 @@ class Anim3 extends Anim {
     wide = vizWidth+(50);
     wide = wide-(wide*functionA);
     high = wide;
+    alphaA *= anim3dimmer;
     squareNut(positionX[0][2].x, positionX[0][2].y, col1, stroke, wide, high, -45, alphaA);
     squareNut(positionX[1][0].x, positionX[1][0].y, col1, stroke, wide, high, -45, alphaA);
     squareNut(positionX[2][2].x, positionX[2][2].y, col1, stroke, wide, high, -45, alphaA);
@@ -246,8 +249,8 @@ class Anim3 extends Anim {
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Test extends Anim {
-  Test(float _alphaRate, float _funcRate, Rig _rig) {
-    super(-1, _alphaRate, _funcRate, _rig);
+  Test(Rig _rig) {
+    super(-1, _rig);
   }
   void draw() {  
     window.beginDraw();
@@ -259,7 +262,6 @@ class Test extends Anim {
     window.endDraw();
   }
 }
-
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -274,13 +276,14 @@ class Anim implements Animation {
   float alph[] = new float[7];
   float func[] = new float[8];
   boolean deleteme=false;
+  float animDimmer = 1;
   Rig rig;
   Envelope alphaEnvelopeA, alphaEnvelopeB, functionEnvelopeA, functionEnvelopeB;
 
-  Anim(int _vizIndex, float _alphaRate, float _funcRate, Rig _rig) {
-    alphaRate = _alphaRate;
-    funcRate = _funcRate;
+  Anim(int _vizIndex, Rig _rig) {
     rig = _rig;
+    alphaRate = rig.alphaRate;
+    funcRate = rig.funcRate;
     vizIndex = rig.vizIndex; 
     resetbeats();
     _beatCounter = beatCounter;
@@ -295,6 +298,9 @@ class Anim implements Animation {
     vizIndex = _vizIndex;
     window = rig.buffer;
     viz = new PVector(window.width/2, window.height/2);
+    vizWidth = float(this.window.width);
+    vizHeight = float(this.window.height);
+
     pass1 = rig.pass1;
     pass2 = rig.pass2;
     position = rig.position; 
@@ -316,9 +322,6 @@ class Anim implements Animation {
     decay();
     alphaFunction();
 
-    vizWidth = float(this.window.width);
-    vizHeight = float(this.window.height);
-
     /////////////////////////////////////// SHIMMER control for rig ////////////////////////////
     /* ////////////////////// should probably go inside play withyourself //////////////////////
      if (beatCounter % 42 > 36) { 
@@ -338,8 +341,8 @@ class Anim implements Animation {
     int now = millis();
     alphaA = alphaEnvelopeA.value(now);
     alphaB = alphaEnvelopeB.value(now);
-    
-    alphaA*=rig.dimmer;
+
+    alphaA*=rig.dimmer*animDimmer;
     alphaB*=rig.dimmer;
 
     functionA = functionEnvelopeA.value(now); 
@@ -347,9 +350,7 @@ class Anim implements Animation {
     functionA*=funcFX;
     functionB*=funcFX;
 
-
     if (alphaEnvelopeA.end_time<now && alphaEnvelopeB.end_time<now) deleteme = true;  // only delete when all finished
-
 
     this.draw();
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

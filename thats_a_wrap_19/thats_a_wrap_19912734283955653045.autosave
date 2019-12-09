@@ -43,7 +43,7 @@ PFont myFont;
 boolean onTop = false;
 void settings() {
   size = new SizeSettings(LANDSCAPE);
-  //fullScreen();
+  fullScreen();
   size(size.sizeX, size.sizeY, P2D);
   size.surfacePositionX = 1920-width-50;
   size.surfacePositionY = 150;
@@ -173,12 +173,12 @@ void draw()
   cans.vizIndex=roof.vizIndex;
   // create a new anim object and add it to the beginning of the arrayList
   if (beatTrigger) {
-    if (rigToggle)    rigg.animations.add(new SquareNuts(rigg));   
-    if (cansToggle)   cans.animations.add(new Anim0(cans));              // create an anim object for the cans 
-    if (donutToggle)  donut.animations.add(new Anim1(donut));              // create an anim object for the cans 
+    if (rigToggle)    rigg.animations.add(new SquareNuts(alphaSlider, funcSlider, rigg));   
+    if (cansToggle)   cans.animations.add(new Anim0(cansAlpha, funcSlider, cans));              // create an anim object for the cans 
+    if (donutToggle)  donut.animations.add(new Anim1(alphaSlider, funcSlider, donut));              // create an anim object for the cans 
     if (roofToggle) {
-      if (roofBasic) roof.animations.add(new AllOn(roof));            // create a new anim object for the roof
-      else roof.animations.add(new Stars(roof));
+      if (roofBasic) roof.animations.add(new AllOn(alphaSlider, funcSlider, roof));            // create a new anim object for the roof
+      else roof.animations.add(new Stars(alphaSlider, funcSlider, roof));
     }
   }
 

@@ -83,8 +83,8 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
-    cp5.addSlider("alphaSlider")
-      .plugTo(parent, "alphaSlider")
+    cp5.addSlider("rigg.alphaRate")
+      .plugTo(parent, "rigg.alphaRate")
       .setPosition(x, y+row*3)
       .setSize(wide, high)
       //.setFont(font)
@@ -94,8 +94,8 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac1) 
       .setColorForeground(slider1) 
       ;
-    cp5.addSlider("funcSlider")
-      .plugTo(parent, "funcSlider")
+    cp5.addSlider("rigg.funcRate")
+      .plugTo(parent, "rigg.funcRate")
       .setPosition(x, y+row*4)
       .setSize(wide, high)
       //.setFont(font)

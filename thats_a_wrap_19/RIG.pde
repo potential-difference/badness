@@ -1,5 +1,5 @@
 public class Rig {
-  float dimmer = 1;
+  float dimmer = 1, alphaRate,funcRate;
   int wide, high, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, bgIndex, vizIndex;
   PGraphics colorLayer, buffer, pass1, pass2;
   PVector size;
@@ -12,7 +12,6 @@ public class Rig {
   int bgList = 8;
   ArrayList <Anim> animations;
 
-
   Rig(float _xpos, float _ypos, int _wide, int _high, String _name) {
     name = _name;
     wide = _wide;
@@ -21,7 +20,7 @@ public class Rig {
 
     animations = new ArrayList<Anim>();
     rigs.add(this);
-
+    
     int xw = 2;
     for (int i = 0; i < position.length/xw; i++) position[i] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*1);
     for (int i = 0; i < position.length/xw; i++) position[i+(position.length/xw)] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*2);

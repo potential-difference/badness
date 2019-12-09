@@ -22,6 +22,8 @@ Envelope envelopeFactory(int envelope_index) {
     return new ADSR(1500, 1000, 200, 0.2, 0, 1);
   case 2:
     return new ADSR(1000, 0, 2000, -manualSlider, 0, -funcSlider);
+  case 3:
+    return new MulEnvelope(envelopeFactory(2), envelopeFactory(0));
   default: 
     return new ADSR( 200, 1000, 1500, 0.2, 0, 1);
   }
@@ -38,7 +40,7 @@ class ConstEnvelope extends Envelope {
     end_time=-1;
     this.val=val;
   }
-  float value(int time){
+  float value(int time) {
     return val;
   }
 }
@@ -48,9 +50,9 @@ class AddEnvelope extends CompositeEnvelope {
     super(e);
   }
 
-  float value(int time){
+  float value(int time) {
     float res=0.0;
-    for (Envelope c:children){
+    for (Envelope c : children) {
       res+=c.value(time);
     }
     return res;
@@ -61,9 +63,9 @@ class MulEnvelope extends CompositeEnvelope {
   MulEnvelope(Envelope...e) {
     super(e);
   }
-  float value(int time){
+  float value(int time) {
     float res=1.0;
-    for (Envelope c:children){
+    for (Envelope c : children) {
       res*=c.value(time);
     }
     return res;
@@ -73,12 +75,12 @@ class MulEnvelope extends CompositeEnvelope {
 class Ramp extends Envelope {
   int start_time;
   ArrayList<Float> values;
-  Ramp(int start_time,int end_time,Float...values){
+  Ramp(int start_time, int end_time, Float...values) {
     this.start_time=start_time;
     this.end_time=end_time;
     this.values=new ArrayList<Float>(Arrays.asList(values));
   }
-  float fact(int a){
+  float fact(int a) {
     if (a<=1) return 1.0;
     return a * fact(a-1);
   }
@@ -87,7 +89,7 @@ class Ramp extends Envelope {
     return fact(a)/(fact(b)*(fact(a-b)));
   }
 
-  float value(int time){
+  float value(int time) {
     /*nim code
      if (time<e.start_time): return e.points[0]
      if (time>e.end_time): return e.points[^1]
@@ -111,20 +113,20 @@ class Ramp extends Envelope {
 //e.g. t=millis();Env_Sequence(Ramp(t,t+1000,{0.0,0.0,1.0}),Ramp(t+1500,t+2500,{1.0,1.0,0.0})
 
 /*class SeqEnvelope extends CompositeEnvelope{
-  SeqEnvelope(int start_time,Envelope...e){
-
-    end_time=0;
-    //we add up the end_times
-  }
-}*/
+ SeqEnvelope(int start_time,Envelope...e){
+ 
+ end_time=0;
+ //we add up the end_times
+ }
+ }*/
 
 abstract class CompositeEnvelope extends Envelope {
   ArrayList<Envelope> children;
   CompositeEnvelope(Envelope...e) {
     end_time=-1;
     children = new ArrayList<Envelope>(Arrays.asList(e));
-    for (Envelope c:children){
-      if (c.end_time>end_time){
+    for (Envelope c : children) {
+      if (c.end_time>end_time) {
         end_time=c.end_time;
       }
     }
