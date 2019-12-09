@@ -1,18 +1,31 @@
 OPC opc;
+OPC opcESP;
 OPC opcLocal;
+OPC opcMirrors; 
 OPC opcMirror1; 
 OPC opcMirror2;
 OPC opcSeeds;
 OPC opcCans;
+OPC opcStrip;
 OPC opcControllerA;
 OPC opcControllerB;
+DMXGrid dmx;
 
-SizeSettings size = new SizeSettings();
-OPCGrid grid = new OPCGrid();
-Toggle toggle = new Toggle();
+final int PORTRAIT = 0;
+final int LANDSCAPE = 1;
+final int RIG = 0;
+final int ROOF = 1;
 
-SketchColor rig = new SketchColor();
-SketchColor roof = new SketchColor();
+SizeSettings size;
+OPCGrid opcGrid;
+ControlFrame controlFrame;
+
+Rig rigg, roof, cans, mirrors, strips;
+//Grids rigGrid, roofGrid, cansGrid;
+SketchColor rigColor, roofColor, cansColor;
+ColorLayer rigLayer, roofLayer, cansLayer;
+
+ArrayList <Anim> animations;
 
 import javax.sound.midi.ShortMessage;       // shorthand names for each control on the TR8
 import oscP5.*;
@@ -20,235 +33,175 @@ import netP5.*;
 OscP5 oscP5[] = new OscP5[4];
 
 import themidibus.*;  
-MidiBus TR8bus;       // midibus for TR8
-MidiBus faderBus;     // midibus for APC mini
-MidiBus LPD8bus;      // midibus for LPD8
-
-int time[] = new int[12]; // array of timers to use throughout the sketch
+MidiBus TR8bus;           // midibus for TR8
+MidiBus faderBus;         // midibus for APC mini
+MidiBus LPD8bus;          // midibus for LPD8
+MidiBus beatStepBus;      // midibus for Artuia BeatStep
 
 PFont myFont;
 boolean onTop = false;
-
 void settings() {
+  size = new SizeSettings(LANDSCAPE);
   size(size.sizeX, size.sizeY, P2D);
+  size.surfacePositionX = 1920-width-50;
+  size.surfacePositionY = 150;
 }
-
 void setup()
 {
-  /// size moved to settings - see above
-  //surface.setAlwaysOnTop(true);
-  size.surfacePositionX = 720;
-  size.surfacePositionY = 200;
-  surface.setLocation(size.surfacePositionX, size.surfacePositionY);
   surface.setAlwaysOnTop(onTop);
+  surface.setLocation(size.surfacePositionX, size.surfacePositionY);
+
+  opcGrid = new OPCGrid();
+  dmx = new DMXGrid();
+
+  rigg = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight);
+  roof = new Rig(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight);
+  cans = new Rig(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight);
+  //println(size.rigHeight,size.rigWidth);
 
   ///////////////// LOCAL opc /////////////////////
-  //opc = new OPC(this, "127.0.0.1", 7890);            // Connect to the local instance of fcserver - MIRRORS
-  //opcMirror1 = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRROR 1 - used coz of issues with the remote conneciton
-  //opcMirror2 = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRROR 1 - used coz of issues with the remote conneciton
-  opcSeeds = new OPC(this, "127.0.0.1", 7890);         // Connect to the remote instance of fcserver - SEEDS BOX IN ROOF - also had issues with this one so had to remove it
-  opcCans = new OPC(this, "127.0.0.1", 7890);          // Connect to the remote instance of fcserver - CANS BOX
-  //opcControllerA = new OPC(this, "127.0.0.1", 7890);   // Connect to the remote instance of fcserver - LEFT TWO CONTROLLERS
-  //opcControllerB = new OPC(this, "127.0.0.1", 7890);   // Connect to the remote instance of fcserver - RIGHT PAIR OF CONTROLLERS
+  opcLocal   = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRRORS
 
   ///////////////// OPC over NETWORK /////////////////////
-  opcMirror1 = new OPC(this, "192.168.0.70", 7890);       // Connect to the remote instance of fcserver - MIRROR 1
-  //opcMirror2 = new OPC(this, "192.168.0.5", 7890);      // Connect to the remote instance of fcserver - MIRROR 2
-  //opcCans = new OPC(this, "10.168.1.86", 7890);          // Connect to the remote instance of fcserver - CANS BOX
-  opcSeeds = new OPC(this, "192.168.0.20", 7890);           // Connect to the remote instance of fcserver - SEEDS BOX IN ROOF - also had issues with this one so had to remove it
-  opcControllerA = new OPC(this, "192.168.0.80", 7890);   // Connect to the remote instance of fcserver - LEFT TWO CONTROLLERS
-  //opcControllerB = new OPC(this, "10.168.1.89", 7890);   // Connect to the remote instance of fcserver - RIGHT PAIR OF CONTROLLERS
+  //opcMirrors = new OPC(this, "192.168.0.70", 7890);        // Connect to the remote instance of fcserver - MIRROR 1
+  //opcCans    = new OPC(this, "192.168.0.10", 7890);           // Connect to the remote instance of fcserver - CANS BOX
+  //opcStrip   = new OPC(this, "192.168.0.20", 7890);          // Connect to the remote instance of fcserver - CANS BOX
 
-  grid.kallidaMirrors(opcMirror1, opcMirror1, 0);               // grids 0-3 MIX IT UPPPPP 
-  grid.kallidaCans(opcCans);                                  
-  grid.kallidaUV(opcCans);
-  grid.kallidaSeeds(opcSeeds);
-  grid.kallidaControllers(opcControllerA, opcControllerA, 2);   // grids 0-3 MIX IT UPPPPP 
+  opcESP       = new OPC(this, "192.168.0.153", 7890);          // Connect to the remote instance of fcserver - CANS BOX
+
+  opcGrid.mirrorsOPC(opcLocal, opcLocal, 0);               // grids 0-3 MIX IT UPPPPP 
+  //opcGrid.pickleCansOPC(cans, opcLocal);               
+  //opcGrid.kingsHeadStripOPC(cans, opcESP);
+  //opcGrid.espTestOPC(rigg, opcLocal);
+  //grid.kingsHeadBoothOPC(opcLocal);
+  opcGrid.individualCansOPC(roof, opcLocal);
+
+  dmx.FMSmoke(opcLocal, width - 120, 115);
+
+
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
-  loadAudio();     // load one shot sounds ///
-
   MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
   println();
   TR8bus = new MidiBus(this, "TR-8S", "TR8-S"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
   LPD8bus = new MidiBus(this, "LPD8", "LPD8"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
+  beatStepBus = new MidiBus(this, "Arturia BeatStep", "Arturia BeatStep"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
 
-  /* start oscP5, listening for incoming messages at port 5000 to 5003 */
-  for (int i = 0; i < 4; i++) oscP5[i] = new OscP5(this, 5000+i);
-  oscAddrSetup();
-
-  dimmer = 1; // must come before load control frame
   drawingSetup();
   loadImages();
   loadGraphics();
+  loadShaders();
   colorSetup();  
-  rig.colorArray();
-  roof.colorArray();
+  rigColor = new SketchColor(rigg);
+  roofColor = new SketchColor(roof); 
+  cansColor = new SketchColor(cans);
 
-  controlFrame = new ControlFrame(this, width, 130, "Controls"); // load control frame must come after shild ring etc
+  rigg.vizIndex = 2;
+  roof.vizIndex = 1;
+  rigg.functionIndexA = 0;
+  rigg.functionIndexB = 1;
+  rigg.alphaIndexA = 0;
+  rigg.alphaIndexB = 1;
+  rigg.bgIndex = 0;
+  roof.bgIndex = 4;
 
-  blur = loadShader("blur.glsl");
-  loadShaders(10);
-
-  rigViz = 4;
-  roofViz = 1;
-  rigBgr = 1;    
-  rig.c = purple;    // set c start
-  rig.flash = orange;   // set flash start
+  rigg.colorIndexA = 0;
+  rigg.colorIndexB = 14;
+  roof.colorIndexA = 3;
+  roof.colorIndexB = 4;
+  cans.colorIndexA = 7;
+  cans.colorIndexB = 11;
 
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
   for (int i = 0; i < 100; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen
   cc[1] = 0.75;
+  cc[2] = 0.75;
+  cc[5] = 0.3;
   cc[6] = 0.75;
+  cc[4] = 1;
   cc[8] = 1;
   cc[MASTERFXON] = 0;
+
+  controlFrame = new ControlFrame(this, width, 130, "Controls"); // load control frame must come after shild ring etc
+  animations = new ArrayList<Anim>(); 
   frameRate(30);
 }
 float vizTime, colTime;
-int roofViz, rigViz, colStepper = 1;
+int colStepper = 1;
+int time_since_last_anim=0;
 void draw()
 {
+  surface.setAlwaysOnTop(onTop);
   background(0);
-  //dimmer = bgDimmer;
   noStroke();
   beatDetect.detect(in.mix);
   beats();
-  pause(10);                                ////// number of seconds before no music detected
-  noize();
-  oskPulse();
-  arrayDraw();
-  rig.clash(func);                          ///// clash colour changes on function in brackets
-  roof.clash(func);                         ///// clash colour changes on function in brackets
-
-  ////// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
-  blury = int(map(blurSlider, 0, 1, 0, 100));
-  if (blury!=prevblury) {
-    prevblury=blury;
-    loadShaders(blury);
-  }
-
-  //dimmer = cc[4]*rigDimmer;
+  pause(10);                                ////// number of seconds before no music detected and auto kicks in
+  globalFunctions();
   vizTime = 60*15*vizTimeSlider;
-  playWithYourself(vizTime); 
+  if (frameCount > 10) playWithYourself(vizTime);
+  rigColor.clash(beat);
+
+  // dimmer knobs are ehcoed by on screen sliders - code in controller tab
+  /// DIMMING CONTROL STILL NOT QUITE AS EXPECTED 
+  rigg.dimmer = rigDimmer;     // cc[4]
+  roof.dimmer = roofDimmer;    // cc[8]
+  cans.dimmer = cansDimmer;    // cc[5]
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   playWithMe();
-
-  float rigDimmerPad = cc[4]; // come back to this with wigflex code?!
-  float roofDimmerPad = cc[8]; // come back to this with wigflex code?!
-
-  rigVizSelection(rigWindow, rigDimmerPad*rigDimmer);               // develop rig visulisation
-  if (beatCounter%128 == 0) rigBgr = (rigBgr + 1)% 7;               // change colour layer automatically
-  if (rigViz != 1) {
-    colorLayer(rigColourLayer, rigBgr);                               // develop colour layer
-    image(rigColourLayer, size.rigWidth/2, size.rigHeight/2);         // draw rig colour layer to rig window
-    blendMode(MULTIPLY);
+  cans.vizIndex=roof.vizIndex;
+  // create a new anim object and add it to the beginning of the arrayList
+  if (beatTrigger) {
+    if (rigToggle)    animations.add(new Anim(rigg.vizIndex, alphaSlider, funcSlider, rigg));   
+    if (cansToggle)   animations.add(new Anim(cans.vizIndex, cansAlpha, funcSlider, cans));              // create an anim object for the cans 
+    if (roofToggle) {
+      if (roofBasic) animations.add(new Anim(10, alphaSlider, funcSlider, roof));            // create a new anim object for the roof
+      else animations.add(new Anim(roof.vizIndex, alphaSlider, funcSlider, roof));
+    }
   }
-  image(rigWindow, size.rigWidth/2, size.rigHeight/2);
-  blendMode(NORMAL);
-
-  /*
-  //toggle roof viz and posostions of the cans and seeds with tilda key '~' 
-   if (!keyT[96]) {
-   // roof posistion for grid
-   grid._seedLength = size.roofWidth;
-   grid._seed2Length = size.roofHeight;
-   grid.seed[0] = new PVector (size.roof.x, size.roof.y-(size.roofHeight/4)); 
-   grid.seed[1] = new PVector (size.roof.x, size.roof.y+(size.roofHeight/4)); 
-   grid.seed[2] = new PVector (size.roof.x, size.roof.y);
-   
-   grid._cansLength = size.roofWidth/2;
-   grid.cans[0] = new PVector(size.roof.x-( grid._cansLength/2), size.roof.y-( grid.mirrorAndGap/2));
-   grid.cans[1] = new PVector(size.roof.x+( grid._cansLength/2), size.roof.y+( grid.mirrorAndGap/2));
-   grid.uv = new PVector(size.rig.x, size.rig.y);
-   
-   roofVizSelection(roofWindow, roofDimmerPad*roofDimmer);         // develop roof visulisation
-   colorLayer(roofColourLayer, roofBgr);  
-   image(roofColourLayer, size.roof.x, size.roof.y);               // draw roof colour layer to roof window
-   blendMode(MULTIPLY);
-   image(roofWindow, size.roof.x, size.roof.y);                    // draw roof viz to roof window    
-   blendMode(NORMAL);
-   } else {
-   // rig positions for grid
-   grid._seedLength = size.rigWidth;
-   grid._seed2Length = size.rigHeight/1.6;
-   grid.seed[0] = new PVector (size.rig.x, grid.mirrorX[0][0].y+(grid.dist/6)); 
-   grid.seed[1] = new PVector (size.rig.x, grid.mirrorX[0][3].y-(grid.dist/6)); 
-   grid.seed[2] = new PVector (size.rig.x, size.rig.y);
-   
-   grid._cansLength = size.rigWidth/2;
-   grid.cans[0] = new PVector(size.rig.x-(grid._cansLength/2), size.rig.y-(grid.mirrorAndGap/2));
-   grid.cans[1] = new PVector(size.rig.x+(grid._cansLength/2), size.rig.y+(grid.mirrorAndGap/2));
-   grid.uv = new PVector(size.rig.x+10, size.rig.y);
-   }
-   grid.kallidaCans(opcCans);                                  
-   grid.kallidaUV(opcCans);
-   grid.kallidaSeeds(opcSeeds);
-   */
-  if (int(frameCount % (frameRate*90)) == 0) {                           // change the controller gird every X seconds
-    grid.controllerGridStep = int(random(5));                 // randomly choose new grid
-    if (rigBgr == 4 ) grid.controllerGridStep = int(random(1, 5));  // dont use grid 0 is bg4 = not symetrical
-    grid.kallidaControllers(opcControllerA, opcControllerA, grid.controllerGridStep);   // grids 0-4 MIX IT UPPPPP
-  }
-  ////////////////////////////////////////////////////////////////////////////////////////////////////
-  image(infoWindow, size.info.x, size.info.y);
-  //////////////////////////////////////////// SEEDS SHIT ///////////////////////////////////////////////////////////////////////////////
-  if (keyP['0']) { // beatCounter % 100 >   92
-    rigControl(0, 1);
-    cansControl(0, 1);
-    // add uv control////
-    fill(roof.flash, 360*(pulz*0.8+(stutter*0.2)));
-    rect(grid.seed[0].x, grid.seed[0].y, grid.seedLength, 3);
-    rect(grid.seed[1].x, grid.seed[1].y, grid.seedLength, 3);
-    rect(grid.seed[2].x, grid.seed[2].y, 3, grid.seedLength);
-  }
-  /////////////////////////////////////////////// UV /////////////////////////////////////////////////////////////////////////////////////
-  fill(360, ((180*noize)+(180*pulz))*uvDimmer);
-  ellipse(grid.uv.x, grid.uv.y, 3, 3);
-
-  ///////////////////////////////////////////CANS //////////////////////////////////////
-  fill(0, 360-(360*cansDimmer));
-  rect(grid.cans[0].x, grid.cans[0].y, grid.cansLength, 3);
-  rect(grid.cans[1].x, grid.cans[1].y, grid.cansLength, 3);
-
-  /////////////////////////////////////////// SEEDS ///////////////////////////////////////////////////////////
-  fill(0, 360-(360*seedsDimmer));
-  rect(grid.seed[0].x, grid.seed[0].y, grid.seedLength, 3);
-  rect(grid.seed[1].x, grid.seed[1].y, grid.seedLength, 3);
-
-  fill(0, 360-(360*seed2Dimmer));
-  rect(grid.seed[2].x, grid.seed[2].y, 3, grid.seed2Length);
-
-  //////////////////////////////// CONTROLLERS //////////////////////////////////////////////////////////////
-  //controllerControl(flash1, (0.7+(0.3*noize1))*controllerDimmer);
+  // limit the number of animations
+  while (animations.size()>0 && animations.get(0).deleteme) animations.remove(0);
+  if (animations.size() >= 28) animations.remove(0);  
+  // adjust animations
+  //if (keyT['a']) 
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  if (keyT['s']) for (Anim anim : animations)  anim.funcFX = 1-(stutter*noize1*0.1);
+  //draw animations
+  blendMode(LIGHTEST);
+  for (int i = animations.size()-1; i >=0; i--) {                                  // loop  through the list
+    Anim anim = animations.get(i);  
+    anim.drawAnim();           // draw the animation
+  }
+
+  ////////////////////// draw colour layer /////////////////////////////////////////////////////////////////////////////////////////////////////
+  blendMode(MULTIPLY);
+  rigLayer = new ColorLayer(rigg);
+  roofLayer = new ColorLayer(roof);
+  cansLayer = new ColorLayer(cans);
+  // this donesnt work anymore....
+  if (cc[107] > 0 || keyT['r'] || glitchToggle) bgNoise(rigg.colorLayer, 0, 0, cc[7]); //PGraphics layer,color,alpha
+  ////
+  rigLayer.drawColorLayer();
+  roofLayer.drawColorLayer();
+  cansLayer.drawColorLayer();
+  blendMode(NORMAL);
+
+  //fill(0,100,100,rigg.dimmer*360);
+  //rect(rigg.size.x,rigg.size.y,rigg.wide,rigg.high);
+
+  //////////////////////////////////////////// PLAY WITH ME MORE /////////////////////////////////////////////////////////////////////////////////
   playWithMeMore();
-
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-  /////////////////// TEST ALL COLOURS - TURN ALL LEDS ON AND CYCLE COLOURS ////////////////////////////////
-  if (test) {
-    fill((millis()/50)%360, 100, 100);           
-    rect(size.rig.x, size.rig.y, width, height);
-  }
-  /////////////////// WORK LIGHTS - ALL ON WHITE SO YOU CAN SEE SHIT ///////////////////////////
-  if (work) {
-    pause = 10;
-    fill(360*cc[9], 360*cc[10]);
-    rect(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight);
-    rect(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight);
-  }
-  /////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
-
-  fill(rig.flash);
-  rect(size.rigWidth, height/2, 1, height);                     ///// vertical line to show end of rig viz area
-  rect(size.rigWidth+size.roofWidth, height/2, 1, height);      ///// vertical line to show end of roof viz area
-  fill(rig.flash, 80);    
-  rect((size.rigWidth+size.roofWidth)/2, height-size.sliderHeight, size.rigWidth+size.roofWidth, 1);                              ///// horizontal line to show bottom area
-
-  // code to develop and then draw preview boxes 
-  image(infoWindow, size.info.x, size.info.y);
-  onScreenInfo();                ///// display info about current settings, viz, funcs, alphs etc
-  colorInfo();                   ///// rects to show current color and next colour
-  frameRateInfo(5, 20);          ///// display frame rate X, Y /////
+  //////////////////////////////////////////// BOOTH & DIG ///////////////////////////////////////////////////////////////////////////////////////
+  boothLights();
+  //////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
+  workLights(keyT['w']);
+  testColors(keyT['t']);
+  onScreenInfo();                   // display info about current settings, viz, funcs, alphs etc
   //gid.mirrorTest(false);          // true to test physical mirror orientation
 } 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

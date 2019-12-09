@@ -1,32 +1,42 @@
 
 class SizeSettings {
-  int rigWidth, rigHeight, roofWidth, roofHeight, sliderHeight, infoWidth, infoHeight, vizWidth, vizHeight;
-  PVector rig, roof, info, viz, rigWindow;
-  int surfacePositionX, surfacePositionY;
-  int sizeX, sizeY;
+  int rigWidth, rigHeight, roofWidth, roofHeight, sliderHeight, infoWidth, infoHeight, vizWidth, vizHeight, cansWidth, cansHeight;
+  PVector rig, roof, info, cans;
+  int surfacePositionX, surfacePositionY, sizeX, sizeY, orientation;
 
-  SizeSettings() {
-    rigWidth = 600;                                    // WIDTH of rigViz
-    rigHeight = 550;                                   // HEIGHT of rigViz
-    rig = new PVector(rigWidth/2, (rigHeight/2)-30);   // cordinates for center of rig
-    rigWindow = new PVector(rigWidth/2, rigHeight/2);
+  SizeSettings(int _orientation) {
+    orientation = _orientation;
+    switch (orientation) {
+    case PORTRAIT:
+      rigWidth = 600;                                    // WIDTH of rigViz
+      rigHeight = 550;                                   // HEIGHT of rigViz
+      rig = new PVector(rigWidth/2, (rigHeight/2));   // cordinates for center of rig
+      break;
+    case LANDSCAPE:
+      rigWidth = 900;                                    // WIDTH of rigViz
+      rigHeight = 350;    
+      rig = new PVector(rigWidth/2, (rigHeight/2));   // cordinates for center of rig
+      break;
+    }
 
-    vizWidth = rigWidth;
-    vizHeight = rigHeight;
-    viz = new PVector (rig.x, rig.y);
+    //////////////////////////////// LANDSCAPE CANS SETUP UNDER RIG ///////////////////////
+    cansWidth = rigWidth;
+    cansHeight = 60;
+    cans = new PVector (rig.x, rigHeight+(cansHeight/2));
+    
+    //////////////////////////////// PORTRAIT ROOF SETUP RIGHT OF RIG ///////////////////////
+    roofWidth = 300;
+    roofHeight = rigHeight+cansHeight;
+    roof = new PVector (rigWidth+(roofWidth/2), roofHeight/2);
 
-    roofWidth = 0;
-    roofHeight = rigHeight;
-    roof = new PVector (rigWidth+roofWidth/2, roofHeight/2);
+    sliderHeight = 90;         // height of slider area at bottom of sketch window
 
-    sliderHeight = 70;         // height of slider area at bottom of sketch window
-
-    infoWidth = 300;
+    infoWidth = 200;
     infoHeight = rigHeight+sliderHeight;
     info = new PVector (rigWidth+roofWidth+(infoWidth/2), infoHeight/2);
 
-    sizeX = rigWidth+roofWidth+infoWidth;
-    sizeY = sliderHeight+rigHeight;
+    sizeX = rigWidth+infoWidth+roofWidth;
+    sizeY = sliderHeight+rigHeight+cansHeight;
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -100,70 +110,11 @@ void drawingSetup() {
   strokeWeight(20);
   //hint(DISABLE_OPTIMIZED_STROKE);
 }
+
 /////////////////////// LOAD GRAPHICS FOR VISULISATIONS AND COLOR LAYERS //////////////////////////////
-PGraphics vis[] = new PGraphics[16];
-PGraphics roofVis[] = new PGraphics[16];
-PGraphics bg[] = new PGraphics[bgList];
-PGraphics rigWindow, roofWindow, pg, infoWindow, rigColourLayer, roofColourLayer;
+PGraphics bg[] = new PGraphics[rigBgList];
+PGraphics rigWindow, roofWindow, cansWindow, infoWindow, rigColourLayer, roofColourLayer, rigBluredA, rigBluredB, roofBluredA, roofBluredB;
 void loadGraphics() {
-  //////////////////////////////// RIG VIS GRAPHICS ///////////////////
-  for ( int i = 0; i< vis.length; i++ ) {
-    vis[i] = createGraphics(int(size.rigWidth*1.2), int(size.rigHeight*1.2), P2D);
-    vis[i].beginDraw();
-    vis[i].colorMode(HSB, 360, 100, 100);
-    vis[i].blendMode(NORMAL);
-    vis[i].ellipseMode(CENTER);
-    vis[i].rectMode(CENTER);
-    vis[i].imageMode(CENTER);
-    vis[i].noStroke();
-    vis[i].noFill();
-    vis[i].endDraw();
-  }
-  //////////////////////////////// rig subwindow  ///////////////////
-  rigWindow = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
-  rigWindow.beginDraw();
-  rigWindow.colorMode(HSB, 360, 100, 100);
-  rigWindow.imageMode(CENTER);
-  rigWindow.rectMode(CENTER);
-  rigWindow.endDraw();
-  //////////////////////////////// rig colour layer  ///////////////////
-  rigColourLayer = createGraphics(int(size.rigWidth), int(size.rigHeight), P2D);
-  rigColourLayer.beginDraw();
-  rigColourLayer.colorMode(HSB, 360, 100, 100);
-  rigColourLayer.imageMode(CENTER);
-  rigColourLayer.rectMode(CENTER);
-  rigColourLayer.endDraw();
-  ////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////// ROOF GRAPHICS SETUP ///////////////////////////////////////////
-  if (size.roofWidth > 0) {
-    ////////////////////////////// ROOF VIS GRAPHICS ///////////////////
-    for ( int i = 0; i< vis.length; i++ ) {
-      roofVis[i] = createGraphics(int(size.roofWidth*1.2), int(size.roofHeight*1.2), P2D);
-      roofVis[i].beginDraw();
-      roofVis[i].colorMode(HSB, 360, 100, 100);
-      roofVis[i].blendMode(NORMAL);
-      roofVis[i].ellipseMode(CENTER);
-      roofVis[i].rectMode(CENTER);
-      roofVis[i].imageMode(CENTER);
-      roofVis[i].noStroke();
-      roofVis[i].noFill();
-      roofVis[i].endDraw();
-    }
-    //////////////////////////////// roof subwindow  ///////////////////
-    roofWindow = createGraphics(int(size.roofWidth), int(size.roofHeight), P2D);
-    roofWindow.beginDraw();
-    roofWindow.colorMode(HSB, 360, 100, 100);
-    roofWindow.imageMode(CENTER);
-    roofWindow.rectMode(CENTER);
-    roofWindow.endDraw();
-    //////////////////////////////// roof colour layer  ///////////////////
-    roofColourLayer = createGraphics(int(size.roofWidth), int(size.roofHeight), P2D);
-    roofColourLayer.beginDraw();
-    roofColourLayer.colorMode(HSB, 360, 100, 100);
-    roofColourLayer.imageMode(CENTER);
-    roofColourLayer.rectMode(CENTER);
-    roofColourLayer.endDraw();
-  }
   //////////////////////////////// info subwindow  ///////////////////
   infoWindow = createGraphics(size.infoWidth, size.infoHeight, P2D);
   infoWindow.beginDraw();
@@ -185,31 +136,10 @@ void loadGraphics() {
     bg[n].endDraw();
   }
 }
-///////////////////////////////////// LOAD GRAPHICS FOR SHADER LAYERS //////////////////////
-PGraphics pass1[] = new PGraphics[16];
-PGraphics blured[] = new PGraphics[16];
 PShader blur;
-PGraphics src;
-int blury, prevblury;
-void loadShaders(int blury) {
+void loadShaders() {
+  float blury = int(map(blurSlider, 0, 1, 0, 100));
   blur = loadShader("blur.glsl");
   blur.set("blurSize", blury);
-  blur.set("sigma", 10.0f);  
-  src = createGraphics(size.rigWidth, size.rigHeight, P3D); 
-  for (int i = 0; i < pass1.length; i++) {
-    pass1[i] = createGraphics(int(size.rigWidth*1.2), int(size.rigHeight*1.2), P2D);
-    pass1[i].noSmooth();
-    pass1[i].imageMode(CENTER);
-    pass1[i].beginDraw();
-    pass1[i].noStroke();
-    pass1[i].endDraw();
-  }
-  for (int i = 0; i < blured.length; i++) {
-    blured[i] = createGraphics(int(size.rigWidth*1.2), int(size.rigHeight*1.2), P2D);
-    blured[i].noSmooth();
-    blured[i].beginDraw();
-    blured[i].imageMode(CENTER);
-    blured[i].noStroke();
-    blured[i].endDraw();
-  }
+  blur.set("sigma", 10.0f);
 }

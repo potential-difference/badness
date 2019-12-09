@@ -16,9 +16,171 @@
  'q' toggles mouse coordiantes and moveable dot
  't' toggle TEST - cycles though all colours to test LEDs
  'w' toggle WORK LIGHTS - all WHITE 
- 'a' toggle colorSteps - changes colour in pairs or not
  
  */
+void onScreenInfo() {
+  textSize(18);
+  fill(300+(60*stutter));
+  textAlign(RIGHT);
+  textLeading(18);
+  text("RIG PANEL", size.rig.x+(size.rigWidth/2)-5, size.rig.y-(size.rigHeight/2)+20);
+  if (size.roofWidth >0|| size.roofHeight>0)  text("ROOF PANEL", size.roof.x+(size.roofWidth/2)-5, size.rig.y-(size.rigHeight/2)+20);
+  if (size.cansWidth >0|| size.cansHeight>0) text("CANS PANEL", size.rig.x+(size.rigWidth/2)-5, size.rig.y+(size.rigHeight/2)-5);
+  text("# of anims: "+animations.size(), width - 5, height - 30);
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////// SHOW INFO ABOUT CURRENT ARRAY SELECTION ////////////////////////////////////////////////////////////////
+  textAlign(LEFT);
+  fill(360);
+  float x = 10;
+  float y = 20;
+  fill(rigColor.flash, 300);
+  textSize(18);
+  y = height-size.sliderHeight+20;
+  ///////////// rig info/ ///////////////////////////////////////////////////////////////////
+  text("rigViz: " + rigg.vizIndex, x, y);
+  text("bkgrnd: " + rigg.bgIndex, x, y+20);
+  text("func's: " + rigg.functionIndexA + " / " + rigg.functionIndexB, x+100, y);
+  text("alph's: " + rigg.alphaIndexA + " / " + rigg.alphaIndexB, x+100, y+20);
+  ///////////// roof info ////////////////////////////////////////////////////////
+  if (size.roofWidth > 0 && size.roofHeight > 0) {
+    textAlign(RIGHT);
+    x = size.roof.x+(size.roofWidth/2) - 130;
+    text("roofViz: " + roof.vizIndex, x, y);
+    text("bkgrnd: " + roof.bgIndex, x, y+20);
+    text("func's: " + roof.functionIndexA + " / " + roof.functionIndexB, x+120, y);
+    text("alph's: " + roof.alphaIndexA + " / " + roof.alphaIndexB, x+120, y+20);
+  }
+
+  ///////////// cans info ////////////////////////////////////////////////////////
+  if (size.cansHeight > 0 && size.cansWidth > 0) {
+    textAlign(RIGHT);
+    x = size.cans.x+(size.cansWidth/2) - 130;
+    text("cansViz: " + cans.vizIndex, x, y);
+    text("bkgrnd: " + cans.bgIndex, x, y+20);
+    text("func's: " + cans.functionIndexA + " / " + cans.functionIndexB, x+120, y);
+    text("alph's: " + cans.alphaIndexA + " / " + cans.alphaIndexB, x+120, y+20);
+  }
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////// info about PLAYWITHYOURSELF functions /////////////////////////////////////////////////////////////////////////////////////////////
+  y = 20;
+  x=width-5;
+  textAlign(RIGHT);
+  fill(rigColor.c, 300);
+  ///// NEXT VIZ IN....
+  String sec = nf(int(vizTime - (millis()/1000 - vizTimer)) % 60, 2, 0);
+  int min = int(vizTime - (millis()/1000 - vizTimer)) /60 % 60;
+  text("next viz in: "+min+":"+sec, x, y);
+  ///// NEXT COLOR CHANGE IN....
+  sec = nf(int(colTime - (millis()/1000 - rigColor.colorTimer)) %60, 2, 0);
+  min = int(colTime - (millis()/1000 - rigColor.colorTimer)) /60 %60;
+  text("next color in: "+ min+":"+sec, x, y+20);
+  text("c-" + rigColor.colorIndexA + "  " + "flash-" + rigColor.colorIndexB, x, y+40);
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  pauseInfo();
+  colorInfo();                   ///// rects to show current color and next colour
+  frameRateInfo(5, 20);          ///// display frame rate X, Y /////
+  sequencer();
+  toggleKeysInfo();
+  cordinatesInfo(roof, keyT['q']);
+  cordinatesInfo(rigg, keyT['q']);
+  cordinatesInfo(cans, keyT['q']);
+
+  mouseInfo(keyT['q']);
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  dividerLines();
+}
+void pauseInfo() {
+  if (pause > 0) { 
+    textAlign(RIGHT);
+    textSize(20); 
+    fill(300);
+    text(pause*10+" sec NO AUDIO!!", width-5, height-52);
+  }
+}
+void mouseInfo(boolean _info) {
+  if (_info) {
+    /////// DISPLAY MOUSE COORDINATES
+    textAlign(LEFT);
+    fill(360);  
+    ellipse(mouseX, mouseY+10, 10, 10);
+    textSize(14);
+    text( " x" + mouseX + " y" + mouseY, mouseX, mouseY );
+    /////  LABLELS to show what PVectors are what 
+    textSize(12);
+    textAlign(CENTER);
+  }
+}
+void cordinatesInfo(Rig rig, boolean _info) {
+  if (_info) {
+    textSize(12);
+    textAlign(CENTER);
+    fill(360);  
+    for (int i = 0; i < rig.position.length; i++) text(i, rig.size.x-(rig.wide/2)+rig.position[i].x, rig.size.y-(rig.high/2)+rig.position[i].y);   /// mirrors Position info
+    fill(200);  
+    for (int i = 0; i < rig.positionX.length; i++) {
+      text(i+".", rig.size.x-(rig.wide/2)+rig.positionX[i][0].x, rig.size.y-(rig.high/2)+rig.positionX[i][0].y);   /// mirrors Position info
+      text(i+".", rig.size.x-(rig.wide/2)+rig.positionX[i][1].x, rig.size.y-(rig.high/2)+rig.positionX[i][1].y);   /// mirrors Position info
+      text(i+".", rig.size.x-(rig.wide/2)+rig.positionX[i][2].x, rig.size.y-(rig.high/2)+rig.positionX[i][2].y);   /// mirrors Position info
+      //text(i, rigGrid.gridX[i][3].x, rigGrid.gridX[i][3].y);   /// mirrors Position info
+    }
+    //for (int i = 0; i < grid.roof.length; i++) if (size.roof.x>0) text(i, grid.roof[i].x, grid.roof[i].y);
+  }
+}
+void sequencer() {
+  fill(rigColor.flash);
+  int dist = 20;
+  float y = 80;
+  for (int i = 0; i<(size.infoHeight-size.sliderHeight)/dist-(y/dist); i++) if (int(beatCounter%(dist-(y/dist))) == i) rect(size.info.x-(size.infoWidth/2)+10, 10+i*dist+y, 10, 10);
+  fill(rigColor.c, 100);
+  for (int i = 0; i<(size.infoHeight-size.sliderHeight)/dist-(y/dist); i++) rect(size.info.x-(size.infoWidth/2)+10, 10+i*dist+y, 10, 10);
+}
+void dividerLines() {
+  fill(rigColor.flash);
+  rect(size.rigWidth, height/2, 1, height);                     ///// vertical line to show end of rig viz area
+  rect(size.rig.x, size.rigHeight, size.rigWidth, 1);             //// horizontal line to divide landscape rig / roof areas
+  rect(size.rigWidth+size.roofWidth, height/2, 1, height);      ///// vertical line to show end of roof viz area
+  fill(rigColor.flash, 80);    
+  rect((size.rigWidth+size.roofWidth)/2, height-size.sliderHeight, size.rigWidth+size.roofWidth, 1);                              ///// horizontal line to show bottom area
+}
+void colorInfo() {
+  ///// RECTANGLES TO SHOW BEAT DETECTION AND CURRENT COLOURS /////
+  float y = height-7.5;
+  float x = 17;
+  // RIG ///
+  fill(rigg.c);          
+  rect(x, y-10, 10, 10);               // rect to show CURRENT color C 
+  fill(rigg.col[(rigg.colorIndexA+1)%rigg.col.length], 100);
+  rect(x+15, y-10, 10, 10);              // rect to show NEXT color C 
+  fill(rigg.flash);
+  rect(x, y, 10, 10);                  // rect to show CURRENT color FLASH 
+  fill(rigg.col[(rigg.colorIndexB+1)%rigg.col.length], 100);  
+  rect(x+15, y, 10, 10);                 // rect to show NEXT color FLASH1
+  // roof
+  if (size.roofWidth>0|| size.roofHeight>0) {
+    x = size.roof.x+(size.roofWidth/2)-25;
+    fill(roof.c);          
+    rect(x, y-10, 10, 10);              // rect to show CURRENT color C 
+    fill(roof.col[(roof.colorIndexA+1)%roof.col.length], 100);
+    rect(x+15, y-10, 10, 10);               // rect to show NEXT color C 
+    fill(roof.flash);          
+    rect(x, y, 10, 10);                 // rect to show CURRENT color FLASH 
+    fill(roof.col[(roof.colorIndexB+1)%roof.col.length], 100);
+    rect(x+15, y, 10, 10);                  // rect to show NEXT color FLASH1
+  }
+  // cans
+  if (size.cansWidth>0|| size.cansHeight>0) {
+    x = size.cans.x+(size.cansWidth/2)-25;
+    fill(cans.c);          
+    rect(x, y-10, 10, 10);              // rect to show CURRENT color C 
+    fill(cans.col[(cans.colorIndexA+1)%cans.col.length], 100);
+    rect(x+15, y-10, 10, 10);               // rect to show NEXT color C 
+    fill(cans.flash);          
+    rect(x, y, 10, 10);                 // rect to show CURRENT color FLASH 
+    fill(cans.col[(cans.colorIndexB+1)%cans.col.length], 100);
+    rect(x+15, y, 10, 10);                  // rect to show NEXT color FLASH1
+  }
+}
 void frameRateInfo(float x, float y) {
   textAlign(LEFT);
   textSize(18);
@@ -26,147 +188,11 @@ void frameRateInfo(float x, float y) {
   text(int(frameRate) + " fps", x, y); // framerate display
   //frame.setTitle(int(frameRate) + " fps"); //framerate as title
 }
-
-void onScreenInfo() {
-  toggleInfo(width/2+90, 20);
-  fill(300+(60*stutter));
-  textAlign(RIGHT);
-  text("RIG PANEL", size.rigWidth-5, size.rig.y-(size.rigHeight/2)+20);
-  if (size.roofWidth >0)  text("ROOF PANEL", size.rigWidth+size.roofWidth-5, size.roof.y-(size.roofHeight/2)+20);
-
-  textAlign(LEFT);
+void toggleKeysInfo() {
   textSize(18);
-  fill(360);
-  float x = 10;
-  float y = 20;
-
-  /////// SHOW INFO ABOUT CURRENT ARRAY SELECTION ////
-  fill(rig.flash, 300);
-  textSize(18);
-  y = height-size.sliderHeight+20;
-  ///////////// rig info
-  text("rigViz: " + rigViz, x, y);
-  text("bkgrnd: " + rigBgr, x, y+20);
-  text("func's: " + fctIndex + " / " + fct1Index, x+100, y);
-  text("alph's: " + rigAlphIndex + " / " + rigAlph1Index, x+100, y+20);
-  text("controllerGrid " + grid.controllerGridStep, x+220,y);
-  //////////// roof info
-  fill(roof.flash, 300);
-  x = x+size.roof.x-(size.roofWidth/2);
-  text("roofViz: " + roofViz, x, y);
-  text("bkgrnd: " + roofBgr, x, y+20);
-  text("func's: " + roofFctIndex + " / " + roofFct1Index, x+100, y);
-  text("alph's: " + roofAlphIndex + " / " + roofAlph1Index, x+100, y+20);
-
-  /////////// info about PLAYWITHYOURSELF functions
-  y = 20;
-  x=width-5;
   textAlign(RIGHT);
-  fill(rig.c, 300);
-  ///// NEXT VIZ IN....
-  String sec = nf(int(vizTime - (millis()/1000 - time[0])) % 60, 2, 0);
-  int min = int(vizTime - (millis()/1000 - time[0])) /60 % 60;
-  text("next viz in: "+min+":"+sec, x, y);
-  ///// NEXT COLOR CHANGE IN....
-  sec = nf(int(colTime - (millis()/1000 - time[3])) %60, 2, 0);
-  min = int(colTime - (millis()/1000 - time[3])) /60 %60;
-  text("next color in: "+ min+":"+sec, x, y+20);
-  text("c-" + rig.colorA + "  " + "flash-" + rig.colorB, x, y+40);
-  text("counter: " + counter, x, y+60);
-
-  // moving rectangle displays alpha and functions
-  textSize(12);
-  textAlign(CENTER);
-  fill(rig.flash);
-  text("FUNCTION", (size.rigWidth-50)/2, height-10);
-  rect((size.rigWidth-50)*func, height-15, 10, 10); // moving rectangle to show current function
-  fill(rig.c, 360);
-  text("ALPHA", (size.rigWidth-50)/2, height);
-  rect((size.rigWidth-50)*bt, height-5, 10, 10); // moving rectangle to show current alpha
-
-  // sequencer
-  fill(rig.flash);
-  int dist = 20;
-  y = 80;
-  for (int i = 0; i<(size.infoHeight-size.sliderHeight)/dist-(y/dist); i++) if (int(beatCounter%(dist-(y/dist))) == i) rect(size.info.x-(size.infoWidth/2)+10, 10+i*dist+y, 10, 10);
-  fill(rig.c, 100);
-  for (int i = 0; i<(size.infoHeight-size.sliderHeight)/dist-(y/dist); i++) rect(size.info.x-(size.infoWidth/2)+10, 10+i*dist+y, 10, 10);
-
-  // beats[] visulization
-  y=10;
-  dist = 15;
-  for (int i = 0; i<beats.length; i++) {
-    if (beatCounter % 4 == i) fill(rig.flash1, 360);
-    else fill(rig.c1, 100);
-    rect((size.info.x-(size.infoWidth/2)+10)+(beats[i]*100), y+(dist*i), 10, 10);
-    fill(rig.c1, 65);
-    rect((size.info.x-(size.infoWidth/2)+10)+(50), y+(dist*i), 110, 10);
-  }
-
-  // text to show no audio
-  if (pause >0) { 
-    textAlign(RIGHT);
-    textSize(20); 
-    fill(300);
-    text("NO AUDIO!! "+pause, width-5, height-2);
-  }
-
-  if (info) {
-    /////// DISPLAY MOUSE COORDINATES
-    textAlign(LEFT);
-    fill(360);  
-    ellipse(mouseX, mouseY+10, 10, 10);
-    textSize(14);
-    text( " x" + mouseX + " y" + mouseY, mouseX, mouseY );
-
-    /////  LABLELS to show what PVectors are what 
-    textSize(12);
-    textAlign(CENTER);
-    for (int i = 0; i < 12; i++) text(i, grid.mirror[i].x, grid.mirror[i].y);   /// Ball Position info
-  }
-}
-void colorInfo() {
-  ///// RECTANGLES TO SHOW BEAT DETECTION AND CURRENT COLOURS /////
-  float y = height-5;
-  // RIG ///
-
-  fill(rig.col[rig.colorA]);          
-  rect(size.rigWidth-20, y-10, 10, 10);               // rect to show CURRENT color C 
-  fill(rig.col[(rig.colorA+1)%rig.col.length]);
-  rect(size.rigWidth-7.5, y-10, 10, 10);              // rect to show NEXT color C 
-  fill(rig.col[rig.colorB]);
-  rect(size.rigWidth-20, y, 10, 10);                  // rect to show CURRENT color FLASH 
-  fill(rig.col[(rig.colorB+1)%rig.col.length]);  
-  rect(size.rigWidth-7.5, y, 10, 10);                 // rect to show NEXT color FLASH1
-  fill(360, beat*360); 
-  rect(size.rigWidth-32.5, y, 10, 10);                // rect to show B alpha
-  fill(360, bt*360); 
-  rect(size.rigWidth-32.5, y-10, 10, 10);             // rect to show CURRENT alpha
-  // ROOF ///
-  fill(roof.col[roof.colorA]);          
-  rect(size.rigWidth+7.5, y-10, 10, 10);              // rect to show CURRENT color C 
-  fill(roof.col[(roof.colorA+1)%roof.col.length]);
-  rect(size.rigWidth+20, y-10, 10, 10);               // rect to show NEXT color C 
-  fill(roof.col[roof.colorB]);          
-  rect(size.rigWidth+7.5, y, 10, 10);                 // rect to show CURRENT color FLASH 
-  fill(roof.col[(roof.colorB+1)%roof.col.length]);
-  rect(size.rigWidth+20, y, 10, 10);                  // rect to show NEXT color FLASH1
-  fill(roof.col[roof.colorB]);
-  //fill(360, roof.beat*360); 
-  //rect(size.rigWidth+32.5, y, 10, 10);      // rect to show B alpha
-  //fill(360, roof.bt*360); 
-  //rect(size.rigWidth+32.5, y-10, 10, 10);   // rect to show CURRENT alpha
-}
-
-void toggleInfo(float xpos, float ypos) {
-  textSize(18);
-  textAlign(CENTER);
-  float x = 20;
-  float y = 0;
-
-  textAlign(RIGHT);
-  y = 180;
-  x = width-5;
+  float y = 180;
+  float x = width-5;
   fill(50);
   if (vizHold)  fill(300+(60*stutter));
   text("[ = VIZ HOLD", x, y);
@@ -175,19 +201,17 @@ void toggleInfo(float xpos, float ypos) {
   text("] = COL HOLD", x, y+20);
   y +=20;
   fill(50);
-  if (keyT[107]) fill(300+(60*stutter));
-  text("K = shimmer", x, y+40);
+  if (keyT['p']) fill(300+(60*stutter));
+  text("P = shimmer", x, y+40);
   fill(50);
-  if (!rig.colSwap) fill(300+(60*stutter));
-  text("| = color swap", x, y+60);
+  if (!rigColor.colSwap) fill(300+(60*stutter));
+  text("O = color swap", x, y+60);
   fill(50);
-  if (rig.colFlip) fill(300+(60*stutter));
-  text("; / ' = color flip", x, y+80);
+  if (rigColor.colFlip) fill(300+(60*stutter));
+  text("I / U = color flip", x, y+80);
   fill(50);
   if (colBeat) fill(300+(60*stutter));
-  text("L = color beat", x, y+100);
+  text("Y = color beat", x, y+100);
   y+=20;
   fill(50);
-  if (keyT[122]) fill(300+(60*stutter));
-  text("Z = viz flip", x, y+140);
 }

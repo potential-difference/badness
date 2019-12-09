@@ -1,61 +1,111 @@
-int TR8CHANNEL = 9;
-int BD = 0;
-int SD = 1;
-int LT = 2;
-int MT = 3;
-int HT = 4;
-int RS = 5;
-int HC = 6;
-int CH = 7;
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////// KEYBOARD COMMANDS //////////////////////////////////// 
+boolean vizHold, colHold, colBeat;
+boolean[] keyP = new boolean[128];
+boolean[] keyT = new boolean[128];
+void keyPressed() {  
 
-int BDTUNE = 20;
-int BDDECAY = 23;
-int BDLEVEL = 24;
-int BDCTRL = 96;
-int SDTUNE = 25;
-int SDDECAY = 28;
-int SDLEVEL = 29;
-int SDCTRL = 102;
-int LTTUNE = 46;
-int LTDECAY = 47;
-int LTLEVEL = 48;
-int LTCTRL = 102;
-int MTTUNE = 49;
-int MTDECAY = 50;
-int MTLEVEL = 51;
-int MTCTRL = 103;
-int HTTUNE = 52;
-int HTDECAY = 53;
-int HTLEVEL = 54;
-int HTCTRL = 105;
-int RSTUNE = 55;
-int RSDECAY = 56;
-int RSLEVEL = 57;
-int RSCTRL = 105;
-int HCTUNE = 58;
-int HCDECAY = 59;
-int HCLEVEL = 60;
-int HCCTRL = 106;
-int CHTUNE = 61;
-int CHDECAY = 62;
-int CHLEVEL = 63;
-int CHCTRL = 107;
+  //// debound or thorttle this ////
 
-int DELAYLEVEL = 16;
-int DELAYTIME = 17;
-int DELAYFEEDBACK = 18;
-int MASTERFXON = 15;
-int MASTERFXLEVEL = 19;
-int REVERBLEVEL = 91;
-int NOTE_ON=ShortMessage.NOTE_ON;
-int NOTE_OFF=ShortMessage.NOTE_OFF;
-int PRGM_CHG=ShortMessage.PROGRAM_CHANGE;
-int CTRL_CHG=ShortMessage.CONTROL_CHANGE;
-int STOP=ShortMessage.STOP;
-int START=ShortMessage.START;
-int TIMING=ShortMessage.TIMING_CLOCK;
+  /////////////////////////////// RIG KEY FUNCTIONS ////////////////////////
+  if (key == 'n') rigg.vizIndex = (rigg.vizIndex+1)%rigVizList;        //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
+  if (key == 'b') rigg.vizIndex -=1;                            //// STEP BACK TO PREVIOUS RIG VIZ
+  if (rigg.vizIndex <0) rigg.vizIndex = rigVizList-1;
+  if (key == 'm') rigg.bgIndex = (rigg.bgIndex+1)%rigBgList;                 //// CYCLE THROUGH RIG BACKGROUNDS
 
+  /////////////////////////////// ROOF KEY FUNCTIONS ////////////////////////
+  if (key == 'h') roof.vizIndex = (roof.vizIndex+1)%roofVizList;               //// STEP FORWARD TO NEXT RIG VIZ
+  if (key == 'g') roof.vizIndex -= 1;                          //// STEP BACK TO PREVIOUS RIG VIZ
+  if (roof.vizIndex <0) roof.vizIndex = roofVizList-1;
+  if (key == 'j') roof.bgIndex = (roof.bgIndex+1)%roofBgList;               //// CYCLE THROUGH ROOF BACKGROUNDS
 
+  if (key == ',') {                                      //// CYCLE THROUGH RIG FUNCS
+    rigg.functionIndexA = (rigg.functionIndexA+1)%funcLength; //animations.func.length; 
+    rigg.functionIndexB = (rigg.functionIndexB+1)%funcLength; //fct.length;
+  }  
+  if (key == '.') {                                      //// CYCLE THROUGH RIG ALPHAS
+    rigg.alphaIndexA = (rigg.alphaIndexA+1)% alphLength; //alph.length; 
+    rigg.alphaIndexB = (rigg.alphaIndexB+1)% alphLength; //alph.length;
+  }   
+  if (key == 'k') {                                      //// CYCLE THROUGH ROOF FUNCS
+    roof.functionIndexA = (roof.functionIndexA+1)%funcLength; 
+    roof.functionIndexB = (roof.functionIndexB+1)%funcLength;
+  }  
+  if (key == 'l') {                                      //// CYCLE THROUGH ROOF ALPHAS
+    roof.alphaIndexA = (roof.alphaIndexA+1)%alphLength; 
+    roof.alphaIndexB = (roof.alphaIndexB+1)%alphLength;
+  }   
+  if (key == 'c') rigg.colorIndexA = (rigg.colorIndexA+1)%rigg.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
+  if (key == 'v') rigg.colorIndexB = (rigg.colorIndexB+1)%rigg.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
+
+  if (key == 'd') {
+    roof.colorIndexA = (roof.colorIndexA+1)%roof.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
+    cans.colorIndexA = (cans.colorIndexA+1)%cans.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
+  }
+  if (key == 'f') {
+    roof.colorIndexB = (roof.colorIndexB+1)%roof.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
+    cans.colorIndexB = (cans.colorIndexB+1)%cans.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
+  }
+  if (key == '[') vizHold = !vizHold; 
+  if (key == ']') colHold = !colHold; 
+
+  /////////////////////////////////// momentaory key pressed array /////////////////////////////////////////////////
+  for (int i = 32; i <=63; i++)  if (key == char(i)) keyP[i]=true;
+  for (int i = 91; i <=127; i++) if (key == char(i)) keyP[i]=true;
+  ///////////////////////////////// toggle key pressed array ///////////////////////////////////////////////////////
+  for (int i = 32; i <=63; i++) {
+    if (key == char(i)) keyT[i] = !keyT[i];
+    if (key == char(i)) println(key, i, keyT[i]);
+  }
+  for (int i = 91; i <=127; i++) {
+    if (key == char(i)) keyT[i] = !keyT[i];
+    if (key == char(i)) println(key, i, keyT[i]);
+  }
+}
+
+void keyReleased()
+{
+  /// loop to change key[] to false when released to give hold control
+  for (int i = 32; i <=63; i++) {
+    char n = char(i);
+    if (key == n) keyP[i]=false;
+  }
+  for (int i = 91; i <=127; i++) {
+    char n = char(i);
+    if (key == n) keyP[i]=false;
+  }
+} 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////// MIDI FUNCTIONS /////////////////////////////////////////////////////////////////////
+float pad[] = new float[128];                //// An array where to store the last value received for each midi Note controller
+float padVelocity[] = new float[16];
+boolean padPressed[] = new boolean[128];
+int midiMap;
+void noteOn( int channel, int pitch, int _velocity) {
+  float velocity = map(_velocity, 0, 127, 0, 1);
+  pad[pitch] = velocity;
+  padPressed[pitch] = true;
+  println();
+  println("Note: "+pitch, "Velocity: "+velocity, "Channel: "+channel);
+
+  midiMap = int(map(pitch, 36, 84, 0, 7));
+  padPressed[midiMap] = true;
+  padVelocity[midiMap] = velocity;
+}
+void noteOff(Note note) {
+  padPressed[note.pitch] = false;
+  padPressed[midiMap] = false;
+  //padVelocity[midiMap] = 0;
+}
+float cc[] = new float[128];                   //// An array where to store the last value received for each CC controller
+float prevcc[] = new float[128];
+void controllerChange(int channel, int number, int value) {
+  cc[number] = map(value, 0, 127, 0, 1);
+  println();
+  println("CC: "+number, "Velocity: "+map(value, 0, 127, 0, 1), "Channel: "+channel);
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 HashMap<String, int[]> oscAddrToMidiMap = new HashMap<String, int[]>();
 void oscAddrSetup() {
 
@@ -127,121 +177,63 @@ void oscEvent(OscMessage theOscMessage) {
     print(" mesgtype = '"+messageType+"'");
     println(" mesgArgument = "+argument);
   }
-  //println();
   OscAddrMap.put(theOscMessage.addrPattern(), argument);
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////// knob box /////////////////////////////////////////////////////////////////////
-  if (messageType.equals("joystick_1") || messageType.equals("joystick_2")) {
-    oneshotmap=int(OscAddrMap.get("/knob_box/joystick_1")*9+OscAddrMap.get("/knob_box/joystick_2"));
-    println("oneshotmap = "+oneshotmap);
-    if (oneshotmap>0) {
-      oneShot(oneshotmap);
-    }
-  }
-  if (messageType.equals("oneshot")) if (argument == 5) rigBgr = int(random(bgList));
-
-  /////////////////////////////////////// button box //////////////////////////////////////
-  if (messageType.equals("buttonSelected")) {
-    if (argument<5) {
-      buttonT[argument]=!buttonT[argument];
-      println("button "+argument+" is selected");
-      colorselected = argument;
-    }
-    if (argument >= 5 && argument < 16 ) rigViz = argument-5;
-  }
-  /////////////////////////////////// fader box /////////////////////////////////////////////
-  //if (messageType.equals("kitChange")) colorControl(argument);
-
-
-  ///////////////////////////////////////// throttle box ./////////////////////////////////////////
 }
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+int TR8CHANNEL = 9;
+int BD = 0;
+int SD = 1;
+int LT = 2;
+int MT = 3;
+int HT = 4;
+int RS = 5;
+int HC = 6;
+int CH = 7;
 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////
-////////////////////////////////////////////// KEYBOARD COMMANDS //////////////////////////////////// 
-boolean test, work, info, play, stop, space, shift, colBeat, vizHold, colHold;
-boolean[] keyP = new boolean[128];
-boolean[] keyT = new boolean[128];
-int keyNum;
-int mirrorStep, gridStep;
-void keyPressed() {  
-  /////////////////////////////// RIG KEY FUNCTIONS ////////////////////////
-  if (key == 'n') rigViz = (rigViz+1)%rigVizList;        //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
-  if (key == 'b') rigViz -=1;                            //// STEP BACK TO PREVIOUS RIG VIZ
-  if (rigViz <0) rigViz = rigVizList-1;
-  if (key == 'm') rigBgr = (rigBgr+1)%7;                 //// CYCLE THROUGH RIG BACKGROUNDS
+int BDTUNE = 20;
+int BDDECAY = 23;
+int BDLEVEL = 24;
+int BDCTRL = 96;
+int SDTUNE = 25;
+int SDDECAY = 28;
+int SDLEVEL = 29;
+int SDCTRL = 102;
+int LTTUNE = 46;
+int LTDECAY = 47;
+int LTLEVEL = 48;
+int LTCTRL = 102;
+int MTTUNE = 49;
+int MTDECAY = 50;
+int MTLEVEL = 51;
+int MTCTRL = 103;
+int HTTUNE = 52;
+int HTDECAY = 53;
+int HTLEVEL = 54;
+int HTCTRL = 105;
+int RSTUNE = 55;
+int RSDECAY = 56;
+int RSLEVEL = 57;
+int RSCTRL = 105;
+int HCTUNE = 58;
+int HCDECAY = 59;
+int HCLEVEL = 60;
+int HCCTRL = 106;
+int CHTUNE = 61;
+int CHDECAY = 62;
+int CHLEVEL = 63;
+int CHCTRL = 107;
 
-  /////////////////////////////// ROOF KEY FUNCTIONS ////////////////////////
-  if (key == 'h') roofViz = (roofViz+1)%8;               //// STEP FORWARD TO NEXT RIG VIZ
-  if (key == 'g') roofViz -= 1;                          //// STEP BACK TO PREVIOUS RIG VIZ
-  if (roofViz <0) roofViz = 7;
-  if (key == 'j') roofBgr = (roofBgr+1)%7;               //// CYCLE THROUGH ROOF BACKGROUNDS
-
-  if (key == ',') {                                      //// CYCLE THROUGH RIG FUNCS
-    fctIndex = (fctIndex+1)%fct.length; 
-    fct1Index = (fct1Index+1)%fct.length;
-  }  
-  if (key == '.') {                                      //// CYCLE THROUGH RIG ALPHAS
-    rigAlphIndex = (rigAlphIndex+1)%alph.length; 
-    rigAlph1Index = (rigAlph1Index+1)%alph.length;
-  }   
-  if (key == 'k') {                                      //// CYCLE THROUGH ROOF FUNCS
-    roofFctIndex = (roofFctIndex+1)%fct.length; 
-    roofFct1Index = (roofFct1Index+1)%fct.length;
-  }  
-  if (key == 'l') {                                      //// CYCLE THROUGH ROOF ALPHAS
-    roofAlphIndex = (roofAlphIndex+1)%alph.length; 
-    roofAlph1Index = (roofAlph1Index+1)%alph.length;
-  }   
-  if (key == 'c') rig.colorA = (rig.colorA+1)%rig.col.length;         //// CYCLE FORWARD THROUGH RIG COLORS
-  if (key == 'v') rig.colorB = (rig.colorB+1)%rig.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
-  if (key == 'x') colorselected = (colorselected + 1) % 5;
-
-  if (key == 'd') roof.colorA = (roof.colorA+1)%roof.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
-  if (key == 'f') roof.colorB = (roof.colorB+1)%roof.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
-
-  if (key == 'q') info = !info;
-  if (key == 't') test = !test;
-  if ( key == 'w') work = !work;
-  if (key == '[') vizHold = !vizHold; 
-  if (key == ']') colHold = !colHold; 
-
-  /////////////////////////////////// momentaory key pressed array /////////////////////////////////////////////////
-  for (int i = 32; i <=63; i++)  if (key == char(i)) keyP[i]=true;
-  for (int i = 91; i <=127; i++) if (key == char(i)) keyP[i]=true;
-  ///////////////////////////////// toggle key pressed array ///////////////////////////////////////////////////////
-  for (int i = 32; i <=63; i++) {
-    if (key == char(i)) keyT[i] = !keyT[i];
-    if (key == char(i)) println(key, i, keyT[i]);
-  }
-  for (int i = 91; i <=127; i++) {
-    if (key == char(i)) keyT[i] = !keyT[i];
-    if (key == char(i)) println(key, i, keyT[i]);
-  }
-}
-
-void keyReleased()
-{
-  /// loop to change key[] to false when released to give hold control
-  for (int i = 32; i <=63; i++) {
-    char n = char(i);
-    if (key == n) keyP[i]=false;
-  }
-  for (int i = 91; i <=127; i++) {
-    char n = char(i);
-    if (key == n) keyP[i]=false;
-  }
-} 
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////// MIDI FUNCTIONS /////////////////////////////////////////////////////////////////////
-float pad[] = new float[64];
-void noteOn(Note note) {
-  //println();
-  //println("BUTTON: ", +note.pitch);
-}
-float cc[] = new float[128];                   //// An array where to store the last value received for each knob
-float prevcc[] = new float[128];
-void controllerChange(int channel, int number, int value) {
-  cc[number] = map(value, 0, 127, 0, 1);
-  println();
-  println("CC: ", number, "....", map(value, 0, 127, 0, 1), "- Channel:", channel);
-}
+int DELAYLEVEL = 16;
+int DELAYTIME = 17;
+int DELAYFEEDBACK = 18;
+int MASTERFXON = 15;
+int MASTERFXLEVEL = 19;
+int REVERBLEVEL = 91;
+int NOTE_ON=ShortMessage.NOTE_ON;
+int NOTE_OFF=ShortMessage.NOTE_OFF;
+int PRGM_CHG=ShortMessage.PROGRAM_CHANGE;
+int CTRL_CHG=ShortMessage.CONTROL_CHANGE;
+int STOP=ShortMessage.STOP;
+int START=ShortMessage.START;
+int TIMING=ShortMessage.TIMING_CLOCK;

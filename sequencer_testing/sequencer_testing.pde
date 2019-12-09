@@ -1,4 +1,5 @@
 OPC opc;
+OPC opcESP;
 OPC opcLocal;
 OPC opcMirrors; 
 OPC opcMirror1; 
@@ -65,6 +66,7 @@ void setup()
   opcMirrors = new OPC(this, "192.168.0.70", 7890);        // Connect to the remote instance of fcserver - MIRROR 1
   opcCans    = new OPC(this, "192.168.0.10", 7890);           // Connect to the remote instance of fcserver - CANS BOX
   opcStrip   = new OPC(this, "192.168.0.20", 7890);          // Connect to the remote instance of fcserver - CANS BOX
+  opcESP     = new OPC(this, "############", 7890);          // Connect to the remote instance of fcserver - CANS BOX
 
   opcGrid.mirrorsOPC(opcLocal, opcLocal, 0);               // grids 0-3 MIX IT UPPPPP 
   //opcGrid.pickleCansOPC(cans, opcLocal);               
@@ -95,8 +97,8 @@ void setup()
   rigg.bgIndex = 0;
   roof.bgIndex = 4;
 
-  rigg.colorIndexA = 9;
-  rigg.colorIndexB = 6;
+  rigg.colorIndexA = 0;
+  rigg.colorIndexB = 14;
   roof.colorIndexA = 3;
   roof.colorIndexB = 4;
   cans.colorIndexA = 7;
@@ -108,12 +110,12 @@ void setup()
   cc[2] = 0.75;
   cc[5] = 0.3;
   cc[6] = 0.75;
-  cc[4] = 0.05;
-  cc[8] = 0.015;
+  cc[4] = 1;
+  cc[8] = 1;
   cc[MASTERFXON] = 0;
 
   controlFrame = new ControlFrame(this, width, 130, "Controls"); // load control frame must come after shild ring etc
-  animations = new ArrayList<Anim>();
+  animations = new ArrayList<Anim>(); 
   frameRate(30);
 }
 float vizTime, colTime;

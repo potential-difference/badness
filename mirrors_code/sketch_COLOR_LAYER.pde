@@ -1,322 +1,213 @@
-int rigBgr, roofBgr; 
-int bgList = 8;
-void colorLayer(PGraphics subwindow, int index) {
-  /////////////////////////////////////////////// RIG COLOR LAYERS ///////////////////////////////////////
-  if (subwindow == rigColourLayer) {
-    color col1 = rig.c;
-    color col2 = rig.flash;
-    color col3 = rig.clash;
-    
-    oneColourBG(0, col1);
-    mirrorGradientBG(1, col1,col2, 0.5);  
-    sideBySideBG(2, col2,col1);
-    checkSymmetricalBG(3, col1,col2);
-    cornersBG(4, col2,col1);
-    crossBG(5, col1,col2);
-    oneColourBG(6, col3);
-    sideBySideBG(7, col1,col2);
+int rigBgList = 6, roofBgList = 6;
+class ColorLayer extends SketchColor {
+  PGraphics window;
+  color col1, col2;
+  PVector layer;
+  int bgIndex;
+  Rig rig;
 
-    subwindow.beginDraw();
-    subwindow.image(bg[index], subwindow.width/2, subwindow.height/2, subwindow.width, subwindow.height);
-    subwindow.endDraw();
+  ColorLayer(Rig _rig) {
+    super(_rig);
+    rig = _rig;
+    bgIndex = rig.bgIndex;
+    window = rig.colorLayer;
+    layer = rig.size;
+    col1 = rig.c;
+    col2 = rig.flash;
   }
-
-  if (subwindow == roofColourLayer) {
-    color col1 = roof.c;
-    color col2 = roof.flash;
-    color col3 = roof.clash;
-
-    mirrorGradientBG(0, col1, col2, 0.5);  
-    //radialGradientBG(1, roofCol1, roofCol2, 0.1);
-    horizontalMirrorGradBG(2, col1, col2, 0);
-    horizontalMirrorGradBG(3, col2, col1, func);
-    //roofArrangement(4, roofCol2, roofCol1);
-    //roofBigSeeds(5, roofCol1, roofCol2);
-    horizontalMirrorGradBG(6, col1, col2, func);
-
-    subwindow.beginDraw();
-    subwindow.image(bg[index], subwindow.width/2, subwindow.height/2, subwindow.width, subwindow.height);
-    subwindow.endDraw();
+  void drawColorLayer() {
+    switch(bgIndex) {
+    case 0:
+      window.beginDraw();
+      window.background(0);
+      oneColour(col1);
+      window.endDraw();
+      break;
+    case 1:
+      window.beginDraw();
+      window.background(0);
+      mirrorGradient(col1, col2, 0.5);
+      window.endDraw();
+      break;
+    case 2:
+      window.beginDraw();
+      window.background(0);
+      sideBySide(col2, col1);
+      window.endDraw();
+      break;
+    case 3:
+      window.beginDraw();
+      window.background(0);
+      horizontalMirrorGradient(col1, col2, 1);
+      window.endDraw();
+      break;
+    case 4:
+      window.beginDraw();
+      window.background(0);
+      oneColour(col2);
+      window.endDraw();
+      break;
+    case 5:
+      window.beginDraw();
+      window.background(0);
+      horizontalMirrorGradient(col1, col2, noize1);
+      window.endDraw();
+      break;
+    case 6:
+      window.beginDraw();
+      window.background(0);
+      check(col1, col2);
+      window.endDraw();
+      break;
+    default:
+      window.beginDraw();
+      window.background(0);
+      oneColour(col1);
+      window.endDraw();
+      break;
+    }
+    image(window, layer.x, layer.y);
+  }
+  //////////////////////////////////////// END OF BACKGROUND CONTROL /////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////// VERTICAL MIRROR GRADIENT BACKGROUND ////////////////////////////////////////////////
+  void mirrorGradient(color col1, color col2, float func) {
+    //// LEFT SIDE OF GRADIENT
+    window.beginShape(POLYGON); 
+    //window.noStroke();
+    window.fill(col1);
+    window.vertex(0, 0);
+    window.fill(col2);
+    window.vertex(window.width*func, 0);
+    window.fill(col2);
+    window.vertex(window.width*func, window.height);
+    window.fill(col1);
+    window.vertex(0, window.height);
+    window.endShape(CLOSE);
+    //// RIGHT SIDE OF windowIENT
+    window.beginShape(POLYGON); 
+    window.fill(col2);
+    window.vertex(window.width*func, 0);
+    window.fill(col1);
+    window.vertex(window.width, 0);
+    window.fill(col1);
+    window.vertex(window.width, window.height);
+    window.fill(col2);
+    window.vertex(window.width*func, window.height);
+    window.endShape(CLOSE);
+  }
+  /////////////////////////////////// RADIAL GRADIENT BACKGROUND //////////////////////////////////////////////////////////
+  void radialGradient(color col1, color col2, float function) {
+    window.background(col1);
+    float radius = window.height*function;
+    int numPoints = 12;
+    float angle=360/numPoints;
+    float rotate = 90+(function*angle);
+    for (  int i = 0; i < numPoints; i++) {
+      window.beginShape(POLYGON); 
+      window.fill(col1);
+      window.vertex(cos(radians((i)*angle+rotate))*radius+window.width/2, sin(radians((i)*angle+rotate))*radius+window.height/2);
+      window.fill(col2);
+      window.vertex(window.width/2, window.height/2);
+      window.fill(col1);
+      window.vertex(cos(radians((i+1)*angle+rotate))*radius+window.width/2, sin(radians((i+1)*angle+rotate))*radius+window.height/2);
+      window.endShape(CLOSE);
+    }
+  }
+  /// MIRROR GRADIENT BACKGROUND top one direction - bottom opposite direction ///
+  void mirrorGradientHalfHalf(color col1, color col2, float func) {
+    //////// TOP //// LEFT SIDE OF GRADIENT
+    window.beginShape(POLYGON); 
+    window.fill(col1);
+    window.vertex(0, 0);
+    window.fill(col2);
+    window.vertex(window.width*func, 0);
+    window.fill(col2);
+    window.vertex(window.width*func, window.height/2);
+    window.fill(col1);
+    window.vertex(0, window.height/2);
+    window.endShape(CLOSE);
+    //// RIGHT SIDE OF windowIENT
+    window.beginShape(POLYGON); 
+    window.fill(col2);
+    window.vertex(window.width*func, 0);
+    window.fill(col1);
+    window.vertex(window.width, 0);
+    window.fill(col1);
+    window.vertex(window.width, window.height/2);
+    window.fill(col2);
+    window.vertex(window.width*func, window.height/2);
+    window.endShape(CLOSE);
+    window.endDraw();
+    //////////////////////////////////
+    func = 1-func;
+    window.beginDraw();
+    ///// BOTTOM
+    //// LEFT SIDE OF GRADIENT
+    window.beginShape(POLYGON); 
+    window.fill(col1);
+    window.vertex(0, window.height/2);
+    window.fill(col2);
+    window.vertex(window.width*func, window.height);
+    window.fill(col2);
+    window.vertex(window.width*func, window.height);
+    window.fill(col1);
+    window.vertex(0, window.height/2);
+    window.endShape(CLOSE);
+    //// RIGHT SIDE OF windowIENT
+    window.beginShape(POLYGON); 
+    window.fill(col2);
+    window.vertex(window.width*func, window.height/2);
+    window.fill(col1);
+    window.vertex(window.width, window.height/2);
+    window.fill(col1);
+    window.vertex(window.width, window.height);
+    window.fill(col2);
+    window.vertex(window.width*func, window.height);
+    window.endShape(CLOSE);
+  }
+  /////////////////////////////////////////////////// HORIZONAL GRADIENT ///////////////////////////////////////////////////////
+  void horizontalMirrorGradient(color col1, color col2, float func) {
+    //// TOP HALF OF GRADIENT
+    window.beginShape(POLYGON); 
+    window.fill(col2);
+    window.vertex(0, 0);
+    window.vertex(window.width, 0);
+    window.fill(col1);
+    window.vertex(window.width, window.height*func);
+    window.vertex(0, window.height*func);
+    window.endShape(CLOSE);
+    //// BOTTOM HALF OF GRADIENT 
+    window.beginShape(POLYGON); 
+    window.fill(col1);
+    window.vertex(0, window.height*func);
+    window.vertex(window.width, window.height*func);
+    window.fill(col2);
+    window.vertex(window.width, window.height);
+    window.vertex(0, window.height);
+    window.endShape(CLOSE);
+  }
+  ///////////////////////////////////////// ONE COLOUR BACKGOUND ////////////////////////////////////////////////////////////////
+  void oneColour(color col1) {
+    window.background(col1);
+  }
+  ////////////////////////////////////////// CHECK BACKGROUND //////////////////////////////////////////////////////////////////////////////
+  void check(color col1, color col2) {
+    window.fill(col2);
+    window.rect(window.width/2, window.height/2, window.width, window.height);        
+    ////////////////////////// Fill OPPOSITE COLOR //////////////
+    window.fill(col1);  
+    for (int i = 0; i < opcGrid.mirror.length/opcGrid.rows; i+=2)  window.rect(opcGrid.mirror[i].x, opcGrid.mirror[i].y, opcGrid.mirrorWidth, opcGrid.mirrorWidth);
+    for (int i = opcGrid.columns+1; i < opcGrid.mirror.length/opcGrid.rows+opcGrid.columns; i+=2)  window.rect(opcGrid.mirror[i].x, opcGrid.mirror[i].y, opcGrid.mirrorWidth, opcGrid.mirrorWidth);
+    if (opcGrid.rows == 3) for (int i = opcGrid.columns*opcGrid.rows; i < opcGrid.mirror.length/opcGrid.rows+(opcGrid.columns*2); i+=2)  window.rect(opcGrid.mirror[i].x, opcGrid.mirror[i].y, opcGrid.mirrorWidth, opcGrid.mirrorWidth);
+  }
+  /////////////////////////// TOP ROW ONE COLOUR BOTTOM ROW THE OTHER BACKGORUND ////////////////////////////////////////////////////////////////
+  void sideBySide( color col1, color col2) {
+    /////////////// TOP RECTANGLE ////////////////////
+    window.fill(col2);
+    window.rect(window.width/4, window.height/2, window.width/2, window.height);     
+    /////////////// BOTTOM RECTANGLE ////////////////////
+    window.fill(col1);                                
+    window.rect(window.width/4*3, window.height/2, window.width/2, window.height);
   }
 }
-///////////////////////////// END OF BACKGROUNDS ///////////////////////////////////////
-////////////////////////////////////////////////////////////////////////////////////////////
-
-/// MIRROR GRADIENT BACKGROUND ///
-PGraphics mirrorGradientBG(int n, color col1, color col2, float func) {
-  bg[n].beginDraw();
-  bg[n].background(0, 0);
-
-  //// LEFT SIDE OF GRADIENT
-  bg[n].beginShape(POLYGON); 
-  bg[n].fill(col1);
-  bg[n].vertex(0, 0);
-  bg[n].fill(col2);
-  bg[n].vertex(bg[n].width*func, 0);
-  bg[n].fill(col2);
-  bg[n].vertex(bg[n].width*func, bg[n].height);
-  bg[n].fill(col1);
-  bg[n].vertex(0, bg[n].height);
-  bg[n].endShape(CLOSE);
-  //// RIGHT SIDE OF bg[n]IENT
-  bg[n].beginShape(POLYGON); 
-  bg[n].fill(col2);
-  bg[n].vertex(bg[n].width*func, 0);
-  bg[n].fill(col1);
-  bg[n].vertex(bg[n].width, 0);
-  bg[n].fill(col1);
-  bg[n].vertex(bg[n].width, bg[n].height);
-  bg[n].fill(col2);
-  bg[n].vertex(bg[n].width*func, bg[n].height);
-  bg[n].endShape(CLOSE);
-  bg[n].endDraw();
-  return bg[n];
-}
-
-PGraphics horizontalMirrorGradBG(int n, color col1, color col2, float func) {
-  bg[n].beginDraw();
-  bg[n].background(0);
-  //// TOP HALF OF GRADIENT
-  bg[n].beginShape(POLYGON); 
-  bg[n].fill(col2);
-  bg[n].vertex(0, 0);
-  bg[n].vertex(bg[n].width, 0);
-  bg[n].fill(col1);
-  bg[n].vertex(bg[n].width, bg[n].height*func);
-  bg[n].vertex(0, bg[n].height*func);
-  bg[n].endShape(CLOSE);
-  //// BOTTOM HALF OF GRADIENT 
-  bg[n].beginShape(POLYGON); 
-  bg[n].fill(col1);
-  bg[n].vertex(0, bg[n].height*func);
-  bg[n].vertex(bg[n].width, bg[n].height*func);
-  bg[n].fill(col2);
-  bg[n].vertex(bg[n].width, bg[n].height);
-  bg[n].vertex(0, bg[n].height);
-  bg[n].endShape(CLOSE);
-  bg[n].endDraw();
-  return bg[n];
-}
-
-/// ONE COLOUR BACKGOUND ///
-PGraphics oneColourBG(int n, color col1) {
-  bg[n].beginDraw();
-  bg[n].background(col1);
-  bg[n].endDraw();
-  return bg[n];
-}
-
-/// SYMETRICAL BACKGOUND ///
-PGraphics checkSymmetricalBG(int n, color col1, color col2) {
-  bg[n].beginDraw();
-  bg[n].background(0);
-  /////////////// FILL COLOR ////////////////////
-  bg[n].fill(col1);
-  ///////////////  BACKGROUND /////////////
-  bg[n].rect(bg[n].width/2, bg[n].height/2, bg[n].width, bg[n].height);     
-  ////////////////// Fill OPPOSITE COLOR //////////////
-  bg[n].fill(col2);    
-  bg[n].rect(grid.mirror[0].x, grid.mirror[0].y, grid.mirrorWidth, grid.mirrorWidth);
-  bg[n].rect(grid.mirror[3].x, grid.mirror[3].y, grid.mirrorWidth, grid.mirrorWidth);
-  bg[n].rect(grid.mirror[5].x, grid.mirror[5].y, grid.mirrorWidth, grid.mirrorWidth);
-  bg[n].rect(grid.mirror[6].x, grid.mirror[6].y, grid.mirrorWidth, grid.mirrorWidth);
-  bg[n].rect(grid.mirror[8].x, grid.mirror[8].y, grid.mirrorWidth, grid.mirrorWidth);
-  bg[n].rect(grid.mirror[11].x, grid.mirror[11].y, grid.mirrorWidth, grid.mirrorWidth);
-
-  bg[n].endDraw();
-  return bg[n];
-}
-
-/// CHECK BACKGROUND ///
-PGraphics checkBG(int n, color col1, color col2) {
-  bg[n].beginDraw();
-  bg[n].background(0);
-  /////////////// FILL COLOR ////////////////////
-  bg[n].fill(col1);
-  ///////////////  BACKGROUND /////////////
-  bg[n].rect(bg[n].width/2, bg[n].height/2, bg[n].width, bg[n].height);     
-  ////////////////// Fill OPPOSITE COLOR //////////////
-  bg[n].fill(col2);     
-  for (int i = 0; i <grid.mirror.length/3; i+=2)  bg[n].rect(grid.mirror[i].x, grid.mirror[i].y, grid.mirrorWidth, grid.mirrorWidth);
-  for (int i = 5; i <grid.mirror.length/3*2; i+=2)  bg[n].rect(grid.mirror[i].x, grid.mirror[i].y, grid.mirrorWidth, grid.mirrorWidth);
-  for (int i = 8; i <grid.mirror.length; i+=2)  bg[n].rect(grid.mirror[i].x, grid.mirror[i].y, grid.mirrorWidth, grid.mirrorWidth);
-  bg[n].endDraw();
-
-  return bg[n];
-}
-
-PGraphics cornersBG(int n, color col1, color col2) {
-  bg[n].beginDraw();
-  bg[n].background(0);
-  /////////////// TOP RECTANGLE ////////////////////
-  bg[n].fill(col2);
-  bg[n].rect(bg[n].width/2, bg[n].height/2, bg[n].width, bg[n].height);     
-  /////////////// BOTTOM RECTANGLE ////////////////////
-  bg[n].fill(col1);                                
-  bg[n].rect(grid.mirror[0].x, grid.mirror[0].y, grid.mirrorWidth, grid.mirrorWidth);
-  bg[n].rect(grid.mirror[1].x, grid.mirror[1].y, grid.mirrorWidth, grid.mirrorWidth);
-  bg[n].rect(grid.mirror[4].x, grid.mirror[4].y, grid.mirrorWidth, grid.mirrorWidth);
-
-  bg[n].rect(grid.mirror[7].x, grid.mirror[7].y, grid.mirrorWidth, grid.mirrorWidth);
-  bg[n].rect(grid.mirror[10].x, grid.mirror[10].y, grid.mirrorWidth, grid.mirrorWidth);
-  bg[n].rect(grid.mirror[11].x, grid.mirror[11].y, grid.mirrorWidth, grid.mirrorWidth);
-
-  bg[n].endDraw();
-
-  return bg[n];
-}
-/// TOP ROW ONE COLOUR BOTTOM ROW THE OTHER BACKGORUND///
-PGraphics sideBySideBG(int n, color col1, color col2) {
-  bg[n].beginDraw();
-  bg[n].background(0);
-  /////////////// TOP RECTANGLE ////////////////////
-  bg[n].fill(col2);
-  bg[n].rect(bg[n].width/4, bg[n].height/2, bg[n].width/2, bg[n].height);     
-  /////////////// BOTTOM RECTANGLE ////////////////////
-  bg[n].fill(col1);                                
-  bg[n].rect(bg[n].width/4*3, bg[n].height/2, bg[n].width/2, bg[n].height);     
-  bg[n].endDraw();
-  return bg[n];
-}
-
-//// top left and bottom right 3 mirror opposite colours /////
-PGraphics crossBG(int n, color col1, color col2) {
-  bg[n].beginDraw();
-  bg[n].background(col1);
-  bg[n].fill(col2);
-  bg[n].rect(grid.mirror[5].x, grid.mirror[5].y, grid.mirrorAndGap*3, grid.mirrorWidth);    
-  bg[n].rect(grid.mirror[6].x, grid.mirror[6].y, grid.mirrorAndGap*3, grid.mirrorWidth);    
-
-  bg[n].endDraw();
-  return bg[n];
-}
-
-
-PGraphics gradMirrorBG(int n, color col1, color col2) {
-  bg[n].beginDraw();
-  bg[n].background(col1);
-
-  //// TOP HALF OF GRADIENT
-  //bg[n].beginShape(POLYGON); 
-  //bg[n].fill(col2);
-  //bg[n].vertex(grid.mirror[0].x-(grid.mirrorWidth/2),grid.mirror[0].y-(grid.mirrorWidth/2));
-  //bg[n].vertex(grid.mirror[0].x+(grid.mirrorWidth/2),grid.mirror[0].y+(grid.mirrorWidth/2));
-  //bg[n].fill(col1);
-  //bg[n].vertex(grid.mirror[0].x-(grid.mirrorWidth/2),grid.mirror[0].y+(grid.mirrorWidth/2));
-  for (int i = 0; i < 6; i++) {
-    bg[n].beginShape(POLYGON); 
-    bg[n].fill(col1);
-    bg[n].vertex(grid.mirror[i].x+(grid.mirrorWidth/2), grid.mirror[i].y-(grid.mirrorWidth/2));
-    bg[n].fill(col2);
-    bg[n].vertex(grid.mirror[i].x-(grid.mirrorWidth/2), grid.mirror[i].y-(grid.mirrorWidth/2));
-    bg[n].vertex(grid.mirror[i].x+(grid.mirrorWidth/2), grid.mirror[i].y+(grid.mirrorWidth/2));
-    bg[n].fill(col1);
-    bg[n].vertex(grid.mirror[i].x+(grid.mirrorWidth/2), grid.mirror[i].y-(grid.mirrorWidth/2));
-    bg[n].endShape(CLOSE);
-
-    bg[n].beginShape(POLYGON); 
-    bg[n].fill(col1);
-    bg[n].vertex(grid.mirror[i].x-(grid.mirrorWidth/2), grid.mirror[i].y+(grid.mirrorWidth/2));
-    bg[n].fill(col2);
-    bg[n].vertex(grid.mirror[i].x-(grid.mirrorWidth/2), grid.mirror[i].y-(grid.mirrorWidth/2));
-    bg[n].vertex(grid.mirror[i].x+(grid.mirrorWidth/2), grid.mirror[i].y+(grid.mirrorWidth/2));
-    bg[n].fill(col1);
-    bg[n].vertex(grid.mirror[i].x-(grid.mirrorWidth/2), grid.mirror[i].y+(grid.mirrorWidth/2));
-    bg[n].endShape(CLOSE);
-  }
-
-  for (int i = 6; i < 12; i++) {
-    bg[n].beginShape(POLYGON); 
-    bg[n].fill(col1);
-    bg[n].vertex(grid.mirror[i].x-(grid.mirrorWidth/2), grid.mirror[i].y-(grid.mirrorWidth/2));
-    bg[n].fill(col2);
-    bg[n].vertex(grid.mirror[i].x+(grid.mirrorWidth/2), grid.mirror[i].y-(grid.mirrorWidth/2));
-    bg[n].vertex(grid.mirror[i].x-(grid.mirrorWidth/2), grid.mirror[i].y+(grid.mirrorWidth/2));
-    bg[n].fill(col1);
-    bg[n].vertex(grid.mirror[i].x-(grid.mirrorWidth/2), grid.mirror[i].y-(grid.mirrorWidth/2));
-    bg[n].endShape(CLOSE);
-
-    bg[n].beginShape(POLYGON); 
-    bg[n].fill(col1);
-    bg[n].vertex(grid.mirror[i].x+(grid.mirrorWidth/2), grid.mirror[i].y+(grid.mirrorWidth/2));
-    bg[n].fill(col2);
-    bg[n].vertex(grid.mirror[i].x+(grid.mirrorWidth/2), grid.mirror[i].y-(grid.mirrorWidth/2));
-    bg[n].vertex(grid.mirror[i].x-(grid.mirrorWidth/2), grid.mirror[i].y+(grid.mirrorWidth/2));
-    bg[n].fill(col1);
-    bg[n].vertex(grid.mirror[i].x+(grid.mirrorWidth/2), grid.mirror[i].y+(grid.mirrorWidth/2));
-    bg[n].endShape(CLOSE);
-  }
-  bg[n].endDraw();
-
-  return bg[n];
-}
-
-/*
-PGraphics everyOtherBG(int n, color col1, color col2) {
- bg[n].beginDraw();
- bg[n].background(0);
- bg[n].fill(col1);
- bg[n].rect(bg[n].width/2, bg[n].height/2, bg[n].width, bg[n].height);
- bg[n].fill(0);
- 
- float space = 2;
- float thickness = 3;
- 
- for (int i = 0; i < grid.mirror.length/2; i+=2) {
- for (float o = 0.5; o < ld; o+=space) {
- bg[n].rect(grid.mirror[i].x-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.mirror[i].y, thickness, grid.grid.mirrorAndGap);
- bg[n].rect(grid.mirror[i].x, grid.mirror[i].y-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.grid.mirrorAndGap, thickness);
- }
- } 
- for (int i = 7; i < grid.mirror.length; i+=2) {
- for (float o = 0.5; o < ld; o+=space) {
- bg[n].rect(grid.mirror[i].x-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.mirror[i].y, thickness, grid.grid.mirrorAndGap);
- bg[n].rect(grid.mirror[i].x, grid.mirror[i].y-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.grid.mirrorAndGap, thickness);
- }
- } 
- 
- for (int i = 1; i < grid.mirror.length/2; i+=2) {
- for (float o = 1.5; o < ld; o+=space) {
- bg[n].rect(grid.mirror[i].x-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.mirror[i].y, thickness, grid.grid.mirrorAndGap);
- bg[n].rect(grid.mirror[i].x, grid.mirror[i].y-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.grid.mirrorAndGap, thickness);
- }
- } 
- for (int i = 6; i < grid.mirror.length; i+=2) {
- for (float o = 1.5; o < ld; o+=space) {
- bg[n].rect(grid.mirror[i].x-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.mirror[i].y, thickness, grid.grid.mirrorAndGap);
- bg[n].rect(grid.mirror[i].x, grid.mirror[i].y-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.grid.mirrorAndGap, thickness);
- }
- }
- 
- bg[n].fill(col2, 120);
- for (int i = 0; i < grid.mirror.length/2; i+=2) {
- for (float o = 0.5; o < ld; o+=space) {
- bg[n].rect(grid.mirror[i].x-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.mirror[i].y, thickness, grid.grid.mirrorAndGap);
- bg[n].rect(grid.mirror[i].x, grid.mirror[i].y-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.mirrorAndGap, thickness);
- }
- } 
- for (int i = 7; i < grid.mirror.length; i+=2) {
- for (float o = 0.5; o < ld; o+=space) {
- bg[n].rect(grid.mirror[i].x-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.mirror[i].y, thickness, grid.grid.mirrorAndGap);
- bg[n].rect(grid.mirror[i].x, grid.mirror[i].y-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.grid.mirrorAndGap, thickness);
- }
- } 
- 
- for (int i = 1; i < grid.mirror.length/2; i+=2) {
- for (float o = 1.5; o < ld; o+=space) {
- bg[n].rect(grid.mirror[i].x-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.mirror[i].y, thickness, grid.grid.mirrorAndGap);
- bg[n].rect(grid.mirror[i].x, grid.mirror[i].y-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.grid.mirrorAndGap, thickness);
- }
- } 
- for (int i = 6; i < grid.mirror.length; i+=2) {
- for (float o = 1.5; o < ld; o+=space) {
- bg[n].rect(grid.mirror[i].x-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.mirror[i].y, thickness, grid.grid.mirrorAndGap);
- bg[n].rect(grid.mirror[i].x, grid.mirror[i].y-(grid.mirrorWidth/2)+(grid.mirrorWidth/ld*o), grid.grid.mirrorAndGap, thickness);
- }
- }
- 
- bg[n].endDraw();
- 
- return bg[n];
- }
- */

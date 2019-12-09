@@ -1,192 +1,141 @@
 void playWithMe() {
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  float sat1, sat2;
-  if (OscAddrMap.get("/throttle_box/throttle_button_1") == 127) {
-    sat1 = map(OscAddrMap.get("/throttle_box/throttle"), 64, 127, 100, 20);
-    println(sat1);
-  } else {
-    sat1 = 100;
-    sat2 = 100;
-  }
-  sat1 = map(cc[1], 0, 1, 20, 100);
-  sat2 = map(cc[2], 0, 1, 20, 100);
-  rig.col[rig.colorA] = color(hue(rig.col[rig.colorA]), sat1, brightness(rig.col[rig.colorB]));
-  rig.col[rig.colorB] = color(hue(rig.col[rig.colorB]), sat1, brightness(rig.col[rig.colorB]));
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  float delayfeedback, delaylevel, delaytime;
-  delaytime = map(OscAddrMap.get("/throttle_box/trackball_x"), 0, 127, 0, 1);
-  delayfeedback = map(OscAddrMap.get("/throttle_box/trackball_y"), 0, 127, 0, 1);
-  delaylevel = map(OscAddrMap.get("/throttle_box/knob_1"), 0, 127, 0, 1);
-  //if (cc[DELAYLEVEL] > 0) {
-  //beatSlider = map(cc[DELAYTIME], 0, 1, 0.1, 0.96)*cc[DELAYLEVEL];
-  //beatSlider = delaytime*delaylevel;
-
-  for (int i = 0; i < 4; i ++) {
-    //alpha[i] = alph[rigAlphIndex][i]+((stutter*0.4*noize1)*cc[DELAYFEEDBACK]*cc[DELAYLEVEL]);
-    //alpha1[i] = alph[rigAlph1Index][i]+((stutter*0.4*noize1)*cc[DELAYFEEDBACK]*cc[DELAYLEVEL]);
-    alpha[i] = map(alph[rigAlphIndex][i]+((stutter*0.4*noize1)*delayfeedback*delaylevel), 0, 1.4, 0, 1);
-    alpha1[i] = map(alph[rigAlph1Index][i]+((stutter*0.4*noize1)*delayfeedback*delaylevel), 0, 1.4, 0, 1);
-  }
-
-  if (cc[105] >0) {
-    for (int i = 0; i < 4; i ++) {
-      function[i] = stutter;
-      function1[i] = stutter;
-      func = stutter;
-    }
-  }
-  //}
   ////////////////////////////////////// COLOR SWAP AND FLIP BUTTONS /////////////////////////////////////////
-  if (keyP['\\'] || cc[101] > 0 ) rig.colorSwap(0.9999999999);                // COLOR SWAP MOMENTARY 
+  if (keyP['o']) rigColor.colorSwap(0.9999999999);               // COLOR SWAP MOMENTARY 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  if (keyT['\'']) rig.colFlip = (keyT['\'']);                  // COLOR FLIP TOGGLE 
-  if (keyP[';']) rig.colFlip = !rig.colFlip;                   // COLOR FLIP MOMENTARY
-  rig.colorFlip(rig.colFlip);
+  if (keyT['i']) rigColor.colorFlip(keyT['i']);                  // COLOR FLIP TOGGLE 
+  if (keyP['u']) rigColor.colorFlip(keyP['u']);                  // COLOR FLIP MOMENTARY
+
   ////////////////////////////// LERP COLOUR ON BEAT /////////////////////////////////////////////////////////
-  if (keyP['l']) colorLerping(rig, beatFast);
-  if (keyT['o']) colorLerping(rig, beatFast); 
-  //colBeat = !colBeat;
-  // lerpcolor function goes in here
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
+  if (keyT['y']) {
+    colorLerping(rigColor, (1-beat)*2);
+    colorLerping(roofColor, (1-beat)*1.5);
+  }
   ////////////////////////////////////////// HOLD BUTTONS FOR VIZ AND COLOUR /////////////////////////////////
-  if (vizHold) time[0] = millis()/1000;              // hold viz change timer
-  if (colHold) time[3] = millis()/1000;              // hold color change timer
+  if (vizHold) vizTimer = millis()/1000;              // hold viz change timer
+  if (colHold) {
+    rigColor.colorTimer = millis()/1000;              // hold color change timer
+    roofColor.colorTimer = millis()/1000;              // hold color change timer
+    cansColor.colorTimer = millis()/1000;              // hold color change timer
+  }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-}
-boolean somethingplaying=false;
-void oneShot(int index) {
-  somethingplaying=false;
-  for (int i=1; i<player.length; i++) {
-    if (player[i].isPlaying() && i != index) {
-      somethingplaying=true;
-      println("number "+i+" already playing, staying quiet");
-    }
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  if (keyP[' ']) animations.add(new Anim(rigg.vizIndex, alphaSlider, funcSlider, rigg));         // or space bar!
+  if (keyP[' ']) animations.add(new Anim(roof.vizIndex, alphaSlider, funcSlider, roof));         // or space bar!
+  if (keyP[' ']) animations.add(new Anim(cans.vizIndex, alphaSlider, funcSlider, cans));                    // or space bar!
+
+  if (keyP['a']) animations.add(new AllOn(manualSlider, stutter, rigg));
+  if (keyP['s']) {
+    animations.add(new AllOn(manualSlider, stutter, rigg));
+    rigColor.colorFlip(true);
   }
-  if (!somethingplaying) {
-    oneshotmessage = true;
-    if ( player[index].isPlaying() )
-    {
-      player[index].rewind();
-    }
-    // if the player is at the end of the file,
-    // we have to rewind it before telling it to play again
-    else if ( player[index].position() == player[index].length() )
-    {
-      player[index].rewind();
-      player[index].play();
-    } else
-    {
-      player[index].play();
-    }
+  if (keyP['z'] ) animations.add(new AllOn(manualSlider, stutter, roof));
+  if (keyP['`'] ) { 
+    animations.add(new AllOn(manualSlider, stutter, roof));
+    roofColor.colorFlip(true);
   }
+  float alphaRate = cc[1];
+  float funcRate = cc[2];
+
+  //if (cc[101] > 0) animations.add(new MirrorsAnim(rigViz, alphaRate, funcRate, cc[101]*rigDimmer/2)); // current animation
+  //if (cc[102] > 0) animations.add(new RoofAnim(rigViz, alphaRate, funcRate, cc[102]*roofDimmer/2)); // current animation
+  if (cc[103] > 0) { 
+    rigColor.colorSwap(0.9999999999);                // COLOR SWAP MOMENTARY
+    roofColor.colorSwap(0.9999999999);
+  }
+  //if (cc[104] > 0) {
+  //  animations.add(new MirrorsOn(manualSlider, 1-(stutter*stutterSlider), cc[104]*rigDimmer));
+  //  rigColor.colorFlip(true);
+  //}
+  //if (cc[107] > 0) animations.add(new RoofOn(manualSlider, 1-(stutter*stutterSlider), cc[107]*roofDimmer));
+  //if (cc[108] > 0) { 
+  //  roofColor.colorFlip(true);
+  //  animations.add(new RoofOn(manualSlider, 1-(stutter*stutterSlider), cc[108]*roofDimmer));
+  //}
+
+  for (int i = 0; i < 4; i++) if (padPressed[101+i]){
+   rigg.dimmer = pad[101+i];
+    animations.add(new Anim(i, manualSlider, funcRate, rigg)); // use pad buttons to play differnt viz
+  }
+  for (int i = 0; i < 3; i++) if (padPressed[105+i]) {
+    roof.dimmer = pad[105+i];
+    animations.add(new Anim(i, manualSlider, funcRate, roof)); // use pad buttons to play differnt viz
+  }
+  if (padPressed[108]) {
+    roof.dimmer = pad[108];
+    animations.add(new Anim(10, manualSlider, funcRate, roof)); // use pad buttons to play differnt viz
+  }
+
+  for (int i =0; i < 8; i++)if (padPressed[i]) {
+    rigg.dimmer = padVelocity[i];
+    animations.add(new Anim(i, alphaRate, funcRate, rigg)); // use pad buttons to play differnt viz
+  }
+
+
+  for (int i = 0; i<8; i++) if (keyP[49+i]) animations.add(new Anim(i, manualSlider, funcSlider, rigg));       // use number buttons to play differnt viz
+  //if (keyP[48]) animations.add(new AllOn(manualSlider, 1, rigDimmer));   
+
+  // '0' triggers all on for the rig
 }
 
-void colorControl(int colorSelected) {
-  switch(colorSelected) {
-  case 0:
-    rig.c = pink;
-    rig.flash = bloo;
-    break;
-  case 1:
-    rig.c = bloo;
-    rig.flash = teal;
-    break;
-  case 2:
-    rig.c = purple;
-    rig.flash = orange;
-    break;
-  case 3:
-    rig.c = orange;
-    rig.flash = teal;
-    break;
-  case 4:
-    rig.c = teal;
-    rig.flash = purple;
-    break;
-  default:
-    rig.c = pink;
-    rig.flash = grin;
-    break;
-  }
-}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////// PLAY WITH DRAWING FUNCTIONS ////////////////////////////////////////////////////////////// 
 void playWithMeMore() {
-  if (keyP['1']) cansControl(0, 0);  
-  if (keyP['2']) seedsControlA(0, 0);
-  if (keyP['3']) rigControl(0, 0);
-  if (keyP['4']) seedsControlB(0, 0);
-  if (keyP['5']) controllerControl(0, 0);
-
-  if (keyP['7']) cansControl(roof.flash, stutter); 
-  if (keyP['8']) seedsControlA(roof.flash, stutter);
-
-
-  if (cc[102]>0) rigControl(0, 1); 
-  if (cc[103]>0) seedsControlA(0, 1);
-  if (cc[103]>0) seedsControlB(0, 1);
-
-  if (cc[104]>0) controllerControl(0, 1);
-
-  if (cc[106]>0) rigControl(rig.flash, stutter*cc[106]); 
-  if (cc[107]>0) seedsControlA(rig.c, stutter*cc[107]);
-  if (cc[107]>0) seedsControlB(rig.c, stutter*cc[107]);
-
-  if (cc[108]>0) controllerControl(rig.flash, stutter*cc[108]);
-
-
-  if (oneshotmessage) {
-    fill(rig.flash, 300*stutter);
-    rect(grid.seed[0].x, grid.seed[0].y, grid.seedLength, 3);
-    rect(grid.seed[1].x, grid.seed[1].y, grid.seedLength, 3);
-
-    fill(rig.c, 300*stutter);
-    for (int i = 0; i < 4; i++) rect(grid.controller[i].x, grid.controller[i].y, grid.controllerWidth, grid.controllerWidth);
+  /////background noise over whole window/////
+  if (cc[105] > 0) {
+    rigg.colorLayer.beginDraw();
+    rigg.colorLayer.background(0, 0, 0, 0);
+    rigg.colorLayer.endDraw();
+    bgNoise(rigg.colorLayer, rigg.flash, map(cc[105], 0, 1, 0.2, 1), cc[5]*rigg.dimmer);   //PGraphics layer,color,alpha
+    image(rigg.colorLayer, rigg.size.x, rigg.size.y, rigg.wide, rigg.high);
   }
-  oneshotmessage = false;
+  if (cc[106] > 0) {
+    roof.colorLayer.beginDraw();
+    roof.colorLayer.background(0, 0, 0, 0);
+    roof.colorLayer.endDraw();
+    bgNoise(roof.colorLayer, roof.flash, map(cc[106], 0, 1, 0.2, 1), cc[6]*roof.dimmer);   //PGraphics layer,color,alpha
+    image(roof.colorLayer, roof.size.x, roof.size.y, roof.wide, roof.high);
+  }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void cansControl(color col, float alpha) {
   fill(col, 360*alpha);
-  rect(grid.cans[0].x, grid.cans[0].y, grid.cansLength, 3);
-  rect(grid.cans[1].x, grid.cans[1].y, grid.cansLength, 3);
+  rect(opcGrid.cans[0].x, opcGrid.cans[0].y, opcGrid.cansLength, 3);
+  rect(opcGrid.cans[1].x, opcGrid.cans[1].y, opcGrid.cansLength, 3);
 }
 void rigControl(color col, float alpha) {
   noFill();
   strokeWeight(5);
   stroke( col, 360*alpha);
-  for (int i  = 0; i < grid.mirror.length; i++) rect(grid.mirror[i].x, grid.mirror[i].y, grid._mirrorWidth, grid._mirrorWidth);
+  for (int i  = 0; i < opcGrid.mirror.length; i++) rect(opcGrid.mirror[i].x, opcGrid.mirror[i].y, opcGrid._mirrorWidth, opcGrid._mirrorWidth);
   noStroke();
 }
 void seedsControlA(color col, float alpha) {
   noFill();
   strokeWeight(5);
   stroke(col, 360*alpha);  
-  rect(grid.seed[0].x, grid.seed[0].y, grid.seedLength, 3);
+  rect(opcGrid.seed[0].x, opcGrid.seed[0].y, opcGrid.seedLength, 3);
   noStroke();
 }
 void seedsControlB(color col, float alpha) {
   noFill();
   strokeWeight(5);
   stroke(col, 360*alpha);  
-  rect(grid.seed[1].x, grid.seed[1].y, grid.seedLength, 3);
+  rect(opcGrid.seed[1].x, opcGrid.seed[1].y, opcGrid.seedLength, 3);
   noStroke();
 }
 void seedsControlC(color col, float alpha) {
   noFill();
   strokeWeight(5);
   stroke(col, 360*alpha);  
-  rect(grid.seed[2].x, grid.seed[2].y, 3, grid.seed2Length);
+  rect(opcGrid.seed[2].x, opcGrid.seed[2].y, 3, opcGrid.seed2Length);
   noStroke();
 }
 void controllerControl(color col, float alpha) {
   fill(col, 360*alpha);
-  rect(grid.controller[0].x, grid.controller[0].y, grid.controllerWidth, grid.controllerWidth);
-  rect(grid.controller[1].x, grid.controller[1].y, grid.controllerWidth, grid.controllerWidth);
-  rect(grid.controller[2].x, grid.controller[2].y, grid.controllerWidth, grid.controllerWidth);
-  rect(grid.controller[3].x, grid.controller[3].y, grid.controllerWidth, grid.controllerWidth);
+  rect(opcGrid.controller[0].x, opcGrid.controller[0].y, opcGrid.controllerWidth, opcGrid.controllerWidth);
+  rect(opcGrid.controller[1].x, opcGrid.controller[1].y, opcGrid.controllerWidth, opcGrid.controllerWidth);
+  rect(opcGrid.controller[2].x, opcGrid.controller[2].y, opcGrid.controllerWidth, opcGrid.controllerWidth);
+  rect(opcGrid.controller[3].x, opcGrid.controller[3].y, opcGrid.controllerWidth, opcGrid.controllerWidth);
 }

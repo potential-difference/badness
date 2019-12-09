@@ -1,30 +1,56 @@
 class SketchColor {
+  Rig rig;
+  color c, flash, c1, flash1, colorIndexA, colorIndexB = 1, colA, colB, colC, colD;
+  color col[] = new color[15];
+
+  SketchColor(Rig _rig) {
+    rig = _rig;
+       /////////////////////////////////////// COLOR ARRAY SETUP ////////////////////////////////////////
+    col[0] = purple; 
+    col[1] = pink; 
+    col[2] = orange1; 
+    col[3] = bloo;
+    col[4] = red;
+    col[5] = orange1;
+    col[6] = purple;
+    col[7] = grin;
+    col[8] = orange;
+    col[9] = bloo;
+    col[10] = purple;
+    col[11] = pink;
+    col[12] = orange;
+    col[13] = orange1;
+    col[14] = teal;
+  }
+
   //////////////////////////////////////////////////// COLOR TIMER ////////////////////////////////
-  color c, flash, c1, flash1, colorA, colorB = 1, colA, colB, colC, colD;
-  float go;
+  float go = 0;
   boolean change;
+  int colorTimer;
   void colorTimer(float colTime, int steps) {
+    colorIndexA = rig.colorIndexA;
+    colorIndexB = rig.colorIndexB;
+   
     if (change == false) {
       colA = c;
       colC = flash;
     }
-    if (millis()/1000 - time[3] >= colTime) {
+    if (millis()/1000 - colorTimer >= colTime) {
       change = true;
       println("COLOR CHANGE @", (hour()+":"+minute()+":"+second()));
-      time[3] = millis()/1000;
+      colorTimer = millis()/1000;
     } else change = false;
     if (change == true) {
       go = 1;
-      colorA =  (colorA + steps) % (col.length-1);
-      colB =  col[colorA];
-      colorB = (colorB + steps) % (col.length-1);
-      colD = col[colorB];
-
-      c = col[colorA];
-      c1 = col[colorA];
-      flash = col[colorB];
-      flash1 = col[colorB];
+      colorIndexA =  (colorIndexA + steps) % (col.length-1);
+      colB =  col[colorIndexA];
+      colorIndexB = (colorIndexB + steps) % (col.length-1);
+      colD = col[colorIndexB];
     }
+    c = col[colorIndexA];
+    c1 = col[colorIndexA];
+    flash = col[colorIndexB];
+    flash1 = col[colorIndexB];
 
     if (go > 0.1) change = true;
     else change = false;
@@ -34,8 +60,11 @@ class SketchColor {
     }
     go *= 0.97;
     if (go < 0.01) go = 0.001;
-
-    colorControl(colorselected); //
+    rig.c=c;
+    rig.c1=c1;
+    rig.flash=flash;
+    rig.flash1=flash1;
+    rig.col=col;
   }
   ////////////////////////////////////////////////////// HSB LERP COLOR FUNCTION //////////////////////////////
   // linear interpolate two colors in HSB space 
@@ -81,30 +110,11 @@ class SketchColor {
     color flashHalf = lerpColor(c, flash, 0.75);
     color cHalf = lerpColor(c, flash, 0.25); 
 
-    clash = lerpColorHSB(c, flash, func*0.1);     ///// MOVING, HALF RNAGE BETWEEN C and FLASH
-    clash1 = lerpColorHSB(c, flash, 1-(func*0.1));            ///// MOVING, HALF RANGE BETWEEN FLASH and C
-    clash2 = lerpColorHSB(flash, c, func*0.1);          ///// MOVING, FULL RANGE BETWEEN C and FLASH
-    clash12 = lerpColorHSB(flash, c, 1-(func*0.1));          ///// MOVING, FULL RANGE BETWEEN FLASH and C
+    clash = lerpColorHSB(c, flash, func*0.2);     ///// MOVING, HALF RNAGE BETWEEN C and FLASH
+    clash1 = lerpColorHSB(c, flash, 1-(func*0.3));            ///// MOVING, HALF RANGE BETWEEN FLASH and C
+    clash2 = lerpColorHSB(flash, c, func*0.3);          ///// MOVING, FULL RANGE BETWEEN C and FLASH
+    clash12 = lerpColorHSB(flash, c, 1-(func*0.3));          ///// MOVING, FULL RANGE BETWEEN FLASH and C
     clashed = lerpColor(c, flash, 0.2);    ///// STATIC - HALFWAY BETWEEN C and FLASH
-  }
-  /////////////////////////////////////// COLOR ARRAY SETUP ////////////////////////////////////////
-  color col[] = new color[15];
-  void colorArray() {
-    col[0] = purple; 
-    col[1] = pink; 
-    col[2] = orange1; 
-    col[3] = teal;
-    col[4] = red;
-    col[5] = bloo;
-    col[6] = purple;
-    col[7] = grin;
-    col[8] = orange;
-    col[9] = teal;
-    col[10] = pink;
-    col[11] = purple;
-    col[12] = orange;
-    col[13] = orange1;
-    col[14] = teal;
   }
 }
 
@@ -123,10 +133,10 @@ void colorSetup() {
   pink = color(323+alt, sat, 90);
   bloo = color(239+alt, sat, 100);
   yell = color(50+alt, sat, 100);
-  grin = color(115+alt, sat, 100);
+  grin = color(115+alt, sat, 60);
   orange = color(30+alt, sat, 90);
   purple = color(290+alt, sat, 70);
-  teal = color(170+alt, sat, 85);
+  teal = color(170+alt, sat, 60);
   red = color(7+alt, sat, 100);
   // colors that aren't affected by color swap
   float sat1 = 100;
@@ -134,10 +144,10 @@ void colorSetup() {
   pink1 = color(323-alt, sat1, 90);
   bloo1 = color(239-alt, sat1, 100);
   yell1 = color(50-alt, sat1, 100);
-  grin1 = color(160-alt, sat1, 100);
+  grin1 = color(160-alt, sat1, 60);
   orange1 = color(34.02-alt, sat1, 90);
   purple1 = color(290-alt, sat1, 70);
-  teal1 = color(170-alt, sat1, 85);
+  teal1 = color(170-alt, sat1, 60);
   red1 = color(15-alt, sat1, 100);
   /// alternative colour similar to original for 2 colour blends
   float sat2 = 100;

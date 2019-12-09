@@ -297,33 +297,14 @@ class Anim implements Animation {
     viz = new PVector(window.width/2, window.height/2);
     pass1 = rig.pass1;
     pass2 = rig.pass2;
-    alphaIndexA = rig.alphaIndexA;
-    alphaIndexB = rig.alphaIndexB;
-    functionIndexA = rig.functionIndexA;
-    functionIndexB = rig.functionIndexB;
-
     position = rig.position; 
     positionX = rig.positionX;
-    switch (vizIndex) {
-    case 11: //replace all other anims
-      //loop over anim hashmap, set them all to start decaying
-      for (Anim anims : rig.animations) {
-        //anims.adsr.decay_time=now()+100;
-        //anims.adsr.decay_curvitude=0.9;
-        //anims.adsr.state = Env_State.DECAY;
-        //anims.deleteme=true;
-      }
 
-    default: 
-      //alphaEnvelopeA = new Envelope(this, 1500, 1000, 200, 0.2, 0, 1);
-      //alphaEnvelopeB = new Envelope(this, 1500, 1000, 200, 0.2, 0, 1);
+    alphaEnvelopeA = envelopeFactory(rig.alphaIndexA);
+    alphaEnvelopeB = envelopeFactory(rig.alphaIndexB);
 
-      alphaEnvelopeA = envelopeFactory(alphaIndexA);
-      alphaEnvelopeB = envelopeFactory(alphaIndexB);
-
-      functionEnvelopeA = envelopeFactory(functionIndexA);// = new Envelope(this, 1000, 0, 2000, -manualSlider, 0, -funcSlider);
-      functionEnvelopeB = envelopeFactory(functionIndexB);//= new Envelope(this, 500, 0, 4000, 0.2, 0, -manualSlider);
-    }
+    functionEnvelopeA = envelopeFactory(rig.functionIndexA);
+    functionEnvelopeB = envelopeFactory(rig.functionIndexB);
   }
   void draw() {
     //Override Me in subclass
@@ -336,7 +317,6 @@ class Anim implements Animation {
 
     vizWidth = float(this.window.width);
     vizHeight = float(this.window.height);
-
 
     /////////////////////////////////////// SHIMMER control for rig ////////////////////////////
     /* ////////////////////// should probably go inside play withyourself //////////////////////
@@ -359,8 +339,10 @@ class Anim implements Animation {
     alphaA*=rig.dimmer;
     alphaB*=rig.dimmer;
 
-    functionA = functionEnvelopeA.value(); //func[functionIndexA]*funcFX;
-    functionB = functionEnvelopeB.value(); // func[functionIndexB]*funcFX;
+    functionA = functionEnvelopeA.value(); 
+    functionB = functionEnvelopeB.value();
+    functionA*=funcFX;
+    functionB*=funcFX;
 
     if (alphaEnvelopeA.finished && alphaEnvelopeB.finished) deleteme = true;  // only delete when all finished
 
