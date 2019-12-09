@@ -12,6 +12,7 @@ public class Rig {
   int bgList = 8;
   ArrayList <Anim> animations;
   HashMap<Integer, Tup> dimmers;
+  int arrayListIndex;
 
   int[] availableAnims;
 
@@ -21,12 +22,13 @@ public class Rig {
     high = _high;
     size = new PVector (_xpos, _ypos);
 
+    availableAnims = new int[] {0, 1, 2, 3};  // default - changed when initalised;
     animations = new ArrayList<Anim>();
     rigs.add(this);
+    arrayListIndex = rigs.indexOf(this);      // where this is the rig object
 
     dimmers = new HashMap<Integer, Tup>();
-
-
+    
     int xw = 2;
     for (int i = 0; i < position.length/xw; i++) position[i] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*1);
     for (int i = 0; i < position.length/xw; i++) position[i+(position.length/xw)] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*2);

@@ -224,9 +224,8 @@ class SquareNuts extends Anim {
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-float anim3dimmer=1.0;
-class Anim3 extends Anim {
-  Anim3(Rig _rig) {
+class Teeth extends Anim {
+  Teeth(Rig _rig) {
     super( _rig);
   }
   void draw() {
@@ -236,7 +235,6 @@ class Anim3 extends Anim {
     wide = vizWidth+(50);
     wide = wide-(wide*functionA);
     high = wide;
-    alphaA *= anim3dimmer;
     squareNut(positionX[0][2].x, positionX[0][2].y, col1, stroke, wide, high, -45, alphaA);
     squareNut(positionX[1][0].x, positionX[1][0].y, col1, stroke, wide, high, -45, alphaA);
     squareNut(positionX[2][2].x, positionX[2][2].y, col1, stroke, wide, high, -45, alphaA);
@@ -291,7 +289,6 @@ class Anim implements Animation {
     col1 = white;
     col2 = white;
 
-
     blury = int(map(blurSlider, 0, 1, 0, 100));     //// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
     if (blury!=prevblury) {
       prevblury=blury;
@@ -316,10 +313,13 @@ class Anim implements Animation {
 
   void draw() {
     //Override Me in subclass
-   fill(300+(60*stutter));
-   textSize(60);
-   textAlign(CENTER);
-   text("OOPS!!\nCHECK YOUR ANIM LIST",viz.x,viz.y-30);
+    //window.beginDraw();
+    //window.background(0);
+    fill(300+(60*stutter));
+    textSize(60);
+    textAlign(CENTER);
+    text("OOPS!!\nCHECK YOUR ANIM LIST", viz.x, viz.y-30);
+    //window.endDraw();
   }
   float stroke, wide, high, rotate;
   Float vizWidth, vizHeight;

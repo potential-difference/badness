@@ -19,23 +19,26 @@ void playWithMe() {
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  if (keyP[' ']) rigg.animations.add(new Test(rigg));         // or space bar!
+  if (keyP[' ']) { 
+    for (Rig rig : rigs) rig.addAnim(rig.availableAnims[rig.vizIndex]);
+  } 
+  //rigg.animations.add(new Test(rigg));         // or space bar!
   //if (keyP[' ']) animations.add(new Anim(roof.vizIndex, alphaSlider, funcSlider, roof));         // or space bar!
   //if (keyP[' ']) animations.add(new AllOn( alphaSlider, funcSlider, cans));                    // or space bar!
   //if (keyP[' ']) animations.add(new Anim(rigg.vizIndex, alphaSlider, funcSlider, donut));              // create an anim object for the cans 
 
-/*
+  /*
   if (keyP['a']) rigg.animations.add(new AllOn(manualSlider, stutter, rigg));
-  if (keyP['s']) {
-    rigg.animations.add(new AllOn(manualSlider, stutter, rigg));
-    rigg.colorFlip(true);
-  }
-  if (keyP['z'] ) roof.animations.add(new AllOn(manualSlider, stutter, roof));
-  if (keyP['`'] ) { 
-    roof.animations.add(new AllOn(manualSlider, stutter, roof));
-    roof.colorFlip(true);
-  }
-  */
+   if (keyP['s']) {
+   rigg.animations.add(new AllOn(manualSlider, stutter, rigg));
+   rigg.colorFlip(true);
+   }
+   if (keyP['z'] ) roof.animations.add(new AllOn(manualSlider, stutter, roof));
+   if (keyP['`'] ) { 
+   roof.animations.add(new AllOn(manualSlider, stutter, roof));
+   roof.colorFlip(true);
+   }
+   */
   float alphaRate = cc[1];
   float funcRate = cc[2];
 
@@ -54,25 +57,25 @@ void playWithMe() {
   //  roof.colorFlip(true);
   //  animations.add(new RoofOn(manualSlider, 1-(stutter*stutterSlider), cc[108]*roofDimmer));
   //}
-/*
+  /*
   for (int i = 0; i < 4; i++) if (padPressed[101+i]) {
-    rigg.dimmer = pad[101+i];
-    rigg.animations.add(new Anim(i, manualSlider, funcRate, rigg)); // use pad buttons to play differnt viz
-  }
-  for (int i = 0; i < 3; i++) if (padPressed[105+i]) {
-    roof.dimmer = pad[105+i];
-    roof.animations.add(new Anim(i, manualSlider, funcRate, roof)); // use pad buttons to play differnt viz
-  }
-  if (padPressed[108]) {
-    roof.dimmer = pad[108];
-    roof.animations.add(new Anim(10, manualSlider, funcRate, roof)); // use pad buttons to play differnt viz
-  }
-
-  for (int i =0; i < 8; i++)if (padPressed[i]) {
-    rigg.dimmer = padVelocity[i];
-    rigg.animations.add(new Anim(i, alphaRate, funcRate, rigg)); // use pad buttons to play differnt viz
-  }
-*/
+   rigg.dimmer = pad[101+i];
+   rigg.animations.add(new Anim(i, manualSlider, funcRate, rigg)); // use pad buttons to play differnt viz
+   }
+   for (int i = 0; i < 3; i++) if (padPressed[105+i]) {
+   roof.dimmer = pad[105+i];
+   roof.animations.add(new Anim(i, manualSlider, funcRate, roof)); // use pad buttons to play differnt viz
+   }
+   if (padPressed[108]) {
+   roof.dimmer = pad[108];
+   roof.animations.add(new Anim(10, manualSlider, funcRate, roof)); // use pad buttons to play differnt viz
+   }
+   
+   for (int i =0; i < 8; i++)if (padPressed[i]) {
+   rigg.dimmer = padVelocity[i];
+   rigg.animations.add(new Anim(i, alphaRate, funcRate, rigg)); // use pad buttons to play differnt viz
+   }
+   */
 
   //for (int i = 0; i<8; i++) if (keyP[49+i]) rigg.animations.add(new Anim(i, manualSlider, funcSlider, rigg));       // use number buttons to play differnt viz
   //if (keyP[48]) animations.add(new AllOn(manualSlider, 1, rigDimmer));   
