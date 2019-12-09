@@ -13,29 +13,20 @@ int now() {
   }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class EnvelopeFactory {
-  int envelope_index;
-  Anim parent;         // remove??
-  Envelope envelope;
 
-  EnvelopeFactory(Anim _parent, int _envelope_index) {
-    envelope_index = _envelope_index;
-    parent = _parent;
-    switch (envelope_index) {
-    case 0: 
-      envelope = new Envelope(parent, 800, 0, 1500, 0.2, 0, 1);
-      break;
-    case 1:
-      envelope = new Envelope(parent, 1500, 1000, 200, 0.2, 0, 1);
-      break;
-    case 2:
-      envelope = new Envelope(parent, 1000, 0, 2000, -manualSlider, 0, -funcSlider);
-      break;
-    default: 
-      envelope = new Envelope(parent, 200, 1000, 1500, 0.2, 0, 1);
-    }
+Envelope envelopeFactory(int envelope_index) {
+  switch (envelope_index) {
+  case 0: 
+    return new Envelope( 800, 0, 1500, 0.2, 0, 1);
+  case 1:
+    return new Envelope( 1500, 1000, 200, 0.2, 0, 1);
+  case 2:
+    return new Envelope( 1000, 0, 2000, -manualSlider, 0, -funcSlider);
+  default: 
+    return new Envelope( 200, 1000, 1500, 0.2, 0, 1);
   }
 }
+
 
 class Envelope {
   int attack_time, sustain_time, decay_time;
@@ -46,7 +37,7 @@ class Envelope {
   Env_State state;
   boolean finished = false;
 
-  Envelope(Anim _parent, int _atime, int _stime, int _dtime, float _acurv, int _sfunc, float _dcurv) {
+  Envelope( int _atime, int _stime, int _dtime, float _acurv, int _sfunc, float _dcurv) {
     start_time = now();
     attack_time = start_time + _atime;
     sustain_time = attack_time + _stime;
@@ -54,7 +45,6 @@ class Envelope {
     attack_curve = _acurv;
     decay_curve = _dcurv;
     sustain_func_index = _sfunc;
-    parent = _parent;
     state = Env_State.ATTACK;
   }
 
@@ -70,13 +60,13 @@ class Envelope {
   }
   float supercurviness(float normalized_time, float curve) {
     //curve from -1 to 1
-    if (curve >= 1) curve = 0.999999;
-    if (curve <= -1) curve = -0.999999;
+    if (curve >= 1) curve = 0.999;
+    if (curve <= -1) curve = -0.999;
     if (curve == 0) return normalized_time;
     if (curve < 0) return inverse_curviness(normalized_time, 1+curve);
     return curviness(normalized_time, 1-curve);
   }
-  float current_alpha() {
+  float value() {
     int now=now();
     float alpha=-1;
     float normalized_time = -1;
@@ -99,31 +89,9 @@ class Envelope {
     }
     return alpha;
   }
-  
-   float current_function() {
-    int now=now();
-    float function=-1;
-    float normalized_time = -1;
-    switch (state) {
-    case ATTACK: 
-      if (now >= attack_time) state = Env_State.SUSTAIN;                               // is it possible to make this switch the case?!
-      normalized_time = float(now - start_time)/float(attack_time-start_time);
-      function = supercurviness(normalized_time, attack_curve);
-      break;
-    case SUSTAIN:
-      if (now >= sustain_time) state = Env_State.DECAY;
-      if (sustain_time - now > 0) function = 1; //0.9+(stutter*0.1);
-      //else function = 1;
-      break;
-    case DECAY: 
-      if (now >= decay_time) finished = true; //parent.deleteme=true;
-      normalized_time = float(now - sustain_time)/float(decay_time-sustain_time);
-      function = supercurviness(1-normalized_time, decay_curve);
-      break;
-    }
-    return function;
-  }
 }
+
+
 /*
 class EnvelopeFactory {
  int attack_time;

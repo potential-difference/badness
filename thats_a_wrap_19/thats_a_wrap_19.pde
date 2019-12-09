@@ -57,10 +57,10 @@ void setup()
   opcGrid = new OPCGrid();
   dmx = new DMXGrid();
 
-  rigg = new Rig(this, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
-  roof = new Rig(this, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
-  cans = new Rig(this, size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "CANS");
-  donut = new Rig(this, size.donut.x, size.donut.y, size.donutWidth, size.donutHeight, "DONUT");
+  rigg = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
+  roof = new Rig(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
+  cans = new Rig(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "CANS");
+  donut = new Rig(size.donut.x, size.donut.y, size.donutWidth, size.donutHeight, "DONUT");
 
   ///////////////// LOCAL opc /////////////////////
   opcLocal   = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRRORS
@@ -128,16 +128,8 @@ void setup()
   print(allServers);
   if (allServers.length == 0) print("NO Syphon servers avaliable");
   String matt_servname = "MATTS-MACBOOK-PRO.LOCAL (VDMX-NDI® Output 1)";
-  String matt_servname2 = "MATTS-MACBOOK-PRO.LOCAL (VDMX-NDI® Output 2)";
-
+  //String matt_servname2 = "MATTS-MACBOOK-PRO.LOCAL (VDMX-NDI® Output 2)";
   String matt_appname = "NDISyphon";
-  //String real_servname = allServers[0].get("ServerName");
-  //String real_appname = allServers[0].get("AppName");
-  //println("Servnames equal:", real_servname.equals(matt_servname));
-  //println("Servlengh equal:", real_servname.length()==matt_servname.length());
-  //println("Appnames equal:", real_appname.equals(matt_appname));
-  //println("Appname length:", real_appname.length()==matt_appname.length());
-
   syphonClient = new SyphonClient(this, matt_appname, matt_servname);// create syphon client to receive frames
   //syphonClient2 = new SyphonClient(this, matt_appname, matt_servname2);// create syphon client to receive frames
 
@@ -145,6 +137,7 @@ void setup()
   println();
   syphonImageSent = createGraphics(rigg.wide, rigg.high, P2D);
   syphonImageSent.imageMode(CENTER);
+
   frameRate(30);
 }
 float vizTime, colTime;
@@ -160,9 +153,13 @@ void draw()
   pause(10);                                ////// number of seconds before no music detected and auto kicks in
   globalFunctions();
 
+  syphonImageSent.beginDraw();
+  syphonImageSent.background(0);
+  syphonImageSent.endDraw();
+  if (syphonToggle) if (syphonClient.newFrame()) syphonImageReceived = syphonClient.getGraphics(syphonImageReceived); // load the pixels array with the updated image info (slow)
+
   vizTime = 60*15*vizTimeSlider;
   if (frameCount > 10) playWithYourself(vizTime);
-  rigg.clash(beat);
   c = rigg.c;
   flash = rigg.flash;
   /// DIMMING CONTROL STILL NOT QUITE AS EXPECTED 
@@ -184,14 +181,10 @@ void draw()
       else roof.animations.add(new Stars(alphaSlider, funcSlider, roof));
     }
   }
- 
-  if (keyT['s']) for (Anim anims : rigg.animations)  anims.funcFX = 1-(stutter*noize1*0.1);
-  //draw animations
-  syphonImageSent.beginDraw();
-  syphonImageSent.background(0);
-  syphonImageSent.endDraw();
 
-  for (Rig rigs : rigs) rigs.draw();
+  if (keyT['s']) for (Anim anims : rigg.animations)  anims.funcFX = 1-(stutter*noize1*0.1);
+
+  for (Rig rigs : rigs) rigs.draw();  
   //////////////////////////////////////////// PLAY WITH ME MORE /////////////////////////////////////////////////////////////////////////////////
   playWithMeMore();
   //////////////////////////////////////////// BOOTH & DIG ///////////////////////////////////////////////////////////////////////////////////////
@@ -199,11 +192,11 @@ void draw()
   //////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
   workLights(keyT['w']);
   testColors(keyT['t']);
-  frameRateInfo(5, 20);          ///// display frame rate X, Y /////
   mouseInfo(keyT['q']);
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  frameRateInfo(5, 20);                     // display frame rate X, Y /////
   dividerLines();
-  //gid.mirrorTest(false);          // true to test physical mirror orientation
+  //gid.mirrorTest(false);                  // true to test physical mirror orientation
   if (syphonToggle) {
     syphonServer.sendImage(syphonImageSent);
     image(syphonImageSent, size.rig.x+112.5, 455, 225, 87.5);

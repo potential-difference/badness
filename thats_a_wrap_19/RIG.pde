@@ -11,14 +11,8 @@ public class Rig {
   boolean firsttime_sketchcolor=true;
   int bgList = 8;
   ArrayList <Anim> animations;
-  Rig rig;
 
-  Rig(PApplet parent, float _xpos, float _ypos, int _wide, int _high, String _name) {
-    //parent = getparent();
-    //parent = _parent;
-    //println(parent);
-    //parent.registerMethod("draw", this);
-    rig = this;
+  Rig(float _xpos, float _ypos, int _wide, int _high, String _name) {
     name = _name;
     wide = _wide;
     high = _high;
@@ -26,7 +20,7 @@ public class Rig {
 
     animations = new ArrayList<Anim>();
     rigs.add(this);
-    
+
     int xw = 2;
     for (int i = 0; i < position.length/xw; i++) position[i] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*1);
     for (int i = 0; i < position.length/xw; i++) position[i+(position.length/xw)] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*2);
@@ -277,7 +271,7 @@ public class Rig {
   void radiator(color col1, color col2) {
     colorLayer.fill(col2);
     //color colorStep  
-    for (int i = 0; i < opcGrid.rad.length; i++) colorLayer.rect(rig.position[i].x, rig.position[i].y, 15, rig.high/2.2);
+    for (int i = 0; i < opcGrid.rad.length; i++) colorLayer.rect(this.position[i].x, this.position[i].y, 15, this.high/2.2);
   }
   ////////////////////////////////////////// CHECK BACKGROUND //////////////////////////////////////////////////////////////////////////////
   void check(color col1, color col2) {
@@ -338,13 +332,13 @@ public class Rig {
     rect(x+7.5, y-5, 30, 30);
 
     stroke(0);
-    fill(rig.c);          
+    fill(this.c);          
     rect(x, y-10, 10, 10);                                     // rect to show CURRENT color C 
-    fill(rig.col[(rig.colorIndexA+1)%rig.col.length], 100);
+    fill(this.col[(this.colorIndexA+1)%this.col.length], 100);
     rect(x+15, y-10, 10, 10);                                  // rect to show NEXT color C 
-    fill(rig.flash);
+    fill(this.flash);
     rect(x, y, 10, 10);                                        // rect to show CURRENT color FLASH 
-    fill(rig.col[(rig.colorIndexB+1)%rig.col.length], 100);  
+    fill(this.col[(this.colorIndexB+1)%this.col.length], 100);  
     rect(x+15, y, 10, 10);                                     // rect to show NEXT color FLASH1
     noStroke();
   }
@@ -354,8 +348,8 @@ public class Rig {
   boolean change;
   int colorTimer;
   void colorTimer(float colTime, int steps) {
-    colorIndexA = rig.colorIndexA;
-    colorIndexB = rig.colorIndexB;
+    colorIndexA = this.colorIndexA;
+    colorIndexB = this.colorIndexB;
 
     if (change == false) {
       colA = c;
@@ -435,46 +429,69 @@ public class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  PApplet getparent () {
-    try {
-      return (PApplet) getClass().getDeclaredField("this$0").get(this);
-    }
-    catch (ReflectiveOperationException cause) {
-      throw new RuntimeException(cause);
-    }
-  }
+
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void draw() {
-    blendMode(LIGHTEST);
+    clash(beat);
     drawAnimations();
     ////////////////////// draw colour layer /////////////////////////////////////////////////////////////////////////////////////////////////////
     blendMode(MULTIPLY);
     // this donesnt work anymore....
     if (cc[107] > 0 || keyT['r'] || glitchToggle) bgNoise(colorLayer, 0, 0, cc[7]); //PGraphics layer,color,alpha
     ////
-    if (syphonToggle) {
-      if (syphonClient.newFrame()) syphonImageReceived = syphonClient.getGraphics(syphonImageReceived); // load the pixels array with the updated image info (slow)
+    if (syphonToggle) { 
       if (syphonImageReceived != null) image(syphonImageReceived, size.x, size.y, wide, high);
     } else  drawColorLayer();
     blendMode(NORMAL);
     rigInfo();
-    clash(beat);
     removeAnimations();
-    cordinatesInfo(rig, keyT['q']);
+    cordinatesInfo(this, keyT['q']);
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void drawAnimations() {
-    for (int i = rig.animations.size()-1; i >=0; i--) {                                  // loop  through the list
-      Anim anims = rig.animations.get(i);  
+    blendMode(LIGHTEST);
+    for (int i = this.animations.size()-1; i >=0; i--) {                                  // loop  through the list
+      Anim anims = this.animations.get(i);  
       anims.drawAnim();           // draw the animation
     }
   }
+  //void drawColourLayer(){
+    
+    
+  //}
+  
   void removeAnimations() {
-    for (int i = 0; i < rig.animations.size(); i++) {                                  // loop  through the list
-      while (rig.animations.size()>0  && rig.animations.get(i).deleteme) animations.remove(i);           // remove the animations with deleteme = true
+    for (int i = 0; i < this.animations.size(); i++) {                                  // loop  through the list
+      while (this.animations.size()>0  && this.animations.get(i).deleteme) animations.remove(i);           // remove the animations with deleteme = true
     }
   }
 }
+
+void cordinatesInfo(Rig rig, boolean _info) {
+  if (_info) {
+    textSize(12);
+    textAlign(CENTER);
+    fill(360);  
+    for (int i = 0; i < rig.position.length; i++) text(i, rig.size.x-(rig.wide/2)+rig.position[i].x, rig.size.y-(rig.high/2)+rig.position[i].y);   /// mirrors Position info
+    fill(200);  
+    for (int i = 0; i < rig.positionX.length; i++) {
+      text(i+".", rig.size.x-(rig.wide/2)+rig.positionX[i][0].x, rig.size.y-(rig.high/2)+rig.positionX[i][0].y);   /// mirrors Position info
+      text(i+".", rig.size.x-(rig.wide/2)+rig.positionX[i][1].x, rig.size.y-(rig.high/2)+rig.positionX[i][1].y);   /// mirrors Position info
+      text(i+".", rig.size.x-(rig.wide/2)+rig.positionX[i][2].x, rig.size.y-(rig.high/2)+rig.positionX[i][2].y);   /// mirrors Position info
+    }
+  }
+}
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
+PApplet getparent () {
+ try {
+ return (PApplet) getClass().getDeclaredField("this$0").get(this);
+ }
+ catch (ReflectiveOperationException cause) {
+ throw new RuntimeException(cause);
+ }
+ }
+ */
