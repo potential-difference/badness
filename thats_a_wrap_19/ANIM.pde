@@ -276,8 +276,7 @@ class Anim implements Animation {
   float func[] = new float[8];
   boolean deleteme=false;
   Rig rig;
-  Envelope alphaEnvelopeA, alphaEnvelopeB, functionEnvelopeA, functionEnvelopeB;
-  EnvelopeFactory _alphaEnvelopeA, _alphaEnvelopeB, _functionEnvelopeA, _functionEnvelopeB;
+  EnvelopeFactory alphaEnvelopeA, alphaEnvelopeB, functionEnvelopeA, functionEnvelopeB;
 
   Anim(int _vizIndex, float _alphaRate, float _funcRate, Rig _rig) {
     alphaRate = _alphaRate;
@@ -320,15 +319,11 @@ class Anim implements Animation {
       //alphaEnvelopeA = new Envelope(this, 1500, 1000, 200, 0.2, 0, 1);
       //alphaEnvelopeB = new Envelope(this, 1500, 1000, 200, 0.2, 0, 1);
 
-      _alphaEnvelopeA = new EnvelopeFactory(this, alphaIndexA);
-      alphaEnvelopeA = _alphaEnvelopeA.envelope;
-      _alphaEnvelopeB = new EnvelopeFactory(this, alphaIndexB);
-      alphaEnvelopeB = _alphaEnvelopeB.envelope;
+      alphaEnvelopeA = new EnvelopeFactory(this, alphaIndexA);
+      alphaEnvelopeB = new EnvelopeFactory(this, alphaIndexB);
 
-      _functionEnvelopeA = new EnvelopeFactory(this, functionIndexA);// = new Envelope(this, 1000, 0, 2000, -manualSlider, 0, -funcSlider);
-      functionEnvelopeA = _functionEnvelopeA.envelope;
-      _functionEnvelopeB = new EnvelopeFactory (this, functionIndexB);//= new Envelope(this, 500, 0, 4000, 0.2, 0, -manualSlider);
-      functionEnvelopeB = _functionEnvelopeB.envelope;
+      functionEnvelopeA = new EnvelopeFactory(this, functionIndexA);// = new Envelope(this, 1000, 0, 2000, -manualSlider, 0, -funcSlider);
+      functionEnvelopeB = new EnvelopeFactory (this, functionIndexB);//= new Envelope(this, 500, 0, 4000, 0.2, 0, -manualSlider);
     }
   }
   void draw() {
@@ -360,16 +355,16 @@ class Anim implements Animation {
      alphaB  = alph[alphaIndexB]*1.2;
      }
      */
-    alphaA = alphaEnvelopeA.current_alpha();
-    alphaB = alphaEnvelopeB.current_alpha();
+    alphaA = alphaEnvelopeA.envelope.current_alpha();
+    alphaB = alphaEnvelopeB.envelope.current_alpha();
 
     alphaA*=rig.dimmer;
     alphaB*=rig.dimmer;
 
-    functionA = functionEnvelopeA.current_function(); //func[functionIndexA]*funcFX;
-    functionB = functionEnvelopeB.current_function(); // func[functionIndexB]*funcFX;
+    functionA = functionEnvelopeA.envelope.current_function(); //func[functionIndexA]*funcFX;
+    functionB = functionEnvelopeB.envelope.current_function(); // func[functionIndexB]*funcFX;
 
-    if (alphaEnvelopeA.finished && alphaEnvelopeB.finished && functionEnvelopeA.finished && functionEnvelopeB.finished) deleteme = true;  // only delete when all finished
+    if (alphaEnvelopeA.envelope.finished && alphaEnvelopeB.envelope.finished && functionEnvelopeA.envelope.finished && functionEnvelopeB.envelope.finished) deleteme = true;  // only delete when all finished
 
     this.draw();
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
