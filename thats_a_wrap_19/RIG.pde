@@ -11,7 +11,7 @@ public class Rig {
   boolean firsttime_sketchcolor=true, toggle;
   int bgList = 8;
   ArrayList <Anim> animations;
-    HashMap<Integer, Tup> dimmers;
+  HashMap<Integer, Tup> dimmers;
 
   int[] availableAnims;
 
@@ -442,33 +442,33 @@ public class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void addAnim(int animindex) {
+    Anim anim = new Anim(this);
     switch (animindex) {
     case 0:  
-      this.animations.add(new Rush(this));
-      anim.dimmerpointer = (this.dimmers.get(animindex));
+      anim = new Rush(this);
       break;
     case 1:  
-      this.animations.add(new Rushed(this));
+      anim  = new Rushed(this);
       break;
     case 2:  
-      this.animations.add(new SquareNuts(this));
+      anim = new SquareNuts(this);
       break;
     case 3:  
-      this.animations.add(new Stars(this));
+      anim = new Stars(this);
       break;
     case 4:  
-      this.animations.add(new Checkers(this));
+      anim = new Checkers(this);
       break;
     case 5:  
-      this.animations.add(new Anim1(this));
+      anim = new Anim1(this);
       break;
     case 6:  
-      this.animations.add(new Anim0(this));
-      break;
-    default:
-      this.animations.add(new Anim0(this));
+      anim = new Anim0(this);
       break;
     }
+
+    anim.dimmerpointer = this.dimmers.get(animindex);
+    this.animations.add(anim);
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

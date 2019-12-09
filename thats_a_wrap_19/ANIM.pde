@@ -4,8 +4,8 @@ interface Animation {
   void draw();
 }
 abstract class ManualAnim extends Anim {
-  ManualAnim(Rig rig) {
-    super( -1, rig);
+  ManualAnim(Rig _rig) {
+    super(_rig);
     alphaRate = manualSlider;
   }
   void draw() {
@@ -46,7 +46,7 @@ class AllOn extends ManualAnim {
 class Anim0 extends Anim {
   float animDimmer;
   Anim0(Rig _rig) {
-    super(-1, _rig);
+    super(_rig);
   }
   void draw() {
     window.beginDraw();
@@ -71,7 +71,7 @@ class Anim0 extends Anim {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Anim1 extends Anim {
   Anim1(Rig _rig) {
-    super(-1, _rig);
+    super(_rig);
     //anim specific setup code;
     //this.adsr=new Envelope(blay blay);
     //this.adsr=e;
@@ -99,7 +99,7 @@ class Anim1 extends Anim {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Checkers extends Anim {
   Checkers(Rig _rig) {
-    super(-1, _rig);
+    super(_rig);
   }
   void draw() {
     window.beginDraw();
@@ -139,7 +139,7 @@ class Checkers extends Anim {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Rush extends Anim {
   Rush (Rig _rig) {
-    super(-1, _rig);
+    super(_rig);
   }
   void draw() {
     window.beginDraw();
@@ -158,7 +158,7 @@ class Rush extends Anim {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Rushed extends Anim {
   Rushed(Rig _rig) {
-    super(-1, _rig);
+    super(_rig);
   }
   void draw() {
     window.beginDraw();
@@ -192,7 +192,7 @@ class Rushed extends Anim {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Stars extends Anim {
   Stars(Rig _rig) {
-    super(-1, _rig);
+    super(_rig);
   }
   void draw() {
     window.beginDraw();
@@ -210,7 +210,7 @@ class Stars extends Anim {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SquareNuts extends Anim {
   SquareNuts(Rig _rig) {
-    super(-1, _rig);
+    super(_rig);
   }
   void draw() {
     window.beginDraw();
@@ -227,7 +227,7 @@ class SquareNuts extends Anim {
 float anim3dimmer=1.0;
 class Anim3 extends Anim {
   Anim3(Rig _rig) {
-    super(-1, _rig);
+    super( _rig);
   }
   void draw() {
     window.beginDraw();
@@ -250,7 +250,7 @@ class Anim3 extends Anim {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Test extends Anim {
   Test(Rig _rig) {
-    super(-1, _rig);
+    super(_rig);
   }
   void draw() {  
     window.beginDraw();
@@ -281,7 +281,7 @@ class Anim implements Animation {
   Envelope alphaEnvelopeA, alphaEnvelopeB, functionEnvelopeA, functionEnvelopeB;
   Tup dimmerpointer;
 
-  Anim(Rig _rig, Tup _dimmerpointer) {
+  Anim(Rig _rig) {
     rig = _rig;
     alphaRate = rig.alphaRate;
     funcRate = rig.funcRate;
@@ -290,14 +290,13 @@ class Anim implements Animation {
     _beatCounter = beatCounter;
     col1 = white;
     col2 = white;
-    dimmerpointer = _dimmerpointer;
+
 
     blury = int(map(blurSlider, 0, 1, 0, 100));     //// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
     if (blury!=prevblury) {
       prevblury=blury;
     }
 
-    vizIndex = _vizIndex;
     window = rig.buffer;
     viz = new PVector(window.width/2, window.height/2);
     vizWidth = float(this.window.width);
@@ -317,12 +316,16 @@ class Anim implements Animation {
 
   void draw() {
     //Override Me in subclass
+   fill(300+(60*stutter));
+   textSize(60);
+   textAlign(CENTER);
+   text("OOPS!!\nCHECK YOUR ANIM LIST",viz.x,viz.y-30);
   }
   float stroke, wide, high, rotate;
   Float vizWidth, vizHeight;
   void drawAnim() {
-    decay();
-    alphaFunction();
+    //decay();
+    //alphaFunction();
 
     /////////////////////////////////////// SHIMMER control for rig ////////////////////////////
     /* ////////////////////// should probably go inside play withyourself //////////////////////
@@ -545,7 +548,6 @@ class Anim implements Animation {
      break; ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
      }
      */
-    //image(window, viz.x, viz.y, window.width, window.height);
     blurPGraphics();
     /*
     if (syphonToggle) {
@@ -558,6 +560,15 @@ class Anim implements Animation {
      }
      }
      */
+  }
+
+  float getval() {
+    try {
+      return dimmerpointer.f[dimmerpointer.i];
+    } 
+    catch (Exception e) {
+      return 1;
+    }
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////// SQUARE NUT /////////////////////////////////////////////////////////////////////////////////////////////////
