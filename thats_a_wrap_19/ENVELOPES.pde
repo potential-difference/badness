@@ -14,7 +14,6 @@ int now() {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-<<<<<<< HEAD
 Envelope EnvelopeFactory( int envelope_index) {
     switch (envelope_index) {
     case 0: 
@@ -72,8 +71,8 @@ class MulEnvelope extends CompositeEnvelope{
 
 class Ramp extends Envelope{
   int start_time;
-  ArrayList<float> values;
-  Ramp(int start_time,int end_time,float values...){
+  ArrayList<Double> values;
+  Ramp(int start_time,int end_time,Double...values){
     this.start_time=start_time;
     this.end_time=end_time;
     this.values=Arrays.asList(values);
@@ -84,7 +83,7 @@ class Ramp extends Envelope{
   }
   float binom(int a,int b){
     //n!/(k!(n-k)!
-    return float(fact(a)/(fact(b)*(fact(a-b))))`;
+    return float(fact(a)/(fact(b)*(fact(a-b))));
   }
   float now(int time){
     /*nim code
@@ -109,7 +108,7 @@ class Ramp extends Envelope{
 //e.g. t=millis();Env_Sequence(Ramp(t,t+1000,{0.0,0.0,1.0}),Ramp(t+1500,t+2500,{1.0,1.0,0.0})
 class SeqEnvelope extends CompositeEnvelope{
   SeqEnvelope(int start_time,Envelope...e){
-    end_time=0
+    end_time=0;
     //we add up the end_times
   }
 }
@@ -124,28 +123,13 @@ abstract class CompositeEnvelope extends Envelope{
         end_time=e.end_time;
       }
     }
-=======
-Envelope envelopeFactory(int envelope_index) {
-  switch (envelope_index) {
-  case 0: 
-    return new Envelope( 800, 0, 1500, 0.2, 0, 1);
-  case 1:
-    return new Envelope( 1500, 1000, 200, 0.2, 0, 1);
-  case 2:
-    return new Envelope( 1000, 0, 2000, -manualSlider, 0, -funcSlider);
-  default: 
-    return new Envelope( 200, 1000, 1500, 0.2, 0, 1);
->>>>>>> 416f0abbf3d06972120b1d422e20d31536d0aa2a
   }
   abstract float now();
 }
 
-<<<<<<< HEAD
-class ADSR extends Envelope {
-=======
 
-class Envelope {
->>>>>>> 416f0abbf3d06972120b1d422e20d31536d0aa2a
+class ADSR extends Envelope {
+
   int attack_time, sustain_time, decay_time;
   int sustain_func_index, envelope_index;
   int start_time;
@@ -154,11 +138,8 @@ class Envelope {
   boolean finished = false;
   int end_time;
 
-<<<<<<< HEAD
-  ADSR(Anim _parent, int _atime, int _stime, int _dtime, float _acurv, int _sfunc, float _dcurv) {
-=======
-  Envelope( int _atime, int _stime, int _dtime, float _acurv, int _sfunc, float _dcurv) {
->>>>>>> 416f0abbf3d06972120b1d422e20d31536d0aa2a
+
+  ADSR(int _atime, int _stime, int _dtime, float _acurv, int _sfunc, float _dcurv) {
     start_time = now();
     attack_time = start_time + _atime;
     sustain_time = attack_time + _stime;

@@ -12,16 +12,8 @@ public class Rig {
   int bgList = 8;
   ArrayList <Anim> animations;
 
-<<<<<<< HEAD
-  Rig(PApplet parent, float _xpos, float _ypos, int _wide, int _high, String _name) {
-    //parent = getparent();
-    //parent = _parent;
-    //println(parent);
-    //parent.registerMethod("draw", this);
-    rig = this;//superfluous
-=======
+
   Rig(float _xpos, float _ypos, int _wide, int _high, String _name) {
->>>>>>> 416f0abbf3d06972120b1d422e20d31536d0aa2a
     name = _name;
     wide = _wide;
     high = _high;
