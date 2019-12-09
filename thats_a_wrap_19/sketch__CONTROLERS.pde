@@ -1,7 +1,7 @@
 import controlP5.*;
 ControlP5 cp5;
 
-boolean glitchToggle, roofBasic = false, syphonToggle = false, donutToggle = false;
+boolean glitchToggle, roofBasic = false, syphonToggle = false;
 float vizTimeSlider, colorSwapSlider, colorTimerSlider, cansDimmer, boothDimmer, digDimmer, backDropSlider, cansSlider;
 float tweakSlider, blurSlider, bgNoiseBrightnessSlider, bgNoiseDensitySlider, manualSlider, stutterSlider, cansAlpha, deleteMeSlider;
 float shimmerSlider, alphaSlider, rigDimmer, roofDimmer, seedsDimmer, seed2Dimmer, uvDimmer, controllerDimmer, funcSlider, pauseSlider;
@@ -357,7 +357,7 @@ class ControlFrame extends PApplet {
       .plugTo(parent, "donut.toggle")
       .setPosition(x, y)
       .setSize(50, 50)      
-      .setValue(cans.toggle)
+      .setValue(donut.toggle)
       .setColorActive(bac1) 
       .setColorBackground(bac) 
       .setColorForeground(slider) 
@@ -422,7 +422,7 @@ class ControlFrame extends PApplet {
     ///// NEXT VIZ IN....
     x=250;
     fill(rigg.c, 300);
-    if (!rigToggle) fill(rigg.c, 100);
+    if (!rigg.toggle) fill(rigg.c, 100);
     String sec = nf(int(vizTime - (millis()/1000 - vizTimer)) % 60, 2, 0);
     int min = int(vizTime - (millis()/1000 - vizTimer)) /60 % 60;
     text("next viz in: "+min+":"+sec, x, y);
@@ -434,7 +434,7 @@ class ControlFrame extends PApplet {
     /////////////////////////////////////////////////// roof info ////////////////////////////////////////////////////////
     if (size.roofWidth > 0 && size.roofHeight > 0) {
       fill(rigg.c, 300);
-      if (!roofToggle) fill(rigg.c, 100);
+      if (!roof.toggle) fill(rigg.c, 100);
       textSize(18);
       textAlign(RIGHT);
       x = size.roof.x+(size.roofWidth/2) - 130;
@@ -446,7 +446,7 @@ class ControlFrame extends PApplet {
     /////////////////////////////////////////////////// cans info ////////////////////////////////////////////////////////
     if (size.cansHeight > 0 && size.cansWidth > 0) {
       fill(rigg.c, 300);
-      if (!cansToggle) fill(rigg.c, 100);
+      if (!cans.toggle) fill(rigg.c, 100);
       textSize(18);
       textAlign(RIGHT);
       x = size.cans.x+(size.cansWidth/2) - 130;
@@ -458,7 +458,7 @@ class ControlFrame extends PApplet {
     /////////////////////////////////////////////////// cans info ////////////////////////////////////////////////////////
     if (size.donutHeight > 0 && size.donutHeight > 0) {
       fill(rigg.c, 300);
-      if (!donutToggle) fill(rigg.c, 100);
+      if (!donut.toggle) fill(rigg.c, 100);
       textSize(18);
       textAlign(LEFT);
       x = size.cans.x+(size.cansWidth/2) +25;

@@ -60,8 +60,10 @@ void setup()
   roof = new Rig(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
   cans = new Rig(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "CANS");
   donut = new Rig(size.donut.x, size.donut.y, size.donutWidth, size.donutHeight, "DONUT");
+  rigg.availableAnims = new int[] {0, 1, 3, 5};
+  roof.availableAnims = new int[] {0, 2, 4, 3};
+  rigg.toggle = true;
 
- 
   ///////////////// LOCAL opc /////////////////////
   opcLocal   = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRRORS
   opcMirror1 = new OPC(this, "GL-AR300m-c4c", 7890);

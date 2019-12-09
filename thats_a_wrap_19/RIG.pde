@@ -21,18 +21,6 @@ public class Rig {
 
     animations = new ArrayList<Anim>();
     rigs.add(this);
-    /*
-    switch (this) {
-     case rigg:
-     break;
-     case roof:
-     availableAnims = {2, 3, 4, 5, 6};//or put in Rig constructor, whatever.
-     break;
-     }
-     */
-
-    int [] availableAnims = {1, 4, 3, 6};
-
 
     int xw = 2;
     for (int i = 0; i < position.length/xw; i++) position[i] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*1);
@@ -448,7 +436,7 @@ public class Rig {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  Anim addAnim(int animindex) {
+  void addAnim(int animindex) {
     switch (animindex) {
     case 0:  
       this.animations.add(new Rush(this));
