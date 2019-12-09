@@ -111,7 +111,18 @@ class Ramp extends Envelope {
 }
 
 //e.g. t=millis();Env_Sequence(Ramp(t,t+1000,{0.0,0.0,1.0}),Ramp(t+1500,t+2500,{1.0,1.0,0.0})
-
+//ADSR: MulEnvelope(new Ramp(t,t+1000,{0.0,0.0,1.0}),new Ramp(t+1500,t+2500,{1.0,1.0,0.0}));
+class Stutter extends Envelope {
+  float baseline,amplitude,period;
+  Stutter(float amplitude,float period){
+    baseline=1-amplitude;
+    this.amplitude=amplitude;
+    this.period=period;
+  }
+  float value(int time){
+    return baseline+amplitude*0.5*(1.0+sin(2*PI * time / period));
+  }
+}
 /*class SeqEnvelope extends CompositeEnvelope{
  SeqEnvelope(int start_time,Envelope...e){
  
