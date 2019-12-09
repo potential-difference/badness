@@ -409,7 +409,9 @@ class ControlFrame extends PApplet {
     textAlign(LEFT);
     textSize(18);
     fill(360);
-    text("# of anims: "+rigg.animations.size(), x, y+45);
+    int totalAnims=0;      
+    for (Rig rigs : rigs) totalAnims += rigs.animations.size();
+    text("# of anims: "+totalAnims, x, y+45);
     ///////////// rig info/ ///////////////////////////////////////////////////////////////////
     fill(rigg.flash, 300);
     text("rigViz: " + rigg.vizIndex, x, y);

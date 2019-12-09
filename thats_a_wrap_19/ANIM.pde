@@ -253,7 +253,6 @@ class Test extends Anim {
     window.beginDraw();
     window.background(0);
     window.fill(360*alphaA);
-
     window.rect(viz.x-(window.width/2)+(window.width*functionA), viz.y, 20, 20);
     fill(360*alphaB);
     window.rect(viz.x-(window.width/2)+(window.width*functionB), viz.y+100, 20, 20);
@@ -308,11 +307,11 @@ class Anim implements Animation {
     switch (vizIndex) {
     case 11: //replace all other anims
       //loop over anim hashmap, set them all to start decaying
-      for (Anim anim : rig.animations) {
-        //anim.adsr.decay_time=now()+100;
-        //anim.adsr.decay_curvitude=0.9;
-        //anim.adsr.state = Env_State.DECAY;
-        //anim.deleteme=true;
+      for (Anim anims : rig.animations) {
+        //anims.adsr.decay_time=now()+100;
+        //anims.adsr.decay_curvitude=0.9;
+        //anims.adsr.state = Env_State.DECAY;
+        //anims.deleteme=true;
       }
 
     default: 

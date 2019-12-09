@@ -20,6 +20,8 @@ SizeSettings size;
 OPCGrid opcGrid;
 ControlFrame controlFrame;
 Rig rigg, roof, cans, mirrors, strips, donut;
+ArrayList <Rig> rigs = new ArrayList<Rig>();  
+
 
 import javax.sound.midi.ShortMessage;       // shorthand names for each control on the TR8
 import oscP5.*;
@@ -163,7 +165,6 @@ void draw()
   rigg.clash(beat);
   c = rigg.c;
   flash = rigg.flash;
-  // dimmer knobs are ehcoed by on screen sliders - code in controller tab
   /// DIMMING CONTROL STILL NOT QUITE AS EXPECTED 
   rigg.dimmer = rigDimmer;     // cc[4]
   roof.dimmer = roofDimmer;    // cc[8]
@@ -176,61 +177,21 @@ void draw()
   // create a new anim object and add it to the beginning of the arrayList
   if (beatTrigger) {
     if (rigToggle)    rigg.animations.add(new SquareNuts(alphaSlider, funcSlider, rigg));   
-    if (cansToggle)   cans.animations.add(new Anim(cans.vizIndex, cansAlpha, funcSlider, cans));              // create an anim object for the cans 
-    if (donutToggle)  donut.animations.add(new Anim(roof.vizIndex, alphaSlider, funcSlider, donut));              // create an anim object for the cans 
+    if (cansToggle)   cans.animations.add(new Anim0(cansAlpha, funcSlider, cans));              // create an anim object for the cans 
+    if (donutToggle)  donut.animations.add(new Anim1(alphaSlider, funcSlider, donut));              // create an anim object for the cans 
     if (roofToggle) {
-      if (roofBasic) roof.animations.add(new Anim(10, alphaSlider, funcSlider, roof));            // create a new anim object for the roof
-      else roof.animations.add(new Anim(roof.vizIndex, alphaSlider, funcSlider, roof));
+      if (roofBasic) roof.animations.add(new AllOn(alphaSlider, funcSlider, roof));            // create a new anim object for the roof
+      else roof.animations.add(new Stars(alphaSlider, funcSlider, roof));
     }
   }
-  // limit the number of animations
-  rigg.removeAnimations();
-  roof.removeAnimations();
-  cans.removeAnimations();
-  donut.removeAnimations();
-  //while (rigg.animations.size()>0 && rigg.animations.get(0).deleteme) rigg.animations.remove(0);
-  //if (animations.size() >= 28) animations.remove(0);  
-  
-  // adjust animations
-  //if (keyT['a']) 
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  if (keyT['s']) for (Anim anim : rigg.animations)  anim.funcFX = 1-(stutter*noize1*0.1);
+ 
+  if (keyT['s']) for (Anim anims : rigg.animations)  anims.funcFX = 1-(stutter*noize1*0.1);
   //draw animations
   syphonImageSent.beginDraw();
   syphonImageSent.background(0);
   syphonImageSent.endDraw();
 
-  blendMode(LIGHTEST);
-  rigg.drawAnimations();
-  roof.drawAnimations();
-  cans.drawAnimations();
-  donut.drawAnimations();
-
-
-  ////////////////////// draw colour layer /////////////////////////////////////////////////////////////////////////////////////////////////////
-  blendMode(MULTIPLY);
-  // this donesnt work anymore....
-  if (cc[107] > 0 || keyT['r'] || glitchToggle) bgNoise(rigg.colorLayer, 0, 0, cc[7]); //PGraphics layer,color,alpha
-  ////
-  if (syphonToggle) {
-    if (syphonClient.newFrame()) syphonImageReceived = syphonClient.getGraphics(syphonImageReceived); // load the pixels array with the updated image info (slow)
-    if (syphonImageReceived != null) {
-      image(syphonImageReceived, rigg.size.x, rigg.size.y, rigg.wide, rigg.high);
-      image(syphonImageReceived, roof.size.x, roof.size.y, roof.wide, roof.high);
-      image(syphonImageReceived, cans.size.x, cans.size.y, cans.wide, cans.high);
-    }
-  } else { 
-    rigg.drawColorLayer();
-    roof.drawColorLayer();
-    cans.bgIndex = 7;
-    cans.drawColorLayer();
-    donut.drawColorLayer();
-  }
-  blendMode(NORMAL);
-
+  for (Rig rigs : rigs) rigs.draw();
   //////////////////////////////////////////// PLAY WITH ME MORE /////////////////////////////////////////////////////////////////////////////////
   playWithMeMore();
   //////////////////////////////////////////// BOOTH & DIG ///////////////////////////////////////////////////////////////////////////////////////
@@ -238,8 +199,10 @@ void draw()
   //////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
   workLights(keyT['w']);
   testColors(keyT['t']);
-  onScreenInfo();                   // display info about current settings, viz, funcs, alphs etc
-
+  frameRateInfo(5, 20);          ///// display frame rate X, Y /////
+  mouseInfo(keyT['q']);
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  dividerLines();
   //gid.mirrorTest(false);          // true to test physical mirror orientation
   if (syphonToggle) {
     syphonServer.sendImage(syphonImageSent);
