@@ -28,11 +28,11 @@ void playWithYourself(float vizTm) {
   
   if (invertUnfction){
       if(beat.isOnset){
-      for (Anim anim:animations){
-        //anim.adsr.decay_time=now()+100;
-        //anim.adsr.decay_curvitude=0.9;
-        //anim.adsr.state = Env_State.DECAY;
-        //anim.deleteme=true;
+      for (Anim anims:animations){
+        //anims.adsr.decay_time=now()+100;
+        //anims.adsr.decay_curvitude=0.9;
+        //anims.adsr.state = Env_State.DECAY;
+        //anims.deleteme=true;
       } 
       new anim = (make an anim)
       }

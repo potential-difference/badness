@@ -12,11 +12,10 @@ int now() {
     return millis();
   }
 }
-
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class EnvelopeFactory {
   int envelope_index;
-  Anim parent;
+  Anim parent;         // remove??
   Envelope envelope;
 
   EnvelopeFactory( int _envelope_index) {

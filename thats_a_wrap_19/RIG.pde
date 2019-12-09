@@ -17,15 +17,16 @@ public class Rig {
     //parent = getparent();
     //parent = _parent;
     //println(parent);
-    parent.registerMethod("draw", this);
+    //parent.registerMethod("draw", this);
     rig = this;
     name = _name;
     wide = _wide;
     high = _high;
     size = new PVector (_xpos, _ypos);
 
-    animations = new ArrayList<Anim>(); 
-
+    animations = new ArrayList<Anim>();
+    rigs.add(this);
+    
     int xw = 2;
     for (int i = 0; i < position.length/xw; i++) position[i] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*1);
     for (int i = 0; i < position.length/xw; i++) position[i+(position.length/xw)] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*2);
@@ -89,7 +90,6 @@ public class Rig {
     col[13] = orange1;
     col[14] = teal;
   }
-
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void drawColorLayer() {
@@ -150,7 +150,6 @@ public class Rig {
     }
     image(colorLayer, size.x, size.y);
   }
-
   //////////////////////////////////////// END OF BACKGROUND CONTROL /////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////// VERTICAL MIRROR GRADIENT BACKGROUND ////////////////////////////////////////////////
@@ -270,11 +269,11 @@ public class Rig {
     colorLayer.vertex(0, colorLayer.height);
     colorLayer.endShape(CLOSE);
   }
-  ///////////////////////////////////////// ONE COLOUR BACKGOUND ////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////// ONE COLOUR BACKGOUND //////////////////////////////////////////////////////////////////////////
   void oneColour(color col1) {
     colorLayer.background(col1);
   }
-
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void radiator(color col1, color col2) {
     colorLayer.fill(col2);
     //color colorStep  
@@ -447,24 +446,34 @@ public class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void draw() {
+    blendMode(LIGHTEST);
+    drawAnimations();
+    ////////////////////// draw colour layer /////////////////////////////////////////////////////////////////////////////////////////////////////
+    blendMode(MULTIPLY);
+    // this donesnt work anymore....
+    if (cc[107] > 0 || keyT['r'] || glitchToggle) bgNoise(colorLayer, 0, 0, cc[7]); //PGraphics layer,color,alpha
+    ////
+    if (syphonToggle) {
+      if (syphonClient.newFrame()) syphonImageReceived = syphonClient.getGraphics(syphonImageReceived); // load the pixels array with the updated image info (slow)
+      if (syphonImageReceived != null) image(syphonImageReceived, size.x, size.y, wide, high);
+    } else  drawColorLayer();
+    blendMode(NORMAL);
     rigInfo();
     clash(beat);
+    removeAnimations();
+    cordinatesInfo(rig, keyT['q']);
   }
-
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void drawAnimations() {
     for (int i = rig.animations.size()-1; i >=0; i--) {                                  // loop  through the list
-      Anim anim = rig.animations.get(i);  
-      anim.drawAnim();           // draw the animation
+      Anim anims = rig.animations.get(i);  
+      anims.drawAnim();           // draw the animation
     }
   }
   void removeAnimations() {
-
     for (int i = 0; i < rig.animations.size(); i++) {                                  // loop  through the list
-      //Anim anim = rig.animations.get(i);  
       while (rig.animations.size()>0  && rig.animations.get(i).deleteme) animations.remove(i);           // remove the animations with deleteme = true
     }
-
-    //while (rig.animations.size()>0 && rig.animations.get(0).deleteme) rig.animations.remove(0);
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
