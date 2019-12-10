@@ -285,6 +285,7 @@ class Anim implements Animation {
   Tup dimmerpointer;
 
   Anim(Rig _rig) {
+    dimmerpointer=new Tup(new float[]{1.0},0);
     rig = _rig;
     alphaRate = rig.alphaRate;
     funcRate = rig.funcRate;
@@ -349,8 +350,8 @@ class Anim implements Animation {
     alphaA = alphaEnvelopeA.value(now);
     alphaB = alphaEnvelopeB.value(now);
 
-    alphaA*=rig.dimmer; //*dimmerpointer;
-    alphaB*=rig.dimmer; //*dimmerpointer;          // not sure how to link this yet
+    alphaA*=rig.dimmer*dimmerpointer.get();
+    alphaB*=rig.dimmer*dimmerpointer.get();          // not sure how to link this yet
 
     functionA = functionEnvelopeA.value(now); 
     functionB = functionEnvelopeB.value(now);

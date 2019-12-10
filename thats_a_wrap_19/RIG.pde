@@ -468,8 +468,12 @@ public class Rig {
       anim = new Anim0(this);
       break;
     }
-
-    anim.dimmerpointer = this.dimmers.get(animindex);
+    
+    Tup t=new Tup(new float[]{1.0},0);
+    try{
+      t=this.dimmers.get(animindex);
+    }catch(Exception e){};
+    if (t != null) anim.dimmerpointer = t;
     this.animations.add(anim);
   }
 
