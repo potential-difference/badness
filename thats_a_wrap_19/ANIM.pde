@@ -291,12 +291,28 @@ class Fill extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    window.fill(360, 360*alphaA);
-    window.noStroke();
     window.rect(viz.x, viz.y, window.width, window.height);
+    window.endDraw();
   }
 }
-
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Void extends Anim {
+  Void(Rig _rig) {
+    super(_rig);
+    alphaEnvelopeA = new ADSR(200, 0, 1000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
+    functionEnvelopeA =  new ADSR(800, 0, 1000, 0.2, 0, 1); // envelopeFactory(rig.alphaIndexA, rig);
+  }
+  void draw() {
+    window.beginDraw();
+    window.background(0);
+    window.noStroke();
+    stroke = -window.width*functionA;
+    wide = window.width;
+    high = wide;
+    squareNut(viz.x, viz.y, col1, stroke, wide, high, 0, 1);
+    window.endDraw();
+  }
+}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Test extends Anim {
   Test(Rig _rig) {
@@ -490,7 +506,6 @@ class Anim {
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
   float getval() {
     try {
       return animDimmer.f[animDimmer.i];
