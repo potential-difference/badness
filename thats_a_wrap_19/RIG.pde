@@ -9,12 +9,12 @@ public class Rig {
   PVector positionX[][] = new PVector[7][3];
   String name;
   boolean firsttime_sketchcolor=true, toggle;
-  int bgList = 8;
   ArrayList <Anim> animations;
   HashMap<Integer, Tup> dimmers;
-  int arrayListIndex;
-
   int[] availableAnims;
+  int[] avaliableBkgrnds;
+  int arrayListIndex;
+  ControlP5 cp5;
 
   Rig(float _xpos, float _ypos, int _wide, int _high, String _name) {
     name = _name;
@@ -22,12 +22,15 @@ public class Rig {
     high = _high;
     size = new PVector (_xpos, _ypos);
 
-    availableAnims = new int[] {0, 1, 2, 3};  // default - changed when initalised;
+    availableAnims = new int[] {0, 1, 2, 3};    // default - changed when initalised;
     animations = new ArrayList<Anim>();
     rigs.add(this);
-    arrayListIndex = rigs.indexOf(this);      // where this is the rig object
+    arrayListIndex = rigs.indexOf(this);        // where this is the rig object
+    avaliableBkgrnds = new int[] {0, 1, 2, 3};  // default - changed when initalised;
 
     dimmers = new HashMap<Integer, Tup>();
+
+    //controlFrame.loadToggleButton(600, 50, toggle);
 
     int xw = 2;
     for (int i = 0; i < position.length/xw; i++) position[i] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*1);
@@ -95,7 +98,6 @@ public class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void drawColorLayer() {
-
     switch(bgIndex) {
     case 0:
       colorLayer.beginDraw();
@@ -331,11 +333,10 @@ public class Rig {
     rect(x, y-(textHeight/2)+3, nameWidth+17, 30);
     noStroke();
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///// RECTANGLES TO SHOW CURRENT COLOURS /////
     x = size.x+(wide/2)-(nameWidth+17)-30;
     y = size.y-(high/2)+20;
-
-    fill(0);
+    ///// RECTANGLES TO SHOW CURRENT COLOURS /////
+    fill(0);                              
     rect(x, y-10, 10, 10);                 // rect to show CURRENT color C 
     rect(x+15, y-10, 10, 10);              // rect to show NEXT color C 
     rect(x, y, 10, 10);                    // rect to show CURRENT color FLASH 
@@ -363,9 +364,6 @@ public class Rig {
   boolean change;
   int colorTimer;
   void colorTimer(float colTime, int steps) {
-    colorIndexA = this.colorIndexA;
-    colorIndexB = this.colorIndexB;
-
     if (change == false) {
       colA = c;
       colC = flash;
@@ -443,14 +441,14 @@ public class Rig {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void addAnim(int animindex) {
-      Anim anim = new Anim(this);
-      switch (animindex) {
+  void addAnim(int animIndex) {
+    Anim anim = new Anim(this);
+    switch (animIndex) {
     case 0:  
       anim = new Rush(this);
       break;
     case 1:  
-        anim=new Anim0(this);
+      anim=new Anim0(this);
       break;
     case 2:  
       anim = new SquareNuts(this);
@@ -468,12 +466,14 @@ public class Rig {
       anim = new Anim0(this);
       break;
     }
-    
-    Tup t=new Tup(new float[]{1.0},0);
-    try{
-      t=this.dimmers.get(animindex);
-    }catch(Exception e){};
-    if (t != null) anim.dimmerpointer = t;
+
+    Tup t=new Tup(new float[]{1.0}, 0);
+    try {
+      t=this.dimmers.get(animIndex);
+    }
+    catch(Exception e) {
+    };
+    if (t != null) anim.animDimmer = t;
     this.animations.add(anim);
   }
 

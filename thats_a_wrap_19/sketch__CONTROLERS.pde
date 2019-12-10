@@ -8,8 +8,14 @@ float shimmerSlider, alphaSlider, rigDimmer, roofDimmer, seedsDimmer, seed2Dimme
 float smokePump, smokeFan, smokeOnTime, smokeOffTime;
 
 class ControlFrame extends PApplet {
-  int controlW, controlH;
+  int controlW, controlH, wide, high;
   float clm, row, sliderY;
+  color act = #07E0D3;
+  color act1 = #00FC84;
+  color bac = #370064;
+  color bac1 = #4D9315;
+  color slider = #E07F07;
+  color slider1 = #E0D607;
   PApplet parent;
   public ControlFrame(PApplet _parent) {
     super();   
@@ -34,20 +40,14 @@ class ControlFrame extends PApplet {
     imageMode(CENTER);
     noStroke();
     cp5 = new ControlP5(this);
-    // slider colours
-    color act = #07E0D3;
-    color act1 = #00FC84;
-    color bac = #370064;
-    color bac1 = #4D9315;
-    color slider = #E07F07;
-    color slider1 = #E0D607;
+
     float x = 10;
     float y = 90;
     sliderY=y;
-    int wide = 80;           // x size of sliders
-    int high = 14;           // y size of slider
-    row = high +4;     // distance between rows
-    clm = 210;         // distance between coloms
+    wide = 80;           // x size of sliders
+    high = 14;           // y size of slider
+    row = high +4;       // distance between rows
+    clm = 210;           // distance between coloms
     ///////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// FIRST COLOUM OF SLIDERS ////////////////////////////////////////////
     cp5.addSlider("vizTimeSlider") // name used throughout sketch to link to slider
@@ -141,28 +141,28 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
-    cp5.addSlider("uvDimmer")
-      .plugTo(parent, "uvDimmer")
-      .setPosition(x, y+row*2)
-      .setSize(wide, high)
-      //.setFont(font)
-      .setRange(0, 1)
-      .setValue(0.32) // start value of slider
-      .setColorActive(act1) 
-      .setColorBackground(bac1) 
-      .setColorForeground(slider1) 
-      ;
-    cp5.addSlider("controllerDimmer")
-      .plugTo(parent, "controllerDimmer")
-      .setPosition(x, y+row*3)
-      .setSize(wide, high)
-      //.setFont(font)
-      .setRange(0, 1)
-      .setValue(0.4) // start value of slider
-      .setColorActive(act) 
-      .setColorBackground(bac) 
-      .setColorForeground(slider) 
-      ;
+    //cp5.addSlider("uvDimmer")
+    //  .plugTo(parent, "uvDimmer")
+    //  .setPosition(x, y+row*2)
+    //  .setSize(wide, high)
+    //  //.setFont(font)
+    //  .setRange(0, 1)
+    //  .setValue(0.32) // start value of slider
+    //  .setColorActive(act1) 
+    //  .setColorBackground(bac1) 
+    //  .setColorForeground(slider1) 
+    //  ;
+    //cp5.addSlider("controllerDimmer")
+    //  .plugTo(parent, "controllerDimmer")
+    //  .setPosition(x, y+row*3)
+    //  .setSize(wide, high)
+    //  //.setFont(font)
+    //  .setRange(0, 1)
+    //  .setValue(0.4) // start value of slider
+    //  .setColorActive(act) 
+    //  .setColorBackground(bac) 
+    //  .setColorForeground(slider) 
+    //  ;
     cp5.addSlider("cansAlpha")
       .plugTo(parent, "cansAlpha")
       .setPosition(x, y+row*4)
@@ -174,31 +174,12 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac1) 
       .setColorForeground(slider1) 
       ;
-    cp5.addSlider("deleteMeSlider")
-      .plugTo(parent, "deleteMeSlider")
-      .setPosition(x, y+row*5)
-      .setSize(wide, high)
-      //.setFont(font)
-      .setRange(0, 1)
-      .setValue(0.65) // start value of slider
-      .setColorActive(act) 
-      .setColorBackground(bac) 
-      .setColorForeground(slider) 
-      ;
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////// THIRD coloum of sliders //////////////////////////////////
     x +=clm;
-    cp5.addSlider("cansDimmer")
-      .plugTo(parent, "cansDimmer")
-      .setPosition(x, y)
-      .setSize(wide, high)
-      //.setFont(font)
-      .setRange(0, 1)
-      .setValue(cc[5])    // start value []ppof slider
-      .setColorActive(act) 
-      .setColorBackground(bac) 
-      .setColorForeground(slider) 
-      ;
+    loadSliderDimmer(cans, x, y);
+
     cp5.addSlider("roofDimmer")
       .plugTo(parent, "roofDimmer")
       .setPosition(x, y+row)
@@ -210,17 +191,20 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac1) 
       .setColorForeground(slider1) 
       ;
-    cp5.addSlider("rigDimmer")
-      .plugTo(parent, "rigDimmer")
-      .setPosition(x, y+row*2)
-      .setSize(wide, high)
-      //.setFont(font)
-      .setRange(0, 1)
-      .setValue(cc[4])    // start value []ppof slider
-      .setColorActive(act) 
-      .setColorBackground(bac) 
-      .setColorForeground(slider) 
-      ;
+    //loadSliderDimmer(rigg, x, y+row*2);
+    
+    cp5.addSlider("RIG.dimmer")
+     .plugTo(parent, "RIG.dimmer")
+     .setPosition(x, y+row*2)
+     .setSize(wide, high)
+     //.setFont(font)
+     .setRange(0, 1)
+     .setValue(1)    // start value []ppof slider
+     .setColorActive(act) 
+     .setColorBackground(bac) 
+     .setColorForeground(slider) 
+     ;
+     
     cp5.addSlider("smokePump")
       .plugTo(parent, "smokePump")      .setPosition(x, y+row)
       .setPosition(x, y+row*3)
@@ -323,45 +307,12 @@ class ControlFrame extends PApplet {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////// BUTTONS ///////////////////////////////////////////////////////////////
     x +=clm;
-    cp5.addToggle("rigg.toggle")
-      .plugTo(parent, "rigg.toggle")
-      .setPosition(x, y)
-      .setSize(50, 50)      
-      .setValue(rigg.toggle)
-      .setColorActive(bac1) 
-      .setColorBackground(bac) 
-      .setColorForeground(slider) 
-      ; 
-    x += 60;
-    cp5.addToggle("roof.toggle")
-      .plugTo(parent, "roof.toggle")
-      .setPosition(x, y)
-      .setSize(50, 50)      
-      .setValue(roof.toggle)
-      .setColorActive(bac1) 
-      .setColorBackground(bac) 
-      .setColorForeground(slider) 
-      ;
-    x += 60;
-    cp5.addToggle("cans.toggle")
-      .plugTo(parent, "cans.toggle")
-      .setPosition(x, y)
-      .setSize(50, 50)      
-      .setValue(cans.toggle)
-      .setColorActive(bac1) 
-      .setColorBackground(bac) 
-      .setColorForeground(slider) 
-      ;
-    x += 60;
-    cp5.addToggle("donut.toggle")
-      .plugTo(parent, "donut.toggle")
-      .setPosition(x, y)
-      .setSize(50, 50)      
-      .setValue(donut.toggle)
-      .setColorActive(bac1) 
-      .setColorBackground(bac) 
-      .setColorForeground(slider) 
-      ;
+    for (Rig rig : rigs) { 
+      loadToggleButton(rig, x, y);
+      x+=60;
+    }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
     x += 80;
     cp5.addToggle("onTop")
       .plugTo(parent, "onTop")
@@ -475,12 +426,14 @@ class ControlFrame extends PApplet {
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if (cc[4]!=prevcc[4]) {
       prevcc[4]=cc[4];
-      if (cc[4] != rigDimmer) cp5.getController("rigDimmer").setValue(cc[4]);
+      if (cc[4] != rigDimmer) cp5.getController("rigg.dimmer").setValue(cc[4]);
     }
+
     if (cc[5]!=prevcc[5]) {
       prevcc[5]=cc[5];
-      if (cc[5] != cansDimmer) cp5.getController("cansDimmer").setValue(cc[5]);
+      if (cc[5] != cansDimmer) cp5.getController("CANSDimmer").setValue(cc[5]);
     }
+
     if (cc[8]!=prevcc[8]) {
       prevcc[8]=cc[8];
       if (cc[8] != roofDimmer) cp5.getController("roofDimmer").setValue(cc[8]);
@@ -515,5 +468,29 @@ class ControlFrame extends PApplet {
       fill(300+(60*stutter));
       text(pause*10+" sec NO AUDIO!!", x, y); //
     }
+  }
+  void loadSliderDimmer(Rig rig, float x, float y) {
+    cp5.addSlider(rig.name+"Dimmer")
+      .plugTo(parent, rig.name+"Dimmer")
+      .setPosition(x, y)
+      .setSize(wide, high)
+      //.setFont(font)
+      .setRange(0, 1)
+      .setValue(rig.dimmer)    
+      .setColorActive(act) 
+      .setColorBackground(bac) 
+      .setColorForeground(slider) 
+      ;
+  }
+  void loadToggleButton(Rig rig, float x, float y) {
+    cp5.addToggle(rig.name+" TOGGLE")
+      .setPosition(x, y)
+      .setSize(50, 50)      
+      .setValue(rig.toggle)
+      .plugTo(parent, rig.name+" TOGGLE")
+      .setColorActive(bac1) 
+      .setColorBackground(bac) 
+      .setColorForeground(slider) 
+      ;
   }
 }

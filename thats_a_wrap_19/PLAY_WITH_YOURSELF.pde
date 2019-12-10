@@ -4,64 +4,65 @@ int vizTimer, alphaTimer, functionTimer;
 void playWithYourself(float vizTm) {
   ///////////////// VIZ TIMER /////////////////////////////////////////////////////////////////////////////////////////////////
   if (millis()/1000 - vizTimer >= vizTm) {
-    rigg.vizIndex = int(random(rigVizList));
-    roof.vizIndex = int(random(roofVizList));
-    alf = 0; ////// set new viz to 0 to fade up viz /////
-    println("VIZ:", rigg.vizIndex, "@", (hour()+":"+minute()+":"+second()));
+    for (Rig rig : rigs) { 
+      rig.vizIndex = int(random(rig.availableAnims.length));
+      alf = 0; ////// set new viz to 0 to fade up viz /////
+      println(rig.name+" VIZ:", rig.vizIndex, "@", (hour()+":"+minute()+":"+second()));
+    }
     vizTimer = millis()/1000;
   }
   float divide = 4; ///////// NUMBER OF TIMES ALPHA CHANGES PER VIZ
   ///////////////////////////////////////////////////////////////////////
   /* envelope selection
-  if (millis()/1000 - alphaTimer >= vizTm/divide) {
-    rigg.envelope_factory=envelopesByName.get("fastup");
-    //rigg.envelope_factory=envelopesByName.get("slowdown");
-    //rigg.envelope_factory=envelopesByName.get(envelopesByName.keySet().toArray()[random(envelopesByName.size()]);
-    //rigg.envelope_factory=envelopesByName[random(envelopesByName.length];
-    //rigg.envelope_factory=envelopesByName[FASTUP];
-  
-  
-  */
-  
-  
+   if (millis()/1000 - alphaTimer >= vizTm/divide) {
+   rigg.envelope_factory=envelopesByName.get("fastup");
+   //rigg.envelope_factory=envelopesByName.get("slowdown");
+   //rigg.envelope_factory=envelopesByName.get(envelopesByName.keySet().toArray()[random(envelopesByName.size()]);
+   //rigg.envelope_factory=envelopesByName[random(envelopesByName.length];
+   //rigg.envelope_factory=envelopesByName[FASTUP];
+   
+   
+   */
+
+
   /*
   
-  if (invertUnfction){
-      if(beat.isOnset){
-      for (Anim anims:animations){
-        //anims.adsr.decay_time=now()+100;
-        //anims.adsr.decay_curvitude=0.9;
-        //anims.adsr.state = Env_State.DECAY;
-        //anims.deleteme=true;
-      } 
-      new anim = (make an anim)
-      }
-    
-  }
-  
-  
-  */
-  
+   if (invertUnfction){
+   if(beat.isOnset){
+   for (Anim anims:animations){
+   //anims.adsr.decay_time=now()+100;
+   //anims.adsr.decay_curvitude=0.9;
+   //anims.adsr.state = Env_State.DECAY;
+   //anims.deleteme=true;
+   } 
+   new anim = (make an anim)
+   }
+   
+   }
+   
+   
+   */
+
   //////////////////////////////////////////////////////////////////////
   ///////////// ALPHA TIMER ////////////////////////////////////////////////////////////////////////////////////////////////////
   if (millis()/1000 - alphaTimer >= vizTm/divide) { ///// alpha timer changes 4 times every viz change /////
-    rigg.alphaIndexA = int(random(alphLength));  //// select from alpha array
-    rigg.alphaIndexB = int(random(alphLength)); //// select from alpha array
-    roof.alphaIndexA = int(random(alphLength));  //// select from alpha array
-    roof.alphaIndexB = int(random(alphLength)); //// select from alpha array
-    alf = 0; ////// set  viz to 0 to fade up viz when alpha changes /////
-    println("alpha change @", (hour()+":"+minute()+":"+second()), "new af:", rigg.alphaIndexA, "new af1:", rigg.alphaIndexB);
+    for (Rig rig : rigs) { 
+      rig.alphaIndexA = int(random(alphLength));  //// select from alpha array
+      rig.alphaIndexB = int(random(alphLength)); //// select from alpha array
+      alf = 0; ////// set  viz to 0 to fade up viz when alpha changes /////
+      println(rig.name+" alpha change @", (hour()+":"+minute()+":"+second()), "new envelopes:", rig.alphaIndexA, "&", rig.alphaIndexB);
+    }
     alphaTimer = millis()/1000;
   }
   divide = 6; //////////////// NUMBER OF TIMES FUNCTION CHANGES PER VIZ
   //////////// FUNCTION TIMER ////////////////////////////////////////////////////////////////////////////////////////////////////
   if (millis()/1000 - functionTimer >= vizTm/divide) {    ////// change function n times for every state change
-    rigg.functionIndexA = int(random(funcLength));  //// select from function array
-    rigg.functionIndexB = int(random(funcLength));  //// select from function array
-    roof.functionIndexA = int(random(funcLength));  //// select from function array
-    roof.functionIndexB = int(random(funcLength));  //// select from function array
-    alf = 0; ////// set  viz to 0 to fade up viz when fucntion changes /////
-    println("function change @", (hour()+":"+minute()+":"+second()), "new fc:", rigg.functionIndexA, "new fc1:", rigg.functionIndexB);
+    for (Rig rig : rigs) {
+      rig.functionIndexA = int(random(funcLength));  //// select from function array
+      rig.functionIndexB = int(random(funcLength));  //// select from function array
+      alf = 0; ////// set  viz to 0 to fade up viz when fucntion changes /////
+      println(rig.name+" function change @", (hour()+":"+minute()+":"+second()), "new envelope:", rig.functionIndexA, "&", rig.functionIndexB);
+    }
     functionTimer = millis()/1000;
   }
   ///////////////////////////////// FADE UP NEXT VIZ //////////////////////////////////////////////////////////////////////////
@@ -75,10 +76,8 @@ void playWithYourself(float vizTm) {
   roof.colorTimer(colTime/1.5, 2); //// seconds between colour change, number of steps to cycle through colours
   cans.colorTimer(colTime/2, 2); //// seconds between colour change, number of steps to cycle through colours
 
-  if (millis()/1000 % 60 == 0) {
-    rigg.bgIndex = (rigg.bgIndex + 1) % rigg.bgList;               // change colour layer automatically
-    roof.bgIndex = (roof.bgIndex + 1) % roof.bgList;               // change colour layer automatically
-  }
+  if (millis()/1000 % 60 == 0) for (Rig rig : rigs) rig.bgIndex = (rig.bgIndex+1) % rig.avaliableBkgrnds.length;               // change colour layer automatically
+
   //////////////////////////////////////////////////// END OF PLAY WITH YOURSELF AUTO CONTROL //////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

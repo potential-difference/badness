@@ -11,13 +11,13 @@ void keyPressed() {
   if (key == 'n') rigg.vizIndex = (rigg.vizIndex+1)%rigg.availableAnims.length;        //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
   if (key == 'b') rigg.vizIndex -=1;                            //// STEP BACK TO PREVIOUS RIG VIZ
   if (rigg.vizIndex <0) rigg.vizIndex = rigg.availableAnims.length-1;
-  if (key == 'm') rigg.bgIndex = (rigg.bgIndex+1)%rigg.bgList;                 //// CYCLE THROUGH RIG BACKGROUNDS
+  if (key == 'm') rigg.bgIndex = (rigg.bgIndex+1)%rigg.avaliableBkgrnds.length;                 //// CYCLE THROUGH RIG BACKGROUNDS
 
   /////////////////////////////// ROOF KEY FUNCTIONS ////////////////////////
   if (key == 'h') roof.vizIndex = (roof.vizIndex+1)%roof.availableAnims.length;               //// STEP FORWARD TO NEXT RIG VIZ
   if (key == 'g') roof.vizIndex -= 1;                          //// STEP BACK TO PREVIOUS RIG VIZ
   if (roof.vizIndex <0) roof.vizIndex = roof.availableAnims.length-1;
-  if (key == 'j') roof.bgIndex = (roof.bgIndex+1)%roof.bgList;               //// CYCLE THROUGH ROOF BACKGROUNDS
+  if (key == 'j') roof.bgIndex = (roof.bgIndex+1)%roof.avaliableBkgrnds.length;               //// CYCLE THROUGH ROOF BACKGROUNDS
 
   if (key == ',') {                                      //// CYCLE THROUGH RIG FUNCS
     rigg.functionIndexA = (rigg.functionIndexA+1)%funcLength; //animations.func.length; 

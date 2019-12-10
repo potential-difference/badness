@@ -22,6 +22,9 @@ ControlFrame controlFrame;
 Rig rigg, roof, cans, mirrors, strips, donut;
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
 
+ControlFrame ControlFrame; // load control frame must come after shild ring etc
+
+
 import javax.sound.midi.ShortMessage;       // shorthand names for each control on the TR8
 import oscP5.*;
 import netP5.*;
@@ -51,12 +54,16 @@ void setup()
   opcGrid = new OPCGrid();
   dmx = new DMXGrid();
 
+  controlFrame = new ControlFrame(this); // load control frame must come after shild ring etc
+
+
   rigg = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
   roof = new Rig(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
   cans = new Rig(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "CANS");
   donut = new Rig(size.donut.x, size.donut.y, size.donutWidth, size.donutHeight, "DONUT");
   rigg.availableAnims = new int[] {0, 1, 2, 3};      // setup which anims are used on which rig here
   roof.availableAnims = new int[] {4, 5, 6, 0};      // setup which anims are used on which rig here - defualt is 0,1,2,3...
+  rigg.avaliableBkgrnds = new int[] {0, 1, 2, 3, 4, 5};
 
   rigg.dimmers.put(3, new Tup(cc, 34));
 
@@ -122,7 +129,6 @@ void setup()
   cc[MASTERFXON] = 0;
 
   //syphonSetup(syphonToggle);
-  controlFrame = new ControlFrame(this); // load control frame must come after shild ring etc
 
   frameRate(30);
 }
@@ -146,7 +152,7 @@ void draw()
   c = rigg.c;
   flash = rigg.flash;
   /// DIMMING CONTROL STILL NOT QUITE AS EXPECTED 
-  rigg.dimmer = rigDimmer;     // cc[4]
+  rigg.dimmer = rigg.dimmer;     // cc[4]
   roof.dimmer = roofDimmer;    // cc[8]
   cans.dimmer = cansDimmer;    // cc[5]
 
@@ -158,11 +164,11 @@ void draw()
   // create a new anim object and add it to the beginning of the arrayList
   if (beatTrigger) { 
     for (Rig rig : rigs) { 
-      //if (rig.toggle) rig.addAnim(rig.availableAnims[rig.vizIndex]);
+      if (rig.toggle) rig.addAnim(rig.availableAnims[rig.vizIndex]);
     }
   }
-  //for(Rig rig : rigs) println(rig.toggle);
-
+  //for (Rig rig : rigs) println(rig.name, rig.toggle);
+println(rigg.dimmer);
   if (keyT['s']) for (Anim anims : rigg.animations)  anims.funcFX = 1-(stutter*noize1*0.1);
 
   for (Rig rigs : rigs) rigs.draw();  
