@@ -152,6 +152,29 @@ class Rush extends Anim {
     window.endDraw();
   }
 }
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class RushR extends Anim {
+  RushR (Rig _rig) {
+    super(_rig);
+    alphaEnvelopeA = new ADSR(200, 0, 1000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
+    functionEnvelopeA =  new ADSR(1000, 0, 1000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
+  }
+  void draw() {
+    window.beginDraw();
+    window.background(0);
+    wide = vizHeight/2;
+    high = 100;
+    alphaA =1;
+    //if (_beatCounter % 8 < 3) {
+    //rushR(position[0].x,viz.y, col1, wide, high, functionA, 90, alphaA);
+    rushR(position[1].x, viz.y, col1, wide, high, 1-functionA, 90, alphaA);
+    //} else {    
+    //  rushR(position[0]. x, position[3].y, col1, wide, high, -functionA, 90, 1);
+    //  rushR(position[11].x, position[8].y, col1, wide, high, functionA, 90, 1);
+    //}
+    window.endDraw();
+  }
+}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Rushed extends Anim {
   Rushed(Rig _rig) {
@@ -317,21 +340,25 @@ class Void extends Anim {
 class Test extends Anim {
   Test(Rig _rig) {
     super(_rig);
+    functionEnvelopeA =  new ADSR(1000, 0, 1000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
+    functionEnvelopeB =  new ADSR(1000, 0, 1000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
   }
   void draw() {  
     window.beginDraw();
     window.background(0);
-    window.fill(360*alphaA);
-    window.noStroke();
-    window.rect(viz.x-(window.width/2)+(window.width*functionA), viz.y-100, 100, 100);
-    window.ellipse(viz.x-200, viz.y, 100, 100);
+    wide = 100;
+    high = vizHeight*functionB;
+    println(rig.name, "viz x", viz.x, viz.y);
+    println();
+    drop(position[0].x, viz.y, col1, wide, vizHeight, functionA, alphaA);
+    drop(position[2].x, viz.y, col1, wide, vizHeight, functionA, alphaA);
+    drop(position[4].x, viz.y, col1, wide, vizHeight, functionA, alphaA);
 
-    window.fill(360*alphaB);
-    window.ellipse(viz.x+200, viz.y, 100, 100);
-    window.rect(viz.x-(window.width/2)+(window.width*functionB), viz.y+100, 100, 100);
+    drop(position[7].x, viz.y, col1, wide, vizHeight, 1-functionA, alphaA);
+    drop(position[9].x, viz.y, col1, wide, vizHeight, 1-functionA, alphaA);
+    drop(position[11].x, viz.y, col1, wide, vizHeight, 1-functionA, alphaA);
 
-    window.fill(300);
-    window.rect(viz.x, viz.y, window.width/5, window.height/5);
+    //rushR(viz.x, viz.y, col1, wide, high, functionA, 90, alphaA);
 
     window.endDraw();
   }
@@ -474,6 +501,45 @@ class Anim {
     window.noTint();
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+  void rushR(float xpos, float ypos, color col, float wide, float high, float func, float rotate, float alph) {
+
+    rotate = radians(45);
+    println("rotate", rotate);
+
+    float x;
+    float r=abs(rotate)%PI;
+    if (r>PI*0.5) r = PI-r;
+    if (r<atan(window.height/window.width)) x=window.width/cos(r);
+    else x=window.height/cos(PI*0.5-r);
+    x /=2;
+    float moveA = -(x/2)+(x*func);
+
+    window.imageMode(CENTER);
+    window.tint(360, 360*alph);
+    window.pushMatrix();
+    window.translate(xpos, ypos);
+    window.rotate(rotate);
+    window.image(bar1, moveA, 0, wide, high);
+    window.noTint();
+    window.popMatrix();
+    println(rig.name, "x", x);
+  }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+  void drop(float xpos, float ypos, color col, float wide, float high, float func, float alph) {
+    float moveA;
+    float strt = window.height-ypos;
+    moveA = (strt-((window.height)*func))*1.3;
+    println(moveA);
+    window.imageMode(CENTER);
+    window.pushMatrix();
+    window.translate(xpos, ypos);
+    window.rotate(radians(90));
+    window.tint(360, 360*alph);
+    window.image(bar1, moveA, 0, high, wide);
+    window.noTint();
+    window.popMatrix();
+  }
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
   void blurPGraphics() {
     blur.set("blurSize", blury);
