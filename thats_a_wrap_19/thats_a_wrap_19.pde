@@ -55,7 +55,6 @@ void setup()
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
   controlFrame = new ControlFrame(this); // load control frame must come after shild ring etc
   cp5 = new ControlP5( controlFrame );
-  //ss = new SliderSetup();
 
   opcGrid = new OPCGrid();
 
@@ -63,7 +62,6 @@ void setup()
   roof = new Rig(false, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
   cans = new Rig(false, size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "CANS");
   //donut = new Rig(false,size.donut.x, size.donut.y, size.donutWidth, size.donutHeight, "DONUT");
-
 
   ///////////////// LOCAL opc /////////////////////
   opcLocal   = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRRORS
@@ -124,7 +122,7 @@ void draw()
   if (beatTrigger) { 
     for (Rig rig : rigs) {
       if (rig.toggle) {
-        if (testToggle) rig.animations.add(new Test(rig));
+        if (testToggle) rig.animations.add(new Donut(rig));
         else rig.addAnim(rig.availableAnims[rig.vizIndex]);
       }
     }

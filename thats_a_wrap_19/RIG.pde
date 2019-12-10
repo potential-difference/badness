@@ -509,7 +509,7 @@ public class Rig {
       anim = new Rush(this);
       break;
     case 1:  
-      anim=new Anim0(this);
+      anim=new Rings(this);
       break;
     case 2:  
       anim = new SquareNuts(this);
@@ -524,7 +524,7 @@ public class Rig {
       anim = new Anim1(this);
       break;
     case 6:  
-      anim = new Anim0(this);
+      anim = new Rings(this);
       break;
     }
 

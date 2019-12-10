@@ -299,8 +299,8 @@ class ControlFrame extends PApplet {
       ;
       cp5.addToggle("testToggle")
       .plugTo(parent, "testToggle")
-      .setPosition(x+60, y+35)
-      .setSize(30, 30)
+      .setPosition(x-60, y+80)
+      .setSize(70, 70)
       .setValue(syphonToggle)
       .setColorActive(bac1) 
       .setColorBackground(bac) 
