@@ -45,23 +45,24 @@ abstract class ManualAnim extends Anim {
 class BenjaminsBoxes extends Anim {
   BenjaminsBoxes (Rig _rig) {
     super(_rig);
-    alphaEnvelopeA = new ADSR(200, 0, 1000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
-    functionEnvelopeA =  new ADSR(1000, 0, 1000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
+    //alphaEnvelopeA = new ADSR(200, 0, 1000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
+    //functionEnvelopeA =  new ADSR(1000, 0, 1000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
   }
   void draw() {
     window.beginDraw();
     window.background(0);
-    wide = vizHeight/2;
-    high = 100;
-    rotate = functionB*360;
+    wide = 200+(500*oskP);
+    high = 200+(1000*(1-oskP));
     
-    benjaminsBox(position[0].x, viz.y, col1, wide, vizHeight, functionA, rotate, alphaA);
-    benjaminsBox(position[2].x, viz.y, col1, wide, vizHeight, functionA, rotate, alphaA);
-    benjaminsBox(position[4].x, viz.y, col1, wide, vizHeight, functionA, rotate, alphaA);
+    rotate = 45+(15*noize); //+(functionB*30);
+    float xpos = 10+(noize*window.width/4);
+    float ypos = viz.y;
+    benjaminsBox(xpos, ypos, col1, wide, high, functionA, rotate, alphaA);
+    benjaminsBox(xpos, ypos, col1, wide, high, functionA, -rotate, alphaA);
 
-    benjaminsBox(position[7].x, viz.y, col1, wide, vizHeight, 1-functionA, -rotate, alphaA);
-    benjaminsBox(position[9].x, viz.y, col1, wide, vizHeight, 1-functionA, -rotate, alphaA);
-    benjaminsBox(position[11].x, viz.y, col1, wide, vizHeight, 1-functionA, -rotate, alphaA);
+    xpos = vizWidth-10-(noize*window.width/4);
+    benjaminsBox(xpos, ypos, col1, wide, high, 1-functionA, rotate, alphaA);
+    benjaminsBox(xpos, ypos, col1, wide, high, 1-functionA, -rotate, alphaA);
 
     window.endDraw();
   }
