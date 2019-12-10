@@ -1,7 +1,7 @@
-boolean glitchToggle, roofBasic = false;
-float vizTimeSlider, colorSwapSlider, colorTimerSlider, cansDimmer, boothDimmer, digDimmer, backDropSlider, cansSlider;
-float tweakSlider, blurSlider, bgNoiseBrightnessSlider, bgNoiseDensitySlider, manualSlider, stutterSlider, cansAlpha, deleteMeSlider;
-float shimmerSlider, alphaSlider, rigDimmer, roofDimmer, seedsDimmer, seed2Dimmer, uvDimmer, controllerDimmer, funcSlider, pauseSlider;
+boolean glitchToggle, roofBasic = false, testToggle;
+float vizTimeSlider, colorSwapSlider, colorTimerSlider, boothDimmer, digDimmer, backDropSlider;
+float tweakSlider, blurSlider, bgNoiseBrightnessSlider, bgNoiseDensitySlider, manualSlider, stutterSlider;
+float shimmerSlider, funcSlider, beatSlider;
 float smokePump, smokeFan, smokeOnTime, smokeOffTime;
 /*
 class SliderSetup {
@@ -297,6 +297,15 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
+      cp5.addToggle("testToggle")
+      .plugTo(parent, "testToggle")
+      .setPosition(x+60, y+35)
+      .setSize(30, 30)
+      .setValue(syphonToggle)
+      .setColorActive(bac1) 
+      .setColorBackground(bac) 
+      .setColorForeground(slider) 
+      ;
   }
   void draw() {
     background(0);
@@ -307,7 +316,7 @@ class ControlFrame extends PApplet {
     textSize(18);
     fill(360);
     int totalAnims=0;      
-    for (Rig rigs : rigs) totalAnims += rigs.animations.size();
+    for (Rig rig : rigs) totalAnims += rig.animations.size();
     text("# of anims: "+totalAnims, x, y+45);
     ///////////// rig info/ ///////////////////////////////////////////////////////////////////
     fill(rigg.flash, 300);

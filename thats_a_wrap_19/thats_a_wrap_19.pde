@@ -10,6 +10,7 @@ OPC opcControllerA;
 OPC opcControllerB;
 OPC opcWifi;
 
+
 import controlP5.*;
 ControlP5 cp5;
 //SliderSetup ss;
@@ -121,15 +122,19 @@ void draw()
 
   // create a new anim object and add it to the beginning of the arrayList
   if (beatTrigger) { 
-    for (Rig rig : rigs) { 
-      if (rig.toggle) rig.addAnim(rig.availableAnims[rig.vizIndex]);
+    for (Rig rig : rigs) {
+      if (rig.toggle) {
+        if (testToggle) rig.animations.add(new Test(rig));
+        else rig.addAnim(rig.availableAnims[rig.vizIndex]);
+      }
     }
   }
+
   //for (Rig rig : rigs) println(rig.name, rig.toggle);
   //println(rigg.dimmer);
-  if (keyT['s']) for (Anim anims : rigg.animations)  anims.funcFX = 1-(stutter*noize1*0.1);
+  if (keyT['s']) for (Anim anim : rigg.animations)  anim.funcFX = 1-(stutter*noize1*0.1);
 
-  for (Rig rigs : rigs) rigs.draw();  
+  for (Rig rig : rigs) rig.draw();  
   //////////////////////////////////////////// PLAY WITH ME MORE /////////////////////////////////////////////////////////////////////////////////
   playWithMeMore();
   //////////////////////////////////////////// BOOTH & DIG ///////////////////////////////////////////////////////////////////////////////////////

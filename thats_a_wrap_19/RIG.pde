@@ -542,13 +542,15 @@ public class Rig {
   void drawAnimations() {
     //blendMode(LIGHTEST);
     for (int i = this.animations.size()-1; i >=0; i--) {                                  // loop  through the list
-      Anim anims = this.animations.get(i);  
-      anims.drawAnim();           // draw the animation
+      Anim anim = this.animations.get(i);  
+      anim.drawAnim();           // draw the animation
     }
   }
+  import java.util.*;
   void removeAnimations() {
-    for (int i = 0; i < this.animations.size(); i++) {                                  // loop  through the list
-      while (this.animations.size()>0  && this.animations.get(i).deleteme) animations.remove(i);           // remove the animations with deleteme = true
+    Iterator<Anim> animiter = this.animations.iterator();
+    while (animiter.hasNext()) {
+      if (animiter.next().deleteme) animiter.remove();
     }
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

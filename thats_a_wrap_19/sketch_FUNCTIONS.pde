@@ -19,7 +19,6 @@ float sineFast, sineSlow, sine, stutter, shimmer;
 float timer[] = new float[6];
 void globalFunctions() {
   float tm = 0.05+(noize/50);
-  timer[2] += alphaSlider;            
   for (int i = 0; i<timer.length; i++) timer[i] += tm;
   timer[3] += (0.3*5);
   timer[5] *=1.2;
@@ -58,7 +57,7 @@ void beats() {
     beatCounter = (beatCounter + 1) % 120;
     resetbeats();
   }
-  if (avgtime>0) beat*=pow(alphaSlider, (1/avgtime));       //  changes rate alpha fades out!!
+  if (avgtime>0) beat*=pow(beatSlider, (1/avgtime));       //  changes rate alpha fades out!!
   else beat*=0.95;
   float end = 0.001;
   if (beat < end) beat = end;
@@ -102,7 +101,7 @@ void boothLights() {
 /////////////////// TEST ALL COLOURS - TURN ALL LEDS ON AND CYCLE COLOURS ////////////////////////////////
 void testColors(boolean _test) {
   if (_test) {
-    fill((millis()/50)%360, 100, 100, 360*rigDimmer);           
+    fill((millis()/50)%360, 100, 100, 360*rigg.dimmer);           
     rect(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight);
     rect(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight);
     rect(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight);
