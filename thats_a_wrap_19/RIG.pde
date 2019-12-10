@@ -3,12 +3,12 @@ public class Rig {
   int wide, high, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, bgIndex, vizIndex;
   PGraphics colorLayer, buffer, pass1, pass2;
   PVector size;
-  color c, flash, c1, flash1, clash, clash1, clashed, colorIndexA, colorIndexB = 1, colA, colB, colC, colD;
+  color c, flash, c1, flash1, clash, clash1, clashed, colorIndexA, colorIndexB = 1, colA, colB, colC, colD, scol1, scol2, scol3;
   color col[] = new color[15];
   PVector position[] = new PVector[12];
   PVector positionX[][] = new PVector[7][3];
   String name;
-  boolean firsttime_sketchcolor=true, toggle;
+  boolean firsttime_sketchcolor=true, toggle, noiseToggle;
   ArrayList <Anim> animations;
   HashMap<Integer, Tup> dimmers;
   int[] availableAnims;
@@ -16,11 +16,12 @@ public class Rig {
   int arrayListIndex;
   int value;
 
-  Rig(float _xpos, float _ypos, int _wide, int _high, String _name) {
+  Rig(boolean _toggle, float _xpos, float _ypos, int _wide, int _high, String _name) {
     name = _name;
     wide = _wide;
     high = _high;
     size = new PVector (_xpos, _ypos);
+    toggle = _toggle;
 
     availableAnims = new int[] {0, 1, 2, 3};    // default - changed when initalised;
     animations = new ArrayList<Anim>();
@@ -37,62 +38,15 @@ public class Rig {
     int shigh = 14;           // y size of slider
     int row = shigh+4;       // distance between rows
 
-    cp5.addSlider(name+"Dimmer")
-      .plugTo(this, "dimmer")
-      .setLabel(name+" DIMMER")
-      .setPosition(x+(clm*arrayListIndex), y)
-      .setSize(swide, shigh)
-      .setRange(0, 1)
-      .setValue(1)
-      .setColorActive(act1) 
-      .setColorBackground(bac1) 
-      .setColorForeground(slider1) 
-      ;
-    cp5.addSlider(name+"AlphaRate")
-      .plugTo(this, "alphaRate")
-      .setLabel(name+" ALPHA RATE")
-      .setPosition(x+(clm*arrayListIndex), y+row)
-      .setSize(swide, shigh)
-      .setRange(0, 1)
-      .setValue(0.45) // start value of slider
-      .setColorActive(act) 
-      .setColorBackground(bac) 
-      .setColorForeground(slider) 
-      ;
-    cp5.addSlider(name+"FuncRate")
-      .plugTo(this, "funcRate")
-      .setLabel(name+" FUNC RATE")
-      .setPosition(x+(clm*arrayListIndex), y+row*2)
-      .setSize(swide, shigh)
-      .setRange(0, 1)
-      .setValue(0.45) // start value of slider
-      .setColorActive(act1) 
-      .setColorBackground(bac1) 
-      .setColorForeground(slider1) 
-      ;
-    cp5.addSlider(name+"BlurValue")
-      .plugTo(this, "blurValue")
-      .setLabel(name+" BLUR VALUE")
-      .setPosition(x+(clm*arrayListIndex), y+row*3)
-      .setSize(swide, shigh)
-      .setRange(0, 1)
-      .setValue(0.3) // start value of slider
-      .setColorActive(act) 
-      .setColorBackground(bac) 
-      .setColorForeground(slider) 
-      ;
-    cp5.addToggle(this.name+" TOGGLE")
-      .plugTo(this, "toggle")
-      .setLabel(name+" TOGGLE")
-      .setValue(this.toggle)
-      .setPosition(x+(clm*arrayListIndex), y+row*4)
-      .setSize(swide, 30)      
-      .setColorActive(bac1) 
-      .setColorBackground(bac) 
-      .setColorForeground(slider) 
-      ;
+    loadSlider("dimmer", x+(clm*arrayListIndex), 0, 0, 1, 1);
+    loadSlider("alphaRate", x+(clm*arrayListIndex), 1, 0, 1, 0.5);
+    loadSlider("funcRate", x+(clm*arrayListIndex), 2, 0, 1, 0.5);
+    loadSlider("blurValue", x+(clm*arrayListIndex), 3, 0, 1, 0.5);
+    loadSlider("bgNoise", x+(clm*arrayListIndex), 4, 0, 1, 0.5);
 
-
+    //void loadToggle(String label, float x, float y, int wide,int high) {
+    loadToggle(noiseToggle, "noiseToggle", x+(clm*arrayListIndex), y+row*5, swide, 10);
+    loadToggle(toggle, "toggle", x+(clm*arrayListIndex), y+row*6.5, swide, 30);
 
     int xw = 2;
     for (int i = 0; i < position.length/xw; i++) position[i] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*1);
@@ -158,20 +112,46 @@ public class Rig {
     col[14] = teal;
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void loadToggleButton(float x, float y) {
-    cp5.addToggle(this.name+" TOGGLE")
+  void loadToggle(boolean toggle, String label, float x, float y, int wide, int high) {
+    cp5.addToggle(this.name+" "+label)
+      .plugTo(this, label)
+      .setLabel(this.name+" "+label)
       .setPosition(x, y)
-      .setSize(50, 50)      
-      .setValue(this.toggle)
-      .plugTo(this, "toggle")
+      .setSize(wide, high)      
+      .setValue(toggle)
       .setColorActive(bac1) 
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
   }
+  void loadSlider(String label, float x, int rowInt, float min, float max, float startVal) {
+    int swide = 80;
+    int shigh = 14;
+    int row = shigh+4;       // distance between rows
+    int y = 90;
+    if (rowInt % 2 == 0) {
+      scol1 = act;
+      scol2 = bac;
+      scol3 = slider;
+    } else {
+      scol1 = act1;
+      scol2 = bac1;
+      scol3 = slider1;
+    }
+    cp5.addSlider(name+" "+label)
+      .plugTo(this, label)
+      .setLabel(this.name+" "+label)
+      .setPosition(x, y+(row*rowInt))
+      .setSize(swide, shigh)
+      .setRange(min, max)
+      .setValue(startVal)
+      .setColorActive(scol1) 
+      .setColorBackground(scol2) 
+      .setColorForeground(scol3) 
+      ;
+  }
   public void controlEvent(ControlEvent theEvent) {
-    //println(theEvent.getController().getName(), theEvent.getController().getValue());
-    //println("dimmer "+this.dimmer);
+    println(theEvent.getController().getName(), theEvent.getController().getValue());
   }
   void setValue(int theValue) {
     value = theValue;
@@ -561,17 +541,17 @@ public class Rig {
   void draw() {
     clash(beat);
     drawAnimations();
-    ////////////////////// draw colour layer /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    /*
     blendMode(MULTIPLY);
-    // this donesnt work anymore....
-    if (cc[107] > 0 || keyT['r'] || glitchToggle) bgNoise(colorLayer, 0, 0, cc[7]); //PGraphics layer,color,alpha
-    drawColorLayer();
+     // this donesnt work anymore....
+     if (cc[107] > 0 || keyT['r'] || glitchToggle) bgNoise(colorLayer, 0, 0, cc[7]); //PGraphics layer,color,alpha
+     drawColorLayer();
+     */
     blendMode(NORMAL);
     rigInfo();
     removeAnimations();
     cordinatesInfo(this, keyT['q']);
-
-    //println( this.value );
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void drawAnimations() {

@@ -222,28 +222,7 @@ class ControlFrame extends PApplet {
      x+=clm;
      //////////////////////////////////////////////////////////////////////////////////////////////////
      /////////////////////////////// FOURTH coloum of sliders ///////////////////////////////////////
-     cp5.addSlider("blurSlider")
-     .plugTo(parent, "blurSlider")
-     .setPosition(x, y)
-     .setSize(wide, high)
-     //.setFont(font)
-     .setRange(0, 1)
-     .setValue(0.3) // start value of slider
-     .setColorActive(act1) 
-     .setColorBackground(bac1) 
-     .setColorForeground(slider1) 
-     ;
-     cp5.addSlider("stutterSlider")
-     .plugTo(parent, "stutterSlider")
-     .setPosition(x, y+row)
-     .setSize(wide, high)
-     //.setFont(font)
-     .setRange(0, 1)
-     .setValue(0) // start value of slider
-     .setColorActive(act) 
-     .setColorBackground(bac) 
-     .setColorForeground(slider) 
-     ;
+   
      cp5.addSlider("bgNoiseSlider")
      .plugTo(parent, "bgNoiseSlider")
      .setPosition(x, y+row*2)
@@ -382,6 +361,7 @@ class ControlFrame extends PApplet {
       text("func's: " + cans.functionIndexA + " / " + cans.functionIndexB, x+120, y);
       text("alph's: " + cans.alphaIndexA + " / " + cans.alphaIndexB, x+120, y+20);
     }
+    /*
     /////////////////////////////////////////////////// cans info ////////////////////////////////////////////////////////
     if (size.donutHeight > 0 && size.donutHeight > 0) {
       fill(rigg.c, 300);
@@ -394,6 +374,7 @@ class ControlFrame extends PApplet {
       text("func's: " + donut.functionIndexA + " / " + donut.functionIndexB, x+120, y);
       text("alph's: " + donut.alphaIndexA + " / " + donut.alphaIndexB, x+120, y+20);
     }
+    */
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     sequencer(675, sliderY-20);
     pauseInfo(width-5, sliderY-15);

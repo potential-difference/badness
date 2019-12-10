@@ -58,10 +58,10 @@ void setup()
 
   opcGrid = new OPCGrid();
 
-  rigg = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
-  roof = new Rig(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
-  cans = new Rig(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "CANS");
-  donut = new Rig(size.donut.x, size.donut.y, size.donutWidth, size.donutHeight, "DONUT");
+  rigg = new Rig(true, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
+  roof = new Rig(false, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
+  cans = new Rig(false, size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "CANS");
+  //donut = new Rig(false,size.donut.x, size.donut.y, size.donutWidth, size.donutHeight, "DONUT");
 
 
   ///////////////// LOCAL opc /////////////////////
@@ -76,7 +76,7 @@ void setup()
 
   opcGrid.mirrorsOPC(opcMirror1, opcMirror2, 0);               // grids 0-3 MIX IT UPPPPP 
   opcGrid.radiatorsOPC(cans, opcLocal);
-  opcGrid.donutOPC(donut, opcLocal);
+  //opcGrid.donutOPC(donut, opcLocal);
   //opcGrid.pickleCansOPC(cans, opcLocal);               
   //opcGrid.kingsHeadStripOPC(cans, opcESP);
   //opcGrid.espTestOPC(rigg, opcLocal);

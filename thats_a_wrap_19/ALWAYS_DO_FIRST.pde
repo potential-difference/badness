@@ -1,12 +1,10 @@
 void setupSpecifics() {
 
   rigg.availableAnims = new int[] {0, 1, 2, 3};      // setup which anims are used on which rig here
-  roof.availableAnims = new int[] {4, 5, 6, 0};      // setup which anims are used on which rig here - defualt is 0,1,2,3...
-  rigg.avaliableBkgrnds = new int[] {0, 1, 2, 3, 4, 5};
+  //roof.availableAnims = new int[] {4, 5, 6, 0};      // setup which anims are used on which rig here - defualt is 0,1,2,3...
+  //rigg.avaliableBkgrnds = new int[] {0, 1, 2, 3, 4, 5};
 
   rigg.dimmers.put(3, new Tup(cc, 34));
-
-  rigg.toggle = true;
 
   rigg.vizIndex = 2;
   roof.vizIndex = 1;
@@ -23,8 +21,8 @@ void setupSpecifics() {
   roof.colorIndexB = 4;
   cans.colorIndexA = 7;
   cans.colorIndexB = 11;
-  donut.colorIndexA = 0;
-  donut.colorIndexB = 14;
+  //donut.colorIndexA = 
+  //donut.colorIndexB = ;
 
 
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
