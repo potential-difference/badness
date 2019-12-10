@@ -20,9 +20,12 @@ void playWithMe() {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   if (keyP[' ']) { 
-    for (Rig rig : rigs) rig.animations.add(new Test(rig)); //  rig.addAnim(rig.availableAnims[rig.vizIndex]); //rig.animations.add(new Test(rig));
-    //if (rig.toggle)
-    //for (Rig rig : rigs) rig.addAnim(rig.availableAnims[rig.vizIndex]);
+    for (Rig rig : rigs) {
+      if (rig.toggle) {
+        if (testToggle) rig.animations.add(new Avoid(rig));
+        else rig.addAnim(rig.availableAnims[rig.vizIndex]);
+      }
+    }
   } 
   //rigg.animations.add(new Test(rigg));         // or space bar!
   //if (keyP[' ']) animations.add(new Anim(roof.vizIndex, alphaSlider, funcSlider, roof));         // or space bar!

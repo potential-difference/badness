@@ -122,7 +122,7 @@ void draw()
   if (beatTrigger) { 
     for (Rig rig : rigs) {
       if (rig.toggle) {
-        if (testToggle) rig.animations.add(new Donut(rig));
+        if (testToggle) rig.animations.add(new Avoid(rig));
         else rig.addAnim(rig.availableAnims[rig.vizIndex]);
       }
     }

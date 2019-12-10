@@ -73,7 +73,6 @@ class Anim1 extends Anim { ///////// COME BACK TO THIS WITH NEW ENVELOPES
     functionEnvelopeB = new ADSR(2000, 1, 1, 0.2, 0, 0);
   }
   void draw() {
-
     window.beginDraw();
     window.background(0);
     stroke = 10+(30*functionA);
@@ -311,7 +310,7 @@ class Teeth extends Anim {
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Donut extends Anim {
-  Donut(Rig _rig) {
+  Donut(Rig _rig) {            // come back to this with new envelopes
     super(_rig);
   }
   void draw() {
@@ -320,7 +319,7 @@ class Donut extends Anim {
     wide = 10+(vizWidth*(1-functionB));
     high = wide;
     stroke = 2+(vizWidth/2*functionA);
-  //void donut(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
+    //void donut(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
     donut(viz.x, viz.y, col1, stroke, wide, high, 0, alphaA);
     window.endDraw();
   }
@@ -333,13 +332,21 @@ class Fill extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    window.rect(viz.x, viz.y, window.width, window.height);
+    window.noStroke();
+
+    if (_beatCounter % 9 < 4) window.fill(360*alphaA);
+    else window.fill(360*alphaB);
+    window.rect(window.width/4, viz.y, window.width/2, window.height);
+    //
+    if (_beatCounter % 9 < 4) window.fill(360*alphaB);
+    else window.fill(360*alphaA);
+    window.rect(window.width/4*3, viz.y, window.width/2, window.height);
     window.endDraw();
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Void extends Anim {
-  Void(Rig _rig) {
+class Avoid extends Anim {
+  Avoid(Rig _rig) {
     super(_rig);
     alphaEnvelopeA = new ADSR(200, 0, 1000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
     functionEnvelopeA =  new ADSR(800, 0, 1000, 0.2, 0, 1); // envelopeFactory(rig.alphaIndexA, rig);
@@ -347,7 +354,6 @@ class Void extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    window.noStroke();
     stroke = -window.width*functionA;
     wide = window.width;
     high = wide;

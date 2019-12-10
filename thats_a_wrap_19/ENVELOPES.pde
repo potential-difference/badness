@@ -17,9 +17,9 @@ int now() {
 Envelope envelopeFactory(int envelope_index, Rig rig) {
   switch (envelope_index) {
   case 0: 
-    return new ADSR(800, 0, 1500, 0.2, 0, 1);
+    return new ADSR(800, 100, 1500, 0.2, 0, 1);
   case 1:
-    return new ADSR(1500, 1000, 200, 0.2, 0, 1);
+    return new ADSR(1500, 1000, 2000, 0.2, 0, 1);
   case 2:
     return new ADSR(1000, 0, 2000, -rig.alphaRate, 0, -rig.funcRate);
   case 3:
@@ -200,7 +200,7 @@ class ADSR extends Envelope {
       break;
     case SUSTAIN:
       if (now >= sustain_time) state = Env_State.DECAY;
-      if (sustain_time - now > 0) alpha = 0.4+(stutter*0.6);
+      //if (sustain_time - now > 0) alpha = 0.4+(stutter*0.6);
       //else alpha = 1;
       break;
     case DECAY: 
