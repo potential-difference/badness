@@ -1,8 +1,9 @@
 
 abstract class ManualAnim extends Anim {
+  
   ManualAnim(Rig _rig) {
     super(_rig);
-    alphaRate = manualSlider;
+      alphaRate = _rig.manualAlpha;
   }
   void draw() {
   }
@@ -305,15 +306,18 @@ class Test extends Anim {
     window.beginDraw();
     window.background(0);
     window.fill(360*alphaA);
+    window.noStroke();
     window.rect(viz.x-(window.width/2)+(window.width*functionA), viz.y-100, 100, 100);
     window.ellipse(viz.x-200, viz.y, 100, 100);
 
     window.fill(360*alphaB);
     window.ellipse(viz.x+200, viz.y, 100, 100);
     window.rect(viz.x-(window.width/2)+(window.width*functionB), viz.y+100, 100, 100);
-    window.endDraw();
 
-    println(alphaA, alphaB);
+    window.fill(300);
+    window.rect(viz.x, viz.y, window.width/5, window.height/5);
+
+    window.endDraw();
   }
 }
 
@@ -370,9 +374,9 @@ class Anim {
   void draw() {
     //Override Me in subclass
     fill(300+(60*stutter));
-    textSize(60);
+    textSize(30);
     textAlign(CENTER);
-    text("OOPS!!\nCHECK YOUR ANIM LIST", viz.x, viz.y-30);
+    text("OOPS!!\nCHECK YOUR ANIM LIST", rig.size.x, rig.size.y-15);
   }
   float stroke, wide, high, rotate;
   Float vizWidth, vizHeight;
@@ -387,13 +391,13 @@ class Anim {
 
     functionA = functionEnvelopeA.value(now); 
     functionB = functionEnvelopeB.value(now);
+
     functionA*=funcFX;
     functionB*=funcFX;
 
     if (alphaEnvelopeA.end_time<now && alphaEnvelopeB.end_time<now) deleteme = true;  // only delete when all finished
 
     this.draw();
-    blurPGraphics();
 
     /*
     if (syphonToggle) {
@@ -406,8 +410,7 @@ class Anim {
      }
      }
      */
-     
-     println(rig.name,rig.size.x, rig.size.y);
+    blurPGraphics();
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

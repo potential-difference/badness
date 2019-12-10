@@ -86,7 +86,7 @@ class ControlFrame extends PApplet {
     super();   
     parent = _parent;
     controlW=parent.width;
-    controlH=250;
+    controlH=270;
     PApplet.runSketch(new String[]{this.getClass().getName()}, this);
   }
   public void settings() {
@@ -186,9 +186,7 @@ class ControlFrame extends PApplet {
       .setColorForeground(slider1) 
       ;
     /*
-       
-   
-    
+                 
      cp5.addSlider("smokePump")
      .plugTo(parent, "smokePump")      .setPosition(x, y+row)
      .setPosition(x, y+row*3)
@@ -222,7 +220,7 @@ class ControlFrame extends PApplet {
      x+=clm;
      //////////////////////////////////////////////////////////////////////////////////////////////////
      /////////////////////////////// FOURTH coloum of sliders ///////////////////////////////////////
-   
+     
      cp5.addSlider("bgNoiseSlider")
      .plugTo(parent, "bgNoiseSlider")
      .setPosition(x, y+row*2)
@@ -256,56 +254,49 @@ class ControlFrame extends PApplet {
      .setColorBackground(bac1) 
      .setColorForeground(slider1) 
      ;
-    
-     ///////////////////////////////////////////////////////////////////////////////////////////////////////
-     /////////////////////////////// BUTTONS ///////////////////////////////////////////////////////////////
-     x +=clm;
-     for (Rig rig : rigs) { 
-     loadToggleButton(rig, x, y);
-     x+=60;
-     }
      */
-     ////////////////////////////////////////////////////////////////////////////////////////////////////
-     x+=clm*5;
-     x += 80;
-     cp5.addToggle("onTop")
-     .plugTo(parent, "onTop")
-     .setPosition(x, y)
-     .setSize(20, 20)
-     .setValue(onTop)
-     .setColorActive(bac1) 
-     .setColorBackground(bac) 
-     .setColorForeground(slider) 
-     ;
-     cp5.addToggle("glitchToggle")
-     .plugTo(parent, "glitchToggle")
-     .setPosition(x, y+35)
-     .setSize(20, 20)
-     .setValue(glitchToggle)
-     .setColorActive(bac1) 
-     .setColorBackground(bac) 
-     .setColorForeground(slider) 
-     ;
-     x += 80;
-     cp5.addToggle("roofbasic")
-     .plugTo(parent, "roofBasic")
-     .setPosition(x, y)
-     .setSize(20, 20)
-     .setValue(roofBasic)
-     .setColorActive(bac1) 
-     .setColorBackground(bac) 
-     .setColorForeground(slider) 
-     ;
-     cp5.addToggle("syphonToggle")
-     .plugTo(parent, "syphonToggle")
-     .setPosition(x, y+35)
-     .setSize(20, 20)
-     .setValue(syphonToggle)
-     .setColorActive(bac1) 
-     .setColorBackground(bac) 
-     .setColorForeground(slider) 
-     ;
-     
+
+    /////////////////////////////// BUTTONS ///////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////
+    x+=clm*5;
+    x += 80;
+    cp5.addToggle("onTop")
+      .plugTo(parent, "onTop")
+      .setPosition(x, y)
+      .setSize(20, 20)
+      .setValue(onTop)
+      .setColorActive(bac1) 
+      .setColorBackground(bac) 
+      .setColorForeground(slider) 
+      ;
+    cp5.addToggle("glitchToggle")
+      .plugTo(parent, "glitchToggle")
+      .setPosition(x, y+35)
+      .setSize(20, 20)
+      .setValue(glitchToggle)
+      .setColorActive(bac1) 
+      .setColorBackground(bac) 
+      .setColorForeground(slider) 
+      ;
+    x += 80;
+    cp5.addToggle("roofbasic")
+      .plugTo(parent, "roofBasic")
+      .setPosition(x, y)
+      .setSize(20, 20)
+      .setValue(roofBasic)
+      .setColorActive(bac1) 
+      .setColorBackground(bac) 
+      .setColorForeground(slider) 
+      ;
+    cp5.addToggle("syphonToggle")
+      .plugTo(parent, "syphonToggle")
+      .setPosition(x, y+35)
+      .setSize(20, 20)
+      .setValue(syphonToggle)
+      .setColorActive(bac1) 
+      .setColorBackground(bac) 
+      .setColorForeground(slider) 
+      ;
   }
   void draw() {
     background(0);
@@ -363,18 +354,18 @@ class ControlFrame extends PApplet {
     }
     /*
     /////////////////////////////////////////////////// cans info ////////////////////////////////////////////////////////
-    if (size.donutHeight > 0 && size.donutHeight > 0) {
-      fill(rigg.c, 300);
-      if (!donut.toggle) fill(rigg.c, 100);
-      textSize(18);
-      textAlign(LEFT);
-      x = size.cans.x+(size.cansWidth/2) +25;
-      text("donutViz: " + donut.vizIndex, x, y);
-      text("bkgrnd: " + donut.bgIndex, x, y+20);
-      text("func's: " + donut.functionIndexA + " / " + donut.functionIndexB, x+120, y);
-      text("alph's: " + donut.alphaIndexA + " / " + donut.alphaIndexB, x+120, y+20);
-    }
-    */
+     if (size.donutHeight > 0 && size.donutHeight > 0) {
+     fill(rigg.c, 300);
+     if (!donut.toggle) fill(rigg.c, 100);
+     textSize(18);
+     textAlign(LEFT);
+     x = size.cans.x+(size.cansWidth/2) +25;
+     text("donutViz: " + donut.vizIndex, x, y);
+     text("bkgrnd: " + donut.bgIndex, x, y+20);
+     text("func's: " + donut.functionIndexA + " / " + donut.functionIndexB, x+120, y);
+     text("alph's: " + donut.alphaIndexA + " / " + donut.alphaIndexB, x+120, y+20);
+     }
+     */
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     sequencer(675, sliderY-20);
     pauseInfo(width-5, sliderY-15);

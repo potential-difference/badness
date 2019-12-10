@@ -1,5 +1,5 @@
 public class Rig {
-  float dimmer = 1, alphaRate, funcRate, blurValue;
+  float dimmer = 1, alphaRate, funcRate, blurValue, manualAlpha;
   int wide, high, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, bgIndex, vizIndex;
   PGraphics colorLayer, buffer, pass1, pass2;
   PVector size;
@@ -43,10 +43,11 @@ public class Rig {
     loadSlider("funcRate", x+(clm*arrayListIndex), 2, 0, 1, 0.5);
     loadSlider("blurValue", x+(clm*arrayListIndex), 3, 0, 1, 0.5);
     loadSlider("bgNoise", x+(clm*arrayListIndex), 4, 0, 1, 0.5);
+    loadSlider("manualAlpha", x+(clm*arrayListIndex), 5, 0, 1, 0.8);
 
     //void loadToggle(String label, float x, float y, int wide,int high) {
-    loadToggle(noiseToggle, "noiseToggle", x+(clm*arrayListIndex), y+row*5, swide, 10);
-    loadToggle(toggle, "toggle", x+(clm*arrayListIndex), y+row*6.5, swide, 30);
+    loadToggle(noiseToggle, "noiseToggle", x+(clm*arrayListIndex), y+row*6, swide, 10);
+    loadToggle(toggle, "toggle", x+(clm*arrayListIndex), y+row*7.5, swide, 20);
 
     int xw = 2;
     for (int i = 0; i < position.length/xw; i++) position[i] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*1);
@@ -138,6 +139,7 @@ public class Rig {
       scol2 = bac1;
       scol3 = slider1;
     }
+    println(name, this);
     cp5.addSlider(name+" "+label)
       .plugTo(this, label)
       .setLabel(this.name+" "+label)
@@ -535,27 +537,10 @@ public class Rig {
     if (t != null) anim.animDimmer = t;
     this.animations.add(anim);
   }
-
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void draw() {
-    clash(beat);
-    drawAnimations();
-
-    /*
-    blendMode(MULTIPLY);
-     // this donesnt work anymore....
-     if (cc[107] > 0 || keyT['r'] || glitchToggle) bgNoise(colorLayer, 0, 0, cc[7]); //PGraphics layer,color,alpha
-     drawColorLayer();
-     */
-    blendMode(NORMAL);
-    rigInfo();
-    removeAnimations();
-    cordinatesInfo(this, keyT['q']);
-  }
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void drawAnimations() {
-    blendMode(LIGHTEST);
+    //blendMode(LIGHTEST);
     for (int i = this.animations.size()-1; i >=0; i--) {                                  // loop  through the list
       Anim anims = this.animations.get(i);  
       anims.drawAnim();           // draw the animation
@@ -567,23 +552,29 @@ public class Rig {
     }
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-}
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void cordinatesInfo(Rig rig, boolean _info) {
-  if (_info) {
-    textSize(12);
-    textAlign(CENTER);
-    fill(360);  
-    for (int i = 0; i < rig.position.length; i++) text(i, rig.size.x-(rig.wide/2)+rig.position[i].x, rig.size.y-(rig.high/2)+rig.position[i].y);   /// mirrors Position info
-    fill(200);  
-    for (int i = 0; i < rig.positionX.length; i++) {
-      text(i+".", rig.size.x-(rig.wide/2)+rig.positionX[i][0].x, rig.size.y-(rig.high/2)+rig.positionX[i][0].y);   /// mirrors Position info
-      text(i+".", rig.size.x-(rig.wide/2)+rig.positionX[i][1].x, rig.size.y-(rig.high/2)+rig.positionX[i][1].y);   /// mirrors Position info
-      text(i+".", rig.size.x-(rig.wide/2)+rig.positionX[i][2].x, rig.size.y-(rig.high/2)+rig.positionX[i][2].y);   /// mirrors Position info
-    }
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  void draw() {
+    clash(beat);
+    drawAnimations();
+
+    blendMode(MULTIPLY);
+    // this donesnt work anymore....
+    if (cc[107] > 0 || keyT['r'] || glitchToggle) bgNoise(colorLayer, 0, 0, cc[7]); //PGraphics layer,color,alpha
+    drawColorLayer();
+
+    blendMode(NORMAL);
+    rigInfo();
+    removeAnimations();
+    cordinatesInfo(this, keyT['q']);
   }
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -21,7 +21,7 @@ Envelope envelopeFactory(int envelope_index, Rig rig) {
   case 1:
     return new ADSR(1500, 1000, 200, 0.2, 0, 1);
   case 2:
-    return new ADSR(1000, 0, 2000, -rigg.alphaRate, 0, -rigg.funcRate);
+    return new ADSR(1000, 0, 2000, -rig.alphaRate, 0, -rig.funcRate);
   case 3:
     return new MulEnvelope(envelopeFactory(2, rig), envelopeFactory(0, rig));
   case 4:
