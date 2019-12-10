@@ -38,13 +38,13 @@ class SizeSettings {
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////
-class Toggle {
-  boolean rect = false;
-  Toggle() {
-    rect = false;
+ void midiSetup() {
+    MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
+    println();
+    TR8bus = new MidiBus(this, "TR-8S", "TR8-S"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
+    LPD8bus = new MidiBus(this, "LPD8", "LPD8"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
+    beatStepBus = new MidiBus(this, "Arturia BeatStep", "Arturia BeatStep"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
   }
-}
 
 //////////////////////////////////////// LOAD IMAGES ///////////////////////////
 PImage bar1, flames; 

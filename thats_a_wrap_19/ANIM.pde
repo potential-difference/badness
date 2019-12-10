@@ -346,7 +346,7 @@ class Anim {
     col1 = white;
     col2 = white;
 
-    blury = int(map(blurSlider, 0, 1, 0, 100));     //// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
+    blury = int(map(rig.blurValue, 0, 1, 0, 100));     //// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
     if (blury!=prevblury) {
       prevblury=blury;
     }
@@ -382,6 +382,7 @@ class Anim {
     int now = millis();
     alphaA = alphaEnvelopeA.value(now);
     alphaB = alphaEnvelopeB.value(now);
+
 
     alphaA*=rig.dimmer*animDimmer.get();
     alphaB*=rig.dimmer*animDimmer.get();          // not sure how to link this yet

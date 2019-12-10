@@ -51,7 +51,7 @@ void beats() {
   beatTrigger = false;
   if (beatDetect.isOnset()) beatTrigger = true;
   // trigger beats without audio input
-  if (pause > 1) if (frameCount % int((random(12, 25))*pauseSlider) == 0) beatTrigger = true;
+  if (pause > 1) if (frameCount % int((random(12, 25))) == 0) beatTrigger = true;
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
   if (beatTrigger) {
     beat = 1;

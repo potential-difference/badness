@@ -1,9 +1,57 @@
+void setupSpecifics() {
+
+  rigg.availableAnims = new int[] {0, 1, 2, 3};      // setup which anims are used on which rig here
+  roof.availableAnims = new int[] {4, 5, 6, 0};      // setup which anims are used on which rig here - defualt is 0,1,2,3...
+  rigg.avaliableBkgrnds = new int[] {0, 1, 2, 3, 4, 5};
+
+  rigg.dimmers.put(3, new Tup(cc, 34));
+
+  rigg.toggle = true;
+
+  rigg.vizIndex = 2;
+  roof.vizIndex = 1;
+  rigg.functionIndexA = 0;
+  rigg.functionIndexB = 1;
+  rigg.alphaIndexA = 0;
+  rigg.alphaIndexB = 1;
+  rigg.bgIndex = 0;
+  roof.bgIndex = 4;
+
+  rigg.colorIndexA = 0;
+  rigg.colorIndexB = 14;
+  roof.colorIndexA = 3;
+  roof.colorIndexB = 4;
+  cans.colorIndexA = 7;
+  cans.colorIndexB = 11;
+  donut.colorIndexA = 0;
+  donut.colorIndexB = 14;
+
+
+  for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
+  for (int i = 0; i < 100; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen
+  cc[1] = 0.75;
+  cc[2] = 0.75;
+  cc[5] = 0.3;
+  cc[6] = 0.75;
+  cc[4] = 1;
+  cc[8] = 1;
+  cc[MASTERFXON] = 0;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////// COLOR SETUP CHOSE COLOUR VALUES ///////////////////////////////////////////////
 color red, pink, yell, grin, bloo, purple, teal, orange, aqua, white, black;
 color red1, pink1, yell1, grin1, bloo1, purple1, teal1, aqua1, orange1;
 color red2, pink2, yell2, grin2, bloo2, purple2, teal2, aqua2, orange2;
-color c,flash;
+color c, flash;
+color act = #07E0D3;
+color act1 = #00FC84;
+color bac = #370064;
+color bac1 = #4D9315;
+color slider = #E07F07;
+color slider1 = #E0D607;
 void colorSetup() {
+
   colorMode(HSB, 360, 100, 100);
   white = color(0, 0, 100);
   black = color(0, 0, 0);

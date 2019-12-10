@@ -1,5 +1,5 @@
 public class Rig {
-  float dimmer = 1, alphaRate, funcRate;
+  float dimmer = 1, alphaRate, funcRate, blurValue;
   int wide, high, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, bgIndex, vizIndex;
   PGraphics colorLayer, buffer, pass1, pass2;
   PVector size;
@@ -14,7 +14,7 @@ public class Rig {
   int[] availableAnims;
   int[] avaliableBkgrnds;
   int arrayListIndex;
-  ControlP5 cp5;
+  int value;
 
   Rig(float _xpos, float _ypos, int _wide, int _high, String _name) {
     name = _name;
@@ -30,7 +30,69 @@ public class Rig {
 
     dimmers = new HashMap<Integer, Tup>();
 
-    //controlFrame.loadToggleButton(600, 50, toggle);
+    int clm = 210;           // distance between coloms
+    float x = 10+clm;
+    float y = 90;
+    int swide = 80;           // x size of sliders
+    int shigh = 14;           // y size of slider
+    int row = shigh+4;       // distance between rows
+
+    cp5.addSlider(name+"Dimmer")
+      .plugTo(this, "dimmer")
+      .setLabel(name+" DIMMER")
+      .setPosition(x+(clm*arrayListIndex), y)
+      .setSize(swide, shigh)
+      .setRange(0, 1)
+      .setValue(1)
+      .setColorActive(act1) 
+      .setColorBackground(bac1) 
+      .setColorForeground(slider1) 
+      ;
+    cp5.addSlider(name+"AlphaRate")
+      .plugTo(this, "alphaRate")
+      .setLabel(name+" ALPHA RATE")
+      .setPosition(x+(clm*arrayListIndex), y+row)
+      .setSize(swide, shigh)
+      .setRange(0, 1)
+      .setValue(0.45) // start value of slider
+      .setColorActive(act) 
+      .setColorBackground(bac) 
+      .setColorForeground(slider) 
+      ;
+    cp5.addSlider(name+"FuncRate")
+      .plugTo(this, "funcRate")
+      .setLabel(name+" FUNC RATE")
+      .setPosition(x+(clm*arrayListIndex), y+row*2)
+      .setSize(swide, shigh)
+      .setRange(0, 1)
+      .setValue(0.45) // start value of slider
+      .setColorActive(act1) 
+      .setColorBackground(bac1) 
+      .setColorForeground(slider1) 
+      ;
+    cp5.addSlider(name+"BlurValue")
+      .plugTo(this, "blurValue")
+      .setLabel(name+" BLUR VALUE")
+      .setPosition(x+(clm*arrayListIndex), y+row*3)
+      .setSize(swide, shigh)
+      .setRange(0, 1)
+      .setValue(0.3) // start value of slider
+      .setColorActive(act) 
+      .setColorBackground(bac) 
+      .setColorForeground(slider) 
+      ;
+    cp5.addToggle(this.name+" TOGGLE")
+      .plugTo(this, "toggle")
+      .setLabel(name+" TOGGLE")
+      .setValue(this.toggle)
+      .setPosition(x+(clm*arrayListIndex), y+row*4)
+      .setSize(swide, 30)      
+      .setColorActive(bac1) 
+      .setColorBackground(bac) 
+      .setColorForeground(slider) 
+      ;
+
+
 
     int xw = 2;
     for (int i = 0; i < position.length/xw; i++) position[i] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*1);
@@ -96,6 +158,27 @@ public class Rig {
     col[14] = teal;
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  void loadToggleButton(float x, float y) {
+    cp5.addToggle(this.name+" TOGGLE")
+      .setPosition(x, y)
+      .setSize(50, 50)      
+      .setValue(this.toggle)
+      .plugTo(this, "toggle")
+      .setColorActive(bac1) 
+      .setColorBackground(bac) 
+      .setColorForeground(slider) 
+      ;
+  }
+  public void controlEvent(ControlEvent theEvent) {
+    //println(theEvent.getController().getName(), theEvent.getController().getValue());
+    //println("dimmer "+this.dimmer);
+  }
+  void setValue(int theValue) {
+    value = theValue;
+  }
+  void toggle(boolean toggleValue) {
+    toggle = toggleValue;
+  }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void drawColorLayer() {
     switch(bgIndex) {
@@ -161,7 +244,6 @@ public class Rig {
      */
     image(colorLayer, size.x, size.y);
   }
-  //////////////////////////////////////// END OF BACKGROUND CONTROL /////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////// VERTICAL MIRROR GRADIENT BACKGROUND ////////////////////////////////////////////////
   void mirrorGradient(color col1, color col2, float func) {
@@ -309,11 +391,8 @@ public class Rig {
     colorLayer.fill(col1);                                
     colorLayer.rect(colorLayer.width/4*3, colorLayer.height/2, colorLayer.width/2, colorLayer.height);
   }
-
-
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
   void rigInfo() {
     float textHeight = 18;
     textSize(textHeight);
@@ -486,13 +565,13 @@ public class Rig {
     blendMode(MULTIPLY);
     // this donesnt work anymore....
     if (cc[107] > 0 || keyT['r'] || glitchToggle) bgNoise(colorLayer, 0, 0, cc[7]); //PGraphics layer,color,alpha
-    ////
-
     drawColorLayer();
     blendMode(NORMAL);
     rigInfo();
     removeAnimations();
     cordinatesInfo(this, keyT['q']);
+
+    //println( this.value );
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void drawAnimations() {
@@ -502,14 +581,15 @@ public class Rig {
       anims.drawAnim();           // draw the animation
     }
   }
-
   void removeAnimations() {
     for (int i = 0; i < this.animations.size(); i++) {                                  // loop  through the list
       while (this.animations.size()>0  && this.animations.get(i).deleteme) animations.remove(i);           // remove the animations with deleteme = true
     }
   }
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void cordinatesInfo(Rig rig, boolean _info) {
   if (_info) {
     textSize(12);

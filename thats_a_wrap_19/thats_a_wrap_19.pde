@@ -8,8 +8,11 @@ OPC opcCans;
 OPC opcStrip;
 OPC opcControllerA;
 OPC opcControllerB;
-DMXGrid dmx;
 OPC opcWifi;
+
+import controlP5.*;
+ControlP5 cp5;
+//SliderSetup ss;
 
 final int PORTRAIT = 0;
 final int LANDSCAPE = 1;
@@ -23,7 +26,6 @@ Rig rigg, roof, cans, mirrors, strips, donut;
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
 
 ControlFrame ControlFrame; // load control frame must come after shild ring etc
-
 
 import javax.sound.midi.ShortMessage;       // shorthand names for each control on the TR8
 import oscP5.*;
@@ -50,30 +52,22 @@ void setup()
   surface.setSize(size.sizeX, size.sizeY);
   surface.setAlwaysOnTop(onTop);
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
+  controlFrame = new ControlFrame(this); // load control frame must come after shild ring etc
+  cp5 = new ControlP5( controlFrame );
+  //ss = new SliderSetup();
 
   opcGrid = new OPCGrid();
-  dmx = new DMXGrid();
-
-  controlFrame = new ControlFrame(this); // load control frame must come after shild ring etc
-
 
   rigg = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
   roof = new Rig(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
   cans = new Rig(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "CANS");
   donut = new Rig(size.donut.x, size.donut.y, size.donutWidth, size.donutHeight, "DONUT");
-  rigg.availableAnims = new int[] {0, 1, 2, 3};      // setup which anims are used on which rig here
-  roof.availableAnims = new int[] {4, 5, 6, 0};      // setup which anims are used on which rig here - defualt is 0,1,2,3...
-  rigg.avaliableBkgrnds = new int[] {0, 1, 2, 3, 4, 5};
 
-  rigg.dimmers.put(3, new Tup(cc, 34));
-
-  rigg.toggle = true;
 
   ///////////////// LOCAL opc /////////////////////
   opcLocal   = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRRORS
   opcMirror1 = new OPC(this, "GL-AR300m-c4c", 7890);
   opcMirror2 = new OPC(this, "GL-AR300M-cb9", 7890);
-
 
   ///////////////// OPC over NETWORK /////////////////////
   //opcMirrors = new OPC(this, "192.168.0.70", 7890);        // Connect to the remote instance of fcserver - MIRROR 1
@@ -90,44 +84,12 @@ void setup()
   //opcGrid.individualCansOPC(roof, opcLocal);
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
-  MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
-  println();
-  TR8bus = new MidiBus(this, "TR-8S", "TR8-S"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
-  LPD8bus = new MidiBus(this, "LPD8", "LPD8"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
-  beatStepBus = new MidiBus(this, "Arturia BeatStep", "Arturia BeatStep"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
+  midiSetup();
 
   drawingSetup();
   loadImages();
   loadShaders();
-
-  rigg.vizIndex = 2;
-  roof.vizIndex = 1;
-  rigg.functionIndexA = 0;
-  rigg.functionIndexB = 1;
-  rigg.alphaIndexA = 0;
-  rigg.alphaIndexB = 1;
-  rigg.bgIndex = 0;
-  roof.bgIndex = 4;
-
-  rigg.colorIndexA = 0;
-  rigg.colorIndexB = 14;
-  roof.colorIndexA = 3;
-  roof.colorIndexB = 4;
-  cans.colorIndexA = 7;
-  cans.colorIndexB = 11;
-  donut.colorIndexA = 0;
-  donut.colorIndexB = 14;
-
-  for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
-  for (int i = 0; i < 100; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen
-  cc[1] = 0.75;
-  cc[2] = 0.75;
-  cc[5] = 0.3;
-  cc[6] = 0.75;
-  cc[4] = 1;
-  cc[8] = 1;
-  cc[MASTERFXON] = 0;
-
+  setupSpecifics();
   //syphonSetup(syphonToggle);
 
   frameRate(30);
@@ -168,7 +130,7 @@ void draw()
     }
   }
   //for (Rig rig : rigs) println(rig.name, rig.toggle);
-println(rigg.dimmer);
+  //println(rigg.dimmer);
   if (keyT['s']) for (Anim anims : rigg.animations)  anims.funcFX = 1-(stutter*noize1*0.1);
 
   for (Rig rigs : rigs) rigs.draw();  
