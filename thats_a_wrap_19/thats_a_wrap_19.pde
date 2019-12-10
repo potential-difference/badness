@@ -158,10 +158,10 @@ void draw()
   // create a new anim object and add it to the beginning of the arrayList
   if (beatTrigger) { 
     for (Rig rig : rigs) { 
-      if (rig.toggle) rig.addAnim(rig.availableAnims[rig.vizIndex]);
+      //if (rig.toggle) rig.addAnim(rig.availableAnims[rig.vizIndex]);
     }
   }
- for(Rig rig : rigs) println(rig.toggle);
+  //for(Rig rig : rigs) println(rig.toggle);
 
   if (keyT['s']) for (Anim anims : rigg.animations)  anims.funcFX = 1-(stutter*noize1*0.1);
 
