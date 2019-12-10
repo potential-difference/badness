@@ -341,14 +341,15 @@ class Test extends Anim {
   Test(Rig _rig) {
     super(_rig);
     functionEnvelopeA =  new ADSR(1000, 0, 1000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
-    functionEnvelopeB =  new ADSR(3000, 0, 3000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
+    functionEnvelopeB =  new ADSR(1500, 0, 1500, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
+
+    alphaEnvelopeA =  new ADSR(1000, 1000, 1000, 0.9, 0, 0.8); // envelopeFactory(rig.alphaIndexA, rig);
   }
   void draw() {  
     window.beginDraw();
     window.background(0);
     wide = 100;
     high = vizHeight/2; //*functionB;
-    println();
     //drop(position[0].x, viz.y, col1, wide, vizHeight, functionA, alphaA);
     //drop(position[2].x, viz.y, col1, wide, vizHeight, functionA, alphaA);
     //drop(position[4].x, viz.y, col1, wide, vizHeight, functionA, alphaA);
@@ -538,7 +539,6 @@ class Anim {
     float moveA;
     float strt = window.height-ypos;
     moveA = (strt-((window.height)*func))*1.3;
-    println(moveA);
     window.imageMode(CENTER);
     window.pushMatrix();
     window.translate(xpos, ypos);
