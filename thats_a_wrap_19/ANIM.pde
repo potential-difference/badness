@@ -1,9 +1,9 @@
 
 abstract class ManualAnim extends Anim {
-  
+
   ManualAnim(Rig _rig) {
     super(_rig);
-      alphaRate = _rig.manualAlpha;
+    alphaRate = _rig.manualAlpha;
   }
   void draw() {
   }
@@ -350,9 +350,7 @@ class Anim {
     col2 = white;
 
     blury = int(map(rig.blurValue, 0, 1, 0, 100));     //// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
-    if (blury!=prevblury) {
-      prevblury=blury;
-    }
+    if (blury!=prevblury) prevblury=blury;
 
     window = rig.buffer;
     viz = new PVector(window.width/2, window.height/2);
@@ -366,7 +364,6 @@ class Anim {
 
     alphaEnvelopeA = envelopeFactory(rig.alphaIndexA, rig);
     alphaEnvelopeB = envelopeFactory(rig.alphaIndexB, rig);
-
     functionEnvelopeA = envelopeFactory(rig.functionIndexA, rig);
     functionEnvelopeB = envelopeFactory(rig.functionIndexB, rig);
   }
@@ -381,17 +378,14 @@ class Anim {
   float stroke, wide, high, rotate;
   Float vizWidth, vizHeight;
   void drawAnim() {
-
     int now = millis();
     alphaA = alphaEnvelopeA.value(now);
     alphaB = alphaEnvelopeB.value(now);
-
     alphaA*=rig.dimmer*animDimmer.get();
     alphaB*=rig.dimmer*animDimmer.get();          // not sure how to link this yet
 
     functionA = functionEnvelopeA.value(now); 
     functionB = functionEnvelopeB.value(now);
-
     functionA*=funcFX;
     functionB*=funcFX;
 
