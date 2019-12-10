@@ -257,7 +257,7 @@ class Test extends Anim {
     window.rect(viz.x-(window.width/2)+(window.width*functionA), viz.y-100, 100, 100);
     window.ellipse(viz.x-200, viz.y, 100, 100);
     
-    fill(360*alphaB);
+    window.fill(360*alphaB);
     window.ellipse(viz.x+200, viz.y, 100, 100);
     window.rect(viz.x-(window.width/2)+(window.width*functionB), viz.y+100, 100, 100);
     window.endDraw();
@@ -309,11 +309,11 @@ class Anim implements Animation {
     position = rig.position; 
     positionX = rig.positionX;
 
-    alphaEnvelopeA = envelopeFactory(rig.alphaIndexA);
-    alphaEnvelopeB = envelopeFactory(rig.alphaIndexB);
+    alphaEnvelopeA = envelopeFactory(rig.alphaIndexA,rig);
+    alphaEnvelopeB = envelopeFactory(rig.alphaIndexB,rig);
 
-    functionEnvelopeA = envelopeFactory(rig.functionIndexA);
-    functionEnvelopeB = envelopeFactory(rig.functionIndexB);
+    functionEnvelopeA = envelopeFactory(rig.functionIndexA,rig);
+    functionEnvelopeB = envelopeFactory(rig.functionIndexB,rig);
   }
 
   void draw() {

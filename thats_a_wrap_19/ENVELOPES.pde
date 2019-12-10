@@ -14,16 +14,16 @@ int now() {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-Envelope envelopeFactory(int envelope_index) {
+Envelope envelopeFactory(int envelope_index, Rig rig) {
   switch (envelope_index) {
   case 0: 
     return new ADSR(800, 0, 1500, 0.2, 0, 1);
   case 1:
     return new ADSR(1500, 1000, 200, 0.2, 0, 1);
   case 2:
-    return new ADSR(1000, 0, 2000, -manualSlider, 0, -funcSlider);
+    return new ADSR(1000, 0, 2000, -rigg.alphaRate, 0, -rigg.funcRate);
   case 3:
-    return new MulEnvelope(envelopeFactory(2), envelopeFactory(0));
+    return new MulEnvelope(envelopeFactory(2, rig), envelopeFactory(0, rig));
   case 4:
     int t=millis();
     MulEnvelope growingsin = new MulEnvelope(new Stutter(1.0, 100), new Ramp(t+1000, t+1500, 0.0, 0.4));
