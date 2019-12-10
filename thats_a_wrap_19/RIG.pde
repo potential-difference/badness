@@ -28,7 +28,7 @@ public class Rig {
     arrayListIndex = rigs.indexOf(this);      // where this is the rig object
 
     dimmers = new HashMap<Integer, Tup>();
-    
+
     int xw = 2;
     for (int i = 0; i < position.length/xw; i++) position[i] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*1);
     for (int i = 0; i < position.length/xw; i++) position[i+(position.length/xw)] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*2);
@@ -444,20 +444,13 @@ public class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void addAnim(int animindex) {
-<<<<<<< HEAD
-    Anim anim;
-=======
-    Anim anim = new Anim(this);
->>>>>>> 3cf58976f3388a2f5bffd1e3681d14ca9a4068c4
-    switch (animindex) {
+      Anim anim = new Anim(this);
+      switch (animindex) {
     case 0:  
       anim = new Rush(this);
       break;
     case 1:  
-<<<<<<< HEAD
-       anim=new Anim0(this);
-=======
-      anim  = new Rushed(this);
+        anim=new Anim0(this);
       break;
     case 2:  
       anim = new SquareNuts(this);
@@ -473,15 +466,9 @@ public class Rig {
       break;
     case 6:  
       anim = new Anim0(this);
->>>>>>> 3cf58976f3388a2f5bffd1e3681d14ca9a4068c4
       break;
-    default:
-       anim=new defaultAnim(this);
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> 3cf58976f3388a2f5bffd1e3681d14ca9a4068c4
     anim.dimmerpointer = this.dimmers.get(animindex);
     this.animations.add(anim);
   }

@@ -20,7 +20,8 @@ void playWithMe() {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   if (keyP[' ']) { 
-    for (Rig rig : rigs) rig.addAnim(rig.availableAnims[rig.vizIndex]);
+    rigg.animations.add(new Test(rigg));
+    //for (Rig rig : rigs) rig.addAnim(rig.availableAnims[rig.vizIndex]);
   } 
   //rigg.animations.add(new Test(rigg));         // or space bar!
   //if (keyP[' ']) animations.add(new Anim(roof.vizIndex, alphaSlider, funcSlider, roof));         // or space bar!

@@ -254,9 +254,12 @@ class Test extends Anim {
     window.beginDraw();
     window.background(0);
     window.fill(360*alphaA);
-    window.rect(viz.x-(window.width/2)+(window.width*functionA), viz.y, 20, 20);
+    window.rect(viz.x-(window.width/2)+(window.width*functionA), viz.y-100, 100, 100);
+    window.ellipse(viz.x-200, viz.y, 100, 100);
     fill(360*alphaB);
-    window.rect(viz.x-(window.width/2)+(window.width*functionB), viz.y+100, 20, 20);
+    window.ellipse(viz.x+200, viz.y, 100, 100);
+
+    window.rect(viz.x-(window.width/2)+(window.width*functionB), viz.y+100, 100, 100);
     window.endDraw();
   }
 }
@@ -313,13 +316,10 @@ class Anim implements Animation {
 
   void draw() {
     //Override Me in subclass
-    //window.beginDraw();
-    //window.background(0);
     fill(300+(60*stutter));
     textSize(60);
     textAlign(CENTER);
     text("OOPS!!\nCHECK YOUR ANIM LIST", viz.x, viz.y-30);
-    //window.endDraw();
   }
   float stroke, wide, high, rotate;
   Float vizWidth, vizHeight;

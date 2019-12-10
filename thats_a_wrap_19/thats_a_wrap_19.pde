@@ -57,7 +57,7 @@ void setup()
   donut = new Rig(size.donut.x, size.donut.y, size.donutWidth, size.donutHeight, "DONUT");
   rigg.availableAnims = new int[] {0, 1, 2, 3};      // setup which anims are used on which rig here
   roof.availableAnims = new int[] {4, 5, 6, 0};      // setup which anims are used on which rig here - defualt is 0,1,2,3...
-  
+
   rigg.dimmers.put(3, new Tup(cc, 34));
 
   rigg.toggle = true;
@@ -157,8 +157,11 @@ void draw()
 
   // create a new anim object and add it to the beginning of the arrayList
   if (beatTrigger) { 
-    for (Rig rig : rigs) if (rig.toggle) rig.addAnim(rig.availableAnims[rig.vizIndex]);
+    for (Rig rig : rigs) { 
+      if (rig.toggle) rig.addAnim(rig.availableAnims[rig.vizIndex]);
+    }
   }
+ for(Rig rig : rigs) println(rig.toggle);
 
   if (keyT['s']) for (Anim anims : rigg.animations)  anims.funcFX = 1-(stutter*noize1*0.1);
 
