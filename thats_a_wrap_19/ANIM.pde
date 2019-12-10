@@ -341,24 +341,30 @@ class Test extends Anim {
   Test(Rig _rig) {
     super(_rig);
     functionEnvelopeA =  new ADSR(1000, 0, 1000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
-    functionEnvelopeB =  new ADSR(1000, 0, 1000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
+    functionEnvelopeB =  new ADSR(3000, 0, 3000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
   }
   void draw() {  
     window.beginDraw();
     window.background(0);
     wide = 100;
-    high = vizHeight*functionB;
-    println(rig.name, "viz x", viz.x, viz.y);
+    high = vizHeight/2; //*functionB;
     println();
-    drop(position[0].x, viz.y, col1, wide, vizHeight, functionA, alphaA);
-    drop(position[2].x, viz.y, col1, wide, vizHeight, functionA, alphaA);
-    drop(position[4].x, viz.y, col1, wide, vizHeight, functionA, alphaA);
+    //drop(position[0].x, viz.y, col1, wide, vizHeight, functionA, alphaA);
+    //drop(position[2].x, viz.y, col1, wide, vizHeight, functionA, alphaA);
+    //drop(position[4].x, viz.y, col1, wide, vizHeight, functionA, alphaA);
 
-    drop(position[7].x, viz.y, col1, wide, vizHeight, 1-functionA, alphaA);
-    drop(position[9].x, viz.y, col1, wide, vizHeight, 1-functionA, alphaA);
-    drop(position[11].x, viz.y, col1, wide, vizHeight, 1-functionA, alphaA);
+    //drop(position[7].x, viz.y, col1, wide, vizHeight, 1-functionA, alphaA);
+    //drop(position[9].x, viz.y, col1, wide, vizHeight, 1-functionA, alphaA);
+    //drop(position[11].x, viz.y, col1, wide, vizHeight, 1-functionA, alphaA);
 
-    //rushR(viz.x, viz.y, col1, wide, high, functionA, 90, alphaA);
+    rotate = functionB*360;
+    rushR(position[0].x, viz.y, col1, wide, vizHeight, functionA, rotate, alphaA);
+    rushR(position[2].x, viz.y, col1, wide, vizHeight, functionA, rotate, alphaA);
+    rushR(position[4].x, viz.y, col1, wide, vizHeight, functionA, rotate, alphaA);
+
+    rushR(position[7].x, viz.y, col1, wide, vizHeight, 1-functionA, -rotate, alphaA);
+    rushR(position[9].x, viz.y, col1, wide, vizHeight, 1-functionA, -rotate, alphaA);
+    rushR(position[11].x, viz.y, col1, wide, vizHeight, 1-functionA, -rotate, alphaA);
 
     window.endDraw();
   }
@@ -501,28 +507,31 @@ class Anim {
     window.noTint();
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
-  void rushR(float xpos, float ypos, color col, float wide, float high, float func, float rotate, float alph) {
-
-    rotate = radians(45);
-    println("rotate", rotate);
-
-    float x;
-    float r=abs(rotate)%PI;
+  float diagonallen(PVector w, float r) {
+    r=abs(r)%PI;
     if (r>PI*0.5) r = PI-r;
-    if (r<atan(window.height/window.width)) x=window.width/cos(r);
-    else x=window.height/cos(PI*0.5-r);
-    x /=2;
-    float moveA = -(x/2)+(x*func);
+    if (r<atan(w.y/w.x)) return w.x/cos(r);
+    return w.y/cos(PI*0.5-r);
+  }
+
+
+  void rushR(float xpos, float ypos, color col, float wide, float high, float func, float rotate, float alph) {
+    rotate = radians(rotate);
+
+    PVector box = new PVector(window.width, window.height);
+    float distance = (-diagonallen(box, rotate)*0.5)-(diagonallen(box, rotate)*0.5);
+    float moveA = (-(distance/2)+(distance*func))*1.3;
 
     window.imageMode(CENTER);
     window.tint(360, 360*alph);
+    window.fill(360, 360);
+
     window.pushMatrix();
     window.translate(xpos, ypos);
     window.rotate(rotate);
     window.image(bar1, moveA, 0, wide, high);
     window.noTint();
     window.popMatrix();
-    println(rig.name, "x", x);
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
   void drop(float xpos, float ypos, color col, float wide, float high, float func, float alph) {
