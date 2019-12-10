@@ -506,24 +506,42 @@ public class Rig {
     Anim anim = new Anim(this);
     switch (animIndex) {
     case 0:  
-      anim = new Rush(this);
+      anim = new BenjaminsBoxes(this);
       break;
     case 1:  
-      anim=new Rings(this);
+      anim=new BenjaminsBoxes(this);
       break;
     case 2:  
-      anim = new SquareNuts(this);
-      break;
-    case 3:  
-      anim = new Stars(this);
-      break;
-    case 4:  
       anim = new Checkers(this);
       break;
+    case 3:  
+      anim = new Rings(this);
+      break;
+    case 4:  
+      anim = new Rush(this);
+      break;
     case 5:  
-      anim = new Anim1(this);
+      anim = new Rushed(this);
       break;
     case 6:  
+      anim = new SquareNuts(this);
+      break;
+    case 7:  
+      anim = new Stars(this);
+      break;
+    case 8:  
+      anim = new Swipe(this);
+      break;
+    case 9:  
+      anim = new Swiped(this);
+      break;
+    case 10:  
+      anim = new Teeth(this);
+      break;
+    case 11:
+      anim = new Donut(this);
+      break;
+    default:
       anim = new Rings(this);
       break;
     }

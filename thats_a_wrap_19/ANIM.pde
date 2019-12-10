@@ -42,8 +42,8 @@ abstract class ManualAnim extends Anim {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class benjaminsBoxes extends Anim {
-  benjaminsBoxes (Rig _rig) {
+class BenjaminsBoxes extends Anim {
+  BenjaminsBoxes (Rig _rig) {
     super(_rig);
     alphaEnvelopeA = new ADSR(200, 0, 1000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
     functionEnvelopeA =  new ADSR(1000, 0, 1000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
@@ -53,14 +53,16 @@ class benjaminsBoxes extends Anim {
     window.background(0);
     wide = vizHeight/2;
     high = 100;
-    alphaA =1;
-    //if (_beatCounter % 8 < 3) {
-    //rushR(position[0].x,viz.y, col1, wide, high, functionA, 90, alphaA);
-    benjaminsBox(position[1].x, viz.y, col1, wide, high, 1-functionA, 90, alphaA);
-    //} else {    
-    //  rushR(position[0]. x, position[3].y, col1, wide, high, -functionA, 90, 1);
-    //  rushR(position[11].x, position[8].y, col1, wide, high, functionA, 90, 1);
-    //}
+    rotate = functionB*360;
+    
+    benjaminsBox(position[0].x, viz.y, col1, wide, vizHeight, functionA, rotate, alphaA);
+    benjaminsBox(position[2].x, viz.y, col1, wide, vizHeight, functionA, rotate, alphaA);
+    benjaminsBox(position[4].x, viz.y, col1, wide, vizHeight, functionA, rotate, alphaA);
+
+    benjaminsBox(position[7].x, viz.y, col1, wide, vizHeight, 1-functionA, -rotate, alphaA);
+    benjaminsBox(position[9].x, viz.y, col1, wide, vizHeight, 1-functionA, -rotate, alphaA);
+    benjaminsBox(position[11].x, viz.y, col1, wide, vizHeight, 1-functionA, -rotate, alphaA);
+
     window.endDraw();
   }
 }
@@ -182,7 +184,6 @@ class Rush extends Anim {
     window.endDraw();
   }
 }
-
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Rushed extends Anim {
   Rushed(Rig _rig) {
@@ -385,14 +386,6 @@ class Test extends Anim {
     //drop(position[11].x, viz.y, col1, wide, vizHeight, 1-functionA, alphaA);
 
     // this is good
-    rotate = functionB*360;
-    benjaminsBox(position[0].x, viz.y, col1, wide, vizHeight, functionA, rotate, alphaA);
-    benjaminsBox(position[2].x, viz.y, col1, wide, vizHeight, functionA, rotate, alphaA);
-    benjaminsBox(position[4].x, viz.y, col1, wide, vizHeight, functionA, rotate, alphaA);
-
-    benjaminsBox(position[7].x, viz.y, col1, wide, vizHeight, 1-functionA, -rotate, alphaA);
-    benjaminsBox(position[9].x, viz.y, col1, wide, vizHeight, 1-functionA, -rotate, alphaA);
-    benjaminsBox(position[11].x, viz.y, col1, wide, vizHeight, 1-functionA, -rotate, alphaA);
 
     window.endDraw();
   }
