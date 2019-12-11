@@ -8,7 +8,7 @@ public class Rig {
   PVector position[] = new PVector[12];
   PVector positionX[][] = new PVector[7][3];
   String name;
-  boolean firsttime_sketchcolor=true, toggle, noiseToggle;
+  boolean firsttime_sketchcolor=true, toggle, noiseToggle,playWithYourSelfToggle;
   ArrayList <Anim> animations;
   HashMap<Integer, Ref> dimmers;
   int[] availableAnims;
@@ -54,7 +54,8 @@ public class Rig {
 
     //void loadToggle(String label, float x, float y, int wide,int high) {
     loadToggle(noiseToggle, "noiseToggle", x+(clm*arrayListIndex), y+row*6, swide, 10);
-    loadToggle(toggle, "toggle", x+(clm*arrayListIndex), y+row*7.5, swide, 20);
+    loadToggle(toggle, "on / off", x+(clm*arrayListIndex), y+row*7.5, swide-30, 20);
+    loadToggle(playWithYourSelfToggle, "play", x+(clm*arrayListIndex)+swide-25, y+row*7.5, 25, 20);
 
     //Group colorButtons = cp5.addGroup(name+"colorButtons")
     //  .setPosition(x+(clm*arrayListIndex)-60, y)
@@ -168,7 +169,7 @@ public class Rig {
   void loadToggle(boolean toggle, String label, float x, float y, int wide, int high) {
     cp5.addToggle(this.name+" "+label)
       .plugTo(this, label)
-      .setLabel(this.name+" "+label)
+      .setLabel(" "+label)
       .setPosition(x, y)
       .setSize(wide, high)      
       .setValue(toggle)
