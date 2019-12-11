@@ -27,6 +27,14 @@ void playWithMe() {
       }
     }
   } 
+
+  //for (Rig rig : rigs) {
+  //  for (Anim anim : rig.animations) {
+  //    //Envelope PullDown(int attack_time, int sustain_time, int decay_time, float attack_curv, float decay_curv, float effect_value) {
+  //    if (padVelocity[44] > 0)  anim.alphaEnvelopeA = anim.alphaEnvelopeA.mul(PullDown(int(cc[41]*1000), int(cc[42]*500), int(cc[43]*500), cc[44], cc[45], padVelocity[44]));
+  //  }
+  //}
+
   //rigg.animations.add(new Test(rigg));         // or space bar!
   //if (keyP[' ']) animations.add(new Anim(roof.vizIndex, alphaSlider, funcSlider, roof));         // or space bar!
   //if (keyP[' ']) animations.add(new AllOn( alphaSlider, funcSlider, cans));                    // or space bar!

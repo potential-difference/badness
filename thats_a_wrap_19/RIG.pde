@@ -8,7 +8,7 @@ public class Rig {
   PVector position[] = new PVector[12];
   PVector positionX[][] = new PVector[7][3];
   String name;
-  boolean firsttime_sketchcolor=true, toggle, noiseToggle, playWithYourSelfToggle;
+  boolean firsttime_sketchcolor=true, toggle, noiseToggle, play;
   ArrayList <Anim> animations;
   HashMap<Integer, Ref> dimmers;
   int[] availableAnims;
@@ -112,9 +112,8 @@ public class Rig {
     loadSlider("manualAlpha", x+(clm*arrayListIndex), 5, 0, 1, 0.8);
     ///////////////////////////////// TOGGLES  ///////////////////////////////////////////////////////////////////////////////////
     loadToggle(noiseToggle, "noiseToggle", x+(clm*arrayListIndex), y+row*6, swide, 10);
-    loadToggle(toggle, "on / off", x+(clm*arrayListIndex), y+row*7.5, swide-30, 20);
-    loadToggle(playWithYourSelfToggle, "play", x+(clm*arrayListIndex)+swide-25, y+row*7.5, 25, 20);
-    loadToggle(toggle, "on / off", x+(clm*arrayListIndex), y+row*7.5, swide-30, 20);
+    loadToggle(toggle, "toggle", x+(clm*arrayListIndex), y+row*7.5, swide-30, 20);
+    loadToggle(play, "play", x+(clm*arrayListIndex)+swide-25, y+row*7.5, 25, 20);
     ///////////////////////////////// RADIO BUTTONS  //////////////////////////////////////////////////////////////////////////////
     cRadioButton = cp5.addRadioButton(name+" cRadioButton")
       .plugTo(this, "cRadioButton")

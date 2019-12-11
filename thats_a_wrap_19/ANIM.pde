@@ -117,7 +117,7 @@ class Checkers extends Anim {
         //donut(position[i+1 % opcGrid.columns+6].x, position[i+1 % opcGrid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
 
         wide = (vizWidth/4)-(vizWidth/10);
-        wide = 10+(wide-(wide*functionA)); 
+        wide = (wide-(wide*functionA)); 
         high = wide;
         donut(position[i+1 % opcGrid.columns].x, position[i+1 % opcGrid.columns].y, col1, stroke, wide, high, rotate, alphaA);
         donut(position[i+6].x, position[i+6].y, col1, stroke, wide, high, rotate, alphaA);
@@ -130,7 +130,7 @@ class Checkers extends Anim {
         //    donut(position[i+1 % opcGrid.columns].x, position[i+1 % opcGrid.columns].y, col1, stroke, wide, high, rotate, alphaB);
         //    donut(position[i+6].x, position[i+6].y, col1, stroke, wide, high, rotate, alphaB);
         wide = (vizWidth/4)-(vizWidth/10);
-        wide = 10+(wide-(wide*functionB)); 
+        wide = (wide-(wide*functionB)); 
         high = wide;
         donut(position[i].x, position[i].y, col1, stroke, wide, high, rotate, alphaA);
         donut(position[i+1 % opcGrid.columns+6].x, position[i+1 % opcGrid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
@@ -483,8 +483,6 @@ class Anim {
     pass2 = rig.pass2;
     position = rig.position; 
     positionX = rig.positionX;
-    
-    //rig.alphaIndexA = 
 
     alphaEnvelopeA = envelopeFactory(rig.alphaIndexA, rig);
     alphaEnvelopeB = envelopeFactory(rig.alphaIndexB, rig);

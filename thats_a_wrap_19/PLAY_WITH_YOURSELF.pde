@@ -5,7 +5,7 @@ void playWithYourself(float vizTm) {
   ///////////////// VIZ TIMER /////////////////////////////////////////////////////////////////////////////////////////////////
   if (millis()/1000 - vizTimer >= vizTm) {
     for (Rig rig : rigs) { 
-      if (rig.playWithYourSelfToggle) {  
+      if (rig.play) {  
         rig.vizIndex = int(random(rig.availableAnims.length));
         alf = 0; ////// set new viz to 0 to fade up viz /////
         println(rig.name+" VIZ:", rig.vizIndex, "@", (hour()+":"+minute()+":"+second()));
@@ -49,7 +49,7 @@ void playWithYourself(float vizTm) {
   ///////////// ALPHA TIMER ////////////////////////////////////////////////////////////////////////////////////////////////////
   if (millis()/1000 - alphaTimer >= vizTm/divide) { ///// alpha timer changes 4 times every viz change /////
     for (Rig rig : rigs) { 
-      if (rig.playWithYourSelfToggle) {  
+      if (rig.play) {  
         rig.alphaIndexA = int(random(rig.avaliableEnvelopes.length));  //// select from alpha array
         rig.alphaIndexB = int(random(rig.avaliableEnvelopes.length)); //// select from alpha array
         alf = 0; ////// set  viz to 0 to fade up viz when alpha changes /////
@@ -62,7 +62,7 @@ void playWithYourself(float vizTm) {
   //////////// FUNCTION TIMER ////////////////////////////////////////////////////////////////////////////////////////////////////
   if (millis()/1000 - functionTimer >= vizTm/divide) {    ////// change function n times for every state change
     for (Rig rig : rigs) {
-      if (rig.playWithYourSelfToggle) {  
+      if (rig.play) {  
         rig.functionIndexA = int(random(rig.avaliableEnvelopes.length));  //// select from function array
         rig.functionIndexB = int(random(rig.avaliableEnvelopes.length));  //// select from function array
         alf = 0; ////// set  viz to 0 to fade up viz when fucntion changes /////

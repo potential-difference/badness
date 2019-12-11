@@ -143,7 +143,7 @@ class CompositeEnvelope extends Envelope{
 //////////////////////////////////////////////////////////
 ///////////////////interesting stuff below////////////////
 
-
+// goes from 0 to AMPLITUDE and BACK to 0 over number of MILLIS for cycle
 class Sine extends Envelope {
   Object amplitude,period;
   Sine(Object amplitude,Object period){
@@ -156,6 +156,7 @@ class Sine extends Envelope {
     return amp*0.5*(1+sin(TWO_PI * time / prd));//sinwave from 0 to amplitude
   }
 }
+// make noize envelope
 
 class Ramp extends Envelope {
   int start_time;

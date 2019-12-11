@@ -111,19 +111,21 @@ void keyReleased()
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////// MIDI FUNCTIONS /////////////////////////////////////////////////////////////////////
 float pad[] = new float[128];                //// An array where to store the last value received for each midi Note controller
-float padVelocity[] = new float[16];
+float padVelocity[] = new float[128];
 boolean padPressed[] = new boolean[128];
 int midiMap;
 void noteOn( int channel, int pitch, int _velocity) {
   float velocity = map(_velocity, 0, 127, 0, 1);
   pad[pitch] = velocity;
   padPressed[pitch] = true;
+  
+  //midiMap = int(map(pitch, 36, 84, 0, 7));
+  padPressed[pitch] = true;
+  padVelocity[pitch] = velocity;
+  
   println();
-  println("Note: "+pitch, "Velocity: "+velocity, "Channel: "+channel);
+  println("padVelocity: "+pitch, "Velocity: "+velocity, "Channel: "+channel);
 
-  midiMap = int(map(pitch, 36, 84, 0, 7));
-  padPressed[midiMap] = true;
-  padVelocity[midiMap] = velocity;
 }
 void noteOff(Note note) {
   padPressed[note.pitch] = false;
