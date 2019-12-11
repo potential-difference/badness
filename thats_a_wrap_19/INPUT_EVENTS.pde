@@ -143,7 +143,7 @@ void controllerChange(int channel, int number, int value) {
   //        int newIndex = index+41;
   //        println("set cc["+newIndex+"]", value);
 
-  String name = "controller "+(number-40);
+  String name = "slider "+(number-40);
   try {
     sliderFrame.cp5.getController(name).setValue(cc[number]);
   } 

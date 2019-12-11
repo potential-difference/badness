@@ -134,8 +134,8 @@ class SliderFrame extends ControlFrame {
 
     for (int i =0; i<17; i+=2) {
       gap = 25;
-      String name = "controller "+i;
-      String name1 = "controller "+(i+1);
+      String name = "slider "+i;
+      String name1 = "slider "+(i+1);
       loadSlider(name, x, y+(i*gap), wide, high, 0, 1, 0.32, act1, bac1, slider1);
       loadSlider(name1, x, y+gap+(i*gap), wide, high, 0, 1, 0.32, act, bac, slider);
     }
@@ -273,13 +273,18 @@ class ControlFrame extends PApplet {
       ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       if (theEvent.isController()) {
         println("- controller "+theEvent.getController().getName()+" "+theEvent.getValue());
-
-        if (theEvent.getController().getName().startsWith("controller")) {
-          int index = int(theEvent.getController().getName().substring(11, 12));
-          cc[41+index] = value;
-          int newIndex = index+41;
-          println("set cc["+newIndex+"]", value);
-          println();
+        try {
+          if (theEvent.getController().getName().startsWith("slider")) {
+            int index = int(theEvent.getController().getName().substring(7, 8));
+            cc[41+index] = value;
+            int newIndex = index+41;
+            println("set cc["+newIndex+"]", value);
+            println();
+          }
+        }
+        catch (Exception e) {
+          println(e);
+          println("*** !!SOMETHING WRONG WITH YOUR SLIDER MAPPING YO!! ***");
         }
       }
       //if (theEvent.isGroup()) println("- group "+theEvent.getName()+" "+theEvent.getValue());
