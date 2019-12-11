@@ -16,7 +16,7 @@ public class Rig {
   int[] avaliableEnvelopes;
   int arrayListIndex;
   int value;
-  ScrollableList ddVizList, ddBkgrndList, ddAlphaList, ddFuncList;
+  ScrollableList ddVizList, ddBgList, ddAlphaList, ddFuncList;
   RadioButton cRadioButton, flashRadioButton;
   int lable;
 
@@ -91,14 +91,14 @@ public class Rig {
     //loadRadioButtons(x+(clm*arrayListIndex)-90, y, 10, shigh);
 
     ddVizList = cp5.addScrollableList(name+"vizLizt").setPosition(x+(clm*arrayListIndex)-45, y);
-    ddBkgrndList = cp5.addScrollableList(name+"bkgrndList").setPosition(x+(clm*arrayListIndex)-45, y+25);
+    ddBgList = cp5.addScrollableList(name+"bkList").setPosition(x+(clm*arrayListIndex)-45, y+25);
     ddAlphaList = cp5.addScrollableList(name+"alpahLizt").setPosition(x+(clm*arrayListIndex)-45, y+60);
     ddFuncList = cp5.addScrollableList(name+"funcLizt").setPosition(x+(clm*arrayListIndex)-45, y+85);
 
     // the order of this has to be oppostie to the order they are displayed on screen
     customize(ddFuncList, bac1, bac, act, "func");     // customize the list
     customize(ddAlphaList, bac1, bac, act, "alpha");   // customize the list
-    customize(ddBkgrndList, bac, bac1, act, "bkgrnd");       // customize the list
+    customize(ddBgList, bac, bac1, act, "bkg");       // customize the list
     customize(ddVizList, bac, bac1, act, "viz");       // customize the list
 
     int xw = 2;
@@ -233,34 +233,7 @@ public class Rig {
     println(string, c);
   }
 
-  //public void dropdown(int n) {
-  //  /* request the selected item based on index n and store in a char */
-  //  String string = cp5.get(ScrollableList.class, "dropdown").getItem(n).get("name").toString();
-  //  char c = string.charAt(0);
-  //  //int value = cp5.get(ScrollableList.class, "dropdown").getItem(n).get.getValue();
-
-  //  // Write the char to the serial port
-  //  println(string, c);
-  //} 
-  //public void controlEvent(ControlEvent theEvent) {
-  //  //println(theEvent.getController().getName(), theEvent.getController().getValue());
-
-  //  if (theEvent.isGroup()) {
-  //    println("GROUP");
-  //    println("got an event from group "
-  //      +theEvent.getGroup().getName()
-  //      +", isOpen? "+theEvent.getGroup().isOpen()
-  //      );
-  //  } else if (theEvent.isController()) {
-  //    println("got something from a controller "
-  //      +theEvent.getController().getName()
-  //      );
-  //  }
-  //  println();
-  //}
-
-
-  void setValue(int theValue) {
+   void setValue(int theValue) {
     value = theValue;
   }
   void toggle(boolean toggleValue) {

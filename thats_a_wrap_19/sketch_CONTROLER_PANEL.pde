@@ -325,31 +325,48 @@ class ControlFrame extends PApplet {
 
     int someDelay = 30; // silence at startup
     if (frameCount > someDelay) {
-      for (Rig rig : rigs) {
-        switch (theEvent.isFrom()) {
-        case rig.cRadioButton:
-          ctest = color(int(theEvent.getGroup().getValue()*50), 100, 100);
-          break;
-        case rig.flashRadioButton:
-          flashtest = color(int(theEvent.getGroup().getValue()*50), 100, 100);
-          break;
-        case rigg.ddVizList:
-          println("rigViz selected "+int(theEvent.getValue()));
-          rigg.vizIndex = int(theEvent.getValue());
-          break;
-        }
-       
+      //for (Rig rig : rigs) {
+      //  switch (theEvent.isFrom()) {
+      //  case rig.cRadioButton:
+      //    ctest = color(int(theEvent.getGroup().getValue()*50), 100, 100);
+      //    break;
+      //  case rig.flashRadioButton:
+      //    flashtest = color(int(theEvent.getGroup().getValue()*50), 100, 100);
+      //    break;
+      //  case rigg.ddVizList:
+      //    println("rigViz selected "+int(theEvent.getValue()));
+      //    rigg.vizIndex = int(theEvent.getValue());
+      //    break;
+      //  }
 
-    if (theEvent.isFrom(rigg.ddVizList)) {
+      for (Rig rig : rigs) {
+        if (theEvent.isFrom(rig.ddVizList)) {
+          println(rig.name+" viz selected "+int(theEvent.getValue()));
+          rig.vizIndex = int(theEvent.getValue());
+        }
+        if (theEvent.isFrom(rig.ddBgList)) {
+          println(rig.name+" background selected "+int(theEvent.getValue()));
+          rig.bgIndex = int(theEvent.getValue());
+        }
+        if (theEvent.isFrom(rig.ddAlphaList)) {
+          println(rig.name+" alpah selected "+int(theEvent.getValue()));
+          rig.alphaIndexA = int(theEvent.getValue());
+          rig.alphaIndexB = int(theEvent.getValue());
+        }
+        if (theEvent.isFrom(rig.ddFuncList)) {
+          println(rig.name+" func selected "+int(theEvent.getValue()));
+          rig.functionIndexA = int(theEvent.getValue());
+          rig.functionIndexB = int(theEvent.getValue());
+        }
+      }
+      ///////////////////////////////////// say some shit
+      if (theEvent.isController()) {
+        println("- controller "+theEvent.getController().getName()+" "+theEvent.getValue());
+      }
     }
-    if (theEvent.isController()) {
-      println("got something from a controller "+theEvent.getController().getName()+" "+theEvent.getValue());
-    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
-}
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-}
 }
 
 
