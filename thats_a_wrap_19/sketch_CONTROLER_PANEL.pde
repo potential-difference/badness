@@ -3,78 +3,7 @@ float vizTimeSlider, colorSwapSlider, colorTimerSlider, boothDimmer, digDimmer, 
 float tweakSlider, blurSlider, bgNoiseBrightnessSlider, bgNoiseDensitySlider, manualSlider, stutterSlider;
 float shimmerSlider, funcSlider, beatSlider;
 float smokePump, smokeFan, smokeOnTime, smokeOffTime;
-/*
-class SliderSetup {
- int wide = 80;           // x size of sliders
- int high = 14;           // y size of slider
- int row = high +4;       // distance between rows
- int clm = 210;           // distance between coloms
- 
- color act = #07E0D3;
- color act1 = #00FC84;
- color bac = #370064;
- color bac1 = #4D9315;
- color slider = #E07F07;
- color slider1 = #E0D607;
- 
- Rig rig;
- float x, y, min, max;
- String name;
- 
- SliderSetup(){; //(Rig _rig, String _name, float _x, float _y, float _min, float _max, String position) {
- rig = _rig;
- x=_x;
- y=_y;
- name =_name;
- min=_min;
- max=_max;
- 
- switch (position) {
- case "even":
- act = #07E0D3;    
- bac = #370064;
- slider = #E07F07;
- break;
- case "odd":
- act = #00FC84;
- bac = #4D9315;
- slider = #E0D607;
- break;
- }
- }
- 
- void setupSlider(Rig rig, String name, float x, float y, float min, float max, float startVal) {
- cp5.addSlider(name)
- .plugTo(rig, "name")
- .setPosition(x, y)
- .setSize(wide, high)
- //.setFont(font)
- .setLabel(rig.name+" "+name)
- .setRange(min, max)
- .setValue(startVal) // start value of slider
- .setColorActive(act) 
- .setColorBackground(bac) 
- .setColorForeground(slider) 
- ;
- }
- }
- */
-/*
-ControlP5 sliderSetup(Rig rig, String name, float x, float y, int wide, int high, float min, float max, color act, color bac, color slider) {
- cp5.addSlider(name)
- .plugTo(rig, "alphaRate")
- .setPosition(x, y)
- .setSize(wide, high)
- //.setFont(font)
- .setRange(0, 1)
- .setValue(0.45) // start value of slider
- .setColorActive(act) 
- .setColorBackground(bac) 
- .setColorForeground(slider) 
- ;
- return cp5.sliderName();
- }
- */
+
 class ControlFrame extends PApplet {
   int controlW, controlH, wide, high;
   float clm, row, sliderY;
@@ -104,7 +33,6 @@ class ControlFrame extends PApplet {
     ellipseMode(RADIUS);
     imageMode(CENTER);
     noStroke();
-    //cp5 = new ControlP5(this);
 
     x = 10;
     y = 90;
@@ -236,18 +164,6 @@ class ControlFrame extends PApplet {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     //cp5.addColorWheel("customC", int(900), int(sliderY), 80 ).scrolled(100);
-
-    /////////////////////////////// VIZ SELECTION LIST ///////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    //d1 = cp5.addDropdownList("myList-d1")
-    //  .setPosition(100, 100)
-    //  ;
-
-    //customize(d1); // customize the first list
-
-
-
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -407,16 +323,6 @@ class ControlFrame extends PApplet {
   public void controlEvent(ControlEvent theEvent) {
     //println(theEvent.getController().getName(), theEvent.getController().getValue());
 
-    //if (theEvent.isGroup()) {
-    //  println("GROUP");
-    //  println("got an event from group "
-    //    +theEvent.getGroup().getName()
-    //    +", isOpen? "+theEvent.getGroup().isOpen()
-    //    );
-
-    int cols = 4;
-    int rows = 5;
-    int[][] cFlashArray = new int[cols][2];      
     int someDelay = 30; // silence at startup
     for (Rig rig : rigs) {
       if (theEvent.isFrom(rig.cRadioButton)) {
@@ -437,36 +343,10 @@ class ControlFrame extends PApplet {
         flashtest = color(int(theEvent.getGroup().getValue()*50), 100, 100);
       }
     }
-
-
-    //    switch(theEvent.getId()) {
-    //    case 0:
-    //      myArray[0][(int)theEvent.value()-1] = 1;
-    //      break;
-    //    case 1:
-    //      myArray[1][(int)theEvent.value()-1] = 1;
-    //      break;
-    //    case 2:
-    //      myArray[2][(int)theEvent.value()-1] = 1;
-    //      break;
-    //    case 3:
-    //      myArray[3][(int)theEvent.value()-1] = 1;
-    //      break;
-    //    }  
-    //    println("==== " + theEvent.getId() + " ===");
-    //    println(myArray[theEvent.getId()]);
-    //} else 
     if (frameCount > someDelay)  if (theEvent.isController()) println("got something from a controller "+theEvent.getController().getName());
   }
-  public void dropdown(int n) {
-    /* request the selected item based on index n and store in a char */
-    String string = cp5.get(ScrollableList.class, "dropdown").getItem(n).get("name").toString();
-    char c = string.charAt(0);
-    //int value = cp5.get(ScrollableList.class, "dropdown").getItem(n).get.getValue();
-
-    // Write the char to the serial port
-    println(string, c);
-  }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 

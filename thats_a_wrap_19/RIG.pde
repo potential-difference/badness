@@ -15,7 +15,7 @@ public class Rig {
   int[] avaliableBkgrnds;
   int arrayListIndex;
   int value;
-  DropdownList ddVizList;
+  ScrollableList ddVizList, ddBkgrndList, ddAlphaList, ddFuncList;
   RadioButton cRadioButton, flashRadioButton;
   int lable;
 
@@ -61,7 +61,7 @@ public class Rig {
     //  .setBackgroundHeight(100)
     //  .setLabel("color")
     //  ;
-    
+
     String sc = "c";
     cRadioButton = cp5.addRadioButton(name+" cRadioButton")
       .plugTo(this, "cRadioButton")
@@ -93,9 +93,16 @@ public class Rig {
 
     //loadRadioButtons(x+(clm*arrayListIndex)-90, y, 10, shigh);
 
+    ddVizList = cp5.addScrollableList(name+"vizLizt").setPosition(x+(clm*arrayListIndex)-45, y);
+    ddBkgrndList = cp5.addScrollableList(name+"bkgrndList").setPosition(x+(clm*arrayListIndex)-45, y+25);
+    ddAlphaList = cp5.addScrollableList(name+"alpahLizt").setPosition(x+(clm*arrayListIndex)-45, y+60);
+    ddFuncList = cp5.addScrollableList(name+"funcLizt").setPosition(x+(clm*arrayListIndex)-45, y+85);
 
-    ddVizList = cp5.addDropdownList(name+"vizIndex").setPosition(x+(clm*arrayListIndex)-45, y);
-    customize(ddVizList); // customize the first list
+    // the order of this has to be oppostie to the order they are displayed on screen
+    customize(ddFuncList, bac1, bac, act, "func");     // customize the list
+    customize(ddAlphaList, bac1, bac, act, "alpha");   // customize the list
+    customize(ddBkgrndList, bac, bac1, act, "bkgrnd");       // customize the list
+    customize(ddVizList, bac, bac1, act, "viz");       // customize the list
 
     int xw = 2;
     for (int i = 0; i < position.length/xw; i++) position[i] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*1);
@@ -202,24 +209,32 @@ public class Rig {
   void loadRadioButtons(float x, float y, int wide, int high) {
   }
 
-  void customize(DropdownList ddl) {
+  void customize(ScrollableList ddl, color bac, color bac1, color act, String label) {
     // a convenience function to customize a DropdownList
-    ddl.setBackgroundColor(0); // color behind list - can hardly see it
+    ddl.setBackgroundColor(slider1); // color behind list - can hardly see it
     ddl.setItemHeight(20);
     ddl.setBarHeight(15);
     ddl.setWidth(40);
-    ddl.getCaptionLabel().set("viz");
-    for (int i=0; i<availableAnims.length; i++) {
-      ddl.addItem("viz "+i, i);
-    }
+    ddl.setCaptionLabel(label);
+    for (int i=0; i<availableAnims.length; i++) ddl.addItem(label+i, i);
     //ddl.scroll(0);
     ddl.setColorBackground(bac);       // background color
     ddl.setColorActive(act);           // clicked color
     ddl.setColorCaptionLabel(#FFFAFA) ;
     ddl.setColorForeground(bac1) ;      // highlight color
     ddl.setColorLabel(#FFFAFA) ;       // text color for label
+    ddl.close();
+    ddl.bringToFront();
   }
+  public void dropdown(int n) {
+    /* request the selected item based on index n and store in a char */
+    String string = cp5.get(ScrollableList.class, "dropdown").getItem(n).get("name").toString();
+    char c = string.charAt(0);
+    //int value = cp5.get(ScrollableList.class, "dropdown").getItem(n).get.getValue();
 
+    // Write the char to the serial port
+    println(string, c);
+  }
 
   //public void dropdown(int n) {
   //  /* request the selected item based on index n and store in a char */

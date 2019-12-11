@@ -27,8 +27,6 @@ ControlFrame controlFrame;
 Rig rigg, roof, cans, mirrors, strips, donut;
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
 
-
-
 import javax.sound.midi.ShortMessage;       // shorthand names for each control on the TR8
 import oscP5.*;
 import netP5.*;
@@ -124,7 +122,7 @@ void draw()
   if (beatTrigger) { 
     for (Rig rig : rigs) {
       if (rig.toggle) {
-        if (testToggle) rig.animations.add(new Avoid(rig));
+        if (testToggle) rig.animations.add(new Test(rig));
         else rig.addAnim(rig.availableAnims[rig.vizIndex]);
         //println(rig.name, rig.availableAnims.length);
       }
