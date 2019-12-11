@@ -72,8 +72,8 @@ class BenjaminsBoxes extends Anim {
 class Anim1 extends Anim { ///////// COME BACK TO THIS WITH NEW ENVELOPES
   Anim1(Rig _rig) {
     super(_rig);
-    functionEnvelopeA = new ADSR(1, 1, 2000, 0, 0, 0.3);
-    functionEnvelopeB = new ADSR(2000, 1, 1, 0.2, 0, 0);
+    functionEnvelopeA = ADSR(1, 1, 2000, 0, 0.3);
+    functionEnvelopeB = ADSR(2000, 1, 1, 0.2, 0);
   }
   void draw() {
     window.beginDraw();
@@ -350,8 +350,8 @@ class Fill extends Anim {
 class Avoid extends Anim {
   Avoid(Rig _rig) {
     super(_rig);
-    alphaEnvelopeA = new ADSR(200, 0, 1000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
-    functionEnvelopeA =  new ADSR(800, 0, 1000, 0.2, 0, 1); // envelopeFactory(rig.alphaIndexA, rig);
+    alphaEnvelopeA = ADSR(200, 0, 1000, 0.2, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
+    functionEnvelopeA =  ADSR(800, 0, 1000, 0.2, 1); // envelopeFactory(rig.alphaIndexA, rig);
   }
   void draw() {
     window.beginDraw();
@@ -367,10 +367,10 @@ class Avoid extends Anim {
 class Test extends Anim {
   Test(Rig _rig) {
     super(_rig);
-    functionEnvelopeA =  new ADSR(1000, 0, 1000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
-    functionEnvelopeB =  new ADSR(1500, 0, 1500, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
+    functionEnvelopeA =  ADSR(1000, 0, 1000, 0.2, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
+    functionEnvelopeB =  ADSR(1500, 0, 1500, 0.2, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
 
-    alphaEnvelopeA =  new ADSR(1000, 1000, 1000, 0.9, 0, 0.8); // envelopeFactory(rig.alphaIndexA, rig);
+    alphaEnvelopeA =  ADSR(1000, 1000, 1000, 0.9, 0.8); // envelopeFactory(rig.alphaIndexA, rig);
   }
   void draw() {  
     window.beginDraw();
@@ -406,11 +406,11 @@ class Anim {
   float func[] = new float[8];
   boolean deleteme=false;
   Envelope alphaEnvelopeA, alphaEnvelopeB, functionEnvelopeA, functionEnvelopeB;
-  Tup animDimmer;
+  Ref animDimmer;
   Rig rig;
 
   Anim(Rig _rig) {
-    animDimmer=new Tup(new float[]{1.0}, 0);
+    animDimmer=new Ref(new float[]{1.0}, 0);
     rig = _rig;
     alphaRate = rig.alphaRate;
     funcRate = rig.funcRate;

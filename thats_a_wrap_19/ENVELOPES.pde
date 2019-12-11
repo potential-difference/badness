@@ -1,156 +1,39 @@
-int ENV_FRAMES = 0;
-int ENV_MILLIS = 1;
-int ENV_TICK = ENV_MILLIS;
-enum Env_State {
-  ATTACK, SUSTAIN, DECAY
-}
-
-int now() {
-  if (ENV_TICK == ENV_FRAMES) {
-    return frameCount;
-  } else {
-    return millis();
-  }
-}
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Envelope SimplePulse(int attack_time,int sustain_time,int decay_time,float attack_curv,float decay_curv){
+  int t=millis();
+  Envelope upramp = new Ramp(t,t+attack_time,0.0,0.5*(1+attack_curv),1.0);
+  Envelope dwnrmp = new Ramp(t+attack_time+sustain_time,t+attack_time+sustain_time+decay_time,1.0,0.5*(1+decay_curv),0.0);
+  return upramp.mul(dwnrmp);
+}
+Envelope SlowFast(int start_time,int duration,int start_period,int end_period){
+  now=start_time;
+  Envelope period = new Ramp(now,now+duration,start_period,end_period);
+  return new Sine(1.0,period);
+}
+Envelope ADSR(int attack_t,int sustain_t,int decay_t,float attack_curv,float decay_curv){
+  Envelope base = SimplePulse(attack_t,sustain_t,decay_t,attack_curv,decay_curv);
+  int sin_start=millis()+attack_t;
+  int sin_duration=sustain_t;
+  int start_period=sin_duration;
+  int end_period = sin_duration/20;
+  Envelope squiggle = SlowFast(sin_start,sin_duration,start_period,end_period).mul(0.6).add(0.4);
+  return base.mul(squiggle);
+}
 
 Envelope envelopeFactory(int envelope_index, Rig rig) {
   switch (envelope_index) {
   case 0: 
-    return new ADSR(800, 100, 1500, 0.2, 0, 1);
+    return ADSR(800, 100, 1500, 0.2, 1);
   case 1:
-    return new ADSR(1500, 1000, 2000, 0.2, 0, 1);
+    return ADSR(1500, 1000, 2000, 0.2, 1);
   case 2:
-    return new ADSR(1000, 0, 2000, -rig.alphaRate, 0, -rig.funcRate);
-  case 3:
-    return new MulEnvelope(envelopeFactory(2, rig), envelopeFactory(0, rig));
-  case 4:
-    int t=millis();
-    MulEnvelope growingsin = new MulEnvelope(new Stutter(1.0, 100), new Ramp(t+1000, t+1500, 0.0, 0.4));
-    AddEnvelope sustain = new AddEnvelope(growingsin, new ConstEnvelope(0.6));
-    return sustain;
+    return ADSR(1000, 0, 2000, -rig.alphaRate, -rig.funcRate);
   default: 
-    return new ADSR(1000, 0, 1000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
+    return ADSR(1000, 0, 1000, 0.2, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
   }
 }
 
-abstract class Envelope {
-  int end_time;
-  abstract float value(int time);
-}
-
-class ConstEnvelope extends Envelope {
-  float val;
-  ConstEnvelope(float val) {
-    end_time=-1;
-    this.val=val;
-  }
-  float value(int time) {
-    return val;
-  }
-}
-
-class AddEnvelope extends CompositeEnvelope {
-  AddEnvelope(Envelope...e) {
-    super(e);
-  }
-
-  float value(int time) {
-    float res=0.0;
-    for (Envelope c : children) {
-      res+=c.value(time);
-    }
-    return res;
-  }
-}
-
-class MulEnvelope extends CompositeEnvelope {
-  MulEnvelope(Envelope...e) {
-    super(e);
-  }
-  float value(int time) {
-    float res=1.0;
-    for (Envelope c : children) {
-      res*=c.value(time);
-    }
-    return res;
-  }
-}
-
-class Ramp extends Envelope {
-  int start_time;
-  ArrayList<Float> values;
-  Ramp(int start_time, int end_time, Float...values) {
-    this.start_time=start_time;
-    this.end_time=end_time;
-    this.values=new ArrayList<Float>(Arrays.asList(values));
-  }
-  float fact(int a) {
-    if (a<=1) return 1.0;
-    return a * fact(a-1);
-  }
-  float binom(int a, int b) {
-    //n!/(k!(n-k)!
-    return fact(a)/(fact(b)*(fact(a-b)));
-  }
-
-  float value(int time) {
-    /*nim code
-     if (time<e.start_time): return e.points[0]
-     if (time>e.end_time): return e.points[^1]
-     let normt = float(time-e.start_time)/float(e.end_time-e.start_time)
-     let n = e.points.len - 1
-     for i,p in e.points.pairs:
-     result += float(binom(n,i))*(1-normt)^(n-i)*normt^i*p
-     */
-    if (time<start_time) return values.get(0);
-    if (time>end_time) return values.get(values.size()-1);//god arraylists are rubbish
-    float normt = float(time-start_time)/float(end_time-start_time);
-    int n = values.size()-1;
-    float result=0.0;
-    for (int i=0; i<values.size(); i++) {
-      result += binom(n, i)*pow(1-normt, n-i)*pow(normt, i)*values.get(i);
-    }
-    return result;
-  }
-}
-
-
-//e.g. t=millis();
-//ADSR: MulEnvelope(new Ramp(t,t+1000,{0.0,0.0,1.0}),new Ramp(t+1500,t+2500,{1.0,1.0,0.0}));
-class Stutter extends Envelope {
-  float baseline, amplitude, period;
-  Stutter(float amplitude, float period) {
-    baseline=1-amplitude;
-    this.amplitude=amplitude;
-    this.period=period;
-  }
-  float value(int time) {
-    return baseline+amplitude*0.5*(1.0+sin(2*PI * time / period));
-  }
-}
-/*class SeqEnvelope extends CompositeEnvelope{
- SeqEnvelope(int start_time,Envelope...e){
- 
- end_time=0;
- //we add up the end_times
- }
- }*/
-
-abstract class CompositeEnvelope extends Envelope {
-  ArrayList<Envelope> children;
-  CompositeEnvelope(Envelope...e) {
-    end_time=-1;
-    children = new ArrayList<Envelope>(Arrays.asList(e));
-    for (Envelope c : children) {
-      if (c.end_time>end_time) {
-        end_time=c.end_time;
-      }
-    }
-  }
-  abstract float value(int time);
-}
-
+/*
 class ADSR extends Envelope {
   int attack_time, sustain_time, decay_time;
   int sustain_func_index, envelope_index;
@@ -212,105 +95,4 @@ class ADSR extends Envelope {
     return alpha;
   }
 }
-
-
-/*
-class EnvelopeFactory {
- int attack_time;
- int decay_time;
- int sustain_time;
- float attack_curv;
- int sustain_func_idx;
- float decay_curv;
- 
- EnvelopeFactory(int at, int st, int dt, float ac, int sf, float dc) {
- attack_time=at;
- decay_time=dt;
- }
- 
- Envelope newEnvelope(int envelope_index) {
- switch (envelope_index) {
- case 0: 
- return new Envelope(parent, 800, 1000, 1500, 0.2, 0, 1);
- case 1:
- return new Envelope(parent, 1500, 1000, 200, 0.2, 0, 1);
- default: 
- return new Envelope(parent, attack_time, sustain_time, decay_time, attack_curve, sustain_func_index, decay_curve);
- }
- }
- 
- }
- */
-/*
-  Envelope newEnvelope(int overallTime){
- float attack_percent=0.2;
- float sustain_percent=0.7;
- float decay_percent=0.1;
- return new Envelope(int(overallTime*attack_percent),int(overallTime*sustain_percent),int(overallTime*decay_percent),0,0.0);
- }
- */
-
-
-
-/*
-//list of useful envelopes:
- class EnvelopeFactory {
- int attack_time;
- int decay_time;
- int sustain_time;
- float attack_curv;
- int sustain_func_idx;
- float decay_curv;
- 
- EnvelopeFactory(int at, int st, int dt, float ac, int sf, float dc) {
- attack_time=at;
- decay_time=dt;
- sustain....etc.
- }
- 
- }
- */
-/* or...
- Envelope newEnvelope(int envelopeIndex){
- switch (envelope In                        
- }
- 
- 
- */
-/*
-
- 
- 
- 
- enum EnvelopeNames {
- FASTUP,SLOWDOWN,TURNAROUNDANDSLAPME }
- EnvelopeFactory[] envelopesByName = {
- new EnvelopeFactory(500,2000,0.5,3.0.8),//FASTUP
- new EnvelopeFactory(2000,300,35,......),//SLOWDOWN
- ,//TURNAROUNDANDSLAPME
- }
- */
-
-/*
-HashMap<String,EnvelopeFactory> envelopeNames = {
- "fastup":new EnvelopeFactory(500,2000,3000,0.5,3,0.8),
- "slowdown":new EnvelopeFactory(2000,300,35,-0.7,2,-0.1),
- ...
- }
- }
- */
-/*
-
- 
- animations.add(new Anim11(blah blah blah,rigg.envelopFactory.newEnvelope());
- animations.add(new Anim11(blah blah blah,envelopesByName[6].newEnvelope());
- animations.add(new Anim11(blah blah blah,envelopesByName[FASTUP].newEnvelope());
- 
- env = new Envelope(blay blay blarg);
- env = envelopeFactory.newEnvelope(6);
- env = envelopeFactory.newEnvelope(FASTUP);
- env = envelopeFactory.newEnvelope(rigg.envelope_index);
- env = envelopeFactory.newEnvelope(random(envelopeFactory.length));
- animations.add(new Anim11(blah blah blah,env);
- 
- */
+*/

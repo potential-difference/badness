@@ -10,7 +10,7 @@ public class Rig {
   String name;
   boolean firsttime_sketchcolor=true, toggle, noiseToggle;
   ArrayList <Anim> animations;
-  HashMap<Integer, Tup> dimmers;
+  HashMap<Integer, Ref> dimmers;
   int[] availableAnims;
   int[] avaliableBkgrnds;
   int arrayListIndex;
@@ -33,7 +33,7 @@ public class Rig {
     arrayListIndex = rigs.indexOf(this);        // where this is the rig object
     avaliableBkgrnds = new int[] {0, 1, 2, 3};  // default - changed when initalised;
 
-    dimmers = new HashMap<Integer, Tup>();
+    dimmers = new HashMap<Integer, Ref>();
 
     int clm = 250;           // distance between coloms
     float x = 10+clm;
@@ -639,7 +639,7 @@ public class Rig {
       break;
     }
 
-    Tup t=new Tup(new float[]{1.0}, 0);
+    Ref t=new Ref(new float[]{1.0}, 0);
     try {
       t=this.dimmers.get(animIndex);
     }

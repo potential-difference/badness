@@ -4,7 +4,7 @@ void setupSpecifics() {
   roof.availableAnims = new int[] {4, 5, 6, 0, 7, 9};      // setup which anims are used on which rig here - defualt is 0,1,2,3...
   rigg.avaliableBkgrnds = new int[] {0, 1, 2, 3, 4, 5};
 
-  rigg.dimmers.put(3, new Tup(cc, 34));
+  rigg.dimmers.put(3, new Ref(cc, 34));
 
   rigg.vizIndex = 2;
   roof.vizIndex = 1;
