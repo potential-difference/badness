@@ -16,7 +16,7 @@ ControlP5 cp5, cp6;
 ControlFrame ControlFrame; // load control frame must come after shild ring etc
 RadioButton r1, r2;
 
-boolean SHITTYLAPTOP=true;
+boolean SHITTYLAPTOP=false;
 
 final int PORTRAIT = 0;
 final int LANDSCAPE = 1;

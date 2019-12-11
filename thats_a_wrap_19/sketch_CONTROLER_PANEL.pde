@@ -339,7 +339,7 @@ class ControlFrame extends PApplet {
       //    break;
       //  }
 
-      for (Rig rig : rigs) {
+      for (Rig rig : rigs) {                        
         if (theEvent.isFrom(rig.ddVizList)) {
           println(rig.name+" viz selected "+int(theEvent.getValue()));
           rig.vizIndex = int(theEvent.getValue());
@@ -358,6 +358,8 @@ class ControlFrame extends PApplet {
           rig.functionIndexA = int(theEvent.getValue());
           rig.functionIndexB = int(theEvent.getValue());
         }
+        if (theEvent.isFrom(rig.flashRadioButton)) flashtest = color(int(theEvent.getGroup().getValue()*50), 100, 100);
+        if (theEvent.isFrom(rig.cRadioButton))     ctest = color(int(theEvent.getGroup().getValue()*50), 100, 100);
       }
       ///////////////////////////////////// say some shit
       if (theEvent.isController()) {
