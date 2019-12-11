@@ -324,31 +324,33 @@ class ControlFrame extends PApplet {
     //println(theEvent.getController().getName(), theEvent.getController().getValue());
 
     int someDelay = 30; // silence at startup
-    for (Rig rig : rigs) {
-      if (theEvent.isFrom(rig.cRadioButton)) {
-        if (frameCount > someDelay)    print("got an event from "+theEvent.getName()+"\t");
-        for (int i=0; i<theEvent.getGroup().getArrayValue().length; i++) {
-          if (frameCount > someDelay)  print(int(theEvent.getGroup().getArrayValue()[i]));
+    if (frameCount > someDelay) {
+      for (Rig rig : rigs) {
+        switch (theEvent.isFrom()) {
+        case rig.cRadioButton:
+          ctest = color(int(theEvent.getGroup().getValue()*50), 100, 100);
+          break;
+        case rig.flashRadioButton:
+          flashtest = color(int(theEvent.getGroup().getValue()*50), 100, 100);
+          break;
+        case rigg.ddVizList:
+          println("rigViz selected "+int(theEvent.getValue()));
+          rigg.vizIndex = int(theEvent.getValue());
+          break;
         }
-        if (frameCount > someDelay)   println("\t "+theEvent.getValue());
-        ctest = color(int(theEvent.getGroup().getValue()*50), 100, 100);
-      }
-      ////////////////////////////////////////////////////////////////////////
-      if (theEvent.isFrom(rig.flashRadioButton)) {
-        if (frameCount > someDelay)   print("got an event from "+theEvent.getName()+"\t");
-        for (int i=0; i<theEvent.getGroup().getArrayValue().length; i++) {
-          if (frameCount > someDelay)   print(int(theEvent.getGroup().getArrayValue()[i]));
-        }
-        if (frameCount > someDelay)   println("\t "+theEvent.getValue());
-        flashtest = color(int(theEvent.getGroup().getValue()*50), 100, 100);
-      }
-    }
-    if (frameCount > someDelay)  if (theEvent.isController()) println("got something from a controller "+theEvent.getController().getName());
-  }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-}
+       
 
+    if (theEvent.isFrom(rigg.ddVizList)) {
+    }
+    if (theEvent.isController()) {
+      println("got something from a controller "+theEvent.getController().getName()+" "+theEvent.getValue());
+    }
+  }
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+}
+}
 
 
 /* // old sliders 

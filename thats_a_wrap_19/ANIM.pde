@@ -483,6 +483,8 @@ class Anim {
     pass2 = rig.pass2;
     position = rig.position; 
     positionX = rig.positionX;
+    
+    //rig.alphaIndexA = 
 
     alphaEnvelopeA = envelopeFactory(rig.alphaIndexA, rig);
     alphaEnvelopeB = envelopeFactory(rig.alphaIndexB, rig);

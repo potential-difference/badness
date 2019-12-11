@@ -124,12 +124,9 @@ void draw()
       if (rig.toggle) {
         if (testToggle) rig.animations.add(new Test(rig));
         else rig.addAnim(rig.availableAnims[rig.vizIndex]);
-        //println(rig.name, rig.availableAnims.length);
       }
     }
   }
-  //for (Rig rig : rigs) println(rig.name, rig.toggle);
-  //println(rigg.dimmer);
   if (keyT['s']) for (Anim anim : rigg.animations)  anim.funcFX = 1-(stutter*noize1*0.1);
 
   for (Rig rig : rigs) rig.draw();  
