@@ -33,7 +33,7 @@ public class Rig {
     arrayListIndex = rigs.indexOf(this);          // where this is the rig object
     avaliableBkgrnds = new int[] {0, 1, 2, 3};    // default - changed when initalised;
     avaliableEnvelopes = new int[] {1, 2, 3, 4};  
-    
+
     dimmers = new HashMap<Integer, Ref>();
 
     int xw = 2;
@@ -94,6 +94,7 @@ public class Rig {
     col[12] = orange;
     col[13] = orange1;
     col[14] = teal;
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
     ////////////////////////////// LOAD CONTROLLERS //////////////////////////////////////////////////////////////////////////////
     int clm = 280;           // distance between coloms
@@ -115,15 +116,15 @@ public class Rig {
     loadToggle(playWithYourSelfToggle, "play", x+(clm*arrayListIndex)+swide-25, y+row*7.5, 25, 20);
     loadToggle(toggle, "on / off", x+(clm*arrayListIndex), y+row*7.5, swide-30, 20);
     ///////////////////////////////// RADIO BUTTONS  //////////////////////////////////////////////////////////////////////////////
-    flashRadioButton = cp5.addRadioButton(name+" cRadioButton")
+    cRadioButton = cp5.addRadioButton(name+" cRadioButton")
       .plugTo(this, "cRadioButton")
       .setLabel(this.name+" cRadioButton")
       .setPosition(x+(clm*arrayListIndex)-90, y)
       .setSize(15, shigh);
     for (int i=0; i<col.length; i++) {
-      flashRadioButton.addItem(name+" colc "+i, i);
-      flashRadioButton.getItem(name+" colc "+i).setColorBackground(col[i]);
-      flashRadioButton.hideLabels() ;
+      cRadioButton.addItem(name+" colc "+i, i);
+      cRadioButton.getItem(name+" colc "+i).setColorBackground(col[i]);
+      cRadioButton.hideLabels() ;
     }
     flashRadioButton = cp5.addRadioButton(name+" flashRadioButton")
       .plugTo(this, "flashRadioButton")
