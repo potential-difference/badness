@@ -10,8 +10,8 @@ void setupSpecifics() {
     rig.ddVizList.clear();
     rig.ddBgList.clear();
     for (int i=0; i<rig.avaliableBkgrnds.length; i++) rig.ddBgList.addItem("bkg "+i, i); //add all avaliable anims to VizLists - 
-    for (int i=0; i<rig.availableAnims.length; i++) rig.ddVizList.addItem("viz "+i, i); //add all avaliable anims to VizLists - 
-    //need to use the actal numbers from the above aray
+    for (int i=0; i<rig.availableAnims.length; i++) rig.ddVizList.addItem("viz "+i, i); //add all avaliable anims to VizLists -
+        //need to use the actal numbers from the above aray
   }
 
   rigg.dimmers.put(3, new Ref(cc, 34));
@@ -25,10 +25,10 @@ void setupSpecifics() {
   rigg.bgIndex = 0;
   roof.bgIndex = 4;
 
-  rigg.colorIndexA = 0;
-  rigg.colorIndexB = 14;
-  roof.colorIndexA = 3;
-  roof.colorIndexB = 4;
+  rigg.colorIndexA = 2;
+  rigg.colorIndexB = 1;
+  roof.colorIndexA = 1;
+  roof.colorIndexB = 0;
   cans.colorIndexA = 7;
   cans.colorIndexB = 11;
   //donut.colorIndexA = 

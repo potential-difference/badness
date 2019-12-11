@@ -14,6 +14,7 @@ public class Rig {
   int[] availableAnims;
   int[] avaliableBkgrnds;
   int[] avaliableEnvelopes;
+  int[] avaliableColors;
   int arrayListIndex;
   int value;
   ScrollableList ddVizList, ddBgList, ddAlphaList, ddFuncList;
@@ -79,14 +80,17 @@ public class Rig {
       colorSetup();                        // setup colors red bloo etc once
       firsttime_sketchcolor = false;
     }
-    col[0] = purple; 
-    col[1] = pink; 
-    col[2] = orange1; 
-    col[3] = bloo;
-    col[4] = red;
-    col[5] = orange1;
-    col[6] = purple;
-    col[7] = grin;
+
+    avaliableColors = new int[] { 0, 1, 2, 3, 4, 5, 6};
+
+    col[0] = teal; 
+    col[1] = orange; 
+    col[2] = pink; 
+    col[3] = purple;
+    col[4] = bloo;
+    col[5] = red;
+    col[6] = grin;
+    col[7] = pink;
     col[8] = orange;
     col[9] = bloo;
     col[10] = purple;
@@ -120,19 +124,25 @@ public class Rig {
       .setLabel(this.name+" cRadioButton")
       .setPosition(x+(clm*arrayListIndex)-90, y)
       .setSize(15, shigh);
-    for (int i=0; i<col.length; i++) {
+    for (int i=0; i<avaliableColors.length; i++) {
       cRadioButton.addItem(name+" colc "+i, i);
-      cRadioButton.getItem(name+" colc "+i).setColorBackground(col[i]);
-      cRadioButton.hideLabels() ;
+      cRadioButton.getItem(name+" colc "+i)
+        .setColorBackground(color(col[avaliableColors[i]], 100))
+        .setColorForeground(color(col[avaliableColors[i]], 200))
+        .setColorActive(color(col[avaliableColors[i]], 360));
+      cRadioButton.hideLabels();
     }
     flashRadioButton = cp5.addRadioButton(name+" flashRadioButton")
       .plugTo(this, "flashRadioButton")
       .setLabel(this.name+" flashRadioButton")
       .setPosition(x+(clm*arrayListIndex)-70, y)
       .setSize(15, shigh);
-    for (int i=0; i<col.length; i++) {
+    for (int i=0; i<avaliableColors.length; i++) {
       flashRadioButton.addItem(name+" colFlash "+i, i);
-      flashRadioButton.getItem(name+" colFlash "+i).setColorBackground(col[i]);
+      flashRadioButton.getItem(name+" colFlash "+i)
+        .setColorBackground(color(col[avaliableColors[i]], 100))
+        .setColorForeground(color(col[avaliableColors[i]], 200))
+        .setColorActive(color(col[avaliableColors[i]], 360));
       flashRadioButton.hideLabels() ;
     }
     ///////////////////////////////// DROPDOWN LISTS //////////////////////////////////////////////////////////////////////////////

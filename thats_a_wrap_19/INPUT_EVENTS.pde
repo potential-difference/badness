@@ -50,10 +50,16 @@ void keyPressed() {
   if (key == ']') colHold = !colHold; 
 
   if (key=='1') {
-    cp5.saveProperties(("cp5values.json"));
+    controlFrame.cp5.saveProperties(("cp5values.json"));
+    sliderFrame.cp5.saveProperties(("cp5SliderValues.json"));
+    //controlFrame.cp5.saveProperties(("cp5ControlValues.json"));
+
     println("** SAVED CONTROLER VALUES **");
   } else if (key=='2') {
-    cp5.loadProperties(("cp5values.json"));
+    controlFrame.cp5.loadProperties(("cp5values.json"));
+    sliderFrame.cp5.loadProperties(("cp5SliderValues.json"));
+    //controlFrame.cp5.loadProperties(("cp5ControlValues.json"));
+
     println("** LOADED CONTROLER VALUES **");
   }
 

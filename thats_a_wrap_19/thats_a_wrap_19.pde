@@ -96,7 +96,8 @@ void setup()
   setupSpecifics();
   //syphonSetup(syphonToggle);
 
-  //cp5.loadProperties(("cp5values.json"));
+  controlFrame.cp5.loadProperties(("cp5values.json"));
+  sliderFrame.cp5.loadProperties(("cp5SliderValues.json"));
   frameRate(30); // always needs to be last in setup
 }
 float vizTime, colTime;

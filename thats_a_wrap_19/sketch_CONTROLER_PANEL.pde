@@ -261,13 +261,21 @@ class ControlFrame extends PApplet {
           rig.functionIndexA = intValue;
           rig.functionIndexB = intValue;
         }
-        if (theEvent.isFrom(rig.flashRadioButton)) {
-          println(rig.name+" C index: "+intValue);
-          rig.colorIndexB = intValue;
+        try {
+          if (intValue >= 0) {
+            if (theEvent.isFrom(rig.flashRadioButton)) {
+              println(rig.name+" C plugged to index: "+intValue);
+              rig.colorIndexB = intValue;
+            }
+            if (theEvent.isFrom(rig.cRadioButton)) {
+              println(rig.name+" FLASH plugged to index: "+intValue);
+              rig.colorIndexA = intValue;
+            }
+          }
         }
-        if (theEvent.isFrom(rig.cRadioButton)) {
-          println(rig.name+" FLASH index: "+intValue);
-          rig.colorIndexA = intValue;
+        catch (Exception e) {
+          println(e);
+          println("*** !!COLOR PLUGGING WRONG!! ***");
         }
       }
       ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

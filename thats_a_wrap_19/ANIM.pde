@@ -411,7 +411,6 @@ class Test extends Anim {
     window.rect(viz.x-(window.width/2)+(window.width*functionB), viz.y+100, 100, 100);
     window.endDraw();  
 
-
     window.fill(300);
     window.rect(viz.x, viz.y, window.width/5, window.height/5);
 
