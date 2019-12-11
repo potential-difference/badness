@@ -15,23 +15,7 @@ class Tup {
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-public void controlEvent(ControlEvent theEvent) {
-  //println(theEvent.getController().getName(), theEvent.getController().getValue());
 
-  if (theEvent.isGroup()) {
-    println("GROUP");
-    println("got an event from group "
-      +theEvent.getGroup().getName()
-      +", isOpen? "+theEvent.getGroup().isOpen()
-      );
-  } else if (theEvent.isController()) {
-    println("got something from a controller "
-      +theEvent.getController().getName()
-      );
-  }
-
-  println();
-}
 /////////////////////////////////// FUNCTION AND ALPHA ARRAYS //////////////////////////////////////////////
 float sineFast, sineSlow, sine, stutter, shimmer;
 float timer[] = new float[6];

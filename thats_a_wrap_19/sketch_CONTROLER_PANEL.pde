@@ -248,6 +248,7 @@ class ControlFrame extends PApplet {
 
 
 
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
@@ -341,8 +342,10 @@ class ControlFrame extends PApplet {
      if (cc[8] != roofDimmer) cp5.getController("roofDimmer").setValue(cc[8]);
      }
      */
-     fill(test);
-     rect(900,200,100,100);
+    fill(ctest);
+    rect(1000, sliderY+30, 50, 50);
+    fill(flashtest);
+    rect(1080, sliderY+30, 50, 50);
   }
 
 
@@ -400,7 +403,7 @@ class ControlFrame extends PApplet {
       .setColorForeground(slider) 
       ;
   }
-  color test;
+  color ctest, flashtest;
   public void controlEvent(ControlEvent theEvent) {
     //println(theEvent.getController().getName(), theEvent.getController().getValue());
 
@@ -414,15 +417,24 @@ class ControlFrame extends PApplet {
     int cols = 4;
     int rows = 5;
     int[][] cFlashArray = new int[cols][2];      
-
+    int someDelay = 30; // silence at startup
     for (Rig rig : rigs) {
-      if (theEvent.isFrom(r1)) {
-        print("got an event from "+theEvent.getName()+"\t");
+      if (theEvent.isFrom(rig.cRadioButton)) {
+        if (frameCount > someDelay)    print("got an event from "+theEvent.getName()+"\t");
         for (int i=0; i<theEvent.getGroup().getArrayValue().length; i++) {
-          print(int(theEvent.getGroup().getArrayValue()[i]));
+          if (frameCount > someDelay)  print(int(theEvent.getGroup().getArrayValue()[i]));
         }
-        println("\t "+theEvent.getValue());
-         test = color(int(theEvent.getGroup().getValue()*50), 100, 100);
+        if (frameCount > someDelay)   println("\t "+theEvent.getValue());
+        ctest = color(int(theEvent.getGroup().getValue()*50), 100, 100);
+      }
+      ////////////////////////////////////////////////////////////////////////
+      if (theEvent.isFrom(rig.flashRadioButton)) {
+        if (frameCount > someDelay)   print("got an event from "+theEvent.getName()+"\t");
+        for (int i=0; i<theEvent.getGroup().getArrayValue().length; i++) {
+          if (frameCount > someDelay)   print(int(theEvent.getGroup().getArrayValue()[i]));
+        }
+        if (frameCount > someDelay)   println("\t "+theEvent.getValue());
+        flashtest = color(int(theEvent.getGroup().getValue()*50), 100, 100);
       }
     }
 
@@ -444,12 +456,7 @@ class ControlFrame extends PApplet {
     //    println("==== " + theEvent.getId() + " ===");
     //    println(myArray[theEvent.getId()]);
     //} else 
-    if (theEvent.isController()) println("got something from a controller "+theEvent.getController().getName());
-
-
-
-
-    println();
+    if (frameCount > someDelay)  if (theEvent.isController()) println("got something from a controller "+theEvent.getController().getName());
   }
   public void dropdown(int n) {
     /* request the selected item based on index n and store in a char */

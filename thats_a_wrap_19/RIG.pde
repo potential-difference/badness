@@ -16,7 +16,7 @@ public class Rig {
   int arrayListIndex;
   int value;
   DropdownList ddVizList;
-//RadioButton r1;
+  RadioButton cRadioButton, flashRadioButton;
   int lable;
 
 
@@ -61,33 +61,38 @@ public class Rig {
     //  .setBackgroundHeight(100)
     //  .setLabel("color")
     //  ;
-
-   
-
-    //loadRadioButton( name+"c", x+(clm*arrayListIndex)-90, y, 20, shigh);
-
-    //r1=this.r1;
-
-    r1 = cp5.addRadioButton(name+"radioButton")
+    
+    String sc = "c";
+    cRadioButton = cp5.addRadioButton(name+" cRadioButton")
+      .plugTo(this, "cRadioButton")
+      .setLabel(this.name+" cRadioButton")
       .setPosition(x+(clm*arrayListIndex)-90, y)
-      .setSize(20, 20)
-      .setColorForeground(color(120))
-      .setColorActive(color(255))
-      .setColorLabel(color(255))
-      .addItem("50", 1)
-      .addItem("100", 2)
-      .addItem("150", 3)
-      .addItem("200", 4)
-      .addItem("250", 5)
+      .setSize(15, shigh)
+      .addItem(name+"black"+sc, 0)
+      .addItem(name+"red"+sc, 1)
+      .addItem(name+"green"+sc, 2)
+      .addItem(name+"blue"+sc, 3)
+      .addItem(name+"grey"+sc, 4)
+      .hideLabels() 
+      //.setGroup(colorButtons)
+      ;
+    String f = "flash";
+    flashRadioButton = cp5.addRadioButton(name+" flashRadioButton")
+      .plugTo(this, "flashRadioButton")
+      .setLabel(this.name+" flashRadioButton")
+      .setPosition(x+(clm*arrayListIndex)-70, y)
+      .setSize(15, shigh)
+      .addItem(name+"pink"+f, 0)
+      .addItem(name+"red"+f, 1)
+      .addItem(name+"green"+f, 2)
+      .addItem(name+"blue"+f, 3)
+      .addItem(name+"grey"+f, 4)
+      .hideLabels() 
+      //.setGroup(colorButtons)
       ;
 
-    //for (Toggle t : r1.getItems()) {
-    //  t.getCaptionLabel().setColorBackground(color(255, 80));
-    //  t.getCaptionLabel().getStyle().moveMargin(-7, 0, 0, -3);
-    //  t.getCaptionLabel().getStyle().movePadding(7, 0, 0, 3);
-    //  t.getCaptionLabel().getStyle().backgroundWidth = 45;
-    //  t.getCaptionLabel().getStyle().backgroundHeight = 13;
-    //}
+    //loadRadioButtons(x+(clm*arrayListIndex)-90, y, 10, shigh);
+
 
     ddVizList = cp5.addDropdownList(name+"vizIndex").setPosition(x+(clm*arrayListIndex)-45, y);
     customize(ddVizList); // customize the first list
@@ -194,19 +199,7 @@ public class Rig {
       .setColorForeground(scol3) 
       ;
   }
-  void loadRadioButton(String label, float x, float y, int wide, int high) {
-   r1 = cp5.addRadioButton(name+" "+label)
-      .plugTo(this, label)
-      .setLabel(this.name+" "+label)
-      .setPosition(x, y)
-      .setSize(wide, high)
-      .addItem("black", 0)
-      .addItem("red", 1)
-      .addItem("green", 2)
-      .addItem("blue", 3)
-      .addItem("grey", 4)
-      //.setGroup(colorButtons)
-      ;
+  void loadRadioButtons(float x, float y, int wide, int high) {
   }
 
   void customize(DropdownList ddl) {
