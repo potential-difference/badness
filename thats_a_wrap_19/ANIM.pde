@@ -45,7 +45,7 @@ abstract class ManualAnim extends Anim {
 class BenjaminsBoxes extends Anim {
   BenjaminsBoxes (Rig _rig) {
     super(_rig);
-   }
+  }
   void draw() {
     window.beginDraw();
     window.background(0);
@@ -110,24 +110,25 @@ class Checkers extends Anim {
     rotate = 0;
     if (_beatCounter % 9 <4) { 
       for (int i = 0; i < opcGrid.columns; i+=2) {
-        wide = (vizWidth*2)-(vizWidth/10);
-        wide = 50+(wide-(wide*functionA)); 
-        high = wide;
-        donut(position[i].x, position[i].y, col1, stroke, wide, high, rotate, alphaA);
-        donut(position[i+1 % opcGrid.columns+6].x, position[i+1 % opcGrid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
+        //wide = (vizWidth*2)-(vizWidth/10);
+        //wide = 50+(wide-(wide*functionA)); 
+        //high = wide;
+        //donut(position[i].x, position[i].y, col1, stroke, wide, high, rotate, alphaA);
+        //donut(position[i+1 % opcGrid.columns+6].x, position[i+1 % opcGrid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
+
         wide = (vizWidth/4)-(vizWidth/10);
-        wide = 10+(wide-(wide*functionB)); 
+        wide = 10+(wide-(wide*functionA)); 
         high = wide;
-        donut(position[i+1 % opcGrid.columns].x, position[i+1 % opcGrid.columns].y, col1, stroke, wide, high, rotate, alphaB);
-        donut(position[i+6].x, position[i+6].y, col1, stroke, wide, high, rotate, alphaB);
+        donut(position[i+1 % opcGrid.columns].x, position[i+1 % opcGrid.columns].y, col1, stroke, wide, high, rotate, alphaA);
+        donut(position[i+6].x, position[i+6].y, col1, stroke, wide, high, rotate, alphaA);
       }
     } else { // opposite way around
       for (int i = 0; i < opcGrid.columns; i+=2) {
-        wide  = (vizWidth*2)-(vizWidth/10);
-        wide = 50+(wide-(wide*functionA)); 
-        high = wide;
-        donut(position[i+1 % opcGrid.columns].x, position[i+1 % opcGrid.columns].y, col1, stroke, wide, high, rotate, alphaB);
-        donut(position[i+6].x, position[i+6].y, col1, stroke, wide, high, rotate, alphaB);
+        //    wide  = (vizWidth*2)-(vizWidth/10);
+        //    wide = 50+(wide-(wide*functionA)); 
+        //    high = wide;
+        //    donut(position[i+1 % opcGrid.columns].x, position[i+1 % opcGrid.columns].y, col1, stroke, wide, high, rotate, alphaB);
+        //    donut(position[i+6].x, position[i+6].y, col1, stroke, wide, high, rotate, alphaB);
         wide = (vizWidth/4)-(vizWidth/10);
         wide = 10+(wide-(wide*functionB)); 
         high = wide;
@@ -348,7 +349,7 @@ class Fill extends Anim {
 class Avoid extends Anim {
   Avoid(Rig _rig) {
     super(_rig);
-   }
+  }
   void draw() {
     window.beginDraw();
     window.background(0);

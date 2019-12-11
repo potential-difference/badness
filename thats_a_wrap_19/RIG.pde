@@ -614,7 +614,7 @@ public class Rig {
       anim = new BenjaminsBoxes(this);
       break;
     case 1:  
-      anim=new BenjaminsBoxes(this);
+      anim = new BenjaminsBoxes(this);
       break;
     case 2:  
       anim = new Checkers(this);
