@@ -132,13 +132,28 @@ void noteOff(Note note) {
   //padVelocity[midiMap] = 0;
 }
 float cc[] = new float[128];                   //// An array where to store the last value received for each CC controller
-float prevcc[] = new float[128];
+//float prevcc[] = new float[128];
 void controllerChange(int channel, int number, int value) {
   cc[number] = map(value, 0, 127, 0, 1);
-  println();
-  println("cc[" + number + "]", "Velocity: "+map(value, 0, 127, 0, 1), "Channel: "+channel);
+  println("cc[" + number + "]", "Velocity: "+cc[number], "Channel: "+channel);
 
-  println(cp5.getController("cc[" + number + "]").getValue());
+
+  //int index = int(theEvent.getController().getName().substring(11, 12));
+  //        cc[41+index] = value;
+  //        int newIndex = index+41;
+  //        println("set cc["+newIndex+"]", value);
+
+  String name = "controller "+(number-40);
+  try {
+    sliderFrame.cp5.getController(name).setValue(cc[number]);
+  } 
+  catch (Exception e) {
+    println(e);
+    println("*** !!CHECK YOUR MIDI MAPPING!! ***");
+    println();
+  }
+
+  //println(cp5.getController("cc[" + number + "]").getValue());
 
   /*
   // put inside controller change 

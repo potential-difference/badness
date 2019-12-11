@@ -131,22 +131,11 @@ class SliderFrame extends ControlFrame {
     wide = 150;
     high = 20;
     int gap = 25;
-    /*
-    loadSlider("controller "+0, x, y, wide, high, 0, 1, 0.32, act1, bac1, slider1);
-     loadSlider("controller "+1, x, y+gap, wide, high, 0, 1, 0.32, act1, bac1, slider1);
-     loadSlider("controller "+2, x, y+gap*2, wide, high, 0, 1, 0.32, act1, bac1, slider1);
-     loadSlider("controller "+3, x, y+gap*3, wide, high, 0, 1, 0.32, act1, bac1, slider1);
-     loadSlider("controller "+4, x, y+gap*4, wide, high, 0, 1, 0.32, act1, bac1, slider1);
-     loadSlider("controller "+5, x, y+gap*5, wide, high, 0, 1, 0.32, act1, bac1, slider1);    
-     loadSlider("controller "+6, x, y+gap*6, wide, high, 0, 1, 0.32, act1, bac1, slider1);
-     loadSlider("controller "+7, x, y+gap*7, wide, high, 0, 1, 0.32, act1, bac1, slider1);
-     loadSlider("controller "+8, x, y+gap*8, wide, high, 0, 1, 0.32, act1, bac1, slider1);
-     */
-    for (int i =0; i<16; i+=2) {
+
+    for (int i =0; i<17; i+=2) {
       gap = 25;
       String name = "controller "+i;
       String name1 = "controller "+(i+1);
-      println(i);
       loadSlider(name, x, y+(i*gap), wide, high, 0, 1, 0.32, act1, bac1, slider1);
       loadSlider(name1, x, y+gap+(i*gap), wide, high, 0, 1, 0.32, act, bac, slider);
     }
@@ -281,17 +270,16 @@ class ControlFrame extends PApplet {
           rig.colorIndexA = intValue;
         }
       }
-
-
-      // plug sliders to cc[i];
-      //for(int i = 0; i < 16;i++) control 1
-
-      ///////////////////////////////////// say some shit 
+      ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       if (theEvent.isController()) {
         println("- controller "+theEvent.getController().getName()+" "+theEvent.getValue());
-        if (theEvent.getController().getName() == "controller 0") {
-          cc[41] = value;
-          println(theEvent.getController().getName());
+
+        if (theEvent.getController().getName().startsWith("controller")) {
+          int index = int(theEvent.getController().getName().substring(11, 12));
+          cc[41+index] = value;
+          int newIndex = index+41;
+          println("set cc["+newIndex+"]", value);
+          println();
         }
       }
       //if (theEvent.isGroup()) println("- group "+theEvent.getName()+" "+theEvent.getValue());
