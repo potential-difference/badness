@@ -16,6 +16,8 @@ ControlP5 cp5, cp6;
 ControlFrame ControlFrame; // load control frame must come after shild ring etc
 RadioButton r1, r2;
 
+boolean SHITTYLAPTOP=true;
+
 final int PORTRAIT = 0;
 final int LANDSCAPE = 1;
 final int RIG = 0;
@@ -45,6 +47,7 @@ void settings() {
   //fullScreen();
   size(size.sizeX, size.sizeY, P2D);
   size.surfacePositionX = 1920-width-50;
+  if (SHITTYLAPTOP) size.surfacePositionX = 1080 - width;
   size.surfacePositionY = 150;
 }
 void setup()
