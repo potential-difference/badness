@@ -12,10 +12,7 @@ class MainControlFrame extends ControlFrame {
     x = 10;
     y = 90;
     sliderY=y;
-    wide = 80;           // x size of sliders
-    high = 14;           // y size of slider
-    row = high +4;       // distance between rows
-    clm = 210;           // distance between coloms
+
     //fullScreen();
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// GLOBAL SLIDERS ///////////////////////////////////////////////////////////
@@ -128,6 +125,16 @@ class SliderFrame extends ControlFrame {
   SliderFrame(PApplet _parent, int _controlW, int _controlH, int _xpos, int _ypos) {
     super (_parent, _controlW, _controlH, _xpos, _ypos);
     surface.setAlwaysOnTop(onTop);
+    cp5 = new ControlP5(this);
+    x = 10;
+    y = 10;
+    wide = 150;
+    high = 20;
+    for (int i =0; i<16; i+=2) {
+      int gap = 25;
+      loadSlider("cc["+(41+i)+"]", x, y+(i*gap), wide, high, 0, 1, 0.32, act1, bac1, slider1);
+      loadSlider("cc["+(42+i)+"]", x, y+gap+(i*gap), wide, high, 0, 1, 0.32, act, bac, slider);
+    }
   }
   void draw() {
     surface.setAlwaysOnTop(onTop);
@@ -138,8 +145,7 @@ class SliderFrame extends ControlFrame {
 
 class ControlFrame extends PApplet {
   int controlW, controlH, wide, high, xpos, ypos;
-  float clm, row, sliderY;
-  float x, y;
+  float clm, row, sliderY, x, y;
   PApplet parent;
   ControlP5 cp5;
 
@@ -165,6 +171,10 @@ class ControlFrame extends PApplet {
     ellipseMode(RADIUS);
     imageMode(CENTER);
     noStroke();
+    wide = 80;           // x size of sliders
+    high = 14;           // y size of slider
+    row = high +4;       // distance between rows
+    clm = 210;
   }
   void draw() {
     /// override in subclass

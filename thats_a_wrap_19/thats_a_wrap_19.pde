@@ -56,20 +56,17 @@ void setup()
   surface.setAlwaysOnTop(onTop);
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
 
-
   controlFrame = new MainControlFrame(this, width, 270, size.surfacePositionX, size.surfacePositionY+height+5); // load control frame must come after shild ring etc
   cp5 = new ControlP5( controlFrame );
 
   opcGrid = new OPCGrid();
-
   rigg = new Rig(true, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
   roof = new Rig(false, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
   cans = new Rig(false, size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "CANS");
   //donut = new Rig(false,size.donut.x, size.donut.y, size.donutWidth, size.donutHeight, "DONUT");
 
-  sliderFrame = new SliderFrame(this, 300, height, size.surfacePositionX-305, size.surfacePositionY); // load control frame must come after shild ring etc
-  cp6 = new ControlP5( sliderFrame );
-
+  int frameWidth = 220;
+  sliderFrame = new SliderFrame(this, frameWidth, height, size.surfacePositionX-frameWidth-5, size.surfacePositionY); // load control frame must come after shild ring etc
 
   ///////////////// LOCAL opc /////////////////////
   opcLocal   = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRRORS
