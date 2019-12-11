@@ -131,24 +131,25 @@ class SliderFrame extends ControlFrame {
     wide = 150;
     high = 20;
     int gap = 25;
+    /*
     loadSlider("controller "+0, x, y, wide, high, 0, 1, 0.32, act1, bac1, slider1);
-    loadSlider("controller "+1, x, y+gap, wide, high, 0, 1, 0.32, act1, bac1, slider1);
-    loadSlider("controller "+2, x, y+gap*2, wide, high, 0, 1, 0.32, act1, bac1, slider1);
-    loadSlider("controller "+3, x, y+gap*3, wide, high, 0, 1, 0.32, act1, bac1, slider1);
-    loadSlider("controller "+4, x, y+gap*4, wide, high, 0, 1, 0.32, act1, bac1, slider1);
-    loadSlider("controller "+5, x, y+gap*5, wide, high, 0, 1, 0.32, act1, bac1, slider1);    
-    loadSlider("controller "+6, x, y+gap*6, wide, high, 0, 1, 0.32, act1, bac1, slider1);
-    loadSlider("controller "+7, x, y+gap*7, wide, high, 0, 1, 0.32, act1, bac1, slider1);
-    loadSlider("controller "+8, x, y+gap*8, wide, high, 0, 1, 0.32, act1, bac1, slider1);
-
-    //    for (int i =0; i<16; i+=2) {
-    //      int gap = 25;
-    //      String name = "controller "+i;
-    //      String name1 = "controller "+(i+1);
-    //      println(i);
-    //      loadSlider(name, x, y+(i*gap), wide, high, 0, 1, 0.32, act1, bac1, slider1);
-    //      loadSlider(name1, x, y+gap+(i*gap), wide, high, 0, 1, 0.32, act, bac, slider);
-    //    }
+     loadSlider("controller "+1, x, y+gap, wide, high, 0, 1, 0.32, act1, bac1, slider1);
+     loadSlider("controller "+2, x, y+gap*2, wide, high, 0, 1, 0.32, act1, bac1, slider1);
+     loadSlider("controller "+3, x, y+gap*3, wide, high, 0, 1, 0.32, act1, bac1, slider1);
+     loadSlider("controller "+4, x, y+gap*4, wide, high, 0, 1, 0.32, act1, bac1, slider1);
+     loadSlider("controller "+5, x, y+gap*5, wide, high, 0, 1, 0.32, act1, bac1, slider1);    
+     loadSlider("controller "+6, x, y+gap*6, wide, high, 0, 1, 0.32, act1, bac1, slider1);
+     loadSlider("controller "+7, x, y+gap*7, wide, high, 0, 1, 0.32, act1, bac1, slider1);
+     loadSlider("controller "+8, x, y+gap*8, wide, high, 0, 1, 0.32, act1, bac1, slider1);
+     */
+    for (int i =0; i<16; i+=2) {
+      gap = 25;
+      String name = "controller "+i;
+      String name1 = "controller "+(i+1);
+      println(i);
+      loadSlider(name, x, y+(i*gap), wide, high, 0, 1, 0.32, act1, bac1, slider1);
+      loadSlider(name1, x, y+gap+(i*gap), wide, high, 0, 1, 0.32, act, bac, slider);
+    }
   }
   void draw() {
     surface.setAlwaysOnTop(onTop);
