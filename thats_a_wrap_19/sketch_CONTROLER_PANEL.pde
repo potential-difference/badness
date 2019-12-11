@@ -358,13 +358,12 @@ class ControlFrame extends PApplet {
           rig.functionIndexA = int(theEvent.getValue());
           rig.functionIndexB = int(theEvent.getValue());
         }
-        if (theEvent.isFrom(rig.flashRadioButton)) flashtest = color(int(theEvent.getGroup().getValue()*50), 100, 100);
-        if (theEvent.isFrom(rig.cRadioButton))     ctest = color(int(theEvent.getGroup().getValue()*50), 100, 100);
+        if (theEvent.isFrom(rig.flashRadioButton)) rig.flash = rig.col[(int(theEvent.getValue()))];
+        if (theEvent.isFrom(rig.cRadioButton))     rig.c = rig.col[(int(theEvent.getValue()))];
       }
       ///////////////////////////////////// say some shit
-      if (theEvent.isController()) {
-        println("- controller "+theEvent.getController().getName()+" "+theEvent.getValue());
-      }
+      if (theEvent.isController()) println("- controller "+theEvent.getController().getName()+" "+theEvent.getValue());
+      if (theEvent.isGroup()) println("- group "+theEvent.getName()+" "+theEvent.getValue());
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
