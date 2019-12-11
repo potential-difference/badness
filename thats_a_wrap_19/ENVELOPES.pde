@@ -29,7 +29,7 @@ Envelope envelopeFactory(int envelope_index, Rig rig) {
     MulEnvelope growingsin = new MulEnvelope(new Stutter(1.0, 100), new Ramp(t+1000, t+1500, 0.0, 0.4));
     AddEnvelope sustain = new AddEnvelope(growingsin, new ConstEnvelope(0.6));
     return sustain;
-      default: 
+  default: 
     return new ADSR(1000, 0, 1000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
   }
 }

@@ -49,6 +49,39 @@ void keyPressed() {
   if (key == '[') vizHold = !vizHold; 
   if (key == ']') colHold = !colHold; 
 
+  if (key=='1') {
+    cp5.saveProperties(("cp5values.json"));
+    println("** SAVED CONTROLER VALUES **");
+  } else if (key=='2') {
+    cp5.loadProperties(("cp5values.json"));
+    println("** LOADED CONTROLER VALUES **");
+  }
+
+
+//  switch(key) {
+//    case('1'):
+//    /* make the ScrollableList behave like a ListBox */
+//    cp5.get(ScrollableList.class, "dropdown").setType(ControlP5.LIST);
+//    break;
+//    case('2'):
+//    /* make the ScrollableList behave like a DropdownList */
+//    cp5.get(ScrollableList.class, "dropdown").setType(ControlP5.DROPDOWN);
+//    break;
+//    case('3'):
+//    /*change content of the ScrollableList */
+//    List l = Arrays.asList("a-1", "b-1", "c-1", "d-1", "e-1", "f-1", "g-1", "h-1", "i-1", "j-1", "k-1");
+//    cp5.get(ScrollableList.class, "dropdown").setItems(l);
+//    break;
+//    case('4'):
+//    /* remove an item from the ScrollableList */
+//    cp5.get(ScrollableList.class, "dropdown").removeItem("k-1");
+//    break;
+//    case('5'):
+//    /* clear the ScrollableList */
+//    cp5.get(ScrollableList.class, "dropdown").clear();
+//    break;
+//  }
+
   /////////////////////////////////// momentaory key pressed array /////////////////////////////////////////////////
   for (int i = 32; i <=63; i++)  if (key == char(i)) keyP[i]=true;
   for (int i = 91; i <=127; i++) if (key == char(i)) keyP[i]=true;

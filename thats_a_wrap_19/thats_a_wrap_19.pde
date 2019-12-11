@@ -10,10 +10,11 @@ OPC opcControllerA;
 OPC opcControllerB;
 OPC opcWifi;
 
-
+import java.util.*;
 import controlP5.*;
-ControlP5 cp5;
-//SliderSetup ss;
+ControlP5 cp5, cp6;
+ControlFrame ControlFrame; // load control frame must come after shild ring etc
+RadioButton r1, r2;
 
 final int PORTRAIT = 0;
 final int LANDSCAPE = 1;
@@ -26,7 +27,7 @@ ControlFrame controlFrame;
 Rig rigg, roof, cans, mirrors, strips, donut;
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
 
-ControlFrame ControlFrame; // load control frame must come after shild ring etc
+
 
 import javax.sound.midi.ShortMessage;       // shorthand names for each control on the TR8
 import oscP5.*;
@@ -91,7 +92,8 @@ void setup()
   setupSpecifics();
   //syphonSetup(syphonToggle);
 
-  frameRate(30);
+  //cp5.loadProperties(("cp5values.json"));
+  frameRate(30); // always needs to be last in setup
 }
 float vizTime, colTime;
 int colStepper = 1;
@@ -124,10 +126,10 @@ void draw()
       if (rig.toggle) {
         if (testToggle) rig.animations.add(new Avoid(rig));
         else rig.addAnim(rig.availableAnims[rig.vizIndex]);
+        //println(rig.name, rig.availableAnims.length);
       }
     }
   }
-
   //for (Rig rig : rigs) println(rig.name, rig.toggle);
   //println(rigg.dimmer);
   if (keyT['s']) for (Anim anim : rigg.animations)  anim.funcFX = 1-(stutter*noize1*0.1);
@@ -148,6 +150,8 @@ void draw()
 
   //syphonSendImage(syphonToggle);
 }
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////// THE END //////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

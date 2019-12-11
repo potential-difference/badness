@@ -414,7 +414,6 @@ class Anim {
     rig = _rig;
     alphaRate = rig.alphaRate;
     funcRate = rig.funcRate;
-    vizIndex = rig.vizIndex; 
     resetbeats();
     _beatCounter = beatCounter;
     col1 = white;

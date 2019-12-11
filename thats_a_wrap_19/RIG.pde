@@ -15,6 +15,10 @@ public class Rig {
   int[] avaliableBkgrnds;
   int arrayListIndex;
   int value;
+  DropdownList ddVizList;
+//RadioButton r1;
+  int lable;
+
 
   Rig(boolean _toggle, float _xpos, float _ypos, int _wide, int _high, String _name) {
     name = _name;
@@ -31,7 +35,7 @@ public class Rig {
 
     dimmers = new HashMap<Integer, Tup>();
 
-    int clm = 210;           // distance between coloms
+    int clm = 250;           // distance between coloms
     float x = 10+clm;
     float y = 90;
     int swide = 80;           // x size of sliders
@@ -48,6 +52,45 @@ public class Rig {
     //void loadToggle(String label, float x, float y, int wide,int high) {
     loadToggle(noiseToggle, "noiseToggle", x+(clm*arrayListIndex), y+row*6, swide, 10);
     loadToggle(toggle, "toggle", x+(clm*arrayListIndex), y+row*7.5, swide, 20);
+
+    //Group colorButtons = cp5.addGroup(name+"colorButtons")
+    //  .setPosition(x+(clm*arrayListIndex)-60, y)
+    //  .setWidth(30)
+    //  .activateEvent(true)
+    //  .setBackgroundColor(color(255, 80))
+    //  .setBackgroundHeight(100)
+    //  .setLabel("color")
+    //  ;
+
+   
+
+    //loadRadioButton( name+"c", x+(clm*arrayListIndex)-90, y, 20, shigh);
+
+    //r1=this.r1;
+
+    r1 = cp5.addRadioButton(name+"radioButton")
+      .setPosition(x+(clm*arrayListIndex)-90, y)
+      .setSize(20, 20)
+      .setColorForeground(color(120))
+      .setColorActive(color(255))
+      .setColorLabel(color(255))
+      .addItem("50", 1)
+      .addItem("100", 2)
+      .addItem("150", 3)
+      .addItem("200", 4)
+      .addItem("250", 5)
+      ;
+
+    //for (Toggle t : r1.getItems()) {
+    //  t.getCaptionLabel().setColorBackground(color(255, 80));
+    //  t.getCaptionLabel().getStyle().moveMargin(-7, 0, 0, -3);
+    //  t.getCaptionLabel().getStyle().movePadding(7, 0, 0, 3);
+    //  t.getCaptionLabel().getStyle().backgroundWidth = 45;
+    //  t.getCaptionLabel().getStyle().backgroundHeight = 13;
+    //}
+
+    ddVizList = cp5.addDropdownList(name+"vizIndex").setPosition(x+(clm*arrayListIndex)-45, y);
+    customize(ddVizList); // customize the first list
 
     int xw = 2;
     for (int i = 0; i < position.length/xw; i++) position[i] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*1);
@@ -139,7 +182,6 @@ public class Rig {
       scol2 = bac1;
       scol3 = slider1;
     }
-    println(name, this);
     cp5.addSlider(name+" "+label)
       .plugTo(this, label)
       .setLabel(this.name+" "+label)
@@ -152,9 +194,67 @@ public class Rig {
       .setColorForeground(scol3) 
       ;
   }
-  public void controlEvent(ControlEvent theEvent) {
-    println(theEvent.getController().getName(), theEvent.getController().getValue());
+  void loadRadioButton(String label, float x, float y, int wide, int high) {
+   r1 = cp5.addRadioButton(name+" "+label)
+      .plugTo(this, label)
+      .setLabel(this.name+" "+label)
+      .setPosition(x, y)
+      .setSize(wide, high)
+      .addItem("black", 0)
+      .addItem("red", 1)
+      .addItem("green", 2)
+      .addItem("blue", 3)
+      .addItem("grey", 4)
+      //.setGroup(colorButtons)
+      ;
   }
+
+  void customize(DropdownList ddl) {
+    // a convenience function to customize a DropdownList
+    ddl.setBackgroundColor(0); // color behind list - can hardly see it
+    ddl.setItemHeight(20);
+    ddl.setBarHeight(15);
+    ddl.setWidth(40);
+    ddl.getCaptionLabel().set("viz");
+    for (int i=0; i<availableAnims.length; i++) {
+      ddl.addItem("viz "+i, i);
+    }
+    //ddl.scroll(0);
+    ddl.setColorBackground(bac);       // background color
+    ddl.setColorActive(act);           // clicked color
+    ddl.setColorCaptionLabel(#FFFAFA) ;
+    ddl.setColorForeground(bac1) ;      // highlight color
+    ddl.setColorLabel(#FFFAFA) ;       // text color for label
+  }
+
+
+  //public void dropdown(int n) {
+  //  /* request the selected item based on index n and store in a char */
+  //  String string = cp5.get(ScrollableList.class, "dropdown").getItem(n).get("name").toString();
+  //  char c = string.charAt(0);
+  //  //int value = cp5.get(ScrollableList.class, "dropdown").getItem(n).get.getValue();
+
+  //  // Write the char to the serial port
+  //  println(string, c);
+  //} 
+  //public void controlEvent(ControlEvent theEvent) {
+  //  //println(theEvent.getController().getName(), theEvent.getController().getValue());
+
+  //  if (theEvent.isGroup()) {
+  //    println("GROUP");
+  //    println("got an event from group "
+  //      +theEvent.getGroup().getName()
+  //      +", isOpen? "+theEvent.getGroup().isOpen()
+  //      );
+  //  } else if (theEvent.isController()) {
+  //    println("got something from a controller "
+  //      +theEvent.getController().getName()
+  //      );
+  //  }
+  //  println();
+  //}
+
+
   void setValue(int theValue) {
     value = theValue;
   }

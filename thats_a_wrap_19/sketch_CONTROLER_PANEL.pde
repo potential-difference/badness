@@ -138,8 +138,6 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
-
-
     cp5.addSlider("vizTimeSlider") // name used throughout sketch to link to slider
       .plugTo(parent, "vizTimeSlider")
       .setPosition(x, y+row*2)
@@ -173,7 +171,6 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
-
     cp5.addSlider("manualSlider")
       .plugTo(parent, "manualSlider")
       .setPosition(x, y+row*5)
@@ -185,77 +182,6 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac1) 
       .setColorForeground(slider1) 
       ;
-    /*
-                 
-     cp5.addSlider("smokePump")
-     .plugTo(parent, "smokePump")      .setPosition(x, y+row)
-     .setPosition(x, y+row*3)
-     .setSize(wide, high)
-     .setRange(0, 1)
-     .setValue(0.75) // start value of slider
-     .setColorActive(act) 
-     .setColorBackground(bac) 
-     .setColorForeground(slider) 
-     ;
-     cp5.addSlider("smokeOnTime")
-     .plugTo(parent, "smokeOnTime")      .setPosition(x, y+row)
-     .setPosition(x, y+row*4)
-     .setSize(wide, high)
-     .setRange(0, 1)
-     .setValue(0.5) // start value of slider
-     .setColorActive(act1) 
-     .setColorBackground(bac1) 
-     .setColorForeground(slider1) 
-     ;
-     cp5.addSlider("smokeOffTime")
-     .plugTo(parent, "smokeOffTime")      .setPosition(x, y+row)
-     .setPosition(x, y+row*5)
-     .setSize(wide, high)
-     .setRange(0, 1)
-     .setValue(0.5) // start value of slider
-     .setColorActive(act) 
-     .setColorBackground(bac) 
-     .setColorForeground(slider) 
-     ;
-     x+=clm;
-     //////////////////////////////////////////////////////////////////////////////////////////////////
-     /////////////////////////////// FOURTH coloum of sliders ///////////////////////////////////////
-     
-     cp5.addSlider("bgNoiseSlider")
-     .plugTo(parent, "bgNoiseSlider")
-     .setPosition(x, y+row*2)
-     .setSize(wide, high)
-     //.setFont(font)
-     .setRange(0, 1)
-     .setValue(0.3) // start value of slider
-     .setColorActive(act1) 
-     .setColorBackground(bac1) 
-     .setColorForeground(slider1) 
-     ;
-     cp5.addSlider("bgNoiseBrightnessSlider")
-     .plugTo(parent, "bgNoiseBrightnessSlider")
-     .setPosition(x, y+row*3)
-     .setSize(wide, high)
-     //.setFont(font)
-     .setRange(0, 1)
-     .setValue(0.5) // start value of slider
-     .setColorActive(act) 
-     .setColorBackground(bac) 
-     .setColorForeground(slider) 
-     ;    
-     cp5.addSlider("bgNoiseDensitySlider")
-     .plugTo(parent, "bgNoiseDensitySlider")
-     .setPosition(x, y+row*4)
-     .setSize(wide, high)
-     //.setFont(font)
-     .setRange(0, 1)
-     .setValue(0.1) // start value of slider
-     .setColorActive(act1) 
-     .setColorBackground(bac1) 
-     .setColorForeground(slider1) 
-     ;
-     */
-
     /////////////////////////////// BUTTONS ///////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////
     x+=clm*5;
@@ -297,7 +223,7 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
-      cp5.addToggle("testToggle")
+    cp5.addToggle("testToggle")
       .plugTo(parent, "testToggle")
       .setPosition(x-60, y+80)
       .setSize(70, 70)
@@ -306,6 +232,24 @@ class ControlFrame extends PApplet {
       .setColorBackground(bac) 
       .setColorForeground(slider) 
       ;
+    /////////////////////////////// COLOR WHEEL ///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //cp5.addColorWheel("customC", int(900), int(sliderY), 80 ).scrolled(100);
+
+    /////////////////////////////// VIZ SELECTION LIST ///////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+    //d1 = cp5.addDropdownList("myList-d1")
+    //  .setPosition(100, 100)
+    //  ;
+
+    //customize(d1); // customize the first list
+
+
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
   void draw() {
     background(0);
@@ -328,7 +272,7 @@ class ControlFrame extends PApplet {
     ///// NEXT VIZ IN....
     x=250;
     fill(rigg.c, 300);
-    if (!rigg.toggle) fill(rigg.c, 100);
+    fill(rigg.c, 100);
     String sec = nf(int(vizTime - (millis()/1000 - vizTimer)) % 60, 2, 0);
     int min = int(vizTime - (millis()/1000 - vizTimer)) /60 % 60;
     text("next viz in: "+min+":"+sec, x, y);
@@ -362,7 +306,7 @@ class ControlFrame extends PApplet {
       text("alph's: " + cans.alphaIndexA + " / " + cans.alphaIndexB, x+120, y+20);
     }
     /*
-    /////////////////////////////////////////////////// cans info ////////////////////////////////////////////////////////
+     /////////////////////////////////////////////////// cans info ////////////////////////////////////////////////////////
      if (size.donutHeight > 0 && size.donutHeight > 0) {
      fill(rigg.c, 300);
      if (!donut.toggle) fill(rigg.c, 100);
@@ -375,6 +319,7 @@ class ControlFrame extends PApplet {
      text("alph's: " + donut.alphaIndexA + " / " + donut.alphaIndexB, x+120, y+20);
      }
      */
+
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     sequencer(675, sliderY-20);
     pauseInfo(width-5, sliderY-15);
@@ -396,7 +341,10 @@ class ControlFrame extends PApplet {
      if (cc[8] != roofDimmer) cp5.getController("roofDimmer").setValue(cc[8]);
      }
      */
+     fill(test);
+     rect(900,200,100,100);
   }
+
 
   //////////////////////////////////////// CALL BACK FOR SLIDER CONTROL FROM OTHER VARIABLES
   // an event from slider sliderA will change the value of textfield textA here
@@ -452,4 +400,138 @@ class ControlFrame extends PApplet {
       .setColorForeground(slider) 
       ;
   }
+  color test;
+  public void controlEvent(ControlEvent theEvent) {
+    //println(theEvent.getController().getName(), theEvent.getController().getValue());
+
+    //if (theEvent.isGroup()) {
+    //  println("GROUP");
+    //  println("got an event from group "
+    //    +theEvent.getGroup().getName()
+    //    +", isOpen? "+theEvent.getGroup().isOpen()
+    //    );
+
+    int cols = 4;
+    int rows = 5;
+    int[][] cFlashArray = new int[cols][2];      
+
+    for (Rig rig : rigs) {
+      if (theEvent.isFrom(r1)) {
+        print("got an event from "+theEvent.getName()+"\t");
+        for (int i=0; i<theEvent.getGroup().getArrayValue().length; i++) {
+          print(int(theEvent.getGroup().getArrayValue()[i]));
+        }
+        println("\t "+theEvent.getValue());
+         test = color(int(theEvent.getGroup().getValue()*50), 100, 100);
+      }
+    }
+
+
+    //    switch(theEvent.getId()) {
+    //    case 0:
+    //      myArray[0][(int)theEvent.value()-1] = 1;
+    //      break;
+    //    case 1:
+    //      myArray[1][(int)theEvent.value()-1] = 1;
+    //      break;
+    //    case 2:
+    //      myArray[2][(int)theEvent.value()-1] = 1;
+    //      break;
+    //    case 3:
+    //      myArray[3][(int)theEvent.value()-1] = 1;
+    //      break;
+    //    }  
+    //    println("==== " + theEvent.getId() + " ===");
+    //    println(myArray[theEvent.getId()]);
+    //} else 
+    if (theEvent.isController()) println("got something from a controller "+theEvent.getController().getName());
+
+
+
+
+    println();
+  }
+  public void dropdown(int n) {
+    /* request the selected item based on index n and store in a char */
+    String string = cp5.get(ScrollableList.class, "dropdown").getItem(n).get("name").toString();
+    char c = string.charAt(0);
+    //int value = cp5.get(ScrollableList.class, "dropdown").getItem(n).get.getValue();
+
+    // Write the char to the serial port
+    println(string, c);
+  }
 }
+
+
+
+/* // old sliders 
+/*        
+ cp5.addSlider("smokePump")
+ .plugTo(parent, "smokePump")      .setPosition(x, y+row)
+ .setPosition(x, y+row*3)
+ .setSize(wide, high)
+ .setRange(0, 1)
+ .setValue(0.75) // start value of slider
+ .setColorActive(act) 
+ .setColorBackground(bac) 
+ .setColorForeground(slider) 
+ ;
+ cp5.addSlider("smokeOnTime")
+ .plugTo(parent, "smokeOnTime")      .setPosition(x, y+row)
+ .setPosition(x, y+row*4)
+ .setSize(wide, high)
+ .setRange(0, 1)
+ .setValue(0.5) // start value of slider
+ .setColorActive(act1) 
+ .setColorBackground(bac1) 
+ .setColorForeground(slider1) 
+ ;
+ cp5.addSlider("smokeOffTime")
+ .plugTo(parent, "smokeOffTime")      .setPosition(x, y+row)
+ .setPosition(x, y+row*5)
+ .setSize(wide, high)
+ .setRange(0, 1)
+ .setValue(0.5) // start value of slider
+ .setColorActive(act) 
+ .setColorBackground(bac) 
+ .setColorForeground(slider) 
+ ;
+ x+=clm;
+ //////////////////////////////////////////////////////////////////////////////////////////////////
+ /////////////////////////////// FOURTH coloum of sliders ///////////////////////////////////////
+ 
+ cp5.addSlider("bgNoiseSlider")
+ .plugTo(parent, "bgNoiseSlider")
+ .setPosition(x, y+row*2)
+ .setSize(wide, high)
+ //.setFont(font)
+ .setRange(0, 1)
+ .setValue(0.3) // start value of slider
+ .setColorActive(act1) 
+ .setColorBackground(bac1) 
+ .setColorForeground(slider1) 
+ ;
+ cp5.addSlider("bgNoiseBrightnessSlider")
+ .plugTo(parent, "bgNoiseBrightnessSlider")
+ .setPosition(x, y+row*3)
+ .setSize(wide, high)
+ //.setFont(font)
+ .setRange(0, 1)
+ .setValue(0.5) // start value of slider
+ .setColorActive(act) 
+ .setColorBackground(bac) 
+ .setColorForeground(slider) 
+ ;    
+ cp5.addSlider("bgNoiseDensitySlider")
+ .plugTo(parent, "bgNoiseDensitySlider")
+ .setPosition(x, y+row*4)
+ .setSize(wide, high)
+ //.setFont(font)
+ .setRange(0, 1)
+ .setValue(0.1) // start value of slider
+ .setColorActive(act1) 
+ .setColorBackground(bac1) 
+ .setColorForeground(slider1) 
+ ;
+ 
+ */

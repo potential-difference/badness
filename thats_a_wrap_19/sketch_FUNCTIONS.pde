@@ -5,14 +5,32 @@ class Tup {
     this.f=f;
     this.i=i;
   }
-  float get(){
-    if (f != null){
-      if (i<f.length && i>=0){
+  float get() {
+    if (f != null) {
+      if (i<f.length && i>=0) {
         return f[i];
       }
     }
     return 1.0;
   }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////
+public void controlEvent(ControlEvent theEvent) {
+  //println(theEvent.getController().getName(), theEvent.getController().getValue());
+
+  if (theEvent.isGroup()) {
+    println("GROUP");
+    println("got an event from group "
+      +theEvent.getGroup().getName()
+      +", isOpen? "+theEvent.getGroup().isOpen()
+      );
+  } else if (theEvent.isController()) {
+    println("got something from a controller "
+      +theEvent.getController().getName()
+      );
+  }
+
+  println();
 }
 /////////////////////////////////// FUNCTION AND ALPHA ARRAYS //////////////////////////////////////////////
 float sineFast, sineSlow, sine, stutter, shimmer;
