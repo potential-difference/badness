@@ -13,6 +13,7 @@ public class Rig {
   HashMap<Integer, Ref> dimmers;
   int[] availableAnims;
   int[] avaliableBkgrnds;
+  int[] avaliableEnvelopes;
   int arrayListIndex;
   int value;
   ScrollableList ddVizList, ddBkgrndList, ddAlphaList, ddFuncList;
@@ -27,11 +28,13 @@ public class Rig {
     size = new PVector (_xpos, _ypos);
     toggle = _toggle;
 
-    availableAnims = new int[] {0, 1, 2, 3};    // default - changed when initalised;
+    availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
     animations = new ArrayList<Anim>();
     rigs.add(this);
-    arrayListIndex = rigs.indexOf(this);        // where this is the rig object
-    avaliableBkgrnds = new int[] {0, 1, 2, 3};  // default - changed when initalised;
+    arrayListIndex = rigs.indexOf(this);          // where this is the rig object
+    avaliableBkgrnds = new int[] {0, 1, 2, 3};    // default - changed when initalised;
+
+    avaliableEnvelopes = new int[] {1, 2, 3, 4};  
 
     dimmers = new HashMap<Integer, Ref>();
 
@@ -81,15 +84,9 @@ public class Rig {
       .plugTo(this, "flashRadioButton")
       .setLabel(this.name+" flashRadioButton")
       .setPosition(x+(clm*arrayListIndex)-70, y)
-      .setSize(15, shigh)
-      .addItem(name+"pink"+f, 0)
-      .addItem(name+"red"+f, 1)
-      .addItem(name+"green"+f, 2)
-      .addItem(name+"blue"+f, 3)
-      .addItem(name+"grey"+f, 4)
-      .hideLabels() 
-      //.setGroup(colorButtons)
-      ;
+      .setSize(15, shigh);
+    for (int i=0; i<col.length; i++) flashRadioButton.addItem(name+"col"+f+i, i);
+    flashRadioButton.hideLabels() ;
 
     //loadRadioButtons(x+(clm*arrayListIndex)-90, y, 10, shigh);
 

@@ -26,7 +26,7 @@ Envelope envelopeFactory(int envelope_index, Rig rig) {
   case 1:
     return ADSR(1500, 1000, 2000, 0.2, 1);
   case 2:
-    return ADSR(1000, 0, 2000, -rig.alphaRate, -rig.funcRate);
+    return ADSR(1000, 0, 2000, 1-rig.alphaRate, 1-rig.funcRate);
     case 3:
     return SimplePulse(500,100,500,cc[1],cc[2]);
     case 4:

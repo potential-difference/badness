@@ -20,20 +20,20 @@ void keyPressed() {
   if (key == 'j') roof.bgIndex = (roof.bgIndex+1)%roof.avaliableBkgrnds.length;               //// CYCLE THROUGH ROOF BACKGROUNDS
 
   if (key == ',') {                                      //// CYCLE THROUGH RIG FUNCS
-    rigg.functionIndexA = (rigg.functionIndexA+1)%funcLength; //animations.func.length; 
-    rigg.functionIndexB = (rigg.functionIndexB+1)%funcLength; //fct.length;
+    rigg.functionIndexA = (rigg.functionIndexA+1)%rigg.avaliableEnvelopes.length; //animations.func.length; 
+    rigg.functionIndexB = (rigg.functionIndexB+1)%rigg.avaliableEnvelopes.length; //fct.length;
   }  
   if (key == '.') {                                      //// CYCLE THROUGH RIG ALPHAS
-    rigg.alphaIndexA = (rigg.alphaIndexA+1)% alphLength; //alph.length; 
-    rigg.alphaIndexB = (rigg.alphaIndexB+1)% alphLength; //alph.length;
+    rigg.alphaIndexA = (rigg.alphaIndexA+1)% rigg.avaliableEnvelopes.length; //alph.length; 
+    rigg.alphaIndexB = (rigg.alphaIndexB+1)% rigg.avaliableEnvelopes.length; //alph.length;
   }   
   if (key == 'k') {                                      //// CYCLE THROUGH ROOF FUNCS
-    roof.functionIndexA = (roof.functionIndexA+1)%funcLength; 
-    roof.functionIndexB = (roof.functionIndexB+1)%funcLength;
+    roof.functionIndexA = (roof.functionIndexA+1)%roof.avaliableEnvelopes.length; 
+    roof.functionIndexB = (roof.functionIndexB+1)%roof.avaliableEnvelopes.length;
   }  
   if (key == 'l') {                                      //// CYCLE THROUGH ROOF ALPHAS
-    roof.alphaIndexA = (roof.alphaIndexA+1)%alphLength; 
-    roof.alphaIndexB = (roof.alphaIndexB+1)%alphLength;
+    roof.alphaIndexA = (roof.alphaIndexA+1)%roof.avaliableEnvelopes.length; 
+    roof.alphaIndexB = (roof.alphaIndexB+1)%roof.avaliableEnvelopes.length;
   }   
   if (key == 'c') rigg.colorIndexA = (rigg.colorIndexA+1)%rigg.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
   if (key == 'v') rigg.colorIndexB = (rigg.colorIndexB+1)%rigg.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS

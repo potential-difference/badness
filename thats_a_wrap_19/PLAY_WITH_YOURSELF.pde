@@ -47,8 +47,8 @@ void playWithYourself(float vizTm) {
   ///////////// ALPHA TIMER ////////////////////////////////////////////////////////////////////////////////////////////////////
   if (millis()/1000 - alphaTimer >= vizTm/divide) { ///// alpha timer changes 4 times every viz change /////
     for (Rig rig : rigs) { 
-      rig.alphaIndexA = int(random(alphLength));  //// select from alpha array
-      rig.alphaIndexB = int(random(alphLength)); //// select from alpha array
+      rig.alphaIndexA = int(random(rig.avaliableEnvelopes.length));  //// select from alpha array
+      rig.alphaIndexB = int(random(rig.avaliableEnvelopes.length)); //// select from alpha array
       alf = 0; ////// set  viz to 0 to fade up viz when alpha changes /////
       println(rig.name+" alpha change @", (hour()+":"+minute()+":"+second()), "new envelopes:", rig.alphaIndexA, "&", rig.alphaIndexB);
     }
@@ -58,8 +58,8 @@ void playWithYourself(float vizTm) {
   //////////// FUNCTION TIMER ////////////////////////////////////////////////////////////////////////////////////////////////////
   if (millis()/1000 - functionTimer >= vizTm/divide) {    ////// change function n times for every state change
     for (Rig rig : rigs) {
-      rig.functionIndexA = int(random(funcLength));  //// select from function array
-      rig.functionIndexB = int(random(funcLength));  //// select from function array
+      rig.functionIndexA = int(random(rig.avaliableEnvelopes.length));  //// select from function array
+      rig.functionIndexB = int(random(rig.avaliableEnvelopes.length));  //// select from function array
       alf = 0; ////// set  viz to 0 to fade up viz when fucntion changes /////
       println(rig.name+" function change @", (hour()+":"+minute()+":"+second()), "new envelope:", rig.functionIndexA, "&", rig.functionIndexB);
     }

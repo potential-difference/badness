@@ -45,9 +45,7 @@ abstract class ManualAnim extends Anim {
 class BenjaminsBoxes extends Anim {
   BenjaminsBoxes (Rig _rig) {
     super(_rig);
-    //alphaEnvelopeA = new ADSR(200, 0, 1000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
-    //functionEnvelopeA =  new ADSR(1000, 0, 1000, 0.2, 0, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
-  }
+   }
   void draw() {
     window.beginDraw();
     window.background(0);
@@ -350,9 +348,7 @@ class Fill extends Anim {
 class Avoid extends Anim {
   Avoid(Rig _rig) {
     super(_rig);
-    alphaEnvelopeA = ADSR(200, 0, 1000, 0.2, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
-    functionEnvelopeA =  ADSR(800, 0, 1000, 0.2, 1); // envelopeFactory(rig.alphaIndexA, rig);
-  }
+   }
   void draw() {
     window.beginDraw();
     window.background(0);
@@ -486,7 +482,6 @@ class Anim {
     pass2 = rig.pass2;
     position = rig.position; 
     positionX = rig.positionX;
-
 
     alphaEnvelopeA = envelopeFactory(rig.alphaIndexA, rig);
     alphaEnvelopeB = envelopeFactory(rig.alphaIndexB, rig);
