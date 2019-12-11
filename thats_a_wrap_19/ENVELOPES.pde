@@ -6,17 +6,16 @@ Envelope SimplePulse(int attack_time,int sustain_time,int decay_time,float attac
   return upramp.mul(dwnrmp);
 }
 Envelope SlowFast(int start_time,int duration,int start_period,int end_period){
-  now=start_time;
-  Envelope period = new Ramp(now,now+duration,start_period,end_period);
-  return new Sine(1.0,period);
+  Envelope period = new Ramp(start_time,start_time+duration,start_period,end_period);
+  return new Sine(1.0,period);//Using an envelope as the parameter
 }
 Envelope ADSR(int attack_t,int sustain_t,int decay_t,float attack_curv,float decay_curv){
   Envelope base = SimplePulse(attack_t,sustain_t,decay_t,attack_curv,decay_curv);
   int sin_start=millis()+attack_t;
   int sin_duration=sustain_t;
   int start_period=sin_duration;
-  int end_period = sin_duration/20;
-  Envelope squiggle = SlowFast(sin_start,sin_duration,start_period,end_period).mul(0.6).add(0.4);
+  int end_period = sin_duration/5;
+  Envelope squiggle = SlowFast(sin_start,sin_duration,start_period,end_period).mul(new Ramp(sin_start,sin_start+sin_duration,0.0,0.6,0.2)).add(0.4);
   return base.mul(squiggle);
 }
 
@@ -29,7 +28,7 @@ Envelope envelopeFactory(int envelope_index, Rig rig) {
   case 2:
     return ADSR(1000, 0, 2000, -rig.alphaRate, -rig.funcRate);
   default: 
-    return ADSR(1000, 0, 1000, 0.2, 0.2); // envelopeFactory(rig.alphaIndexA, rig);
+    return ADSR(1000, 0, 1000, 0.2, 0.2); 
   }
 }
 
