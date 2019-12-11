@@ -58,29 +58,29 @@ void keyPressed() {
   }
 
 
-//  switch(key) {
-//    case('1'):
-//    /* make the ScrollableList behave like a ListBox */
-//    cp5.get(ScrollableList.class, "dropdown").setType(ControlP5.LIST);
-//    break;
-//    case('2'):
-//    /* make the ScrollableList behave like a DropdownList */
-//    cp5.get(ScrollableList.class, "dropdown").setType(ControlP5.DROPDOWN);
-//    break;
-//    case('3'):
-//    /*change content of the ScrollableList */
-//    List l = Arrays.asList("a-1", "b-1", "c-1", "d-1", "e-1", "f-1", "g-1", "h-1", "i-1", "j-1", "k-1");
-//    cp5.get(ScrollableList.class, "dropdown").setItems(l);
-//    break;
-//    case('4'):
-//    /* remove an item from the ScrollableList */
-//    cp5.get(ScrollableList.class, "dropdown").removeItem("k-1");
-//    break;
-//    case('5'):
-//    /* clear the ScrollableList */
-//    cp5.get(ScrollableList.class, "dropdown").clear();
-//    break;
-//  }
+  //  switch(key) {
+  //    case('1'):
+  //    /* make the ScrollableList behave like a ListBox */
+  //    cp5.get(ScrollableList.class, "dropdown").setType(ControlP5.LIST);
+  //    break;
+  //    case('2'):
+  //    /* make the ScrollableList behave like a DropdownList */
+  //    cp5.get(ScrollableList.class, "dropdown").setType(ControlP5.DROPDOWN);
+  //    break;
+  //    case('3'):
+  //    /*change content of the ScrollableList */
+  //    List l = Arrays.asList("a-1", "b-1", "c-1", "d-1", "e-1", "f-1", "g-1", "h-1", "i-1", "j-1", "k-1");
+  //    cp5.get(ScrollableList.class, "dropdown").setItems(l);
+  //    break;
+  //    case('4'):
+  //    /* remove an item from the ScrollableList */
+  //    cp5.get(ScrollableList.class, "dropdown").removeItem("k-1");
+  //    break;
+  //    case('5'):
+  //    /* clear the ScrollableList */
+  //    cp5.get(ScrollableList.class, "dropdown").clear();
+  //    break;
+  //  }
 
   /////////////////////////////////// momentaory key pressed array /////////////////////////////////////////////////
   for (int i = 32; i <=63; i++)  if (key == char(i)) keyP[i]=true;
@@ -118,14 +118,13 @@ void noteOn( int channel, int pitch, int _velocity) {
   float velocity = map(_velocity, 0, 127, 0, 1);
   pad[pitch] = velocity;
   padPressed[pitch] = true;
-  
+
   //midiMap = int(map(pitch, 36, 84, 0, 7));
   padPressed[pitch] = true;
   padVelocity[pitch] = velocity;
-  
+
   println();
   println("padVelocity: "+pitch, "Velocity: "+velocity, "Channel: "+channel);
-
 }
 void noteOff(Note note) {
   padPressed[note.pitch] = false;
@@ -137,7 +136,25 @@ float prevcc[] = new float[128];
 void controllerChange(int channel, int number, int value) {
   cc[number] = map(value, 0, 127, 0, 1);
   println();
-  println("CC: "+number, "Velocity: "+map(value, 0, 127, 0, 1), "Channel: "+channel);
+  println("cc[" + number + "]", "Velocity: "+map(value, 0, 127, 0, 1), "Channel: "+channel);
+
+  println(cp5.getController("cc[" + number + "]").getValue());
+
+  /*
+  // put inside controller change 
+   if (cc[4]!=prevcc[4]) {
+   prevcc[4]=cc[4];
+   if (cc[4] != rigDimmer) cp5.getController("rigDimmer").setValue(cc[4]);
+   }
+   if (cc[5]!=prevcc[5]) {
+   prevcc[5]=cc[5];
+   if (cc[5] != cansDimmer) cp5.getController("cansDimmer").setValue(cc[5]);
+   }
+   if (cc[8]!=prevcc[8]) {
+   prevcc[8]=cc[8];
+   if (cc[8] != roofDimmer) cp5.getController("roofDimmer").setValue(cc[8]);
+   }
+   */
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

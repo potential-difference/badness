@@ -130,11 +130,25 @@ class SliderFrame extends ControlFrame {
     y = 10;
     wide = 150;
     high = 20;
-    for (int i =0; i<16; i+=2) {
-      int gap = 25;
-      loadSlider("cc["+(41+i)+"]", x, y+(i*gap), wide, high, 0, 1, 0.32, act1, bac1, slider1);
-      loadSlider("cc["+(42+i)+"]", x, y+gap+(i*gap), wide, high, 0, 1, 0.32, act, bac, slider);
-    }
+    int gap = 25;
+    loadSlider("controller "+0, x, y, wide, high, 0, 1, 0.32, act1, bac1, slider1);
+    loadSlider("controller "+1, x, y+gap, wide, high, 0, 1, 0.32, act1, bac1, slider1);
+    loadSlider("controller "+2, x, y+gap*2, wide, high, 0, 1, 0.32, act1, bac1, slider1);
+    loadSlider("controller "+3, x, y+gap*3, wide, high, 0, 1, 0.32, act1, bac1, slider1);
+    loadSlider("controller "+4, x, y+gap*4, wide, high, 0, 1, 0.32, act1, bac1, slider1);
+    loadSlider("controller "+5, x, y+gap*5, wide, high, 0, 1, 0.32, act1, bac1, slider1);    
+    loadSlider("controller "+6, x, y+gap*6, wide, high, 0, 1, 0.32, act1, bac1, slider1);
+    loadSlider("controller "+7, x, y+gap*7, wide, high, 0, 1, 0.32, act1, bac1, slider1);
+    loadSlider("controller "+8, x, y+gap*8, wide, high, 0, 1, 0.32, act1, bac1, slider1);
+
+    //    for (int i =0; i<16; i+=2) {
+    //      int gap = 25;
+    //      String name = "controller "+i;
+    //      String name1 = "controller "+(i+1);
+    //      println(i);
+    //      loadSlider(name, x, y+(i*gap), wide, high, 0, 1, 0.32, act1, bac1, slider1);
+    //      loadSlider(name1, x, y+gap+(i*gap), wide, high, 0, 1, 0.32, act, bac, slider);
+    //    }
   }
   void draw() {
     surface.setAlwaysOnTop(onTop);
@@ -235,6 +249,7 @@ class ControlFrame extends PApplet {
   color ctest, flashtest;
   public void controlEvent(ControlEvent theEvent) {
     int intValue = int(theEvent.getValue());
+    float value = theEvent.getValue();
     int someDelay = 30; // silence at startup
     if (frameCount > someDelay) {
       for (Rig rig : rigs) {                        
@@ -265,14 +280,56 @@ class ControlFrame extends PApplet {
           rig.colorIndexA = intValue;
         }
       }
-      ///////////////////////////////////// say some shit
-      if (theEvent.isController()) println("- controller "+theEvent.getController().getName()+" "+theEvent.getValue());
-      if (theEvent.isGroup()) println("- group "+theEvent.getName()+" "+theEvent.getValue());
+
+
+      // plug sliders to cc[i];
+      //for(int i = 0; i < 16;i++) control 1
+
+      ///////////////////////////////////// say some shit 
+      if (theEvent.isController()) {
+        println("- controller "+theEvent.getController().getName()+" "+theEvent.getValue());
+        if (theEvent.getController().getName() == "controller 0") {
+          cc[41] = value;
+          println(theEvent.getController().getName());
+        }
+      }
+      //if (theEvent.isGroup()) println("- group "+theEvent.getName()+" "+theEvent.getValue());
       ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
   }
 }
+/*
+// put inside controller change 
+ if (cc[4]!=prevcc[4]) {
+ prevcc[4]=cc[4];
+ if (cc[4] != rigDimmer) cp5.getController("rigDimmer").setValue(cc[4]);
+ }
+ if (cc[5]!=prevcc[5]) {
+ prevcc[5]=cc[5];
+ if (cc[5] != cansDimmer) cp5.getController("cansDimmer").setValue(cc[5]);
+ }
+ if (cc[8]!=prevcc[8]) {
+ prevcc[8]=cc[8];
+ if (cc[8] != roofDimmer) cp5.getController("roofDimmer").setValue(cc[8]);
+ }
+ }
+ //////////////////////////////////////// CALL BACK FOR SLIDER CONTROL FROM OTHER VARIABLES
+ // an event from slider sliderA will change the value of textfield textA here
+ public void rigDimmer(float theValue) {
+ int value = int(map(theValue, 0, 1, 0, 127));
+ LPD8bus.sendControllerChange(0, 4, value) ;
+ }
+ }
+ 
+ */
+
+
+
+
+
+
+
 
 /* // old sliders 
 /*        
