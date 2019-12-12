@@ -2,17 +2,21 @@ class OPCGrid {
   PVector[] mirror = new PVector[12];
   PVector[][] mirrorX = new PVector[7][4];
   PVector[] _mirror = new PVector[12];
-  PVector[] seed = new PVector[3];
+  PVector[] seeds = new PVector[4];
   PVector[] cansString = new PVector[3];
   PVector[] cans = new PVector[18];
   PVector[] strip = new PVector[6];
   PVector[] controller = new PVector[4];
   PVector uv; 
   PVector booth, dig;
+  float yTop;                            // height Valuve for top line of mirrors
+  float yBottom;  
+  float yMid = size.rig.y;   
+
   Rig rig;
 
   int pd, ld, dist, controllerGridStep, rows, columns;
-  float mirrorAndGap, seedLength, _seedLength, seed2Length, _seed2Length, cansLength, _cansLength, _mirrorWidth, mirrorWidth, controllerWidth;
+  float mirrorAndGap, seedsLength, _seedsLength, seeds2Length, _seeds2Length, cansLength, _cansLength, _mirrorWidth, mirrorWidth, controllerWidth;
 
   OPCGrid () {
     pd = 6;             // distance between pixels
@@ -23,9 +27,9 @@ class OPCGrid {
 
     switch (size.orientation) {
     case PORTRAIT:
-      float yTop = size.rig.y - mirrorAndGap;                              // height Valuve for top line of mirrors
-      float yBottom = size.rig.y + mirrorAndGap;  
-      float yMid = size.rig.y;   
+      yTop = size.rig.y - mirrorAndGap;                              // height Valuve for top line of mirrors
+      yBottom = size.rig.y + mirrorAndGap;  
+      yMid = size.rig.y;   
       rows = 3;
       columns = 4;
       for (int i = 0; i < mirrorX.length; i++) mirrorX[i][0] = new PVector (size.rig.x-(mirrorAndGap*columns/2)+((mirrorAndGap)*i), size.rig.y-(mirrorAndGap*rows/2));
@@ -171,15 +175,43 @@ class OPCGrid {
           opc1.ledStrip(fc+512+(64*(i-6))+(ld*3), ld, _mirror[i].x-(ld/2*pd), _mirror[i].y, pd, (PI/2), false);         // Left Vertical strip
         }
         break;
-      case 1:
+      case 1:    /////////////// LEFT HAND PANNEL OF MIRRORS /////////////////////////////////
+        _mirror[6] = new PVector (size.rig.x-(mirrorAndGap*2.5), yBottom);                  /// PVECTORS for CENTER of MIRRORS 0-2
+        _mirror[7] = new PVector (size.rig.x-(mirrorAndGap*2.5), yTop);                  /// PVECTORS for CENTER of MIRRORS 0-2
+        _mirror[8] = new PVector (size.rig.x-(mirrorAndGap*1.5), yBottom);                  /// PVECTORS for CENTER of MIRRORS 0-2
+        _mirror[9] = new PVector (size.rig.x-(mirrorAndGap*1.5), yTop);                  /// PVECTORS for CENTER of MIRRORS 0-2
+        _mirror[10] = new PVector (size.rig.x-(mirrorAndGap*0.5), yTop);                  /// PVECTORS for CENTER of MIRRORS 0-2
+        _mirror[11] = new PVector (size.rig.x-(mirrorAndGap*0.5), yBottom);                  /// PVECTORS for CENTER of MIRRORS 0-2
+        // panel 2
+        _mirror[0] = new PVector (size.rig.x+(mirrorAndGap*0.5), yBottom);                  /// PVECTORS for CENTER of MIRRORS 0-2
+        _mirror[1] = new PVector (size.rig.x+(mirrorAndGap*0.5), yTop);                  /// PVECTORS for CENTER of MIRRORS 0-2
+        _mirror[2] = new PVector (size.rig.x+(mirrorAndGap*1.5), yBottom);                  /// PVECTORS for CENTER of MIRRORS 0-2
+        _mirror[3] = new PVector (size.rig.x+(mirrorAndGap*1.5), yTop);                  /// PVECTORS for CENTER of MIRRORS 0-2
+        _mirror[4] = new PVector (size.rig.x+(mirrorAndGap*2.5), yTop);                  /// PVECTORS for CENTER of MIRRORS 0-2
+        _mirror[5] = new PVector (size.rig.x+(mirrorAndGap*2.5), yBottom);                  /// PVECTORS for CENTER of MIRRORS 0-2
+        for (int i = 0; i < 6; i++) {
+          opc.ledStrip(fc+(64*(5-i))+(ld*0), ld, _mirror[i].x, _mirror[i].y-(ld/2*pd), pd, 0, true);                 // TOP horizontal strip 
+          opc.ledStrip(fc+(64*(5-i))+(ld*1), ld, _mirror[i].x-(ld/2*pd), _mirror[i].y, pd, (PI/2), false);             // LEFT vertical strip
+          opc.ledStrip(fc+(64*(5-i))+(ld*2), ld, _mirror[i].x, _mirror[i].y+(ld/2*pd), pd, 0, false);          // BOTTOM horizontal strip
+          opc.ledStrip(fc+(64*(5-i))+(ld*3), ld, _mirror[i].x+(ld/2*pd), _mirror[i].y, pd, (PI/2), true);               // RIGHT vertical strip
+        }
+        /////////////// RIGHT HAND PANNEL OF MIRRORS /////////////////////////////////
+        for (int i = 6; i < 12; i++) {
+          opc1.ledStrip(fc+512+(64*(i-6))+(ld*0), ld, _mirror[i].x, _mirror[i].y+(ld/2*pd), pd, 0, false);           // Bottom horizontal strip 
+          opc1.ledStrip(fc+512+(64*(i-6))+(ld*1), ld, _mirror[i].x+(ld/2*pd), _mirror[i].y, pd, (PI/2), true);       // Right Vertical strip       
+          opc1.ledStrip(fc+512+(64*(i-6))+(ld*2), ld, _mirror[i].x, _mirror[i].y-(ld/2*pd), pd, 0, true);           // Top horizontal strip
+          opc1.ledStrip(fc+512+(64*(i-6))+(ld*3), ld, _mirror[i].x-(ld/2*pd), _mirror[i].y, pd, (PI/2), false);         // Left Vertical strip
+        }
+        break;
+      case 2:
         for (int i = 0; i < 6; i++) opc.ledStrip(fc+(64*(5-i))+(ld*0), ld*4, _mirror[2].x, 50+((size.rigHeight-55)/6*i), pd/1.2, 0, true);                 // TOP horizontal strip
         for (int i = 6; i < 12; i++) opc1.ledStrip(fc+512+(64*(i-6))+(ld*0), ld*4, _mirror[8].x, 50+((size.rigHeight-55)/6*(i-6)), pd/1.2, 0, true);                 // TOP horizontal strip
         break;
-      case 2:
+      case 3:
         for (int i = 0; i < 6; i++) opc.ledStrip(fc+(64*(5-i))+(ld*0), ld*4, _mirror[i].x, _mirror[i].y, pd/3.6, 0, true);                 // TOP horizontal strip
         for (int i = 6; i < 12; i++) opc1.ledStrip(fc+512+(64*(i-6))+(ld*0), ld*4, _mirror[i].x, _mirror[i].y, pd/3.6, 0, true);
         break;
-      case 3:
+      case 4:
         for (int i = 0; i < 6; i++) opc.ledStrip(fc+(64*(5-i))+(ld*0), ld*4, size.rig.x, 48+((size.rigHeight-55)/12*i), pd*1.8, 0, true);                 // TOP horizontal strip
         for (int i = 6; i < 12; i++) opc1.ledStrip(fc+512+(64*(i-6))+(ld*0), ld*4, size.rig.x, 52+((size.rigHeight-55)/12*(i)), pd*1.8, 0, true);                 // TOP horizontal strip
         break;
@@ -207,17 +239,16 @@ class OPCGrid {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////// RADIATORS ////////////////////////////////////////////////////////////////////////////////
   PVector [] rad = new PVector[12];
-
-  void radiatorsOPC(Rig _rig, OPC opc) {
+  void radiatorsOPC(Rig _rig, OPC opc, OPC opc1) {
     rig = _rig;
 
     int xpos = int(rig.size.x-(rig.wide/4));
     int _xpos = xpos;
     int ypos = int(rig.size.y);
 
-    ///////////////////// Left Caterpillar - FC 5
+    ///////////////////// LEFT RADIATOR - FC 5
     // 6 SQAURES
-    int fc = 6 * 512;                       // fadecandy number (first one used is 0)
+    int fc = 7 * 512;                       // fadecandy number (first one used is 0)
     int strips = 6;
     int gap = int(rig.wide/20);         // X distance between strips
     int pixelDist = int(rig.high/70);                      // Y distance between pixels
@@ -281,8 +312,9 @@ class OPCGrid {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    ///////////////////// RIGHT Caterpillar - FC 6
-    fc =  fc + 512;     
+    ///////////////////// RIGHT RADIATOR - FC 6
+    fc =  fc + 512; 
+    opc = opc1;
     pixelDist = int(rig.high/70);                          // Y distance between pixels
     xpos = int(rig.size.x+(rig.wide/4));
 
@@ -302,7 +334,7 @@ class OPCGrid {
     frameXpos = _xpos - gap;
     frameYpos = ypos - ((vertPixels-leds)*pixelDist/2);
     //left 1/2 middle to top
-    opc.ledStrip(strt, leds, frameXpos, frameYpos, pixelDist, radians(90), true); //RICH - WILL 90 MAKE THE PIXEL ORDER GO FROM BOTTOM TO TOP?...
+    opc1.ledStrip(strt, leds, frameXpos, frameYpos, pixelDist, radians(90), true); //RICH - WILL 90 MAKE THE PIXEL ORDER GO FROM BOTTOM TO TOP?...
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     strt = strt+leds;         //next led in same channel
     leds = 13;
@@ -419,6 +451,82 @@ class OPCGrid {
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////// SEEDS ///////////////////////////////////////////////
+  void tawSeedsOPC(Rig _rig, OPC opc, OPC opc1) {
+    rig = _rig;
+
+    ////////////////////////////////// ROOF POSISTIONS FOR GRID ////////////////////////////////////////////////////
+    _seedsLength = size.roofWidth;
+    _seeds2Length = size.roofHeight;
+    seeds[0] = new PVector (rig.size.x, rig.size.y-(rig.high/2)+(rig.high/5)); 
+    seeds[1] = new PVector (rig.size.x, rig.size.y-(rig.high/2)+(rig.high/5*2)); 
+    seeds[2] = new PVector (rig.size.x, rig.size.y-(rig.high/2)+(rig.high/5*3));
+    seeds[3] = new PVector (rig.size.x, rig.size.y-(rig.high/2)+(rig.high/5*4));
+
+    int xpos = int(rig.size.x-(rig.wide/4));
+    int _xpos = xpos;
+    int ypos = int(rig.size.y);
+
+
+    int fc = 5 * 512;                 // fadecandy number (first one used is 0)
+    int channel = 0;                  // pair of holes on fadecandy board
+    int strt = 64*channel+fc;         // starting pixel index
+    int leds = 64;                    // leds in strip
+    int seedLeds = 110;               // leds per seed
+    int pd = int(_seedsLength/seedLeds); //int(size.roofWidth/seedLeds*1.49);
+
+    ///////////////////////////////////// SEED 1 ///////////////////////////////////////////////
+    opc.ledStrip(strt, leds, seeds[0].x-(seedLeds/2*pd-(leds/2*pd)), seeds[0].y, pd, 0, false);     
+    strt = strt+leds;               //next led in same channel
+    leds = 46;
+    opc.ledStrip(strt, leds, seeds[0].x+(seedLeds/2*pd-(leds/2*pd)), seeds[0].y, pd, 0, true);
+
+    ///////////////////////////////////// SEED 2 //////////////////////////////////////////////
+    channel = 2;
+    strt = 64*channel+fc;             // starting pixel number for cicle
+    leds = 64;      
+    opc.ledStrip(strt, leds, seeds[1].x-(seedLeds/2*pd-(leds/2*pd)), seeds[1].y, pd, 0, false);             
+    strt = strt+leds;                 //next led in same channel
+    leds = 46;
+    opc.ledStrip(strt, leds, seeds[1].x+(seedLeds/2*pd-(leds/2*pd)), seeds[1].y, pd, 0, true);
+
+    ///////////////////////////////////// SEED 3 //////////////////////////////////////////////
+    fc = fc + 512;  // next fade candy - only 2 seeds per box
+    opc = opc1;     // different box with differnt IP controlling 2nd pair of seeds
+    channel = 0;
+    strt = 64*channel+fc;         
+    leds = 64;    
+
+    opc.ledStrip(strt, leds, seeds[2].x-(seedLeds/2*pd-(leds/2*pd)), seeds[2].y, pd, 0, false);     
+    strt = strt+leds;               //next led in same channel
+    leds = 46;
+    opc.ledStrip(strt, leds, seeds[2].x+(seedLeds/2*pd-(leds/2*pd)), seeds[2].y, pd, 0, true);
+
+    ///////////////////////////////////// SEED 4 //////////////////////////////////////////////
+    channel = 2;
+    strt = 64*channel+fc;             // starting pixel number for cicle
+    leds = 64;      
+    opc1.ledStrip(strt, leds, seeds[3].x-(seedLeds/2*pd-(leds/2*pd)), seeds[3].y, pd, 0, false);             
+    strt = strt+leds;                 //next led in same channel
+    leds = 46;
+    opc.ledStrip(strt, leds, seeds[3].x+(seedLeds/2*pd-(leds/2*pd)), seeds[3].y, pd, 0, true);
+
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
+    seedsLength = _seedsLength + (pd/2);
+    seeds2Length = _seeds2Length + (pd/2);
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////// CANS //////////////////////////////////////////////////

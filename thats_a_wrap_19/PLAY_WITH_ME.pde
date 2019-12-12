@@ -134,21 +134,21 @@ void seedsControlA(color col, float alpha) {
   noFill();
   strokeWeight(5);
   stroke(col, 360*alpha);  
-  rect(opcGrid.seed[0].x, opcGrid.seed[0].y, opcGrid.seedLength, 3);
+  rect(opcGrid.seeds[0].x, opcGrid.seeds[0].y, opcGrid.seedsLength, 3);
   noStroke();
 }
 void seedsControlB(color col, float alpha) {
   noFill();
   strokeWeight(5);
   stroke(col, 360*alpha);  
-  rect(opcGrid.seed[1].x, opcGrid.seed[1].y, opcGrid.seedLength, 3);
+  rect(opcGrid.seeds[1].x, opcGrid.seeds[1].y, opcGrid.seedsLength, 3);
   noStroke();
 }
 void seedsControlC(color col, float alpha) {
   noFill();
   strokeWeight(5);
   stroke(col, 360*alpha);  
-  rect(opcGrid.seed[2].x, opcGrid.seed[2].y, 3, opcGrid.seed2Length);
+  rect(opcGrid.seeds[2].x, opcGrid.seeds[2].y, 3, opcGrid.seeds2Length);
   noStroke();
 }
 void controllerControl(color col, float alpha) {

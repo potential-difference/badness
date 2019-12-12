@@ -124,11 +124,11 @@ class Checkers extends Anim {
       }
     } else { // opposite way around
       for (int i = 0; i < opcGrid.columns; i+=2) {
-            wide  = (vizWidth*2)-(vizWidth/10);
-            wide = 50+(wide-(wide*functionA)); 
-            high = wide;
-            donut(position[i+1 % opcGrid.columns].x, position[i+1 % opcGrid.columns].y, col1, stroke, wide, high, rotate, alphaB);
-            donut(position[i+6].x, position[i+6].y, col1, stroke, wide, high, rotate, alphaB);
+        wide  = (vizWidth*2)-(vizWidth/10);
+        wide = 50+(wide-(wide*functionA)); 
+        high = wide;
+        donut(position[i+1 % opcGrid.columns].x, position[i+1 % opcGrid.columns].y, col1, stroke, wide, high, rotate, alphaB);
+        donut(position[i+6].x, position[i+6].y, col1, stroke, wide, high, rotate, alphaB);
         wide = (vizWidth/4)-(vizWidth/10);
         wide = (wide-(wide*functionB)); 
         high = wide;
@@ -141,9 +141,9 @@ class Checkers extends Anim {
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Rings extends Anim {
-  float animDimmer;
   Rings(Rig _rig) {
     super(_rig);
+    //animDimmer = animDimmer.mul(0.5);//this one is somehow blinding
   }
   void draw() {
     window.beginDraw();
@@ -510,8 +510,8 @@ class Anim {
     //functionA*=funcFX;
     //functionB*=funcFX;
 
-//functionA = 1;
-//functionB = 1;
+    //functionA = 1;
+    //functionB = 1;
 
     if (alphaEnvelopeA.end_time<now && alphaEnvelopeB.end_time<now) deleteme = true;  // only delete when all finished
 
@@ -537,7 +537,7 @@ class Anim {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
   void squareNut(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
     window.strokeWeight(-stroke);
-    window.stroke(360, 360*alph);
+    window.stroke(360*alph);
     window.noFill();
     window.pushMatrix();
     window.translate(xpos, ypos);
@@ -548,7 +548,7 @@ class Anim {
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
   void donut(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
     window.strokeWeight(-stroke);
-    window.stroke(360, 360*alph);
+    window.stroke(360*alph);
     window.noFill();
     window.pushMatrix();
     window.translate(xpos, ypos);
@@ -559,7 +559,7 @@ class Anim {
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
   void star(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
     window.strokeWeight(-stroke);
-    window.stroke(360, 360*alph);
+    window.stroke(360*alph);
     window.noFill();
     window.pushMatrix();
     window.translate(xpos, ypos);
@@ -598,9 +598,7 @@ class Anim {
     float moveA = (-(distance/2)+(distance*func))*1.3;
 
     window.imageMode(CENTER);
-    window.tint(360, 360*alph);
-    window.fill(360, 360);
-
+    window.tint(360*alph);
     window.pushMatrix();
     window.translate(xpos, ypos);
     window.rotate(rotate);
@@ -617,7 +615,7 @@ class Anim {
     window.pushMatrix();
     window.translate(xpos, ypos);
     window.rotate(radians(90));
-    window.tint(360, 360*alph);
+    window.tint(360*alph);
     window.image(bar1, moveA, 0, high, wide);
     window.noTint();
     window.popMatrix();

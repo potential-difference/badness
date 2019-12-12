@@ -17,6 +17,7 @@ public class Rig {
   int[] avaliableColors;
   int arrayListIndex;
   int value;
+  float infoX, infoY;
   ScrollableList ddVizList, ddBgList, ddAlphaList, ddFuncList, ddAlphaListB, ddFuncListB;
   RadioButton cRadioButton, flashRadioButton;
   int lable;
@@ -443,17 +444,19 @@ public class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void rigInfo() {
+
     float textHeight = 18;
     textSize(textHeight);
-    String panelName = name;
-    float nameWidth = textWidth(panelName);
+    float nameWidth = textWidth(name);
     float x = size.x+(wide/2)-(nameWidth/2)-12;
     float y = size.y-(high/2)+21;
+
+    if (this == cans) x = size.x+25;
 
     fill(360);
     textAlign(CENTER);
     textLeading(18);
-    text(panelName, x, y);
+    text(name, x, y);
 
     fill(0, 100);
     stroke(rigg.flash, 60);
@@ -461,8 +464,9 @@ public class Rig {
     rect(x, y-(textHeight/2)+3, nameWidth+17, 30);
     noStroke();
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    x = size.x+(wide/2)-(nameWidth+17)-30;
+    x = x-(nameWidth+17)-(nameWidth/2);
     y = size.y-(high/2)+20;
+
     ///// RECTANGLES TO SHOW CURRENT COLOURS /////
     fill(0);                              
     rect(x, y-10, 10, 10);                 // rect to show CURRENT color C 
@@ -608,18 +612,16 @@ public class Rig {
     case 11:
       anim = new Donut(this);
       break;
-    default:
-      anim = new Rings(this);
-      break;
+    //default:
+    //  anim = new Rings(this);
+    //  break;
     }
 
-    Ref t=new Ref(new float[]{1.0}, 0);
-    try {
-      t=this.dimmers.get(animIndex);
-    }
-    catch(Exception e) {
-    };
-    if (t != null) anim.animDimmer = t;
+
+
+//    Ref t=new Ref(new float[]{1.0}, 0);
+//    if (t != null) anim.animDimmer = anim.animDimmer.mul(t);
+
     this.animations.add(anim);
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -650,6 +652,7 @@ public class Rig {
     drawColorLayer();
 
     blendMode(NORMAL);
+    cans.infoX +=100;
     rigInfo();
     removeAnimations();
     cordinatesInfo(this, keyT['q']);

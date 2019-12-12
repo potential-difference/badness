@@ -34,6 +34,8 @@ void setupSpecifics() {
   cans.colorIndexB = 11;
   //donut.colorIndexA = 
   //donut.colorIndexB = ;
+  
+  cans.infoX += 100;
 
 
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;

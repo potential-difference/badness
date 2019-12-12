@@ -158,26 +158,6 @@ void controllerChange(int channel, int number, int value) {
     println("*** !!CHECK YOUR MIDI MAPPING!! ***");
     println();
   }
-  
-  
-
-  //println(cp5.getController("cc[" + number + "]").getValue());
-
-  /*
-  // put inside controller change 
-   if (cc[4]!=prevcc[4]) {
-   prevcc[4]=cc[4];
-   if (cc[4] != rigDimmer) cp5.getController("rigDimmer").setValue(cc[4]);
-   }
-   if (cc[5]!=prevcc[5]) {
-   prevcc[5]=cc[5];
-   if (cc[5] != cansDimmer) cp5.getController("cansDimmer").setValue(cc[5]);
-   }
-   if (cc[8]!=prevcc[8]) {
-   prevcc[8]=cc[8];
-   if (cc[8] != roofDimmer) cp5.getController("roofDimmer").setValue(cc[8]);
-   }
-   */
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
