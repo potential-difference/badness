@@ -3,7 +3,8 @@ void setupSpecifics() {
   rigg.availableAnims = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};      // setup which anims are used on which rig here
   roof.availableAnims = new int[] {4, 5, 6, 0, 7, 9};      // setup which anims are used on which rig here - defualt is 0,1,2,3...
 
-  rigg.avaliableBkgrnds = new int[] {0, 1, 2, 3, 4, 5};
+  rigg.avaliableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 7};
+  cans.avaliableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 7,8};
 
   ///////////////////////////////// UPDATE THE DROPDOWN LISTS WITH AVLIABLE OPTIONS ///////////////////////////////////////////////////////
   for (Rig rig : rigs) {

@@ -50,14 +50,14 @@ void keyPressed() {
   if (key == ']') colHold = !colHold; 
 
   if (key=='1') {
-    controlFrame.cp5.saveProperties(("cp5values.json"));
-    sliderFrame.cp5.saveProperties(("cp5SliderValues.json"));
+    controlFrame.cp5.saveProperties("cp5values.json");
+    sliderFrame.cp5.saveProperties("cp5SliderValues.json");
     //controlFrame.cp5.saveProperties(("cp5ControlValues.json"));
 
     println("** SAVED CONTROLER VALUES **");
   } else if (key=='2') {
-    controlFrame.cp5.loadProperties(("cp5values.json"));
-    sliderFrame.cp5.loadProperties(("cp5SliderValues.json"));
+    controlFrame.cp5.loadProperties("cp5values.json");
+    sliderFrame.cp5.loadProperties("cp5SliderValues.json");
     //controlFrame.cp5.loadProperties(("cp5ControlValues.json"));
 
     println("** LOADED CONTROLER VALUES **");
@@ -158,6 +158,8 @@ void controllerChange(int channel, int number, int value) {
     println("*** !!CHECK YOUR MIDI MAPPING!! ***");
     println();
   }
+  
+  
 
   //println(cp5.getController("cc[" + number + "]").getValue());
 

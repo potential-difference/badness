@@ -17,15 +17,20 @@ Envelope SlowFast(int start_time, int duration, int start_period, int end_period
   return new Sine(1.0, period); //Using an envelope as the parameter
 }
 // starts OSSCILIATING with the AMPLITUDE slowly RAMPING to 0.4, ADDITIONALLY ramping to 0.6 with the top 0.2 SQUIGGLING
-Envelope ADSR(int attack_t, int sustain_t, int decay_t, float attack_curv, float decay_curv) {
+Envelope Squiggle(int attack_t, int sustain_t, int decay_t, float attack_curv, float decay_curv, float sqiggle_curv, float squiggliness, int squiggle_spd) {
   Envelope base = SimplePulse(attack_t, sustain_t, decay_t, attack_curv, decay_curv);
   int sin_start=millis()+attack_t;
-  int sin_duration=sustain_t;
+  int sin_duration=sustain_t+decay_t;
   int start_period=sin_duration;
   int end_period = sin_duration/5;
   // squiggle is always 0.4, squigglieness starts after ATTACKTIME and gets squigglier till end of SUSTAINTIME remains SQUIGGLING FOREVER
-  Envelope squiggle = SlowFast(sin_start, sin_duration, start_period, end_period).mul(new Ramp(sin_start, sin_start+sin_duration, 0.0, 0.6, 0.2)).add(0.4);
+  //Envelope squiggle = SlowFast(sin_start, sin_duration, start_period, end_period).mul(new Ramp(sin_start, sin_start+sin_duration, 0.0, sqiggle_curv, squiggliness));
+    Envelope squiggle = new Sine(1, squiggle_spd).mul(new Ramp(sin_start, sin_start+sin_duration, 0.0, sqiggle_curv, squiggliness)).add(1-squiggliness);
   return base.mul(squiggle);
+}
+Envelope SineBySine(float amplitude, int period, float amplitude1, int period1) {
+  Envelope firstSine = new Sine(amplitude, period);
+  return firstSine.mul(new Sine(amplitude1, period1));
 }
 
 
@@ -48,17 +53,35 @@ Envelope BlackOut(int attack_time, float attack_curv) {
 Envelope envelopeFactory(int envelope_index, Rig rig) {
   switch (envelope_index) {
   case 0: 
-    return SimplePulse(int(cc[49]*1000), int(cc[50]*1000), int(cc[51]*1000), cc[41], cc[42]);
+    return SimplePulse(int(cc[41]*4000), int(cc[42]*4000), int(cc[42]*4000), cc[44], cc[45]);
   case 1:
-    return ADSR(1500, 1000, 2000, 0.2, 1);
+    return SimplePulse(int(cc[50]*4000), int(cc[51]*4000), int(cc[52]*4000), cc[53], cc[54]);
   case 2:
-    return ADSR(1000, 0, 2000, 1-rig.alphaRate, 1-rig.funcRate);
+    return SineBySine(cc[50], int(cc[51]*4000), cc[51], int(cc[52]*4000));
+  case 3:
+    //Envelope Squiggle(int attack_t, int sustain_t, int decay_t, float attack_curv, float decay_curv, float sqiggle_curv, float squiggliness) {
+    return Squiggle(int(cc[49]*4000), int(cc[50]*4000), int(cc[51]*4000), cc[52], cc[53], cc[54], cc[55],int(cc[56]*200));
+  case 4:
+    return SlowFast(millis(), 3000, 100, 1000);
+  default: 
+    return SimplePulse(int(cc[41]*4000), int(cc[42]*4000), int(cc[42]*4000), cc[44], cc[45]);
+  }
+}
+
+Envelope functionEnvelopeFactory(int envelope_index, Rig rig) {
+  switch (envelope_index) {
+  case 0: 
+    return SimplePulse(int(cc[41]*6000), int(cc[42]*6000), int(cc[42]*6000), cc[44], cc[45]);
+  case 1:
+    return SimplePulse(int(cc[50]*6000), int(cc[51]*6000), int(cc[52]*6000), cc[53], cc[54]);
+  case 2:
+    return SineBySine(cc[50], int(cc[51]*4000), cc[51], int(cc[52]*4000));
   case 3:
     return SimplePulse(500, 100, 500, cc[1], cc[2]);
   case 4:
     return SlowFast(millis(), 3000, 100, 1000);
   default: 
-    return ADSR(1000, 0, 1000, 0.2, 0.2);
+    return SimplePulse(int(cc[41]*4000), int(cc[42]*4000), int(cc[42]*4000), cc[44], cc[45]);
   }
 }
 

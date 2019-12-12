@@ -17,7 +17,7 @@ public class Rig {
   int[] avaliableColors;
   int arrayListIndex;
   int value;
-  ScrollableList ddVizList, ddBgList, ddAlphaList, ddFuncList;
+  ScrollableList ddVizList, ddBgList, ddAlphaList, ddFuncList, ddAlphaListB, ddFuncListB;
   RadioButton cRadioButton, flashRadioButton;
   int lable;
 
@@ -102,7 +102,7 @@ public class Rig {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
     ////////////////////////////// LOAD CONTROLLERS //////////////////////////////////////////////////////////////////////////////
     int clm = 280;           // distance between coloms
-    float x = 10+clm;
+    float x = clm;
     float y = 90;
     int swide = 80;           // x size of sliders
     int shigh = 14;           // y size of slider
@@ -122,7 +122,7 @@ public class Rig {
     cRadioButton = cp5.addRadioButton(name+" cRadioButton")
       .plugTo(this, "cRadioButton")
       .setLabel(this.name+" cRadioButton")
-      .setPosition(x+(clm*arrayListIndex)-90, y)
+      .setPosition(x+(clm*arrayListIndex)-100, y)
       .setSize(15, shigh);
     for (int i=0; i<avaliableColors.length; i++) {
       cRadioButton.addItem(name+" colc "+i, i);
@@ -135,7 +135,7 @@ public class Rig {
     flashRadioButton = cp5.addRadioButton(name+" flashRadioButton")
       .plugTo(this, "flashRadioButton")
       .setLabel(this.name+" flashRadioButton")
-      .setPosition(x+(clm*arrayListIndex)-70, y)
+      .setPosition(x+(clm*arrayListIndex)-80, y)
       .setSize(15, shigh);
     for (int i=0; i<avaliableColors.length; i++) {
       flashRadioButton.addItem(name+" colFlash "+i, i);
@@ -146,16 +146,23 @@ public class Rig {
       flashRadioButton.hideLabels() ;
     }
     ///////////////////////////////// DROPDOWN LISTS //////////////////////////////////////////////////////////////////////////////
-    ddVizList = cp5.addScrollableList(name+"vizLizt").setPosition(x+(clm*arrayListIndex)-45, y);
-    ddBgList = cp5.addScrollableList(name+"bkList").setPosition(x+(clm*arrayListIndex)-45, y+25);
-    ddAlphaList = cp5.addScrollableList(name+"alpahLizt").setPosition(x+(clm*arrayListIndex)-45, y+60);
-    ddFuncList = cp5.addScrollableList(name+"funcLizt").setPosition(x+(clm*arrayListIndex)-45, y+85);
+    ddVizList = cp5.addScrollableList(name+"vizLizt").setPosition(x+(clm*arrayListIndex)-60, y);
+    ddBgList = cp5.addScrollableList(name+"bkList").setPosition(x+(clm*arrayListIndex)-60, y+25);
+    ddAlphaList = cp5.addScrollableList(name+"alpahLizt").setPosition(x+(clm*arrayListIndex)-60, y+60);
+    ddFuncList = cp5.addScrollableList(name+"funcLizt").setPosition(x+(clm*arrayListIndex)-60, y+85);
+
+    ddAlphaListB = cp5.addScrollableList(name+"alpahLiztB").setPosition(x+(clm*arrayListIndex)-30, y+60);
+    ddFuncListB = cp5.addScrollableList(name+"funcLiztB").setPosition(x+(clm*arrayListIndex)-30, y+85);
+
     // the order of this has to be oppostie to the order they are displayed on screen
-    customize(ddFuncList, bac1, bac, act, "func");     // customize the list
-    customize(ddAlphaList, bac1, bac, act, "alpha");   // customize the list
-    customize(ddBgList, bac, bac1, act, "bkg");       // customize the list
-    customize(ddVizList, bac, bac1, act, "viz");       // customize the list
-    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    customize(ddFuncListB, color(bac1, 200), bac, act, "func1");     // customize the list
+    customize(ddAlphaListB, color(bac1, 200), bac, act, "alpha1");   // customize the list
+
+    customize(ddFuncList, color(bac1, 200), bac, act, "func");     // customize the list
+    customize(ddAlphaList, color(bac1, 200), bac, act, "alpha");   // customize the list
+    customize(ddBgList, color(bac, 200), bac1, act, "bkg");       // customize the list
+    customize(ddVizList, color(bac, 200), bac1, act, "viz");       // customize the list
+    /////////  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -169,7 +176,7 @@ public class Rig {
       .setValue(toggle)
       .setColorActive(bac1) 
       .setColorBackground(bac) 
-      .setColorForeground(slider) 
+      .setColorForeground(act) 
       ;
   }
   void loadSlider(String label, float x, int rowInt, float min, float max, float startVal) {
@@ -178,13 +185,13 @@ public class Rig {
     int row = shigh+4;       // distance between rows
     int y = 90;
     if (rowInt % 2 == 0) {
-      scol1 = act;
-      scol2 = bac;
-      scol3 = slider;
+      scol1 = color(act, 200);
+      scol2 = color(bac, 200);
+      scol3 = color(slider, 200);
     } else {
-      scol1 = act1;
-      scol2 = bac1;
-      scol3 = slider1;
+      scol1 = color(act1, 200);
+      scol2 = color(bac1, 200);
+      scol3 = color(slider1, 200);
     }
     cp5.addSlider(name+" "+label)
       .plugTo(this, label)
@@ -200,15 +207,15 @@ public class Rig {
   }
   void customize(ScrollableList ddl, color bac, color bac1, color act, String label) {
     // a convenience function to customize a DropdownList
-    ddl.setBackgroundColor(slider1); // color behind list - can hardly see it
+    ddl.setBackgroundColor(0); // color behind list - can hardly see it
     ddl.setItemHeight(20);
     ddl.setBarHeight(15);
-    ddl.setWidth(40);
+    ddl.setWidth(20);
     ddl.setCaptionLabel(label);
     for (int i=0; i<availableAnims.length; i++) ddl.addItem(label+i, i);
-    //ddl.scroll(0);
-    ddl.setColorBackground(bac);       // background color
-    ddl.setColorActive(act);           // clicked color
+    //ddl.scroll(0);draw
+    ddl.setColorBackground(color(bac, 300));       // background color
+    ddl.setColorActive(200);           // clicked color
     ddl.setColorCaptionLabel(#FFFAFA) ;
     ddl.setColorForeground(bac1) ;      // highlight color
     ddl.setColorLabel(#FFFAFA) ;       // text color for label
@@ -636,7 +643,7 @@ public class Rig {
   void draw() {
     clash(beat);
     drawAnimations();
-
+    dimmer = cc[40];
     blendMode(MULTIPLY);
     // this donesnt work anymore....
     if (cc[107] > 0 || keyT['r'] || glitchToggle) bgNoise(colorLayer, 0, 0, cc[7]); //PGraphics layer,color,alpha

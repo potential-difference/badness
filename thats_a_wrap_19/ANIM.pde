@@ -70,8 +70,8 @@ class BenjaminsBoxes extends Anim {
 class Anim1 extends Anim { ///////// COME BACK TO THIS WITH NEW ENVELOPES
   Anim1(Rig _rig) {
     super(_rig);
-    functionEnvelopeA = ADSR(1, 1, 2000, 0, 0.3);
-    functionEnvelopeB = ADSR(2000, 1, 1, 0.2, 0);
+    //functionEnvelopeA = ADSR(1, 1, 2000, 0, 0.3);
+    //functionEnvelopeB = ADSR(2000, 1, 1, 0.2, 0);
   }
   void draw() {
     window.beginDraw();
@@ -110,11 +110,11 @@ class Checkers extends Anim {
     rotate = 0;
     if (_beatCounter % 9 <4) { 
       for (int i = 0; i < opcGrid.columns; i+=2) {
-        //wide = (vizWidth*2)-(vizWidth/10);
-        //wide = 50+(wide-(wide*functionA)); 
-        //high = wide;
-        //donut(position[i].x, position[i].y, col1, stroke, wide, high, rotate, alphaA);
-        //donut(position[i+1 % opcGrid.columns+6].x, position[i+1 % opcGrid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
+        wide = (vizWidth*2)-(vizWidth/10);
+        wide = 50+(wide-(wide*functionA)); 
+        high = wide;
+        donut(position[i].x, position[i].y, col1, stroke, wide, high, rotate, alphaA);
+        donut(position[i+1 % opcGrid.columns+6].x, position[i+1 % opcGrid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
 
         wide = (vizWidth/4)-(vizWidth/10);
         wide = (wide-(wide*functionA)); 
@@ -124,11 +124,11 @@ class Checkers extends Anim {
       }
     } else { // opposite way around
       for (int i = 0; i < opcGrid.columns; i+=2) {
-        //    wide  = (vizWidth*2)-(vizWidth/10);
-        //    wide = 50+(wide-(wide*functionA)); 
-        //    high = wide;
-        //    donut(position[i+1 % opcGrid.columns].x, position[i+1 % opcGrid.columns].y, col1, stroke, wide, high, rotate, alphaB);
-        //    donut(position[i+6].x, position[i+6].y, col1, stroke, wide, high, rotate, alphaB);
+            wide  = (vizWidth*2)-(vizWidth/10);
+            wide = 50+(wide-(wide*functionA)); 
+            high = wide;
+            donut(position[i+1 % opcGrid.columns].x, position[i+1 % opcGrid.columns].y, col1, stroke, wide, high, rotate, alphaB);
+            donut(position[i+6].x, position[i+6].y, col1, stroke, wide, high, rotate, alphaB);
         wide = (vizWidth/4)-(vizWidth/10);
         wide = (wide-(wide*functionB)); 
         high = wide;
@@ -196,24 +196,24 @@ class Rushed extends Anim {
     high = vizHeight/2;
     if (beatCounter % 6 < 4) {
       rush(viz.x, position[3].y, col1, wide, high, functionA, alphaA);
-      rush(viz.x, position[3].y, col1, wide, high, -functionB, alphaB);
-      rush(viz.x, position[3].y, col1, wide, high, -functionA, alphaA);
+      rush(viz.x, position[3].y, col1, wide, high, 1-functionB, alphaB);
+      rush(viz.x, position[3].y, col1, wide, high, 1-functionA, alphaA);
       rush(viz.x, position[3].y, col1, wide, high, functionB, alphaB);
       //
-      rush(viz.x, position[8].y, col1, wide, high, -functionA, alphaB);
+      rush(viz.x, position[8].y, col1, wide, high, 1-functionA, alphaB);
       rush(viz.x, position[8].y, col1, wide, high, functionB, alphaA);
       rush(viz.x, position[8].y, col1, wide, high, functionA, alphaB);
-      rush(viz.x, position[8].y, col1, wide, high, -functionB, alphaA);
+      rush(viz.x, position[8].y, col1, wide, high, 1-functionB, alphaA);
     } else {
       rush(viz.x, position[3].y, col1, wide, high, functionB, alphaB);
-      rush(viz.x, position[3].y, col1, wide, high, -functionA, alphaA);
-      rush(viz.x, position[3].y, col1, wide, high, -functionB, alphaB);
+      rush(viz.x, position[3].y, col1, wide, high, 1-functionA, alphaA);
+      rush(viz.x, position[3].y, col1, wide, high, 1-functionB, alphaB);
       rush(viz.x, position[3].y, col1, wide, high, functionA, alphaA);
       //
-      rush(viz.x, position[8].y, col1, wide, high, -functionB, alphaA);
+      rush(viz.x, position[8].y, col1, wide, high, 1-functionB, alphaA);
       rush(viz.x, position[8].y, col1, wide, high, functionA, alphaB);
       rush(viz.x, position[8].y, col1, wide, high, functionB, alphaA);
-      rush(viz.x, position[8].y, col1, wide, high, -functionA, alphaB);
+      rush(viz.x, position[8].y, col1, wide, high, 1-functionA, alphaB);
     }
     window.endDraw();
   }
@@ -379,8 +379,8 @@ class Test extends Anim {
     atk_curv1 = cc[52];
     dec_curv1 = cc[53];
 
-    alphaEnvelopeA =  ADSR(atk, sus, dec, atk_curv, dec_curv); //SimplePulse(atk, sus, dec, atk_curv, dec_curv);
-    alphaEnvelopeB =  SimplePulse(atk1, sus1, dec1, atk_curv1, dec_curv1);
+    //alphaEnvelopeA =  ADSR(atk, sus, dec, atk_curv, dec_curv); //SimplePulse(atk, sus, dec, atk_curv, dec_curv);
+    //alphaEnvelopeB =  SimplePulse(atk1, sus1, dec1, atk_curv1, dec_curv1);
 
     //Envelope SlowFast(int start_time,int duration,int start_period,int end_period)
     str = int(map(cc[47], 0, 1, 0, 1000));
@@ -485,8 +485,8 @@ class Anim {
 
     alphaEnvelopeA = envelopeFactory(rig.alphaIndexA, rig);
     alphaEnvelopeB = envelopeFactory(rig.alphaIndexB, rig);
-    functionEnvelopeA = envelopeFactory(rig.functionIndexA, rig);
-    functionEnvelopeB = envelopeFactory(rig.functionIndexB, rig);
+    functionEnvelopeA = functionEnvelopeFactory(rig.functionIndexA, rig);
+    functionEnvelopeB = functionEnvelopeFactory(rig.functionIndexB, rig);
   }
 
   void draw() {
@@ -509,6 +509,9 @@ class Anim {
     functionB = functionEnvelopeB.value(now);
     //functionA*=funcFX;
     //functionB*=funcFX;
+
+//functionA = 1;
+//functionB = 1;
 
     if (alphaEnvelopeA.end_time<now && alphaEnvelopeB.end_time<now) deleteme = true;  // only delete when all finished
 

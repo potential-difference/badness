@@ -78,8 +78,8 @@ void setup()
   //opcCans    = new OPC(this, "192.168.0.10", 7890);           // Connect to the remote instance of fcserver - CANS BOX
   //opcStrip   = new OPC(this, "192.168.0.20", 7890);          // Connect to the remote instance of fcserver - CANS BOX
 
-  opcGrid.mirrorsOPC(opcMirror1, opcMirror2, 0);               // grids 0-3 MIX IT UPPPPP 
-  opcGrid.radiatorsOPC(cans, opcLocal);
+  opcGrid.mirrorsOPC(opcLocal, opcLocal, 0);               // grids 0-3 MIX IT UPPPPP 
+  //opcGrid.radiatorsOPC(cans, opcLocal);
   //opcGrid.donutOPC(donut, opcLocal);
   //opcGrid.pickleCansOPC(cans, opcLocal);               
   //opcGrid.kingsHeadStripOPC(cans, opcESP);
@@ -96,8 +96,14 @@ void setup()
   setupSpecifics();
   //syphonSetup(syphonToggle);
 
-  controlFrame.cp5.loadProperties(("cp5values.json"));
-  sliderFrame.cp5.loadProperties(("cp5SliderValues.json"));
+  try {
+    controlFrame.cp5.loadProperties(("cp5values.json"));
+    sliderFrame.cp5.loadProperties(("cp5SliderValues.json"));
+  }
+  catch(Exception e) {
+    println(e);
+    println("*** !!PROBABLY NO PROPERTIES FILE!! ***");
+  }
   frameRate(30); // always needs to be last in setup
 }
 float vizTime, colTime;

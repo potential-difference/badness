@@ -192,9 +192,9 @@ class ControlFrame extends PApplet {
       //.setFont(font)
       .setRange(min, max)
       .setValue(startVal)    // start value of slider
-      .setColorActive(act1) 
-      .setColorBackground(bac1) 
-      .setColorForeground(slider1) 
+      .setColorActive(color(act1, 200)) 
+      .setColorBackground(color(bac1, 200)) 
+      .setColorForeground(color(slider1, 200)) 
       ;
   }
   void loadToggle(String label, Boolean toggle, float x, float y, int wide, int high, color bac1, color bac, color slider) {
@@ -205,7 +205,7 @@ class ControlFrame extends PApplet {
       .setValue(toggle)
       .setColorActive(bac1) 
       .setColorBackground(bac) 
-      .setColorForeground(slider) 
+      .setColorForeground(act) 
       ;
   }
   //////////////////////////////////////// CALL BACK FOR SLIDER CONTROL FROM OTHER VARIABLES
@@ -254,11 +254,17 @@ class ControlFrame extends PApplet {
         if (theEvent.isFrom(rig.ddAlphaList)) {
           println(rig.name+" alpah selected "+intValue);
           rig.alphaIndexA = intValue;
-          rig.alphaIndexB = intValue;
         }
         if (theEvent.isFrom(rig.ddFuncList)) {
           println(rig.name+" func selected "+intValue);
           rig.functionIndexA = intValue;
+        }
+        if (theEvent.isFrom(rig.ddAlphaListB)) {
+          println(rig.name+" alpah selected "+intValue);
+          rig.alphaIndexB = intValue;
+        }
+        if (theEvent.isFrom(rig.ddFuncListB)) {
+          println(rig.name+" func selected "+intValue);
           rig.functionIndexB = intValue;
         }
         try {
@@ -283,10 +289,9 @@ class ControlFrame extends PApplet {
         println("- controller "+theEvent.getController().getName()+" "+theEvent.getValue());
         try {
           if (theEvent.getController().getName().startsWith("slider")) {
-            int index = int(theEvent.getController().getName().substring(7, 8));
-            cc[41+index] = value;
-            int newIndex = index+41;
-            println("set cc["+newIndex+"]", value);
+            int index = int(theEvent.getController().getName().substring(7, 8))+40;
+            //cc[index] = value;
+            //println("set cc["+index+"]", value);
             println();
           }
         }
