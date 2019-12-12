@@ -289,10 +289,14 @@ class ControlFrame extends PApplet {
         println("- controller "+theEvent.getController().getName()+" "+theEvent.getValue());
         try {
           if (theEvent.getController().getName().startsWith("slider")) {
-            int index;
-            if (intValue < 10) index = int(theEvent.getController().getName().substring(7, 8))+40;
-            else index = int(theEvent.getController().getName().substring(7, 8))+50;
-            // fix this issue
+            String name = theEvent.getController().getName();
+            int ones = int(name.substring(7, 8));
+            int tens = 0;
+            if (name.length() > 8) {
+               tens = int(name.substring(7, 8));
+              ones = int(theEvent.getController().getName().substring(8, 9));
+            }
+            int  index = tens * 10 + ones + 40;
             cc[index] = value;
             println("set cc["+index+"]", value);
           }
