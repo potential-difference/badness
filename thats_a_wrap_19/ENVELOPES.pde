@@ -1,12 +1,12 @@
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Envelope SimplePulse(int attack_time, int sustain_time, int decay_time, float attack_curv, float decay_curv) {
+Envelope SimplePulse(Number attack_time, Number sustain_time, Number decay_time, float attack_curv, float decay_curv) {
   int t=millis();
   // the arguments after DURATION describe a curve - first one is STARTVALUE last one is ENDVALUE - anything inbetween creates the curve ALWAYS EQUALLY SPACED
   //Envelope upramp = new Ramp( STARTTIME , DURATION , STARTVALUE , ** vlaues here create curve ** , FINALVALUE );
   // in this case - during the attack_time and the sustain time the downramp = 1
   // attack curve: 0.5 = STRAIGHT, 0 = SWOOP-UP, 1 = ARC-UP
-  Envelope upramp = new Ramp(t, t+attack_time, 0.0, attack_curv, 1.0);
-  Envelope dwnrmp = new Ramp(t+attack_time+sustain_time, t+attack_time+sustain_time+decay_time, 1.0, decay_curv, 0.0);
+  Envelope upramp = new Ramp(t, t+attack_time.intValue(), 0.0, attack_curv, 1.0);
+  Envelope dwnrmp = new Ramp(t+attack_time.intValue()+sustain_time.intValue(), t+attack_time.intValue()+sustain_time.intValue()+decay_time.intValue(), 1.0, decay_curv, 0.0);
   return upramp.mul(dwnrmp);
 }
 // THIS IS A FUNCTION NOT AN ENVELOPE - it RETURNS an ENVELOPE that starts sowly going from 0 TO 1 TO 0 and getting FASTER but still with the same AMPLITUDE
@@ -53,12 +53,23 @@ Envelope NoizeEnv(){
 }
 // WRITE FUNCTION THAT CRUSHES RATE OF ALL ENVELOPES
 
+Envelope CrushPulse(float attack_proportion,float sustain_proportion,float decay_proportion,Number total_time,float attack_curv,float decay_curv){
+  if (attack_proportion<0) attack_proportion=0;
+  if (sustain_proportion<0) sustain_proportion=0;
+  if (decay_proportion<0) decay_proportion=0;
+  float total_prop = attack_proportion+sustain_proportion+decay_proportion;
+  float attack_time = attack_proportion/total_prop*total_time.floatValue();
+  float sustain_time = sustain_proportion/total_prop*total_time.floatValue();
+  float decay_time = decay_proportion/total_prop*total_time.floatValue();
+  return SimplePulse(attack_time,sustain_time,decay_time,attack_curv,decay_curv);
+}
+
 Envelope envelopeFactory(int envelope_index, Rig rig) {
   switch (envelope_index) {
   case 0: 
-    return SimplePulse(int(cc[41]*4000), int(cc[42]*4000), int(cc[42]*4000), cc[44], cc[45]);
+    return SimplePulse(cc[41]*4000, cc[42]*4000, cc[42]*4000, cc[44], cc[45]);
   case 1:
-    return SimplePulse(int(cc[50]*4000), int(cc[51]*4000), int(cc[52]*4000), cc[53], cc[54]);
+    return SimplePulse(cc[50]*4000, cc[51]*4000, cc[52]*4000, cc[53], cc[54]);
   case 2:
     return SineBySine(cc[50], int(cc[51]*4000), cc[51], int(cc[52]*4000));
   case 3:
@@ -67,7 +78,7 @@ Envelope envelopeFactory(int envelope_index, Rig rig) {
   case 4:
     return SlowFast(millis(), 3000, 100, 1000);
   default: 
-    return SimplePulse(int(cc[41]*4000), int(cc[42]*4000), int(cc[42]*4000), cc[44], cc[45]);
+    return SimplePulse(cc[41]*4000, cc[42]*4000, cc[42]*4000, cc[44], cc[45]);
   }
 }
 
