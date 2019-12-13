@@ -131,30 +131,7 @@ void oskPulse() {
   timer1 += timer1;
   oskP = map(sin(timer1), -1, 1, 0, 1);
 }
-class Perlin extends Envelope{
-  Object xScale,yScale,zScale;
-  Perlin(Object xScale, Object yScale, Object zScale){
-    this.xScale=xScale;
-    this.yScale=yScale;
-    this.zScale=zScale;
-  }
-  float value(int time){
-    return noise(floatValue(xScale), floatValue(yScale), floatValue(zScale));
-  }
-}
-class Linear extends Envelope{
-  Object Scale;
-  Linear(Object Scale){
-    this.Scale=Scale;
-    
-  }
-  float value(int time){
-    return floatValue(Scale)*(float)time;
-}
-Envelope NoizeEnv(){
-  Envelope perl = new Perlin(new Linear(0.1*0.0001),0.01,new Linear(0.0001));
-  return perl.add(-0.4).mul(10).sin01();
-}
+
 ////////////////////////////////////////////// NOIZE ////////////////////////////////////////////
 float noize, noize1, noize2, noize12;
 void noize() {

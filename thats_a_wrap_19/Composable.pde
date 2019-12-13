@@ -35,7 +35,7 @@ class Inv implements Operator{
 }
 class Sin01 implements Operator{
   float operate(int time, Object...o){
-    return 0.5*(1+sin(floatValue(o[0],time));
+    return 0.5*(1+sin(floatValue(o[0],time)));
   }
 }
 ///////////////////////helper functions//////////////////////////////
@@ -164,7 +164,29 @@ class Sine extends Envelope {
     return amp*0.5*(1+sin(TWO_PI * time / prd));//sinwave from 0 to amplitude
   }
 }
-// make noize envelope
+class Perlin extends Envelope{
+  Object xScale,yScale,zScale;
+  Perlin(Object xScale, Object yScale, Object zScale){
+    this.xScale=xScale;
+    this.yScale=yScale;
+    this.zScale=zScale;
+  }
+  float value(int time){
+    return noise(floatValue(xScale,time), floatValue(yScale,time), floatValue(zScale,time));
+  }
+}
+class Linear extends Envelope{
+  Object Scale;
+  Linear(Object Scale){
+    this.Scale=Scale;
+    
+  }
+  float value(int time){
+    return floatValue(Scale,time)*(float)time;
+  }
+}
+
+
 
 class Ramp extends Envelope {
   int start_time;

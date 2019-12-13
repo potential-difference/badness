@@ -47,7 +47,10 @@ Envelope BlackOut(int attack_time, float attack_curv) {
   int t=millis();
   return new Ramp(t, t+attack_time, 1.0, attack_curv, 0);
 }
-
+Envelope NoizeEnv(){
+  Envelope perl = new Perlin(new Linear(0.1*0.0001),0.01,new Linear(0.0001));
+  return perl.add(-0.4).mul(10).sin01();
+}
 // WRITE FUNCTION THAT CRUSHES RATE OF ALL ENVELOPES
 
 Envelope envelopeFactory(int envelope_index, Rig rig) {
