@@ -33,6 +33,11 @@ class Inv implements Operator{
     return 1.0/floatValue(o[0],time);
   }
 }
+class Sin01 implements Operator{
+  float operate(int time, Object...o){
+    return 0.5*(1+sin(floatValue(o[0],time));
+  }
+}
 ///////////////////////helper functions//////////////////////////////
 float floatValue(Object o){
   if (o instanceof Number) return ((Number)o).floatValue();
@@ -117,6 +122,9 @@ abstract class Envelope implements Composable{
   }
   Envelope inv(){
     return new CompositeEnvelope(new Inv(),this);
+  }
+  Envelope sin01(){
+    return new CompositeEnvelope(new Sin01(),this);
   }
 }
 class CompositeEnvelope extends Envelope{
