@@ -2,6 +2,7 @@ OPC opc;
 OPC opcLocal;
 OPC opcMirror1; 
 OPC opcMirror2;
+OPC opcRouter;
 
 OPC opcNode4;
 OPC opcNode5;
@@ -70,17 +71,19 @@ void setup()
   sliderFrame = new SliderFrame(this, frameWidth, height, size.surfacePositionX-frameWidth-5, size.surfacePositionY); // load control frame must come after shild ring etc
 
   ///////////////// LOCAL opc /////////////////////
-  opcLocal   = new OPC(this, "127.0.0.1", 7890);        // Connect to the local instance of fcserver - MIRRORS
+  //opcLocal   = new OPC(this, "127.0.0.1", 7890);        // Connect to the local instance of fcserver - MIRRORS
   opcMirror1 = new OPC(this, "192.168.10.2", 7890);     // left hand mirror
   opcMirror2 = new OPC(this, "192.168.10.3", 7890);     // right hand mirror
 
   ///////////////// OPC over NETWORK /////////////////////
+  opcRouter = new OPC(this, "192.168.10.1", 7890);
+
 
   opcNode4 = new OPC(this, "192.168.10.4", 7890);
   opcNode5 = new OPC(this, "192.168.10.5", 7890);
 
-  opcNode6 = new OPC(this, "192.168.10.6", 7890);
-  opcNode7 = new OPC(this, "192.168.10.7", 7890);
+  //opcNode6 = new OPC(this, "192.168.10.6", 7890);
+  //opcNode7 = new OPC(this, "192.168.10.7", 7890);
 
   //opcCans    = new OPC(this, "192.168.0.10", 7890);           // Connect to the remote instance of fcserver - CANS BOX
   //opcStrip   = new OPC(this, "192.168.0.20", 7890);          // Connect to the remote instance of fcserver - CANS BOX
@@ -90,9 +93,9 @@ void setup()
 
   //opcGrid.tawSeedsOPC(roof, opcNode6, opcNode);
 
-  opcGrid.radiatorsOPC(cans, opcNode6, opcNode7);
+  //opcGrid.radiatorsOPC(cans, opcNode6, opcNode7);
   //opcGrid.donutOPC(donut, opcLocal);
-  //opcGrid.pickleCansOPC(cans, opcLocal);               
+  opcGrid.pickleCansOPC(cans, opcRouter);               
   //opcGrid.kingsHeadStripOPC(cans, opcESP);
   //opcGrid.espTestOPC(rigg, opcLocal);
   //grid.kingsHeadBoothOPC(opcLocal);

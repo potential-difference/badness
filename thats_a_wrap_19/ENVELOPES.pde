@@ -78,7 +78,7 @@ Envelope envelopeFactory(int envelope_index, Rig rig) {
   case 4:
     return SlowFast(millis(), 3000, 100, 1000);
   default: 
-    return SimplePulse(cc[41]*4000, cc[42]*4000, cc[42]*4000, cc[44], cc[45]);
+    return SimplePulse(cc[41]*4000, cc[42]*4000, int(cc[42]*4000), cc[44], cc[45]);
   }
 }
 
