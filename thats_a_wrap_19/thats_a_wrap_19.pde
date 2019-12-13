@@ -12,6 +12,7 @@ OPC opcWifi;
 
 import java.util.*;
 import controlP5.*;
+import ch.bildspur.artnet.*;
 ControlP5 cp5, cp6;
 ControlFrame ControlFrame; // load control frame must come after shild ring etc
 RadioButton r1, r2;
@@ -105,6 +106,7 @@ void setup()
   loadShaders();
   setupSpecifics();
   //syphonSetup(syphonToggle);
+  DMXSetup();
 
   try {
     controlFrame.cp5.loadProperties(("cp5values.json"));
@@ -150,10 +152,15 @@ void draw()
     }
   }
   if (keyT['s']) for (Anim anim : rigg.animations)  anim.funcFX = 1-(stutter*noize1*0.1);
-
+  //////////////////////////////////////////// Artnet  /////////////
+  DMXcontrollingUs();
+  //////////////////// Must be after playwithme, before rig.draw()////
   for (Rig rig : rigs) rig.draw();  
   //////////////////////////////////////////// PLAY WITH ME MORE /////////////////////////////////////////////////////////////////////////////////
   playWithMeMore();
+  
+fill(xcolor(dmxData[0], dmxData[1], dmxData[2]));
+rect(200,200,200,200);
   //////////////////////////////////////////// BOOTH & DIG ///////////////////////////////////////////////////////////////////////////////////////
   boothLights();
   //////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
