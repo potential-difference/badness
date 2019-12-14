@@ -22,12 +22,12 @@ class SizeSettings {
 
     ////////////////////////////////  CANS SETUP UNDER RIG ///////////////////////
     cansWidth = rigWidth;
-    cansHeight = 400;
+    cansHeight = 250;
     if (SHITTYLAPTOP) cansHeight = 250;
     cans = new PVector (rig.x, rigHeight+(cansHeight/2));
 
     ////////////////////////////////  ROOF SETUP RIGHT OF RIG ///////////////////////
-    roofWidth = 500;
+    roofWidth = 200;
     roofHeight = rigHeight;
     roof = new PVector (rigWidth+(roofWidth/2), roofHeight/2);
 

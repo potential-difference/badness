@@ -63,15 +63,15 @@ void setup()
 
   opcGrid = new OPCGrid();
   rigg = new Rig(true, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
-  roof = new Rig(false, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "SEEDS");
-  cans = new Rig(false, size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "RAD");
+  roof = new Rig(false, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "CANS");
+  cans = new Rig(false, size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "SEEDS");
   //donut = new Rig(false,size.donut.x, size.donut.y, size.donutWidth, size.donutHeight, "DONUT");
 
   int frameWidth = 220;
   sliderFrame = new SliderFrame(this, frameWidth, height+controlFrame.height+5, size.surfacePositionX-frameWidth-5, size.surfacePositionY); // load control frame must come after shild ring etc
 
   ///////////////// LOCAL opc /////////////////////
-  //opcLocal   = new OPC(this, "127.0.0.1", 7890);        // Connect to the local instance of fcserver - MIRRORS
+  opcLocal   = new OPC(this, "127.0.0.1", 7890);        // Connect to the local instance of fcserver - MIRRORS
   opcMirror1 = new OPC(this, "192.168.10.2", 7890);     // left hand mirror
   opcMirror2 = new OPC(this, "192.168.10.3", 7890);     // right hand mirror
 
@@ -88,7 +88,8 @@ void setup()
   //opcStrip   = new OPC(this, "192.168.0.20", 7890);          // Connect to the remote instance of fcserver - CANS BOX
 
   opcGrid.mirrorsOPC(opcMirror1, opcMirror2, 1);               // grids 0-3 MIX IT UPPPPP 
-  opcGrid.tawSeedsOPC(roof, opcNode4, opcNode5);
+  //opcGrid.tawSeedsOPC(cans, opcNode4, opcNode5);
+  opcGrid.tawSeedsOPC(cans, opcLocal, opcLocal);
 
   //opcGrid.tawSeedsOPC(roof, opcNode6, opcNode);
 

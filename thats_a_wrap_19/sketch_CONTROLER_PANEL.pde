@@ -173,8 +173,8 @@ class SliderFrame extends ControlFrame {
     fill(rigg.flash1, 200);
     textAlign(LEFT);
     textSize(18);
-    text("alpha A", 12, y-12);
-    text("alpha B", this.width/2+12, y-12);
+    text("rig alpha A", 12, y-12);
+    text("rig alpha B", this.width/2+12, y-12);
     rectMode(CORNER);
     rect(12, y - 5, 1, 150);
     rect(this.width/2-5, y - 5, 1, 150);

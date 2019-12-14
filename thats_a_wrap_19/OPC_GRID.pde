@@ -455,12 +455,20 @@ class OPCGrid {
     rig = _rig;
 
     ////////////////////////////////// ROOF POSISTIONS FOR GRID ////////////////////////////////////////////////////
-    _seedsLength = size.roofWidth;
-    _seeds2Length = size.roofHeight;
-    seeds[0] = new PVector (rig.size.x, rig.size.y-(rig.high/2)+(rig.high/5)); 
-    seeds[1] = new PVector (rig.size.x, rig.size.y-(rig.high/2)+(rig.high/5*2)); 
-    seeds[2] = new PVector (rig.size.x, rig.size.y-(rig.high/2)+(rig.high/5*3));
-    seeds[3] = new PVector (rig.size.x, rig.size.y-(rig.high/2)+(rig.high/5*4));
+    _seedsLength = rig.wide/3;
+    _seeds2Length = rig.wide/3;
+    //seeds[0] = new PVector (rig.size.x, rig.size.y-(rig.high/2)+(rig.high/5)); 
+    //seeds[1] = new PVector (rig.size.x, rig.size.y-(rig.high/2)+(rig.high/5*2)); 
+    //seeds[2] = new PVector (rig.size.x, rig.size.y-(rig.high/2)+(rig.high/5*3));
+    //seeds[3] = new PVector (rig.size.x, rig.size.y-(rig.high/2)+(rig.high/5*4));
+
+    seeds[0] = new PVector (rig.size.x-(rig.wide/4), rig.size.y-(rig.high/4)); 
+    seeds[1] = new PVector (rig.size.x+(rig.wide/4), rig.size.y-(rig.high/4));
+    seeds[2] = new PVector (rig.size.x-(rig.wide/4), rig.size.y+(rig.high/4));
+    seeds[3] = new PVector (rig.size.x+(rig.wide/4), rig.size.y+(rig.high/4));
+
+    println("seeeds PVector");
+    print(seeds);
 
     int xpos = int(rig.size.x-(rig.wide/4));
     int _xpos = xpos;
@@ -475,7 +483,7 @@ class OPCGrid {
     int pd = int(_seedsLength/seedLeds); //int(size.roofWidth/seedLeds*1.49);
 
     ///////////////////////////////////// SEED 1 ///////////////////////////////////////////////
-    opc.ledStrip(strt, leds, seeds[0].x-(seedLeds/2*pd-(leds/2*pd)), seeds[0].y, pd, 0, false);     
+    opc.ledStrip(strt, leds, int(seeds[0].x-(seedLeds/2*pd-(leds/2*pd))), int(seeds[0].y), pd, 0, false);     
     strt = strt+leds;               //next led in same channel
     leds = 46;
     opc.ledStrip(strt, leds, seeds[0].x+(seedLeds/2*pd-(leds/2*pd)), seeds[0].y, pd, 0, true);
