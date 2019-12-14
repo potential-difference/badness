@@ -76,11 +76,11 @@ Envelope envelopeFactory(int envelope_index, Rig rig) {
     //return SimplePulse(cc[41]*4000, cc[42]*4000, cc[43]*4000, cc[44], cc[45]);
     return CrushPulse(cc[41], cc[42], cc[43], avgmillis*rig.beatSlider*5+0.5, cc[44], cc[45]);
   case 1:
-      return CrushPulse(cc[46], cc[47], cc[48], avgmillis*rig.beatSlider*5+0.5, cc[49], cc[50]);
+      return CrushPulse(cc[49], cc[50], cc[51], avgmillis*rig.beatSlider*5+0.5, cc[52], cc[53]);
 
     //return SimplePulse(cc[50]*4000, cc[51]*4000, cc[52]*4000, cc[53], cc[54]);
   case 2:
-    return SineBySine(cc[50], int(cc[51]*4000), cc[51], int(cc[52]*4000));
+    return SineBySine(cc[50], int(cc[50]*4000), cc[51], int(cc[52]*4000));
   case 3:
     //Envelope Squiggle(int attack_t, int sustain_t, int decay_t, float attack_curv, float decay_curv, float sqiggle_curv, float squiggliness) {
     return Squiggle(int(cc[49]*4000), int(cc[50]*4000), int(cc[51]*4000), cc[52], cc[53], cc[54], cc[55], int(cc[56]*200));

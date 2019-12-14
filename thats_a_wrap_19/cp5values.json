@@ -1,22 +1,36 @@
 {
-  "/sliderTicks2": {
+  "/manualSlider": {
     "min": 0,
-    "max": 255,
-    "value": 85
+    "max": 1,
+    "value": 0.8999999761581421
   },
-  "/sliderValue": {
+  "/roofBasic": {"value": 0},
+  "/testToggle": {"value": 0},
+  "/onTop": {"value": 0},
+  "/colorTimerSlider": {
     "min": 0,
-    "max": 255,
-    "value": 76.49999237060547
+    "max": 1,
+    "value": 0.44999998807907104
   },
-  "/slider": {
+  "/colorSwapSlider": {
     "min": 0,
-    "max": 200,
-    "value": 130
+    "max": 1,
+    "value": 0.8999999761581421
   },
-  "/sliderTicks1": {
+  "/vizTimeSlider": {
     "min": 0,
-    "max": 255,
-    "value": 63.75
+    "max": 1,
+    "value": 0.5
+  },
+  "/boothDimmer": {
+    "min": 0,
+    "max": 1,
+    "value": 0.3199999928474426
+  },
+  "/glitchToggle": {"value": 0},
+  "/digDimmer": {
+    "min": 0,
+    "max": 1,
+    "value": 0.20000000298023224
   }
 }

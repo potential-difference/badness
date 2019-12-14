@@ -56,16 +56,18 @@ void keyPressed() {
   }
   if (key == '[') vizHold = !vizHold; 
   if (key == ']') colHold = !colHold; 
-
+  
+  String sp1 = sketchPath("cp5values.json");
+  String sp2 = sketchPath("cp5SliderValues.json");
   if (key=='1') {
-    controlFrame.cp5.saveProperties("cp5values.json");
-    sliderFrame.cp5.saveProperties("cp5SliderValues.json");
+    controlFrame.cp5.saveProperties(sp1);//"cp5values.json");
+    sliderFrame.cp5.saveProperties(sp2);//"cp5SliderValues.json");
     //controlFrame.cp5.saveProperties(("cp5ControlValues.json"));
 
     println("** SAVED CONTROLER VALUES **");
   } else if (key=='2') {
-    controlFrame.cp5.loadProperties("cp5values.json");
-    sliderFrame.cp5.loadProperties("cp5SliderValues.json");
+    controlFrame.cp5.loadProperties(sp1);
+    sliderFrame.cp5.loadProperties(sp2);
     //controlFrame.cp5.loadProperties(("cp5ControlValues.json"));
 
     println("** LOADED CONTROLER VALUES **");

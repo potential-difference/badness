@@ -90,7 +90,7 @@ void setup()
 
   opcGrid.mirrorsOPC(opcMirror1, opcMirror2, 1);               // grids 0-3 MIX IT UPPPPP 
   //opcGrid.tawSeedsOPC(cans, opcNode4, opcNode5);
-  opcGrid.tawSeedsOPC(cans, opcLocal, opcLocal);
+  opcGrid.tawSeedsOPC(cans, opcNode4, opcNode5);
 
   //opcGrid.tawSeedsOPC(roof, opcNode6, opcNode);
 
@@ -113,7 +113,10 @@ void setup()
   DMXSetup();
 
   try {
-    controlFrame.cp5.loadProperties(("cp5values.json"));
+    String sp = sketchPath("cp5values.json");
+    println(controlFrame.sketchPath("cp5values.json"));
+    println(sp);
+    controlFrame.cp5.loadProperties(sp);//("cp5values.json"));
     sliderFrame.cp5.loadProperties(("cp5SliderValues.json"));
   }
   catch(Exception e) {
