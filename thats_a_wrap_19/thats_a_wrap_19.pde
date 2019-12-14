@@ -68,7 +68,7 @@ void setup()
   //donut = new Rig(false,size.donut.x, size.donut.y, size.donutWidth, size.donutHeight, "DONUT");
 
   int frameWidth = 220;
-  sliderFrame = new SliderFrame(this, frameWidth, height, size.surfacePositionX-frameWidth-5, size.surfacePositionY); // load control frame must come after shild ring etc
+  sliderFrame = new SliderFrame(this, frameWidth, height+controlFrame.height+5, size.surfacePositionX-frameWidth-5, size.surfacePositionY); // load control frame must come after shild ring etc
 
   ///////////////// LOCAL opc /////////////////////
   //opcLocal   = new OPC(this, "127.0.0.1", 7890);        // Connect to the local instance of fcserver - MIRRORS

@@ -145,25 +145,53 @@ class SliderFrame extends ControlFrame {
     background(0);
     dividerLines();
 
-    // beats[] visulization
-    y=500;
+    //Envelopes visulization
+    float y=500;
+    float y1=200;
     x = 10;
     float dist = 15;
-
     int i=0;
-    for (Anim ani : rigg.animations) {
-      float xbeats=ani.alphaA;
-      if (i<rigg.animations.size()-1){
-      fill(rigg.c1, 120);
-      }else{
-        fill(rigg.flash,200);
+
+    try {
+      for (Anim anim : rigg.animations) {
+        if (i<rigg.animations.size()-1) {
+          fill(rigg.c1, 120);
+        } else {
+          fill(rigg.flash1, 300);
+        }
+        rect(20+(anim.alphaA*(this.width/2-32)), y+(dist*i), 10, 10);                // ALPHA A viz
+        rect(this.width/2+12+(anim.alphaB*(this.width/2-32)), y+(dist*i), 10, 10);   // ALPHA B viz
+        rect(20+(anim.functionA*(this.width/2-32)), y+(dist*i)+y1, 10, 10);                // FUNCTION A viz
+        rect(this.width/2+12+(anim.functionB*(this.width/2-32)), y+(dist*i)+y1, 10, 10);   // FUNCTION B viz
+        i+=1;
       }
-      rect(10+(xbeats*100), y+(dist*i), 10, 10);
-      i+=1;
-      
-      //fill(c1, 65);
-      //rect((size.info.x-(size.infoWidth/2)+10)+(50), y+(dist*i), 110, 10);
     }
+    catch (Exception e) {
+      println(e);
+      println("erorr on alpah / function  envelope visulization");
+    }
+    fill(rigg.flash1, 200);
+    textAlign(LEFT);
+    textSize(18);
+    text("alpha A", 12, y-12);
+    text("alpha B", this.width/2+12, y-12);
+    rectMode(CORNER);
+    rect(12, y - 5, 1, 150);
+    rect(this.width/2-5, y - 5, 1, 150);
+    rect(this.width/2+5, y - 5, 1, 150);
+    rect(this.width-12, y - 5, 1, 150);
+    rectMode(CENTER);
+
+
+    fill(rigg.c1, 200);
+    text("function A", 12, y-12+y1);
+    text("function B", this.width/2+12, y-12+y1);
+    rectMode(CORNER);
+    rect(12, y - 5 + y1, 1, 150);
+    rect(this.width/2-5, y - 5+y1, 1, 150);
+    rect(this.width/2+5, y - 5+y1, 1, 150);
+    rect(this.width-12, y - 5+y1, 1, 150);
+    rectMode(CENTER);
   }
 }
 

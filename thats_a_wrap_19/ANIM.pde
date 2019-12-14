@@ -495,6 +495,7 @@ class Anim {
     alphaEnvelopeB = envelopeFactory(rig.alphaIndexB, rig);
     functionEnvelopeA = envelopeFactory(rig.functionIndexA, rig);
     functionEnvelopeB = envelopeFactory(rig.functionIndexB, rig);
+    
   }
 
   void draw() {

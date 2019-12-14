@@ -5,6 +5,14 @@ boolean[] keyP = new boolean[128];
 boolean[] keyT = new boolean[128];
 void keyPressed() {  
 
+  if (key == CODED) {
+    //println("keycode", keyCode);
+    if (keyCode == 157) {
+      println("*** DELETE ALL ANIMS ***");
+      for (Rig rig : rigs)  for (Anim anim : rig.animations) anim.deleteme = true; // immediately delete all anims
+    }
+  }
+
   //// debound or thorttle this ////
 
   /////////////////////////////// RIG KEY FUNCTIONS ////////////////////////
