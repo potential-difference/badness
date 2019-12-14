@@ -71,6 +71,8 @@ void setup()
   int frameWidth = 220;
   sliderFrame = new SliderFrame(this, frameWidth, height+controlFrame.height+5, size.surfacePositionX-frameWidth-5, size.surfacePositionY); // load control frame must come after shild ring etc
 
+
+
   ///////////////// LOCAL opc /////////////////////
   opcLocal   = new OPC(this, "127.0.0.1", 7890);        // Connect to the local instance of fcserver - MIRRORS
   opcMirror1 = new OPC(this, "192.168.10.2", 7890);     // left hand mirror
@@ -115,8 +117,6 @@ void setup()
   try {
     String sp1 = sketchPath("cp5values.json");
     String sp2 = sketchPath("cp5SliderValues.json");
-    println(controlFrame.sketchPath(sp1));
-    println(sp1);
     controlFrame.cp5.loadProperties(sp1);//("cp5values.json"));
     sliderFrame.cp5.loadProperties(sp2);
   }
@@ -124,6 +124,13 @@ void setup()
     println(e);
     println("*** !!PROBABLY NO PROPERTIES FILE!! ***");
   }
+  for (int i = 0; i < 17; i++) {
+    String controllerName = "slider "+i;
+    float value = sliderFrame.cp5.getController(controllerName).getValue();
+    setCCfromController(controllerName, value);
+  }
+
+
   frameRate(30); // always needs to be last in setup
 }
 float vizTime, colTime;

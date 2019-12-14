@@ -24,7 +24,7 @@ class MainControlFrame extends ControlFrame {
     loadSlider("manualSlider", x, y+row*5, wide, high, 0, 1, 0.9, act, bac, slider);
     /////////////////////////////// GLOBAL TOGGLE BUTTONS//////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-   x = this.width-65;
+    x = this.width-65;
     wide = 20;
     high = 20;
     loadToggle("onTop", onTop, x, y, wide, high, bac1, bac, slider);
@@ -333,18 +333,11 @@ class ControlFrame extends PApplet {
       ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
       if (theEvent.isController()) {
         println("- controller "+theEvent.getController().getName()+" "+theEvent.getValue());
+
         try {
           if (theEvent.getController().getName().startsWith("slider")) {
             String name = theEvent.getController().getName();
-            int ones = int(name.substring(7, 8));
-            int tens = 0;
-            if (name.length() > 8) {
-              tens = int(name.substring(7, 8));
-              ones = int(theEvent.getController().getName().substring(8, 9));
-            }
-            int  index = tens * 10 + ones + 40;
-            cc[index] = value;
-            println("set cc["+index+"]", value);
+            setCCfromController(name, value);
           }
         }
         catch (Exception e) {
@@ -357,6 +350,18 @@ class ControlFrame extends PApplet {
       ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
   }
+}
+
+void setCCfromController(String name, float value) {
+  int ones = int(name.substring(7, 8));
+  int tens = 0;
+  if (name.length() > 8) {
+    tens = int(name.substring(7, 8));
+    ones = int(name.substring(8, 9));
+  }
+  int  index = tens * 10 + ones + 40;
+  cc[index] = value;
+  println("set cc["+index+"]", value);
 }
 /*
 // put inside controller change 

@@ -106,7 +106,7 @@ class Checkers extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    stroke = 20+(400*tweakSlider);
+    stroke = 30+(functionB*20);
     rotate = 0;
     if (_beatCounter % 9 <4) { 
       for (int i = 0; i < opcGrid.columns; i+=2) {

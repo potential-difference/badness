@@ -9,7 +9,10 @@ void keyPressed() {
     //println("keycode", keyCode);
     if (keyCode == 157) {
       println("*** DELETE ALL ANIMS ***");
-      for (Rig rig : rigs)  for (Anim anim : rig.animations) anim.deleteme = true; // immediately delete all anims
+      for (Rig rig : rigs) {
+        for (Anim anim : rig.animations) anim.deleteme = true; // immediately delete all anims
+        //rig.toggle = false;
+      }
     }
   }
 
@@ -56,7 +59,7 @@ void keyPressed() {
   }
   if (key == '[') vizHold = !vizHold; 
   if (key == ']') colHold = !colHold; 
-  
+
   String sp1 = sketchPath("cp5values.json");
   String sp2 = sketchPath("cp5SliderValues.json");
   if (key=='1') {
@@ -123,6 +126,9 @@ void keyReleased()
     char n = char(i);
     if (key == n) keyP[i]=false;
   }
+  
+ 
+  
 } 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////// MIDI FUNCTIONS /////////////////////////////////////////////////////////////////////
