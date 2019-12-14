@@ -113,11 +113,12 @@ void setup()
   DMXSetup();
 
   try {
-    String sp = sketchPath("cp5values.json");
-    println(controlFrame.sketchPath("cp5values.json"));
-    println(sp);
-    controlFrame.cp5.loadProperties(sp);//("cp5values.json"));
-    sliderFrame.cp5.loadProperties(("cp5SliderValues.json"));
+    String sp1 = sketchPath("cp5values.json");
+    String sp2 = sketchPath("cp5SliderValues.json");
+    println(controlFrame.sketchPath(sp1));
+    println(sp1);
+    controlFrame.cp5.loadProperties(sp1);//("cp5values.json"));
+    sliderFrame.cp5.loadProperties(sp2);
   }
   catch(Exception e) {
     println(e);
