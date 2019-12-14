@@ -621,8 +621,11 @@ public class Rig {
     // ramp out all previous anims
     if (testToggle) {
       for (Anim an : animations) {
-        an.alphaEnvelopeA = an.alphaEnvelopeA.mul(new Ramp(millis(), millis()+avgmillis*1.0, 0.8, 0.2, 0.0));
-        an.alphaEnvelopeB = an.alphaEnvelopeB.mul(new Ramp(millis(), millis()+avgmillis*1.0, 0.8, 0.2, 0.0));
+        float now = millis();
+        an.alphaEnvelopeA = an.alphaEnvelopeA.mul(new Ramp(now,now+avgmillis*beatSlider*3.0, 0.8, 0.2, 0.1));
+        an.alphaEnvelopeA.end_time = min(int(now+avgmillis*beatSlider*5.0),an.alphaEnvelopeA.end_time);
+        an.alphaEnvelopeB = an.alphaEnvelopeB.mul(new Ramp(now, now+avgmillis*beatSlider*3.0, 0.8, 0.2, 0.1));
+        an.alphaEnvelopeB.end_time = min(int(now+avgmillis*beatSlider*5.0),an.alphaEnvelopeB.end_time);
       }
     }
 

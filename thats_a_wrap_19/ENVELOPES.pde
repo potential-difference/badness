@@ -6,7 +6,7 @@ Envelope SimplePulse(Number attack_time, Number sustain_time, Number decay_time,
   // in this case - during the attack_time and the sustain time the downramp = 1
   // attack curve: 0.5 = STRAIGHT, 0 = SWOOP-UP, 1 = ARC-UP
   Envelope upramp = new Ramp(t, t+attack_time.intValue(), 0.0, attack_curv, 1.0);
-  Envelope dwnrmp = new Ramp(t+attack_time.intValue()+sustain_time.intValue(), t+attack_time.intValue()+sustain_time.intValue()+decay_time.intValue(), 1.0, decay_curv, 0.0);
+  Envelope dwnrmp = new Ramp(t+attack_time.intValue()+sustain_time.intValue(), t+attack_time.intValue()+sustain_time.intValue()+decay_time.intValue(), 1.0, decay_curv, 0.1);
   return upramp.mul(dwnrmp);
 }
 // THIS IS A FUNCTION NOT AN ENVELOPE - it RETURNS an ENVELOPE that starts sowly going from 0 TO 1 TO 0 and getting FASTER but still with the same AMPLITUDE
@@ -74,9 +74,9 @@ Envelope envelopeFactory(int envelope_index, Rig rig) {
   switch (envelope_index) {
   case 0: 
     //return SimplePulse(cc[41]*4000, cc[42]*4000, cc[43]*4000, cc[44], cc[45]);
-    return CrushPulse(cc[41], cc[42], cc[43], avgmillis*rig.beatSlider*5+0.5, cc[44], cc[45]);
+    return CrushPulse(cc[41]/3.0, cc[42], cc[43], avgmillis*rig.beatSlider*15+0.5, cc[44], cc[45]);
   case 1:
-      return CrushPulse(cc[49], cc[50], cc[51], avgmillis*rig.beatSlider*5+0.5, cc[52], cc[53]);
+      return CrushPulse(cc[49]/3.0, cc[50], cc[51], avgmillis*rig.beatSlider*15+0.5, cc[52], cc[53]);
 
     //return SimplePulse(cc[50]*4000, cc[51]*4000, cc[52]*4000, cc[53], cc[54]);
   case 2:
