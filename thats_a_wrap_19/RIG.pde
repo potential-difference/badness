@@ -154,12 +154,12 @@ public class Rig {
 
     // the order of this has to be oppostie to the order they are displayed on screen
     customize(ddFuncListB, color(bac1, 200), bac, act, 40, "funcB");     // customize the list
-    customize(ddAlphaListB, color(bac1, 200), bac, act,40, "alphB");   // customize the list
-    customize(ddFuncList, color(bac1, 200), bac, act,40, "funcA");     // customize the list
-    customize(ddAlphaList, color(bac1, 200), bac, act,40, "alphA");   // customize the list
-    
-    customize(ddBgList, color(bac, 200), bac1, act,85, "bkg");       // customize the list
-    customize(ddVizList, color(bac, 200), bac1, act,85, "viz");       // customize the list
+    customize(ddAlphaListB, color(bac1, 200), bac, act, 40, "alphB");   // customize the list
+    customize(ddFuncList, color(bac1, 200), bac, act, 40, "funcA");     // customize the list
+    customize(ddAlphaList, color(bac1, 200), bac, act, 40, "alphA");   // customize the list
+
+    customize(ddBgList, color(bac, 200), bac1, act, 85, "bkg");       // customize the list
+    customize(ddVizList, color(bac, 200), bac1, act, 85, "viz");       // customize the list
     /////////  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
@@ -590,6 +590,7 @@ public class Rig {
       anim = new Rush(this);
       break;
     case 5:  
+      // check on this
       anim = new Rushed(this);
       break;
     case 6:  

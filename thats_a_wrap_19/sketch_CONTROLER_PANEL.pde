@@ -171,8 +171,8 @@ class SliderFrame extends ControlFrame {
     fill(rigg.flash1, 200);
     textAlign(LEFT);
     textSize(18);
-    text("rig alpha A", 12, y-12);
-    text("rig alpha B", this.width/2+12, y-12);
+    text("alph A : "+rigg.alphaIndexA, 12, y-12);
+    text("alph B : "+rigg.alphaIndexB, this.width/2+12, y-12);
     rectMode(CORNER);
     rect(12, y - 5, 1, 150);
     rect(this.width/2-5, y - 5, 1, 150);
@@ -182,8 +182,8 @@ class SliderFrame extends ControlFrame {
 
 
     fill(rigg.c1, 200);
-    text("function A", 12, y-12+y1);
-    text("function B", this.width/2+12, y-12+y1);
+    text("func A : "+rigg.functionIndexA, 12, y-12+y1);
+    text("func B : "+rigg.functionIndexB, this.width/2+12, y-12+y1);
     rectMode(CORNER);
     rect(12, y - 5 + y1, 1, 150);
     rect(this.width/2-5, y - 5+y1, 1, 150);
