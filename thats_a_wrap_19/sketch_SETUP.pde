@@ -27,7 +27,7 @@ class SizeSettings {
     cans = new PVector (rig.x, rigHeight+(cansHeight/2));
 
     ////////////////////////////////  ROOF SETUP RIGHT OF RIG ///////////////////////
-    roofWidth = 200;
+    roofWidth = 300;
     roofHeight = rigHeight;
     roof = new PVector (rigWidth+(roofWidth/2), roofHeight/2);
 

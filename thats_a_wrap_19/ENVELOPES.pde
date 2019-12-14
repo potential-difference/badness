@@ -74,7 +74,7 @@ Envelope envelopeFactory(int envelope_index, Rig rig) {
   switch (envelope_index) {
   case 0: 
     //return SimplePulse(cc[41]*4000, cc[42]*4000, cc[43]*4000, cc[44], cc[45]);
-    return CrushPulse(cc[41], cc[42], cc[43], avgmillis*cc[44]*5+0.5, cc[45], cc[46]);
+    return CrushPulse(cc[41], cc[42], cc[43], avgmillis*rig.beatSlider*5+0.5, cc[45], cc[46]);
   case 1:
       return CrushPulse(cc[41], cc[42], cc[43], avgmillis*cc[44]*5+0.5, cc[45], cc[46]);
 

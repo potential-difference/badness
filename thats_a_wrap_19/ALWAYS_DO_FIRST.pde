@@ -10,7 +10,7 @@ void setupSpecifics() {
   for (Rig rig : rigs) {
     rig.ddVizList.clear();
     rig.ddBgList.clear();
-    for (int i=0; i<rig.avaliableBkgrnds.length; i++) rig.ddBgList.addItem("bkg "+i, i); //add all avaliable anims to VizLists - 
+    for (int i=0; i<rig.avaliableBkgrnds.length; i++) rig.ddBgList.addItem("background "+i, i); //add all avaliable anims to VizLists - 
     for (int i=0; i<rig.availableAnims.length; i++) rig.ddVizList.addItem("viz "+i, i); //add all avaliable anims to VizLists -
         //need to use the actal numbers from the above aray
   }

@@ -58,13 +58,14 @@ void setup()
   surface.setAlwaysOnTop(onTop);
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
 
-  controlFrame = new MainControlFrame(this, width, 270, size.surfacePositionX, size.surfacePositionY+height+5); // load control frame must come after shild ring etc
+  controlFrame = new MainControlFrame(this, width, 290, size.surfacePositionX, size.surfacePositionY+height+5); // load control frame must come after shild ring etc
   cp5 = new ControlP5( controlFrame );
 
   opcGrid = new OPCGrid();
   rigg = new Rig(true, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
-  roof = new Rig(false, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "CANS");
   cans = new Rig(false, size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "SEEDS");
+  roof = new Rig(false, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "CANS");
+
   //donut = new Rig(false,size.donut.x, size.donut.y, size.donutWidth, size.donutHeight, "DONUT");
 
   int frameWidth = 220;
@@ -161,7 +162,7 @@ void draw()
   for (Rig rig : rigs) rig.draw();  
   //////////////////////////////////////////// PLAY WITH ME MORE /////////////////////////////////////////////////////////////////////////////////
   playWithMeMore();
-  
+
   //////////////////////////////////////////// BOOTH & DIG ///////////////////////////////////////////////////////////////////////////////////////
   boothLights();
   //////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////

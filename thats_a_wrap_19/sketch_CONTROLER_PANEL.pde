@@ -24,17 +24,15 @@ class MainControlFrame extends ControlFrame {
     loadSlider("manualSlider", x, y+row*5, wide, high, 0, 1, 0.9, act, bac, slider);
     /////////////////////////////// GLOBAL TOGGLE BUTTONS//////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    x+=clm*5;
-    x += 80;
+   x = this.width-65;
     wide = 20;
     high = 20;
     loadToggle("onTop", onTop, x, y, wide, high, bac1, bac, slider);
     loadToggle("glitchToggle", glitchToggle, x, y+35, wide, high, bac1, bac, slider);
-    x += 80;
-    loadToggle("roofBasic", roofBasic, x, y, wide, high, bac1, bac, slider);
-    loadToggle("syphonToggle", syphonToggle, x, y+35, wide, high, bac1, bac, slider);
+    loadToggle("roofBasic", roofBasic, x, y+70, wide, high, bac1, bac, slider);
+    //loadToggle("syphonToggle", syphonToggle, x, y+105, wide, high, bac1, bac, slider);
 
-    loadToggle("testToggle", testToggle, x+80, y, 55, 55, bac1, bac, slider);
+    loadToggle("testToggle", testToggle, x, y+105, 55, 55, bac1, bac, slider);
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
