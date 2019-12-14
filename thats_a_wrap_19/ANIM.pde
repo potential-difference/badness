@@ -45,12 +45,13 @@ abstract class ManualAnim extends Anim {
 class BenjaminsBoxes extends Anim {
   BenjaminsBoxes (Rig _rig) {
     super(_rig);
+    blury = 0;
   }
   void draw() {
     window.beginDraw();
     window.background(0);
-    wide = 200+(500*oskP);
-    high = 200+(1000*(1-oskP));
+    wide = 1000;
+    high = 1500;
 
     rotate = 45+(15*noize); //+(functionB*30);
     float xpos = 10+(noize*window.width/4);
@@ -106,7 +107,7 @@ class Checkers extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    stroke = 30+(functionB*20);
+    stroke = 50;
     rotate = 0;
     if (_beatCounter % 9 <4) { 
       for (int i = 0; i < opcGrid.columns; i+=2) {
