@@ -366,80 +366,89 @@ class Test extends Anim {
   float atk_curv, dec_curv, atk_curv1, dec_curv1;
   Test(Rig _rig) {
     super(_rig);
-
+    /*
     //Envelope SimplePulse(int attack_time,int sustain_time,int decay_time,float attack_curv,float decay_curv){
-    atk = int(map(cc[41], 0, 1, 0, 5000));
-    sus = int(map(cc[42], 0, 1, 0, 5000));
-    dec = int(map(cc[43], 0, 1, 0, 5000));
-    atk_curv = cc[43];
-    dec_curv = cc[44];
-    atk1 = int(map(cc[49], 0, 1, 0, 1000));
-    sus1 = int(map(cc[50], 0, 1, 0, 1000));
-    dec1 = int(map(cc[51], 0, 1, 0, 1000));
-    atk_curv1 = cc[52];
-    dec_curv1 = cc[53];
-
-    //alphaEnvelopeA =  ADSR(atk, sus, dec, atk_curv, dec_curv); //SimplePulse(atk, sus, dec, atk_curv, dec_curv);
-    //alphaEnvelopeB =  SimplePulse(atk1, sus1, dec1, atk_curv1, dec_curv1);
-
-    //Envelope SlowFast(int start_time,int duration,int start_period,int end_period)
-    str = int(map(cc[47], 0, 1, 0, 1000));
-    dur = int(map(cc[55], 0, 1, 0, 1000));
-    str_per = int(map(cc[48], 0, 1, 0, 1000));
-    end_per = int(map(cc[56], 0, 1, 0, 1000));
-
-    functionEnvelopeB =  SlowFast(str, dur, str_per, end_per);
-    functionEnvelopeA =  SlowFast(str, dur, str_per, end_per);
+     atk = int(map(cc[41], 0, 1, 0, 5000));
+     sus = int(map(cc[42], 0, 1, 0, 5000));
+     dec = int(map(cc[43], 0, 1, 0, 5000));
+     atk_curv = cc[43];
+     dec_curv = cc[44];
+     atk1 = int(map(cc[49], 0, 1, 0, 1000));
+     sus1 = int(map(cc[50], 0, 1, 0, 1000));
+     dec1 = int(map(cc[51], 0, 1, 0, 1000));
+     atk_curv1 = cc[52];
+     dec_curv1 = cc[53];
+     
+     //alphaEnvelopeA =  ADSR(atk, sus, dec, atk_curv, dec_curv); //SimplePulse(atk, sus, dec, atk_curv, dec_curv);
+     //alphaEnvelopeB =  SimplePulse(atk1, sus1, dec1, atk_curv1, dec_curv1);
+     
+     //Envelope SlowFast(int start_time,int duration,int start_period,int end_period)
+     str = int(map(cc[47], 0, 1, 0, 1000));
+     dur = int(map(cc[55], 0, 1, 0, 1000));
+     str_per = int(map(cc[48], 0, 1, 0, 1000));
+     end_per = int(map(cc[56], 0, 1, 0, 1000));
+     
+     functionEnvelopeB =  SlowFast(str, dur, str_per, end_per);
+     functionEnvelopeA =  SlowFast(str, dur, str_per, end_per);
+     */
   }
   void draw() {  
     window.beginDraw();
     window.background(0);
     wide = 100;
     high = vizHeight/2; //*functionB;
+
     window.fill(360*alphaA);
-    window.noStroke();
-    window.rect(viz.x-(window.width/2)+(window.width*functionA), viz.y-100, 100, 100);      
-    window.rect(viz.x-(window.width/2)+(window.width*functionA), viz.y-100, 100, 100);
-    window.ellipse(viz.x-200, viz.y, 100, 100);      
-    window.ellipse(viz.x-200, viz.y, 100, 100);
-
-
-    window.fill(360*alphaB);
-    window.ellipse(viz.x+200, viz.y, 100, 100);      
-    window.ellipse(viz.x+200, viz.y, 100, 100);
-    window.rect(viz.x-(window.width/2)+(window.width*functionB), viz.y+100, 100, 100);      
-    window.rect(viz.x-(window.width/2)+(window.width*functionB), viz.y+100, 100, 100);
-    window.endDraw();  
-
-    window.fill(300);
-    window.rect(viz.x, viz.y, window.width/5, window.height/5);
-
+    window.rect(viz.x, viz.y, 100, 100);
     window.endDraw();
 
-    window.endDraw();
-
-    //  int atk, sus, dec, atk1, sus1, dec1, str, dur, str_per, end_per;
-    //float atk_curv, dec_curv, atk_curv1, dec_curv1;
-    int xgap = 140;
-    int ygap = 20;
-
-    nf(atk_curv); 
-
-    text("atk "+atk, 1000, 20); 
-    text("sus "+sus, 1000, 20+(ygap*1)); 
-    text("dec "+dec, 1000, 20+(ygap*2));
-    text("atk1 "+atk1, 1000+xgap, 20+(ygap*0));
-    text("sus1 "+sus1, 1000+xgap, 20+(ygap*1));
-    text("dec1 "+dec1, 1000+xgap, 20+(ygap*2));
-
-    text("atk_curv "+atk_curv, 1000, 20+(ygap*4));
-    text("dec_curv "+dec_curv, 1000, 20+(ygap*5));
-    text("atk_curv1 "+atk_curv1, 1000, 20+(ygap*6));
-    text("dec_curv1 "+dec_curv1, 1000, 20+(ygap*7));
-
-
-    //text("dec "+dec, 1000, 10+(10*2));
-    //text("dec "+dec, 1000, 10+(10*2));
+    /* 
+     window.fill(360*alphaA);
+     window.noStroke();
+     window.rect(viz.x-(window.width/2)+(window.width*functionA), viz.y-100, 100, 100);      
+     window.rect(viz.x-(window.width/2)+(window.width*functionA), viz.y-100, 100, 100);
+     window.ellipse(viz.x-200, viz.y, 100, 100);      
+     window.ellipse(viz.x-200, viz.y, 100, 100);
+     
+     
+     window.fill(360*alphaB);
+     window.ellipse(viz.x+200, viz.y, 100, 100);      
+     window.ellipse(viz.x+200, viz.y, 100, 100);
+     window.rect(viz.x-(window.width/2)+(window.width*functionB), viz.y+100, 100, 100);      
+     window.rect(viz.x-(window.width/2)+(window.width*functionB), viz.y+100, 100, 100);
+     window.endDraw();  
+     
+     window.fill(300);
+     window.rect(viz.x, viz.y, window.width/5, window.height/5);
+     
+     window.endDraw();
+     
+     window.endDraw();
+     
+     //  int atk, sus, dec, atk1, sus1, dec1, str, dur, str_per, end_per;
+     //float atk_curv, dec_curv, atk_curv1, dec_curv1;
+     int xgap = 140;
+     int ygap = 20;
+     
+     nf(atk_curv); 
+     
+     text("atk "+atk, 1000, 20); 
+     text("sus "+sus, 1000, 20+(ygap*1)); 
+     text("dec "+dec, 1000, 20+(ygap*2));
+     text("atk1 "+atk1, 1000+xgap, 20+(ygap*0));
+     text("sus1 "+sus1, 1000+xgap, 20+(ygap*1));
+     text("dec1 "+dec1, 1000+xgap, 20+(ygap*2));
+     
+     text("atk_curv "+atk_curv, 1000, 20+(ygap*4));
+     text("dec_curv "+dec_curv, 1000, 20+(ygap*5));
+     text("atk_curv1 "+atk_curv1, 1000, 20+(ygap*6));
+     text("dec_curv1 "+dec_curv1, 1000, 20+(ygap*7));
+     
+     
+     //text("dec "+dec, 1000, 10+(10*2));
+     //text("dec "+dec, 1000, 10+(10*2));
+     
+     */
   }
 }
 
@@ -465,7 +474,6 @@ class Anim {
     rig = _rig;
     alphaRate = rig.alphaRate;
     funcRate = rig.funcRate;
-    resetbeats();
     _beatCounter = beatCounter;
     col1 = white;
     col2 = white;
@@ -485,8 +493,8 @@ class Anim {
 
     alphaEnvelopeA = envelopeFactory(rig.alphaIndexA, rig);
     alphaEnvelopeB = envelopeFactory(rig.alphaIndexB, rig);
-    functionEnvelopeA = functionEnvelopeFactory(rig.functionIndexA, rig);
-    functionEnvelopeB = functionEnvelopeFactory(rig.functionIndexB, rig);
+    functionEnvelopeA = envelopeFactory(rig.functionIndexA, rig);
+    functionEnvelopeB = envelopeFactory(rig.functionIndexB, rig);
   }
 
   void draw() {

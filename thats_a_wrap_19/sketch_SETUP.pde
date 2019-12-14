@@ -99,9 +99,7 @@ void loadAudio() {
 }
 ////////////////////////////////// SETUP SKETCH DRAWING NORMALS ////////////////////////
 void drawingSetup() {
-  myFont = createFont("Lucida Sans Unicode", 18);
-  textFont(myFont);
-  textSize(18);
+ 
   colorMode(HSB, 360, 100, 100);
   blendMode(ADD);
   rectMode(CENTER);

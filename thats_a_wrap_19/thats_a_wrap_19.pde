@@ -76,10 +76,9 @@ void setup()
   opcMirror2 = new OPC(this, "192.168.10.3", 7890);     // right hand mirror
 
   ///////////////// OPC over NETWORK /////////////////////
-  opcRouter = new OPC(this, "192.168.10.1", 7890);
+  //opcRouter = new OPC(this, "192.168.10.1", 7890);
 
-
-  opcNode4 = new OPC(this, "192.168.10.4", 7890);
+  opcNode4 = new OPC(this, "192.168.10.209", 7890);
   opcNode5 = new OPC(this, "192.168.10.5", 7890);
 
   //opcNode6 = new OPC(this, "192.168.10.6", 7890);
@@ -95,7 +94,7 @@ void setup()
 
   //opcGrid.radiatorsOPC(cans, opcNode6, opcNode7);
   //opcGrid.donutOPC(donut, opcLocal);
-  opcGrid.pickleCansOPC(cans, opcRouter);               
+  //opcGrid.pickleCansOPC(cans, opcRouter);               
   //opcGrid.kingsHeadStripOPC(cans, opcESP);
   //opcGrid.espTestOPC(rigg, opcLocal);
   //grid.kingsHeadBoothOPC(opcLocal);
@@ -150,7 +149,7 @@ void draw()
     for (Rig rig : rigs) {
       if (rig.toggle) {
         if (testToggle) rig.animations.add(new Test(rig));
-        else rig.addAnim(rig.availableAnims[rig.vizIndex]);
+        rig.addAnim(rig.availableAnims[rig.vizIndex]);
       }
     }
   }

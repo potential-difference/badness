@@ -115,6 +115,8 @@ public class Rig {
     loadSlider("blurValue", x+(clm*arrayListIndex), 3, 0, 1, 0.5);
     loadSlider("bgNoise", x+(clm*arrayListIndex), 4, 0, 1, 0.5);
     loadSlider("manualAlpha", x+(clm*arrayListIndex), 5, 0, 1, 0.8);
+    loadSlider("beatSlider", x+(clm*arrayListIndex), 6, 0, 1, 0.4);
+
     ///////////////////////////////// TOGGLES  ///////////////////////////////////////////////////////////////////////////////////
     loadToggle(noiseToggle, "noiseToggle", x+(clm*arrayListIndex), y+row*6, swide, 10);
     loadToggle(toggle, "toggle", x+(clm*arrayListIndex), y+row*7.5, swide-30, 20);
@@ -574,6 +576,7 @@ public class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void addAnim(int animIndex) {
+
     Anim anim = new Anim(this);
     switch (animIndex) {
     case 0:  
@@ -612,15 +615,20 @@ public class Rig {
     case 11:
       anim = new Donut(this);
       break;
-    //default:
-    //  anim = new Rings(this);
-    //  break;
+      //default:
+      //  anim = new Rings(this);
+      //  break;
     }
+    //    Ref t=new Ref(new float[]{1.0}, 0);
+    //    if (t != null) anim.animDimmer = anim.animDimmer.mul(t);
 
-
-
-//    Ref t=new Ref(new float[]{1.0}, 0);
-//    if (t != null) anim.animDimmer = anim.animDimmer.mul(t);
+    // ramp out all previous anims
+    if (testToggle) {
+      for (Anim an : animations) {
+        an.alphaEnvelopeA = an.alphaEnvelopeA.mul(new Ramp(millis(), millis()+avgmillis*1.0, 0.8, 0.2, 0.0));
+        an.alphaEnvelopeB = an.alphaEnvelopeB.mul(new Ramp(millis(), millis()+avgmillis*1.0, 0.8, 0.2, 0.0));
+      }
+    }
 
     this.animations.add(anim);
   }

@@ -23,7 +23,7 @@ void playWithMe() {
     for (Rig rig : rigs) {
       if (rig.toggle) {
         if (testToggle) rig.animations.add(new Test(rig));
-        else rig.addAnim(rig.availableAnims[rig.vizIndex]);
+        rig.addAnim(rig.availableAnims[rig.vizIndex]);
       }
     }
   } 

@@ -35,14 +35,15 @@ void globalFunctions() {
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////// BEAT DETECT THROUGHOUT SKETCH //////////////////////////////////////////////////////////////////////////
-int beatCounter;
+int beatCounter, pauseTriggerTime=360;
 long beatTimer;
 boolean beatTrigger;
-float beat;
+float beat, avgmillis;
 void resetbeats() {
   weightedsum=beatTimer+(1-beatAlpha)*weightedsum;
   weightedcnt=1+(1-beatAlpha)*weightedcnt;
   avgtime=weightedsum/weightedcnt;
+  avgmillis = avgtime*1000/frameRate;
   beatTimer=0;
 }
 ///////////////////////////////////////// BEATS /////////////////////////////////////////////////////////////////////
@@ -52,7 +53,13 @@ void beats() {
   beatTrigger = false;
   if (beatDetect.isOnset()) beatTrigger = true;
   // trigger beats without audio input
-  if (pause > 1) if (frameCount % int((random(12, 25))) == 0) beatTrigger = true;
+  if (pause > 1) {
+        if ((millis() % pauseTriggerTime) == 0){
+          beatTrigger = true;
+          pauseTriggerTime = int(random(360, 750));
+        }
+  }
+    
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
   if (beatTrigger) {
     beat = 1;

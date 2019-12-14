@@ -144,6 +144,26 @@ class SliderFrame extends ControlFrame {
     surface.setAlwaysOnTop(onTop);
     background(0);
     dividerLines();
+
+    // beats[] visulization
+    y=500;
+    x = 10;
+    float dist = 15;
+
+    int i=0;
+    for (Anim ani : rigg.animations) {
+      float xbeats=ani.alphaA;
+      if (i<rigg.animations.size()-1){
+      fill(rigg.c1, 120);
+      }else{
+        fill(rigg.flash,200);
+      }
+      rect(10+(xbeats*100), y+(dist*i), 10, 10);
+      i+=1;
+      
+      //fill(c1, 65);
+      //rect((size.info.x-(size.infoWidth/2)+10)+(50), y+(dist*i), 110, 10);
+    }
   }
 }
 
@@ -293,7 +313,7 @@ class ControlFrame extends PApplet {
             int ones = int(name.substring(7, 8));
             int tens = 0;
             if (name.length() > 8) {
-               tens = int(name.substring(7, 8));
+              tens = int(name.substring(7, 8));
               ones = int(theEvent.getController().getName().substring(8, 9));
             }
             int  index = tens * 10 + ones + 40;

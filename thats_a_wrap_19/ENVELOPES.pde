@@ -25,7 +25,7 @@ Envelope Squiggle(int attack_t, int sustain_t, int decay_t, float attack_curv, f
   int end_period = sin_duration/5;
   // squiggle is always 0.4, squigglieness starts after ATTACKTIME and gets squigglier till end of SUSTAINTIME remains SQUIGGLING FOREVER
   //Envelope squiggle = SlowFast(sin_start, sin_duration, start_period, end_period).mul(new Ramp(sin_start, sin_start+sin_duration, 0.0, sqiggle_curv, squiggliness));
-    Envelope squiggle = new Sine(1, squiggle_spd).mul(new Ramp(sin_start, sin_start+sin_duration, 0.0, sqiggle_curv, squiggliness)).add(1-squiggliness);
+  Envelope squiggle = new Sine(1, squiggle_spd).mul(new Ramp(sin_start, sin_start+sin_duration, 0.0, sqiggle_curv, squiggliness)).add(1-squiggliness);
   return base.mul(squiggle);
 }
 Envelope SineBySine(float amplitude, int period, float amplitude1, int period1) {
@@ -47,13 +47,19 @@ Envelope BlackOut(int attack_time, float attack_curv) {
   int t=millis();
   return new Ramp(t, t+attack_time, 1.0, attack_curv, 0);
 }
-Envelope NoizeEnv(){
-  Envelope perl = new Perlin(new Linear(0.1*0.0001),0.01,new Linear(0.0001));
+Envelope NoizeEnv() {
+  Envelope perl = new Perlin(new Linear(0.1*0.0001), 0.01, new Linear(0.0001));
   return perl.add(-0.4).mul(10).sin01();
 }
+
+//Envelope Beats(Number total_time,float decay_curv){
+
+
+// return  
+//}
 // WRITE FUNCTION THAT CRUSHES RATE OF ALL ENVELOPES
 
-Envelope CrushPulse(float attack_proportion,float sustain_proportion,float decay_proportion,Number total_time,float attack_curv,float decay_curv){
+Envelope CrushPulse(float attack_proportion, float sustain_proportion, float decay_proportion, Number total_time, float attack_curv, float decay_curv) {
   if (attack_proportion<0) attack_proportion=0;
   if (sustain_proportion<0) sustain_proportion=0;
   if (decay_proportion<0) decay_proportion=0;
@@ -61,20 +67,23 @@ Envelope CrushPulse(float attack_proportion,float sustain_proportion,float decay
   float attack_time = attack_proportion/total_prop*total_time.floatValue();
   float sustain_time = sustain_proportion/total_prop*total_time.floatValue();
   float decay_time = decay_proportion/total_prop*total_time.floatValue();
-  return SimplePulse(attack_time,sustain_time,decay_time,attack_curv,decay_curv);
+  return SimplePulse(attack_time, sustain_time, decay_time, attack_curv, decay_curv);
 }
 
 Envelope envelopeFactory(int envelope_index, Rig rig) {
   switch (envelope_index) {
   case 0: 
-    return SimplePulse(cc[41]*4000, cc[42]*4000, cc[42]*4000, cc[44], cc[45]);
+    //return SimplePulse(cc[41]*4000, cc[42]*4000, cc[43]*4000, cc[44], cc[45]);
+    return CrushPulse(cc[41], cc[42], cc[43], avgmillis*cc[44]*5+0.5, cc[45], cc[46]);
   case 1:
-    return SimplePulse(cc[50]*4000, cc[51]*4000, cc[52]*4000, cc[53], cc[54]);
+      return CrushPulse(cc[41], cc[42], cc[43], avgmillis*cc[44]*5+0.5, cc[45], cc[46]);
+
+    //return SimplePulse(cc[50]*4000, cc[51]*4000, cc[52]*4000, cc[53], cc[54]);
   case 2:
     return SineBySine(cc[50], int(cc[51]*4000), cc[51], int(cc[52]*4000));
   case 3:
     //Envelope Squiggle(int attack_t, int sustain_t, int decay_t, float attack_curv, float decay_curv, float sqiggle_curv, float squiggliness) {
-    return Squiggle(int(cc[49]*4000), int(cc[50]*4000), int(cc[51]*4000), cc[52], cc[53], cc[54], cc[55],int(cc[56]*200));
+    return Squiggle(int(cc[49]*4000), int(cc[50]*4000), int(cc[51]*4000), cc[52], cc[53], cc[54], cc[55], int(cc[56]*200));
   case 4:
     return SlowFast(millis(), 3000, 100, 1000);
   default: 
