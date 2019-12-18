@@ -278,6 +278,13 @@ public class Rig {
       colorLayer.background(0);
       radiator(c, flash);
       colorLayer.endDraw();
+      break;
+    case 8:
+      colorLayer.beginDraw();
+      colorLayer.background(0);
+      stripes(c, flash);
+      colorLayer.endDraw();
+      break;
     default:
       colorLayer.beginDraw();
       colorLayer.background(0);
@@ -439,6 +446,12 @@ public class Rig {
     /////////////// BOTTOM RECTANGLE ////////////////////
     colorLayer.fill(col1);                                
     colorLayer.rect(colorLayer.width/4*3, colorLayer.height/2, colorLayer.width/2, colorLayer.height);
+  }
+  /////////////////////////// TOP ROW ONE COLOUR BOTTOM ROW THE OTHER BACKGORUND ////////////////////////////////////////////////////////////////
+  void stripes( color col1, color col2) {
+    colorLayer.background(col1);
+    colorLayer.fill(col2);                                
+    colorLayer.rect(colorLayer.width/2, colorLayer.height/2, colorLayer.width/3, colorLayer.height);
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

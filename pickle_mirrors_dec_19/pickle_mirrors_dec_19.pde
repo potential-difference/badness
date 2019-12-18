@@ -64,13 +64,10 @@ void setup()
   opcGrid = new OPCGrid();
   rigg = new Rig(false, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
   cans = new Rig(false, size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "SEEDS");
-  roof = new Rig(true, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "PREVIEW");
-
-  //donut = new Rig(false,size.donut.x, size.donut.y, size.donutWidth, size.donutHeight, "DONUT");
+  roof = new Rig(true, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "CANS");
 
   int frameWidth = 220;
   sliderFrame = new SliderFrame(this, frameWidth, height+controlFrame.height+5, size.surfacePositionX-frameWidth-5, size.surfacePositionY); // load control frame must come after shild ring etc
-
 
 
   ///////////////// LOCAL opc /////////////////////
@@ -92,19 +89,16 @@ void setup()
 
   opcGrid.mirrorsOPC(opcMirror1, opcMirror2, 1);               // grids 0-3 MIX IT UPPPPP 
   //opcGrid.tawSeedsOPC(cans, opcNode4, opcNode5);
-  opcGrid.tawSeedsOPC(cans, opcNode4, opcNode5);
+  opcGrid.tawSeedsOPC(cans, opcLocal, opcLocal);
 
-  //opcGrid.tawSeedsOPC(roof, opcNode6, opcNode);
-
-  //opcGrid.radiatorsOPC(cans, opcNode6, opcNode7);
-  //opcGrid.donutOPC(donut, opcLocal);
   //opcGrid.pickleCansOPC(cans, opcRouter);               
   //opcGrid.kingsHeadStripOPC(cans, opcESP);
   //opcGrid.espTestOPC(rigg, opcLocal);
   //grid.kingsHeadBoothOPC(opcLocal);
-  //opcGrid.individualCansOPC(roof, opcLocal);
+  opcGrid.individualCansOPC(roof, opcLocal, true);
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
+
   midiSetup();
 
   drawingSetup();
@@ -113,6 +107,8 @@ void setup()
   setupSpecifics();
   //syphonSetup(syphonToggle);
   DMXSetup();
+
+
 
   try {
     String sp1 = sketchPath("cp5values.json");

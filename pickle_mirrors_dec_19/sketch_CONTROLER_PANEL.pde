@@ -10,9 +10,9 @@ class MainControlFrame extends ControlFrame {
     super (_parent, _controlW, _controlH, _xpos, _ypos);
     cp5 = new ControlP5(this);
 
-    x = 10;
-    y = 90;
-    sliderY=y;
+    this.x = 10;
+    this.y = 90;
+    this.sliderY=y;
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// GLOBAL SLIDERS ///////////////////////////////////////////////////////////
@@ -29,9 +29,9 @@ class MainControlFrame extends ControlFrame {
 
     /////////////////////////////// GLOBAL TOGGLE BUTTONS//////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    x = this.width-65;
-    wide = 20;
-    high = 20;
+    this.x = this.width-65;
+    this.wide = 20;
+    this.high = 20;
     loadToggle("onTop", onTop, x, y, wide, high, bac1, bac, slider);
     loadToggle("glitchToggle", glitchToggle, x, y+35, wide, high, bac1, bac, slider);
     loadToggle("roofBasic", roofBasic, x, y+70, wide, high, bac1, bac, slider);
@@ -130,18 +130,22 @@ class SliderFrame extends ControlFrame {
     surface.setAlwaysOnTop(onTop);
     //fullScreen();
     cp5 = new ControlP5(this);
-    x = 10;
-    y = 10;
-    this.wide = 150;
-    this.high = 20;
+    this.x = 10;
+    this.y = 10;
+    //this.wide = 150;
+    //this.high = 20;
+    
+    int sliderWide = 150;
+    int sliderHigh = 20;
+
     int gap = 25;
 
     for (int i =0; i<17; i+=2) {
       gap = 25;
       String name = "slider "+i;
       String name1 = "slider "+(i+1);
-      loadSlider(name, x, y+(i*gap), wide, high, 0, 1, 0.32, act1, bac1, slider1);
-      loadSlider(name1, x, y+gap+(i*gap), wide, high, 0, 1, 0.32, act, bac, slider);
+      loadSlider(name, x, y+(i*gap), sliderWide, sliderHigh, 0, 1, 0.32, act1, bac1, slider1);
+      loadSlider(name1, x, y+gap+(i*gap), sliderWide, sliderHigh, 0, 1, 0.32, act, bac, slider);
     }
   }
   void draw() {
@@ -303,7 +307,7 @@ class ControlFrame extends PApplet {
         if (theEvent.isFrom(rig.ddBgList)) {
           println(rig.name+" background selected "+intValue);
           rig.bgIndex = intValue;
-        }
+                  }
         if (theEvent.isFrom(rig.ddAlphaList)) {
           println(rig.name+" alpah selected "+intValue);
           rig.alphaIndexA = intValue;

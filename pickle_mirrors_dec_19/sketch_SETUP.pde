@@ -28,13 +28,10 @@ class SizeSettings {
 
     ////////////////////////////////  ROOF SETUP RIGHT OF RIG ///////////////////////
     roofWidth = 300;
-    roofHeight = rigHeight;
+    roofHeight = rigHeight+cansHeight;
     roof = new PVector (rigWidth+(roofWidth/2), roofHeight/2);
 
-    //////////////////////////////// DONUT SETUP ///////////////////////
-    donutWidth = roofWidth;
-    donutHeight = cansHeight;
-    donut = new PVector (roof.x, cans.y);
+   
  
     sizeX = rigWidth+roofWidth;
     sizeY = rigHeight+cansHeight;

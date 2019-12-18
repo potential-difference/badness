@@ -538,21 +538,34 @@ class OPCGrid {
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////// CANS //////////////////////////////////////////////////
-  void individualCansOPC(Rig _rig, OPC opc) {
+  void individualCansOPC(Rig _rig, OPC opc, boolean offset) {
     rig = _rig;
     float xw = 6;
-    for (int i=0; i<cans.length/xw; i++) cans[i] =     new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), rig.size.y-(rig.high/2)+rig.high/(xw+1)*1);
-    for (int i=0; i<cans.length/xw; i++) cans[i+3] =   new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), rig.size.y-(rig.high/2)+rig.high/(xw+1)*2);
-    for (int i=0; i<cans.length/xw; i++) cans[i+6] =   new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), rig.size.y-(rig.high/2)+rig.high/(xw+1)*3);
-    for (int i=0; i<cans.length/xw; i++) cans[i+9] =   new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), rig.size.y-(rig.high/2)+rig.high/(xw+1)*4);
-    for (int i=0; i<cans.length/xw; i++) cans[i+12] =  new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), rig.size.y-(rig.high/2)+rig.high/(xw+1)*5);
-    for (int i=0; i<cans.length/xw; i++) cans[i+15] =  new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), rig.size.y-(rig.high/2)+rig.high/(xw+1)*6);
+    float y = rig.size.y;
+    if (offset) y = rig.size.y - rig.high/(xw+1)/(xw/2);
+    
+    for (int i=0; i<cans.length/xw; i++) cans[i] =     new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*1);
+    for (int i=0; i<cans.length/xw; i++) cans[i+3] =   new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*2);
+    for (int i=0; i<cans.length/xw; i++) cans[i+6] =   new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*3);
+    for (int i=0; i<cans.length/xw; i++) cans[i+9] =   new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*4);
+    for (int i=0; i<cans.length/xw; i++) cans[i+12] =  new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*5);
+    for (int i=0; i<cans.length/xw; i++) cans[i+15] =  new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*6);
+
+    if (offset) {
+      cans[1].y = y-(rig.high/2)+rig.high/(xw+1)*(1.5);
+      cans[4].y = y-(rig.high/2)+rig.high/(xw+1)*(2.5);
+      cans[7].y = y-(rig.high/2)+rig.high/(xw+1)*(3.5);
+      cans[10].y = y-(rig.high/2)+rig.high/(xw+1)*(4.5);
+      cans[13].y = y-(rig.high/2)+rig.high/(xw+1)*(5.5);
+      cans[16].y = y-(rig.high/2)+rig.high/(xw+1)*(6.5);
+    }
+
 
     int fc = 2 * 512;
     int channel = 64;
-    for (int i = 0; i < cans.length/3; i++) opc.led(fc+(channel*0+i), int(cans[i].x), int(cans[i].y));                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
-    for (int i = 0; i < cans.length/3; i++) opc.led(fc+(channel*1+i), int(cans[i+6].x), int(cans[i+6].y));                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
-    for (int i = 0; i < cans.length/3; i++) opc.led(fc+(channel*2+i), int(cans[i+12].x), int(cans[i+12].y));                   /////  6 CANS PLUG INTO slot 0 on CANS BOX ///////
+    for (int i = 0; i < cans.length/3; i++) opc.led(fc+(channel*0+i), int(cans[i].x), int(cans[i].y));                   
+    for (int i = 0; i < cans.length/3; i++) opc.led(fc+(channel*1+i), int(cans[i+6].x), int(cans[i+6].y));                  
+    for (int i = 0; i < cans.length/3; i++) opc.led(fc+(channel*2+i), int(cans[i+12].x), int(cans[i+12].y));                  
 
     ////  set roof position to individual cans positions
     for (int i = 0; i < rig.position.length/2; i++) {
