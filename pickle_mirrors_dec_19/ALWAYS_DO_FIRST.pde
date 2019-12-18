@@ -2,13 +2,13 @@ void setupSpecifics() {
 
   rigg.availableAnims = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};      // setup which anims are used on which rig here
   roof.availableAnims = rigg.availableAnims;      // setup which anims are used on which rig here - defualt is 0,1,2,3...
-  cans.availableAnims = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};      // setup which anims are used on which rig here
+  cans.availableAnims = new int[] {11, 4, 2, 7, 4, 5, 6, 7, 8, 9, 10, 11};      // setup which anims are used on which rig here
 
-  rigg.avaliableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4};  
+  rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4};  
 
-  rigg.avaliableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6};
-  cans.avaliableBkgrnds = new int[] {0, 1, 2, 3, 4, 5}; //rigg.avaliableBkgrnds;
-  roof.avaliableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 8};
+  rigg.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6};
+  cans.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5}; //rigg.availableBkgrnds;
+  roof.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 8};
 
   ///////////////////////////////// UPDATE THE DROPDOWN LISTS WITH AVLIABLE OPTIONS ///////////////////////////////////////////////////////
   for (Rig rig : rigs) {
@@ -16,14 +16,22 @@ void setupSpecifics() {
     rig.ddBgList.clear();
     rig.ddAlphaList.clear();
     rig.ddAlphaListB.clear();
-    for (int i=0; i<rig.avaliableBkgrnds.length; i++){ 
-    int index = rig.avaliableBkgrnds[i];
-    rig.ddBgList.addItem("background "+index, index); //add all avaliable anims to VizLists -
+    for (int i=0; i<rig.availableBkgrnds.length; i++) { 
+      int index = rig.availableBkgrnds[i];
+      rig.ddBgList.addItem("background "+index, index); //add all available anims to VizLists -
     }
-    for (int i=0; i<rig.availableAnims.length; i++) rig.ddVizList.addItem("viz "+i, i); //add all avaliable anims to VizLists -
-    for (int i=0; i<rig.avaliableAlphaEnvelopes.length; i++) rig.ddAlphaList.addItem("alph "+i, i); //add all avaliable anims to VizLists -
-    for (int i=0; i<rig.avaliableAlphaEnvelopes.length; i++) rig.ddAlphaListB.addItem("alph "+i, i); //add all avaliable anims to VizLists -
-
+    for (int i=0; i<rig.availableAnims.length; i++) {
+      int index = rig.availableAnims[i];
+      rig.ddVizList.addItem("viz "+index, index); //add all available anims to VizLists -
+    }
+    for (int i=0; i<rig.availableAlphaEnvelopes.length; i++) {
+      int index = rig.availableAlphaEnvelopes[i];
+      rig.ddAlphaList.addItem("alph "+index, index); //add all available anims to VizLists -
+    }
+    for (int i=0; i<rig.availableAlphaEnvelopes.length; i++) {
+      int index = rig.availableAlphaEnvelopes[i];
+      rig.ddAlphaListB.addItem("alph "+index, index); //add all available anims to VizLists -
+    }
     //need to use the actal numbers from the above aray
   }
 

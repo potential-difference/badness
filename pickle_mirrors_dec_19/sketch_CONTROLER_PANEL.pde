@@ -54,10 +54,10 @@ class MainControlFrame extends ControlFrame {
     text("# of anims: "+totalAnims, x, y+45);
     ///////////// rig info/ ///////////////////////////////////////////////////////////////////
     fill(rigg.flash, 300);
-    text("rigViz: " + rigg.vizIndex, x, y);
-    text("bkgrnd: " + rigg.bgIndex, x, y+20);
-    text("func's: " + rigg.functionIndexA + " / " + rigg.functionIndexB, x+100, y);
-    text("alph's: " + rigg.alphaIndexA + " / " + rigg.alphaIndexB, x+100, y+20);
+    text("rigViz: " + rigg.availableAnims[rigg.vizIndex], x, y);
+    text("bkgrnd: " + rigg.availableBkgrnds[rigg.bgIndex], x, y+20);
+    text("func's: " + rigg.availableFunctionEnvelopes[rigg.functionIndexA] + " / " + rigg.availableFunctionEnvelopes[rigg.functionIndexB], x+100, y);
+    text("alph's: " + rigg.availableAlphaEnvelopes[rigg.alphaIndexA] + " / " + rigg.availableAlphaEnvelopes[rigg.alphaIndexB], x+100, y+20);
     /////////// info about PLAYWITHYOURSELF functions /////////////////////////////////////////////////////////////////////////////////////////////
     ///// NEXT VIZ IN....
     x=250;
@@ -78,10 +78,10 @@ class MainControlFrame extends ControlFrame {
       textSize(18);
       textAlign(RIGHT);
       x = size.roof.x+(size.roofWidth/2) - 130;
-      text("roofViz: " + roof.vizIndex, x, y);
-      text("bkgrnd: " + roof.bgIndex, x, y+20);
-      text("func's: " + roof.functionIndexA + " / " + roof.functionIndexB, x+120, y);
-      text("alph's: " + roof.alphaIndexA + " / " + roof.alphaIndexB, x+120, y+20);
+      text("roofViz: " + roof.availableAnims[roof.vizIndex], x, y);
+      text("bkgrnd: " + roof.availableBkgrnds[roof.bgIndex], x, y+20);
+      text("func's: " + roof.availableFunctionEnvelopes[roof.functionIndexA] + " / " + roof.availableFunctionEnvelopes[roof.functionIndexB], x+120, y);
+      text("alph's: " + roof.availableAlphaEnvelopes[roof.alphaIndexA] + " / " + roof.availableAlphaEnvelopes[roof.alphaIndexB], x+120, y+20);
     }
     /////////////////////////////////////////////////// cans info ////////////////////////////////////////////////////////
     if (size.cansHeight > 0 && size.cansWidth > 0) {
@@ -90,10 +90,10 @@ class MainControlFrame extends ControlFrame {
       textSize(18);
       textAlign(RIGHT);
       x = size.cans.x+(size.cansWidth/2) - 130;
-      text("cansViz: " + cans.vizIndex, x, y);
-      text("bkgrnd: " + cans.bgIndex, x, y+20);
-      text("func's: " + cans.functionIndexA + " / " + cans.functionIndexB, x+120, y);
-      text("alph's: " + cans.alphaIndexA + " / " + cans.alphaIndexB, x+120, y+20);
+      text("cansViz: " + cans.availableAnims[cans.vizIndex], x, y);
+      text("bkgrnd: " + cans.availableBkgrnds[cans.bgIndex], x, y+20);
+      text("func's: " + cans.availableFunctionEnvelopes[cans.functionIndexA] + " / " + cans.availableFunctionEnvelopes[cans.functionIndexB], x+120, y);
+      text("alph's: " + cans.availableAlphaEnvelopes[cans.alphaIndexA] + " / " + cans.availableAlphaEnvelopes[cans.alphaIndexB], x+120, y+20);
     }
     /*
      /////////////////////////////////////////////////// cans info ////////////////////////////////////////////////////////
@@ -134,7 +134,7 @@ class SliderFrame extends ControlFrame {
     this.y = 10;
     //this.wide = 150;
     //this.high = 20;
-    
+
     int sliderWide = 150;
     int sliderHigh = 20;
 
@@ -307,7 +307,7 @@ class ControlFrame extends PApplet {
         if (theEvent.isFrom(rig.ddBgList)) {
           println(rig.name+" background selected "+intValue);
           rig.bgIndex = intValue;
-                  }
+        }
         if (theEvent.isFrom(rig.ddAlphaList)) {
           println(rig.name+" alpah selected "+intValue);
           rig.alphaIndexA = intValue;

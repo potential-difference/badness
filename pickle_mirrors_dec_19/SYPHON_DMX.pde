@@ -60,7 +60,7 @@ void syphonSetup(boolean toggle) {
  HashMap<String, String>[] allServers = SyphonClient.listServers();
  print("Available Syphon servers: ");
  print(allServers);
- if (allServers.length == 0) print("NO Syphon servers avaliable");
+ if (allServers.length == 0) print("NO Syphon servers available");
  String matt_servname = "MATTS-MACBOOK-PRO.LOCAL (VDMX-NDI® Output 1)";
  //String matt_servname2 = "MATTS-MACBOOK-PRO.LOCAL (VDMX-NDI® Output 2)";
  String matt_appname = "NDISyphon";

@@ -12,10 +12,10 @@ public class Rig {
   ArrayList <Anim> animations;
   HashMap<Integer, Ref> dimmers;
   int[] availableAnims;
-  int[] avaliableBkgrnds;
-  int[] avaliableAlphaEnvelopes;
-  int[] avaliableFunctionEnvelopes;
-  int[] avaliableColors;
+  int[] availableBkgrnds;
+  int[] availableAlphaEnvelopes;
+  int[] availableFunctionEnvelopes;
+  int[] availableColors;
   int arrayListIndex;
   int value, label;
   float infoX, infoY;
@@ -33,9 +33,9 @@ public class Rig {
     animations = new ArrayList<Anim>();
     rigs.add(this);
     arrayListIndex = rigs.indexOf(this);          // where this is the rig object
-    avaliableBkgrnds = new int[] {0, 1, 2, 3};    // default - changed when initalised;
-    avaliableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4};  
-    avaliableFunctionEnvelopes = new int[] {0, 1, 2, 3};  
+    availableBkgrnds = new int[] {0, 1, 2, 3};    // default - changed when initalised;
+    availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4};  
+    availableFunctionEnvelopes = new int[] {0, 1, 2, 3};  
 
     dimmers = new HashMap<Integer, Ref>();
 
@@ -82,7 +82,7 @@ public class Rig {
       colorSetup();                        // setup colors red bloo etc once
       firsttime_sketchcolor = false;
     }
-    avaliableColors = new int[] { 0, 1, 2, 3, 4, 5, 6};
+    availableColors = new int[] { 0, 1, 2, 3, 4, 5, 6};
     col[0] = teal; 
     col[1] = orange; 
     col[2] = pink; 
@@ -124,12 +124,12 @@ public class Rig {
       .setLabel(this.name+" cRadioButton")
       .setPosition(x+(clm*arrayListIndex)-130, y)
       .setSize(15, shigh);
-    for (int i=0; i<avaliableColors.length; i++) {
+    for (int i=0; i<availableColors.length; i++) {
       cRadioButton.addItem(name+" colc "+i, i);
       cRadioButton.getItem(name+" colc "+i)
-        .setColorBackground(color(col[avaliableColors[i]], 100))
-        .setColorForeground(color(col[avaliableColors[i]], 200))
-        .setColorActive(color(col[avaliableColors[i]], 360));
+        .setColorBackground(color(col[availableColors[i]], 100))
+        .setColorForeground(color(col[availableColors[i]], 200))
+        .setColorActive(color(col[availableColors[i]], 360));
       cRadioButton.hideLabels();
     }
     flashRadioButton = cp5.addRadioButton(name+" flashRadioButton")
@@ -137,12 +137,12 @@ public class Rig {
       .setLabel(this.name+" flashRadioButton")
       .setPosition(x+(clm*arrayListIndex)-110, y)
       .setSize(15, shigh);
-    for (int i=0; i<avaliableColors.length; i++) {
+    for (int i=0; i<availableColors.length; i++) {
       flashRadioButton.addItem(name+" colFlash "+i, i);
       flashRadioButton.getItem(name+" colFlash "+i)
-        .setColorBackground(color(col[avaliableColors[i]], 100))
-        .setColorForeground(color(col[avaliableColors[i]], 200))
-        .setColorActive(color(col[avaliableColors[i]], 360));
+        .setColorBackground(color(col[availableColors[i]], 100))
+        .setColorForeground(color(col[availableColors[i]], 200))
+        .setColorActive(color(col[availableColors[i]], 360));
       flashRadioButton.hideLabels() ;
     }
     ///////////////////////////////// DROPDOWN LISTS //////////////////////////////////////////////////////////////////////////////
@@ -160,8 +160,8 @@ public class Rig {
     customize(ddFuncList, color(bac1, 200), bac, act, 40, "funcA");     // customize the list
     customize(ddAlphaList, color(bac1, 200), bac, act, 40, "alphA");   // customize the list
 
-    customize(ddBgList, color(bac, 200), bac1, act, 85, "bkg");       // customize the list
-    customize(ddVizList, color(bac, 200), bac1, act, 85, "viz");       // customize the list
+    customize(ddBgList, color(bac, 200), bac1, act, 85, name+" bkgrnd");       // customize the list
+    customize(ddVizList, color(bac, 200), bac1, act, 85, name+" viz");       // customize the list
     /////////  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
@@ -230,7 +230,8 @@ public class Rig {
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void drawColorLayer() {
-    switch(bgIndex) {
+    int index = availableBkgrnds[bgIndex];
+    switch(index) {
     case 0:
       colorLayer.beginDraw();
       colorLayer.background(0);
@@ -586,9 +587,9 @@ public class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void addAnim(int animIndex) {
-
     Anim anim = new Anim(this);
-    switch (animIndex) {
+    int index = availableAnims[animIndex];
+    switch (index) {
     case 0:  
       anim = new BenjaminsBoxes(this);
       break;

@@ -545,10 +545,10 @@ class Anim {
     position = rig.position; 
     positionX = rig.positionX;
 
-    alphaEnvelopeA = envelopeFactory(rig.alphaIndexA, rig);
-    alphaEnvelopeB = envelopeFactory(rig.alphaIndexB, rig);
-    functionEnvelopeA = envelopeFactory(rig.functionIndexA, rig);
-    functionEnvelopeB = envelopeFactory(rig.functionIndexB, rig);
+    alphaEnvelopeA = envelopeFactory(rig.availableAlphaEnvelopes[rig.alphaIndexA], rig);
+    alphaEnvelopeB = envelopeFactory(rig.availableAlphaEnvelopes[rig.alphaIndexB], rig);
+    functionEnvelopeA = envelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexA], rig);
+    functionEnvelopeB = envelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexB], rig);
   }
 
   void draw() {

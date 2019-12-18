@@ -20,8 +20,8 @@ void playWithYourself(float vizTm) {
   if (millis()/1000 - alphaTimer >= vizTm/divide) { ///// alpha timer changes 4 times every viz change /////
     for (Rig rig : rigs) { 
       if (rig.play) {  
-        rig.alphaIndexA = int(random(rig.avaliableAlphaEnvelopes.length));  //// select from alpha array
-        rig.alphaIndexB = int(random(rig.avaliableAlphaEnvelopes.length)); //// select from alpha array
+        rig.alphaIndexA = int(random(rig.availableAlphaEnvelopes.length));  //// select from alpha array
+        rig.alphaIndexB = int(random(rig.availableAlphaEnvelopes.length)); //// select from alpha array
         alf = 0; ////// set  viz to 0 to fade up viz when alpha changes /////
         println(rig.name+" alpha change @", (hour()+":"+minute()+":"+second()), "new envelopes:", rig.alphaIndexA, "&", rig.alphaIndexB);
       }
@@ -33,8 +33,8 @@ void playWithYourself(float vizTm) {
   if (millis()/1000 - functionTimer >= vizTm/divide) {    ////// change function n times for every state change
     for (Rig rig : rigs) {
       if (rig.play) {  
-        rig.functionIndexA = int(random(rig.avaliableFunctionEnvelopes.length));  //// select from function array
-        rig.functionIndexB = int(random(rig.avaliableFunctionEnvelopes.length));  //// select from function array
+        rig.functionIndexA = int(random(rig.availableFunctionEnvelopes.length));  //// select from function array
+        rig.functionIndexB = int(random(rig.availableFunctionEnvelopes.length));  //// select from function array
         alf = 0; ////// set  viz to 0 to fade up viz when fucntion changes /////
         println(rig.name+" function change @", (hour()+":"+minute()+":"+second()), "new envelope:", rig.functionIndexA, "&", rig.functionIndexB);
       }
@@ -52,7 +52,7 @@ void playWithYourself(float vizTm) {
   roof.colorTimer(colTime/1.5, 2); //// seconds between colour change, number of steps to cycle through colours
   cans.colorTimer(colTime/2, 2); //// seconds between colour change, number of steps to cycle through colours
 
-  if (millis()/1000 % 60 == 0) for (Rig rig : rigs) rig.bgIndex = (rig.bgIndex+1) % rig.avaliableBkgrnds.length;               // change colour layer automatically
+  if (millis()/1000 % 60 == 0) for (Rig rig : rigs) rig.bgIndex = (rig.bgIndex+1) % rig.availableBkgrnds.length;               // change colour layer automatically
 
   //////////////////////////////////////////////////// END OF PLAY WITH YOURSELF AUTO CONTROL //////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
