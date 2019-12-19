@@ -20,6 +20,7 @@ public class Rig {
   int arrayListIndex;
   int value, label;
   float infoX, infoY;
+    PApplet parent;
   ScrollableList ddVizList, ddBgList, ddAlphaList, ddFuncList, ddAlphaListB, ddFuncListB;
   RadioButton cRadioButton, flashRadioButton;
 
@@ -29,11 +30,12 @@ public class Rig {
     high = _high;
     size = new PVector (_xpos, _ypos);
     toggle = _toggle;
-    
+
     cp5 = controlFrame.cp5;
+    ;
 
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
-    
+
     animNames = new String[] {"benjmains boxes", "checkers", "rings", "rush", "rushed", 
       "square nuts", "diaganol nuts", "stars", "swipe", "swiped", "teeth", "donut"}; 
     backgroundNames = new String[] {"one col c", "vert mirror grad", "side by side", "horiz mirror grad", 
@@ -116,7 +118,11 @@ public class Rig {
     int shigh = 14;           // y size of slider
     int row = shigh+4;       // distance between rows
     ///////////////////////////////// SLIDERS  ///////////////////////////////////////////////////////////////////////////////////
-    loadSlider("dimmer", x+(clm*arrayListIndex), 0, 0, 1, 1);
+    //void loadSlider(String label, float x, float y, int wide, int high, float min, float max, float startVal, color act1, color bac1, color slider1) {
+    controlFrame.loadSlider(name+"dimmer", x+(clm*arrayListIndex), y, swide, shigh, 0, 1, 1, act1, bac1, slider1);
+    controlFrame.cp5.get(name+"dimmer").plugTo( this.dimmer );
+
+    //loadSlider("dimmer", x+(clm*arrayListIndex), 0, 0, 1, 1);
     loadSlider("alphaRate", x+(clm*arrayListIndex), 1, 0, 1, 0.5);
     loadSlider("funcRate", x+(clm*arrayListIndex), 2, 0, 1, 0.5);
     loadSlider("blurValue", x+(clm*arrayListIndex), 3, 0, 1, 0.5);

@@ -88,6 +88,7 @@ void keyPressed() {
   }
 
 
+
   //  switch(key) {
   //    case('1'):
   //    /* make the ScrollableList behave like a ListBox */
@@ -166,6 +167,8 @@ void controllerChange(int channel, int number, int value) {
 
   String name = "slider "+(number-40);
   try {
+        cp5.getController(name).setValue(cc[number]);
+
     sliderFrame.cp5.getController(name).setValue(cc[number]);
   } 
   catch (Exception e) {

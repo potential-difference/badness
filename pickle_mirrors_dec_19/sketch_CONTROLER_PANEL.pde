@@ -144,8 +144,8 @@ class SliderFrame extends ControlFrame {
       gap = 25;
       String name = "slider "+i;
       String name1 = "slider "+(i+1);
-      loadSlider(name, x, y+(i*gap), sliderWide, sliderHigh, 0, 1, 0.32, act1, bac1, slider1);
-      loadSlider(name1, x, y+gap+(i*gap), sliderWide, sliderHigh, 0, 1, 0.32, act, bac, slider);
+      loadSlider( name, x, y+(i*gap), sliderWide, sliderHigh, 0, 1, 0.32, act1, bac1, slider1);
+      loadSlider( name1, x, y+gap+(i*gap), sliderWide, sliderHigh, 0, 1, 0.32, act, bac, slider);
     }
   }
   void draw() {
@@ -243,7 +243,7 @@ class ControlFrame extends PApplet {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void loadSlider(String label, float x, float y, int wide, int high, float min, float max, float startVal, color act1, color bac1, color slider1) {
     cp5.addSlider(label)
-      .plugTo(parent, label)
+      .plugTo(label)
       .setPosition(x, y)
       .setSize(wide, high)
       //.setFont(font)
