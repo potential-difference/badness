@@ -2,139 +2,66 @@
   "/CANS dimmer": {
     "min": 0,
     "max": 1,
+    "value": 0.1875
+  },
+  "/wideSlider": {
+    "min": 1,
+    "max": 5,
     "value": 1
   },
-  "/CANSvizLizt": {"value": 0},
+  "/RIG bgNoise": {
+    "min": 0,
+    "max": 1,
+    "value": 0.21250000596046448
+  },
+  "/CANS manualAlpha": {
+    "min": 0,
+    "max": 1,
+    "value": 0.25
+  },
+  "/RIG beatSlider": {
+    "min": 0,
+    "max": 1,
+    "value": 0.21250000596046448
+  },
+  "/RIG alphaRate": {
+    "min": 0,
+    "max": 1,
+    "value": 0.17499999701976776
+  },
   "/RIG dimmer": {
     "min": 0,
     "max": 1,
-    "value": 0.4749999940395355
+    "value": 0.1875
   },
   "/manualSlider": {
     "min": 0,
     "max": 1,
     "value": 0.8999999761581421
   },
+  "/SEEDS funcRate": {
+    "min": 0,
+    "max": 1,
+    "value": 0.1875
+  },
   "/SEEDS alphaRate": {
     "min": 0,
     "max": 1,
-    "value": 0.5
+    "value": 0.17499999701976776
   },
   "/CANS play": {"value": 0},
-  "/RIGbkList": {"value": 0},
-  "/testToggle": {"value": 0},
+  "/RIG manualAlpha": {
+    "min": 0,
+    "max": 1,
+    "value": 0.21250000596046448
+  },
+  "/testToggle": {"value": 1},
   "/CANS blurValue": {
-    "min": 0,
-    "max": 1,
-    "value": 0.5
-  },
-  "/SEEDS noiseToggle": {"value": 0},
-  "/RIG blurValue": {
-    "min": 0,
-    "max": 1,
-    "value": 0.5
-  },
-  "/RIGvizLizt": {"value": 7},
-  "/SEEDS bgNoise": {
-    "min": 0,
-    "max": 1,
-    "value": 0.5
-  },
-  "/digDimmer": {
     "min": 0,
     "max": 1,
     "value": 0.20000000298023224
   },
-  "/CANS toggle": {"value": 1},
-  "/roofBasic": {"value": 0},
-  "/onTop": {"value": 0},
-  "/SEEDSfuncLizt": {"value": 0},
-  "/SEEDSfuncLiztB": {"value": 0},
-  "/SEEDS toggle": {"value": 0},
-  "/SEEDS beatSlider": {
-    "min": 0,
-    "max": 1,
-    "value": 0.4000000059604645
-  },
-  "/SEEDSalpahLizt": {"value": 0},
-  "/CANS flashRadioButton": {"arrayValue": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-  ]},
-  "/SEEDS play": {"value": 0},
-  "/RIGalpahLiztB": {"value": 0},
-  "/CANSfuncLiztB": {"value": 0},
-  "/CANSalpahLizt": {"value": 0},
-  "/CANS alphaRate": {
-    "min": 0,
-    "max": 1,
-    "value": 0.5
-  },
-  "/CANS funcRate": {
-    "min": 0,
-    "max": 1,
-    "value": 0.5
-  },
-  "/RIGfuncLizt": {"value": 0},
-  "/CANS bgNoise": {
-    "min": 0,
-    "max": 1,
-    "value": 0.5
-  },
-  "/CANSbkList": {"value": 0},
-  "/wideSlider": {
-    "min": 1,
-    "max": 5,
-    "value": 1
-  },
-  "/SEEDSbkList": {"value": 0},
-  "/RIG bgNoise": {
-    "min": 0,
-    "max": 1,
-    "value": 0.5
-  },
-  "/CANS manualAlpha": {
-    "min": 0,
-    "max": 1,
-    "value": 0.800000011920929
-  },
-  "/RIG beatSlider": {
-    "min": 0,
-    "max": 1,
-    "value": 0.125
-  },
-  "/SEEDSvizLizt": {"value": 0},
-  "/CANSfuncLizt": {"value": 0},
-  "/SEEDS cRadioButton": {"arrayValue": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-  ]},
-  "/RIG alphaRate": {
-    "min": 0,
-    "max": 1,
-    "value": 0.5
-  },
-  "/SEEDS funcRate": {
-    "min": 0,
-    "max": 1,
-    "value": 0.5
-  },
-  "/RIG manualAlpha": {
-    "min": 0,
-    "max": 1,
-    "value": 0.800000011920929
-  },
-  "/SEEDSalpahLiztB": {"value": 0},
+  "/SEEDS noiseToggle": {"value": 0},
   "/highSlider": {
     "min": 1,
     "max": 5,
@@ -150,61 +77,49 @@
     "max": 1,
     "value": 0.3199999928474426
   },
-  "/CANS cRadioButton": {"arrayValue": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-  ]},
-  "/RIG cRadioButton": {"arrayValue": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-  ]},
+  "/RIG blurValue": {
+    "min": 0,
+    "max": 1,
+    "value": 0.20000000298023224
+  },
+  "/SEEDS bgNoise": {
+    "min": 0,
+    "max": 1,
+    "value": 0.1875
+  },
+  "/digDimmer": {
+    "min": 0,
+    "max": 1,
+    "value": 0.20000000298023224
+  },
+  "/CANS toggle": {"value": 0},
   "/CANS beatSlider": {
     "min": 0,
     "max": 1,
-    "value": 0.4000000059604645
+    "value": 0.20000000298023224
   },
+  "/roofBasic": {"value": 0},
   "/CANS noiseToggle": {"value": 0},
   "/RIG play": {"value": 0},
-  "/RIG flashRadioButton": {"arrayValue": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-  ]},
+  "/onTop": {"value": 0},
   "/RIG noiseToggle": {"value": 0},
   "/colorSwapSlider": {
     "min": 0,
     "max": 1,
     "value": 0.8999999761581421
   },
-  "/SEEDS flashRadioButton": {"arrayValue": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-  ]},
-  "/RIGfuncLiztB": {"value": 0},
-  "/RIG toggle": {"value": 1},
+  "/SEEDS toggle": {"value": 0},
+  "/SEEDS beatSlider": {
+    "min": 0,
+    "max": 1,
+    "value": 0.20000000298023224
+  },
+  "/SEEDS play": {"value": 0},
+  "/RIG toggle": {"value": 0},
   "/SEEDS dimmer": {
     "min": 0,
     "max": 1,
-    "value": 1
+    "value": 0.1875
   },
   "/colorTimerSlider": {
     "min": 0,
@@ -214,15 +129,23 @@
   "/SEEDS manualAlpha": {
     "min": 0,
     "max": 1,
-    "value": 0.800000011920929
+    "value": 0.1875
   },
-  "/RIGalpahLizt": {"value": 0},
+  "/CANS alphaRate": {
+    "min": 0,
+    "max": 1,
+    "value": 0.20000000298023224
+  },
   "/RIG funcRate": {
     "min": 0,
     "max": 1,
-    "value": 0.5
+    "value": 0.20000000298023224
   },
-  "/CANSalpahLiztB": {"value": 0},
+  "/CANS funcRate": {
+    "min": 0,
+    "max": 1,
+    "value": 0.20000000298023224
+  },
   "/glitchToggle": {"value": 0},
   "/strokeSlider": {
     "min": 1,
@@ -232,6 +155,11 @@
   "/SEEDS blurValue": {
     "min": 0,
     "max": 1,
-    "value": 0.5
+    "value": 0.17499999701976776
+  },
+  "/CANS bgNoise": {
+    "min": 0,
+    "max": 1,
+    "value": 0.20000000298023224
   }
 }

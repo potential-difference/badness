@@ -12,7 +12,6 @@ import controlP5.*;
 import ch.bildspur.artnet.*;
 ControlP5 cp5;
 ControlFrame ControlFrame; // load control frame must come after shild ring etc
-RadioButton r1, r2;
 
 boolean SHITTYLAPTOP=false;
 

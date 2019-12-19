@@ -243,7 +243,7 @@ class ControlFrame extends PApplet {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void loadSlider(String label, float x, float y, int wide, int high, float min, float max, float startVal, color act1, color bac1, color slider1) {
     cp5.addSlider(label)
-      .plugTo(label)
+      .plugTo(parent,label)
       .setPosition(x, y)
       .setSize(wide, high)
       //.setFont(font)
