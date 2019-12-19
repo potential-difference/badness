@@ -9,6 +9,7 @@ class MainControlFrame extends ControlFrame {
   MainControlFrame(PApplet _parent, int _controlW, int _controlH, int _xpos, int _ypos) {
     super (_parent, _controlW, _controlH, _xpos, _ypos);
     cp5 = new ControlP5(this);
+cp5.getProperties().setFormat(ControlP5.SERIALIZED);
 
     this.x = 10;
     this.y = 90;
@@ -130,6 +131,8 @@ class SliderFrame extends ControlFrame {
     surface.setAlwaysOnTop(onTop);
     //fullScreen();
     cp5 = new ControlP5(this);
+    cp5.getProperties().setFormat(ControlP5.SERIALIZED);
+
     this.x = 10;
     this.y = 10;
     //this.wide = 150;
@@ -208,11 +211,8 @@ class ControlFrame extends PApplet {
   float clm, row, sliderY, x, y;
   PApplet parent;
   ControlP5 cp5;
-
-
   public ControlFrame(PApplet _parent, int _controlW, int _controlH, int _xpos, int _ypos) {
     super();   
-
     parent = _parent;
     controlW=_controlW;
     controlH=_controlH;
@@ -326,11 +326,11 @@ class ControlFrame extends PApplet {
       }
       try {
         if (intValue >= 0) {
-          if (theEvent.isFrom(controlFrame.flashRadioButton)) {
+          if (theEvent.isFrom(rig.flashRadioButton)) {
             if (frameCount > someDelay)     println(rig.name+" C plugged to index: "+intValue);
             rig.colorIndexB = intValue;
           }
-          if (theEvent.isFrom(controlFrame.cRadioButton)) {
+          if (theEvent.isFrom(rig.cRadioButton)) {
             if (frameCount > someDelay)     println(rig.name+" FLASH plugged to index: "+intValue);
             rig.colorIndexA = intValue;
           }

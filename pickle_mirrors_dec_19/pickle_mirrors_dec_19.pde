@@ -23,6 +23,7 @@ final int ROOF = 1;
 SizeSettings size;
 OPCGrid opcGrid;
 ControlFrame controlFrame, sliderFrame;
+
 Rig rigg, roof, cans, mirrors, strips, donut, seeds;
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
 
@@ -37,7 +38,7 @@ MidiBus faderBus;         // midibus for APC mini
 MidiBus LPD8bus;          // midibus for LPD8
 MidiBus beatStepBus;      // midibus for Artuia BeatStep
 
-String controlFrameValues, sliderFrameValues;
+String controlFrameValues, sliderFrameValues, mainFrameValues;
 
 
 boolean onTop = false;
@@ -56,7 +57,6 @@ void setup()
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
 
   controlFrame = new MainControlFrame(this, width, 290, size.surfacePositionX, size.surfacePositionY+height+5); // load control frame must come after shild ring etc
-  cp5 = new ControlP5( this );
 
   opcGrid = new OPCGrid();
   rigg = new Rig(false, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
@@ -91,9 +91,11 @@ void setup()
   //syphonSetup(syphonToggle);
   //DMXSetup();
 
-  controlFrameValues = sketchPath("cp5ControlFrameValues.json");
-  sliderFrameValues  = sketchPath("cp5SliderFrameValues.json");
+  controlFrameValues = sketchPath("cp5ControlFrameValues");
+  sliderFrameValues  = sketchPath("cp5SliderFrameValues");
+  mainFrameValues  = sketchPath("cp5MainFrameValues");
   try {
+    this.cp5.loadProperties(mainFrameValues);
     controlFrame.cp5.loadProperties(controlFrameValues);
     sliderFrame.cp5.loadProperties(sliderFrameValues);
   }

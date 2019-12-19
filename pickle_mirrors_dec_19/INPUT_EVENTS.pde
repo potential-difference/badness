@@ -72,15 +72,16 @@ void keyPressed() {
   if (key=='1') {
     controlFrame.cp5.saveProperties(controlFrameValues);//"cp5values.json");
     sliderFrame.cp5.saveProperties(sliderFrameValues);//"cp5SliderValues.json");
+    //this.cp5.saveProperties(mainFrameValues);
     println("** SAVED CONTROLER VALUES **");
-    println("saved to", controlFrameValues, sliderFrameValues);
+    //println("saved to", controlFrameValues, sliderFrameValues);
   } else if (key=='2') {
     try {
       controlFrame.cp5.loadProperties(controlFrameValues);
       sliderFrame.cp5.loadProperties(sliderFrameValues);
+      //this.cp5.loadProperties(mainFrameValues);
       println("** LOADED CONTROLER VALUES **");
-          println("loaded from", controlFrameValues, sliderFrameValues);
-
+      //println("loaded from", controlFrameValues, sliderFrameValues);
     }
     catch(Exception e) {
       println(e, "ERROR LOADING CONTROLLER VALUES");
@@ -167,7 +168,7 @@ void controllerChange(int channel, int number, int value) {
 
   String name = "slider "+(number-40);
   try {
-        cp5.getController(name).setValue(cc[number]);
+    cp5.getController(name).setValue(cc[number]);
 
     sliderFrame.cp5.getController(name).setValue(cc[number]);
   } 

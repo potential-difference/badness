@@ -2,79 +2,7 @@
   "/CANS dimmer": {
     "min": 0,
     "max": 1,
-    "value": 0.1875
-  },
-  "/RIG dimmer": {
-    "min": 0,
-    "max": 1,
-    "value": 0.1875
-  },
-  "/manualSlider": {
-    "min": 0,
-    "max": 1,
-    "value": 0.8999999761581421
-  },
-  "/SEEDS alphaRate": {
-    "min": 0,
-    "max": 1,
-    "value": 0.17499999701976776
-  },
-  "/CANS play": {"value": 0},
-  "/testToggle": {"value": 1},
-  "/CANS blurValue": {
-    "min": 0,
-    "max": 1,
-    "value": 0.20000000298023224
-  },
-  "/SEEDS noiseToggle": {"value": 0},
-  "/RIG blurValue": {
-    "min": 0,
-    "max": 1,
-    "value": 0.20000000298023224
-  },
-  "/SEEDS bgNoise": {
-    "min": 0,
-    "max": 1,
-    "value": 0.1875
-  },
-  "/digDimmer": {
-    "min": 0,
-    "max": 1,
-    "value": 0.20000000298023224
-  },
-  "/CANS toggle": {"value": 0},
-  "/roofBasic": {"value": 0},
-  "/onTop": {"value": 0},
-  "/SEEDS toggle": {"value": 0},
-  "/SEEDS beatSlider": {
-    "min": 0,
-    "max": 1,
-    "value": 0.20000000298023224
-  },
-  "/CANS flashRadioButton": {"arrayValue": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-  ]},
-  "/SEEDS play": {"value": 0},
-  "/CANS alphaRate": {
-    "min": 0,
-    "max": 1,
-    "value": 0.5
-  },
-  "/CANS funcRate": {
-    "min": 0,
-    "max": 1,
-    "value": 0.5
-  },
-  "/CANS bgNoise": {
-    "min": 0,
-    "max": 1,
-    "value": 0.5
+    "value": 0
   },
   "/wideSlider": {
     "min": 1,
@@ -110,16 +38,39 @@
     "max": 1,
     "value": 0.5
   },
+  "/RIG dimmer": {
+    "min": 0,
+    "max": 1,
+    "value": 0
+  },
+  "/manualSlider": {
+    "min": 0,
+    "max": 1,
+    "value": 0.8999999761581421
+  },
   "/SEEDS funcRate": {
     "min": 0,
     "max": 1,
     "value": 0.5
   },
+  "/SEEDS alphaRate": {
+    "min": 0,
+    "max": 1,
+    "value": 0.5
+  },
+  "/CANS play": {"value": 0},
   "/RIG manualAlpha": {
     "min": 0,
     "max": 1,
     "value": 0.800000011920929
   },
+  "/testToggle": {"value": 0},
+  "/CANS blurValue": {
+    "min": 0,
+    "max": 1,
+    "value": 0.5
+  },
+  "/SEEDS noiseToggle": {"value": 0},
   "/highSlider": {
     "min": 1,
     "max": 5,
@@ -135,6 +86,11 @@
     "max": 1,
     "value": 0.3199999928474426
   },
+  "/RIG blurValue": {
+    "min": 0,
+    "max": 1,
+    "value": 0.5
+  },
   "/CANS cRadioButton": {"arrayValue": [
     0,
     0,
@@ -144,9 +100,20 @@
     0,
     0
   ]},
+  "/SEEDS bgNoise": {
+    "min": 0,
+    "max": 1,
+    "value": 0.5
+  },
+  "/digDimmer": {
+    "min": 0,
+    "max": 1,
+    "value": 0.20000000298023224
+  },
+  "/CANS toggle": {"value": 1},
   "/RIG cRadioButton": {"arrayValue": [
-    1,
     0,
+    1,
     0,
     0,
     0,
@@ -158,32 +125,23 @@
     "max": 1,
     "value": 0.20000000298023224
   },
+  "/roofBasic": {"value": 0},
   "/CANS noiseToggle": {"value": 0},
   "/RIG play": {"value": 0},
-  "/RIG flashRadioButton": {"arrayValue": [
-    0,
-    1,
-    0,
-    0,
-    0,
-    0,
-    0
-  ]},
+  "/onTop": {"value": 0},
   "/RIG noiseToggle": {"value": 0},
   "/colorSwapSlider": {
     "min": 0,
     "max": 1,
     "value": 0.8999999761581421
   },
-  "/SEEDS flashRadioButton": {"arrayValue": [
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0
-  ]},
+  "/SEEDS toggle": {"value": 0},
+  "/SEEDS beatSlider": {
+    "min": 0,
+    "max": 1,
+    "value": 0.20000000298023224
+  },
+  "/SEEDS play": {"value": 0},
   "/RIG toggle": {"value": 0},
   "/SEEDS dimmer": {
     "min": 0,
@@ -200,7 +158,17 @@
     "max": 1,
     "value": 0.800000011920929
   },
+  "/CANS alphaRate": {
+    "min": 0,
+    "max": 1,
+    "value": 0.5
+  },
   "/RIG funcRate": {
+    "min": 0,
+    "max": 1,
+    "value": 0.5
+  },
+  "/CANS funcRate": {
     "min": 0,
     "max": 1,
     "value": 0.5
@@ -212,6 +180,11 @@
     "value": 1
   },
   "/SEEDS blurValue": {
+    "min": 0,
+    "max": 1,
+    "value": 0.5
+  },
+  "/CANS bgNoise": {
     "min": 0,
     "max": 1,
     "value": 0.5

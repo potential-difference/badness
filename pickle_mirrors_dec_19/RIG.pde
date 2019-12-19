@@ -23,13 +23,14 @@ public class Rig {
   ScrollableList ddVizList, ddBgList, ddAlphaList, ddFuncList, ddAlphaListB, ddFuncListB;
   RadioButton cRadioButton, flashRadioButton;
 
-
   Rig(boolean _toggle, float _xpos, float _ypos, int _wide, int _high, String _name) {
     name = _name;
     wide = _wide;
     high = _high;
     size = new PVector (_xpos, _ypos);
     toggle = _toggle;
+    
+    cp5 = controlFrame.cp5;
 
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
 
@@ -115,10 +116,6 @@ public class Rig {
     int shigh = 14;           // y size of slider
     int row = shigh+4;       // distance between rows
     ///////////////////////////////// SLIDERS  ///////////////////////////////////////////////////////////////////////////////////
-    //void loadSlider(String label, float x, float y, int wide, int high, float min, float max, float startVal, color act1, color bac1, color slider1) {
-    //controlFrame.loadSlider(name+"dimmer", x+(clm*arrayListIndex), y, swide, shigh, 0, 1, 1, act1, bac1, slider1);
-    //controlFrame.cp5.get(name+"dimmer").plugTo( parent, "rigDimmer" );
-
     loadSlider( "dimmer", x+(clm*arrayListIndex), y+(0*row), swide, shigh, 0, 1, dimmer, act1, bac1, slider1);
     loadSlider( "alphaRate", x+(clm*arrayListIndex), y+(1*row), swide, shigh, 0, 1, 0.5, act, bac, slider);
     loadSlider( "funcRate", x+(clm*arrayListIndex), y+(2*row), swide, shigh, 0, 1, 0.5, act1, bac1, slider1);
@@ -126,17 +123,13 @@ public class Rig {
     loadSlider( "bgNoise", x+(clm*arrayListIndex), y+(4*row), swide, shigh, 0, 1, 0.5, act1, bac1, slider1);
     loadSlider( "manualAlpha", x+(clm*arrayListIndex), y+(5*row), swide, shigh, 0, 1, 0.8, act, bac, slider);
     loadSlider( "beatSlider", x+(clm*arrayListIndex), y+(6*row), swide, shigh, 0, 1, 0.2, act1, bac1, slider1);
-
     ///////////////////////////////// TOGGLES  ///////////////////////////////////////////////////////////////////////////////////
-
     loadToggle(noiseToggle, "noiseToggle", x+(clm*arrayListIndex), y+row*7.5, swide, 10);
     loadToggle(toggle, "toggle", x+(clm*arrayListIndex), y+row*9, swide-30, 20);
     loadToggle(play, "play", x+(clm*arrayListIndex)+swide-25, y+row*9, 25, 20);
-
     ///////////////////////////////// RADIO BUTTONS  //////////////////////////////////////////////////////////////////////////////
-
-    cRadioButton = controlFrame.cp5.addRadioButton(name+" cRadioButton")
-      .plugTo(this, "cRadioButton")
+    cRadioButton = cp5.addRadioButton(name+" cRadioButton")
+      //.plugTo(this, "cRadioButton")
       //.setLabel(this.name+" cRadioButton")
       .setPosition(x+(clm*arrayListIndex)-130, y)
       .setSize(15, shigh);
@@ -148,47 +141,45 @@ public class Rig {
         .setColorActive(color(col[availableColors[i]], 360));
       cRadioButton.hideLabels();
     }
-    /*
-     controlFrame.flashRadioButton = controlFrame.cp5.addRadioButton(name+" flashRadioButton")
-     .plugTo(this, "flashRadioButton")
-     //.setLabel(this.name+" flashRadioButton")
-     .setPosition(x+(clm*arrayListIndex)-110, y)
-     .setSize(15, shigh);
-     for (int i=0; i<availableColors.length; i++) {
-     controlFrame.flashRadioButton.addItem(name+" colFlash "+i, i);
-     controlFrame.flashRadioButton.getItem(name+" colFlash "+i)
-     .setColorBackground(color(col[availableColors[i]], 100))
-     .setColorForeground(color(col[availableColors[i]], 200))
-     .setColorActive(color(col[availableColors[i]], 360));
-     controlFrame.flashRadioButton.hideLabels() ;
-     }
-     8?
-    /*
-     ///////////////////////////////// DROPDOWN LISTS //////////////////////////////////////////////////////////////////////////////
-     ddVizList = controlFrame.cp5.addScrollableList(name+" vizLizt").setPosition(x+(clm*arrayListIndex)-90, y);
-     ddBgList = controlFrame.cp5.addScrollableList(name+" bkList").setPosition(x+(clm*arrayListIndex)-90, y+25);
-     ddAlphaList = controlFrame.cp5.addScrollableList(name+" alpahLizt").setPosition(x+(clm*arrayListIndex)-90, y+60);
-     ddFuncList = controlFrame.cp5.addScrollableList(name+" funcLizt").setPosition(x+(clm*arrayListIndex)-90, y+85);
-     
-     ddAlphaListB = controlFrame.cp5.addScrollableList(name+" alpahLiztB").setPosition(x+(clm*arrayListIndex)-45, y+60);
-     ddFuncListB = controlFrame.cp5.addScrollableList(name+" funcLiztB").setPosition(x+(clm*arrayListIndex)-45, y+85);
-     
-     // the order of this has to be oppostie to the order they are displayed on screen
-     customize(ddFuncListB, color(bac1, 200), bac, act, 40, "funcB");     // customize the list
-     customize(ddAlphaListB, color(bac1, 200), bac, act, 40, "alphB");   // customize the list
-     customize(ddFuncList, color(bac1, 200), bac, act, 40, "funcA");     // customize the list
-     customize(ddAlphaList, color(bac1, 200), bac, act, 40, "alphA");   // customize the list
-     
-     customize(ddBgList, color(bac, 200), bac1, act, 85, name+" bkgrnd");       // customize the list
-     customize(ddVizList, color(bac, 200), bac1, act, 85, name+" viz");       // customize the list
-     */
+
+    flashRadioButton = cp5.addRadioButton(name+" flashRadioButton")
+      //.plugTo(this, "flashRadioButton")
+      //.setLabel(this.name+" flashRadioButton")
+      .setPosition(x+(clm*arrayListIndex)-110, y)
+      .setSize(15, shigh);
+    for (int i=0; i<availableColors.length; i++) {
+      flashRadioButton.addItem(name+" colFlash "+i, i);
+      flashRadioButton.getItem(name+" colFlash "+i)
+        .setColorBackground(color(col[availableColors[i]], 100))
+        .setColorForeground(color(col[availableColors[i]], 200))
+        .setColorActive(color(col[availableColors[i]], 360));
+      flashRadioButton.hideLabels() ;
+    }
+    ///////////////////////////////// DROPDOWN LISTS //////////////////////////////////////////////////////////////////////////////
+    ddVizList = cp5.addScrollableList(name+" vizLizt").setPosition(x+(clm*arrayListIndex)-90, y);
+    ddBgList = cp5.addScrollableList(name+" bkList").setPosition(x+(clm*arrayListIndex)-90, y+25);
+    ddAlphaList = cp5.addScrollableList(name+" alpahLizt").setPosition(x+(clm*arrayListIndex)-90, y+60);
+    ddFuncList = cp5.addScrollableList(name+" funcLizt").setPosition(x+(clm*arrayListIndex)-90, y+85);
+
+    ddAlphaListB = cp5.addScrollableList(name+" alpahLiztB").setPosition(x+(clm*arrayListIndex)-45, y+60);
+    ddFuncListB = cp5.addScrollableList(name+" funcLiztB").setPosition(x+(clm*arrayListIndex)-45, y+85);
+
+    // the order of this has to be oppostie to the order they are displayed on screen
+    customize(ddFuncListB, color(bac1, 200), bac, act, 40, "funcB");     // customize the list
+    customize(ddAlphaListB, color(bac1, 200), bac, act, 40, "alphB");   // customize the list
+    customize(ddFuncList, color(bac1, 200), bac, act, 40, "funcA");     // customize the list
+    customize(ddAlphaList, color(bac1, 200), bac, act, 40, "alphA");   // customize the list
+
+    customize(ddBgList, color(bac, 200), bac1, act, 85, name+" bkgrnd");       // customize the list
+    customize(ddVizList, color(bac, 200), bac1, act, 85, name+" viz");       // customize the list
+
     /////////  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void loadToggle(boolean toggle, String label, float x, float y, int wide, int high) {
-    controlFrame.cp5.addToggle(this.name+" "+label)
+    cp5.addToggle(this.name+" "+label)
       .plugTo(this, label)
       .setLabel(label)
       .setPosition(x, y)
@@ -201,7 +192,7 @@ public class Rig {
   }
 
   void loadSlider(String label, float x, float y, int wide, int high, float min, float max, float startVal, color act1, color bac1, color slider1) {
-    controlFrame.cp5.addSlider(name+" "+label)
+    cp5.addSlider(name+" "+label)
       //.setLabel(label)
       .plugTo(this, label)
       .setPosition(x, y)
@@ -213,32 +204,7 @@ public class Rig {
       .setColorForeground(color(slider1, 200)) 
       ;
   }
-  //void loadSlider(String label, float x, int rowInt, float min, float max, float startVal) {
-  //  int swide = 80;
-  //  int shigh = 14;
-  //  int row = shigh+4;       // distance between rows
-  //  int y = 90;
-  //  if (rowInt % 2 == 0) {
-  //    scol1 = color(act, 200);
-  //    scol2 = color(bac, 200);
-  //    scol3 = color(slider, 200);
-  //  } else {
-  //    scol1 = color(act1, 200);
-  //    scol2 = color(bac1, 200);
-  //    scol3 = color(slider1, 200);
-  //  }
-  //  controlFrame.cp5.addSlider(name+" "+label)
-  //    .plugTo(this, label)
-  //    .setLabel(this.name+" "+label)
-  //    .setPosition(x, y+(row*rowInt))
-  //    .setSize(swide, shigh)
-  //    .setRange(min, max)
-  //    .setValue(startVal)
-  //    .setColorActive(scol1) 
-  //    .setColorBackground(scol2) 
-  //    .setColorForeground(scol3) 
-  //    ;
-  //}
+
   void customize(ScrollableList ddl, color bac, color bac1, color act, int wide, String label) {
     ddl.setBackgroundColor(0); // color behind list - can hardly see it
     ddl.setItemHeight(20);

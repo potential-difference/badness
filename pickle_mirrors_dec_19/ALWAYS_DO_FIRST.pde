@@ -11,9 +11,7 @@ void setupSpecifics() {
   roof.availableBkgrnds = new int[] {0, 1, 3, 4, 5, 8};
 
   ///////////////////////////////// UPDATE THE DROPDOWN LISTS WITH AVLIABLE OPTIONS ///////////////////////////////////////////////////////
-/*
-  for (Rig rig : rigs) {
-    rig.ddVizList.clear();
+  for (Rig rig : rigs) {    rig.ddVizList.clear();
     rig.ddBgList.clear();
     rig.ddAlphaList.clear();
     rig.ddAlphaListB.clear();
@@ -35,7 +33,7 @@ void setupSpecifics() {
     }
     //need to use the actal numbers from the above aray
   }
-*/
+
   rigg.dimmers.put(3, new Ref(cc, 34));
 
   rigg.vizIndex = 2;
