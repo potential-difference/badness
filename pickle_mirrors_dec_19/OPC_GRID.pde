@@ -561,7 +561,7 @@ class OPCGrid {
     }
 
 
-    int fc = 2 * 512;
+    int fc = 9 * 512;
     int channel = 64;
     for (int i = 0; i < cans.length/3; i++) opc.led(fc+(channel*0+i), int(cans[i].x), int(cans[i].y));                   
     for (int i = 0; i < cans.length/3; i++) opc.led(fc+(channel*1+i), int(cans[i+6].x), int(cans[i+6].y));                  

@@ -45,14 +45,14 @@ abstract class ManualAnim extends Anim {
 class BenjaminsBoxes extends Anim {
   BenjaminsBoxes (Rig _rig) {
     super(_rig);
-    blury = 0;
+    animName = "benjamins boxes";
   }
   void draw() {
     window.beginDraw();
     window.background(0);
     wide = 600;
     high = 1000;
-    
+
     stroke *=strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
@@ -86,7 +86,7 @@ class Anim1 extends Anim { ///////// COME BACK TO THIS WITH NEW ENVELOPES
     else rotate = 60*functionB;                         /////////// CHANGE THIS TO A SPECIFIC FUNCTION IN THE ABOVE SECTION OF CODE
     wide = 10+(functionB*vizWidth);
     high = 110-(functionA*vizHeight);
-    
+
     stroke *=strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
@@ -99,7 +99,7 @@ class Anim1 extends Anim { ///////// COME BACK TO THIS WITH NEW ENVELOPES
 
     wide = 10+(functionA*vizWidth);
     high = 110+(functionB*vizHeight);
-    
+
     stroke *=strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
@@ -128,10 +128,10 @@ class Checkers extends Anim {
         wide = (vizWidth*2)-(vizWidth/10);
         wide = 50+(wide-(wide*functionA)); 
         high = wide;
-        
-    stroke *=strokeSlider;
-    wide *=wideSlider;
-    high *=highSlider;
+
+        stroke *=strokeSlider;
+        wide *=wideSlider;
+        high *=highSlider;
 
         donut(position[i].x, position[i].y, col1, stroke, wide, high, rotate, alphaA);
         donut(position[i+1 % opcGrid.columns+6].x, position[i+1 % opcGrid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
@@ -139,10 +139,10 @@ class Checkers extends Anim {
         wide = (vizWidth/4)-(vizWidth/10);
         wide = (wide-(wide*functionA)); 
         high = wide;
-        
-    stroke *=strokeSlider;
-    wide *=wideSlider;
-    high *=highSlider;
+
+        stroke *=strokeSlider;
+        wide *=wideSlider;
+        high *=highSlider;
 
         donut(position[i+1 % opcGrid.columns].x, position[i+1 % opcGrid.columns].y, col1, stroke, wide, high, rotate, alphaA);
         donut(position[i+6].x, position[i+6].y, col1, stroke, wide, high, rotate, alphaA);
@@ -152,20 +152,20 @@ class Checkers extends Anim {
         wide  = (vizWidth*2)-(vizWidth/10);
         wide = 50+(wide-(wide*functionA)); 
         high = wide;
-        
-    stroke *=strokeSlider;
-    wide *=wideSlider;
-    high *=highSlider;
+
+        stroke *=strokeSlider;
+        wide *=wideSlider;
+        high *=highSlider;
 
         donut(position[i+1 % opcGrid.columns].x, position[i+1 % opcGrid.columns].y, col1, stroke, wide, high, rotate, alphaB);
         donut(position[i+6].x, position[i+6].y, col1, stroke, wide, high, rotate, alphaB);
         wide = (vizWidth/4)-(vizWidth/10);
         wide = (wide-(wide*functionB)); 
         high = wide;
-        
-    stroke *=strokeSlider;
-    wide *=wideSlider;
-    high *=highSlider;
+
+        stroke *=strokeSlider;
+        wide *=wideSlider;
+        high *=highSlider;
 
         donut(position[i].x, position[i].y, col1, stroke, wide, high, rotate, alphaA);
         donut(position[i+1 % opcGrid.columns+6].x, position[i+1 % opcGrid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
@@ -178,18 +178,18 @@ class Checkers extends Anim {
 class Rings extends Anim {
   /*
   what benjamin would do
-  Object wide,stroke,high; in anim main class
-  make Processing/Java complain when you try to set wide/high
-  so you get an error if you do it wrong
-  in draw:
-      wide.set(vizWidth*1.2) etc.
-      wide.set(wide.get() - (wide.get()*functionA);
-  if wide is a Ref, this allows us to later
-  anim.wide.mul(wideslider);
-  and the internals of the anim subclass don't need to have to remember to * by wideslider every time
-  this is sort of what Ref() is for.
-  */
-  
+   Object wide,stroke,high; in anim main class
+   make Processing/Java complain when you try to set wide/high
+   so you get an error if you do it wrong
+   in draw:
+   wide.set(vizWidth*1.2) etc.
+   wide.set(wide.get() - (wide.get()*functionA);
+   if wide is a Ref, this allows us to later
+   anim.wide.mul(wideslider);
+   and the internals of the anim subclass don't need to have to remember to * by wideslider every time
+   this is sort of what Ref() is for.
+   */
+
   Rings(Rig _rig) {
     super(_rig);
     //animDimmer = animDimmer.mul(0.5);//this one is somehow blinding
@@ -202,7 +202,7 @@ class Rings extends Anim {
     wide = wide-(wide*functionA);
     high = wide*2;
     rotate = 90*noize*functionB;
-    
+
     stroke *=strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
@@ -214,7 +214,7 @@ class Rings extends Anim {
     wide = wide-(wide*functionB);
     high = wide*2;
     rotate = -90*noize*functionA;
-    
+
     stroke *=strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
@@ -233,7 +233,7 @@ class Rush extends Anim {
     window.beginDraw();
     window.background(0);
     wide = 500+(noize*150);
-    
+
     stroke *=strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
@@ -258,7 +258,7 @@ class Rushed extends Anim {
     window.background(0);
     wide = 150+(noize*600*functionA);
     high = vizHeight/2;
-    
+
     stroke *=strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
@@ -298,7 +298,7 @@ class SquareNuts extends Anim {
     stroke = 300-(200*functionB);
     wide = vizWidth+(50);
     high = wide;
-    
+
     stroke *=strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
@@ -324,7 +324,7 @@ class DiagNuts extends Anim {
     stroke = 100-(200*functionA);
     wide = vizWidth+(50);
     high = wide;
-    
+
     stroke *=strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
@@ -351,7 +351,7 @@ class Stars extends Anim {
     high = 50+(functionB*vizHeight*1.5);
     stroke = 15+(30*functionA);
     rotate = 30+(30*functionB);
-    
+
     stroke *=strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
@@ -372,7 +372,7 @@ class Swipe extends Anim {
     window.beginDraw();
     window.background(0);
     wide = 500+(noize*300);
-    
+
     stroke *=strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
@@ -391,7 +391,7 @@ class Swiped extends Anim {
     window.beginDraw();
     window.background(0);
     wide = 150+(noize1*500*functionB);
-    
+
     stroke *=strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
@@ -415,7 +415,7 @@ class Teeth extends Anim {
     wide = vizWidth+(50);
     wide = wide-(wide*functionA);
     high = wide;
-    
+
     stroke *=strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
@@ -441,8 +441,8 @@ class Donut extends Anim {
     wide = 10+(vizWidth*(1-functionB));
     high = wide;
     stroke = 2+(vizWidth/2*functionA);
-    
-    
+
+
     stroke *=strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
@@ -519,6 +519,7 @@ class Anim {
   float alph[] = new float[7];
   float func[] = new float[8];
   boolean deleteme=false;
+  String animName;
   Envelope alphaEnvelopeA, alphaEnvelopeB, functionEnvelopeA, functionEnvelopeB;
   Ref animDimmer;
   Rig rig;
@@ -531,6 +532,8 @@ class Anim {
     _beatCounter = (int)beatCounter;
     col1 = white;
     col2 = white;
+    
+    animName = "default";
 
     blury = int(map(rig.blurValue, 0, 1, 0, 100));     //// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
     if (blury!=prevblury) prevblury=blury;

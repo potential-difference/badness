@@ -16,6 +16,7 @@ public class Rig {
   int[] availableAlphaEnvelopes;
   int[] availableFunctionEnvelopes;
   int[] availableColors;
+  String[] animNames, backgroundNames, alphaNames, functionNames;
   int arrayListIndex;
   int value, label;
   float infoX, infoY;
@@ -30,6 +31,12 @@ public class Rig {
     toggle = _toggle;
 
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
+    
+    animNames = new String[] {"benjmains boxes", "checkers", "rings", "rush", "rushed", 
+      "square nuts", "diaganol nuts", "stars", "swipe", "swiped", "teeth", "donut"}; 
+    backgroundNames = new String[] {"one col c", "vert mirror grad", "side by side", "horiz mirror grad", 
+      "one color flash", "moving horiz grad", "checked", "radiators", "stripes", "one two three"}; 
+
     animations = new ArrayList<Anim>();
     rigs.add(this);
     arrayListIndex = rigs.indexOf(this);          // where this is the rig object
@@ -286,6 +293,12 @@ public class Rig {
       stripes(c, flash);
       colorLayer.endDraw();
       break;
+    case 9:
+      colorLayer.beginDraw();
+      colorLayer.background(0);
+      oneTwoThree(c, flash);
+      colorLayer.endDraw();
+      break;
     default:
       colorLayer.beginDraw();
       colorLayer.background(0);
@@ -426,29 +439,32 @@ public class Rig {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void radiator(color col1, color col2) {
     colorLayer.fill(col2);
-    //color colorStep  
     for (int i = 0; i < opcGrid.rad.length; i++) colorLayer.rect(this.position[i].x, this.position[i].y, 15, this.high/2.2);
   }
-  ////////////////////////////////////////// CHECK BACKGROUND //////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void check(color col1, color col2) {
     colorLayer.fill(col2);
     colorLayer.rect(colorLayer.width/2, colorLayer.height/2, colorLayer.width, colorLayer.height);        
-    ////////////////////////// Fill OPPOSITE COLOR //////////////
     colorLayer.fill(col1);  
     for (int i = 0; i < position.length/2; i+=2)  colorLayer.rect(position[i].x, position[i].y, opcGrid.mirrorWidth, opcGrid.mirrorWidth);
     for (int i = position.length/2+1; i < position.length; i+=2)  colorLayer.rect(position[i].x, position[i].y, opcGrid.mirrorWidth, opcGrid.mirrorWidth);
     //if (opcGrid.rows == 3) for (int i = opcGrid.columns*opcGrid.rows; i < opcGrid.mirror.length/opcGrid.rows+(opcGrid.columns*2); i+=2)  colorLayer.rect(position[i].x, position[i].y, opcGrid.mirrorWidth, opcGrid.mirrorWidth);
   }
-  /////////////////////////// TOP ROW ONE COLOUR BOTTOM ROW THE OTHER BACKGORUND ////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void sideBySide( color col1, color col2) {
-    /////////////// TOP RECTANGLE ////////////////////
     colorLayer.fill(col2);
     colorLayer.rect(colorLayer.width/4, colorLayer.height/2, colorLayer.width/2, colorLayer.height);     
-    /////////////// BOTTOM RECTANGLE ////////////////////
     colorLayer.fill(col1);                                
     colorLayer.rect(colorLayer.width/4*3, colorLayer.height/2, colorLayer.width/2, colorLayer.height);
   }
-  /////////////////////////// TOP ROW ONE COLOUR BOTTOM ROW THE OTHER BACKGORUND ////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  void oneTwoThree( color col1, color col2) {
+    colorLayer.background(col1);
+    colorLayer.fill(col2);                                
+    colorLayer.rect(colorLayer.width/2, colorLayer.height/2, colorLayer.width/3*2, colorLayer.height);
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void stripes( color col1, color col2) {
     colorLayer.background(col1);
     colorLayer.fill(col2);                                
@@ -591,6 +607,7 @@ public class Rig {
     int index = availableAnims[animIndex];
     switch (index) {
     case 0:  
+      //animName = "BenjaminsBoxes";
       anim = new BenjaminsBoxes(this);
       break;
     case 1:  

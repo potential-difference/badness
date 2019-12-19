@@ -14,7 +14,7 @@ OPC opcWifi;
 import java.util.*;
 import controlP5.*;
 import ch.bildspur.artnet.*;
-ControlP5 cp5, cp6;
+ControlP5 cp5;
 ControlFrame ControlFrame; // load control frame must come after shild ring etc
 RadioButton r1, r2;
 
@@ -42,7 +42,9 @@ MidiBus faderBus;         // midibus for APC mini
 MidiBus LPD8bus;          // midibus for LPD8
 MidiBus beatStepBus;      // midibus for Artuia BeatStep
 
-PFont myFont;
+String sp1 = sketchPath("cp5values.json");
+String sp2 = sketchPath("cp5SliderValues.json");
+
 boolean onTop = false;
 void settings() {
   size = new SizeSettings(LANDSCAPE);
@@ -82,7 +84,7 @@ void setup()
   opcNode5 = new OPC(this, "192.168.10.5", 7890);
 
   //opcNode6 = new OPC(this, "192.168.10.6", 7890);
-  //opcNode7 = new OPC(this, "192.168.10.7", 7890);
+  opcNode7 = new OPC(this, "192.168.10.7", 7890);
 
   //opcCans    = new OPC(this, "192.168.0.10", 7890);           // Connect to the remote instance of fcserver - CANS BOX
   //opcStrip   = new OPC(this, "192.168.0.20", 7890);          // Connect to the remote instance of fcserver - CANS BOX
@@ -95,7 +97,7 @@ void setup()
   //opcGrid.kingsHeadStripOPC(cans, opcESP);
   //opcGrid.espTestOPC(rigg, opcLocal);
   //grid.kingsHeadBoothOPC(opcLocal);
-  opcGrid.individualCansOPC(roof, opcLocal, true);
+  opcGrid.individualCansOPC(roof, opcNode7, true);
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
 
@@ -111,9 +113,8 @@ void setup()
 
 
   try {
-    String sp1 = sketchPath("cp5values.json");
-    String sp2 = sketchPath("cp5SliderValues.json");
-    controlFrame.cp5.loadProperties(sp1);//("cp5values.json"));
+
+    controlFrame.cp5.loadProperties(sp1);
     sliderFrame.cp5.loadProperties(sp2);
   }
   catch(Exception e) {

@@ -16,7 +16,7 @@
     "max": 1,
     "value": 0.8999999761581421
   },
-  "/testToggle": {"value": 1},
+  "/testToggle": {"value": 0},
   "/colorTimerSlider": {
     "min": 0,
     "max": 1,

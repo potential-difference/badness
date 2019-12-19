@@ -6,9 +6,9 @@ void setupSpecifics() {
 
   rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4};  
 
-  rigg.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6};
+  rigg.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6, 9};
   cans.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5}; //rigg.availableBkgrnds;
-  roof.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 8};
+  roof.availableBkgrnds = new int[] {0, 1, 3, 4, 5, 8};
 
   ///////////////////////////////// UPDATE THE DROPDOWN LISTS WITH AVLIABLE OPTIONS ///////////////////////////////////////////////////////
   for (Rig rig : rigs) {
@@ -18,11 +18,11 @@ void setupSpecifics() {
     rig.ddAlphaListB.clear();
     for (int i=0; i<rig.availableBkgrnds.length; i++) { 
       int index = rig.availableBkgrnds[i];
-      rig.ddBgList.addItem("background "+index, index); //add all available anims to VizLists -
+      rig.ddBgList.addItem(rig.backgroundNames[index], index); //add all available anims to VizLists -
     }
     for (int i=0; i<rig.availableAnims.length; i++) {
       int index = rig.availableAnims[i];
-      rig.ddVizList.addItem("viz "+index, index); //add all available anims to VizLists -
+      rig.ddVizList.addItem(rig.animNames[index], index); //add all available anims to VizLists -
     }
     for (int i=0; i<rig.availableAlphaEnvelopes.length; i++) {
       int index = rig.availableAlphaEnvelopes[i];

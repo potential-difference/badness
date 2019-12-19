@@ -68,8 +68,8 @@ void keyPressed() {
   if (key == '[') vizHold = !vizHold; 
   if (key == ']') colHold = !colHold; 
 
-  String sp1 = sketchPath("cp5values.json");
-  String sp2 = sketchPath("cp5SliderValues.json");
+  //String sp1 = sketchPath("cp5values.json");
+  //String sp2 = sketchPath("cp5SliderValues.json");
   if (key=='1') {
     controlFrame.cp5.saveProperties(sp1);//"cp5values.json");
     sliderFrame.cp5.saveProperties(sp2);//"cp5SliderValues.json");
@@ -163,10 +163,6 @@ void controllerChange(int channel, int number, int value) {
   println("cc[" + number + "]", "Velocity: "+cc[number], "Channel: "+channel);
 
 
-  //int index = int(theEvent.getController().getName().substring(11, 12));
-  //        cc[41+index] = value;
-  //        int newIndex = index+41;
-  //        println("set cc["+newIndex+"]", value);
 
   String name = "slider "+(number-40);
   try {

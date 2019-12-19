@@ -297,69 +297,67 @@ class ControlFrame extends PApplet {
   public void controlEvent(ControlEvent theEvent) {
     int intValue = int(theEvent.getValue());
     float value = theEvent.getValue();
-    int someDelay = 30; // silence at startup
-    if (frameCount > someDelay) {
-      for (Rig rig : rigs) {                        
-        if (theEvent.isFrom(rig.ddVizList)) {
-          println(rig.name+" viz selected "+intValue);
-          rig.vizIndex = intValue;
-        }
-        if (theEvent.isFrom(rig.ddBgList)) {
-          println(rig.name+" background selected "+intValue);
-          rig.bgIndex = intValue;
-        }
-        if (theEvent.isFrom(rig.ddAlphaList)) {
-          println(rig.name+" alpah selected "+intValue);
-          rig.alphaIndexA = intValue;
-        }
-        if (theEvent.isFrom(rig.ddFuncList)) {
-          println(rig.name+" func selected "+intValue);
-          rig.functionIndexA = intValue;
-        }
-        if (theEvent.isFrom(rig.ddAlphaListB)) {
-          println(rig.name+" alpah selected "+intValue);
-          rig.alphaIndexB = intValue;
-        }
-        if (theEvent.isFrom(rig.ddFuncListB)) {
-          println(rig.name+" func selected "+intValue);
-          rig.functionIndexB = intValue;
-        }
-        try {
-          if (intValue >= 0) {
-            if (theEvent.isFrom(rig.flashRadioButton)) {
-              println(rig.name+" C plugged to index: "+intValue);
-              rig.colorIndexB = intValue;
-            }
-            if (theEvent.isFrom(rig.cRadioButton)) {
-              println(rig.name+" FLASH plugged to index: "+intValue);
-              rig.colorIndexA = intValue;
-            }
+    int someDelay = 120; // silence at startup
+    for (Rig rig : rigs) {                        
+      if (theEvent.isFrom(rig.ddVizList)) {
+        if (frameCount > someDelay)    println(rig.name+" viz selected "+intValue);
+        rig.vizIndex = intValue;
+      }
+      if (theEvent.isFrom(rig.ddBgList)) {
+        if (frameCount > someDelay)    println(rig.name+" background selected "+intValue);
+        rig.bgIndex = intValue;
+      }
+      if (theEvent.isFrom(rig.ddAlphaList)) {
+        if (frameCount > someDelay)    println(rig.name+" alpah selected "+intValue);
+        rig.alphaIndexA = intValue;
+      }
+      if (theEvent.isFrom(rig.ddFuncList)) {
+        if (frameCount > someDelay)   println(rig.name+" func selected "+intValue);
+        rig.functionIndexA = intValue;
+      }
+      if (theEvent.isFrom(rig.ddAlphaListB)) {
+        if (frameCount > someDelay)  println(rig.name+" alpah selected "+intValue);
+        rig.alphaIndexB = intValue;
+      }
+      if (theEvent.isFrom(rig.ddFuncListB)) {
+        if (frameCount > someDelay)   println(rig.name+" func selected "+intValue);
+        rig.functionIndexB = intValue;
+      }
+      try {
+        if (intValue >= 0) {
+          if (theEvent.isFrom(rig.flashRadioButton)) {
+            if (frameCount > someDelay)     println(rig.name+" C plugged to index: "+intValue);
+            rig.colorIndexB = intValue;
+          }
+          if (theEvent.isFrom(rig.cRadioButton)) {
+            if (frameCount > someDelay)     println(rig.name+" FLASH plugged to index: "+intValue);
+            rig.colorIndexA = intValue;
           }
         }
-        catch (Exception e) {
-          println(e);
-          println("*** !!COLOR PLUGGING WRONG!! ***");
-        }
       }
-      ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      if (theEvent.isController()) {
-        println("- controller "+theEvent.getController().getName()+" "+theEvent.getValue());
-
-        try {
-          if (theEvent.getController().getName().startsWith("slider")) {
-            String name = theEvent.getController().getName();
-            setCCfromController(name, value);
-          }
-        }
-        catch (Exception e) {
-          println(e);
-          println("*** !!SOMETHING WRONG WITH YOUR SLIDER MAPPING YO!! ***");
-        }
+      catch (Exception e) {
+        println(e);
+        println("*** !!COLOR PLUGGING WRONG!! ***");
       }
-      //if (theEvent.isGroup()) println("- group "+theEvent.getName()+" "+theEvent.getValue());
-      ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-      ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    if (theEvent.isController()) {
+      if (frameCount > someDelay)   println("- controller "+theEvent.getController().getName()+" "+theEvent.getValue());
+
+      try {
+        if (theEvent.getController().getName().startsWith("slider")) {
+          String name = theEvent.getController().getName();
+          setCCfromController(name, value);
+        }
+      }
+      catch (Exception e) {
+        println(e);
+        println("*** !!SOMETHING WRONG WITH YOUR SLIDER MAPPING YO!! ***");
+      }
+    }
+    //if (theEvent.isGroup()) println("- group "+theEvent.getName()+" "+theEvent.getValue());
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
 }
 
@@ -372,33 +370,10 @@ void setCCfromController(String name, float value) {
   }
   int  index = tens * 10 + ones + 40;
   cc[index] = value;
-  println("set cc["+index+"]", value);
+  
+  int someDelay = 120; // silence at startup
+  if (frameCount > someDelay) println("set cc["+index+"]", value);
 }
-/*
-// put inside controller change 
- if (cc[4]!=prevcc[4]) {
- prevcc[4]=cc[4];
- if (cc[4] != rigDimmer) cp5.getController("rigDimmer").setValue(cc[4]);
- }
- if (cc[5]!=prevcc[5]) {
- prevcc[5]=cc[5];
- if (cc[5] != cansDimmer) cp5.getController("cansDimmer").setValue(cc[5]);
- }
- if (cc[8]!=prevcc[8]) {
- prevcc[8]=cc[8];
- if (cc[8] != roofDimmer) cp5.getController("roofDimmer").setValue(cc[8]);
- }
- }
- //////////////////////////////////////// CALL BACK FOR SLIDER CONTROL FROM OTHER VARIABLES
- // an event from slider sliderA will change the value of textfield textA here
- public void rigDimmer(float theValue) {
- int value = int(map(theValue, 0, 1, 0, 127));
- LPD8bus.sendControllerChange(0, 4, value) ;
- }
- }
- 
- */
-
 
 
 
