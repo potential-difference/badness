@@ -209,6 +209,7 @@ class ControlFrame extends PApplet {
   PApplet parent;
   ControlP5 cp5;
 
+
   public ControlFrame(PApplet _parent, int _controlW, int _controlH, int _xpos, int _ypos) {
     super();   
 
@@ -325,11 +326,11 @@ class ControlFrame extends PApplet {
       }
       try {
         if (intValue >= 0) {
-          if (theEvent.isFrom(rig.flashRadioButton)) {
+          if (theEvent.isFrom(controlFrame.flashRadioButton)) {
             if (frameCount > someDelay)     println(rig.name+" C plugged to index: "+intValue);
             rig.colorIndexB = intValue;
           }
-          if (theEvent.isFrom(rig.cRadioButton)) {
+          if (theEvent.isFrom(controlFrame.cRadioButton)) {
             if (frameCount > someDelay)     println(rig.name+" FLASH plugged to index: "+intValue);
             rig.colorIndexA = intValue;
           }

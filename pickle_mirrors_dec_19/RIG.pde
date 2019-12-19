@@ -23,6 +23,7 @@ public class Rig {
   ScrollableList ddVizList, ddBgList, ddAlphaList, ddFuncList, ddAlphaListB, ddFuncListB;
   RadioButton cRadioButton, flashRadioButton;
 
+
   Rig(boolean _toggle, float _xpos, float _ypos, int _wide, int _high, String _name) {
     name = _name;
     wide = _wide;
@@ -133,36 +134,37 @@ public class Rig {
     loadToggle(play, "play", x+(clm*arrayListIndex)+swide-25, y+row*9, 25, 20);
 
     ///////////////////////////////// RADIO BUTTONS  //////////////////////////////////////////////////////////////////////////////
-    /*
+
     cRadioButton = controlFrame.cp5.addRadioButton(name+" cRadioButton")
-     .plugTo(this, "cRadioButton")
-     .setLabel(this.name+" cRadioButton")
-     .setPosition(x+(clm*arrayListIndex)-130, y)
-     .setSize(15, shigh);
-     for (int i=0; i<availableColors.length; i++) {
-     cRadioButton.addItem(name+" colc "+i, i);
-     cRadioButton.getItem(name+" colc "+i)
-     .setColorBackground(color(col[availableColors[i]], 100))
-     .setColorForeground(color(col[availableColors[i]], 200))
-     .setColorActive(color(col[availableColors[i]], 360));
-     cRadioButton.hideLabels();
-     }
-     flashRadioButton = controlFrame.cp5.addRadioButton(name+" flashRadioButton")
+      .plugTo(this, "cRadioButton")
+      //.setLabel(this.name+" cRadioButton")
+      .setPosition(x+(clm*arrayListIndex)-130, y)
+      .setSize(15, shigh);
+    for (int i=0; i<availableColors.length; i++) {
+      cRadioButton.addItem(name+" colc "+i, i);
+      cRadioButton.getItem(name+" colc "+i)
+        .setColorBackground(color(col[availableColors[i]], 100))
+        .setColorForeground(color(col[availableColors[i]], 200))
+        .setColorActive(color(col[availableColors[i]], 360));
+      cRadioButton.hideLabels();
+    }
+    /*
+     controlFrame.flashRadioButton = controlFrame.cp5.addRadioButton(name+" flashRadioButton")
      .plugTo(this, "flashRadioButton")
-     .setLabel(this.name+" flashRadioButton")
+     //.setLabel(this.name+" flashRadioButton")
      .setPosition(x+(clm*arrayListIndex)-110, y)
      .setSize(15, shigh);
      for (int i=0; i<availableColors.length; i++) {
-     flashRadioButton.addItem(name+" colFlash "+i, i);
-     flashRadioButton.getItem(name+" colFlash "+i)
+     controlFrame.flashRadioButton.addItem(name+" colFlash "+i, i);
+     controlFrame.flashRadioButton.getItem(name+" colFlash "+i)
      .setColorBackground(color(col[availableColors[i]], 100))
      .setColorForeground(color(col[availableColors[i]], 200))
      .setColorActive(color(col[availableColors[i]], 360));
-     flashRadioButton.hideLabels() ;
+     controlFrame.flashRadioButton.hideLabels() ;
      }
-     */
+     8?
     /*
-    ///////////////////////////////// DROPDOWN LISTS //////////////////////////////////////////////////////////////////////////////
+     ///////////////////////////////// DROPDOWN LISTS //////////////////////////////////////////////////////////////////////////////
      ddVizList = controlFrame.cp5.addScrollableList(name+" vizLizt").setPosition(x+(clm*arrayListIndex)-90, y);
      ddBgList = controlFrame.cp5.addScrollableList(name+" bkList").setPosition(x+(clm*arrayListIndex)-90, y+25);
      ddAlphaList = controlFrame.cp5.addScrollableList(name+" alpahLizt").setPosition(x+(clm*arrayListIndex)-90, y+60);
