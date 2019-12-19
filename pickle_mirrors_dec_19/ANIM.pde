@@ -367,8 +367,10 @@ class Stars extends Anim {
 class Swipe extends Anim {
   Swipe(Rig _rig) {
     super(_rig);
+    //opcGrid.mirrorsOPC(opcMirror1, opcMirror2, 0);               // grids 0-3 MIX IT UPPPPP
   }
   void draw() {
+
     window.beginDraw();
     window.background(0);
     wide = 500+(noize*300);
@@ -388,6 +390,7 @@ class Swiped extends Anim {
     super(_rig);
   }
   void draw() {
+
     window.beginDraw();
     window.background(0);
     wide = 150+(noize1*500*functionB);
@@ -420,13 +423,20 @@ class Teeth extends Anim {
     wide *=wideSlider;
     high *=highSlider;
 
-    squareNut(positionX[0][2].x, positionX[0][2].y, col1, stroke, wide, high, -45, alphaA);
+    //squareNut(positionX[0][2].x, positionX[0][2].y, col1, stroke, wide, high, -45, alphaA);
     squareNut(positionX[1][0].x, positionX[1][0].y, col1, stroke, wide, high, -45, alphaA);
     squareNut(positionX[2][2].x, positionX[2][2].y, col1, stroke, wide, high, -45, alphaA);
-    squareNut(positionX[3][0].x, positionX[3][0].y, col1, stroke, wide, high, -45, alphaA);
+    //squareNut(positionX[3][0].x, positionX[3][0].y, col1, stroke, wide, high, -45, alphaA);
     squareNut(positionX[4][2].x, positionX[4][2].y, col1, stroke, wide, high, -45, alphaA);
     squareNut(positionX[5][0].x, positionX[5][0].y, col1, stroke, wide, high, -45, alphaA);
+    //squareNut(positionX[6][2].x, positionX[6][2].y, col1, stroke, wide, high, -45, alphaA);
+
+    wide = wide-(wide*functionB);
+    high = wide;
+    squareNut(positionX[0][2].x, positionX[0][2].y, col1, stroke, wide, high, -45, alphaA);
+    squareNut(positionX[3][0].x, positionX[3][0].y, col1, stroke, wide, high, -45, alphaA);
     squareNut(positionX[6][2].x, positionX[6][2].y, col1, stroke, wide, high, -45, alphaA);
+
     window.endDraw();
   }
 }
@@ -532,7 +542,10 @@ class Anim {
     _beatCounter = (int)beatCounter;
     col1 = white;
     col2 = white;
-    
+
+    //opcGrid.mirrorsOPC(opcMirror1, opcMirror2, 1);               // grids 0-3 MIX IT UPPPPP 
+
+
     animName = "default";
 
     blury = int(map(rig.blurValue, 0, 1, 0, 100));     //// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////

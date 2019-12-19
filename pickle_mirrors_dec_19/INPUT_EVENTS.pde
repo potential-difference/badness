@@ -60,7 +60,7 @@ void keyPressed() {
 
   roof.functionIndexA = roof.functionIndexA;
   roof.functionIndexA = roof.functionIndexA;
-  
+
   roof.c = rigg.c;
   roof.flash = rigg.flash;
 
@@ -68,20 +68,23 @@ void keyPressed() {
   if (key == '[') vizHold = !vizHold; 
   if (key == ']') colHold = !colHold; 
 
-  //String sp1 = sketchPath("cp5values.json");
-  //String sp2 = sketchPath("cp5SliderValues.json");
+
   if (key=='1') {
-    controlFrame.cp5.saveProperties(sp1);//"cp5values.json");
-    sliderFrame.cp5.saveProperties(sp2);//"cp5SliderValues.json");
-    //controlFrame.cp5.saveProperties(("cp5ControlValues.json"));
-
+    controlFrame.cp5.saveProperties(controlFrameValues);//"cp5values.json");
+    sliderFrame.cp5.saveProperties(sliderFrameValues);//"cp5SliderValues.json");
     println("** SAVED CONTROLER VALUES **");
+    println("saved to", controlFrameValues, sliderFrameValues);
   } else if (key=='2') {
-    controlFrame.cp5.loadProperties(sp1);
-    sliderFrame.cp5.loadProperties(sp2);
-    //controlFrame.cp5.loadProperties(("cp5ControlValues.json"));
+    try {
+      controlFrame.cp5.loadProperties(controlFrameValues);
+      sliderFrame.cp5.loadProperties(sliderFrameValues);
+      println("** LOADED CONTROLER VALUES **");
+          println("loaded from", controlFrameValues, sliderFrameValues);
 
-    println("** LOADED CONTROLER VALUES **");
+    }
+    catch(Exception e) {
+      println(e, "ERROR LOADING CONTROLLER VALUES");
+    }
   }
 
 
@@ -157,12 +160,9 @@ void noteOff(Note note) {
   padVelocity[note.pitch] = 0;
 }
 float cc[] = new float[128];                   //// An array where to store the last value received for each CC controller
-//float prevcc[] = new float[128];
 void controllerChange(int channel, int number, int value) {
   cc[number] = map(value, 0, 127, 0, 1);
   println("cc[" + number + "]", "Velocity: "+cc[number], "Channel: "+channel);
-
-
 
   String name = "slider "+(number-40);
   try {

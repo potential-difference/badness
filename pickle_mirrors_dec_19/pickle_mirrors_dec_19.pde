@@ -1,14 +1,10 @@
-OPC opc;
 OPC opcLocal;
 OPC opcMirror1; 
 OPC opcMirror2;
-OPC opcRouter;
-
 OPC opcNode4;
 OPC opcNode5;
 OPC opcNode6;
 OPC opcNode7;
-
 OPC opcWifi;
 
 import java.util.*;
@@ -42,8 +38,8 @@ MidiBus faderBus;         // midibus for APC mini
 MidiBus LPD8bus;          // midibus for LPD8
 MidiBus beatStepBus;      // midibus for Artuia BeatStep
 
-String sp1 = sketchPath("cp5values.json");
-String sp2 = sketchPath("cp5SliderValues.json");
+String controlFrameValues, sliderFrameValues;
+
 
 boolean onTop = false;
 void settings() {
@@ -71,51 +67,36 @@ void setup()
   int frameWidth = 220;
   sliderFrame = new SliderFrame(this, frameWidth, height+controlFrame.height+5, size.surfacePositionX-frameWidth-5, size.surfacePositionY); // load control frame must come after shild ring etc
 
-
   ///////////////// LOCAL opc /////////////////////
   opcLocal   = new OPC(this, "127.0.0.1", 7890);        // Connect to the local instance of fcserver - MIRRORS
-  opcMirror1 = new OPC(this, "192.168.10.2", 7890);     // left hand mirror
-  opcMirror2 = new OPC(this, "192.168.10.3", 7890);     // right hand mirror
 
   ///////////////// OPC over NETWORK /////////////////////
-  //opcRouter = new OPC(this, "192.168.10.1", 7890);
-
+  opcMirror1 = new OPC(this, "192.168.10.2", 7890);     // left hand mirror
+  opcMirror2 = new OPC(this, "192.168.10.3", 7890);     // right hand mirror
   opcNode4 = new OPC(this, "192.168.10.209", 7890);
   opcNode5 = new OPC(this, "192.168.10.5", 7890);
-
   //opcNode6 = new OPC(this, "192.168.10.6", 7890);
   opcNode7 = new OPC(this, "192.168.10.7", 7890);
-
-  //opcCans    = new OPC(this, "192.168.0.10", 7890);           // Connect to the remote instance of fcserver - CANS BOX
-  //opcStrip   = new OPC(this, "192.168.0.20", 7890);          // Connect to the remote instance of fcserver - CANS BOX
 
   opcGrid.mirrorsOPC(opcMirror1, opcMirror2, 1);               // grids 0-3 MIX IT UPPPPP 
   //opcGrid.tawSeedsOPC(cans, opcNode4, opcNode5);
   opcGrid.tawSeedsOPC(cans, opcLocal, opcLocal);
-
-  //opcGrid.pickleCansOPC(cans, opcRouter);               
-  //opcGrid.kingsHeadStripOPC(cans, opcESP);
-  //opcGrid.espTestOPC(rigg, opcLocal);
-  //grid.kingsHeadBoothOPC(opcLocal);
   opcGrid.individualCansOPC(roof, opcNode7, true);
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
-
   midiSetup();
-
   drawingSetup();
   loadImages();
   loadShaders();
   setupSpecifics();
   //syphonSetup(syphonToggle);
-  DMXSetup();
+  //DMXSetup();
 
-
-
+  controlFrameValues = sketchPath("cp5ControlFrameValues.json");
+  sliderFrameValues  = sketchPath("cp5SliderFrameValues.json");
   try {
-
-    controlFrame.cp5.loadProperties(sp1);
-    sliderFrame.cp5.loadProperties(sp2);
+    controlFrame.cp5.loadProperties(controlFrameValues);
+    sliderFrame.cp5.loadProperties(sliderFrameValues);
   }
   catch(Exception e) {
     println(e);
@@ -126,8 +107,6 @@ void setup()
     float value = sliderFrame.cp5.getController(controllerName).getValue();
     setCCfromController(controllerName, value);
   }
-
-
   frameRate(30); // always needs to be last in setup
 }
 float vizTime, colTime;
@@ -142,35 +121,30 @@ void draw()
   beats();
   pause(10);                                ////// number of seconds before no music detected and auto kicks in
   globalFunctions();
-
   //syphonLoadSentImage(syphonToggle);
 
   vizTime = 60*15*vizTimeSlider;
   if (frameCount > 10) playWithYourself(vizTime);
   c = rigg.c;
   flash = rigg.flash;
-
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   playWithMe();
-
-  // create a new anim object and add it to the beginning of the arrayList
   if (beatTrigger) { 
     for (Rig rig : rigs) {
       if (rig.toggle) {
         //if (testToggle) rig.animations.add(new Test(rig));
-        rig.addAnim(rig.availableAnims[rig.vizIndex]);
+        rig.addAnim(rig.availableAnims[rig.vizIndex]);           // create a new anim object and add it to the beginning of the arrayList
       }
     }
   }
   if (keyT['s']) for (Anim anim : rigg.animations)  anim.funcFX = 1-(stutter*noize1*0.1);
   //////////////////////////////////////////// Artnet  /////////////
-  DMXcontrollingUs();
+  //DMXcontrollingUs();
   //////////////////// Must be after playwithme, before rig.draw()////
   for (Rig rig : rigs) rig.draw();  
   //////////////////////////////////////////// PLAY WITH ME MORE /////////////////////////////////////////////////////////////////////////////////
   playWithMeMore();
-
   //////////////////////////////////////////// BOOTH & DIG ///////////////////////////////////////////////////////////////////////////////////////
   boothLights();
   //////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
@@ -181,7 +155,6 @@ void draw()
   frameRateInfo(5, 20);                     // display frame rate X, Y /////
   dividerLines();
   //gid.mirrorTest(false);                  // true to test physical mirror orientation
-
   //syphonSendImage(syphonToggle);
 }
 

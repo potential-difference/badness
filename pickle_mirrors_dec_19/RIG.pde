@@ -29,6 +29,8 @@ public class Rig {
     high = _high;
     size = new PVector (_xpos, _ypos);
     toggle = _toggle;
+    
+    cp5 = controlFrame.cp5;
 
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
     
@@ -177,7 +179,7 @@ public class Rig {
   void loadToggle(boolean toggle, String label, float x, float y, int wide, int high) {
     cp5.addToggle(this.name+" "+label)
       .plugTo(this, label)
-      .setLabel(" "+label)
+      .setLabel(label)
       .setPosition(x, y)
       .setSize(wide, high)      
       .setValue(toggle)
