@@ -37,35 +37,42 @@ void playWithMe() {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  //rig.addAnim(rig.availableAnims[rig.vizIndex]);
-  float  debouncetime=50;
+
+  float  debouncetime=100;
+
+  Envelope manualA = CrushPulse(0.0, 0, 1, manualSlider*500, 0.0, 0.0);
   /*
-  for (int i = 0; i < 7; i++) {
-   if (millis()-lastTime[44+i]>debouncetime) {
-   if (padVelocity[44+i]>0) rigg.addAnim(rigg.availableAnims[i]);
-   lastTime[44+i]=millis();
+  try {
+   if (millis()-lastTime[44]>debouncetime) {
+   if (padVelocity[44]>0) rigg.animations.add(new Checkers (rigg));
+   //if (rigg.animations.size() > 0 ) { 
+   Anim theanim = rigg.animations.get(rigg.animations.size()-1);
+   theanim.alphaEnvelopeA = manualA;
+   theanim.alphaEnvelopeB = manualA;
+   lastTime[44]=millis();
+   //}
    }
+   } 
+   catch (Exception e) {
+   println(e, "playwithyourself error");
    }
    */
+
   if (millis()-lastTime[44]>debouncetime) {
-    if (padVelocity[44]>0) rigg.addAnim(rigg.availableAnims[1]);
+    if (padVelocity[44]>0) rigg.animations.add(new Checkers (rigg));
     lastTime[44]=millis();
   }
 
   if (millis()-lastTime[45]>debouncetime) {
-    if (padVelocity[45]>0) rigg.addAnim(rigg.availableAnims[6]);
+    if (padVelocity[45]>0) rigg.animations.add(new DiagoNuts(rigg));
     lastTime[45]=millis();
   }
 
   if (millis()-lastTime[46]>debouncetime) {
-    if (padVelocity[46]>0) rigg.addAnim(rigg.availableAnims[10]);
+    if (padVelocity[46]>0) rigg.animations.add(new Stars(rigg));
     lastTime[46]=millis();
   }
 
-  if (millis()-lastTime[46]>debouncetime) {
-    if (padVelocity[46]>0) rigg.addAnim(rigg.availableAnims[10]);
-    lastTime[46]=millis();
-  }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////// ALL ON ///////////////////////////////////////////////
 
@@ -95,14 +102,22 @@ void playWithMe() {
     lastTime[40]=millis();
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////////// STUTTER ///////////////////////////////////////////////
+  ///////////////////////////////////////////////// STUTTER ///////////////////////////////////////////////x
 
   if (millis()-lastTime[49]>debouncetime) {
     if (padVelocity[49]>0) for (Anim anim : rigg.animations) {
-      anim.alphaEnvelopeA = anim.alphaEnvelopeA.mul(08.+(stutter*cc[46]));
-      anim.alphaEnvelopeB = anim.alphaEnvelopeB.mul(08.+(stutter*cc[46]));
+      anim.alphaEnvelopeA = anim.alphaEnvelopeA.mul((1-cc[46])+(stutter*cc[46]));
+      anim.alphaEnvelopeB = anim.alphaEnvelopeB.mul((1-cc[46])+(stutter*cc[46]));
     }
     lastTime[49]=millis();
+  }
+  
+  if (millis()-lastTime[41]>debouncetime) {
+    if (padVelocity[41]>0) for (Anim anim : rigg.animations) {
+      anim.functionEnvelopeA = anim.functionEnvelopeA.mul((1-cc[54])+(stutter*cc[54]));
+      anim.functionEnvelopeB = anim.functionEnvelopeB.mul((1-cc[54])+(stutter*cc[54]));
+    }
+    lastTime[41]=millis();
   }
 
   //  if (padVelocity[36] > 0) {
