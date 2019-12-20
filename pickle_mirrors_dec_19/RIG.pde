@@ -35,7 +35,7 @@ public class Rig {
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
 
     animNames = new String[] {"benjmains boxes", "checkers", "rings", "rush", "rushed", 
-      "square nuts", "diaganol nuts", "stars", "swipe", "swiped", "teeth", "donut", "all on"}; 
+      "square nuts", "diaganol nuts", "stars", "swipe", "swiped", "teeth", "donut", "all on","all off"}; 
     backgroundNames = new String[] {"one col c", "vert mirror grad", "side by side", "horiz mirror grad", 
       "one color flash", "moving horiz grad", "checked", "radiators", "stripes", "one two three"}; 
 
@@ -44,7 +44,7 @@ public class Rig {
     arrayListIndex = rigs.indexOf(this);          // where this is the rig object
     availableBkgrnds = new int[] {0, 1, 2, 3};    // default - changed when initalised;
     availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4};  
-    availableFunctionEnvelopes = new int[] {0, 1, 2, 3};  
+    availableFunctionEnvelopes = new int[] {0, 1, 2, 5,6};  
 
     dimmers = new HashMap<Integer, Ref>();
 
@@ -591,10 +591,10 @@ public class Rig {
   void addAnim(int animIndex) {
     Anim anim = new Anim(this);
 
-//    println(name+" aval anims");
-//println(availableAnims);
+    //    println(name+" aval anims");
+    //println(availableAnims);
     int index = this.availableAnims[animIndex];
-    
+
     //println(name+" index", index);
     //println();
 
@@ -618,7 +618,7 @@ public class Rig {
       anim = new SquareNuts(this);
       break;
     case 6:  
-      anim = new DiagNuts(this);
+      anim = new DiagoNuts(this);
       break;
     case 7:  
       anim = new Stars(this);
@@ -634,8 +634,12 @@ public class Rig {
       break;
     case 11:  
       anim = new Donut(this);
+      break;
     case 12:
       anim = new AllOn(this);
+      break;
+    case 13:
+      anim = new AllOff(this);
       break;
     }
     //    Ref t=new Ref(new float[]{1.0}, 0);
@@ -646,16 +650,16 @@ public class Rig {
       for (Anim an : animations) {
         float now = millis();
         if (alphaIndexA == 1) {
-          an.alphaEnvelopeA = new Ramp(now, now+avgmillis*beatSlider*3.0, an.alphaA, an.alphaA, 0.8).mul(new Ramp(now+avgmillis*beatSlider*3.0, now+avgmillis*beatSlider*4.0, 1.0, 0.1, 0.1));
+          an.alphaEnvelopeA = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaA, an.alphaA, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.1));
         } else {
-          an.alphaEnvelopeA = an.alphaEnvelopeA.mul(new Ramp(now, now+avgmillis*beatSlider*3.0, 0.8, 0.2, 0.1));
-          an.alphaEnvelopeA.end_time = min(int(now+avgmillis*beatSlider*5.0), an.alphaEnvelopeA.end_time);
+          an.alphaEnvelopeA = an.alphaEnvelopeA.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.8, 0.2, 0.1));
+          an.alphaEnvelopeA.end_time = min(int(now+avgmillis*alphaRate*5.0), an.alphaEnvelopeA.end_time);
         }
         if (alphaIndexB == 1) {
-          an.alphaEnvelopeB = new Ramp(now, now+avgmillis*beatSlider*3.0, an.alphaB, an.alphaB, 0.8).mul(new Ramp(now+avgmillis*beatSlider*3.0, now+avgmillis*beatSlider*4.0, 1.0, 0.1, 0.1));
+          an.alphaEnvelopeB = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaB, an.alphaB, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.1));
         } else {       
-          an.alphaEnvelopeB = an.alphaEnvelopeB.mul(new Ramp(now, now+avgmillis*beatSlider*3.0, 0.8, 0.2, 0.1));
-          an.alphaEnvelopeB.end_time = min(int(now+avgmillis*beatSlider*5.0), an.alphaEnvelopeB.end_time);
+          an.alphaEnvelopeB = an.alphaEnvelopeB.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.9, 0.2, 0.1));
+          an.alphaEnvelopeB.end_time = min(int(now+avgmillis*alphaRate*5.0), an.alphaEnvelopeB.end_time);
         }
       }
     }

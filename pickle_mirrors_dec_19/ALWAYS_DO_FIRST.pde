@@ -6,12 +6,13 @@ void setupSpecifics() {
    "one color flash", "moving horiz grad", "checked", "radiators", "stripes", "one two three"}; 
    */
 
-  rigg.availableAnims = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};      // setup which anims are used on which rig here
+  rigg.availableAnims = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};      // setup which anims are used on which rig here
   roof.availableAnims = rigg.availableAnims;      // setup which anims are used on which rig here - defualt is 0,1,2,3...
   cans.availableAnims = new int[] {11, 4, 2, 7, 4, 5, 6, 7, 8, 9, 10, 12};      // setup which anims are used on which rig here
   pars.availableAnims = new int[] {0, 12};      // setup which anims are used on which rig here
 
   rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4};  
+  roof.availableFunctionEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
 
   rigg.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6, 9};
   cans.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5}; //rigg.availableBkgrnds;
@@ -24,6 +25,8 @@ void setupSpecifics() {
     rig.ddBgList.clear();
     rig.ddAlphaList.clear();
     rig.ddAlphaListB.clear();
+    rig.ddFuncList.clear();
+    rig.ddFuncListB.clear();
     for (int i=0; i<rig.availableBkgrnds.length; i++) { 
       int index = rig.availableBkgrnds[i];
       rig.ddBgList.addItem(rig.backgroundNames[index], index); //add all available anims to VizLists -
@@ -39,6 +42,15 @@ void setupSpecifics() {
     for (int i=0; i<rig.availableAlphaEnvelopes.length; i++) {
       int index = rig.availableAlphaEnvelopes[i];
       rig.ddAlphaListB.addItem("alph "+index, index); //add all available anims to VizLists -
+    }
+    for (int i=0; i<rig.availableFunctionEnvelopes.length; i++) {
+      int index = rig.availableFunctionEnvelopes[i];
+      rig.ddFuncList.addItem("func "+index, index); //add all available anims to VizLists -
+    }
+    println(rig.name+" fun length", rig.availableFunctionEnvelopes.length);
+    for (int i=0; i<rig.availableFunctionEnvelopes.length; i++) {
+      int index = rig.availableFunctionEnvelopes[i];
+      rig.ddFuncListB.addItem("func "+index, index); //add all available anims to VizLists -
     }
     //need to use the actal numbers from the above aray
   }

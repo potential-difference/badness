@@ -315,19 +315,19 @@ class ControlFrame extends PApplet {
         rig.bgIndex = intValue;
       }
       if (theEvent.isFrom(rig.ddAlphaList)) {
-        if (frameCount > someDelay)    println(rig.name+" alpah selected "+intValue);
+        if (frameCount > someDelay)    println(rig.name+" alpahA selected "+intValue);
         rig.alphaIndexA = intValue;
       }
       if (theEvent.isFrom(rig.ddFuncList)) {
-        if (frameCount > someDelay)   println(rig.name+" func selected "+intValue);
+        if (frameCount > someDelay)   println(rig.name+" funcA selected "+intValue);
         rig.functionIndexA = intValue;
       }
       if (theEvent.isFrom(rig.ddAlphaListB)) {
-        if (frameCount > someDelay)  println(rig.name+" alpah selected "+intValue);
+        if (frameCount > someDelay)  println(rig.name+" alpahB selected "+intValue);
         rig.alphaIndexB = intValue;
       }
       if (theEvent.isFrom(rig.ddFuncListB)) {
-        if (frameCount > someDelay)   println(rig.name+" func selected "+intValue);
+        if (frameCount > someDelay)   println(rig.name+" funcB selected "+intValue);
         rig.functionIndexB = intValue;
       }
       try {

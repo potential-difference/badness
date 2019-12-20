@@ -156,10 +156,10 @@ void draw()
   //////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
   workLights(keyT['w']);
   testColors(keyT['t']);
-  mouseInfo(keyT['q']);
   //////////////////////////////////////////// !!!SMOKE!!! ///////////////////////////////////////////////////////////////////////////////////////
   dmxSmoke();
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  mouseInfo(keyT['q']);
   frameRateInfo(5, 20);                     // display frame rate X, Y /////
   dividerLines();
   //gid.mirrorTest(false);                  // true to test physical mirror orientation
@@ -186,16 +186,13 @@ void dmxSmoke() {
   float smokeOn = smokeOnTime;
   if (millis()/1000 % smokeInterval > smokeInterval - smokeOn) {
     fill(360*smokePumpValue);
-    println("SMOKE SHOULD BE ON");
-
     rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 10, 10);
   }
-  println(smokePumpValue);
   float smokeInfo = millis()/1000 % smokeInterval - (smokeInterval);
   fill(300);
   text("smoke on in: "+smokeInfo+" seconds", opcGrid.smokePump.x+200, opcGrid.smokePump.y+5);
 
-  if (keyP[32]) {
+  if (keyP['0']) {
     fill(360*smokePumpValue);
     rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 10, 10);
   }

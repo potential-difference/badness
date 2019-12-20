@@ -18,7 +18,6 @@ abstract class ManualAnim extends Anim {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 class AllOn extends Anim {
-  
   AllOn(Rig _rig) {
     super( _rig);
     alphaRate=manualSlider;
@@ -26,6 +25,18 @@ class AllOn extends Anim {
   void draw() {
     window.beginDraw();
     window.background(360*alphaA);
+    window.endDraw();
+  }
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////
+class AllOff extends Anim {
+  AllOff(Rig _rig) {
+    super( _rig);
+    alphaRate=manualSlider;
+  }
+  void draw() {
+    window.beginDraw();
+    window.background(0);
     window.endDraw();
   }
 }
@@ -303,14 +314,14 @@ class SquareNuts extends Anim {
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class DiagNuts extends Anim { 
-  DiagNuts(Rig _rig) { 
+class DiagoNuts extends Anim { 
+  DiagoNuts(Rig _rig) { 
     super(_rig);
   }                                // maybe add beatcounter flip postion for this
   void draw() {
     window.beginDraw();
     window.background(0);
-    stroke = 100-(200*functionA);
+    stroke = 100-(400*functionA);
     wide = vizWidth+(50);
     high = wide;
 
@@ -441,11 +452,9 @@ class Donut extends Anim {
     high = wide;
     stroke = 2+(vizWidth/2*functionA);
 
-
     stroke *=strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
-
     //void donut(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
     donut(viz.x, viz.y, col1, stroke, wide, high, 0, alphaA);
     window.endDraw();

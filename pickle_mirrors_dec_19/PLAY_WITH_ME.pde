@@ -1,4 +1,10 @@
+float[] lastTime = new float[cc.length];
+
 void playWithMe() {
+
+
+
+
   ////////////////////////////////////// COLOR SWAP AND FLIP BUTTONS /////////////////////////////////////////
   if (keyP['o']) rigg.colorSwap(0.9999999999);               // COLOR SWAP MOMENTARY 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -32,16 +38,71 @@ void playWithMe() {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   //rig.addAnim(rig.availableAnims[rig.vizIndex]);
+  float  debouncetime=50;
+  /*
+  for (int i = 0; i < 7; i++) {
+   if (millis()-lastTime[44+i]>debouncetime) {
+   if (padVelocity[44+i]>0) rigg.addAnim(rigg.availableAnims[i]);
+   lastTime[44+i]=millis();
+   }
+   }
+   */
+  if (millis()-lastTime[44]>debouncetime) {
+    if (padVelocity[44]>0) rigg.addAnim(rigg.availableAnims[1]);
+    lastTime[44]=millis();
+  }
 
-  if (padVelocity[44]>0) rigg.addAnim(rigg.availableAnims[0]);
-  if (padVelocity[45]>0) rigg.addAnim(rigg.availableAnims[1]);
-  if (padVelocity[46]>0) rigg.addAnim(rigg.availableAnims[2]);
-  if (padVelocity[47]>0) rigg.addAnim(rigg.availableAnims[3]);
-  if (padVelocity[48]>0) rigg.addAnim(rigg.availableAnims[4]);
-  if (padVelocity[49]>0) rigg.addAnim(rigg.availableAnims[5]);
-  if (padVelocity[50]>0) rigg.addAnim(rigg.availableAnims[6]);
+  if (millis()-lastTime[45]>debouncetime) {
+    if (padVelocity[45]>0) rigg.addAnim(rigg.availableAnims[6]);
+    lastTime[45]=millis();
+  }
 
+  if (millis()-lastTime[46]>debouncetime) {
+    if (padVelocity[46]>0) rigg.addAnim(rigg.availableAnims[10]);
+    lastTime[46]=millis();
+  }
 
+  if (millis()-lastTime[46]>debouncetime) {
+    if (padVelocity[46]>0) rigg.addAnim(rigg.availableAnims[10]);
+    lastTime[46]=millis();
+  }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////// ALL ON ///////////////////////////////////////////////
+
+  if (millis()-lastTime[47]>debouncetime) {
+    if (padVelocity[47]>0) {
+      rigg.animations.add( new AllOn(rigg)); //rigg.anim.alphaEnvelopeA = new CrushPulse(0.031, 0.040, 0.913, avgmillis*rigg.alphaRate*3+0.5, 0.0, 0.0);
+      lastTime[47]=millis();
+    }
+  }
+  if (millis()-lastTime[39]>debouncetime) {
+    if (padVelocity[39]>0) roof.animations.add( new AllOn(roof));
+    lastTime[39]=millis();
+  }
+  if (millis()-lastTime[42]>debouncetime) {
+    if (padVelocity[42]>0) pars.animations.add( new AllOn(pars)); //rig.animations.add(new Test(rig))
+    lastTime[42]=millis();
+  }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////// KILL ALL ANIMS - BLACKOUT ///////////////////////////////////////////////
+  if (millis()-lastTime[48]>debouncetime) {
+    if (padVelocity[48]>0) for (Anim anim : rigg.animations) anim.deleteme = true;  // immediately delete all anims
+    lastTime[48]=millis();
+  }
+  if (millis()-lastTime[40]>debouncetime) {
+    if (padVelocity[40]>0) for (Anim anim : roof.animations) anim.deleteme = true;  // immediately delete all anims
+    lastTime[40]=millis();
+  }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////// STUTTER ///////////////////////////////////////////////
+
+  if (millis()-lastTime[49]>debouncetime) {
+    if (padVelocity[49]>0) for (Anim anim : rigg.animations) {
+      anim.alphaEnvelopeA = anim.alphaEnvelopeA.mul(08.+(stutter*cc[46]));
+      anim.alphaEnvelopeB = anim.alphaEnvelopeB.mul(08.+(stutter*cc[46]));
+    }
+    lastTime[49]=millis();
+  }
 
   //  if (padVelocity[36] > 0) {
   //    rigg.colorIndexA = (rigg.colorIndexA+1)%rigg.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
@@ -67,23 +128,31 @@ void playWithMe() {
 //////////////////////////////////////////// PLAY WITH DRAWING FUNCTIONS ////////////////////////////////////////////////////////////// 
 void playWithMeMore() {
 
-    // rig dimmer shold affect bgnosie
+  // rig dimmer shold affect bgnosie
 
-  
+
   /////background noise over whole window/////
   if (padVelocity[51] > 0) {
     rigg.colorLayer.beginDraw();
     rigg.colorLayer.background(0, 0, 0, 0);
     rigg.colorLayer.endDraw();
-    bgNoise(rigg.colorLayer, rigg.flash, map(cc[51], 0, 1, 0.2, 1), cc[48]*rigg.dimmer);   //PGraphics layer,color,alpha
+    bgNoise(rigg.colorLayer, rigg.flash, map(padVelocity[51], 0, 1, 0, 1), cc[48]*rigg.dimmer);   //PGraphics layer,color,alpha
     image(rigg.colorLayer, rigg.size.x, rigg.size.y, rigg.wide, rigg.high);
   }
   if (padVelocity[43] > 0) {
-    cans.colorLayer.beginDraw();
-    cans.colorLayer.background(0, 0, 0, 0);
-    cans.colorLayer.endDraw();
-    bgNoise(cans.colorLayer, cans.flash, map(cc[43], 0, 1, 0.2, 1), cc[56]*cans.dimmer);   //PGraphics layer,color,alpha
-    image(cans.colorLayer, cans.size.x, cans.size.y, cans.wide, cans.high);
+    roof.colorLayer.beginDraw();
+    roof.colorLayer.background(0, 0, 0, 0);
+    roof.colorLayer.endDraw();
+    bgNoise(roof.colorLayer, roof.flash, map(padVelocity[43], 0, 1, 0, 1), cc[56]*roof.dimmer);   //PGraphics layer,color,alpha
+    image(roof.colorLayer, roof.size.x, roof.size.y, roof.wide, roof.high);
+  }
+
+  if (padVelocity[50] > 0) {
+    pars.colorLayer.beginDraw();
+    pars.colorLayer.background(0, 0, 0, 0);
+    pars.colorLayer.endDraw();
+    bgNoise(pars.colorLayer, pars.flash, map(padVelocity[50], 0, 1, 0, 1), cc[55]*pars.dimmer);   //PGraphics layer,color,alpha
+    image(pars.colorLayer, pars.size.x, pars.size.y, pars.wide, pars.high);
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

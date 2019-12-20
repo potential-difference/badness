@@ -168,8 +168,7 @@ void controllerChange(int channel, int number, int value) {
 
   String name = "slider "+(number-40);
   try {
-    cp5.getController(name).setValue(cc[number]);
-
+    //sliderFrame.cp5.getController(name).setValue(cc[number]);
     sliderFrame.cp5.getController(name).setValue(cc[number]);
   } 
   catch (Exception e) {
