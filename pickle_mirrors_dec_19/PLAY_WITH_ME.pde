@@ -103,23 +103,23 @@ void playWithMe() {
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////// STUTTER ///////////////////////////////////////////////x
-
+/*
   if (millis()-lastTime[49]>debouncetime) {
     if (padVelocity[49]>0) for (Anim anim : rigg.animations) {
-      anim.alphaEnvelopeA = anim.alphaEnvelopeA.mul((1-cc[46])+(stutter*cc[46]));
-      anim.alphaEnvelopeB = anim.alphaEnvelopeB.mul((1-cc[46])+(stutter*cc[46]));
+      anim.alphaEnvelopeA = anim.alphaEnvelopeA.mul((1-cc[46])+(stutter*cc[46])); // anim.alphaEnvelopeA.mul(0.6+(stutter*0.4));     //anim.alphaEnvelopeA.mul((1-cc[46])+(stutter*cc[46]));
+      anim.alphaEnvelopeB = anim.alphaEnvelopeB.mul((1-cc[46])+(stutter*cc[46])); //anim.alphaEnvelopeA.mul(0.6+(stutter*0.4)); //anim.alphaEnvelopeB.mul((1-cc[46])+(stutter*cc[46]));
     }
     lastTime[49]=millis();
   }
   
   if (millis()-lastTime[41]>debouncetime) {
     if (padVelocity[41]>0) for (Anim anim : rigg.animations) {
-      anim.functionEnvelopeA = anim.functionEnvelopeA.mul((1-cc[54])+(stutter*cc[54]));
-      anim.functionEnvelopeB = anim.functionEnvelopeB.mul((1-cc[54])+(stutter*cc[54]));
+      anim.functionEnvelopeA = anim.functionEnvelopeA.mul(0.6+(stutter*0.4));  //     anim.functionEnvelopeA.mul((1-cc[54])+(stutter*cc[54]));
+      anim.functionEnvelopeB = anim.functionEnvelopeB.mul(0.6+(stutter*0.4));    //anim.functionEnvelopeB.mul((1-cc[54])+(stutter*cc[54]));
     }
     lastTime[41]=millis();
   }
-
+*/
   //  if (padVelocity[36] > 0) {
   //    rigg.colorIndexA = (rigg.colorIndexA+1)%rigg.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
   //    cans.colorIndexA = (cans.colorIndexA+1)%cans.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
@@ -143,7 +143,10 @@ void playWithMe() {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////// PLAY WITH DRAWING FUNCTIONS ////////////////////////////////////////////////////////////// 
 void playWithMeMore() {
-
+ 
+  
+  
+  
   // rig dimmer shold affect bgnosie
 
 

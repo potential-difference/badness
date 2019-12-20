@@ -35,7 +35,7 @@ public class Rig {
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
 
     animNames = new String[] {"benjmains boxes", "checkers", "rings", "rush", "rushed", 
-      "square nuts", "diaganol nuts", "stars", "swipe", "swiped", "teeth", "donut", "all on","all off"}; 
+      "square nuts", "diaganol nuts", "stars", "swipe", "swiped", "teeth", "donut", "all on", "all off"}; 
     backgroundNames = new String[] {"one col c", "vert mirror grad", "side by side", "horiz mirror grad", 
       "one color flash", "moving horiz grad", "checked", "radiators", "stripes", "one two three"}; 
 
@@ -44,7 +44,7 @@ public class Rig {
     arrayListIndex = rigs.indexOf(this);          // where this is the rig object
     availableBkgrnds = new int[] {0, 1, 2, 3};    // default - changed when initalised;
     availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4};  
-    availableFunctionEnvelopes = new int[] {0, 1, 2, 5,6};  
+    availableFunctionEnvelopes = new int[] {0, 1, 2, 5, 6};  
 
     dimmers = new HashMap<Integer, Ref>();
 
@@ -687,10 +687,11 @@ public class Rig {
   void draw() {
     clash(beat);
     drawAnimations();
+
     dimmer = cc[40];
     blendMode(MULTIPLY);
     // this donesnt work anymore....
-    if (cc[107] > 0 || keyT['r'] || glitchToggle) bgNoise(colorLayer, 0, 0, cc[7]); //PGraphics layer,color,alpha
+    if (cc[107] > 0 || keyT['r'] || glitchToggle) bgNoise(colorLayer, 0, 0, cc[55]); //PGraphics layer,color,alpha
     drawColorLayer();
 
     blendMode(NORMAL);
