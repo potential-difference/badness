@@ -72,14 +72,14 @@ void setup()
   ///////////////// OPC over NETWORK /////////////////////
   opcMirror1 = new OPC(this, "192.168.10.2", 7890);     // left hand mirror
   opcMirror2 = new OPC(this, "192.168.10.3", 7890);     // right hand mirror
-  opcNode4 = new OPC(this, "192.168.10.209", 7890);
+  opcNode4 = new OPC(this, "192.168.10.210", 7890);
   opcNode5 = new OPC(this, "192.168.10.5", 7890);
   //opcNode6 = new OPC(this, "192.168.10.6", 7890);
   opcNode7 = new OPC(this, "192.168.10.7", 7890);
 
   opcGrid.mirrorsOPC(opcMirror1, opcMirror2, 1);               // grids 0-3 MIX IT UPPPPP 
   //opcGrid.tawSeedsOPC(cans, opcNode4, opcNode5);
-  opcGrid.tawSeedsOPC(cans, opcLocal, opcLocal);
+  opcGrid.tawSeedsOPC(cans, opcNode4, opcNode5);
   opcGrid.individualCansOPC(roof, opcNode7, true);
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
