@@ -1,17 +1,26 @@
 void setupSpecifics() {
+  /*
+   animNames = new String[] {"benjmains boxes", "checkers", "rings", "rush", "rushed", 
+   "square nuts", "diaganol nuts", "stars", "swipe", "swiped", "teeth", "donut"}; 
+   backgroundNames = new String[] {"one col c", "vert mirror grad", "side by side", "horiz mirror grad", 
+   "one color flash", "moving horiz grad", "checked", "radiators", "stripes", "one two three"}; 
+   */
 
-  rigg.availableAnims = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};      // setup which anims are used on which rig here
+  rigg.availableAnims = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};      // setup which anims are used on which rig here
   roof.availableAnims = rigg.availableAnims;      // setup which anims are used on which rig here - defualt is 0,1,2,3...
-  cans.availableAnims = new int[] {11, 4, 2, 7, 4, 5, 6, 7, 8, 9, 10, 11};      // setup which anims are used on which rig here
+  cans.availableAnims = new int[] {11, 4, 2, 7, 4, 5, 6, 7, 8, 9, 10, 12};      // setup which anims are used on which rig here
+  pars.availableAnims = new int[] {0, 12};      // setup which anims are used on which rig here
 
   rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4};  
 
   rigg.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6, 9};
   cans.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5}; //rigg.availableBkgrnds;
   roof.availableBkgrnds = new int[] {0, 1, 3, 4, 5, 8};
+  pars.availableBkgrnds = new int[] {0, 4, 5};
 
   ///////////////////////////////// UPDATE THE DROPDOWN LISTS WITH AVLIABLE OPTIONS ///////////////////////////////////////////////////////
-  for (Rig rig : rigs) {    rig.ddVizList.clear();
+  for (Rig rig : rigs) {    
+    rig.ddVizList.clear();
     rig.ddBgList.clear();
     rig.ddAlphaList.clear();
     rig.ddAlphaListB.clear();

@@ -1,6 +1,6 @@
 class SizeSettings {
-  int rigWidth, rigHeight, roofWidth, roofHeight, infoWidth, vizWidth, vizHeight, cansWidth, cansHeight, donutWidth, donutHeight;
-  PVector rig, roof, info, cans, donut;
+  int rigWidth, rigHeight, roofWidth, roofHeight, infoWidth, vizWidth, vizHeight, cansWidth, cansHeight, parsWidth, parsHeight;
+  PVector rig, roof, info, cans, donut, pars;
   int surfacePositionX, surfacePositionY, sizeX, sizeY, orientation;
 
   SizeSettings(int _orientation) {
@@ -31,20 +31,24 @@ class SizeSettings {
     roofHeight = rigHeight+cansHeight;
     roof = new PVector (rigWidth+(roofWidth/2), roofHeight/2);
 
-   
- 
-    sizeX = rigWidth+roofWidth;
+    /////////////////////////////////////////////////////////////////////////////////////
+    parsWidth = 120;
+    parsHeight = rigHeight+cansHeight;
+    pars = new PVector(rigWidth+roofWidth+(parsWidth/2),parsHeight/2);                        //( (rig.x + (rigHeight/2)) + (cans.x+(cansHeight/2)) + (parsHeight/2), parsWidth/2);
+
+
+    sizeX = rigWidth+roofWidth+parsWidth;
     sizeY = rigHeight+cansHeight;
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////
- void midiSetup() {
-    MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
-    println();
-    TR8bus = new MidiBus(this, "TR-8S", "TR8-S"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
-    LPD8bus = new MidiBus(this, "LPD8", "LPD8"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
-    beatStepBus = new MidiBus(this, "Arturia BeatStep", "Arturia BeatStep"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
-  }
+void midiSetup() {
+  MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
+  println();
+  TR8bus = new MidiBus(this, "TR-8S", "TR8-S"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
+  LPD8bus = new MidiBus(this, "LPD8", "LPD8"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
+  beatStepBus = new MidiBus(this, "Arturia BeatStep", "Arturia BeatStep"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
+}
 
 //////////////////////////////////////// LOAD IMAGES ///////////////////////////
 PImage bar1, flames; 
@@ -96,7 +100,7 @@ void loadAudio() {
 }
 ////////////////////////////////// SETUP SKETCH DRAWING NORMALS ////////////////////////
 void drawingSetup() {
- 
+
   colorMode(HSB, 360, 100, 100);
   blendMode(ADD);
   rectMode(CENTER);

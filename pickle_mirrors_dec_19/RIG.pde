@@ -29,13 +29,13 @@ public class Rig {
     high = _high;
     size = new PVector (_xpos, _ypos);
     toggle = _toggle;
-    
+
     cp5 = controlFrame.cp5;
 
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
 
     animNames = new String[] {"benjmains boxes", "checkers", "rings", "rush", "rushed", 
-      "square nuts", "diaganol nuts", "stars", "swipe", "swiped", "teeth", "donut"}; 
+      "square nuts", "diaganol nuts", "stars", "swipe", "swiped", "teeth", "donut", "all on"}; 
     backgroundNames = new String[] {"one col c", "vert mirror grad", "side by side", "horiz mirror grad", 
       "one color flash", "moving horiz grad", "checked", "radiators", "stripes", "one two three"}; 
 
@@ -109,7 +109,7 @@ public class Rig {
     col[14] = teal;
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
     ////////////////////////////// LOAD CONTROLLERS //////////////////////////////////////////////////////////////////////////////
-    int clm = 320;           // distance between coloms
+    int clm = 300;           // distance between coloms
     float x = clm;
     float y = 90;
     int swide = 80;           // x size of sliders
@@ -590,10 +590,16 @@ public class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void addAnim(int animIndex) {
     Anim anim = new Anim(this);
-    int index = availableAnims[animIndex];
+
+//    println(name+" aval anims");
+//println(availableAnims);
+    int index = this.availableAnims[animIndex];
+    
+    //println(name+" index", index);
+    //println();
+
     switch (index) {
     case 0:  
-      //animName = "BenjaminsBoxes";
       anim = new BenjaminsBoxes(this);
       break;
     case 1:  
@@ -628,11 +634,9 @@ public class Rig {
       break;
     case 11:  
       anim = new Donut(this);
+    case 12:
+      anim = new AllOn(this);
       break;
-
-      //default:
-      //  anim = new Rings(this);
-      //  break;
     }
     //    Ref t=new Ref(new float[]{1.0}, 0);
     //    if (t != null) anim.animDimmer = anim.animDimmer.mul(t);

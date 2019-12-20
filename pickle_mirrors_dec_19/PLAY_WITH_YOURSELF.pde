@@ -48,9 +48,10 @@ void playWithYourself(float vizTm) {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////// PLAY WITH COLOUR ////////////////////////////////////////////////////////////////
   colTime = colorTimerSlider*60*30;
-  rigg.colorTimer(colTime, 1); //// seconds between colour change, number of steps to cycle through colours
-  roof.colorTimer(colTime/1.5, 2); //// seconds between colour change, number of steps to cycle through colours
-  cans.colorTimer(colTime/2, 2); //// seconds between colour change, number of steps to cycle through colours
+  for(Rig rig : rigs) rig.colorTimer(colTime, 1); //// seconds between colour change, number of steps to cycle through colours
+  //roof.colorTimer(colTime/1.5, 1); //// seconds between colour change, number of steps to cycle through colours
+  //cans.colorTimer(colTime/2, 1); //// seconds between colour change, number of steps to cycle through colours
+  //pars.colorTimer(colTime/2, 1); //// seconds between colour change, number of steps to cycle through colours
 
   if (millis()/1000 % 60 == 0) for (Rig rig : rigs) rig.bgIndex = (rig.bgIndex+1) % rig.availableBkgrnds.length;               // change colour layer automatically
 

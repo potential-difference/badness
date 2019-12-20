@@ -110,8 +110,6 @@ class OPCGrid {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    booth = new PVector (104, 15);
-    dig = new PVector (booth.x+110, booth.y);
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////// MIRRORS //////////////////////////////////////////////
@@ -543,7 +541,7 @@ class OPCGrid {
     float xw = 6;
     float y = rig.size.y;
     if (offset) y = rig.size.y - rig.high/(xw+1)/(xw/2);
-    
+
     for (int i=0; i<cans.length/xw; i++) cans[i] =     new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*1);
     for (int i=0; i<cans.length/xw; i++) cans[i+3] =   new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*2);
     for (int i=0; i<cans.length/xw; i++) cans[i+6] =   new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*3);
@@ -658,14 +656,17 @@ class OPCGrid {
 
   ////////////////////////////////////// BOOTH LIGHTS ///////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void pickleBoothOPC(OPC opc) {
-    int fc = 2 * 512;
+  void standAloneBoothOPC(OPC opc) {
+    booth = new PVector (104, 15);
+    dig = new PVector (booth.x+110, booth.y);
+
+    int fc = 10 * 512;
     int channel = 64;       
 
-    opc.led(fc+(channel*0), int(dig.x-5), int(dig.y));
-    opc.led(fc+(channel*1), int(dig.x+5), int(dig.y));
+    opc.led(fc+(channel*1), int(booth.x-5), int(booth.y));
 
-    opc.led(fc+(channel*2), int(booth.x-5), int(booth.y));
+    opc.led(fc+(channel*2), int(dig.x-5), int(dig.y));
+    opc.led(fc+(channel*3), int(dig.x+5), int(dig.y));
   }
 
   void kingsHeadBoothOPC(OPC opc) {
@@ -677,6 +678,13 @@ class OPCGrid {
 
     opc.led(fc+(channel*1), int(booth.x-5), int(booth.y));
   }
+  ////////////////////////////////// DMX PARS /////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  void dmxParsOPC(OPC opc) {
+    for (int i = 0; i < 12; i+=2) opc.led(6048+i, int(pars.size.x), int(pars.size.y-(pars.high/2)+100+(i*40)));
+  } 
+
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

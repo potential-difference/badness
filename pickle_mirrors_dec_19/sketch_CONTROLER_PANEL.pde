@@ -33,12 +33,12 @@ cp5.getProperties().setFormat(ControlP5.SERIALIZED);
     this.x = this.width-65;
     this.wide = 20;
     this.high = 20;
-    loadToggle("onTop", onTop, x, y, wide, high, bac1, bac, slider);
-    loadToggle("glitchToggle", glitchToggle, x, y+35, wide, high, bac1, bac, slider);
-    loadToggle("roofBasic", roofBasic, x, y+70, wide, high, bac1, bac, slider);
+    loadToggle("onTop", onTop, 1200, 45, wide, high, bac1, bac, slider);
+    //loadToggle("glitchToggle", glitchToggle, x, y+35, wide, high, bac1, bac, slider);
+    //loadToggle("roofBasic", roofBasic, x, y+70, wide, high, bac1, bac, slider);
     //loadToggle("syphonToggle", syphonToggle, x, y+105, wide, high, bac1, bac, slider);
 
-    loadToggle("testToggle", testToggle, x, y+105, 55, 55, bac1, bac, slider);
+    loadToggle("testToggle", testToggle, x, 10, 55, 55, bac1, bac, slider);
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
@@ -298,11 +298,13 @@ class ControlFrame extends PApplet {
   public void controlEvent(ControlEvent theEvent) {
     int intValue = int(theEvent.getValue());
     float value = theEvent.getValue();
+    //float[] arrayValue = theEvent.getArrayValue();
     int someDelay = 120; // silence at startup
     for (Rig rig : rigs) {                        
       if (theEvent.isFrom(rig.ddVizList)) {
         if (frameCount > someDelay)    println(rig.name+" viz selected "+intValue);
         rig.vizIndex = intValue;
+        //println(arrayValue);
       }
       if (theEvent.isFrom(rig.ddBgList)) {
         if (frameCount > someDelay)    println(rig.name+" background selected "+intValue);

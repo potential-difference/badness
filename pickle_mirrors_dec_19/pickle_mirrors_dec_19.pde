@@ -2,7 +2,7 @@ OPC opcLocal;
 OPC opcMirror1; 
 OPC opcMirror2;
 OPC opcNode4;
-OPC opcNode5;
+OPC opcNode3;
 OPC opcNode6;
 OPC opcNode7;
 OPC opcWifi;
@@ -24,7 +24,7 @@ SizeSettings size;
 OPCGrid opcGrid;
 ControlFrame controlFrame, sliderFrame;
 
-Rig rigg, roof, cans, mirrors, strips, donut, seeds;
+Rig rigg, roof, cans, mirrors, strips, donut, seeds, pars;
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
 
 import javax.sound.midi.ShortMessage;       // shorthand names for each control on the TR8
@@ -57,11 +57,13 @@ void setup()
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
 
   controlFrame = new MainControlFrame(this, width, 290, size.surfacePositionX, size.surfacePositionY+height+5); // load control frame must come after shild ring etc
-
   opcGrid = new OPCGrid();
+
+  //Rig(boolean _toggle, float _xpos, float _ypos, int _wide, int _high, String _name) {
   rigg = new Rig(false, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
   cans = new Rig(false, size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "SEEDS");
   roof = new Rig(true, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "CANS");
+  pars = new Rig(true, size.pars.x, size.pars.y, size.parsWidth, size.parsHeight, "PARS");
 
   int frameWidth = 220;
   sliderFrame = new SliderFrame(this, frameWidth, height+controlFrame.height+5, size.surfacePositionX-frameWidth-5, size.surfacePositionY); // load control frame must come after shild ring etc
@@ -71,16 +73,17 @@ void setup()
 
   ///////////////// OPC over NETWORK /////////////////////
   opcMirror1 = new OPC(this, "192.168.10.2", 7890);     // left hand mirror
-  opcMirror2 = new OPC(this, "192.168.10.3", 7890);     // right hand mirror
+  opcMirror2 = new OPC(this, "192.168.10.5", 7890);     // right hand mirror
   opcNode4 = new OPC(this, "192.168.10.210", 7890);
-  opcNode5 = new OPC(this, "192.168.10.5", 7890);
+  opcNode3 = new OPC(this, "192.168.10.3", 7890);
   //opcNode6 = new OPC(this, "192.168.10.6", 7890);
   opcNode7 = new OPC(this, "192.168.10.7", 7890);
 
   opcGrid.mirrorsOPC(opcMirror1, opcMirror2, 1);               // grids 0-3 MIX IT UPPPPP 
-  //opcGrid.tawSeedsOPC(cans, opcNode4, opcNode5);
-  opcGrid.tawSeedsOPC(cans, opcNode4, opcNode5);
+  opcGrid.standAloneBoothOPC(opcLocal);
+  opcGrid.tawSeedsOPC(cans, opcNode4, opcNode3);
   opcGrid.individualCansOPC(roof, opcNode7, true);
+  opcGrid.dmxParsOPC(opcLocal);
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
   midiSetup();
@@ -135,7 +138,8 @@ void draw()
     for (Rig rig : rigs) {
       if (rig.toggle) {
         //if (testToggle) rig.animations.add(new Test(rig));
-        rig.addAnim(rig.availableAnims[rig.vizIndex]);           // create a new anim object and add it to the beginning of the arrayList
+       //println(rig.name+" vizIndex", rig.vizIndex);
+        rig.addAnim(rig.vizIndex);           // create a new anim object and add it to the beginning of the arrayList
       }
     }
   }

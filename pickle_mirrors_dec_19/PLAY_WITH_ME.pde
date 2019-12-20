@@ -24,7 +24,7 @@ void playWithMe() {
       if (rig.toggle) {
         beatTrigger = true;
         //if (testToggle) rig.animations.add(new Test(rig));
-        rig.addAnim(rig.availableAnims[rig.vizIndex]);
+        rig.addAnim(rig.vizIndex);
       }
     }
   } 

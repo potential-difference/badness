@@ -1,6 +1,5 @@
 
 abstract class ManualAnim extends Anim {
-
   ManualAnim(Rig _rig) {
     super(_rig);
     alphaRate = _rig.manualAlpha;
@@ -16,28 +15,21 @@ abstract class ManualAnim extends Anim {
     image(window, rig.size.x, rig.size.y, window.width, window.height);
   }
 }
-/*
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
- class AllOn extends ManualAnim {
- float manualAlpha;
- void trigger() {
- super.trigger();
- manualAlpha=1;
- }
- void decay() {
- super.decay();
- manualAlpha*=map(this.alphaRate, 0, 1, 0.5, 0.97);
- manualAlpha*=this.funcRate;
- }
- AllOn(Rig _rig) {
- super( _rig);
- alphaRate=manualSlider;
- }
- void draw() {
- window.background(360*manualAlpha);
- }
- }
- */
+class AllOn extends Anim {
+  
+  AllOn(Rig _rig) {
+    super( _rig);
+    alphaRate=manualSlider;
+  }
+  void draw() {
+    window.beginDraw();
+    window.background(360*alphaA);
+    window.endDraw();
+  }
+}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -45,7 +37,6 @@ abstract class ManualAnim extends Anim {
 class BenjaminsBoxes extends Anim {
   BenjaminsBoxes (Rig _rig) {
     super(_rig);
-    animName = "benjamins boxes";
   }
   void draw() {
     window.beginDraw();
@@ -53,9 +44,9 @@ class BenjaminsBoxes extends Anim {
     wide = 600;
     high = 1000;
 
-    stroke *=strokeSlider;
-    wide *=wideSlider;
-    high *=highSlider;
+    //stroke *=strokeSlider;
+    //wide *=wideSlider;
+    //high *=highSlider;
 
     rotate = 45+(15*noize); //+(functionB*30);
     float xpos = 10+(noize*window.width/4);
@@ -121,7 +112,7 @@ class Checkers extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    stroke = 50;
+    stroke = 20+(10*strokeSlider);
     rotate = 0;
     if (_beatCounter % 9 <4) { 
       for (int i = 0; i < opcGrid.columns; i+=2) {
@@ -129,7 +120,7 @@ class Checkers extends Anim {
         wide = 50+(wide-(wide*functionA)); 
         high = wide;
 
-        stroke *=strokeSlider;
+        //stroke *=strokeSlider;
         wide *=wideSlider;
         high *=highSlider;
 
@@ -140,7 +131,7 @@ class Checkers extends Anim {
         wide = (wide-(wide*functionA)); 
         high = wide;
 
-        stroke *=strokeSlider;
+        //stroke *=strokeSlider;
         wide *=wideSlider;
         high *=highSlider;
 
@@ -153,7 +144,7 @@ class Checkers extends Anim {
         wide = 50+(wide-(wide*functionA)); 
         high = wide;
 
-        stroke *=strokeSlider;
+        //stroke *=strokeSlider;
         wide *=wideSlider;
         high *=highSlider;
 
@@ -163,7 +154,7 @@ class Checkers extends Anim {
         wide = (wide-(wide*functionB)); 
         high = wide;
 
-        stroke *=strokeSlider;
+        //stroke *=strokeSlider;
         wide *=wideSlider;
         high *=highSlider;
 
@@ -197,25 +188,23 @@ class Rings extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    stroke = 60+(90*functionA);
+    stroke = 15+(90*functionA)+(10*strokeSlider);
     wide = vizWidth*1.2;
     wide = wide-(wide*functionA);
     high = wide*2;
     rotate = 90*noize*functionB;
 
-    stroke *=strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
 
     donut(position[2].x, position[2].y, col1, stroke, wide, high, rotate, alphaA);
     donut(position[9].x, position[9].y, col1, stroke, wide, high, rotate, alphaA);
-    stroke = 30+(90*functionB*oskP);
+    stroke = 15+(90*functionB*oskP)+(10*strokeSlider);
     wide = vizWidth*1.2;
     wide = wide-(wide*functionB);
     high = wide*2;
     rotate = -90*noize*functionA;
 
-    stroke *=strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
 
