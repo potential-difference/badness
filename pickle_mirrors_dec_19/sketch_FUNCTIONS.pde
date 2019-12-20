@@ -111,10 +111,11 @@ void boothLights() {
 /////////////////// TEST ALL COLOURS - TURN ALL LEDS ON AND CYCLE COLOURS ////////////////////////////////
 void testColors(boolean _test) {
   if (_test) {
-    fill((millis()/50)%360, 100, 100, 360*rigg.dimmer);           
-    rect(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight);
-    rect(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight);
-    rect(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight);
+
+    fill((millis()/50)%360, 100, 100, 360*rigg.dimmer); 
+        for(Rig rig : rigs)     rect(rig.size.x, rig.size.y, rig.wide,rig.high);
+
+   
     rect(opcGrid.booth.x, opcGrid.booth.y, 30, 10);
     rect(opcGrid.dig.x, opcGrid.dig.y, 30, 10);
   }

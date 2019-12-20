@@ -7,8 +7,7 @@ class OPCGrid {
   PVector[] cans = new PVector[18];
   PVector[] strip = new PVector[6];
   PVector[] controller = new PVector[4];
-  PVector uv; 
-  PVector booth, dig;
+  PVector booth, dig, smokeFan, smokePump, uv;
   float yTop;                            // height Valuve for top line of mirrors
   float yBottom;  
   float yMid = size.rig.y;   
@@ -678,10 +677,18 @@ class OPCGrid {
 
     opc.led(fc+(channel*1), int(booth.x-5), int(booth.y));
   }
-  ////////////////////////////////// DMX PARS /////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////// DMX  /////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void dmxParsOPC(OPC opc) {
     for (int i = 0; i < 12; i+=2) opc.led(6048+i, int(pars.size.x), int(pars.size.y-(pars.high/2)+100+(i*40)));
+  } 
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  void dmxSmokeOPC(OPC opc) {
+    smokePump = new PVector (304, 15);
+    smokeFan = new PVector (smokePump.x+140, 15);
+
+    opc.led(7000, int(smokePump.x), int(smokePump.y));
+    opc.led(7001, int(smokeFan.x), int(smokeFan.y));
   } 
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

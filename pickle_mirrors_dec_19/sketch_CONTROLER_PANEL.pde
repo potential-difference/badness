@@ -2,14 +2,14 @@ boolean glitchToggle, roofBasic = false, testToggle;
 float vizTimeSlider, colorSwapSlider, colorTimerSlider, boothDimmer, digDimmer, backDropSlider;
 float tweakSlider, blurSlider, bgNoiseBrightnessSlider, bgNoiseDensitySlider, manualSlider, stutterSlider;
 float shimmerSlider, funcSlider, beatSlider;
-float smokePump, smokeFan, smokeOnTime, smokeOffTime;
+float smokePumpValue, smokeOnTime, smokeOffTime;
 float wideSlider, strokeSlider, highSlider;
 
 class MainControlFrame extends ControlFrame {
   MainControlFrame(PApplet _parent, int _controlW, int _controlH, int _xpos, int _ypos) {
     super (_parent, _controlW, _controlH, _xpos, _ypos);
     cp5 = new ControlP5(this);
-cp5.getProperties().setFormat(ControlP5.SERIALIZED);
+    cp5.getProperties().setFormat(ControlP5.SERIALIZED);
 
     this.x = 10;
     this.y = 90;
@@ -24,9 +24,13 @@ cp5.getProperties().setFormat(ControlP5.SERIALIZED);
     loadSlider("colorSwapSlider", x, y+row*4, wide, high, 0, 1, 0.9, act1, bac1, slider1);
     loadSlider("manualSlider", x, y+row*5, wide, high, 0, 1, 0.9, act, bac, slider);
 
-    loadSlider("strokeSlider", x, y+row*7, wide, high, 1, 5, 0, act1, bac1, slider1);
-    loadSlider("wideSlider", x, y+row*8, wide, high, 1, 5, 0, act, bac, slider);
-    loadSlider("highSlider", x, y+row*9, wide, high, 1, 5, 0, act1, bac1, slider1);
+    loadSlider("strokeSlider", x, y+row*7, wide/2, high, 1, 5, 0, act1, bac1, slider1);
+    loadSlider("wideSlider", x, y+row*8, wide/2, high, 1, 5, 0, act, bac, slider);
+    loadSlider("highSlider", x, y+row*9, wide/2, high, 1, 5, 0, act1, bac1, slider1);
+
+    loadSlider("smokeOnTime", x+140, y+row*7, wide/2, high, 1, 10, 3, act, bac, slider);
+    loadSlider("smokeOffTime", x+140, y+row*8, wide/2, high, 0, 20, 10, act1, bac1, slider1);
+    loadSlider("smokePumpValue", x+140, y+row*9, wide/2, high, 0, 1, 0.1, act, bac, slider);
 
     /////////////////////////////// GLOBAL TOGGLE BUTTONS//////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -244,7 +248,7 @@ class ControlFrame extends PApplet {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void loadSlider(String label, float x, float y, int wide, int high, float min, float max, float startVal, color act1, color bac1, color slider1) {
     cp5.addSlider(label)
-      .plugTo(parent,label)
+      .plugTo(parent, label)
       .setPosition(x, y)
       .setSize(wide, high)
       //.setFont(font)
@@ -373,7 +377,7 @@ void setCCfromController(String name, float value) {
   }
   int  index = tens * 10 + ones + 40;
   cc[index] = value;
-  
+
   int someDelay = 120; // silence at startup
   if (frameCount > someDelay) println("set cc["+index+"]", value);
 }
@@ -385,37 +389,7 @@ void setCCfromController(String name, float value) {
 
 
 /* // old sliders 
-/*        
- cp5.addSlider("smokePump")
- .plugTo(parent, "smokePump")      .setPosition(x, y+row)
- .setPosition(x, y+row*3)
- .setSize(wide, high)
- .setRange(0, 1)
- .setValue(0.75) // start value of slider
- .setColorActive(act) 
- .setColorBackground(bac) 
- .setColorForeground(slider) 
- ;
- cp5.addSlider("smokeOnTime")
- .plugTo(parent, "smokeOnTime")      .setPosition(x, y+row)
- .setPosition(x, y+row*4)
- .setSize(wide, high)
- .setRange(0, 1)
- .setValue(0.5) // start value of slider
- .setColorActive(act1) 
- .setColorBackground(bac1) 
- .setColorForeground(slider1) 
- ;
- cp5.addSlider("smokeOffTime")
- .plugTo(parent, "smokeOffTime")      .setPosition(x, y+row)
- .setPosition(x, y+row*5)
- .setSize(wide, high)
- .setRange(0, 1)
- .setValue(0.5) // start value of slider
- .setColorActive(act) 
- .setColorBackground(bac) 
- .setColorForeground(slider) 
- ;
+ 
  x+=clm;
  //////////////////////////////////////////////////////////////////////////////////////////////////
  /////////////////////////////// FOURTH coloum of sliders ///////////////////////////////////////

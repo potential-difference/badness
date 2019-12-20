@@ -84,6 +84,7 @@ void setup()
   opcGrid.tawSeedsOPC(cans, opcNode4, opcNode3);
   opcGrid.individualCansOPC(roof, opcNode7, true);
   opcGrid.dmxParsOPC(opcLocal);
+  opcGrid.dmxSmokeOPC(opcLocal);
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
   midiSetup();
@@ -138,7 +139,7 @@ void draw()
     for (Rig rig : rigs) {
       if (rig.toggle) {
         //if (testToggle) rig.animations.add(new Test(rig));
-       //println(rig.name+" vizIndex", rig.vizIndex);
+        //println(rig.name+" vizIndex", rig.vizIndex);
         rig.addAnim(rig.vizIndex);           // create a new anim object and add it to the beginning of the arrayList
       }
     }
@@ -156,14 +157,49 @@ void draw()
   workLights(keyT['w']);
   testColors(keyT['t']);
   mouseInfo(keyT['q']);
+  //////////////////////////////////////////// !!!SMOKE!!! ///////////////////////////////////////////////////////////////////////////////////////
+  dmxSmoke();
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   frameRateInfo(5, 20);                     // display frame rate X, Y /////
   dividerLines();
   //gid.mirrorTest(false);                  // true to test physical mirror orientation
   //syphonSendImage(syphonToggle);
 }
+void dmxSmoke() {
+  ////////////////////////////////////// DMX SMOKE //////////////////////////////////
 
 
+  fill(0, 150);
+  strokeWeight(1);
+  stroke(rigg.flash, 60);
+  rect(opcGrid.smokePump.x+80, opcGrid.smokePump.y, 220, 30);
+  noStroke();
+  fill(0);
+  rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 40, 15);
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  fill(rigg.c, 360);
+  textAlign(LEFT);
+  textSize(16);
+  text("PUMP", opcGrid.smokePump.x+25, opcGrid.smokePump.y+6);
+
+  float smokeInterval = smokeOffTime*60;
+  float smokeOn = smokeOnTime;
+  if (millis()/1000 % smokeInterval > smokeInterval - smokeOn) {
+    fill(360*smokePumpValue);
+    println("SMOKE SHOULD BE ON");
+
+    rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 10, 10);
+  }
+  println(smokePumpValue);
+  float smokeInfo = millis()/1000 % smokeInterval - (smokeInterval);
+  fill(300);
+  text("smoke on in: "+smokeInfo+" seconds", opcGrid.smokePump.x+200, opcGrid.smokePump.y+5);
+
+  if (keyP[32]) {
+    fill(360*smokePumpValue);
+    rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 10, 10);
+  }
+}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////// THE END //////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
