@@ -72,6 +72,7 @@ void playWithMe() {
   if (millis()-lastTime[47]>debouncetime) {
     if (padVelocity[47]>0) {
       rigg.animations.add( new AllOn(rigg)); //rigg.anim.alphaEnvelopeA = new CrushPulse(0.031, 0.040, 0.913, avgmillis*rigg.alphaRate*3+0.5, 0.0, 0.0);
+      //anim = rigg.animations.get(rigg.animations.size()-1);
       lastTime[47]=millis();
     }
   }
