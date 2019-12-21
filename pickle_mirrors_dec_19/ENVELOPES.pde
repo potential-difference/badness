@@ -77,47 +77,47 @@ Envelope CrushPulse(float attack_proportion, float sustain_proportion, float dec
 Envelope envelopeFactory(int envelope_index, Rig rig) {
   switch (envelope_index) {
   case 0: 
-    //return SimplePulse(cc[41]*4000, cc[42]*4000, cc[43]*4000, cc[44], cc[45]);
+    // BEATZ
     return CrushPulse(0.031, 0.040, 0.913, avgmillis*rig.alphaRate*15+0.5, 0.0, 0.0);
   case 1:
-    //return CrushPulse(cc[49], cc[50], cc[51], avgmillis*rig.beatSlider*15+0.5, cc[52], cc[53]);
+    // PULZ
     return CrushPulse(0.92, 0.055, 0.071, avgmillis*rig.alphaRate*10+0.5, 0.0, 0);
   case 2:
-    //Envelope CrushPulse(float attack_proportion, float sustain_proportion, float decay_proportion, Number total_time, float attack_curv, float decay_curv) {
+    // BEAT CONROLLED BY PAD
     return CrushPulse(cc[41], cc[42], cc[43], avgmillis*rig.alphaRate*15+0.5, 0.0, 0.0);
   case 3:
-    // pulz controlled by pad
+    // PULZ CONTROLLED BY PAD
     return CrushPulse(cc[49], cc[50], cc[51], avgmillis*rig.alphaRate*10+0.5, 0.0, 0.0);
   case 4:
-    //Envelope Squiggle(Number attack_t, Number sustain_t, Number decay_t, float attack_curv, float decay_curv, float sqiggle_curv, float squiggliness, int squiggle_spd) {
+    // SQUIGGLE (BEATS) CONTROLLED BY PAD 
     return Squiggle(cc[41], cc[42], cc[43], avgmillis*rig.alphaRate*15+0.5, 0.01+cc[44], cc[45]);
   case 5:
-    //Envelope Squiggle(Number attack_t, Number sustain_t, Number decay_t, float attack_curv, float decay_curv, float sqiggle_curv, float squiggliness, int squiggle_spd) {
+    // SQUIGGLE (PULZ) CONTROLLED BY PAD 
     return Squiggle(cc[49], cc[50], cc[51], avgmillis*rig.alphaRate*10+0.5, 0.01+cc[52], cc[53]);
   case 6:
+    // STUTTER
     return CrushPulse(0.031, 0.040, 0.913, avgmillis*rig.alphaRate*15+0.5, 0.0, 0.0).mul(stutter);
   default: 
     return CrushPulse(0.031, 0.040, 0.913, avgmillis*rig.alphaRate*15+0.5, 0.02, 0.02);
   }
 }
-/*
+
 Envelope functionEnvelopeFactory(int envelope_index, Rig rig) {
- switch (envelope_index) {
- case 0: 
- //return SimplePulse(cc[41]*4000, cc[42]*4000, cc[43]*4000, cc[44], cc[45]);
- return CrushPulse(0.031, 0.040, 0.913, avgmillis*rig.funcRate*15+0.5, 0.02, 0.02);
- case 1:
- //return CrushPulse(cc[49], cc[50], cc[51], avgmillis*rig.beatSlider*15+0.5, cc[52], cc[53]);
- return CrushPulse(0.92, 0.055, 0.071, avgmillis*rig.funcRate*15+0.5, 0.118, 0);
- case 2:
- return CrushPulse(cc[41], cc[42], cc[43], avgmillis*rig.funcRate*15+0.5, 0.02, 0.02);
- case 3:
- return CrushPulse(cc[44], cc[45], cc[46], avgmillis*rig.funcRate*15+0.5, 0.02, 0.02);
- case 4:
- //Envelope Squiggle(Number attack_t, Number sustain_t, Number decay_t, float attack_curv, float decay_curv, float sqiggle_curv, float squiggliness, int squiggle_spd) {
- return Squiggle(cc[49], cc[50], cc[51], avgmillis*rig.funcRate*15+0.5, 0.01+cc[52], cc[53]);
- default: 
- return CrushPulse(0.031, 0.040, 0.913, avgmillis*rig.funcRate*15+0.5, 0.02, 0.02);
- }
- }
- */
+  switch (envelope_index) {
+  case 0: 
+    //return SimplePulse(cc[41]*4000, cc[42]*4000, cc[43]*4000, cc[44], cc[45]);
+    return CrushPulse(0.031, 0.040, 0.913, avgmillis*rig.funcRate*15+0.5, 0.02, 0.02);
+  case 1:
+    //return CrushPulse(cc[49], cc[50], cc[51], avgmillis*rig.beatSlider*15+0.5, cc[52], cc[53]);
+    return CrushPulse(0.92, 0.055, 0.071, avgmillis*rig.funcRate*15+0.5, 0.118, 0);
+  case 2:
+    return CrushPulse(cc[41], cc[42], cc[43], avgmillis*rig.funcRate*15+0.5, 0.02, 0.02);
+  case 3:
+    return CrushPulse(cc[44], cc[45], cc[46], avgmillis*rig.funcRate*15+0.5, 0.02, 0.02);
+  case 4:
+    //Envelope Squiggle(Number attack_t, Number sustain_t, Number decay_t, float attack_curv, float decay_curv, float sqiggle_curv, float squiggliness, int squiggle_spd) {
+    return Squiggle(cc[49], cc[50], cc[51], avgmillis*rig.funcRate*15+0.5, 0.01+cc[52], cc[53]);
+  default: 
+    return CrushPulse(0.031, 0.040, 0.913, avgmillis*rig.funcRate*15+0.5, 0.02, 0.02);
+  }
+}

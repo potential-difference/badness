@@ -561,8 +561,8 @@ class Anim {
 
     alphaEnvelopeA = envelopeFactory(rig.availableAlphaEnvelopes[rig.alphaIndexA], rig);
     alphaEnvelopeB = envelopeFactory(rig.availableAlphaEnvelopes[rig.alphaIndexB], rig);
-    functionEnvelopeA = envelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexA], rig);
-    functionEnvelopeB = envelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexB], rig);
+    functionEnvelopeA = functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexA], rig);
+    functionEnvelopeB = functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexB], rig);
   }
 
   void draw() {
@@ -579,8 +579,8 @@ class Anim {
     int now = millis();
     alphaA = alphaEnvelopeA.value(now);
     alphaB = alphaEnvelopeB.value(now);
-    alphaA*=rig.dimmer*animDimmer.get();
-    alphaB*=rig.dimmer*animDimmer.get();          // not sure how to link this yet
+    alphaA *=rig.dimmer;
+    alphaB *=rig.dimmer;          // not sure how to link this yet
 
     functionA = functionEnvelopeA.value(now); 
     functionB = functionEnvelopeB.value(now);

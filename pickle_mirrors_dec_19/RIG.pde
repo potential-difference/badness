@@ -46,7 +46,7 @@ public class Rig {
     availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4};  
     availableFunctionEnvelopes = new int[] {0, 1, 2, 5, 6};  
 
-    dimmers = new HashMap<Integer, Ref>();
+    //dimmers = new HashMap<Integer, Ref>();
 
     int xw = 2;
     for (int i = 0; i < position.length/xw; i++) position[i] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*1);
@@ -688,7 +688,7 @@ public class Rig {
     clash(beat);
     drawAnimations();
 
-    dimmer = cc[40];
+    //dimmer = cc[40];
     blendMode(MULTIPLY);
     // this donesnt work anymore....
     if (cc[107] > 0 || keyT['r'] || glitchToggle) bgNoise(colorLayer, 0, 0, cc[55]); //PGraphics layer,color,alpha

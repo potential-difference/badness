@@ -22,13 +22,6 @@ void keyPressed() {
   if (key == 'b') rigg.vizIndex -=1;                            //// STEP BACK TO PREVIOUS RIG VIZ
   if (rigg.vizIndex <0) rigg.vizIndex = rigg.availableAnims.length-1;
   if (key == 'm') rigg.bgIndex = (rigg.bgIndex+1)%rigg.availableBkgrnds.length;                 //// CYCLE THROUGH RIG BACKGROUNDS
-
-  /////////////////////////////// ROOF KEY FUNCTIONS ////////////////////////
-  if (key == 'h') cans.vizIndex = (cans.vizIndex+1)%cans.availableAnims.length;               //// STEP FORWARD TO NEXT RIG VIZ
-  if (key == 'g') cans.vizIndex -= 1;                          //// STEP BACK TO PREVIOUS RIG VIZ
-  if (cans.vizIndex <0) cans.vizIndex = cans.availableAnims.length-1;
-  if (key == 'j') cans.bgIndex = (cans.bgIndex+1)%cans.availableBkgrnds.length;               //// CYCLE THROUGH ROOF BACKGROUNDS
-
   if (key == ',') {                                      //// CYCLE THROUGH RIG FUNCS
     rigg.functionIndexA = (rigg.functionIndexA+1)%rigg.availableFunctionEnvelopes.length; //animations.func.length; 
     rigg.functionIndexB = (rigg.functionIndexB+1)%rigg.availableFunctionEnvelopes.length; //fct.length;
@@ -37,32 +30,40 @@ void keyPressed() {
     rigg.alphaIndexA = (rigg.alphaIndexA+1)% rigg.availableAlphaEnvelopes.length; //alph.length; 
     rigg.alphaIndexB = (rigg.alphaIndexB+1)% rigg.availableAlphaEnvelopes.length; //alph.length;
   }   
-  if (key == 'k') {                                      //// CYCLE THROUGH ROOF FUNCS
-    cans.functionIndexA = (cans.functionIndexA+1)%cans.availableFunctionEnvelopes.length; 
-    cans.functionIndexB = (cans.functionIndexB+1)%cans.availableFunctionEnvelopes.length;
-  }  
-  if (key == 'l') {                                      //// CYCLE THROUGH ROOF ALPHAS
-    cans.alphaIndexA = (cans.alphaIndexA+1)%cans.availableAlphaEnvelopes.length; 
-    cans.alphaIndexB = (cans.alphaIndexB+1)%cans.availableAlphaEnvelopes.length;
-  }   
   if (key == 'c') rigg.colorIndexA = (rigg.colorIndexA+1)%rigg.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
   if (key == 'v') rigg.colorIndexB = (rigg.colorIndexB+1)%rigg.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
-
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////// ROOF KEY FUNCTIONS ///////////////////////////////////////////////////////////////////////////////
+  if (key == 'h') roof.vizIndex = (roof.vizIndex+1)%roof.availableAnims.length;               //// STEP FORWARD TO NEXT RIG VIZ
+  if (key == 'g') roof.vizIndex -= 1;                          //// STEP BACK TO PREVIOUS RIG VIZ
+  if (roof.vizIndex <0) roof.vizIndex = roof.availableAnims.length-1;
+  if (key == 'j') roof.bgIndex = (roof.bgIndex+1)%roof.availableBkgrnds.length;               //// CYCLE THROUGH ROOF BACKGROUNDS
+  if (key == 'k') {                                      //// CYCLE THROUGH ROOF FUNCS
+    roof.functionIndexA = (roof.functionIndexA+1)%roof.availableFunctionEnvelopes.length; 
+    roof.functionIndexB = (roof.functionIndexB+1)%roof.availableFunctionEnvelopes.length;
+  }  
+  if (key == 'l') {                                      //// CYCLE THROUGH ROOF ALPHAS
+    roof.alphaIndexA = (roof.alphaIndexA+1)%roof.availableAlphaEnvelopes.length; 
+    roof.alphaIndexB = (roof.alphaIndexB+1)%roof.availableAlphaEnvelopes.length;
+  }
   if (key == 'd') {
-    cans.colorIndexA = (cans.colorIndexA+1)%cans.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
+    roof.colorIndexA = (roof.colorIndexA+1)%cans.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
   }
   if (key == 'f') {
-    cans.colorIndexB = (cans.colorIndexB+1)%cans.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
+    roof.colorIndexB = (roof.colorIndexB+1)%cans.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
   }
 
-  roof.alphaIndexA = rigg.alphaIndexA;
-  roof.alphaIndexB = rigg.alphaIndexB;
 
-  roof.functionIndexA = roof.functionIndexA;
-  roof.functionIndexA = roof.functionIndexA;
 
-  roof.c = rigg.c;
-  roof.flash = rigg.flash;
+
+  //roof.alphaIndexA = rigg.alphaIndexA;
+  //roof.alphaIndexB = rigg.alphaIndexB;
+
+  //roof.functionIndexA = roof.functionIndexA;
+  //roof.functionIndexA = roof.functionIndexA;
+
+  //roof.c = rigg.c;
+  //roof.flash = rigg.flash;
 
 
   if (key == '[') vizHold = !vizHold; 

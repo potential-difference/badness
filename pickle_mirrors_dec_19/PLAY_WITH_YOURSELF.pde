@@ -53,7 +53,7 @@ void playWithYourself(float vizTm) {
   //cans.colorTimer(colTime/2, 1); //// seconds between colour change, number of steps to cycle through colours
   //pars.colorTimer(colTime/2, 1); //// seconds between colour change, number of steps to cycle through colours
 
-  if (millis()/1000 % 60 == 0) for (Rig rig : rigs) rig.bgIndex = (rig.bgIndex+1) % rig.availableBkgrnds.length;               // change colour layer automatically
+  if (millis()/1000 % colTime/4 == 0) for (Rig rig : rigs) rig.bgIndex = (rig.bgIndex+1) % rig.availableBkgrnds.length;               // change colour layer automatically
 
   //////////////////////////////////////////////////// END OF PLAY WITH YOURSELF AUTO CONTROL //////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -147,7 +147,6 @@ void playWithMeMore() {
   
   
   
-  // rig dimmer shold affect bgnosie
 
 
   /////background noise over whole window/////
@@ -155,14 +154,14 @@ void playWithMeMore() {
     rigg.colorLayer.beginDraw();
     rigg.colorLayer.background(0, 0, 0, 0);
     rigg.colorLayer.endDraw();
-    bgNoise(rigg.colorLayer, rigg.flash, map(padVelocity[51], 0, 1, 0, 1), cc[48]*rigg.dimmer);   //PGraphics layer,color,alpha
+    bgNoise(rigg.colorLayer, rigg.flash, map(padVelocity[51], 0, 1, 0, rigg.dimmer), cc[48]);   //PGraphics layer,color,alpha
     image(rigg.colorLayer, rigg.size.x, rigg.size.y, rigg.wide, rigg.high);
   }
   if (padVelocity[43] > 0) {
     roof.colorLayer.beginDraw();
     roof.colorLayer.background(0, 0, 0, 0);
     roof.colorLayer.endDraw();
-    bgNoise(roof.colorLayer, roof.flash, map(padVelocity[43], 0, 1, 0, 1), cc[56]*roof.dimmer);   //PGraphics layer,color,alpha
+    bgNoise(roof.colorLayer, roof.flash, map(padVelocity[43], 0, 1, 0, roof.dimmer), cc[56]);   //PGraphics layer,color,alpha
     image(roof.colorLayer, roof.size.x, roof.size.y, roof.wide, roof.high);
   }
 
@@ -170,7 +169,9 @@ void playWithMeMore() {
     pars.colorLayer.beginDraw();
     pars.colorLayer.background(0, 0, 0, 0);
     pars.colorLayer.endDraw();
-    bgNoise(pars.colorLayer, pars.flash, map(padVelocity[50], 0, 1, 0, 1), cc[55]*pars.dimmer);   //PGraphics layer,color,alpha
+    //void bgNoise(PGraphics layer, color _col, float bright, float fizzyness) {
+
+    bgNoise(pars.colorLayer, pars.flash, map(padVelocity[50], 0, 1, 0, pars.dimmer), cc[55]);   //PGraphics layer,color,alpha
     image(pars.colorLayer, pars.size.x, pars.size.y, pars.wide, pars.high);
   }
 }

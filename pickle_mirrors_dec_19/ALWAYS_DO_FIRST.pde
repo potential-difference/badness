@@ -11,7 +11,7 @@ void setupSpecifics() {
   cans.availableAnims = new int[] {11, 4, 2, 7, 4, 5, 6, 7, 8, 9, 10, 12};      // setup which anims are used on which rig here
   pars.availableAnims = new int[] {0, 12};      // setup which anims are used on which rig here
 
-  rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4};  
+  rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5};  
   roof.availableFunctionEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
 
   rigg.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6, 9};
@@ -55,7 +55,7 @@ void setupSpecifics() {
     //need to use the actal numbers from the above aray
   }
 
-  rigg.dimmers.put(3, new Ref(cc, 34));
+  //rigg.dimmers.put(3, new Ref(cc, 34));
 
   rigg.vizIndex = 2;
   roof.vizIndex = 1;
