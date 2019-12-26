@@ -45,7 +45,7 @@ class ShieldsOPCGrid extends OPCGrid {
 
   void spiralShieldsOPC(OPC _opc) {
     opc = _opc;
-    ringSize = new float[] { rig.wide/9, rig.wide/6, rig.wide/4.5 };
+    ringSize = new float[] { rig.wide/8.3, rig.wide/6.5, rig.wide/4.5 };
     shieldSetup(9);
 
     smallShield(0, 8, 1, 48); ///// SLOT b0 on BOX /////

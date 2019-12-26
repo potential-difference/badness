@@ -608,7 +608,7 @@ public class Rig {
       anim = new Rings(this);
       break;
     case 3:  
-      anim = new Rush(this);
+      anim = new Celtic(this);
       break;
     case 4:  
       anim = new Rushed(this);

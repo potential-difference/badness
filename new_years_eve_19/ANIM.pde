@@ -62,6 +62,24 @@ class StarMesh extends Anim {
   }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Celtic extends Anim {
+  Celtic (Rig _rig) {
+    super(_rig);
+  }
+  void draw() {
+    window.beginDraw();
+    window.background(0);
+    stroke = 10+(rig.wide/20*strokeSlider); //16+(10*func1);
+    wide = (10+(rig.wide-(rig.wide*functionA-20)))*wideSlider;
+    high = wide;
+    rotate = 0;
+    donut(positionX[8][0].x, positionX[8][0].y, col1, stroke, wide, high, rotate, alphaA);
+    donut(positionX[5][0].x, positionX[5][0].y, col1, stroke, wide, high, rotate, alphaA);
+    donut(positionX[2][0].x, positionX[2][0].y, col1, stroke, wide, high, rotate, alphaA);
+    window.endDraw();
+  }
+}
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class BenjaminsBoxes extends Anim {
   BenjaminsBoxes (Rig _rig) {
     super(_rig);
