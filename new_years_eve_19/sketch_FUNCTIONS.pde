@@ -15,7 +15,37 @@
   }
 }*/
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
+void dmxSmoke() {
+  ////////////////////////////////////// DMX SMOKE //////////////////////////////////
+  fill(0, 150);
+  strokeWeight(1);
+  stroke(rigg.flash, 60);
+  rect(opcGrid.smokePump.x+80, opcGrid.smokePump.y, 220, 30);
+  noStroke();
+  fill(0);
+  rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 40, 15);
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  float smokeInterval = smokeOffTime*60;
+  float smokeOn = smokeOnTime;
+  if (millis()/1000 % smokeInterval > smokeInterval - smokeOn) {
+    fill(360*smokePumpValue);
+    rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 10, 10);
+  }
+  float smokeInfo = millis()/1000 % smokeInterval - (smokeInterval);
+  fill(rigg.c, 360);
+  textAlign(LEFT);
+  textSize(16);
+
+  int min = abs(int(smokeInfo) /60 % 60);
+  String sec = nf(abs(int(smokeInfo) % 60), 2, 0);
+  text("SMOKE ON IN: "+min+":"+sec, opcGrid.smokePump.x+25, opcGrid.smokePump.y+6);
+
+  if (keyP['0']) {
+    fill(360*smokePumpValue);
+    rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 10, 10);
+  }
+}
 /////////////////////////////////// FUNCTION AND ALPHA ARRAYS //////////////////////////////////////////////
 float sineFast, sineSlow, sine, stutter, shimmer;
 float timer[] = new float[6];

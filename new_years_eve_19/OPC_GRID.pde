@@ -844,7 +844,7 @@ class OPCGrid {
     smokeFan = new PVector (smokePump.x+140, 15);
 
     opc.led(7000, int(smokePump.x), int(smokePump.y));
-    opc.led(7001, int(smokeFan.x), int(smokeFan.y));
+    //opc.led(7001, int(smokeFan.x), int(smokeFan.y));
   } 
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

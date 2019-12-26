@@ -14,7 +14,7 @@ int xcolor(byte a, byte b, byte c) {
 ArtNetClient artnet;
 byte[] dmxData = new byte[512];
 int triggertimes[] = new int[512];
-void DMXSetup(){
+void artNetSetup(){
   artnet = new ArtNetClient();
   artnet.start();
 }

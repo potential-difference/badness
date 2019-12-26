@@ -97,7 +97,7 @@ void setup()
   loadShaders();
   setupSpecifics();
   //syphonSetup(syphonToggle);
-  //DMXSetup();
+  //artNetSetup();
 
   controlFrameValues = sketchPath("cp5ControlFrameValues");
   sliderFrameValues  = sketchPath("cp5SliderFrameValues");
@@ -194,38 +194,7 @@ void draw()
    }
    */
 }
-void dmxSmoke() {
-  ////////////////////////////////////// DMX SMOKE //////////////////////////////////
 
-
-  fill(0, 150);
-  strokeWeight(1);
-  stroke(rigg.flash, 60);
-  rect(opcGrid.smokePump.x+80, opcGrid.smokePump.y, 220, 30);
-  noStroke();
-  fill(0);
-  rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 40, 15);
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  fill(rigg.c, 360);
-  textAlign(LEFT);
-  textSize(16);
-  text("PUMP", opcGrid.smokePump.x+25, opcGrid.smokePump.y+6);
-
-  float smokeInterval = smokeOffTime*60;
-  float smokeOn = smokeOnTime;
-  if (millis()/1000 % smokeInterval > smokeInterval - smokeOn) {
-    fill(360*smokePumpValue);
-    rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 10, 10);
-  }
-  float smokeInfo = millis()/1000 % smokeInterval - (smokeInterval);
-  fill(300);
-  text("smoke on in: "+smokeInfo+" seconds", opcGrid.smokePump.x+200, opcGrid.smokePump.y+5);
-
-  if (keyP['0']) {
-    fill(360*smokePumpValue);
-    rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 10, 10);
-  }
-}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////// THE END //////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
