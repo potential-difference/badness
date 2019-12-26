@@ -629,7 +629,7 @@ public class Rig {
       anim = new Polo(this);
       break;
     case 10:  
-      anim = new Teeth(this);
+      anim = new BouncingDonut(this);
       break;
     case 12:
       anim = new AllOn(this);

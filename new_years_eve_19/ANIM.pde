@@ -507,7 +507,7 @@ class Teeth extends Anim {
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SingleDonut extends Anim {
-  SingleDonut(Rig _rig) {            // come back to this with new envelopes
+  SingleDonut(Rig _rig) {            
     super(_rig);
   }
   void draw() {
@@ -516,17 +516,37 @@ class SingleDonut extends Anim {
     wide = 10+(rig.wide*1.2*(1-functionB));
     high = wide;
     stroke = rig.wide/15*strokeSlider;
-
     wide *=wideSlider;
     high *=highSlider;
-    //void donut(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
+    donut(viz.x, viz.y, col1, stroke, wide, high, 0, alphaA);
+    window.endDraw();
+  }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class BouncingDonut extends Anim {
+  int beatcounted;
+  int numberofanims;
+  BouncingDonut(Rig _rig) {            
+    super(_rig);
+    numberofanims = rig.animations.size();
+    beatcounted = (_beatCounter % (numberofanims+1));
+  }
+  void draw() {
+    window.beginDraw();
+    window.background(0);
+    println("# aims "+numberofanims, "beatcounted "+beatcounted);
+    wide = rig.wide*1.2-(rig.wide*1.2*functionA*((beatcounted+1)));
+    high = wide;
+    stroke = rig.wide/15*strokeSlider;
+    wide *=wideSlider;
+    high *=highSlider;
     donut(viz.x, viz.y, col1, stroke, wide, high, 0, alphaA);
     window.endDraw();
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Polo extends Anim {
-  Polo(Rig _rig) {            // come back to this with new envelopes
+  Polo(Rig _rig) {            
     super(_rig);
   }
   void draw() {
