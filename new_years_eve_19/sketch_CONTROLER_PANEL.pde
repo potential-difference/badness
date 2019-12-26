@@ -22,7 +22,7 @@ class MainControlFrame extends ControlFrame {
     loadSlider("vizTimeSlider", x, y+row*2, wide, high, 0, 1, 0.5, act1, bac1, slider1);
     loadSlider("colorTimerSlider", x, y+row*3, wide, high, 0, 1, 0.45, act, bac, slider);
     loadSlider("colorSwapSlider", x, y+row*4, wide, high, 0, 1, 0.9, act1, bac1, slider1);
-    loadSlider("manualSlider", x, y+row*5, wide, high, 0, 1, 0.9, act, bac, slider);
+    loadSlider("beatlSlider", x, y+row*5, wide, high, 0, 1, 0.4, act, bac, slider);
 
     loadSlider("strokeSlider", x, y+row*7, wide/2, high, 1, 5, 0, act1, bac1, slider1);
     loadSlider("wideSlider", x, y+row*8, wide/2, high, 1, 5, 0, act, bac, slider);

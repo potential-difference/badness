@@ -1,5 +1,5 @@
 public class Rig {
-  float dimmer, alphaRate, funcRate, blurValue, bgNoise, manualAlpha, beatSlider; 
+  float dimmer, alphaRate, funcRate, blurValue, bgNoise, manualAlpha; 
   int wide, high, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, bgIndex, vizIndex;
   PGraphics colorLayer, buffer, pass1, pass2;
   PVector size;
@@ -122,7 +122,6 @@ public class Rig {
     loadSlider( "blurValue", x+(clm*arrayListIndex), y+(3*row), swide, shigh, 0, 1, 0.5, act, bac, slider);
     loadSlider( "bgNoise", x+(clm*arrayListIndex), y+(4*row), swide, shigh, 0, 1, 0.5, act1, bac1, slider1);
     loadSlider( "manualAlpha", x+(clm*arrayListIndex), y+(5*row), swide, shigh, 0, 1, 0.8, act, bac, slider);
-    loadSlider( "beatSlider", x+(clm*arrayListIndex), y+(6*row), swide, shigh, 0, 1, 0.2, act1, bac1, slider1);
     ///////////////////////////////// TOGGLES  ///////////////////////////////////////////////////////////////////////////////////
     loadToggle(noiseToggle, "noiseToggle", x+(clm*arrayListIndex), y+row*7.5, swide, 10);
     loadToggle(toggle, "toggle", x+(clm*arrayListIndex), y+row*9, swide-30, 20);
@@ -603,7 +602,7 @@ public class Rig {
       anim = new BenjaminsBoxes(this);
       break;
     case 1:  
-      anim = new Checkers(this);
+      anim = new StarMesh(this);
       break;
     case 2:  
       anim = new Rings(this);
