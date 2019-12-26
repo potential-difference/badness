@@ -87,7 +87,7 @@ class SpiralFlower extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    stroke = rig.wide/20;
+    stroke = rig.wide/20*strokeSlider;
     wide = (rig.wide)-(rig.wide/10);
     wide = 5+(wide-(wide*functionA)); //100+(20*i); //
     high = wide;
@@ -506,21 +506,37 @@ class Teeth extends Anim {
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Donut extends Anim {
-  Donut(Rig _rig) {            // come back to this with new envelopes
+class SingleDonut extends Anim {
+  SingleDonut(Rig _rig) {            // come back to this with new envelopes
     super(_rig);
   }
   void draw() {
     window.beginDraw();
     window.background(0);
-    wide = 10+(vizWidth*(1-functionB));
+    wide = 10+(rig.wide*1.2*(1-functionB));
     high = wide;
-    stroke = 2+(vizWidth/2*functionA);
+    stroke = rig.wide/15*strokeSlider;
 
-    stroke *=strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
     //void donut(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
+    donut(viz.x, viz.y, col1, stroke, wide, high, 0, alphaA);
+    window.endDraw();
+  }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class Polo extends Anim {
+  Polo(Rig _rig) {            // come back to this with new envelopes
+    super(_rig);
+  }
+  void draw() {
+    window.beginDraw();
+    window.background(0);
+    wide = rig.wide*1.2*(1-functionA);
+    high = wide;
+    stroke = wide*functionA;
+    wide *=wideSlider;
+    high *=highSlider;
     donut(viz.x, viz.y, col1, stroke, wide, high, 0, alphaA);
     window.endDraw();
   }

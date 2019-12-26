@@ -623,16 +623,13 @@ public class Rig {
       anim = new Stars(this);
       break;
     case 8:  
-      anim = new Swipe(this);
+      anim = new SingleDonut(this);
       break;
     case 9:  
-      anim = new Swiped(this);
+      anim = new Polo(this);
       break;
     case 10:  
       anim = new Teeth(this);
-      break;
-    case 11:  
-      anim = new Donut(this);
       break;
     case 12:
       anim = new AllOn(this);
