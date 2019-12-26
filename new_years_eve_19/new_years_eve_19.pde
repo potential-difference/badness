@@ -41,8 +41,8 @@ MidiBus beatStepBus;      // midibus for Artuia BeatStep
 
 String controlFrameValues, sliderFrameValues, mainFrameValues;
 
-
 boolean onTop = false;
+
 void settings() {
   size = new SizeSettings(LANDSCAPE);
   fullScreen();

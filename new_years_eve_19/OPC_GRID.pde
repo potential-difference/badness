@@ -1,10 +1,9 @@
 class ShieldsOPCGrid extends OPCGrid {
-  int numberOfPositions = 9;
-  int numberOfShields = 9;
-  int numberOfRings = 3;
+  int numberOfRings;
   //  PVectors for positions of shields
   PVector[][] _shield; // = new PVector[numberOfShields][numberOfRings];    
-  PVector[][] shield = new PVector[numberOfPositions][numberOfRings];  
+  PVector[][] shield; // = new PVector[numberOfPositions][numberOfRings];  
+  PVector[] shields = new PVector[12];
   PVector[] eggs; 
   int eggLength;
   float[] ringSize;
@@ -23,8 +22,9 @@ class ShieldsOPCGrid extends OPCGrid {
 
   void shieldSetup(int _numberOfPositions) {
     float xpos, ypos;
+    //shields = new PVector[_numberOfPositions];
+    numberOfRings = 3;
     _shield = new PVector[_numberOfPositions][numberOfRings];    
-
     for (int o = 0; o < ringSize.length; o ++) {
       for (int i = 0; i < _numberOfPositions; i++) {    
         xpos = int(sin(radians((i)*360/_numberOfPositions))*ringSize[o]*2)+rig.size.x;
@@ -48,7 +48,6 @@ class ShieldsOPCGrid extends OPCGrid {
   void spiralShieldsOPC(OPC _opc) {
     opc = _opc;
     ringSize = new float[] { rig.wide/9, rig.wide/6, rig.wide/4.5 };
-
     shieldSetup(9);
 
     smallShield(0, 8, 1, 48); ///// SLOT b0 on BOX /////
@@ -66,16 +65,29 @@ class ShieldsOPCGrid extends OPCGrid {
     medShieldRad +=3;
     bigShieldRad +=3;
 
-    //PVector position[] = new PVector[12];
-    //PVector positionX[][] = new PVector[7][3];
+    shields[0] = new PVector (_shield[0][0].x, _shield[0][0].y);
+    shields[1] = new PVector (_shield[8][1].x, _shield[8][1].y);
+    shields[2] = new PVector (_shield[7][2].x, _shield[7][2].y);        // BALL
 
-    //rig.position =
+    shields[3] = new PVector (_shield[6][0].x, _shield[6][0].y);
+    shields[4] = new PVector (_shield[5][1].x, _shield[5][1].y);
+    shields[5] = new PVector (_shield[4][1].x, _shield[4][2].y);        // BALL
+
+    shields[6] = new PVector (_shield[3][0].x, _shield[3][0].y);
+    shields[7] = new PVector (_shield[2][1].x, _shield[2][1].y);
+    shields[8] = new PVector (_shield[1][2].x, _shield[1][2].y);        // BALL
+
+    shields[9] =  new PVector (_shield[7][2].x, _shield[7][2].y);       // BALL
+    shields[10] = new PVector (_shield[4][1].x, _shield[4][2].y);       // BALL
+    shields[11] = new PVector (_shield[1][2].x, _shield[1][2].y);       // BALL
+
+    rigg.positionX = _shield; 
+    rigg.position = shields;
   }
 
   void triangleShieldsOPC(OPC _opc) {
     opc = _opc;
     ringSize = new float[] { rig.wide/9, rig.wide/5, rig.wide/4.5 };
-
     shieldSetup(12);
     //// SHIELDS - #1 slot on box; #2 position on ring; #3 number of LEDS in 5v ring 
     smallShield(1, 2, 0, 48); ///// SLOT b0 on BOX /////   
