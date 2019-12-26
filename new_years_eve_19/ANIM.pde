@@ -79,6 +79,36 @@ class Celtic extends Anim {
     window.endDraw();
   }
 }
+
+class SpiralFlower extends Anim {
+  SpiralFlower(Rig _rig) {
+    super(_rig);
+  }
+  void draw() {
+    window.beginDraw();
+    window.background(0);
+    stroke = rig.wide/20;
+    wide = (rig.wide)-(rig.wide/10);
+    wide = 5+(wide-(wide*functionA)); //100+(20*i); //
+    high = wide;
+    rotate = 0;
+
+    donut(positionX[1][1].x, positionX[1][1].y, col1, stroke, wide, high, rotate, alphaA);
+    donut(positionX[4][1].x, positionX[4][1].y, col1, stroke, wide, high, rotate, alphaA);
+    donut(positionX[7][1].x, positionX[7][1].y, col1, stroke, wide, high, rotate, alphaA);
+
+    donut(positionX[0][2].x, positionX[0][2].y, col1, stroke, wide, high, rotate, alphaA);
+    donut(positionX[3][2].x, positionX[3][2].y, col1, stroke, wide, high, rotate, alphaA);
+    donut(positionX[6][2].x, positionX[6][2].y, col1, stroke, wide, high, rotate, alphaA);
+
+    wide = (rig.wide/3.5)-(rig.wide/10);
+    wide = 10+(wide-(wide*(1-functionA))); 
+    high = wide;
+    donut(viz.x, viz.y, col1, stroke, wide, high, rotate, alphaA);
+    window.endDraw();
+  }
+}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class BenjaminsBoxes extends Anim {
   BenjaminsBoxes (Rig _rig) {

@@ -611,7 +611,7 @@ public class Rig {
       anim = new Celtic(this);
       break;
     case 4:  
-      anim = new Rushed(this);
+      anim = new SpiralFlower(this);
       break;
     case 5:  
       anim = new SquareNuts(this);
