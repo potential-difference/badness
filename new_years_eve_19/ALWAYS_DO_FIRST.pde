@@ -14,7 +14,7 @@ void setupSpecifics() {
   rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5};  
   roof.availableFunctionEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
 
-  rigg.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6, 9};
+  rigg.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6, 10};
   //cans.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5}; //rigg.availableBkgrnds;
   roof.availableBkgrnds = new int[] {0, 1, 3, 4, 5, 8};
   pars.availableBkgrnds = new int[] {0, 4};

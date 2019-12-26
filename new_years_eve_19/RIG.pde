@@ -284,6 +284,12 @@ public class Rig {
       oneTwoThree(c, flash);
       colorLayer.endDraw();
       break;
+      case 10:
+      colorLayer.beginDraw();
+      colorLayer.background(0);
+      radialGradient(c, flash,0);
+      colorLayer.endDraw();
+      break;
     default:
       colorLayer.beginDraw();
       colorLayer.background(0);
@@ -614,7 +620,7 @@ public class Rig {
       anim = new SpiralFlower(this);
       break;
     case 5:  
-      anim = new SquareNuts(this);
+      anim = new TwistedStar(this);
       break;
     case 6:  
       anim = new BouncingPolo(this);
@@ -646,15 +652,15 @@ public class Rig {
       for (Anim an : animations) {
         float now = millis();
         if (alphaIndexA == 1) {
-          an.alphaEnvelopeA = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaA, an.alphaA, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.1));
+          an.alphaEnvelopeA = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaA, an.alphaA, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.01));
         } else {
-          an.alphaEnvelopeA = an.alphaEnvelopeA.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.8, 0.2, 0.1));
+          an.alphaEnvelopeA = an.alphaEnvelopeA.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.8, 0.2, 0.01));
           an.alphaEnvelopeA.end_time = min(int(now+avgmillis*alphaRate*5.0), an.alphaEnvelopeA.end_time);
         }
         if (alphaIndexB == 1) {
-          an.alphaEnvelopeB = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaB, an.alphaB, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.1));
+          an.alphaEnvelopeB = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaB, an.alphaB, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.01));
         } else {       
-          an.alphaEnvelopeB = an.alphaEnvelopeB.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.9, 0.2, 0.1));
+          an.alphaEnvelopeB = an.alphaEnvelopeB.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.9, 0.2, 0.01));
           an.alphaEnvelopeB.end_time = min(int(now+avgmillis*alphaRate*5.0), an.alphaEnvelopeB.end_time);
         }
       }

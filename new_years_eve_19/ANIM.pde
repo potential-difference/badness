@@ -142,8 +142,6 @@ class BenjaminsBoxes extends Anim {
 class Anim1 extends Anim { ///////// COME BACK TO THIS WITH NEW ENVELOPES
   Anim1(Rig _rig) {
     super(_rig);
-    //functionEnvelopeA = ADSR(1, 1, 2000, 0, 0.3);
-    //functionEnvelopeB = ADSR(2000, 1, 1, 0.2, 0);
   }
   void draw() {
     window.beginDraw();
@@ -505,6 +503,25 @@ class Teeth extends Anim {
     window.endDraw();
   }
 }
+class TwistedStar extends Anim {
+  TwistedStar(Rig _rig) {
+    super(_rig);
+  }
+  void draw() {
+    window.beginDraw();
+    window.background(0);
+    // star(int n, float wide, float high, float rotate, color col, float stroke, float alph) {
+    stroke = 50+(50*noize*functionB);
+    wide = 10+(functionA*rig.wide*1.2);
+    high = 110-((1-functionA)*rig.high*1.2);
+    rotate = -60*functionA;
+    //void star(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
+    star(viz.x, viz.y, col1, stroke, wide, high, rotate, alphaA); 
+    //10+(beats[i]*mw), 110-(pulzs[i]*mh), -60*beats[i], col1, stroke, alpha[i]/4*alf*dimmer);
+
+    window.endDraw();
+  }
+}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SingleDonut extends Anim {
   SingleDonut(Rig _rig) {            
@@ -661,10 +678,6 @@ class Anim {
     _beatCounter = (int)beatCounter;
     col1 = white;
     col2 = white;
-
-    //opcGrid.mirrorsOPC(opcMirror1, opcMirror2, 1);               // grids 0-3 MIX IT UPPPPP 
-
-
     animName = "default";
 
     blury = int(map(rig.blurValue, 0, 1, 0, 100));     //// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
@@ -698,13 +711,13 @@ class Anim {
   Float vizWidth, vizHeight;
   void drawAnim() {
     int now = millis();
-    alphaA = alphaEnvelopeA.value(now);
-    alphaB = alphaEnvelopeB.value(now);
-    alphaA *=rig.dimmer;
-    alphaB *=rig.dimmer;          // not sure how to link this yet
-
+    alphaA = alphaEnvelopeA.value(now)*rig.dimmer;
+    alphaB = alphaEnvelopeB.value(now)*rig.dimmer;
+   
     functionA = functionEnvelopeA.value(now); 
     functionB = functionEnvelopeB.value(now);
+    
+    //println("functionA "+functionA,"alphaA "+alphaA, "rigdimmer " +rigg.dimmer);
 
     if (alphaEnvelopeA.end_time<now && alphaEnvelopeB.end_time<now) deleteme = true;  // only delete when all finished
 
@@ -756,18 +769,23 @@ class Anim {
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
   void star(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
-    window.strokeWeight(-stroke);
-    window.stroke(360*alph);
-    window.noFill();
-    window.pushMatrix();
-    window.translate(xpos, ypos);
-    window.rotate(radians(rotate));
-    window.ellipse(0, 0, wide, high);
-    window.rotate(radians(120));
-    window.ellipse(0, 0, wide, high);
-    window.rotate(radians(120));
-    window.ellipse(0, 0, wide, high);
-    window.popMatrix();
+    try {
+      window.strokeWeight(-stroke);
+      window.stroke(360*alph);
+      window.noFill();
+      window.pushMatrix();
+      window.translate(xpos, ypos);
+      window.rotate(radians(rotate));
+      window.ellipse(0, 0, wide, high);
+      window.rotate(radians(120));
+      window.ellipse(0, 0, wide, high);
+      window.rotate(radians(120));
+      window.ellipse(0, 0, wide, high);
+      window.popMatrix();
+    }  
+    catch(Exception e) {
+      println(e, "BENJAMIN REALLY NEEDDS TO FIX THIS");
+    }
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
   void rush(float xpos, float ypos, color col, float wide, float high, float func, float alph) {

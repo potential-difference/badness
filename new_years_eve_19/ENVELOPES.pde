@@ -106,12 +106,12 @@ Envelope functionEnvelopeFactory(int envelope_index, Rig rig) {
   switch (envelope_index) {
   case 0: 
     //return SimplePulse(cc[41]*4000, cc[42]*4000, cc[43]*4000, cc[44], cc[45]);
-    return CrushPulse(0.031, 0.040, 0.913, avgmillis*rig.funcRate*15+0.5, 0.02, 0.02);
+    return CrushPulse(0.031, 0.040, 0.913, avgmillis*rig.funcRate*15+0.5, 0.0, 0.0);
   case 1:
     //return CrushPulse(cc[49], cc[50], cc[51], avgmillis*rig.beatSlider*15+0.5, cc[52], cc[53]);
-    return CrushPulse(0.92, 0.055, 0.071, avgmillis*rig.funcRate*15+0.5, 0.118, 0);
+    return CrushPulse(0.92, 0.055, 0.071, avgmillis*rig.funcRate*15+0.5, 0.0, 0.0);
   case 2:
-    return CrushPulse(cc[41], cc[42], cc[43], avgmillis*rig.funcRate*15+0.5, 0.02, 0.02);
+    return CrushPulse(cc[41], cc[42], cc[43], avgmillis*rig.funcRate*15+0.5, 0.00, 0.00);
   case 3:
     return CrushPulse(cc[44], cc[45], cc[46], avgmillis*rig.funcRate*15+0.5, 0.02, 0.02);
   case 4:
