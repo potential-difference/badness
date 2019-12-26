@@ -79,10 +79,10 @@ void setup()
   //opcNode6 = new OPC(this, "192.168.10.6", 7890);
   opcNode7 = new OPC(this, "192.168.10.7", 7890);
 
-  opcGrid.mirrorsOPC(opcMirror1, opcMirror2, 1);               // grids 0-3 MIX IT UPPPPP 
+  opcGrid.mirrorsOPC(opcLocal, opcLocal, 1);               // grids 0-3 MIX IT UPPPPP 
   opcGrid.standAloneBoothOPC(opcLocal);
-  opcGrid.tawSeedsOPC(cans, opcNode4, opcNode3);
-  opcGrid.individualCansOPC(roof, opcNode7, true);
+  opcGrid.tawSeedsOPC(cans, opcLocal, opcLocal);
+  opcGrid.individualCansOPC(roof, opcLocal, true);
   opcGrid.dmxParsOPC(opcLocal);
   opcGrid.dmxSmokeOPC(opcLocal);
 

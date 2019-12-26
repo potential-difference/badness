@@ -43,7 +43,7 @@ public class Rig {
     rigs.add(this);
     arrayListIndex = rigs.indexOf(this);          // where this is the rig object
     availableBkgrnds = new int[] {0, 1, 2, 3};    // default - changed when initalised;
-    availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4};  
+    availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5};  
     availableFunctionEnvelopes = new int[] {0, 1, 2, 5, 6};  
 
     //dimmers = new HashMap<Integer, Ref>();

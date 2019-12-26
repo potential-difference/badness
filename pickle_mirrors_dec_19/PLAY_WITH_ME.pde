@@ -88,7 +88,7 @@ void playWithMe() {
     lastTime[39]=millis();
   }
   if (millis()-lastTime[42]>debouncetime) {
-    if (padVelocity[42]>0) pars.animations.add( new AllOn(pars)); //rig.animations.add(new Test(rig))
+    if (padVelocity[42]>0) for (Anim anim : pars.animations) anim.deleteme = true;
     lastTime[42]=millis();
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -103,23 +103,23 @@ void playWithMe() {
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////// STUTTER ///////////////////////////////////////////////x
-/*
+  /*
   if (millis()-lastTime[49]>debouncetime) {
-    if (padVelocity[49]>0) for (Anim anim : rigg.animations) {
-      anim.alphaEnvelopeA = anim.alphaEnvelopeA.mul((1-cc[46])+(stutter*cc[46])); // anim.alphaEnvelopeA.mul(0.6+(stutter*0.4));     //anim.alphaEnvelopeA.mul((1-cc[46])+(stutter*cc[46]));
-      anim.alphaEnvelopeB = anim.alphaEnvelopeB.mul((1-cc[46])+(stutter*cc[46])); //anim.alphaEnvelopeA.mul(0.6+(stutter*0.4)); //anim.alphaEnvelopeB.mul((1-cc[46])+(stutter*cc[46]));
-    }
-    lastTime[49]=millis();
-  }
-  
-  if (millis()-lastTime[41]>debouncetime) {
-    if (padVelocity[41]>0) for (Anim anim : rigg.animations) {
-      anim.functionEnvelopeA = anim.functionEnvelopeA.mul(0.6+(stutter*0.4));  //     anim.functionEnvelopeA.mul((1-cc[54])+(stutter*cc[54]));
-      anim.functionEnvelopeB = anim.functionEnvelopeB.mul(0.6+(stutter*0.4));    //anim.functionEnvelopeB.mul((1-cc[54])+(stutter*cc[54]));
-    }
-    lastTime[41]=millis();
-  }
-*/
+   if (padVelocity[49]>0) for (Anim anim : rigg.animations) {
+   anim.alphaEnvelopeA = anim.alphaEnvelopeA.mul((1-cc[46])+(stutter*cc[46])); // anim.alphaEnvelopeA.mul(0.6+(stutter*0.4));     //anim.alphaEnvelopeA.mul((1-cc[46])+(stutter*cc[46]));
+   anim.alphaEnvelopeB = anim.alphaEnvelopeB.mul((1-cc[46])+(stutter*cc[46])); //anim.alphaEnvelopeA.mul(0.6+(stutter*0.4)); //anim.alphaEnvelopeB.mul((1-cc[46])+(stutter*cc[46]));
+   }
+   lastTime[49]=millis();
+   }
+   
+   if (millis()-lastTime[41]>debouncetime) {
+   if (padVelocity[41]>0) for (Anim anim : rigg.animations) {
+   anim.functionEnvelopeA = anim.functionEnvelopeA.mul(0.6+(stutter*0.4));  //     anim.functionEnvelopeA.mul((1-cc[54])+(stutter*cc[54]));
+   anim.functionEnvelopeB = anim.functionEnvelopeB.mul(0.6+(stutter*0.4));    //anim.functionEnvelopeB.mul((1-cc[54])+(stutter*cc[54]));
+   }
+   lastTime[41]=millis();
+   }
+   */
   //  if (padVelocity[36] > 0) {
   //    rigg.colorIndexA = (rigg.colorIndexA+1)%rigg.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
   //    cans.colorIndexA = (cans.colorIndexA+1)%cans.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
@@ -129,10 +129,10 @@ void playWithMe() {
   //    cans.colorIndexB = (cans.colorIndexB+1)%cans.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
   //  }
   if (padVelocity[36] > 0) rigg.colorFlip(true);
-  if (padVelocity[37] > 0) cans.colorFlip(true);
+  if (padVelocity[37] > 0) rigg.colorSwap(0.9999999999);
 
-  if (padVelocity[38] > 0) rigg.colorSwap(0.9999999999);                // COLOR SWAP MOMENTARY
-  if (padVelocity[39] > 0) cans.colorSwap(0.9999999999);
+  if (padVelocity[38] > 0) roof.colorSwap(0.9999999999);
+  if (padVelocity[39] > 0) pars.colorSwap(0.9999999999);                // COLOR SWAP MOMENTARY
 
 
 
@@ -143,18 +143,15 @@ void playWithMe() {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////// PLAY WITH DRAWING FUNCTIONS ////////////////////////////////////////////////////////////// 
 void playWithMeMore() {
- 
-  
-  
-  
 
+  /////////////////////////////////////////////////////// 
 
   /////background noise over whole window/////
   if (padVelocity[51] > 0) {
     rigg.colorLayer.beginDraw();
     rigg.colorLayer.background(0, 0, 0, 0);
     rigg.colorLayer.endDraw();
-    bgNoise(rigg.colorLayer, rigg.flash, map(padVelocity[51], 0, 1, 0, rigg.dimmer), cc[48]);   //PGraphics layer,color,alpha
+    bgNoise(rigg.colorLayer, rigg.flash, map(padVelocity[51], 0, 1, 0, rigg.dimmer/1.5), cc[48]);   //PGraphics layer,color,alpha
     image(rigg.colorLayer, rigg.size.x, rigg.size.y, rigg.wide, rigg.high);
   }
   if (padVelocity[43] > 0) {
@@ -171,7 +168,7 @@ void playWithMeMore() {
     pars.colorLayer.endDraw();
     //void bgNoise(PGraphics layer, color _col, float bright, float fizzyness) {
 
-    bgNoise(pars.colorLayer, pars.flash, map(padVelocity[50], 0, 1, 0, pars.dimmer), cc[55]);   //PGraphics layer,color,alpha
+    bgNoise(pars.colorLayer, pars.flash, map(padVelocity[50], 0, 1, 0, pars.dimmer), cc[47]);   //PGraphics layer,color,alpha
     image(pars.colorLayer, pars.size.x, pars.size.y, pars.wide, pars.high);
   }
 }
