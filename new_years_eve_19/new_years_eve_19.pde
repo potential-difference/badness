@@ -22,6 +22,7 @@ final int ROOF = 1;
 
 SizeSettings size;
 OPCGrid opcGrid;
+ShieldsOPCGrid shieldsGrid;
 ControlFrame controlFrame, sliderFrame;
 
 Rig rigg, roof, cans, mirrors, strips, donut, seeds, pars;
@@ -61,7 +62,7 @@ void setup()
 
   //Rig(boolean _toggle, float _xpos, float _ypos, int _wide, int _high, String _name) {
   rigg = new Rig(false, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
-  cans = new Rig(false, size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "SEEDS");
+  //cans = new Rig(false, size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "SEEDS");
   roof = new Rig(true, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "CANS");
   pars = new Rig(true, size.pars.x, size.pars.y, size.parsWidth, size.parsHeight, "PARS");
 
@@ -79,12 +80,15 @@ void setup()
   //opcNode6 = new OPC(this, "192.168.10.6", 7890);
   opcNode7 = new OPC(this, "192.168.10.7", 7890);
 
-  opcGrid.mirrorsOPC(opcLocal, opcLocal, 1);               // grids 0-3 MIX IT UPPPPP 
+  //opcGrid.mirrorsOPC(opcLocal, opcLocal, 1);               // grids 0-3 MIX IT UPPPPP 
   opcGrid.standAloneBoothOPC(opcLocal);
-  opcGrid.tawSeedsOPC(cans, opcLocal, opcLocal);
+  //opcGrid.tawSeedsOPC(cans, opcLocal, opcLocal);
   opcGrid.individualCansOPC(roof, opcLocal, true);
   opcGrid.dmxParsOPC(opcLocal);
   opcGrid.dmxSmokeOPC(opcLocal);
+
+  shieldsGrid = new ShieldsOPCGrid(rigg);
+  shieldsGrid.spiralShieldsOPC(opcLocal);
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
   midiSetup();
@@ -164,6 +168,31 @@ void draw()
   dividerLines();
   //gid.mirrorTest(false);                  // true to test physical mirror orientation
   //syphonSendImage(syphonToggle);
+  /*
+  for (int i = 0; i < 12; i++) {
+   float xpos = int(sin(radians((i)*360/12))*100*2)+rigg.size.x;
+   float ypos = int(cos(radians((i)*360/12))*100*2)+rigg.size.y;
+   fill(300);
+   text(i, xpos, ypos);
+   }
+   */
+  /* 
+   for (int i = 0; i < 9; i++) {
+   float xpos = int(sin(radians((i)*360/9))*120*2)+rigg.size.x;
+   float ypos = int(cos(radians((i)*360/9))*120*2)+rigg.size.y;
+   fill(300);
+   text(i, xpos, ypos);
+   }
+   */
+  /*
+  fill(red);
+   for (int o = 0; o < 3; o++) {
+   for (int i = 0; i < shieldsGrid._shield.length; i++) {
+   text(i+"/"+o, shieldsGrid._shield[i][o].x, shieldsGrid._shield[i][o].y);
+   }
+   
+   }
+   */
 }
 void dmxSmoke() {
   ////////////////////////////////////// DMX SMOKE //////////////////////////////////

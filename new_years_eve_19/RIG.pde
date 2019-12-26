@@ -695,7 +695,6 @@ public class Rig {
     drawColorLayer();
 
     blendMode(NORMAL);
-    cans.infoX +=100;
     rigInfo();
     removeAnimations();
     cordinatesInfo(this, keyT['q']);

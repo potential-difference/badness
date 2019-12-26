@@ -12,20 +12,21 @@ class SizeSettings {
       rig = new PVector(rigWidth/2, (rigHeight/2));   // cordinates for center of rig
       break;
     case LANDSCAPE:
-      rigWidth = 900;                                    // WIDTH of rigViz
+      rigWidth = 700;                                    // WIDTH of rigViz
       if (SHITTYLAPTOP) rigWidth = 600;
-      rigHeight = 350;    
+      rigHeight = 700;    
       if (SHITTYLAPTOP) rigHeight = 250;
       rig = new PVector(rigWidth/2, (rigHeight/2));   // cordinates for center of rig
       break;
     }
 
+/*
     ////////////////////////////////  CANS SETUP UNDER RIG ///////////////////////
     cansWidth = rigWidth;
     cansHeight = 250;
     if (SHITTYLAPTOP) cansHeight = 250;
     cans = new PVector (rig.x, rigHeight+(cansHeight/2));
-
+*/
     ////////////////////////////////  ROOF SETUP RIGHT OF RIG ///////////////////////
     roofWidth = 300;
     roofHeight = rigHeight+cansHeight;

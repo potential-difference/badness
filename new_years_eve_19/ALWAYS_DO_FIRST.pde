@@ -8,14 +8,14 @@ void setupSpecifics() {
 
   rigg.availableAnims = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};      // setup which anims are used on which rig here
   roof.availableAnims = rigg.availableAnims;      // setup which anims are used on which rig here - defualt is 0,1,2,3...
-  cans.availableAnims = new int[] {11, 4, 2, 7, 4, 5, 6, 7, 8, 9, 10, 12};      // setup which anims are used on which rig here
+  //cans.availableAnims = new int[] {11, 4, 2, 7, 4, 5, 6, 7, 8, 9, 10, 12};      // setup which anims are used on which rig here
   pars.availableAnims = new int[] {0, 12};      // setup which anims are used on which rig here
 
   rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5};  
   roof.availableFunctionEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
 
   rigg.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6, 9};
-  cans.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5}; //rigg.availableBkgrnds;
+  //cans.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5}; //rigg.availableBkgrnds;
   roof.availableBkgrnds = new int[] {0, 1, 3, 4, 5, 8};
   pars.availableBkgrnds = new int[] {0, 4};
 
@@ -70,12 +70,12 @@ void setupSpecifics() {
   rigg.colorIndexB = 1;
   roof.colorIndexA = 1;
   roof.colorIndexB = 0;
-  cans.colorIndexA = 7;
-  cans.colorIndexB = 11;
+  //cans.colorIndexA = 7;
+  //cans.colorIndexB = 11;
   //donut.colorIndexA = 
   //donut.colorIndexB = ;
 
-  cans.infoX += 100;
+  //cans.infoX += 100;
 
 
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;

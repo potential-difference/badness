@@ -1,3 +1,162 @@
+class ShieldsOPCGrid extends OPCGrid {
+  int numberOfPositions = 9;
+  int numberOfShields = 9;
+  int numberOfRings = 3;
+  //  PVectors for positions of shields
+  PVector[][] _shield; // = new PVector[numberOfShields][numberOfRings];    
+  PVector[][] shield = new PVector[numberOfPositions][numberOfRings];  
+  PVector[] eggs; 
+  int eggLength;
+  float[] ringSize;
+  OPC opc;
+  Rig rig;
+
+  float bigShieldRad, medShieldRad, smallShieldRad;
+  float _bigShieldRad, _medShieldRad, _smallShieldRad;
+
+  ShieldsOPCGrid(Rig _rig) {
+    rig = _rig;
+
+    _bigShieldRad = rig.wide/64*7;       
+    bigShieldRad = _bigShieldRad * 2 + 6;
+  }
+
+  void shieldSetup(int _numberOfPositions) {
+    float xpos, ypos;
+    _shield = new PVector[_numberOfPositions][numberOfRings];    
+
+    for (int o = 0; o < ringSize.length; o ++) {
+      for (int i = 0; i < _numberOfPositions; i++) {    
+        xpos = int(sin(radians((i)*360/_numberOfPositions))*ringSize[o]*2)+rig.size.x;
+        ypos = int(cos(radians((i)*360/_numberOfPositions))*ringSize[o]*2)+rig.size.y;
+        _shield[i][o] = new PVector (xpos, ypos);
+      }
+    }
+  }
+  void eggsOPC(OPC opc, Rig rig) {
+    eggs[0] = new PVector(rig.size.x-75, rig.size.y-200);
+    eggs[1] = new PVector(rig.size.x+75, rig.size.y-200);
+    eggLength = 100;
+    int fc = 2 * 512;
+    int slot = 64;
+    opc.led(fc+(slot*7), int(eggs[1].x), int(eggs[1].y-(eggLength/2)));          
+    opc.led(fc+(slot*7)+1, int(eggs[1].x), int(eggs[1].y));
+    opc.led(fc+(slot*7)+2, int(eggs[1].x), int(eggs[1].y+(eggLength/2)));
+    eggLength += 20;
+  }
+
+  void spiralShieldsOPC(OPC _opc) {
+    opc = _opc;
+    ringSize = new float[] { rig.wide/9, rig.wide/6, rig.wide/4.5 };
+
+    shieldSetup(9);
+
+    smallShield(0, 8, 1, 48); ///// SLOT b0 on BOX /////
+    medShield(1, 0, 0, 33);   ///// SLOT b1 on BOX ///// 
+    smallShield(2, 2, 1, 48); ///// SLOT b2 on BOX /////
+    medShield(3, 3, 0, 32);   ///// SLOT b3 on BOX /////
+    smallShield(4, 5, 1, 48); ///// SLOT b4 on BOX /////
+    medShield(5, 6, 0, 32);   ///// SLOT b5 on BOX /////
+    bigShield(7, int(size.rig.x), int(size.rig.y));     ///// SLOT b7 on BOX /////
+    ballGrid(2, 1, 2);
+    ballGrid(0, 4, 2);
+    ballGrid(1, 7, 2);
+    /////////////////////////// increase size of radius so its covered when drawing over it in the sketch
+    smallShieldRad +=3;
+    medShieldRad +=3;
+    bigShieldRad +=3;
+
+    //PVector position[] = new PVector[12];
+    //PVector positionX[][] = new PVector[7][3];
+
+    //rig.position =
+  }
+
+  void triangleShieldsOPC(OPC _opc) {
+    opc = _opc;
+    ringSize = new float[] { rig.wide/9, rig.wide/5, rig.wide/4.5 };
+
+    shieldSetup(12);
+    //// SHIELDS - #1 slot on box; #2 position on ring; #3 number of LEDS in 5v ring 
+    smallShield(1, 2, 0, 48); ///// SLOT b0 on BOX /////   
+    medShield(2, 2, 1, 33);   ///// SLOT b1 on BOX ///// 
+    smallShield(3, 6, 0, 48); ///// SLOT b2 on BOX /////
+    medShield(4, 6, 1, 32);   ///// SLOT b3 on BOX /////
+    smallShield(5, 10, 0, 48); ///// SLOT b4 on BOX /////
+    medShield(6, 10, 1, 32);   ///// SLOT b5 on BOX /////
+    bigShield(7, int(size.rig.x), int(size.rig.y));     ///// SLOT b7 on BOX /////
+    ballGrid(0, 0, 1);
+    ballGrid(1, 4, 1);
+    ballGrid(2, 8, 1);
+  }
+
+  void ballGrid(int numb, int positionA, int positionB) {
+    opc.led(1024+(64*numb), int(_shield[positionA][positionB].x), int(_shield[positionA][positionB].y));
+  }
+
+  void bigShield(int numb, int xpos, int ypos) {
+    int strt = (128*numb)+64; 
+    ////// HIGH POWER LED RING ////
+    int space = rig.wide/2/18;
+    opc.led(strt-64, xpos, ypos+space);
+    opc.led(strt-64+1, xpos+space, ypos);
+    opc.led(strt-64+2, xpos, ypos-space);
+    opc.led(strt-64+3, xpos-space, ypos);
+    ///// 5V LED STRIP ////
+    int leds = 64;
+    _bigShieldRad = rig.wide/leds*7;       
+    bigShieldRad = _bigShieldRad * 2 + 4; 
+    for (int i=strt; i < strt+leds; i++) {     
+      opc.led(i, int(sin(radians((i-strt)*360/leds))*_bigShieldRad)+xpos, (int(cos(radians((i-strt)*360/leds))*_bigShieldRad)+ypos));
+    }
+  }
+  void medShield(int numb, int positionA, int positionB, float leds) {
+    int strt = (128*numb)+64;
+    _medShieldRad = rig.wide/2/leds*5.12;
+    medShieldRad = _medShieldRad * 2 + 4;
+    ////// USED FOR CIRCULAR / TIRANGULAR ARRANGEMENT /////
+    int positionX = int(_shield[positionA][positionB].x);
+    int positionY = int(_shield[positionA][positionB].y);
+    ////// 5V LED RING for MEDIUM SHIELDS
+    for (int i=strt; i < strt+leds; i++) {     
+      opc.led(i, int(sin(radians((i-strt)*360/leds))*_medShieldRad)+int(positionX), (int(cos(radians((i-strt)*360/leds))*_medShieldRad)+int(positionY)));
+    }
+    ///// PLACE 4 HP LEDS in CENTER OF EACH RING /////
+    for (int j = 1; j < 6; j +=2) {
+      int space = rig.wide/2/20;
+      opc.led(strt-64, positionX, positionY+space);
+      opc.led(strt-64+1, positionX+space, positionY);
+      opc.led(strt-64+2, positionX, positionY-space);
+      opc.led(strt-64+3, positionX-space, positionY);
+    }
+  }
+
+  void smallShield(int numb, int positionA, int positionB, float leds) {
+    int strt = (128*numb)+64;
+    _smallShieldRad = rig.wide/2/32*5.12; // original size size.rigWidth/2/leds*(3.125*2);
+    smallShieldRad = _smallShieldRad * 2 + 3; 
+    ////// USED FOR CIRCULAR / TIRANGULAR ARRANGEMENT /////
+    int positionX = int(_shield[positionA][positionB].x);
+    int positionY = int(_shield[positionA][positionB].y);
+    /////// RING OF 5V LEDS TO MAKE SAMLL SHIELD ///////
+    for (int i=strt; i < strt+leds; i++) {     
+      opc.led(i, int(sin(radians((i-strt)*360/leds))*_smallShieldRad)+int(positionX), (int(cos(radians((i-strt)*360/leds))*_smallShieldRad)+int(positionY)));
+      ////// 1 HP LED IN MIDDLE OF EACH SMALL SHIELD //////
+      for (int j = 0; j < 6; j +=2) {
+        opc.led(strt-64, int(positionX), int(positionY));
+      }
+    }
+  }
+}
+
+
+
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class OPCGrid {
   PVector[] mirror = new PVector[12];
   PVector[][] mirrorX = new PVector[7][4];
@@ -520,19 +679,6 @@ class OPCGrid {
     seeds2Length = _seeds2Length + (pd/2);
   }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////// CANS //////////////////////////////////////////////////
   void individualCansOPC(Rig _rig, OPC opc, boolean offset) {
@@ -693,6 +839,9 @@ class OPCGrid {
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
+
+
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //possible helper class

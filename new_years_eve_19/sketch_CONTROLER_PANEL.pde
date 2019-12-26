@@ -89,6 +89,7 @@ class MainControlFrame extends ControlFrame {
       text("alph's: " + roof.availableAlphaEnvelopes[roof.alphaIndexA] + " / " + roof.availableAlphaEnvelopes[roof.alphaIndexB], x+120, y+20);
     }
     /////////////////////////////////////////////////// cans info ////////////////////////////////////////////////////////
+   /*
     if (size.cansHeight > 0 && size.cansWidth > 0) {
       fill(rigg.c, 300);
       if (!cans.toggle) fill(rigg.c, 100);
@@ -100,6 +101,7 @@ class MainControlFrame extends ControlFrame {
       text("func's: " + cans.availableFunctionEnvelopes[cans.functionIndexA] + " / " + cans.availableFunctionEnvelopes[cans.functionIndexB], x+120, y);
       text("alph's: " + cans.availableAlphaEnvelopes[cans.alphaIndexA] + " / " + cans.availableAlphaEnvelopes[cans.alphaIndexB], x+120, y+20);
     }
+    */
     /*
      /////////////////////////////////////////////////// cans info ////////////////////////////////////////////////////////
      if (size.donutHeight > 0 && size.donutHeight > 0) {
