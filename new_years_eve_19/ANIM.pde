@@ -534,13 +534,33 @@ class BouncingDonut extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    println("# aims "+numberofanims, "beatcounted "+beatcounted);
     wide = rig.wide*1.2-(rig.wide*1.2*functionA*((beatcounted+1)));
     high = wide;
     stroke = rig.wide/15*strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
     donut(viz.x, viz.y, col1, stroke, wide, high, 0, alphaA);
+    window.endDraw();
+  }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class BouncingPolo extends Anim {
+  int beatcounted;
+  int numberofanims;
+  BouncingPolo(Rig _rig) {            
+    super(_rig);
+    numberofanims = rig.animations.size();
+    beatcounted = (_beatCounter % (numberofanims+1));
+  }
+  void draw() {
+    window.beginDraw();
+    window.background(0);
+    wide = (rig.wide*1.2*functionA*((beatcounted+1)));
+    high = wide;
+    stroke = wide*functionA;
+    wide *=wideSlider;
+    high *=highSlider;
+    donut(viz.x, viz.y, col1, stroke, wide, high, 0, alphaA); 
     window.endDraw();
   }
 }

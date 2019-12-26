@@ -617,7 +617,7 @@ public class Rig {
       anim = new SquareNuts(this);
       break;
     case 6:  
-      anim = new DiagoNuts(this);
+      anim = new BouncingPolo(this);
       break;
     case 7:  
       anim = new Stars(this);
