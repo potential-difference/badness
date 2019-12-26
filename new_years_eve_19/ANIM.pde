@@ -46,7 +46,7 @@ class AllOff extends Anim {
 class StarMesh extends Anim {
   StarMesh ( Rig _rig) {
     super (_rig);
-    animName = "celtic";
+    animName = "starMesh";
   }
   void draw() {
     window.beginDraw();
