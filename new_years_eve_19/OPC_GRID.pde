@@ -1,5 +1,4 @@
 class ShieldsOPCGrid extends OPCGrid {
-  int numberOfRings;
   //  PVectors for positions of shields
   PVector[][] _shield; // = new PVector[numberOfShields][numberOfRings];    
   PVector[][] shield; // = new PVector[numberOfPositions][numberOfRings];  
@@ -22,8 +21,7 @@ class ShieldsOPCGrid extends OPCGrid {
 
   void shieldSetup(int _numberOfPositions) {
     float xpos, ypos;
-    //shields = new PVector[_numberOfPositions];
-    numberOfRings = 3;
+    int numberOfRings = 3;
     _shield = new PVector[_numberOfPositions][numberOfRings];    
     for (int o = 0; o < ringSize.length; o ++) {
       for (int i = 0; i < _numberOfPositions; i++) {    
