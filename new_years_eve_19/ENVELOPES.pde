@@ -9,6 +9,13 @@ Envelope SimplePulse(Number attack_time, Number sustain_time, Number decay_time,
   Envelope dwnrmp = new Ramp(t+attack_time.intValue()+sustain_time.intValue(), t+attack_time.intValue()+sustain_time.intValue()+decay_time.intValue(), 1.0, decay_curv, 0.01);
   return upramp.mul(dwnrmp);
 }
+
+Envelope SimpleRamp(Number ramp_time, float start_val, float final_val, Number ramp_curv) {
+  //Envelope = new Ramp( STARTTIME , DURATION , STARTVALUE , ** vlaues here create curve ** , FINALVALUE );
+  float start_time = millis();
+  float end_time = start_time+ramp_time.intValue();
+  return new Ramp(start_time, end_time, start_val, ramp_curv, final_val);
+}
 // THIS IS A FUNCTION NOT AN ENVELOPE - it RETURNS an ENVELOPE that starts sowly going from 0 TO 1 TO 0 and getting FASTER but still with the same AMPLITUDE
 Envelope SlowFast(int start_time, int duration, int start_period, int end_period) {
   // this ramp is a stright line - starting at START_PERIOD and finishing at END_PERIOD over the DURATION variable
@@ -32,8 +39,6 @@ Envelope SineBySine(float amplitude, int period, float amplitude1, int period1) 
   Envelope firstSine = new Sine(amplitude, period);
   return firstSine.mul(new Sine(amplitude1, period1));
 }
-
-
 Envelope PullDown(int attack_time, int sustain_time, int decay_time, float attack_curv, float decay_curv, float effect_value) {
   int t=millis();
   //Envelope upramp = new Ramp( STARTTIME , DURATION , STARTVALUE , ** vlaues here create curve ** , FINALVALUE );
@@ -75,45 +80,55 @@ Envelope CrushPulse(float attack_proportion, float sustain_proportion, float dec
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Envelope envelopeFactory(int envelope_index, Rig rig) {
+  float alphaRate = rig.alphaRate*10;
   switch (envelope_index) {
   case 0: 
     // BEATZ
-    return CrushPulse(0.0, 0.0, 1.0, avgmillis*rig.alphaRate*15+0.5, 0.0, 0.0);
+    return CrushPulse(0.05, 0.0, 1.0, avgmillis*(alphaRate+0.5), 0.0, 0.0);
     //CrushPulse(0.031, 0.040, 0.913, avgmillis*rig.alphaRate*15+0.5, 0.0, 0.0);
   case 1:
     // PULZ
-    return CrushPulse(1.0, 0.0, 0.0, avgmillis*rig.alphaRate*10+0.5, 0.0, 0.0);
+    return CrushPulse(1.0, 0.0, 0.1, avgmillis*(alphaRate/0.3+0.5), 1.0, 1.0);
     //CrushPulse(0.92, 0.055, 0.071, avgmillis*rig.alphaRate*10+0.5, 0.0, 0.0);
   case 2:
     // BEAT CONROLLED BY PAD
-    return CrushPulse(cc[41], cc[42], cc[43], avgmillis*rig.alphaRate*15+0.5, 0.0, 0.0);
+    return CrushPulse(cc[41], cc[42], cc[43], avgmillis*(alphaRate+0.5), 0.0, 0.0);
   case 3:
     // PULZ CONTROLLED BY PAD
-    return CrushPulse(cc[49], cc[50], cc[51], avgmillis*rig.alphaRate*10+0.5, 0.0, 0.0);
+    return CrushPulse(cc[49], cc[50], cc[51], avgmillis*(alphaRate+0.5), 0.0, 0.0);
   case 4:
     // SQUIGGLE (BEATS) CONTROLLED BY PAD 
-    return Squiggle(cc[41], cc[42], cc[43], avgmillis*rig.alphaRate*15+0.5, 0.01+cc[44], cc[45]);
+    return Squiggle(cc[41], cc[42], cc[43], avgmillis*(alphaRate+0.5), 0.01+cc[44], cc[45]);
   case 5:
     // SQUIGGLE (PULZ) CONTROLLED BY PAD 
-    return Squiggle(cc[49], cc[50], cc[51], avgmillis*rig.alphaRate*10+0.5, 0.01+cc[52], cc[53]);
+    return Squiggle(cc[49], cc[50], cc[51], avgmillis*(alphaRate+0.5), 0.01+cc[52], cc[53]);
   case 6:
     // STUTTER
-    return CrushPulse(0.031, 0.040, 0.913, avgmillis*rig.alphaRate*15+0.5, 0.0, 0.0).mul(stutter);
+    return CrushPulse(0.031, 0.040, 0.913, avgmillis*(alphaRate+0.5), 0.0, 0.0).mul(stutter);
   default: 
-    return CrushPulse(0.031, 0.040, 0.913, avgmillis*rig.alphaRate*15+0.5, 0.02, 0.02);
+    return CrushPulse(0.031, 0.040, 0.913, avgmillis*(alphaRate+0.5), 0.02, 0.02);
   }
 }
 
 Envelope functionEnvelopeFactory(int envelope_index, Rig rig) {
+
+  Envelope sine = new Sine(1, avgmillis*rig.funcRate);
+  int now = millis();
+  float sined = sine.value(now); 
+  
+
+  float funcRate = rig.funcRate*10;
   switch (envelope_index) {
   case 0: 
     //return SimplePulse(cc[41]*4000, cc[42]*4000, cc[43]*4000, cc[44], cc[45]);
-    return CrushPulse(0.0, 0.0, 1.0, avgmillis*rig.funcRate*15+0.5, 0.0, 0.0);
+    return CrushPulse(0.2, 0.0, 1.0, avgmillis*(funcRate+0.5), 0.0, sined);
   case 1:
     //return CrushPulse(cc[49], cc[50], cc[51], avgmillis*rig.beatSlider*15+0.5, cc[52], cc[53]);
-    return CrushPulse(1.0, 0.0, 0.0, avgmillis*rig.funcRate*15+0.5, 0.0, 0.0);
-    //case 2:
-    //  return CrushPulse(cc[41], cc[42], cc[43], avgmillis*rig.funcRate*15+0.5, 0.00, 0.00);
+    return SimpleRamp(avgmillis*funcRate, 0, 1, sined);
+    //SimplePulse(Number attack_time, Number sustain_time, Number decay_time, float attack_curv, float decay_curv)
+  case 2:
+    return  SimpleRamp(avgmillis*funcRate/0.3, 1, 0, sined);
+    //CrushPulse(cc[41], cc[42], cc[43], avgmillis*rig.funcRate*15+0.5, 0.00, 0.00);
     //case 3:
     //  return CrushPulse(cc[44], cc[45], cc[46], avgmillis*rig.funcRate*15+0.5, 0.02, 0.02);
     //case 4:

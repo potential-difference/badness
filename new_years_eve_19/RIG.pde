@@ -1,6 +1,6 @@
 public class Rig {
-  float dimmer, alphaRate, funcRate, blurValue, bgNoise, manualAlpha; 
-  int wide, high, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, bgIndex, vizIndex;
+  float dimmer, alphaRate, funcRate, blurValue, bgNoise, manualAlpha, funcSwapRate, alphaSwapRate;
+  int wide, high, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, bgIndex, vizIndex, alphaTimer, functionTimer;
   PGraphics colorLayer, buffer, pass1, pass2;
   PVector size;
   color c, flash, c1, flash1, clash, clash1, clashed, colorIndexA, colorIndexB = 1, colA, colB, colC, colD, scol1, scol2, scol3;
@@ -8,7 +8,7 @@ public class Rig {
   PVector position[] = new PVector[12];
   PVector positionX[][] = new PVector[7][3];
   String name;
-  boolean firsttime_sketchcolor=true, toggle, noiseToggle, play;
+  boolean firsttime_sketchcolor=true, toggle, noiseToggle, play = true;
   ArrayList <Anim> animations;
   HashMap<Integer, Ref> dimmers;
   int[] availableAnims;
@@ -116,12 +116,15 @@ public class Rig {
     int shigh = 14;           // y size of slider
     int row = shigh+4;       // distance between rows
     ///////////////////////////////// SLIDERS  ///////////////////////////////////////////////////////////////////////////////////
-    loadSlider( "dimmer", x+(clm*arrayListIndex), y+(0*row), swide, shigh, 0, 1, dimmer, act1, bac1, slider1);
-    loadSlider( "alphaRate", x+(clm*arrayListIndex), y+(1*row), swide, shigh, 0, 1, 0.5, act, bac, slider);
-    loadSlider( "funcRate", x+(clm*arrayListIndex), y+(2*row), swide, shigh, 0, 1, 0.5, act1, bac1, slider1);
+    loadSlider( "dimmer", x+(clm*arrayListIndex), y+(0*row), swide, shigh, 0, 1, 1, act1, bac1, slider1);
+    loadSlider( "alphaRate", x+(clm*arrayListIndex), y+(1*row), swide, shigh, 0, 1, 0.3, act, bac, slider);
+    loadSlider( "funcRate", x+(clm*arrayListIndex), y+(2*row), swide, shigh, 0, 1, 0.4, act1, bac1, slider1);
     loadSlider( "blurValue", x+(clm*arrayListIndex), y+(3*row), swide, shigh, 0, 1, 0.5, act, bac, slider);
-    loadSlider( "bgNoise", x+(clm*arrayListIndex), y+(4*row), swide, shigh, 0, 1, 0.5, act1, bac1, slider1);
-    loadSlider( "manualAlpha", x+(clm*arrayListIndex), y+(5*row), swide, shigh, 0, 1, 0.8, act, bac, slider);
+    loadSlider( "funcSwapRate", x+(clm*arrayListIndex), y+(4*row), swide, shigh, 15, 1, 4, act1, bac1, slider1);
+    loadSlider( "alphaSwapRate", x+(clm*arrayListIndex), y+(5*row), swide, shigh, 15, 1, 6, act, bac, slider);
+
+    //loadSlider( "bgNoise", x+(clm*arrayListIndex), y+(4*row), swide, shigh, 0, 1, 0.5, act1, bac1, slider1);
+    //loadSlider( "manualAlpha", x+(clm*arrayListIndex), y+(5*row), swide, shigh, 0, 1, 0.8, act, bac, slider);
     ///////////////////////////////// TOGGLES  ///////////////////////////////////////////////////////////////////////////////////
     loadToggle(noiseToggle, "noiseToggle", x+(clm*arrayListIndex), y+row*7.5, swide, 10);
     loadToggle(toggle, "toggle", x+(clm*arrayListIndex), y+row*9, swide-30, 20);
@@ -672,20 +675,26 @@ public class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void drawAnimations() {
-    /// alter all but the most recent animations
-    // ramp out all previous anims
-    if (testToggle) {
 
-      //for (Anim anim : animations) {
+    blendMode(LIGHTEST);
+    for (int i = this.animations.size()-1; i >=0; i--) {                                  // loop  through the list
+      Anim anim = this.animations.get(i);  
+      anim.drawAnim();           // draw the animation
+    }
+
+    /// alter all but the most recent animations
+    if (testToggle) {
       for (int i = 0; i < this.animations.size()-1; i++) {   // loop  through the list excluding the last one added
         int animIndex = i;
         Anim an = this.animations.get(animIndex);  
-        float now = millis();
+        int now = millis();
         //if (alphaIndexA == 1) {
-          an.alphaEnvelopeA = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaA, an.alphaA, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.01));
+        //an.alphaEnvelopeA = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaA, an.alphaA, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.01));
         //} else {
-        an.alphaEnvelopeA = an.alphaEnvelopeA.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.8, 0.2, 0.01));
-        an.alphaEnvelopeA.end_time = min(int(now+avgmillis*alphaRate*3.0), an.alphaEnvelopeA.end_time);
+        //Envelope decayA = new Envelope an.alphaEnvelopeA.value(now).mul(0.9);
+        //float decayA = an.alphaEnvelopeA.value(now)*0.6;
+        //an.alphaA = an.alphaEnvelopeA.value(now)*0.6; // decayA; //an.alphaEnvelopeA.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.8, 0.2, 0.01));
+        //an.alphaEnvelopeA.end_time = min(int(now+avgmillis*alphaRate*3.0), an.alphaEnvelopeA.end_time);
         //an.alphaEnvelopeA = an.alphaEnvelopeA.mul(0.95);
         //}
         //if (alphaIndexB == 1) {
@@ -693,15 +702,11 @@ public class Rig {
         //} else {       
         //an.alphaEnvelopeB = an.alphaEnvelopeB.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.9, 0.2, 0.01));
         //an.alphaEnvelopeB.end_time = min(int(now+avgmillis*alphaRate*1.0), an.alphaEnvelopeB.end_time);
-        an.alphaEnvelopeB = an.alphaEnvelopeB.mul(0.95);
+        //an.alphaEnvelopeB = an.alphaEnvelopeB.mul(0.95);
       }
     }
-    blendMode(LIGHTEST);
-    for (int i = this.animations.size()-1; i >=0; i--) {                                  // loop  through the list
-      Anim anim = this.animations.get(i);  
-      anim.drawAnim();           // draw the animation
-    }
   }
+
   import java.util.*;
   void removeAnimations() {
     Iterator<Anim> animiter = this.animations.iterator();
@@ -709,6 +714,7 @@ public class Rig {
       if (animiter.next().deleteme) animiter.remove();
     }
   }
+
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void draw() {

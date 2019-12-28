@@ -61,7 +61,7 @@ void setup()
   opcGrid = new OPCGrid();
 
   //Rig(boolean _toggle, float _xpos, float _ypos, int _wide, int _high, String _name) {
-  rigg = new Rig(false, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
+  rigg = new Rig(true, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
   //cans = new Rig(false, size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "SEEDS");
   roof = new Rig(true, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "CANS");
   pars = new Rig(true, size.pars.x, size.pars.y, size.parsWidth, size.parsHeight, "PARS");
@@ -118,7 +118,6 @@ void setup()
   }
   frameRate(30); // always needs to be last in setup
 }
-float vizTime, colTime;
 int colStepper = 1;
 int time_since_last_anim=0;
 void draw()
@@ -132,8 +131,9 @@ void draw()
   globalFunctions();
   //syphonLoadSentImage(syphonToggle);
 
-  vizTime = 60*15*vizTimeSlider;
-  if (frameCount > 10) playWithYourself(vizTime);
+  //vizTime *=60;      // convert from minutes to seconds
+  //colorTime *=60;    // convert from minutes to seconds
+  if (frameCount > 10) playWithYourself(vizTime*60);
   c = rigg.c;
   flash = rigg.flash;
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

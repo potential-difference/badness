@@ -1,5 +1,5 @@
 boolean glitchToggle, roofBasic = false, testToggle;
-float vizTimeSlider, colorSwapSlider, colorTimerSlider, boothDimmer, digDimmer, backDropSlider;
+float vizTime, colorSwapSlider, colorTime, boothDimmer, digDimmer, backDropSlider;
 float tweakSlider, blurSlider, bgNoiseBrightnessSlider, bgNoiseDensitySlider, manualSlider, stutterSlider;
 float shimmerSlider, funcSlider, beatSlider;
 float smokePumpValue, smokeOnTime, smokeOffTime;
@@ -19,11 +19,10 @@ class MainControlFrame extends ControlFrame {
     //////////////////////////////// GLOBAL SLIDERS ///////////////////////////////////////////////////////////
     loadSlider("boothDimmer", x, y, wide, high, 0, 1, 0.32, act1, bac1, slider1);
     loadSlider("digDimmer", x, y+row, wide, high, 0, 1, 0.2, act, bac, slider);
-    loadSlider("vizTimeSlider", x, y+row*2, wide, high, 0, 1, 0.5, act1, bac1, slider1);
-    loadSlider("colorTimerSlider", x, y+row*3, wide, high, 0, 1, 0.45, act, bac, slider);
+    loadSlider("colorTime", x, y+row*3, wide, high, 0.5, 30, 6, act, bac, slider);
     loadSlider("colorSwapSlider", x, y+row*4, wide, high, 0, 1, 0.9, act1, bac1, slider1);
     loadSlider("beatSlider", x, y+row*5, wide, high, 0, 1, 0.4, act, bac, slider);
-
+    loadSlider("vizTime", x, y+row*2, wide, high, 0.5, 30, 5, act1, bac1, slider1);
     loadSlider("strokeSlider", x, y+row*7, wide/2, high, 1, 5, 0, act1, bac1, slider1);
     loadSlider("wideSlider", x, y+row*8, wide/2, high, 1, 5, 0, act, bac, slider);
     loadSlider("highSlider", x, y+row*9, wide/2, high, 1, 5, 0, act1, bac1, slider1);
@@ -31,6 +30,12 @@ class MainControlFrame extends ControlFrame {
     loadSlider("smokeOnTime", x+140, y+row*7, wide/2, high, 1, 10, 3, act, bac, slider);
     loadSlider("smokeOffTime", x+140, y+row*8, wide/2, high, 0, 20, 10, act1, bac1, slider1);
     loadSlider("smokePumpValue", x+140, y+row*9, wide/2, high, 0, 1, 0.1, act, bac, slider);
+
+
+
+
+
+
 
     /////////////////////////////// GLOBAL TOGGLE BUTTONS//////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -68,12 +73,12 @@ class MainControlFrame extends ControlFrame {
     x=250;
     fill(rigg.c, 300);
     fill(rigg.c, 100);
-    String sec = nf(int(vizTime - (millis()/1000 - vizTimer)) % 60, 2, 0);
-    int min = int(vizTime - (millis()/1000 - vizTimer)) /60 % 60;
+    String sec = nf(int(vizTime*60 - (millis()/1000 - vizTimer)) % 60, 2, 0);
+    int min = int(vizTime*60 - (millis()/1000 - vizTimer)) /60 % 60;
     text("next viz in: "+min+":"+sec, x, y);
     ///// NEXT COLOR CHANGE IN....
-    sec = nf(int(colTime - (millis()/1000 - rigg.colorTimer)) %60, 2, 0);
-    min = int(colTime - (millis()/1000 - rigg.colorTimer)) /60 %60;
+    sec = nf(int(colorTime*60 - (millis()/1000 - rigg.colorTimer)) %60, 2, 0);
+    min = int(colorTime*60 - (millis()/1000 - rigg.colorTimer)) /60 %60;
     text("next color in: "+ min+":"+sec, x, y+20);
     text("c-" + rigg.colorIndexA + "  " + "flash-" + rigg.colorIndexB, x, y+40);
     /////////////////////////////////////////////////// roof info ////////////////////////////////////////////////////////
@@ -89,19 +94,19 @@ class MainControlFrame extends ControlFrame {
       text("alph's: " + roof.availableAlphaEnvelopes[roof.alphaIndexA] + " / " + roof.availableAlphaEnvelopes[roof.alphaIndexB], x+120, y+20);
     }
     /////////////////////////////////////////////////// cans info ////////////////////////////////////////////////////////
-   /*
+    /*
     if (size.cansHeight > 0 && size.cansWidth > 0) {
-      fill(rigg.c, 300);
-      if (!cans.toggle) fill(rigg.c, 100);
-      textSize(18);
-      textAlign(RIGHT);
-      x = size.cans.x+(size.cansWidth/2) - 130;
-      text("cansViz: " + cans.availableAnims[cans.vizIndex], x, y);
-      text("bkgrnd: " + cans.availableBkgrnds[cans.bgIndex], x, y+20);
-      text("func's: " + cans.availableFunctionEnvelopes[cans.functionIndexA] + " / " + cans.availableFunctionEnvelopes[cans.functionIndexB], x+120, y);
-      text("alph's: " + cans.availableAlphaEnvelopes[cans.alphaIndexA] + " / " + cans.availableAlphaEnvelopes[cans.alphaIndexB], x+120, y+20);
-    }
-    */
+     fill(rigg.c, 300);
+     if (!cans.toggle) fill(rigg.c, 100);
+     textSize(18);
+     textAlign(RIGHT);
+     x = size.cans.x+(size.cansWidth/2) - 130;
+     text("cansViz: " + cans.availableAnims[cans.vizIndex], x, y);
+     text("bkgrnd: " + cans.availableBkgrnds[cans.bgIndex], x, y+20);
+     text("func's: " + cans.availableFunctionEnvelopes[cans.functionIndexA] + " / " + cans.availableFunctionEnvelopes[cans.functionIndexB], x+120, y);
+     text("alph's: " + cans.availableAlphaEnvelopes[cans.alphaIndexA] + " / " + cans.availableAlphaEnvelopes[cans.alphaIndexB], x+120, y+20);
+     }
+     */
     /*
      /////////////////////////////////////////////////// cans info ////////////////////////////////////////////////////////
      if (size.donutHeight > 0 && size.donutHeight > 0) {
@@ -293,7 +298,7 @@ class ControlFrame extends PApplet {
     for (int i = 0; i<(16); i++) if (int(beatCounter%(16)) == i) rect(10+i*dist+x, y, 10, 10);
     textAlign(LEFT);
     textSize(14);
-    text("BC: "+beatCounter,x+(16*dist),y+5);
+    text("BC: "+beatCounter, x+(16*dist), y+5);
   }
   void pauseInfo(float x, float y) {
     if (pause > 0) { 

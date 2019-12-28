@@ -17,12 +17,14 @@ void playWithMe() {
     colorLerping(roof, (1-beat)*1.5);
   }
   ////////////////////////////////////////// HOLD BUTTONS FOR VIZ AND COLOUR /////////////////////////////////
+ /*
   if (vizHold) vizTimer = millis()/1000;              // hold viz change timer
   if (colHold) {
     rigg.colorTimer = millis()/1000;              // hold color change timer
     roof.colorTimer = millis()/1000;              // hold color change timer
     cans.colorTimer = millis()/1000;              // hold color change timer
   }
+  */
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   if (keyP[' ']) { 

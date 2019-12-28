@@ -63,20 +63,20 @@ class ShieldsOPCGrid extends OPCGrid {
     medShieldRad +=3;
     bigShieldRad +=3;
 
-    shields[0] = new PVector (_shield[0][0].x, _shield[0][0].y);
-    shields[1] = new PVector (_shield[8][1].x, _shield[8][1].y);
-    shields[2] = new PVector (_shield[7][2].x, _shield[7][2].y);        // BALL
+    shields[0] = new PVector (_shield[0][0].x, _shield[0][0].y);        // MEDIUM SHIELD
+    shields[3] = new PVector (_shield[8][1].x, _shield[8][1].y);        // SMALL SHEILD
+    shields[6] = new PVector (_shield[7][2].x, _shield[7][2].y);        // BALL
 
-    shields[3] = new PVector (_shield[6][0].x, _shield[6][0].y);
-    shields[4] = new PVector (_shield[5][1].x, _shield[5][1].y);
-    shields[5] = new PVector (_shield[4][1].x, _shield[4][2].y);        // BALL
+    shields[1] = new PVector (_shield[6][0].x, _shield[6][0].y);        // MEDIUM SHIELD
+    shields[4] = new PVector (_shield[5][1].x, _shield[5][1].y);        // SMALL SHEILD
+    shields[7] = new PVector (_shield[4][2].x, _shield[4][2].y);        // BALL
 
-    shields[6] = new PVector (_shield[3][0].x, _shield[3][0].y);
-    shields[7] = new PVector (_shield[2][1].x, _shield[2][1].y);
+    shields[2] = new PVector (_shield[3][0].x, _shield[3][0].y);        // MEDIUM SHIELD
+    shields[5] = new PVector (_shield[2][1].x, _shield[2][1].y);        // SMALL SHEILD
     shields[8] = new PVector (_shield[1][2].x, _shield[1][2].y);        // BALL
 
     shields[9] =  new PVector (_shield[7][2].x, _shield[7][2].y);       // BALL
-    shields[10] = new PVector (_shield[4][1].x, _shield[4][2].y);       // BALL
+    shields[10] = new PVector (_shield[4][2].x, _shield[4][2].y);       // BALL
     shields[11] = new PVector (_shield[1][2].x, _shield[1][2].y);       // BALL
 
     rigg.positionX = _shield; 

@@ -98,9 +98,9 @@ class SpiralFlower extends Anim {
     donut(positionX[4][1].x, positionX[4][1].y, col1, stroke, wide, high, rotate, alphaA);
     donut(positionX[7][1].x, positionX[7][1].y, col1, stroke, wide, high, rotate, alphaA);
 
-    donut(positionX[0][2].x, positionX[0][2].y, col1, stroke, wide, high, rotate, alphaA);
-    donut(positionX[3][2].x, positionX[3][2].y, col1, stroke, wide, high, rotate, alphaA);
-    donut(positionX[6][2].x, positionX[6][2].y, col1, stroke, wide, high, rotate, alphaA);
+    donut(positionX[0][2].x, positionX[0][2].y, col1, stroke, wide, high, rotate, alphaB);
+    donut(positionX[3][2].x, positionX[3][2].y, col1, stroke, wide, high, rotate, alphaB);
+    donut(positionX[6][2].x, positionX[6][2].y, col1, stroke, wide, high, rotate, alphaB);
 
     wide = (rig.wide/3.5)-(rig.wide/10);
     wide = 10+(wide-(wide*(1-functionA))); 
@@ -263,28 +263,30 @@ class Rings extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    stroke = 15+(90*functionA)+(10*strokeSlider);
+    stroke = 15+(rig.wide/20*functionA)+(10*strokeSlider);
     wide = vizWidth*1.2;
     wide = wide-(wide*functionA);
     high = wide*2;
-    rotate = 90*noize*functionB;
+    rotate = 120*noize*functionB;
 
     wide *=wideSlider;
     high *=highSlider;
 
-    donut(position[2].x, position[2].y, col1, stroke, wide, high, rotate, alphaA);
-    donut(position[9].x, position[9].y, col1, stroke, wide, high, rotate, alphaA);
-    stroke = 15+(90*functionB*oskP)+(10*strokeSlider);
+    donut(position[0].x, position[0].y, col1, stroke, wide, high, -rotate, alphaA);
+    donut(position[1].x, position[1].y, col1, stroke, wide, high, -rotate-60, alphaA);
+    donut(position[2].x, position[2].y, col1, stroke, wide, high, -rotate+60, alphaA);
+    stroke = 15+(rig.wide/20*functionB*oskP)+(10*strokeSlider);
     wide = vizWidth*1.2;
     wide = wide-(wide*functionB);
     high = wide*2;
-    rotate = -90*noize*functionA;
+    rotate = -120*noize*functionA;
 
     wide *=wideSlider;
     high *=highSlider;
 
-    donut(position[3].x, position[3].y, col1, stroke, wide, high, rotate, alphaA);
-    donut(position[8].x, position[8].y, col1, stroke, wide, high, rotate, alphaA);
+    donut(position[6].x, position[6].y, col1, stroke, wide, high, rotate, alphaB);
+    donut(position[7].x, position[7].y, col1, stroke, wide, high, rotate-60, alphaB);
+    donut(position[8].x, position[8].y, col1, stroke, wide, high, rotate+60, alphaB);
     window.endDraw();
   }
 }
@@ -714,8 +716,11 @@ class Anim {
   Float vizWidth, vizHeight;
   void drawAnim() {
     int now = millis();
-    alphaA = alphaEnvelopeA.value(now)*rig.dimmer;
-    alphaB = alphaEnvelopeB.value(now)*rig.dimmer;
+    alphaA = alphaEnvelopeA.value(now);
+    alphaB = alphaEnvelopeB.value(now);
+
+    alphaA *=rig.dimmer;
+    alphaB *=rig.dimmer;
 
     Float funcX = functionEnvelopeA.value(now);
     if (!Float.isNaN(funcX)) functionA = funcX; 

@@ -1,53 +1,44 @@
-int rigVizList = 11, roofVizList =11, alphLength = 5, funcLength = 8;
-int vizTimer, alphaTimer, functionTimer;
+int vizTimer, bgChangeTimer;
 void playWithYourself(float vizTm) {
-  ///////////////// VIZ TIMER /////////////////////////////////////////////////////////////////////////////////////////////////
-  if (millis()/1000 - vizTimer >= vizTm) {
-    for (Rig rig : rigs) { 
-      if (rig.play) {  
-        rig.vizIndex = int(random(rig.availableAnims.length));
-        println(rig.name+" VIZ:", rig.vizIndex, "@", (hour()+":"+minute()+":"+second()));
-      }
+
+  for (Rig rig : rigs) {
+    ///////////////// VIZ TIMER ////////////////////////////////////////////////////////////////////////////////////////////////////
+    if (millis()/1000 - vizTimer >= vizTm) {
+      rig.vizIndex = int(random(rig.availableAnims.length));
+      println(rig.name+" VIZ:", rig.vizIndex, "@", (hour()+":"+minute()+":"+second()));
+      vizTimer = millis()/1000;
     }
-    vizTimer = millis()/1000;
-  }
-  float divide = 4; ///////// NUMBER OF TIMES ALPHA CHANGES PER VIZ
-  ///////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////
-  ///////////// ALPHA TIMER ////////////////////////////////////////////////////////////////////////////////////////////////////
-  if (millis()/1000 - alphaTimer >= vizTm/divide) { ///// alpha timer changes 4 times every viz change /////
-    for (Rig rig : rigs) { 
-      if (rig.play) {  
-        rig.alphaIndexA = int(random(rig.availableAlphaEnvelopes.length));  //// select from alpha array
-        rig.alphaIndexB = int(random(rig.availableAlphaEnvelopes.length)); //// select from alpha array
+    ////////////////////////////// PLAY TOGGLE TO CONTROL AUTO CYCLING OF FUNCS AND ALPHAS /////////////////////////////////////////
+    if (rig.play) {  
+      ///////////// ALPHA TIMER ////////////////////////////////////////////////////////////////////////////////////////////////////
+      if (millis()/1000 - rig.alphaTimer >= vizTm/rig.alphaSwapRate) {       //// SWAPRATE changes # of times every viz change /////
+        rig.alphaIndexA = int(random(rig.availableAlphaEnvelopes.length));   //// select from alpha array
+        rig.alphaIndexB = int(random(rig.availableAlphaEnvelopes.length));   //// select from alpha array
         println(rig.name+" alpha change @", (hour()+":"+minute()+":"+second()), "new envelopes:", rig.alphaIndexA, "&", rig.alphaIndexB);
+        rig.alphaTimer = millis()/1000;
       }
-    }
-    alphaTimer = millis()/1000;
-  }
-  divide = 6; //////////////// NUMBER OF TIMES FUNCTION CHANGES PER VIZ
-  //////////// FUNCTION TIMER ////////////////////////////////////////////////////////////////////////////////////////////////////
-  if (millis()/1000 - functionTimer >= vizTm/divide) {    ////// change function n times for every state change
-    for (Rig rig : rigs) {
-      if (rig.play) {  
+      //////////// FUNCTION TIMER //////////////////////////////////////////////////////////////////////////////////////////////////
+      if (millis()/1000 - rig.functionTimer >= vizTm/rig.funcSwapRate) {
         rig.functionIndexA = int(random(rig.availableFunctionEnvelopes.length));  //// select from function array
         rig.functionIndexB = int(random(rig.availableFunctionEnvelopes.length));  //// select from function array
         println(rig.name+" function change @", (hour()+":"+minute()+":"+second()), "new envelope:", rig.functionIndexA, "&", rig.functionIndexB);
+        rig.functionTimer = millis()/1000;
       }
     }
-    functionTimer = millis()/1000;
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////// PLAY WITH COLOUR ////////////////////////////////////////////////////////////////
-  colTime = colorTimerSlider*60*30;
-  for (Rig rig : rigs) rig.colorTimer(colTime, 1); //// seconds between colour change, number of steps to cycle through colours
-
-  if (millis()/1000 % colTime/4 == 0) for (Rig rig : rigs) rig.bgIndex = (rig.bgIndex+1) % rig.availableBkgrnds.length;               // change colour layer automatically
-
-  //////////////////////////////////////////////////// END OF PLAY WITH YOURSELF AUTO CONTROL //////////////////////////////////////////////////
+  for (Rig rig : rigs) rig.colorTimer(colorTime*60, 1); //// seconds between colour change, number of steps to cycle through colours
+  if (millis()/1000 - bgChangeTimer >= colorTime*60/4) {
+    for (Rig rig : rigs) rig.bgIndex = (rig.bgIndex+1) % rig.availableBkgrnds.length;  // change colour layer 4 times every auto color change
+    bgChangeTimer = millis()/1000;
+  }
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////// COLORSWAP TIMER /////////////////////////////////////////////////////////////////
   if (colorSwapSlider > 0) for (Rig rig : rigs) rig.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
   if (beatCounter%64<4) rigg.colorSwap(1000000*noize);  
