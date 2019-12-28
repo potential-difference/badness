@@ -78,10 +78,12 @@ Envelope envelopeFactory(int envelope_index, Rig rig) {
   switch (envelope_index) {
   case 0: 
     // BEATZ
-    return CrushPulse(0.031, 0.040, 0.913, avgmillis*rig.alphaRate*15+0.5, 0.0, 0.0);
+    return CrushPulse(0.0, 0.0, 1.0, avgmillis*rig.alphaRate*15+0.5, 0.0, 0.0);
+    //CrushPulse(0.031, 0.040, 0.913, avgmillis*rig.alphaRate*15+0.5, 0.0, 0.0);
   case 1:
     // PULZ
-    return CrushPulse(0.92, 0.055, 0.071, avgmillis*rig.alphaRate*10+0.5, 0.0, 0);
+    return CrushPulse(1.0, 0.0, 0.0, avgmillis*rig.alphaRate*10+0.5, 0.0, 0.0);
+    //CrushPulse(0.92, 0.055, 0.071, avgmillis*rig.alphaRate*10+0.5, 0.0, 0.0);
   case 2:
     // BEAT CONROLLED BY PAD
     return CrushPulse(cc[41], cc[42], cc[43], avgmillis*rig.alphaRate*15+0.5, 0.0, 0.0);

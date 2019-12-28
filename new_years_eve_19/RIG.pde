@@ -284,10 +284,10 @@ public class Rig {
       oneTwoThree(c, flash);
       colorLayer.endDraw();
       break;
-      case 10:
+    case 10:
       colorLayer.beginDraw();
       colorLayer.background(0);
-      radialGradient(c, flash,0);
+      radialGradient(c, flash, 0);
       colorLayer.endDraw();
       break;
     default:
@@ -646,31 +646,56 @@ public class Rig {
     }
     //    Ref t=new Ref(new float[]{1.0}, 0);
     //    if (t != null) anim.animDimmer = anim.animDimmer.mul(t);
-
+    /*
     // ramp out all previous anims
-    if (testToggle) {
-      for (Anim an : animations) {
-        float now = millis();
-        if (alphaIndexA == 1) {
-          an.alphaEnvelopeA = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaA, an.alphaA, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.01));
-        } else {
-          an.alphaEnvelopeA = an.alphaEnvelopeA.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.8, 0.2, 0.01));
-          an.alphaEnvelopeA.end_time = min(int(now+avgmillis*alphaRate*5.0), an.alphaEnvelopeA.end_time);
-        }
-        if (alphaIndexB == 1) {
-          an.alphaEnvelopeB = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaB, an.alphaB, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.01));
-        } else {       
-          an.alphaEnvelopeB = an.alphaEnvelopeB.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.9, 0.2, 0.01));
-          an.alphaEnvelopeB.end_time = min(int(now+avgmillis*alphaRate*5.0), an.alphaEnvelopeB.end_time);
-        }
-      }
-    }
-
+     if (testToggle) {
+     for (Anim an : animations) {
+     float now = millis();
+     //if (alphaIndexA == 1) {
+     //  an.alphaEnvelopeA = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaA, an.alphaA, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.01));
+     //} else {
+     //an.alphaEnvelopeA = an.alphaEnvelopeA.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.8, 0.2, 0.01));
+     //an.alphaEnvelopeA.end_time = min(int(now+avgmillis*alphaRate*1.0), an.alphaEnvelopeA.end_time);
+     an.alphaEnvelopeA = an.alphaEnvelopeA.mul(0.8);
+     //}
+     //if (alphaIndexB == 1) {
+     //  an.alphaEnvelopeB = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaB, an.alphaB, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.01));
+     //} else {       
+     //an.alphaEnvelopeB = an.alphaEnvelopeB.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.9, 0.2, 0.01));
+     //an.alphaEnvelopeB.end_time = min(int(now+avgmillis*alphaRate*1.0), an.alphaEnvelopeB.end_time);
+     an.alphaEnvelopeB = an.alphaEnvelopeB.mul(0.8);
+     }
+     }
+     */
     this.animations.add(anim);
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void drawAnimations() {
+    /// alter all but the most recent animations
+    // ramp out all previous anims
+    if (testToggle) {
+
+      //for (Anim anim : animations) {
+      for (int i = 0; i < this.animations.size()-1; i++) {   // loop  through the list excluding the last one added
+        int animIndex = i;
+        Anim an = this.animations.get(animIndex);  
+        float now = millis();
+        //if (alphaIndexA == 1) {
+          an.alphaEnvelopeA = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaA, an.alphaA, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.01));
+        //} else {
+        an.alphaEnvelopeA = an.alphaEnvelopeA.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.8, 0.2, 0.01));
+        an.alphaEnvelopeA.end_time = min(int(now+avgmillis*alphaRate*3.0), an.alphaEnvelopeA.end_time);
+        //an.alphaEnvelopeA = an.alphaEnvelopeA.mul(0.95);
+        //}
+        //if (alphaIndexB == 1) {
+        //  an.alphaEnvelopeB = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaB, an.alphaB, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.01));
+        //} else {       
+        //an.alphaEnvelopeB = an.alphaEnvelopeB.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.9, 0.2, 0.01));
+        //an.alphaEnvelopeB.end_time = min(int(now+avgmillis*alphaRate*1.0), an.alphaEnvelopeB.end_time);
+        an.alphaEnvelopeB = an.alphaEnvelopeB.mul(0.95);
+      }
+    }
     blendMode(LIGHTEST);
     for (int i = this.animations.size()-1; i >=0; i--) {                                  // loop  through the list
       Anim anim = this.animations.get(i);  
