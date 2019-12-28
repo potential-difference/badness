@@ -1,19 +1,19 @@
 /*class Tup {
-  float[] f;
-  int i;
-  Tup(float[] f, int i) {
-    this.f=f;
-    this.i=i;
-  }
-  float get() {
-    if (f != null) {
-      if (i<f.length && i>=0) {
-        return f[i];
-      }
-    }
-    return 1.0;
-  }
-}*/
+ float[] f;
+ int i;
+ Tup(float[] f, int i) {
+ this.f=f;
+ this.i=i;
+ }
+ float get() {
+ if (f != null) {
+ if (i<f.length && i>=0) {
+ return f[i];
+ }
+ }
+ return 1.0;
+ }
+ }*/
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 void dmxSmoke() {
   ////////////////////////////////////// DMX SMOKE //////////////////////////////////
@@ -70,6 +70,9 @@ long beatTimer;
 boolean beatTrigger;
 float beat, avgmillis;
 void resetbeats() {
+  beat = 1;
+  beatCounter = (beatCounter + 1) % 120;
+
   weightedsum=beatTimer+(1-beatAlpha)*weightedsum;
   weightedcnt=1+(1-beatAlpha)*weightedcnt;
   avgtime=weightedsum/weightedcnt;
@@ -84,19 +87,15 @@ void beats() {
   if (beatDetect.isOnset()) beatTrigger = true;
   // trigger beats without audio input
   if (pause > 1) {
-        if ((millis() % pauseTriggerTime) == 0){
-          beatTrigger = true;
-          pauseTriggerTime = int(random(360, 750));
-        }
+    if ((millis() % pauseTriggerTime) == 0) {
+      beatTrigger = true;
+      pauseTriggerTime = int(random(360, 750));
+    }
   }
-    
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  if (beatTrigger) {
-    beat = 1;
-    beatCounter = (beatCounter + 1) % 120;
-    resetbeats();
-  }
-  if (avgtime>0) beat*=pow(beatSlider, (1/avgtime));       //  changes rate alpha fades out!!
+  if (beatTrigger) resetbeats();
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  if (avgmillis>0) beat*= pow(beatSlider, (20/avgmillis));       //  changes rate alpha fades out based on average millis between beats
   else beat*=0.95;
   float end = 0.001;
   if (beat < end) beat = end;
@@ -143,9 +142,9 @@ void testColors(boolean _test) {
   if (_test) {
 
     fill((millis()/50)%360, 100, 100, 360*rigg.dimmer); 
-        for(Rig rig : rigs)     rect(rig.size.x, rig.size.y, rig.wide,rig.high);
+    for (Rig rig : rigs)     rect(rig.size.x, rig.size.y, rig.wide, rig.high);
 
-   
+
     rect(opcGrid.booth.x, opcGrid.booth.y, 30, 10);
     rect(opcGrid.dig.x, opcGrid.dig.y, 30, 10);
   }

@@ -12,9 +12,9 @@ void setupSpecifics() {
   pars.availableAnims = new int[] {0, 12};      // setup which anims are used on which rig here
 
   rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5};  
-  roof.availableFunctionEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
+  rigg.availableFunctionEnvelopes = new int[] {0, 1};  
 
-  rigg.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6, 10};
+  rigg.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6, 9};
   //cans.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5}; //rigg.availableBkgrnds;
   roof.availableBkgrnds = new int[] {0, 1, 3, 4, 5, 8};
   pars.availableBkgrnds = new int[] {0, 4};

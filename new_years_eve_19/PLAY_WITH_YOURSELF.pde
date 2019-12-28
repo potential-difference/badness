@@ -1,5 +1,4 @@
 int rigVizList = 11, roofVizList =11, alphLength = 5, funcLength = 8;
-float alf;
 int vizTimer, alphaTimer, functionTimer;
 void playWithYourself(float vizTm) {
   ///////////////// VIZ TIMER /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -7,7 +6,6 @@ void playWithYourself(float vizTm) {
     for (Rig rig : rigs) { 
       if (rig.play) {  
         rig.vizIndex = int(random(rig.availableAnims.length));
-        alf = 0; ////// set new viz to 0 to fade up viz /////
         println(rig.name+" VIZ:", rig.vizIndex, "@", (hour()+":"+minute()+":"+second()));
       }
     }
@@ -22,7 +20,6 @@ void playWithYourself(float vizTm) {
       if (rig.play) {  
         rig.alphaIndexA = int(random(rig.availableAlphaEnvelopes.length));  //// select from alpha array
         rig.alphaIndexB = int(random(rig.availableAlphaEnvelopes.length)); //// select from alpha array
-        alf = 0; ////// set  viz to 0 to fade up viz when alpha changes /////
         println(rig.name+" alpha change @", (hour()+":"+minute()+":"+second()), "new envelopes:", rig.alphaIndexA, "&", rig.alphaIndexB);
       }
     }
@@ -35,23 +32,15 @@ void playWithYourself(float vizTm) {
       if (rig.play) {  
         rig.functionIndexA = int(random(rig.availableFunctionEnvelopes.length));  //// select from function array
         rig.functionIndexB = int(random(rig.availableFunctionEnvelopes.length));  //// select from function array
-        alf = 0; ////// set  viz to 0 to fade up viz when fucntion changes /////
         println(rig.name+" function change @", (hour()+":"+minute()+":"+second()), "new envelope:", rig.functionIndexA, "&", rig.functionIndexB);
       }
     }
     functionTimer = millis()/1000;
   }
-  ///////////////////////////////// FADE UP NEXT VIZ //////////////////////////////////////////////////////////////////////////
-  if (alf < 1)  alf += 0.05;
-  if (alf > 1) alf = 1;
-
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////// PLAY WITH COLOUR ////////////////////////////////////////////////////////////////
   colTime = colorTimerSlider*60*30;
   for (Rig rig : rigs) rig.colorTimer(colTime, 1); //// seconds between colour change, number of steps to cycle through colours
-  //roof.colorTimer(colTime/1.5, 1); //// seconds between colour change, number of steps to cycle through colours
-  //cans.colorTimer(colTime/2, 1); //// seconds between colour change, number of steps to cycle through colours
-  //pars.colorTimer(colTime/2, 1); //// seconds between colour change, number of steps to cycle through colours
 
   if (millis()/1000 % colTime/4 == 0) for (Rig rig : rigs) rig.bgIndex = (rig.bgIndex+1) % rig.availableBkgrnds.length;               // change colour layer automatically
 
@@ -61,8 +50,8 @@ void playWithYourself(float vizTm) {
 
   ///////////////////////////////////// COLORSWAP TIMER /////////////////////////////////////////////////////////////////
   if (colorSwapSlider > 0) for (Rig rig : rigs) rig.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
-  if (beatCounter%64<2) rigg.colorSwap(1000000*noize);  
-  if (beatCounter%82>80) roof.colorSwap(1000000*noize);
+  if (beatCounter%64<4) rigg.colorSwap(1000000*noize);  
+  if (beatCounter%82>78) roof.colorSwap(1000000*noize);
   //if (beatCounter%64>61) cans.colorSwap(1000000*noize);
 
   ////////////////////////////////////////// COLOR FLIP ///////////////////////////////////////////////////////////////////
@@ -70,17 +59,13 @@ void playWithYourself(float vizTm) {
   else rigg.colFlip = false;
   for (int i = 11; i<19; i+=2) if ( beatCounter % 128 == i) roof.colFlip = true;
   else roof.colFlip = false;
-
   for (Rig rig : rigs) rig.colorFlip(rigg.colFlip);
 
   ///////////////////////////////////////// LERP COLOUR //////////////////////////////////////////////////////////////////
-  if (beatCounter % 64 > 60)  colorLerping(rigg, (1-beat)*2);
-  if (beatCounter % 96 > 90)  colorLerping(roof, (1-beat)*1.5);
-  //if (beatCounter % 32 > 28)  colorLerping(cans, (1-beat)*1.5);
-
   colBeat = false;
-  //rigg.c = lerpColor(rigg.col[rigg.colorIndexB], rigg.col[rigg.colorIndexA], beatFast);
-  //rigg.flash = lerpColor(rigg.col[rigg.colorIndexA], rigg.col[rigg.colorIndexB], beatFast);
+  if (beatCounter % 18 > 13)  colorLerping(rigg, (1-beat)*2);
+  if (beatCounter % 32 > 23)  colorLerping(roof, (1-beat)*1.5);
+  ////if (beatCounter % 32 > 28)  colorLerping(cans, (1-beat)*1.5);
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -6,7 +6,7 @@ Envelope SimplePulse(Number attack_time, Number sustain_time, Number decay_time,
   // in this case - during the attack_time and the sustain time the downramp = 1
   // attack curve: 0.5 = STRAIGHT, 0 = SWOOP-UP, 1 = ARC-UP
   Envelope upramp = new Ramp(t, t+attack_time.intValue(), 0.0, attack_curv, 1.0);
-  Envelope dwnrmp = new Ramp(t+attack_time.intValue()+sustain_time.intValue(), t+attack_time.intValue()+sustain_time.intValue()+decay_time.intValue(), 1.0, decay_curv, 0.1);
+  Envelope dwnrmp = new Ramp(t+attack_time.intValue()+sustain_time.intValue(), t+attack_time.intValue()+sustain_time.intValue()+decay_time.intValue(), 1.0, decay_curv, 0.01);
   return upramp.mul(dwnrmp);
 }
 // THIS IS A FUNCTION NOT AN ENVELOPE - it RETURNS an ENVELOPE that starts sowly going from 0 TO 1 TO 0 and getting FASTER but still with the same AMPLITUDE
@@ -106,18 +106,18 @@ Envelope functionEnvelopeFactory(int envelope_index, Rig rig) {
   switch (envelope_index) {
   case 0: 
     //return SimplePulse(cc[41]*4000, cc[42]*4000, cc[43]*4000, cc[44], cc[45]);
-    return CrushPulse(0.031, 0.040, 0.913, avgmillis*rig.funcRate*15+0.5, 0.0, 0.0);
+    return CrushPulse(0.0, 0.0, 1.0, avgmillis*rig.funcRate*15+0.5, 0.0, 0.0);
   case 1:
     //return CrushPulse(cc[49], cc[50], cc[51], avgmillis*rig.beatSlider*15+0.5, cc[52], cc[53]);
-    return CrushPulse(0.92, 0.055, 0.071, avgmillis*rig.funcRate*15+0.5, 0.0, 0.0);
-  case 2:
-    return CrushPulse(cc[41], cc[42], cc[43], avgmillis*rig.funcRate*15+0.5, 0.00, 0.00);
-  case 3:
-    return CrushPulse(cc[44], cc[45], cc[46], avgmillis*rig.funcRate*15+0.5, 0.02, 0.02);
-  case 4:
-    //Envelope Squiggle(Number attack_t, Number sustain_t, Number decay_t, float attack_curv, float decay_curv, float sqiggle_curv, float squiggliness, int squiggle_spd) {
-    return Squiggle(cc[49], cc[50], cc[51], avgmillis*rig.funcRate*15+0.5, 0.01+cc[52], cc[53]);
+    return CrushPulse(1.0, 0.0, 0.0, avgmillis*rig.funcRate*15+0.5, 0.0, 0.0);
+    //case 2:
+    //  return CrushPulse(cc[41], cc[42], cc[43], avgmillis*rig.funcRate*15+0.5, 0.00, 0.00);
+    //case 3:
+    //  return CrushPulse(cc[44], cc[45], cc[46], avgmillis*rig.funcRate*15+0.5, 0.02, 0.02);
+    //case 4:
+    //  //Envelope Squiggle(Number attack_t, Number sustain_t, Number decay_t, float attack_curv, float decay_curv, float sqiggle_curv, float squiggliness, int squiggle_spd) {
+    //  return Squiggle(cc[49], cc[50], cc[51], avgmillis*rig.funcRate*15+0.5, 0.01+cc[52], cc[53]);
   default: 
-    return CrushPulse(0.031, 0.040, 0.913, avgmillis*rig.funcRate*15+0.5, 0.02, 0.02);
+    return CrushPulse(0.0, 0.0, 1.0, avgmillis*rig.funcRate*15+0.5, 0.0, 0.0);
   }
 }

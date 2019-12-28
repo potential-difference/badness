@@ -52,8 +52,9 @@ class StarMesh extends Anim {
     window.beginDraw();
     window.background(0);
     stroke = rig.wide/20*strokeSlider;
-    wide = (10+(functionA*rig.wide*1.5))*wideSlider;
-    high = (10+((1-functionA)*rig.high*1.5))*highSlider;
+    //println("function A", functionA);
+    wide = (10+(functionA*rig.wide*1.5));
+    high = (10+((1-functionA)*rig.high*1.5));
     rotate = -30*functionB;
     star(position[1].x, position[1].y, col1, stroke, wide, high, rotate, alphaA);
     star(position[4].x, position[4].y, col1, stroke, wide, high, rotate, alphaA);
@@ -693,8 +694,10 @@ class Anim {
     position = rig.position; 
     positionX = rig.positionX;
 
+
     alphaEnvelopeA = envelopeFactory(rig.availableAlphaEnvelopes[rig.alphaIndexA], rig);
     alphaEnvelopeB = envelopeFactory(rig.availableAlphaEnvelopes[rig.alphaIndexB], rig);
+    //if(functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexA], rig) != NaN)
     functionEnvelopeA = functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexA], rig);
     functionEnvelopeB = functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexB], rig);
   }
@@ -713,13 +716,19 @@ class Anim {
     int now = millis();
     alphaA = alphaEnvelopeA.value(now)*rig.dimmer;
     alphaB = alphaEnvelopeB.value(now)*rig.dimmer;
-   
-    functionA = functionEnvelopeA.value(now); 
-    functionB = functionEnvelopeB.value(now);
-    
+
+    Float funcX = functionEnvelopeA.value(now);
+    if (!Float.isNaN(funcX)) functionA = funcX; 
+    //functionEnvelopeA.value(now); 
+
+    Float funcZ = functionEnvelopeB.value(now);
+    if (!Float.isNaN(funcZ)) functionB = funcZ;
+    //functionB = functionEnvelopeB.value(now);
+
     //println("functionA "+functionA,"alphaA "+alphaA, "rigdimmer " +rigg.dimmer);
 
     if (alphaEnvelopeA.end_time<now && alphaEnvelopeB.end_time<now) deleteme = true;  // only delete when all finished
+
 
     this.draw();
 
@@ -770,21 +779,25 @@ class Anim {
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
   void star(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
     try {
-      window.strokeWeight(-stroke);
-      window.stroke(360*alph);
-      window.noFill();
-      window.pushMatrix();
-      window.translate(xpos, ypos);
-      window.rotate(radians(rotate));
-      window.ellipse(0, 0, wide, high);
-      window.rotate(radians(120));
-      window.ellipse(0, 0, wide, high);
-      window.rotate(radians(120));
-      window.ellipse(0, 0, wide, high);
-      window.popMatrix();
+      this.window.strokeWeight(-stroke);
+      this.window.stroke(360*alph);
+      this.window.noFill();
+      this.window.pushMatrix();                      //  ERROR too many calls to push matrix
+      this.window.translate(xpos, ypos);
+      this.window.rotate(radians(rotate));
+      this.window.ellipse(0, 0, wide, high);         //  ERROR neagtive array size exception
+      this.window.rotate(radians(120));
+      this.window.ellipse(0, 0, wide, high);
+      this.window.rotate(radians(120));
+      this.window.ellipse(0, 0, wide, high);
+      this.window.popMatrix();
     }  
     catch(Exception e) {
-      println(e, "BENJAMIN REALLY NEEDDS TO FIX THIS");
+      println(wide, high);
+      //NegativeArraySizeException();
+      String message = e.getMessage();
+      Throwable cause = e.getCause();
+      println("message:", e, "cause", cause);
     }
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
