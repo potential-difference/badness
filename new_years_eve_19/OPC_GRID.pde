@@ -631,9 +631,6 @@ class OPCGrid {
     seeds[2] = new PVector (rig.size.x-(rig.wide/4), rig.size.y+(rig.high/4));
     seeds[3] = new PVector (rig.size.x+(rig.wide/4), rig.size.y+(rig.high/4));
 
-    println("seeeds PVector");
-    print(seeds);
-
     int xpos = int(rig.size.x-(rig.wide/4));
     int _xpos = xpos;
     int ypos = int(rig.size.y);

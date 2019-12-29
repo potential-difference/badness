@@ -32,7 +32,7 @@ void keyPressed() {
   }   
   if (key == 'c') rigg.colorIndexA = (rigg.colorIndexA+1)%rigg.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
   if (key == 'v') rigg.colorIndexB = (rigg.colorIndexB+1)%rigg.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////// ROOF KEY FUNCTIONS ///////////////////////////////////////////////////////////////////////////////
   if (key == 'h') roof.vizIndex = (roof.vizIndex+1)%roof.availableAnims.length;               //// STEP FORWARD TO NEXT RIG VIZ
   if (key == 'g') roof.vizIndex -= 1;                          //// STEP BACK TO PREVIOUS RIG VIZ
@@ -53,7 +53,14 @@ void keyPressed() {
     roof.colorIndexB = (roof.colorIndexB+1)%cans.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
   }
 
-
+  for (Rig rig : rigs) {
+    rig.ddListCallback(rig.ddVizList, rig.vizIndex);
+    rig.ddListCallback(rig.ddFuncListA, rig.functionIndexA);
+    rig.ddListCallback(rig.ddFuncListB, rig.functionIndexB);
+    rig.ddListCallback(rig.ddAlphaListA, rig.alphaIndexA);
+    rig.ddListCallback(rig.ddAlphaListB, rig.alphaIndexB);
+    rig.ddListCallback(rig.ddBgList, rig.bgIndex);
+  }
 
 
   //roof.alphaIndexA = rigg.alphaIndexA;
