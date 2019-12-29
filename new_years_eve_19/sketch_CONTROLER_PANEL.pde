@@ -64,15 +64,16 @@ class MainControlFrame extends ControlFrame {
     text("# of anims: "+totalAnims, x, y+45);
     ///////////// rig info/ ///////////////////////////////////////////////////////////////////
     fill(rigg.flash, 300);
+    if (!rigg.toggle) fill(rigg.c, 100);
     text("rigViz: " + rigg.availableAnims[rigg.vizIndex], x, y);
     text("bkgrnd: " + rigg.availableBkgrnds[rigg.bgIndex], x, y+20);
-    text("func's: " + rigg.availableFunctionEnvelopes[rigg.functionIndexA] + " / " + rigg.availableFunctionEnvelopes[rigg.functionIndexB], x+100, y);
-    text("alph's: " + rigg.availableAlphaEnvelopes[rigg.alphaIndexA] + " / " + rigg.availableAlphaEnvelopes[rigg.alphaIndexB], x+100, y+20);
+    text("func's: " + rigg.availableFunctionEnvelopes[rigg.functionIndexA] + " / " + rigg.availableFunctionEnvelopes[rigg.functionIndexB], x+110, y);
+    text("alph's: " + rigg.availableAlphaEnvelopes[rigg.alphaIndexA] + " / " + rigg.availableAlphaEnvelopes[rigg.alphaIndexB], x+110, y+20);
     /////////// info about PLAYWITHYOURSELF functions /////////////////////////////////////////////////////////////////////////////////////////////
     ///// NEXT VIZ IN....
     x=250;
     fill(rigg.c, 300);
-    fill(rigg.c, 100);
+
     String sec = nf(int(vizTime*60 - (millis()/1000 - vizTimer)) % 60, 2, 0);
     int min = int(vizTime*60 - (millis()/1000 - vizTimer)) /60 % 60;
     text("next viz in: "+min+":"+sec, x, y);
@@ -80,7 +81,7 @@ class MainControlFrame extends ControlFrame {
     sec = nf(int(colorTime*60 - (millis()/1000 - rigg.colorTimer)) %60, 2, 0);
     min = int(colorTime*60 - (millis()/1000 - rigg.colorTimer)) /60 %60;
     text("next color in: "+ min+":"+sec, x, y+20);
-    text("c-" + rigg.colorIndexA + "  " + "flash-" + rigg.colorIndexB, x, y+40);
+    //text("c-" + rigg.colorIndexA + "  " + "flash-" + rigg.colorIndexB, x, y+40);
     /////////////////////////////////////////////////// roof info ////////////////////////////////////////////////////////
     if (size.roofWidth > 0 && size.roofHeight > 0) {
       fill(rigg.c, 300);
@@ -277,6 +278,10 @@ class ControlFrame extends PApplet {
       .setColorForeground(act) 
       ;
   }
+  ////////////////////////////////////////////////////////////////////////////////////////////////// 
+  //void setController() {
+  //  cp5.get   getController("rigg.ddBgList");
+  //}
   //////////////////////////////////////// CALL BACK FOR SLIDER CONTROL FROM OTHER VARIABLES
   // an event from slider sliderA will change the value of textfield textA here
   public void rigDimmer(float theValue) {
@@ -324,11 +329,11 @@ class ControlFrame extends PApplet {
         if (frameCount > someDelay)    println(rig.name+" background selected "+intValue);
         rig.bgIndex = intValue;
       }
-      if (theEvent.isFrom(rig.ddAlphaList)) {
+      if (theEvent.isFrom(rig.ddAlphaListA)) {
         if (frameCount > someDelay)    println(rig.name+" alpahA selected "+intValue);
         rig.alphaIndexA = intValue;
       }
-      if (theEvent.isFrom(rig.ddFuncList)) {
+      if (theEvent.isFrom(rig.ddFuncListA)) {
         if (frameCount > someDelay)   println(rig.name+" funcA selected "+intValue);
         rig.functionIndexA = intValue;
       }

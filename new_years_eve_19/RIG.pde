@@ -1,5 +1,5 @@
 public class Rig {
-  float dimmer, alphaRate, funcRate, blurValue, bgNoise, manualAlpha, funcSwapRate, alphaSwapRate;
+  float dimmer, alphaRate, funcRate, blurValue, bgNoise, manualAlpha, funcSwapRate, alphaSwapRate, bgSwapRate;
   int wide, high, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, bgIndex, vizIndex, alphaTimer, functionTimer;
   PGraphics colorLayer, buffer, pass1, pass2;
   PVector size;
@@ -20,7 +20,7 @@ public class Rig {
   int arrayListIndex;
   float infoX, infoY;
   PApplet parent;
-  ScrollableList ddVizList, ddBgList, ddAlphaList, ddFuncList, ddAlphaListB, ddFuncListB;
+  ScrollableList ddVizList, ddBgList, ddAlphaListA, ddFuncListA, ddAlphaListB, ddFuncListB;
   RadioButton cRadioButton, flashRadioButton;
 
   Rig(boolean _toggle, float _xpos, float _ypos, int _wide, int _high, String _name) {
@@ -124,10 +124,12 @@ public class Rig {
     cp5.getController(this.name+" "+"funcRate").setLabel("func rate");
     loadSlider( "blurValue", x+(clm*arrayListIndex), y+(3*row), swide, shigh, 0, 1, 0.5, act, bac, slider);
     cp5.getController(this.name+" "+"blurValue").setLabel("blurriness");
-    loadSlider( "funcSwapRate", x+(clm*arrayListIndex), y+(4*row), swide, shigh, 15, 1, 4, act1, bac1, slider1);
+    loadSlider( "funcSwapRate", x+(clm*arrayListIndex), y+(4*row), swide, shigh, 30, 0, 4, act1, bac1, slider1);
     cp5.getController(this.name+" "+"funcSwapRate").setLabel("func swap");
-    loadSlider( "alphaSwapRate", x+(clm*arrayListIndex), y+(5*row), swide, shigh, 15, 1, 6, act, bac, slider);
+    loadSlider( "alphaSwapRate", x+(clm*arrayListIndex), y+(5*row), swide, shigh, 30, 0, 6, act, bac, slider);
     cp5.getController(this.name+" "+"alphaSwapRate").setLabel("alpha swap");
+    loadSlider( "bgSwapRate", x+(clm*arrayListIndex), y+(6*row), swide, shigh, 30, 0, 12, act1, bac1, slider1);
+    cp5.getController(this.name+" "+"bgSwapRate").setLabel("bkgrnd swap");
 
     //loadSlider( "bgNoise", x+(clm*arrayListIndex), y+(4*row), swide, shigh, 0, 1, 0.5, act1, bac1, slider1);
     //loadSlider( "manualAlpha", x+(clm*arrayListIndex), y+(5*row), swide, shigh, 0, 1, 0.8, act, bac, slider);
@@ -163,9 +165,9 @@ public class Rig {
     }
     ///////////////////////////////// DROPDOWN LISTS //////////////////////////////////////////////////////////////////////////////
     ddVizList = cp5.addScrollableList(name+" vizLizt").setPosition(x+(clm*arrayListIndex)-90, y);
-    ddBgList = cp5.addScrollableList(name+" bkList").setPosition(x+(clm*arrayListIndex)-90, y+25);
-    ddAlphaList = cp5.addScrollableList(name+" alpahLizt").setPosition(x+(clm*arrayListIndex)-90, y+60);
-    ddFuncList = cp5.addScrollableList(name+" funcLizt").setPosition(x+(clm*arrayListIndex)-90, y+85);
+    ddBgList = cp5.addScrollableList(name+" bgList").setPosition(x+(clm*arrayListIndex)-90, y+25);
+    ddAlphaListA = cp5.addScrollableList(name+" alpahLizt").setPosition(x+(clm*arrayListIndex)-90, y+60);
+    ddFuncListA = cp5.addScrollableList(name+" funcLizt").setPosition(x+(clm*arrayListIndex)-90, y+85);
 
     ddAlphaListB = cp5.addScrollableList(name+" alpahLiztB").setPosition(x+(clm*arrayListIndex)-45, y+60);
     ddFuncListB = cp5.addScrollableList(name+" funcLiztB").setPosition(x+(clm*arrayListIndex)-45, y+85);
@@ -173,8 +175,8 @@ public class Rig {
     // the order of this has to be oppostie to the order they are displayed on screen
     customize(ddFuncListB, color(bac1, 200), bac, act, 40, "funcB");     // customize the list
     customize(ddAlphaListB, color(bac1, 200), bac, act, 40, "alphB");   // customize the list
-    customize(ddFuncList, color(bac1, 200), bac, act, 40, "funcA");     // customize the list
-    customize(ddAlphaList, color(bac1, 200), bac, act, 40, "alphA");   // customize the list
+    customize(ddFuncListA, color(bac1, 200), bac, act, 40, "funcA");     // customize the list
+    customize(ddAlphaListA, color(bac1, 200), bac, act, 40, "alphA");   // customize the list
 
     customize(ddBgList, color(bac, 200), bac1, act, 85, name+" bkgrnd");       // customize the list
     customize(ddVizList, color(bac, 200), bac1, act, 85, name+" viz");       // customize the list
@@ -196,7 +198,6 @@ public class Rig {
       .setColorForeground(act) 
       ;
   }
-
   void loadSlider(String label, float x, float y, int wide, int high, float min, float max, float startVal, color act1, color bac1, color slider1) {
     cp5.addSlider(name+" "+label)
       .plugTo(this, label)
@@ -209,14 +210,13 @@ public class Rig {
       .setColorForeground(color(slider1, 200)) 
       ;
   }
-
   void customize(ScrollableList ddl, color bac, color bac1, color act, int wide, String label) {
     ddl.setBackgroundColor(0); // color behind list - can hardly see it
     ddl.setItemHeight(20);
     ddl.setBarHeight(15);
     ddl.setWidth(wide);
     ddl.setCaptionLabel(label);
-    for (int i=0; i<availableAnims.length; i++) ddl.addItem(label+i, i);
+    //for (int i=0; i<availableAnims.length; i++) ddl.addItem(label+i, i);
     ddl.setColorBackground(color(bac, 300));       // background color
     ddl.setColorActive(200);           // clicked color
     ddl.setColorCaptionLabel(#FFFAFA) ;
@@ -226,6 +226,9 @@ public class Rig {
     ddl.bringToFront();
   }
 
+  void ddListCallback( ScrollableList ddl, int index) {
+    ddl.setValue(index);
+  }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   void drawColorLayer(int backgroundIndex) {
@@ -738,22 +741,20 @@ public class Rig {
     case 15:  
       anim = new DiagoNuts(this);
       break;
+    
     case 16:  
-      anim = new Stars(this);
-      break;
-    case 17:  
       anim = new Swipe(this);
       break;
-    case 18:  
+    case 17:  
       anim = new Swiped(this);
       break;
-    case 19:  
+    case 18:  
       anim = new Teeth(this);
       break;
-    case 20:
+    case 19:
       anim = new AllOn(this);
       break;
-    case 21:
+    case 20:
       anim = new AllOff(this);
       break;
     }
@@ -828,6 +829,13 @@ public class Rig {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void draw() {
+    ddListCallback(ddBgList, bgIndex);
+    ddListCallback(ddVizList, vizIndex);
+    ddListCallback(ddAlphaListA, alphaIndexA);
+    ddListCallback(ddAlphaListB, alphaIndexB);
+    ddListCallback(ddFuncListA, functionIndexA);
+    ddListCallback(ddFuncListB, functionIndexB);
+
     clash(beat);
     drawAnimations();
 

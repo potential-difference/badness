@@ -7,7 +7,7 @@ void setupSpecifics() {
    */
 
   rigg.availableAnims = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};      // setup which anims are used on which rig here
-  roof.availableAnims = new int[] {0, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19};        // setup which anims are used on which rig here - defualt is 0,1,2,3...
+  roof.availableAnims = new int[] {0, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17, 18, 19};        // setup which anims are used on which rig here - defualt is 0,1,2,3...
   pars.availableAnims = new int[] {0, 20};      // setup which anims are used on which rig here
 
   rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
@@ -26,9 +26,9 @@ void setupSpecifics() {
   for (Rig rig : rigs) {    
     rig.ddVizList.clear();
     rig.ddBgList.clear();
-    rig.ddAlphaList.clear();
-    rig.ddAlphaListB.clear();
-    rig.ddFuncList.clear();
+    rig.ddAlphaListA.clear();
+    rig.ddAlphaListA.clear();
+    rig.ddFuncListB.clear();
     rig.ddFuncListB.clear();
     for (int i=0; i<rig.availableBkgrnds.length; i++) { 
       int index = rig.availableBkgrnds[i];
@@ -42,7 +42,7 @@ void setupSpecifics() {
     }
     for (int i=0; i<rig.availableAlphaEnvelopes.length; i++) {
       int index = rig.availableAlphaEnvelopes[i];
-      rig.ddAlphaList.addItem("alph  "+index, index); //add all available anims to VizLists -
+      rig.ddAlphaListA.addItem("alph  "+index, index); //add all available anims to VizLists -
     }
     for (int i=0; i<rig.availableAlphaEnvelopes.length; i++) {
       int index = rig.availableAlphaEnvelopes[i];
@@ -50,7 +50,7 @@ void setupSpecifics() {
     }
     for (int i=0; i<rig.availableFunctionEnvelopes.length; i++) {
       int index = rig.availableFunctionEnvelopes[i];
-      rig.ddFuncList.addItem("func  "+index, index); //add all available anims to VizLists -
+      rig.ddFuncListA.addItem("func  "+index, index); //add all available anims to VizLists -
     }
     for (int i=0; i<rig.availableFunctionEnvelopes.length; i++) {
       int index = rig.availableFunctionEnvelopes[i];
