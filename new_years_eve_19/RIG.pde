@@ -33,9 +33,10 @@ public class Rig {
     cp5 = controlFrame.cp5;
 
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
-
+    /*
     animNames = new String[] {"benjmains boxes", "checkers", "rings", "rush", "rushed", 
-      "square nuts", "diaganol nuts", "stars", "swipe", "swiped", "teeth", "donut", "all on", "all off"}; 
+     "square nuts", "diaganol nuts", "stars", "swipe", "swiped", "teeth", "donut", "all on", "all off"}; 
+     */
     backgroundNames = new String[] {"one col c", "vert mirror grad", "side by side", "horiz mirror grad", 
       "one color flash", "moving horiz grad", "checked", "radiators", "stripes", "one two three"}; 
 
@@ -118,10 +119,15 @@ public class Rig {
     ///////////////////////////////// SLIDERS  ///////////////////////////////////////////////////////////////////////////////////
     loadSlider( "dimmer", x+(clm*arrayListIndex), y+(0*row), swide, shigh, 0, 1, 1, act1, bac1, slider1);
     loadSlider( "alphaRate", x+(clm*arrayListIndex), y+(1*row), swide, shigh, 0, 1, 0.3, act, bac, slider);
+    cp5.getController(this.name+" "+"alphaRate").setLabel("alpha rate");
     loadSlider( "funcRate", x+(clm*arrayListIndex), y+(2*row), swide, shigh, 0, 1, 0.4, act1, bac1, slider1);
+    cp5.getController(this.name+" "+"funcRate").setLabel("func rate");
     loadSlider( "blurValue", x+(clm*arrayListIndex), y+(3*row), swide, shigh, 0, 1, 0.5, act, bac, slider);
+    cp5.getController(this.name+" "+"blurValue").setLabel("blurriness");
     loadSlider( "funcSwapRate", x+(clm*arrayListIndex), y+(4*row), swide, shigh, 15, 1, 4, act1, bac1, slider1);
+    cp5.getController(this.name+" "+"funcSwapRate").setLabel("func swap");
     loadSlider( "alphaSwapRate", x+(clm*arrayListIndex), y+(5*row), swide, shigh, 15, 1, 6, act, bac, slider);
+    cp5.getController(this.name+" "+"alphaSwapRate").setLabel("alpha swap");
 
     //loadSlider( "bgNoise", x+(clm*arrayListIndex), y+(4*row), swide, shigh, 0, 1, 0.5, act1, bac1, slider1);
     //loadSlider( "manualAlpha", x+(clm*arrayListIndex), y+(5*row), swide, shigh, 0, 1, 0.8, act, bac, slider);
@@ -129,10 +135,10 @@ public class Rig {
     loadToggle(noiseToggle, "noiseToggle", x+(clm*arrayListIndex), y+row*7.5, swide, 10);
     loadToggle(toggle, "toggle", x+(clm*arrayListIndex), y+row*9, swide-30, 20);
     loadToggle(play, "play", x+(clm*arrayListIndex)+swide-25, y+row*9, 25, 20);
+    cp5.getController(this.name+" "+"play").setLabel("p.w.y.s");
+
     ///////////////////////////////// RADIO BUTTONS  //////////////////////////////////////////////////////////////////////////////
     cRadioButton = cp5.addRadioButton(name+" cRadioButton")
-      //.plugTo(this, "cRadioButton")
-      //.setLabel(this.name+" cRadioButton")
       .setPosition(x+(clm*arrayListIndex)-130, y)
       .setSize(15, shigh);
     for (int i=0; i<availableColors.length; i++) {
@@ -145,8 +151,6 @@ public class Rig {
     }
 
     flashRadioButton = cp5.addRadioButton(name+" flashRadioButton")
-      //.plugTo(this, "flashRadioButton")
-      //.setLabel(this.name+" flashRadioButton")
       .setPosition(x+(clm*arrayListIndex)-110, y)
       .setSize(15, shigh);
     for (int i=0; i<availableColors.length; i++) {
@@ -195,7 +199,6 @@ public class Rig {
 
   void loadSlider(String label, float x, float y, int wide, int high, float min, float max, float startVal, color act1, color bac1, color slider1) {
     cp5.addSlider(name+" "+label)
-      //.setLabel(label)
       .plugTo(this, label)
       .setPosition(x, y)
       .setSize(wide, high)
@@ -224,8 +227,9 @@ public class Rig {
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void drawColorLayer() {
-    int index = availableBkgrnds[bgIndex];
+
+  void drawColorLayer(int backgroundIndex) {
+    int index = this.availableBkgrnds[backgroundIndex];
     switch(index) {
     case 0:
       colorLayer.beginDraw();
@@ -236,7 +240,7 @@ public class Rig {
     case 1:
       colorLayer.beginDraw();
       colorLayer.background(0);
-      mirrorGradient(c, flash, 0.5);
+      oneColour(flash);
       colorLayer.endDraw();
       break;
     case 2:
@@ -254,7 +258,7 @@ public class Rig {
     case 4:
       colorLayer.beginDraw();
       colorLayer.background(0);
-      oneColour(flash);
+      mirrorGradient(c, flash, 0.5);
       colorLayer.endDraw();
       break;
     case 5:
@@ -290,7 +294,39 @@ public class Rig {
     case 10:
       colorLayer.beginDraw();
       colorLayer.background(0);
-      radialGradient(c, flash, 0);
+      radialGradient(flash, c, sine);
+      colorLayer.endDraw();
+      break;
+    case 11:
+      colorLayer.beginDraw();
+      colorLayer.background(0);
+      radialGradient(c, flash, beat);
+      bigShield(c, flash);
+      balls(clash);
+      colorLayer.endDraw();
+      break;
+    case 12:
+      colorLayer.beginDraw();
+      colorLayer.background(0);
+      oneColour(c);
+      bigShield(flash, flash);
+      colorLayer.endDraw();
+      break;
+    case 13:
+      colorLayer.beginDraw();
+      colorLayer.background(0);
+      oneColour(flash);
+      bigShield(c, clash);
+      colorLayer.endDraw();
+      break;
+    case 14:
+      colorLayer.beginDraw();
+      colorLayer.background(0);
+      oneColour(c);
+      bigShield(clash, clashed);
+      mediumShield(flash, flash);
+      smallShield(c);
+      balls(clash1);
       colorLayer.endDraw();
       break;
     default:
@@ -300,6 +336,21 @@ public class Rig {
       colorLayer.endDraw();
       break;
     }
+    /*
+        radGradBallBG(0, c, flash, 0);  
+     //if (rigBgr == 1) 
+     radialGradientBG(1, c, flash, func);
+     //if (rigBgr == 2) 
+     bigOppBG(2, c, flash);
+     //if (rigBgr == 3) 
+     eyeBG(3, c, flash);
+     //if (rigBgr == 4) 
+     radGradEyeBG(4, flash, c, func);
+     //if (rigBgr == 5) 
+     sipralBG(5, flash, c);
+     //if (rigBgr == 6) 
+     threeColBG(6, c, flash);
+     */
     blendMode(MULTIPLY);
     /*
     if (syphonToggle) { 
@@ -308,7 +359,10 @@ public class Rig {
      */
     image(colorLayer, size.x, size.y);
   }
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////// VERTICAL MIRROR GRADIENT BACKGROUND ////////////////////////////////////////////////
   void mirrorGradient(color col1, color col2, float func) {
     //// LEFT SIDE OF GRADIENT
@@ -338,11 +392,12 @@ public class Rig {
   /////////////////////////////////// RADIAL GRADIENT BACKGROUND //////////////////////////////////////////////////////////
   void radialGradient(color col1, color col2, float function) {
     colorLayer.background(col1);
-    float radius = colorLayer.height*function;
-    int numPoints = 12;
-    float angle=360/numPoints;
-    float rotate = 90+(function*angle);
-    for (  int i = 0; i < numPoints; i++) {
+    float radius = colorLayer.height*function; //*function;
+    int numberofpoints = 12;
+    float angle=360/numberofpoints;
+    //float rotate = 90+(function*angle);
+    float rotate = -30+(function*angle);
+    for (  int i = 0; i < numberofpoints; i++) {
       colorLayer.beginShape(POLYGON); 
       colorLayer.fill(col1);
       colorLayer.vertex(cos(radians((i)*angle+rotate))*radius+colorLayer.width/2, sin(radians((i)*angle+rotate))*radius+colorLayer.height/2);
@@ -457,17 +512,52 @@ public class Rig {
     colorLayer.fill(col2);                                
     colorLayer.rect(colorLayer.width/2, colorLayer.height/2, colorLayer.width/3*2, colorLayer.height);
   }
-
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void stripes( color col1, color col2) {
     colorLayer.background(col1);
     colorLayer.fill(col2);                                
     colorLayer.rect(colorLayer.width/2, colorLayer.height/2, colorLayer.width/3, colorLayer.height);
   }
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  void bigShield( color col1, color col2) {
+    colorLayer.noStroke();
+    colorLayer.fill(col1);      
+    colorLayer.ellipse(colorLayer.width/2, colorLayer.height/2, shieldsGrid.bigShieldRad, shieldsGrid.bigShieldRad);
+    colorLayer.fill(col2);      
+    colorLayer.ellipse(colorLayer.width/2, colorLayer.height/2, shieldsGrid.bigShieldRad/2, shieldsGrid.bigShieldRad/2);
+  }
+  void balls(color col1) {
+    colorLayer.fill(col1);     
+    colorLayer.noStroke();
+    colorLayer.ellipse(shieldsGrid.shields[7].x, shieldsGrid.shields[7].y, 15, 15);
+    colorLayer.ellipse(shieldsGrid.shields[8].x, shieldsGrid.shields[8].y, 15, 15);
+    colorLayer.ellipse(shieldsGrid.shields[9].x, shieldsGrid.shields[9].y, 15, 15);
+  }
+  void mediumShield(color col1, color col2) {
+    colorLayer.fill(col1);      
+    colorLayer.noStroke();
+    colorLayer.ellipse(shieldsGrid.shields[0].x, shieldsGrid.shields[0].y, shieldsGrid.medShieldRad, shieldsGrid.medShieldRad);
+    colorLayer.ellipse(shieldsGrid.shields[1].x, shieldsGrid.shields[1].y, shieldsGrid.medShieldRad, shieldsGrid.medShieldRad);
+    colorLayer.ellipse(shieldsGrid.shields[2].x, shieldsGrid.shields[2].y, shieldsGrid.medShieldRad, shieldsGrid.medShieldRad);
+
+    colorLayer.fill(col2);      
+    colorLayer.ellipse(shieldsGrid.shields[0].x, shieldsGrid.shields[0].y, shieldsGrid.medShieldRad/2, shieldsGrid.medShieldRad/2);
+    colorLayer.ellipse(shieldsGrid.shields[1].x, shieldsGrid.shields[1].y, shieldsGrid.medShieldRad/2, shieldsGrid.medShieldRad/2);
+    colorLayer.ellipse(shieldsGrid.shields[2].x, shieldsGrid.shields[2].y, shieldsGrid.medShieldRad/2, shieldsGrid.medShieldRad/2);
+  }
+  void smallShield(color col1) {
+    colorLayer.fill(col1);      
+    colorLayer.ellipse(shieldsGrid.shields[3].x, shieldsGrid.shields[3].y, shieldsGrid.smallShieldRad, shieldsGrid.smallShieldRad);
+    colorLayer.ellipse(shieldsGrid.shields[4].x, shieldsGrid.shields[4].y, shieldsGrid.smallShieldRad, shieldsGrid.smallShieldRad);
+    colorLayer.ellipse(shieldsGrid.shields[5].x, shieldsGrid.shields[5].y, shieldsGrid.smallShieldRad, shieldsGrid.smallShieldRad);
+  }
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void rigInfo() {
-
     float textHeight = 18;
     textSize(textHeight);
     float nameWidth = textWidth(name);
@@ -598,14 +688,7 @@ public class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void addAnim(int animIndex) {
     Anim anim = new Anim(this);
-
-    //    println(name+" aval anims");
-    //println(availableAnims);
     int index = this.availableAnims[animIndex];
-
-    //println(name+" index", index);
-    //println();
-
     switch (index) {
     case 0:  
       anim = new BenjaminsBoxes(this);
@@ -626,24 +709,51 @@ public class Rig {
       anim = new TwistedStar(this);
       break;
     case 6:  
-      anim = new BouncingPolo(this);
-      break;
-    case 7:  
       anim = new Stars(this);
       break;
-    case 8:  
+    case 7:  
       anim = new SingleDonut(this);
       break;
-    case 9:  
-      anim = new Polo(this);
-      break;
-    case 10:  
+    case 8:  
       anim = new BouncingDonut(this);
       break;
-    case 12:
+    case 9:  
+      anim = new BouncingPolo(this);
+      break;
+    case 10:  
+      anim = new Polo(this);
+      break;
+    case 11:  
+      anim = new Checkers(this);
+      break;
+    case 12:  
+      anim = new Rush(this);
+      break;
+    case 13:  
+      anim = new Rushed(this);
+      break;
+    case 14:  
+      anim = new SquareNuts(this);
+      break;
+    case 15:  
+      anim = new DiagoNuts(this);
+      break;
+    case 16:  
+      anim = new Stars(this);
+      break;
+    case 17:  
+      anim = new Swipe(this);
+      break;
+    case 18:  
+      anim = new Swiped(this);
+      break;
+    case 19:  
+      anim = new Teeth(this);
+      break;
+    case 20:
       anim = new AllOn(this);
       break;
-    case 13:
+    case 21:
       anim = new AllOff(this);
       break;
     }
@@ -725,7 +835,7 @@ public class Rig {
     blendMode(MULTIPLY);
     // this donesnt work anymore....
     if (cc[107] > 0 || keyT['r'] || glitchToggle) bgNoise(colorLayer, 0, 0, cc[55]); //PGraphics layer,color,alpha
-    drawColorLayer();
+    drawColorLayer(bgIndex);
 
     blendMode(NORMAL);
     rigInfo();

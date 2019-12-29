@@ -9,14 +9,19 @@ class ShieldsOPCGrid extends OPCGrid {
   OPC opc;
   Rig rig;
 
-  float bigShieldRad, medShieldRad, smallShieldRad;
-  float _bigShieldRad, _medShieldRad, _smallShieldRad;
+  float bigShieldRad, medShieldRad, smallShieldRad, _bigShieldRad, _medShieldRad, _smallShieldRad;
 
   ShieldsOPCGrid(Rig _rig) {
     rig = _rig;
 
     _bigShieldRad = rig.wide/64*7;       
     bigShieldRad = _bigShieldRad * 2 + 6;
+
+    _smallShieldRad = rig.wide/2/48*5.12; 
+    smallShieldRad = _smallShieldRad * 2 + 6; 
+
+    _medShieldRad = rig.wide/2/32*5.12;
+    medShieldRad = _medShieldRad * 2 + 6;
   }
 
   void shieldSetup(int _numberOfPositions) {
@@ -45,7 +50,7 @@ class ShieldsOPCGrid extends OPCGrid {
 
   void spiralShieldsOPC(OPC _opc) {
     opc = _opc;
-    ringSize = new float[] { rig.wide/8.3, rig.wide/5, rig.wide/4.5 };
+    ringSize = new float[] { rig.wide/8.3, rig.wide/5.5, rig.wide/4.5 };
     shieldSetup(9);
 
     smallShield(0, 8, 1, 48); ///// SLOT b0 on BOX /////
@@ -59,9 +64,6 @@ class ShieldsOPCGrid extends OPCGrid {
     ballGrid(0, 4, 2);
     ballGrid(1, 7, 2);
     /////////////////////////// increase size of radius so its covered when drawing over it in the sketch
-    smallShieldRad +=3;
-    medShieldRad +=3;
-    bigShieldRad +=3;
 
     shields[0] = new PVector (_shield[0][0].x, _shield[0][0].y);        // MEDIUM SHIELD
     shields[3] = new PVector (_shield[8][1].x, _shield[8][1].y);        // SMALL SHEILD
@@ -122,8 +124,6 @@ class ShieldsOPCGrid extends OPCGrid {
   }
   void medShield(int numb, int positionA, int positionB, float leds) {
     int strt = (128*numb)+64;
-    _medShieldRad = rig.wide/2/leds*5.12;
-    medShieldRad = _medShieldRad * 2 + 4;
     ////// USED FOR CIRCULAR / TIRANGULAR ARRANGEMENT /////
     int positionX = int(_shield[positionA][positionB].x);
     int positionY = int(_shield[positionA][positionB].y);
@@ -143,8 +143,6 @@ class ShieldsOPCGrid extends OPCGrid {
 
   void smallShield(int numb, int positionA, int positionB, float leds) {
     int strt = (128*numb)+64;
-    _smallShieldRad = rig.wide/2/32*5.12; // original size size.rigWidth/2/leds*(3.125*2);
-    smallShieldRad = _smallShieldRad * 2 + 3; 
     ////// USED FOR CIRCULAR / TIRANGULAR ARRANGEMENT /////
     int positionX = int(_shield[positionA][positionB].x);
     int positionY = int(_shield[positionA][positionB].y);

@@ -63,7 +63,7 @@ void setup()
   //Rig(boolean _toggle, float _xpos, float _ypos, int _wide, int _high, String _name) {
   rigg = new Rig(true, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
   //cans = new Rig(false, size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "SEEDS");
-  roof = new Rig(true, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "CANS");
+  roof = new Rig(true, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
   pars = new Rig(true, size.pars.x, size.pars.y, size.parsWidth, size.parsHeight, "PARS");
 
   int frameWidth = 220;

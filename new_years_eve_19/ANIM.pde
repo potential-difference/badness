@@ -51,14 +51,14 @@ class StarMesh extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    stroke = rig.wide/20*strokeSlider;
+    stroke = (rig.high+rig.wide)/2/20*strokeSlider;
     //println("function A", functionA);
     wide = (10+(functionA*rig.wide*1.5));
     high = (10+((1-functionA)*rig.high*1.5));
     rotate = -30*functionB;
-    star(position[1].x, position[1].y, col1, stroke, wide, high, rotate, alphaA);
+    star(position[3].x, position[3].y, col1, stroke, wide, high, rotate, alphaA);
     star(position[4].x, position[4].y, col1, stroke, wide, high, rotate, alphaA);
-    star(position[7].x, position[7].y, col1, stroke, wide, high, rotate, alphaA);
+    star(position[5].x, position[5].y, col1, stroke, wide, high, rotate, alphaA);
     window.endDraw();
   }
 }
@@ -70,7 +70,7 @@ class Celtic extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    stroke = 10+(rig.wide/20*strokeSlider); //16+(10*func1);
+    stroke = 10+((rig.high+rig.wide)/2/20*strokeSlider); //16+(10*func1);
     wide = (10+(rig.wide-(rig.wide*functionA-20)))*wideSlider;
     high = wide;
     rotate = 0;
@@ -88,7 +88,7 @@ class SpiralFlower extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    stroke = rig.wide/20*strokeSlider;
+    stroke = (rig.high+rig.wide)/2/20*strokeSlider;
     wide = (rig.wide)-(rig.wide/10);
     wide = 5+(wide-(wide*functionA)); //100+(20*i); //
     high = wide;
@@ -263,7 +263,7 @@ class Rings extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    stroke = 15+(rig.wide/20*functionA)+(10*strokeSlider);
+    stroke = 15+((rig.high+rig.wide)/2/20*functionA)+(10*strokeSlider);
     wide = vizWidth*1.2;
     wide = wide-(wide*functionA);
     high = wide*2;
@@ -275,7 +275,7 @@ class Rings extends Anim {
     donut(position[0].x, position[0].y, col1, stroke, wide, high, -rotate, alphaA);
     donut(position[1].x, position[1].y, col1, stroke, wide, high, -rotate-60, alphaA);
     donut(position[2].x, position[2].y, col1, stroke, wide, high, -rotate+60, alphaA);
-    stroke = 15+(rig.wide/20*functionB*oskP)+(10*strokeSlider);
+    stroke = 15+((rig.high+rig.wide)/2/20*functionB*oskP)+(10*strokeSlider);
     wide = vizWidth*1.2;
     wide = wide-(wide*functionB);
     high = wide*2;
@@ -413,8 +413,8 @@ class Stars extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    wide = 50+(functionA*vizWidth*1.5);
-    high = 50+(functionB*vizHeight*1.5);
+    wide = 2+(functionA*vizWidth*1.5);
+    high = 2+(functionB*vizHeight*1.5);
     stroke = 15+(30*functionA);
     rotate = 30+(30*functionB);
 
@@ -422,10 +422,14 @@ class Stars extends Anim {
     wide *=wideSlider;
     high *=highSlider;
 
-    star(positionX[1][1].x, viz.y, col1, stroke, wide, high, rotate, alphaA);
-    star(positionX[5][1].x, viz.y, col1, stroke, wide, high, -rotate, alphaA);
+    star(positionX[1][2].x, positionX[1][2].y, col1, stroke, wide, high, -rotate, alphaA);
+    star(positionX[4][2].x, positionX[4][2].y, col1, stroke, wide, high, -rotate, alphaA);
+    star(positionX[7][2].x, positionX[7][2].y, col1, stroke, wide, high, -rotate, alphaA);
 
-    star(viz.x, viz.y, col1, stroke, wide, high, 0, alphaB);
+    stroke = 12+(10*functionA);
+    wide = 5+(shieldsGrid.bigShieldRad*1.2*(1-functionB));
+    high = wide;
+    donut(viz.x, viz.y, col1, stroke, wide, high, 0, alphaB);
     window.endDraw();
   }
 }
@@ -514,12 +518,15 @@ class TwistedStar extends Anim {
     window.beginDraw();
     window.background(0);
     // star(int n, float wide, float high, float rotate, color col, float stroke, float alph) {
-    stroke = 50+(50*noize*functionB);
-    wide = 10+(functionA*rig.wide*1.2);
-    high = 110-((1-functionA)*rig.high*1.2);
-    rotate = -60*functionA;
+    stroke = 10+((rig.high+rig.wide)/2/20*functionB);
+    wide = shieldsGrid.bigShieldRad/2+(functionA*rig.wide*1.2);
+    high = shieldsGrid.bigShieldRad/2+((1-functionA)*rig.high*1.2);
+
+    float wideB = shieldsGrid.bigShieldRad/2+(functionB*rig.high*1.2);
+    float highB = shieldsGrid.bigShieldRad/2+((1-functionB)*rig.wide*1.2);
+    rotate = 60*functionA;
     //void star(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
-    star(viz.x, viz.y, col1, stroke, wide, high, rotate, alphaA); 
+    starNine(viz.x, viz.y, col1, stroke, wide, high, wideB, highB, 40+rotate, alphaA, alphaB); 
     //10+(beats[i]*mw), 110-(pulzs[i]*mh), -60*beats[i], col1, stroke, alpha[i]/4*alf*dimmer);
 
     window.endDraw();
@@ -534,8 +541,8 @@ class SingleDonut extends Anim {
     window.beginDraw();
     window.background(0);
     wide = 10+(rig.wide*1.2*(1-functionB));
-    high = wide;
-    stroke = rig.wide/15*strokeSlider;
+    high = 10+(rig.high*1.2*(1-functionB));;
+    stroke = (rig.high+rig.wide)/2/15*strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
     donut(viz.x, viz.y, col1, stroke, wide, high, 0, alphaA);
@@ -555,8 +562,8 @@ class BouncingDonut extends Anim {
     window.beginDraw();
     window.background(0);
     wide = rig.wide*1.2-(rig.wide*1.2*functionA*((beatcounted+1)));
-    high = wide;
-    stroke = rig.wide/15*strokeSlider;
+    high = rig.high*1.2-(rig.high*1.2*functionA*((beatcounted+1)));;
+    stroke = (rig.high+rig.wide)/2/15*strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
     donut(viz.x, viz.y, col1, stroke, wide, high, 0, alphaA);
@@ -576,7 +583,7 @@ class BouncingPolo extends Anim {
     window.beginDraw();
     window.background(0);
     wide = (rig.wide*1.2*functionA*((beatcounted+1)));
-    high = wide;
+    high = (rig.high*1.2*functionA*((beatcounted+1)));;
     stroke = wide*functionA;
     wide *=wideSlider;
     high *=highSlider;
@@ -593,7 +600,7 @@ class Polo extends Anim {
     window.beginDraw();
     window.background(0);
     wide = rig.wide*1.2*(1-functionA);
-    high = wide;
+    high = rig.high*1.2*(1-functionA);;
     stroke = wide*functionA;
     wide *=wideSlider;
     high *=highSlider;
@@ -795,6 +802,89 @@ class Anim {
       this.window.ellipse(0, 0, wide, high);
       this.window.rotate(radians(120));
       this.window.ellipse(0, 0, wide, high);
+      this.window.popMatrix();
+    }  
+    catch(Exception e) {
+      println(wide, high);
+      //NegativeArraySizeException();
+      String message = e.getMessage();
+      Throwable cause = e.getCause();
+      println("message:", e, "cause", cause);
+    }
+  }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+  void starNine(float xpos, float ypos, color col, float stroke, float wide, float high, float wideB, float highB, float rotate, float alph, float alphB) {
+    try {
+      int rot = 36;
+      this.window.strokeWeight(-stroke);
+      this.window.stroke(360*alph);
+      this.window.noFill();
+      this.window.pushMatrix();                      //  ERROR too many calls to push matrix
+      this.window.translate(xpos, ypos);
+      this.window.rotate(radians(rotate));
+      this.window.ellipse(0, 0, wide, high);         //  ERROR neagtive array size exception
+      this.window.rotate(radians(rot));
+      this.window.ellipse(0, 0, wideB, highB);
+      this.window.rotate(radians(rot));
+      this.window.ellipse(0, 0, wide, high);
+      this.window.rotate(radians(rot));
+      this.window.ellipse(0, 0, wideB, highB);
+      this.window.rotate(radians(rot));
+      this.window.ellipse(0, 0, wide, high);
+      this.window.rotate(radians(rot));
+      this.window.ellipse(0, 0, wideB, highB);
+      this.window.rotate(radians(rot));
+      this.window.ellipse(0, 0, wide, high);
+      this.window.rotate(radians(rot));
+      this.window.ellipse(0, 0, wideB, highB);
+      this.window.rotate(radians(rot));
+      this.window.ellipse(0, 0, wide, high);
+      this.window.rotate(radians(rot));
+      this.window.ellipse(0, 0, wideB, highB);
+      this.window.popMatrix();
+    }  
+    catch(Exception e) {
+      println(wide, high);
+      //NegativeArraySizeException();
+      String message = e.getMessage();
+      Throwable cause = e.getCause();
+      println("message:", e, "cause", cause);
+    }
+  }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
+  void starNineA(float xpos, float ypos, color col, float stroke, float wide, float high, float wideB, float highB, float rotate, float alph, float alphB) {
+    try {
+      this.window.strokeWeight(-stroke);
+      this.window.stroke(360*alph);
+      this.window.noFill();
+      this.window.pushMatrix();                      //  ERROR too many calls to push matrix
+      this.window.translate(xpos, ypos);
+      this.window.rotate(radians(rotate));
+      this.window.ellipse(0, 0, wide, high);         //  ERROR neagtive array size exception
+      this.window.rotate(radians(40));
+      this.window.stroke(360*alphB);
+      this.window.ellipse(0, 0, wideB, highB);
+      this.window.rotate(radians(40));
+      this.window.stroke(360*alph);
+      this.window.ellipse(0, 0, wide, high);
+      this.window.rotate(radians(40));
+      this.window.stroke(360*alphB);
+      this.window.ellipse(0, 0, wideB, highB);
+      this.window.rotate(radians(40));
+      this.window.stroke(360*alph);
+      this.window.ellipse(0, 0, wide, high);
+      this.window.rotate(radians(40));
+      this.window.stroke(360*alphB);
+      this.window.ellipse(0, 0, wideB, highB);
+      this.window.rotate(radians(40));
+      this.window.stroke(360*alph);
+      this.window.ellipse(0, 0, wideB, highB);
+      this.window.rotate(radians(40));
+      this.window.stroke(360*alphB);
+      this.window.ellipse(0, 0, wideB, highB);
+      this.window.rotate(radians(40));
+      this.window.stroke(360*alph);
+      this.window.ellipse(0, 0, wideB, highB);
       this.window.popMatrix();
     }  
     catch(Exception e) {
