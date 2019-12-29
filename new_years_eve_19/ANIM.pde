@@ -541,7 +541,8 @@ class SingleDonut extends Anim {
     window.beginDraw();
     window.background(0);
     wide = 10+(rig.wide*1.2*(1-functionB));
-    high = 10+(rig.high*1.2*(1-functionB));;
+    high = 10+(rig.high*1.2*(1-functionB));
+    ;
     stroke = (rig.high+rig.wide)/2/15*strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
@@ -562,7 +563,8 @@ class BouncingDonut extends Anim {
     window.beginDraw();
     window.background(0);
     wide = rig.wide*1.2-(rig.wide*1.2*functionA*((beatcounted+1)));
-    high = rig.high*1.2-(rig.high*1.2*functionA*((beatcounted+1)));;
+    high = rig.high*1.2-(rig.high*1.2*functionA*((beatcounted+1)));
+    ;
     stroke = (rig.high+rig.wide)/2/15*strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
@@ -583,7 +585,8 @@ class BouncingPolo extends Anim {
     window.beginDraw();
     window.background(0);
     wide = (rig.wide*1.2*functionA*((beatcounted+1)));
-    high = (rig.high*1.2*functionA*((beatcounted+1)));;
+    high = (rig.high*1.2*functionA*((beatcounted+1)));
+    ;
     stroke = wide*functionA;
     wide *=wideSlider;
     high *=highSlider;
@@ -600,7 +603,8 @@ class Polo extends Anim {
     window.beginDraw();
     window.background(0);
     wide = rig.wide*1.2*(1-functionA);
-    high = rig.high*1.2*(1-functionA);;
+    high = rig.high*1.2*(1-functionA);
+    ;
     stroke = wide*functionA;
     wide *=wideSlider;
     high *=highSlider;
@@ -679,6 +683,7 @@ class Anim {
   Envelope alphaEnvelopeA, alphaEnvelopeB, functionEnvelopeA, functionEnvelopeB;
   Ref animDimmer;
   Rig rig;
+  float overalltime;
 
   Anim(Rig _rig) {
     animDimmer=new Ref(new float[]{1.0}, 0);
@@ -703,9 +708,11 @@ class Anim {
     position = rig.position; 
     positionX = rig.positionX;
 
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    overalltime = avgmillis;
 
-    alphaEnvelopeA = envelopeFactory(rig.availableAlphaEnvelopes[rig.alphaIndexA], rig);
-    alphaEnvelopeB = envelopeFactory(rig.availableAlphaEnvelopes[rig.alphaIndexB], rig);
+    alphaEnvelopeA = envelopeFactory(rig.availableAlphaEnvelopes[rig.alphaIndexA], rig, overalltime);
+    alphaEnvelopeB = envelopeFactory(rig.availableAlphaEnvelopes[rig.alphaIndexB], rig, overalltime);
     //if(functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexA], rig) != NaN)
     functionEnvelopeA = functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexA], rig);
     functionEnvelopeB = functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexB], rig);

@@ -741,7 +741,7 @@ public class Rig {
     case 15:  
       anim = new DiagoNuts(this);
       break;
-    
+
     case 16:  
       anim = new Swipe(this);
       break;
@@ -799,6 +799,10 @@ public class Rig {
         int animIndex = i;
         Anim an = this.animations.get(animIndex);  
         int now = millis();
+
+        an.overalltime*=0.9;
+
+
         //if (alphaIndexA == 1) {
         //an.alphaEnvelopeA = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaA, an.alphaA, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.01));
         //} else {
@@ -829,7 +833,7 @@ public class Rig {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void draw() {
-   
+
     clash(beat);
     drawAnimations();
 
