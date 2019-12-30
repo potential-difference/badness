@@ -20,7 +20,11 @@ void setupSpecifics() {
 
   rigg.availableBkgrnds = new int[] {0, 1, 10, 11, 12, 13, 14};
   roof.availableBkgrnds = new int[] {0, 1, 3, 4, 5, 8, 10};
-  pars.availableBkgrnds = new int[] {0, 3, 4, 5};
+  pars.availableBkgrnds = roof.availableBkgrnds; //new int[] {0, 3, 4, 5};
+
+  //rigg.availableColors = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
+  //roof.availableColors = rigg.availableColors; // = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
+
 
   ///////////////////////////////// UPDATE THE DROPDOWN LISTS WITH AVLIABLE OPTIONS ///////////////////////////////////////////////////////
   for (Rig rig : rigs) {    

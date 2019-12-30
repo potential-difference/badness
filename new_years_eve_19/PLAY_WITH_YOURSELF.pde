@@ -63,8 +63,8 @@ void playWithYourself(float vizTm) {
 
   ///////////////////////////////////////// LERP COLOUR //////////////////////////////////////////////////////////////////
   colBeat = false;
-  if (beatCounter % 18 > 13)  colorLerping(rigg, (1-beat)*2);
-  if (beatCounter % 32 > 27)  colorLerping(roof, (1-beat)*1.5);
+  if (beatCounter % 18 > 15)  colorLerping(rigg, (1-beat)*4);
+  //if (beatCounter % 32 > 27)  colorLerping(roof, (1-beat)*3);
   ////if (beatCounter % 32 > 28)  colorLerping(cans, (1-beat)*1.5);
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

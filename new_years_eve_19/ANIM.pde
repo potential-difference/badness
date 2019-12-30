@@ -684,6 +684,7 @@ class Anim {
   Ref animDimmer;
   Rig rig;
   float overalltime;
+  float strokeSlider, wideSlider, highSlider;
 
   Anim(Rig _rig) {
     animDimmer=new Ref(new float[]{1.0}, 0);
@@ -716,6 +717,10 @@ class Anim {
     //if(functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexA], rig) != NaN)
     functionEnvelopeA = functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexA], rig);
     functionEnvelopeB = functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexB], rig);
+
+    strokeSlider = rig.strokeSlider;
+    wideSlider = rig.wideSlider;
+    highSlider = rig.highSlider;
   }
 
   void draw() {

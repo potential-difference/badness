@@ -788,10 +788,10 @@ class OPCGrid {
 
     int fc = 9 * 512;
     int channel = 64;
-    for (int i = 0; i < cans.length/3; i++) opc.led(fc+(channel*0+i), int(cans[i].x), int(cans[i].y));     
+    for (int i = 0; i < cans.length/3; i++) opc.led(fc+(channel*0+i), int(cans[i].x), int(cans[i].y)+80);     
     fc = 10 * 512;
-    for (int i = 0; i < cans.length/3; i++) opc1.led(fc+(channel*1+i), int(cans[i+6].x), int(cans[i+6].y));                  
-    for (int i = 0; i < cans.length/3; i++) opc1.led(fc+(channel*2+i), int(cans[i+12].x), int(cans[i+12].y));                  
+    for (int i = 0; i < cans.length/3; i++) opc1.led(fc+(channel*1+i), int(cans[i+6].x), int(cans[i+6].y)+80);                  
+    for (int i = 0; i < cans.length/3; i++) opc1.led(fc+(channel*2+i), int(cans[i+12].x), int(cans[i+12].y)+80);                  
 
     ////  set roof position to individual cans positions
     for (int i = 0; i < rig.position.length/2; i++) {
@@ -885,21 +885,23 @@ class OPCGrid {
     booth = new PVector (104, 15);
     dig = new PVector (booth.x+110, booth.y);
 
-    int fc = 2 * 512;
+    int fc = 2 * 512;  
     int channel = 64;       
 
     // booth //
     opc.led(fc+(channel*3), int(booth.x-5), int(booth.y));
     opc.led(fc+(channel*4), int(booth.x+5), int(booth.y));
 
+    // dig //
+    opc.led(fc+(channel*5), int(dig.x+5), int(dig.y));
 
     // star //
-    //opc.led(fc+(channel*4), int(dig.x-5), int(dig.y));
-    opc.led(fc+(channel*5), int(dig.x-5), int(dig.y));
-
-    // eggs //
-
- for (int i = 0; i < 3; i++) opc.led(fc+(channel*6+i), int(dig.x+5+(i*2)), int(dig.y));
+    opc.led(fc+(channel*6), int(dig.x-5), int(dig.y));
+    
+     // eggs //
+    fc = 2 * 512;
+    for (int i = 0; i < 3; i++) opc.led(fc+(channel*7+i), int(pars.size.x+20), int(pars.size.y-(pars.high/2)+100+(i*120)));
+   
   }
 
   void kingsHeadBoothOPC(OPC opc) {
@@ -915,7 +917,7 @@ class OPCGrid {
   void castleFireplaceCansOPC(Rig rig, OPC opc) {
     int fc = 10 * 512;
     int channel = 64;
-    for (int i = 0; i < cans.length/6; i++) opc.led(fc+(channel*2+i), int(pars.size.x), int(pars.size.y-(pars.high/2)+50+(i*80)));               
+    for (int i = 0; i < 6; i++) opc.led(fc+(channel*2+i), int(pars.size.x), int(pars.size.y-(pars.high/2)+100+(i*80)));               
 
     //    fc = 2 * 512;
     //    for (int i = 0; i < 4; i++) opc.led(fc+(channel*2+i), int(pars.size.x), int(pars.size.y-(pars.high/2)+500+(i*40)));               

@@ -19,6 +19,8 @@ public class Rig {
   String[] animNames, backgroundNames, alphaNames, functionNames;
   int arrayListIndex;
   float infoX, infoY;
+  float wideSlider, strokeSlider, highSlider;
+
   PApplet parent;
   ScrollableList ddVizList, ddBgList, ddAlphaListA, ddFuncListA, ddAlphaListB, ddFuncListB;
   RadioButton cRadioButton, flashRadioButton;
@@ -92,7 +94,7 @@ public class Rig {
       colorSetup();                        // setup colors red bloo etc once
       firsttime_sketchcolor = false;
     }
-    availableColors = new int[] { 0, 1, 2, 3, 4, 13,14,10,11};
+    availableColors = new int[] { 0, 1, 2, 3, 4, 13, 10, 11,12,2,3};
     col[0] = teal; 
     col[1] = orange; 
     col[2] = pink; 
@@ -103,8 +105,8 @@ public class Rig {
     col[7] = pink;
     col[8] = orange;
     col[9] = bloo;
-    col[10] = purple;
-    col[11] = pink;
+    col[10] = purple1;
+    col[11] = pink1;
     col[12] = orange;
     col[13] = orange1;
     col[14] = teal;
@@ -131,12 +133,16 @@ public class Rig {
     loadSlider( "bgSwapRate", x+(clm*arrayListIndex), y+(6*row), swide, shigh, 30, 0, 12, act1, bac1, slider1);
     cp5.getController(this.name+" "+"bgSwapRate").setLabel("bkgrnd swap");
 
+    loadSlider("strokeSlider", x+(clm*arrayListIndex), y+row*7, swide, shigh, 1, 5, 0, act, bac, slider);
+    loadSlider("wideSlider", x+(clm*arrayListIndex), y+row*8, swide, shigh, 1, 5, 0, act1, bac1, slider1);
+    loadSlider("highSlider", x+(clm*arrayListIndex), y+row*9, swide, shigh, 1, 5, 0, act, bac, slider);
+
     //loadSlider( "bgNoise", x+(clm*arrayListIndex), y+(4*row), swide, shigh, 0, 1, 0.5, act1, bac1, slider1);
     //loadSlider( "manualAlpha", x+(clm*arrayListIndex), y+(5*row), swide, shigh, 0, 1, 0.8, act, bac, slider);
     ///////////////////////////////// TOGGLES  ///////////////////////////////////////////////////////////////////////////////////
-    loadToggle(noiseToggle, "noiseToggle", x+(clm*arrayListIndex), y+row*7.5, swide, 10);
-    loadToggle(toggle, "toggle", x+(clm*arrayListIndex), y+row*9, swide-30, 20);
-    loadToggle(play, "play", x+(clm*arrayListIndex)+swide-25, y+row*9, 25, 20);
+    //loadToggle(noiseToggle, "noiseToggle", x+(clm*arrayListIndex), y+row*7.5, swide, 10);
+    loadToggle(toggle, "toggle", x+(clm*arrayListIndex), y+row*10, swide-30, 20);
+    loadToggle(play, "play", x+(clm*arrayListIndex)+swide-25, y+row*10, 25, 20);
     cp5.getController(this.name+" "+"play").setLabel("p.w.y.s");
 
     ///////////////////////////////// RADIO BUTTONS  //////////////////////////////////////////////////////////////////////////////
@@ -846,7 +852,7 @@ public class Rig {
     blendMode(NORMAL);
     rigInfo();
     removeAnimations();
-    cordinatesInfo(this, keyT['q']);
+    //cordinatesInfo(this, keyT['q']);
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

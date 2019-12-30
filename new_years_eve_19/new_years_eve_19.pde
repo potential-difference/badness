@@ -57,14 +57,14 @@ void setup()
   surface.setAlwaysOnTop(onTop);
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
 
-  controlFrame = new MainControlFrame(this, width, 290, size.surfacePositionX, size.surfacePositionY+height+5); // load control frame must come after shild ring etc
+  controlFrame = new MainControlFrame(this, width, 310, size.surfacePositionX, size.surfacePositionY+height+5); // load control frame must come after shild ring etc
   opcGrid = new OPCGrid();
 
   //Rig(boolean _toggle, float _xpos, float _ypos, int _wide, int _high, String _name) {
   rigg = new Rig(true, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
   //cans = new Rig(false, size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "SEEDS");
   roof = new Rig(true, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
-  pars = new Rig(true, size.pars.x, size.pars.y, size.parsWidth, size.parsHeight, "PARS");
+  pars = new Rig(true, size.pars.x, size.pars.y, size.parsWidth, size.parsHeight, "FIRE");
 
   int frameWidth = 220;
   sliderFrame = new SliderFrame(this, frameWidth, height+controlFrame.height+5, size.surfacePositionX-frameWidth-5, size.surfacePositionY); // load control frame must come after shild ring etc
