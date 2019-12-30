@@ -27,9 +27,9 @@ class MainControlFrame extends ControlFrame {
     loadSlider("wideSlider", x, y+row*8, wide/2, high, 1, 5, 0, act, bac, slider);
     loadSlider("highSlider", x, y+row*9, wide/2, high, 1, 5, 0, act1, bac1, slider1);
 
-    loadSlider("smokeOnTime", x+140, y+row*7, wide/2, high, 1, 10, 3, act, bac, slider);
-    loadSlider("smokeOffTime", x+140, y+row*8, wide/2, high, 0, 20, 10, act1, bac1, slider1);
-    loadSlider("smokePumpValue", x+140, y+row*9, wide/2, high, 0, 1, 0.1, act, bac, slider);
+    loadSlider("smokeOnTime", x+140, y+row*8, wide/2, high, 1, 10, 3, act, bac, slider);
+    loadSlider("smokeOffTime", x+140, y+row*9, wide/2, high, 0, 20, 10, act1, bac1, slider1);
+    loadSlider("smokePumpValue", x+140, y+row*10, wide/2, high, 0, 1, 0.1, act, bac, slider);
 
 
 

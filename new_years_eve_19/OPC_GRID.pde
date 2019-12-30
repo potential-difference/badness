@@ -53,16 +53,19 @@ class ShieldsOPCGrid extends OPCGrid {
     ringSize = new float[] { rig.wide/8.3, rig.wide/5.5, rig.wide/4.5 };
     shieldSetup(9);
 
-    smallShield(0, 8, 1, 48); ///// SLOT b0 on BOX /////
-    medShield(1, 0, 0, 33);   ///// SLOT b1 on BOX ///// 
-    smallShield(2, 2, 1, 48); ///// SLOT b2 on BOX /////
-    medShield(3, 3, 0, 32);   ///// SLOT b3 on BOX /////
-    smallShield(4, 5, 1, 48); ///// SLOT b4 on BOX /////
-    medShield(5, 6, 0, 32);   ///// SLOT b5 on BOX /////
-    bigShield(7, int(size.rig.x), int(size.rig.y));     ///// SLOT b7 on BOX /////
+    medShield(2, 0, 0, 33);   ///// SLOT b1 on BOX ///// 
+    smallShield(1, 8, 1, 48); ///// SLOT b0 on BOX /////
+    ballGrid(0, 7, 2);
+
+    medShield(4, 6, 0, 32);   ///// SLOT b5 on BOX /////
+    smallShield(3, 5, 1, 48); ///// SLOT b4 on BOX /////
+    ballGrid(1, 4, 2);
+
+    medShield(6, 3, 0, 32);   ///// SLOT b3 on BOX /////
+    smallShield(5, 2, 1, 48); ///// SLOT b2 on BOX /////
     ballGrid(2, 1, 2);
-    ballGrid(0, 4, 2);
-    ballGrid(1, 7, 2);
+
+    bigShield(7, int(size.rig.x), int(size.rig.y));     ///// SLOT b7 on BOX /////
     /////////////////////////// increase size of radius so its covered when drawing over it in the sketch
 
     shields[0] = new PVector (_shield[0][0].x, _shield[0][0].y);        // MEDIUM SHIELD
@@ -755,6 +758,65 @@ class OPCGrid {
 
     cansLength = _cansLength - (pd/2);
   } /////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  void castleCansOPC(Rig _rig, OPC opc, OPC opc1, boolean offset) {
+    rig = _rig;
+    float xw = 6;
+    float y = rig.size.y;
+    if (offset) y = rig.size.y - rig.high/(xw+1)/(xw/2);
+
+    for (int i=0; i<cans.length/xw; i++) cans[i] =     new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*1);
+    for (int i=0; i<cans.length/xw; i++) cans[i+3] =   new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*2);
+    for (int i=0; i<cans.length/xw; i++) cans[i+6] =   new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*3);
+    for (int i=0; i<cans.length/xw; i++) cans[i+9] =   new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*4);
+    for (int i=0; i<cans.length/xw; i++) cans[i+12] =  new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*5);
+    for (int i=0; i<cans.length/xw; i++) cans[i+15] =  new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*6);
+
+    if (offset) {
+      cans[1].y = y-(rig.high/2)+rig.high/(xw+1)*(1.5);
+      cans[4].y = y-(rig.high/2)+rig.high/(xw+1)*(2.5);
+      cans[7].y = y-(rig.high/2)+rig.high/(xw+1)*(3.5);
+      cans[10].y = y-(rig.high/2)+rig.high/(xw+1)*(4.5);
+      cans[13].y = y-(rig.high/2)+rig.high/(xw+1)*(5.5);
+      cans[16].y = y-(rig.high/2)+rig.high/(xw+1)*(6.5);
+    }
+
+    int fc = 9 * 512;
+    int channel = 64;
+    for (int i = 0; i < cans.length/3; i++) opc.led(fc+(channel*0+i), int(cans[i].x), int(cans[i].y));     
+    fc = 10 * 512;
+    for (int i = 0; i < cans.length/3; i++) opc1.led(fc+(channel*1+i), int(cans[i+6].x), int(cans[i+6].y));                  
+    for (int i = 0; i < cans.length/3; i++) opc1.led(fc+(channel*2+i), int(cans[i+12].x), int(cans[i+12].y));                  
+
+    ////  set roof position to individual cans positions
+    for (int i = 0; i < rig.position.length/2; i++) {
+      rig.position[i].x=opcGrid.cans[i].x-(rig.size.x-(rig.wide/2));
+      rig.position[i].y=opcGrid.cans[i].y-(rig.size.y-(rig.high/2));
+      //
+      rig.position[i+6].x=opcGrid.cans[i+12].x-(rig.size.x-(rig.wide/2));
+      rig.position[i+6].y=opcGrid.cans[i+12].y-(rig.size.y-(rig.high/2));
+    }
+    rig.position[4].x=cans[7].x-(rig.size.x-(rig.wide/2));
+    rig.position[4].y=cans[7].y-(rig.size.y-(rig.high/2));
+
+    rig.position[7].x=cans[10].x-(rig.size.x-(rig.wide/2));
+    rig.position[7].y=cans[10].y-(rig.size.y-(rig.high/2));
+  }
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
+
+
+
   void kingsHeadCansOPC(Rig _rig, OPC opc) {
     rig = _rig;
     _cansLength = size.cansWidth;
@@ -819,6 +881,27 @@ class OPCGrid {
     opc.led(fc+(channel*3), int(dig.x+5), int(dig.y));
   }
 
+  void shieldsBoothOPC(OPC opc) {
+    booth = new PVector (104, 15);
+    dig = new PVector (booth.x+110, booth.y);
+
+    int fc = 2 * 512;
+    int channel = 64;       
+
+    // booth //
+    opc.led(fc+(channel*3), int(booth.x-5), int(booth.y));
+    opc.led(fc+(channel*4), int(booth.x+5), int(booth.y));
+
+
+    // star //
+    //opc.led(fc+(channel*4), int(dig.x-5), int(dig.y));
+    opc.led(fc+(channel*5), int(dig.x-5), int(dig.y));
+
+    // eggs //
+
+ for (int i = 0; i < 3; i++) opc.led(fc+(channel*6+i), int(dig.x+5+(i*2)), int(dig.y));
+  }
+
   void kingsHeadBoothOPC(OPC opc) {
     int fc = 4 * 512;
     int channel = 64;       
@@ -828,9 +911,26 @@ class OPCGrid {
 
     opc.led(fc+(channel*1), int(booth.x-5), int(booth.y));
   }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  void castleFireplaceCansOPC(Rig rig, OPC opc) {
+    int fc = 10 * 512;
+    int channel = 64;
+    for (int i = 0; i < cans.length/6; i++) opc.led(fc+(channel*2+i), int(pars.size.x), int(pars.size.y-(pars.high/2)+50+(i*80)));               
+
+    //    fc = 2 * 512;
+    //    for (int i = 0; i < 4; i++) opc.led(fc+(channel*2+i), int(pars.size.x), int(pars.size.y-(pars.high/2)+500+(i*40)));               
+
+
+
+    //for (int i = 0; i < 12; i+=2) opc.led(6048+i, int(pars.size.x), int(pars.size.y-(pars.high/2)+100+(i*40)));
+  } 
   ////////////////////////////////// DMX  /////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void dmxParsOPC(OPC opc) {
+    //int fc = 10 * 512;
+    //int channel = 64;
+    //for (int i = 0; i < cans.length/3; i++) opc.led(fc+(channel*2+i), int(cans[i+12].x), int(cans[i+12].y));                  
+
     for (int i = 0; i < 12; i+=2) opc.led(6048+i, int(pars.size.x), int(pars.size.y-(pars.high/2)+100+(i*40)));
   } 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -839,7 +939,7 @@ class OPCGrid {
     smokeFan = new PVector (smokePump.x+140, 15);
 
     opc.led(7000, int(smokePump.x), int(smokePump.y));
-    //opc.led(7001, int(smokeFan.x), int(smokeFan.y));
+    opc.led(7001, int(smokeFan.x), int(smokeFan.y));
   } 
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

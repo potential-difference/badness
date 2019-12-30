@@ -73,22 +73,26 @@ void setup()
   opcLocal   = new OPC(this, "127.0.0.1", 7890);        // Connect to the local instance of fcserver - MIRRORS
 
   ///////////////// OPC over NETWORK /////////////////////
-  opcMirror1 = new OPC(this, "192.168.10.2", 7890);     // left hand mirror
-  opcMirror2 = new OPC(this, "192.168.10.5", 7890);     // right hand mirror
+  //opcMirror1 = new OPC(this, "192.168.10.2", 7890);     // left hand mirror
+  //opcMirror2 = new OPC(this, "192.168.10.5", 7890);     // right hand mirror
   opcNode4 = new OPC(this, "192.168.10.210", 7890);
   opcNode3 = new OPC(this, "192.168.10.3", 7890);
-  //opcNode6 = new OPC(this, "192.168.10.6", 7890);
+  //opcNode5 = new OPC(this, "192.168.10.5", 7890);
   opcNode7 = new OPC(this, "192.168.10.7", 7890);
 
   //opcGrid.mirrorsOPC(opcLocal, opcLocal, 1);               // grids 0-3 MIX IT UPPPPP 
-  opcGrid.standAloneBoothOPC(opcLocal);
+  //opcGrid.standAloneBoothOPC(opcLocal);
+    opcGrid.shieldsBoothOPC(opcNode4);
+
   //opcGrid.tawSeedsOPC(cans, opcLocal, opcLocal);
-  opcGrid.individualCansOPC(roof, opcLocal, true);
-  opcGrid.dmxParsOPC(opcLocal);
+  //opcGrid.castleCansOPC(roof, opcNode7, opcNode3);
+  opcGrid.castleCansOPC(roof, opcNode7, opcNode3, true);
+  opcGrid.castleFireplaceCansOPC(pars, opcNode3);
+  //opcGrid.dmxParsOPC(opcLocal);
   opcGrid.dmxSmokeOPC(opcLocal);
 
   shieldsGrid = new ShieldsOPCGrid(rigg);
-  shieldsGrid.spiralShieldsOPC(opcLocal);
+  shieldsGrid.spiralShieldsOPC(opcNode4);
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
   midiSetup();

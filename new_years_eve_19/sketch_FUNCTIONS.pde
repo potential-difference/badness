@@ -127,7 +127,7 @@ void boothLights() {
   noStroke();
   fill(rigg.flash1, 360*boothDimmer);
   rect(opcGrid.booth.x, opcGrid.booth.y, 40, 15);
-  fill(rigg.flash1, 360*digDimmer);
+  fill(rigg.c, 360*digDimmer);
   rect(opcGrid.dig.x, opcGrid.dig.y, 40, 15);
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

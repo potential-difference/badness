@@ -61,17 +61,17 @@ void playWithMe() {
    */
 
   if (millis()-lastTime[44]>debouncetime) {
-    if (padVelocity[44]>0) rigg.animations.add(new Checkers (rigg));
+    if (padVelocity[44]>0) rigg.animations.add(new StarMesh (rigg));
     lastTime[44]=millis();
   }
 
   if (millis()-lastTime[45]>debouncetime) {
-    if (padVelocity[45]>0) rigg.animations.add(new DiagoNuts(rigg));
+    if (padVelocity[45]>0) rigg.animations.add(new SpiralFlower(rigg));
     lastTime[45]=millis();
   }
 
   if (millis()-lastTime[46]>debouncetime) {
-    if (padVelocity[46]>0) rigg.animations.add(new Stars(rigg));
+    if (padVelocity[46]>0) rigg.animations.add(new SingleDonut(rigg));
     lastTime[46]=millis();
   }
 

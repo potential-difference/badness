@@ -92,7 +92,7 @@ public class Rig {
       colorSetup();                        // setup colors red bloo etc once
       firsttime_sketchcolor = false;
     }
-    availableColors = new int[] { 0, 1, 2, 3, 4, 5, 6};
+    availableColors = new int[] { 0, 1, 2, 3, 4, 13,14,10,11};
     col[0] = teal; 
     col[1] = orange; 
     col[2] = pink; 
