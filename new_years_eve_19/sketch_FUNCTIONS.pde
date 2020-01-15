@@ -30,7 +30,7 @@ void dmxSmoke() {
   float smokeOn = smokeOnTime;
   if (millis()/1000 % smokeInterval > smokeInterval - smokeOn) {
     fill(360*smokePumpValue);
-    rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 10, 10);
+    if (smokeToggle)  rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 10, 10);
   }
   float smokeInfo = millis()/1000 % smokeInterval - (smokeInterval);
   fill(rigg.c, 360);

@@ -1,4 +1,4 @@
-boolean glitchToggle, roofBasic = false, testToggle;
+boolean glitchToggle, roofBasic = false, testToggle, smokeToggle;
 float vizTime, colorSwapSlider, colorTime, boothDimmer, digDimmer, backDropSlider;
 float tweakSlider, blurSlider, bgNoiseBrightnessSlider, bgNoiseDensitySlider, manualSlider, stutterSlider;
 float shimmerSlider, funcSlider, beatSlider;
@@ -27,9 +27,11 @@ class MainControlFrame extends ControlFrame {
     //loadSlider("wideSlider", x, y+row*8, wide/2, high, 1, 5, 0, act, bac, slider);
     //loadSlider("highSlider", x, y+row*9, wide/2, high, 1, 5, 0, act1, bac1, slider1);
 
-    loadSlider("smokeOnTime", x, y+row*8, wide/2, high, 0, 5, 3, act, bac, slider);
-    loadSlider("smokeOffTime", x, y+row*9, wide/2, high, 0, 20, 10, act1, bac1, slider1);
-    loadSlider("smokePumpValue", x, y+row*10, wide/2, high, 0, 1, 0.1, act, bac, slider);
+    loadSlider("smokeOnTime", x, y+row*8.5, wide/2, high, 0, 5, 3, act, bac, slider);
+    loadSlider("smokeOffTime", x, y+row*9.5, wide/2, high, 0, 20, 10, act1, bac1, slider1);
+    loadSlider("smokePumpValue", x, y+row*10.5, wide/2, high, 0, 1, 0.1, act, bac, slider);
+
+    loadToggle("smokeToggle", smokeToggle, x, y+row*6.5, wide, int(high*1.5), bac1, bac, slider);
 
 
 

@@ -25,13 +25,12 @@ public class Rig {
   ScrollableList ddVizList, ddBgList, ddAlphaListA, ddFuncListA, ddAlphaListB, ddFuncListB;
   RadioButton cRadioButton, flashRadioButton;
 
-  Rig(boolean _toggle, float _xpos, float _ypos, int _wide, int _high, String _name) {
+  Rig(float _xpos, float _ypos, int _wide, int _high, String _name) {
     name = _name;
     wide = _wide;
     high = _high;
     size = new PVector (_xpos, _ypos);
-    toggle = _toggle;
-
+    
     cp5 = controlFrame.cp5;
 
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
@@ -94,14 +93,14 @@ public class Rig {
       colorSetup();                        // setup colors red bloo etc once
       firsttime_sketchcolor = false;
     }
-    availableColors = new int[] { 0, 1, 2, 3, 4, 13, 10, 11,12,2,3};
+    availableColors = new int[] { 0, 1, 2, 3, 13, 10, 11, 12, 2, 3};
     col[0] = teal; 
     col[1] = orange; 
     col[2] = pink; 
     col[3] = purple;
     col[4] = bloo;
-    col[5] = red;
-    col[6] = grin;
+    col[5] = pink1;
+    col[6] = orange;
     col[7] = pink;
     col[8] = orange;
     col[9] = bloo;
@@ -629,9 +628,9 @@ public class Rig {
     } else change = false;
     if (change == true) {
       go = 1;
-      colorIndexA =  (colorIndexA + steps) % (col.length-1);
+      colorIndexA =  (colorIndexA + steps) % (availableColors.length-1);
       colB =  col[colorIndexA];
-      colorIndexB = (colorIndexB + steps) % (col.length-1);
+      colorIndexB = (colorIndexB + steps) % (availableColors.length-1);
       colD = col[colorIndexB];
     }
     c = col[colorIndexA];
@@ -695,7 +694,18 @@ public class Rig {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /*
   void addAnim(int animIndex) {
+   try{
+   Anim anim = classMap.get(this.availableAnims[animIndex]).newInstance();
+   }catch(Exception e){println("class name error:",e);}
+   }
+   */
+
+  void addAnim(int animIndex) {
+
+    //Object[] classList = new Object[] { new BenjaminsBoxes(this), new StarMesh(this), new Rings(this), new Celtic(this)};
+
     Anim anim = new Anim(this);
     int index = this.availableAnims[animIndex];
     switch (index) {
@@ -747,7 +757,6 @@ public class Rig {
     case 15:  
       anim = new DiagoNuts(this);
       break;
-
     case 16:  
       anim = new Swipe(this);
       break;

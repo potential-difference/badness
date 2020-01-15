@@ -1,12 +1,19 @@
 void setupSpecifics() {
-  /*
-   animNames = new String[] {"benjmains boxes", "checkers", "rings", "rush", "rushed", 
-   "square nuts", "diaganol nuts", "stars", "swipe", "swiped", "teeth", "donut"}; 
-   backgroundNames = new String[] {"one col c", "vert mirror grad", "side by side", "horiz mirror grad", 
-   "one color flash", "moving horiz grad", "checked", "radiators", "stripes", "one two three"}; 
+ 
+  /* 
+   HashMap<String, Class> classMap = new HashMap<String, Class>();
+   Class[] classList= this.getClass().getClasses();
+   for (int i=0; i<classList.length; i++) {
+   if (classList[i].getSuperclass() == new Anim(rigg).getClass()) {
+   String name = classList[i].getName();
+   classMap.put(name.substring(name.indexOf('$')+1), classList[i]);
+   }
+   }
+   println(classMap);
    */
 
-  rigg.availableAnims = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8};      // setup which anims are used on which rig here
+  rigg.availableAnims = new int[] {1, 2, 3, 6, 7, 8};      // setup which anims are used on which rig here
+  // rigg.availableAnims = String[] {"Boxes","StarMesh"...};
   roof.availableAnims = new int[] {0, 7, 8, 11, 12, 13, 14, 15, 17, 18, 19};        // setup which anims are used on which rig here - defualt is 0,1,2,3...
   pars.availableAnims = new int[] {0, 20};      // setup which anims are used on which rig here
 
@@ -44,6 +51,12 @@ void setupSpecifics() {
       //rig.ddVizList.addItem(rig.animNames[index], index); //add all available anims to VizLists -
       rig.ddVizList.addItem("viz  "+index, index); //add all available anims to VizLists -
     }
+    /*
+    for (int i=0; i<rig.availableAnims.length; i++) {
+     String name = rig.availableAnims[i];
+     rig.ddVizList.addItem(name, i); 
+     }
+     */
     for (int i=0; i<rig.availableAlphaEnvelopes.length; i++) {
       int index = rig.availableAlphaEnvelopes[i];
       rig.ddAlphaListA.addItem("alph  "+index, index); //add all available anims to VizLists -

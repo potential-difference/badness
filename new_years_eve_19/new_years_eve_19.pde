@@ -61,10 +61,10 @@ void setup()
   opcGrid = new OPCGrid();
 
   //Rig(boolean _toggle, float _xpos, float _ypos, int _wide, int _high, String _name) {
-  rigg = new Rig(true, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
+  rigg = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
   //cans = new Rig(false, size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "SEEDS");
-  roof = new Rig(true, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
-  pars = new Rig(true, size.pars.x, size.pars.y, size.parsWidth, size.parsHeight, "FIRE");
+  roof = new Rig(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
+  pars = new Rig(size.pars.x, size.pars.y, size.parsWidth, size.parsHeight, "FIRE");
 
   int frameWidth = 220;
   sliderFrame = new SliderFrame(this, frameWidth, height+controlFrame.height+5, size.surfacePositionX-frameWidth-5, size.surfacePositionY); // load control frame must come after shild ring etc
@@ -75,7 +75,7 @@ void setup()
   ///////////////// OPC over NETWORK /////////////////////
   //opcMirror1 = new OPC(this, "192.168.10.2", 7890);     // left hand mirror
   //opcMirror2 = new OPC(this, "192.168.10.5", 7890);     // right hand mirror
-  opcNode4 = new OPC(this, "192.168.10.210", 7890);
+  opcNode4 = new OPC(this, "192.168.10.211", 7890);
   opcNode3 = new OPC(this, "192.168.10.3", 7890);
   //opcNode5 = new OPC(this, "192.168.10.5", 7890);
   opcNode7 = new OPC(this, "192.168.10.7", 7890);
@@ -131,7 +131,7 @@ void draw()
   noStroke();
   beatDetect.detect(in.mix);
   beats();
-  pause(10);                                ////// number of seconds before no music detected and auto kicks in
+  //pause(10);                                ////// number of seconds before no music detected and auto kicks in
   globalFunctions();
   //syphonLoadSentImage(syphonToggle);
 

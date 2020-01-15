@@ -59,7 +59,7 @@ void playWithMe() {
    println(e, "playwithyourself error");
    }
    */
-
+/*
   if (millis()-lastTime[44]>debouncetime) {
     if (padVelocity[44]>0) rigg.animations.add(new StarMesh (rigg));
     lastTime[44]=millis();
@@ -71,10 +71,10 @@ void playWithMe() {
   }
 
   if (millis()-lastTime[46]>debouncetime) {
-    if (padVelocity[46]>0) rigg.animations.add(new SingleDonut(rigg));
+    if (padVelocity[46]>0) rigg.animations.add(new Stars(rigg));
     lastTime[46]=millis();
   }
-
+*/
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////// ALL ON ///////////////////////////////////////////////
 
