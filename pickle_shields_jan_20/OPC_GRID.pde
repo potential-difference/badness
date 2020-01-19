@@ -746,9 +746,9 @@ class OPCGrid {
     int leds = 6;
     pd = int(_cansLength/6);
         
-    cansString[0] = new PVector(rig.size.x-(rig.wide/4), rig.size.y-(pd/4));
+    cansString[0] = new PVector(rig.size.x-(rig.wide/3), rig.size.y-(pd/4));
     cansString[1] = new PVector(rig.size.x, rig.size.y+(pd/4));
-    cansString[2] = new PVector(rig.size.x+(rig.wide/4), rig.size.y-(pd/4));
+    cansString[2] = new PVector(rig.size.x+(rig.wide/3), rig.size.y-(pd/4));
     
     opc.ledStrip(fc+(channel*1), leds, int(cansString[0].x), int(cansString[0].y), pd, PI/2, false);                   /////  PLUG INTO slot 1 on CANS BOX (first tail) /////// 
     opc.ledStrip(fc+(channel*2), leds, int(cansString[1].x), int(cansString[1].y), pd, PI/2, false);                   /////  PLUG INTO slot 2 on CANS BOX /////// 
