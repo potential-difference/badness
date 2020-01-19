@@ -1,5 +1,5 @@
 void setupSpecifics() {
- 
+
   /* 
    HashMap<String, Class> classMap = new HashMap<String, Class>();
    Class[] classList= this.getClass().getClasses();
@@ -8,7 +8,7 @@ void setupSpecifics() {
    String name = classList[i].getName();
    classMap.put(name.substring(name.indexOf('$')+1), classList[i]);
    
-    // if (classList[i].getSuperclass() == Class.forName("sketch_name"+"$Anim"));
+   // if (classList[i].getSuperclass() == Class.forName("sketch_name"+"$Anim"));
    }
    }
    println(classMap);
@@ -17,6 +17,7 @@ void setupSpecifics() {
   rigg.availableAnims = new int[] {1, 2, 3, 6, 7, 8};      // setup which anims are used on which rig here
   // rigg.availableAnims = String[] {"Boxes","StarMesh"...};
   roof.availableAnims = new int[] {0, 7, 8, 11, 12, 13, 14, 15, 17, 18, 19};        // setup which anims are used on which rig here - defualt is 0,1,2,3...
+  cans.availableAnims = new int[] {0, 7, 8, 11, 12, 13, 14, 15, 17, 18, 19};        // setup which anims are used on which rig here - defualt is 0,1,2,3...
   pars.availableAnims = new int[] {0, 20};      // setup which anims are used on which rig here
 
   rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  

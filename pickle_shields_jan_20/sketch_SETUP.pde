@@ -20,26 +20,24 @@ class SizeSettings {
       break;
     }
 
-/*
-    ////////////////////////////////  CANS SETUP UNDER RIG ///////////////////////
-    cansWidth = rigWidth;
-    cansHeight = 250;
-    if (SHITTYLAPTOP) cansHeight = 250;
-    cans = new PVector (rig.x, rigHeight+(cansHeight/2));
-*/
     ////////////////////////////////  ROOF SETUP RIGHT OF RIG ///////////////////////
     roofWidth = 300;
-    roofHeight = rigHeight+cansHeight;
+    roofHeight = rigHeight;
     roof = new PVector (rigWidth+(roofWidth/2), roofHeight/2);
 
-    /////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////  CANS SETUP RIGHT OF ROOF ///////////////////////
+    cansWidth = 250;
+    cansHeight = rigHeight;
+    //if (SHITTYLAPTOP) cansHeight = 250;
+    cans = new PVector (rigWidth+roofWidth+(cansWidth/2), cansHeight/2);
+
+    //////////////////////////////// PARS SETUP FAR RIGHT ////////////////////////////
     parsWidth = 120;
-    parsHeight = rigHeight+cansHeight;
-    pars = new PVector(rigWidth+roofWidth+(parsWidth/2),parsHeight/2);                        //( (rig.x + (rigHeight/2)) + (cans.x+(cansHeight/2)) + (parsHeight/2), parsWidth/2);
+    parsHeight = rigHeight;
+    pars = new PVector(rigWidth+roofWidth+cansWidth+(parsWidth/2), parsHeight/2);      
 
-
-    sizeX = rigWidth+roofWidth+parsWidth;
-    sizeY = rigHeight+cansHeight;
+    sizeX = rigWidth+roofWidth+cansWidth+parsWidth;
+    sizeY = rigHeight;
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////

@@ -280,10 +280,7 @@ class ControlFrame extends PApplet {
       .setColorForeground(act) 
       ;
   }
-  ////////////////////////////////////////////////////////////////////////////////////////////////// 
-  //void setController() {
-  //  cp5.get   getController("rigg.ddBgList");
-  //}
+ 
   //////////////////////////////////////// CALL BACK FOR SLIDER CONTROL FROM OTHER VARIABLES
   // an event from slider sliderA will change the value of textfield textA here
   public void rigDimmer(float theValue) {
@@ -291,9 +288,9 @@ class ControlFrame extends PApplet {
     LPD8bus.sendControllerChange(0, 4, value) ;
   }
   void dividerLines() {
-    fill(rigg.c, 100);                         // box around the outside
+    fill(rigg.c, 200);                         // box around the outside
     rect(width/2, height-1, width, 1);  
-    rect(width/2, 1, width, 1);                              
+    rect(width/2, 0, width, 1);                              
     rect(0, height/2, 1, height);
     rect(width-1, height/2, 1, height);
   }

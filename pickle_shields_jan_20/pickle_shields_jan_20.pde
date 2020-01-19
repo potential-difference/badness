@@ -60,11 +60,12 @@ void setup()
   controlFrame = new MainControlFrame(this, width, 310, size.surfacePositionX, size.surfacePositionY+height+5); // load control frame must come after shild ring etc
   opcGrid = new OPCGrid();
 
-  //Rig(boolean _toggle, float _xpos, float _ypos, int _wide, int _high, String _name) {
+  //Rig(float _xpos, float _ypos, int _wide, int _high, String _name) {
+  // order of these is important for layout of sliders
   rigg = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
-  //cans = new Rig(false, size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "SEEDS");
   roof = new Rig(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
-  pars = new Rig(size.pars.x, size.pars.y, size.parsWidth, size.parsHeight, "FIRE");
+  cans = new Rig(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "LIVE");
+  pars = new Rig(size.pars.x, size.pars.y, size.parsWidth, size.parsHeight, "PARS");
 
   int frameWidth = 220;
   sliderFrame = new SliderFrame(this, frameWidth, height+controlFrame.height+5, size.surfacePositionX-frameWidth-5, size.surfacePositionY); // load control frame must come after shild ring etc
@@ -75,24 +76,23 @@ void setup()
   ///////////////// OPC over NETWORK /////////////////////
   //opcMirror1 = new OPC(this, "192.168.10.2", 7890);     // left hand mirror
   //opcMirror2 = new OPC(this, "192.168.10.5", 7890);     // right hand mirror
-  opcNode4 = new OPC(this, "192.168.10.211", 7890);
-  opcNode3 = new OPC(this, "192.168.10.3", 7890);
-  //opcNode5 = new OPC(this, "192.168.10.5", 7890);
-  opcNode7 = new OPC(this, "192.168.10.7", 7890);
+  opcNode4 = new OPC(this, "192.168.10.211", 7890);       // NODE IN THE SHIELDS BOX
+  opcNode3 = new OPC(this, "192.168.10.3", 7890);         // NODE IN CANS BOX
+  opcNode7 = new OPC(this, "192.168.10.7", 7890);         // NODE IN LANTERNS BOX 
 
-  //opcGrid.mirrorsOPC(opcLocal, opcLocal, 1);               // grids 0-3 MIX IT UPPPPP 
-  //opcGrid.standAloneBoothOPC(opcLocal);
-    opcGrid.shieldsBoothOPC(opcNode4);
-
-  //opcGrid.tawSeedsOPC(cans, opcLocal, opcLocal);
-  //opcGrid.castleCansOPC(roof, opcNode7, opcNode3);
-  opcGrid.castleCansOPC(roof, opcNode7, opcNode3, true);
-  opcGrid.castleFireplaceCansOPC(pars, opcNode3);
-  //opcGrid.dmxParsOPC(opcLocal);
-  opcGrid.dmxSmokeOPC(opcLocal);
+  opcGrid.dmxParsOPC(pars, opcLocal);                           // ENTTEC BOX PLUGGED INTO LAPTOP VIZ USB - run json locally
+  opcGrid.dmxSmokeOPC(opcLocal);                             
 
   shieldsGrid = new ShieldsOPCGrid(rigg);
   shieldsGrid.spiralShieldsOPC(opcNode4);
+  opcGrid.shieldsBoothOPC(opcNode4);                      // BOOTH and DIG LIGHTS PLUG INTO THE SHIELDS BOX slots: booth 3 & 5, dig 4 & 5 or use splitter joiner
+
+  int fadecandy5 = 5*512;
+  int fadecandy9 = 9*512;
+  int fadecandy10 = 10*512;
+
+  opcGrid.pickleCansOPC(roof, opcLocal, fadecandy9);    //opcNode7
+  opcGrid.pickleLanterns(cans, opcLocal, fadecandy10);  //opcNode3
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
   midiSetup();
@@ -172,31 +172,6 @@ void draw()
   dividerLines();
   //gid.mirrorTest(false);                  // true to test physical mirror orientation
   //syphonSendImage(syphonToggle);
-  /*
-  for (int i = 0; i < 12; i++) {
-   float xpos = int(sin(radians((i)*360/12))*100*2)+rigg.size.x;
-   float ypos = int(cos(radians((i)*360/12))*100*2)+rigg.size.y;
-   fill(300);
-   text(i, xpos, ypos);
-   }
-   */
-  /* 
-   for (int i = 0; i < 9; i++) {
-   float xpos = int(sin(radians((i)*360/9))*120*2)+rigg.size.x;
-   float ypos = int(cos(radians((i)*360/9))*120*2)+rigg.size.y;
-   fill(300);
-   text(i, xpos, ypos);
-   }
-   */
-  /*
-  fill(red);
-   for (int o = 0; o < 3; o++) {
-   for (int i = 0; i < shieldsGrid._shield.length; i++) {
-   text(i+"/"+o, shieldsGrid._shield[i][o].x, shieldsGrid._shield[i][o].y);
-   }
-   
-   }
-   */
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

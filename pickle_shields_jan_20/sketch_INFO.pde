@@ -24,8 +24,6 @@ void onScreenInfo() {
   mouseInfo(keyT['q']);
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   dividerLines();
-
-  
 }
 void pauseInfo() {
   //pause = 0;
@@ -66,15 +64,17 @@ void cordinatesInfo(Rig rig, boolean _info) {
   }
 }
 void dividerLines() {
-  fill(rigg.flash);
-  rect(size.rigWidth, height/2, 1, height);                     ///// vertical line to show end of rig viz area
-  rect(size.rig.x, size.rigHeight, size.rigWidth, 1);             //// horizontal line to divide landscape rig / roof areas
-  rect(size.rigWidth+size.roofWidth, height/2, 1, height);      ///// vertical line to show end of roof viz area
-  rect(size.roof.x, size.roofHeight, size.roofWidth, 1);             //// horizontal line to divide landscape rig / roof areas
+  fill(rigg.flash, 200);
+  rect(size.rigWidth, height/2, 1, height);                                         //// vertical line to show end of rig viz area
+  rect(size.rigWidth+size.roofWidth, height/2, 1, height);                          //// vertical line to show end of roof viz area
+  rect(size.rigWidth+size.roofWidth+size.cansWidth, height/2, 1, height);           //// vertical line to show end of cans viz area
+  rect(size.roof.x, size.roofHeight, size.roofWidth, 1);                            //// horizontal line to divide landscape rig / roof areas
+  rect(size.rig.x, size.rigHeight, size.rigWidth, 1);                               //// horizontal line to divide landscape rig / roof areas
+
   // box around the outside
-  fill(rigg.flash, 100);   
+  fill(rigg.flash, 200);   
   rect(width/2, height-1, width, 1);  
-  rect(width/2, 1, width, 1);                              
+  rect(width/2, 0, width, 1);                              
   rect(0, height/2, 1, height);
   rect(width-1, height/2, 1, height);
 }
@@ -89,7 +89,6 @@ void frameRateInfo(float x, float y) {
   textSize(18);
   fill(360);  
   text(int(frameRate) + " fps", x, y); // framerate display
-  //frame.setTitle(int(frameRate) + " fps"); //framerate as title
 }
 void toggleKeysInfo() {
   textSize(18);

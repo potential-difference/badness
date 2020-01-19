@@ -30,7 +30,7 @@ public class Rig {
     wide = _wide;
     high = _high;
     size = new PVector (_xpos, _ypos);
-    
+  
     cp5 = controlFrame.cp5;
 
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
@@ -861,7 +861,7 @@ public class Rig {
     blendMode(NORMAL);
     rigInfo();
     removeAnimations();
-    //cordinatesInfo(this, keyT['q']);
+    cordinatesInfo(this, keyT['e']);
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

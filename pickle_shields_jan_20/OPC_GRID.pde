@@ -160,12 +160,6 @@ class ShieldsOPCGrid extends OPCGrid {
   }
 }
 
-
-
-
-
-
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class OPCGrid {
@@ -711,7 +705,6 @@ class OPCGrid {
       cans[16].y = y-(rig.high/2)+rig.high/(xw+1)*(6.5);
     }
 
-
     int fc = 9 * 512;
     int channel = 64;
     for (int i = 0; i < cans.length/3; i++) opc.led(fc+(channel*0+i), int(cans[i].x), int(cans[i].y));                   
@@ -732,6 +725,7 @@ class OPCGrid {
     rig.position[7].x=cans[10].x-(rig.size.x-(rig.wide/2));
     rig.position[7].y=cans[10].y-(rig.size.y-(rig.high/2));
   }
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
   void kallidaCansOPC(OPC opc) {
     int fc = 5 * 512;
     int channel = 64;
@@ -740,8 +734,9 @@ class OPCGrid {
     opc.ledStrip(fc+(channel*0), leds, int(cansString[0].x), int(cansString[0].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
     opc.ledStrip(fc+(channel*1)+(64*channel), leds, int(cansString[1].x), int(cansString[1].y), pd, 0, false);      /////  6 CANS PLUG INTO slot 1 on CANS BOX ///////
     cansLength = _cansLength - (pd/2);
-  } /////////////////////////////////////////////////////////////////////////////////////////////////////
-  void pickleCansOPC(Rig _rig, OPC opc) {
+  } 
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  void pickleCansOPC(Rig _rig, OPC opc, int fadecandy) {
     rig = _rig;
     _cansLength = size.cansWidth;
     cansString[0] = new PVector(rig.size.x, rig.size.y-(rig.high/4));
@@ -749,20 +744,16 @@ class OPCGrid {
     cansString[2] = new PVector(rig.size.x, rig.size.y+(rig.high/4));
 
     int fc = 2 * 512;
+    fc = fadecandy;
     int channel = 64;
     int leds = 6;
     pd = int(_cansLength/6);
-    opc.ledStrip(fc+(channel*5), leds, int(cansString[0].x), int(cansString[0].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 5 on CANS BOX /////// 
-    opc.ledStrip(fc+(channel*6), leds, int(cansString[1].x), int(cansString[1].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 6 on CANS BOX /////// 
-    opc.ledStrip(fc+(channel*7), leds, int(cansString[2].x), int(cansString[2].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 7 on CANS BOX /////// 
+    opc.ledStrip(fc+(channel*1), leds, int(cansString[0].x), int(cansString[0].y), pd, 0, false);                   /////  PLUG INTO slot 1 on CANS BOX (first tail) /////// 
+    opc.ledStrip(fc+(channel*2), leds, int(cansString[1].x), int(cansString[1].y), pd, 0, false);                   /////  PLUG INTO slot 2 on CANS BOX /////// 
+    opc.ledStrip(fc+(channel*3), leds, int(cansString[2].x), int(cansString[2].y), pd, 0, false);                   /////  PLUG INTO slot 3 on CANS BOX /////// 
 
     cansLength = _cansLength - (pd/2);
-  } /////////////////////////////////////////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
+  } 
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   void castleCansOPC(Rig _rig, OPC opc, OPC opc1, boolean offset) {
     rig = _rig;
@@ -808,9 +799,6 @@ class OPCGrid {
     rig.position[7].y=cans[10].y-(rig.size.y-(rig.high/2));
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-
   void kingsHeadCansOPC(Rig _rig, OPC opc) {
     rig = _rig;
     _cansLength = size.cansWidth;
@@ -827,6 +815,14 @@ class OPCGrid {
     opc.ledStrip(fc+(channel*2), leds, int(cansString[2].x), int(cansString[2].y), pd, 0, true);                   /////  6 CANS PLUG INTO slot 2 on CANS BOX /////// 
     cansLength = _cansLength - (pd/2);
   }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  void castleFireplaceCansOPC(Rig rig, OPC opc) {
+    int fc = 10 * 512;
+    int channel = 64;
+    for (int i = 0; i < 6; i++) opc.led(fc+(channel*2+i), int(pars.size.x), int(pars.size.y-(pars.high/2)+100+(i*80)));
+  } 
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
+
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////// UV /////////////////////////////////////////////////////
   void kallidaUV(OPC opc) {
@@ -847,7 +843,7 @@ class OPCGrid {
 
     for (int i=0; i<6; i++)  opc.ledStrip(fc+(channel), leds, int(strip[i].x), int(strip[i].y), pd, 0, true);
   }
-
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
   void espTestOPC(Rig _rig, OPC opc) {
     rig = _rig;
     int fc = 0 * 512;
@@ -859,6 +855,7 @@ class OPCGrid {
 
     for (int i=0; i<1; i++) opc.ledStrip(fc+(channel*i), leds, int(strip[i].x), int(strip[i].y), 2, 0, true);
   }
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
 
   ////////////////////////////////////// BOOTH LIGHTS ///////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -874,7 +871,7 @@ class OPCGrid {
     opc.led(fc+(channel*2), int(dig.x-5), int(dig.y));
     opc.led(fc+(channel*3), int(dig.x+5), int(dig.y));
   }
-
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
   void shieldsBoothOPC(OPC opc) {
     booth = new PVector (104, 15);
     dig = new PVector (booth.x+110, booth.y);
@@ -891,13 +888,14 @@ class OPCGrid {
 
     // star //
     opc.led(fc+(channel*6), int(dig.x-5), int(dig.y));
-
+    /*
     // eggs //
-    fc = 2 * 512;
-    int gap = 30;
-    for (int i = 0; i < 3; i++) opc.led(fc+(channel*7+i), int(roof.size.x+20), int(pars.size.y-((1.5*gap))+(i*gap)));
+     fc = 2 * 512;
+     int gap = 30;
+     for (int i = 0; i < 3; i++) opc.led(fc+(channel*7+i), int(roof.size.x+20), int(pars.size.y-((1.5*gap))+(i*gap)));
+     */
   }
-
+  /////////////////////////////////////////////////////////////////////////////////////////////////////
   void kingsHeadBoothOPC(OPC opc) {
     int fc = 4 * 512;
     int channel = 64;       
@@ -908,22 +906,31 @@ class OPCGrid {
     opc.led(fc+(channel*1), int(booth.x-5), int(booth.y));
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void castleFireplaceCansOPC(Rig rig, OPC opc) {
-    int fc = 10 * 512;
+  void pickleLanterns(Rig _rig, OPC opc, int fadecandy) {
+    rig = _rig;
+    int Xoffset = int(rig.size.x - (rig.wide/2));
+
+    int fc = 9 * 512;
+    fc = fadecandy;
     int channel = 64;
-    for (int i = 0; i < 6; i++) opc.led(fc+(channel*2+i), int(pars.size.x), int(pars.size.y-(pars.high/2)+100+(i*80)));               
+    opc.led(fc+(channel*0), int(rig.positionX[3][0].x + Xoffset), int(rig.positionX[3][0].y)); 
 
-    //    fc = 2 * 512;
-    //    for (int i = 0; i < 4; i++) opc.led(fc+(channel*2+i), int(pars.size.x), int(pars.size.y-(pars.high/2)+500+(i*40)));               
+    opc.led(fc+(channel*1), int(rig.position[0].x + Xoffset), int(rig.position[0].y));       
+    opc.led(fc+(channel*2), int(rig.position[5].x + Xoffset), int(rig.position[5].y));  
 
+    opc.led(fc+(channel*3), int(rig.positionX[2][1].x + Xoffset), int(rig.positionX[2][1].y)); 
+    opc.led(fc+(channel*4), int(rig.positionX[4][1].x + Xoffset), int(rig.positionX[4][1].y)); 
 
+    opc.led(fc+(channel*5), int(rig.position[6].x + Xoffset), int(rig.position[6].y)); 
+    opc.led(fc+(channel*6), int(rig.position[11].x + Xoffset), int(rig.position[11].y));  
 
-    //for (int i = 0; i < 12; i+=2) opc.led(6048+i, int(pars.size.x), int(pars.size.y-(pars.high/2)+100+(i*40)));
-  } 
+    opc.led(fc+(channel*7), int(rig.positionX[3][2].x + Xoffset), int(rig.positionX[3][2].y));
+  }
   ////////////////////////////////// DMX  /////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void dmxParsOPC(OPC opc) {
-    for (int i = 0; i < 12; i+=2) opc.led(6048+i, int(pars.size.x), int(pars.size.y-(pars.high/2)+100+(i*40)));
+  void dmxParsOPC(Rig _rig, OPC opc) {
+    rig = _rig;
+    for (int i = 0; i < 12; i+=2) opc.led(6048+i, int(rig.size.x), int(rig.size.y-(rig.high/2)+100+(i*40)));
   } 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void dmxSmokeOPC(OPC opc) {
@@ -933,7 +940,7 @@ class OPCGrid {
     opc.led(7000, int(smokePump.x), int(smokePump.y));
     opc.led(7001, int(smokeFan.x), int(smokeFan.y));
   } 
-
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
