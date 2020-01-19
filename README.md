@@ -3,7 +3,9 @@ processing lighting code
 
 PICKLE SHIELDS LIGHTING BRANCH
 
-starting with new_years_eve_19
+working sketch - pickle_shields_jan_20
+
+WORKING ON ANIM NAMES IN THIS BRANCH
 
 using THEONEANDONLY.json
 
