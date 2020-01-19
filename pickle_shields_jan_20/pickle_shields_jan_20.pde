@@ -80,7 +80,7 @@ void setup()
   opcNode3 = new OPC(this, "192.168.10.3", 7890);         // NODE IN CANS BOX
   opcNode7 = new OPC(this, "192.168.10.7", 7890);         // NODE IN LANTERNS BOX 
 
-  opcGrid.dmxParsOPC(pars, opcLocal);                           // ENTTEC BOX PLUGGED INTO LAPTOP VIZ USB - run json locally
+  opcGrid.dmxParsOPC(pars, opcLocal);                     // ENTTEC BOX PLUGGED INTO LAPTOP VIZ USB - run json locally
   opcGrid.dmxSmokeOPC(opcLocal);                             
 
   shieldsGrid = new ShieldsOPCGrid(rigg);

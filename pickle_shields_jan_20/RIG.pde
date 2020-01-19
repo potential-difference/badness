@@ -30,7 +30,7 @@ public class Rig {
     wide = _wide;
     high = _high;
     size = new PVector (_xpos, _ypos);
-  
+
     cp5 = controlFrame.cp5;
 
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
@@ -571,8 +571,6 @@ public class Rig {
     float nameWidth = textWidth(name);
     float x = size.x+(wide/2)-(nameWidth/2)-12;
     float y = size.y-(high/2)+21;
-
-    //if (this == cans) x = size.x+25;
 
     fill(360);
     textAlign(CENTER);
