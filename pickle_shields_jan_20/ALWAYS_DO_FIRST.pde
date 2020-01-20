@@ -1,24 +1,29 @@
+HashMap<String, Class> classMap = new HashMap<String, Class>();
+
 void setupSpecifics() {
+  Class[] classList= this.getClass().getClasses();
+  for (int i=0; i<classList.length; i++) {
+    if (classList[i].getSuperclass() == new Anim(rigg).getClass()) {
+      String name = classList[i].getName();
+      classMap.put(name.substring(name.indexOf('$')+1), classList[i]);
+      println(name.substring(name.indexOf('$')+1));
+      // if (classList[i].getSuperclass() == Class.forName("sketch_name"+"$Anim"));
+    }
+  }
+  //println("CLASSMAP",classMap);
+  //println("CLASS LIST");
+  //print(classList);
 
-  /* 
-   HashMap<String, Class> classMap = new HashMap<String, Class>();
-   Class[] classList= this.getClass().getClasses();
-   for (int i=0; i<classList.length; i++) {
-   if (classList[i].getSuperclass() == new Anim(rigg).getClass()) {
-   String name = classList[i].getName();
-   classMap.put(name.substring(name.indexOf('$')+1), classList[i]);
-   
-   // if (classList[i].getSuperclass() == Class.forName("sketch_name"+"$Anim"));
-   }
-   }
-   println(classMap);
-   */
 
-  rigg.availableAnims = new int[] {1, 2, 3, 6, 7, 8};      // setup which anims are used on which rig here
-  // rigg.availableAnims = String[] {"Boxes","StarMesh"...};
-  roof.availableAnims = new int[] {0, 7, 8, 11, 12, 13, 14, 15, 17, 18, 19};        // setup which anims are used on which rig here - defualt is 0,1,2,3...
-  cans.availableAnims = new int[] {0, 7, 8, 11, 12, 13, 14, 15, 17, 18, 19};        // setup which anims are used on which rig here - defualt is 0,1,2,3...
-  pars.availableAnims = new int[] {0, 20};      // setup which anims are used on which rig here
+  //rigg.availableAnims = new int[] {1, 2, 3, 6, 7, 8};      // setup which anims are used on which rig here
+  rigg.availableAnimsNames = new String[] {"StarMesh", "Rings", "Celtic", "Stars", "SingleDonut", "BouncingDonut"};
+
+
+  //roof.availableAnims = new int[] {0, 7, 8, 11, 12, 13, 14, 15, 17, 18, 19};        // setup which anims are used on which rig here - defualt is 0,1,2,3...
+  //cans.availableAnims = new int[] {0, 7, 8, 11, 12, 13, 14, 15, 17, 18, 19};        // setup which anims are used on which rig here - defualt is 0,1,2,3...
+  //pars.availableAnims = new int[] {0, 20};      // setup which anims are used on which rig here
+
+  println(rigg.availableAnimsNames);
 
   rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
   roof.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
@@ -49,17 +54,19 @@ void setupSpecifics() {
       //rig.ddBgList.addItem(rig.backgroundNames[index], index); //add all available anims to VizLists -
       rig.ddBgList.addItem("backround  "+index, index); //add all available anims to VizLists -
     }
-    for (int i=0; i<rig.availableAnims.length; i++) {
-      int index = rig.availableAnims[i];
-      //rig.ddVizList.addItem(rig.animNames[index], index); //add all available anims to VizLists -
-      rig.ddVizList.addItem("viz  "+index, index); //add all available anims to VizLists -
-    }
     /*
     for (int i=0; i<rig.availableAnims.length; i++) {
-     String name = rig.availableAnims[i];
-     rig.ddVizList.addItem(name, i); 
+     int index = rig.availableAnims[i];
+     //rig.ddVizList.addItem(rig.animNames[index], index); //add all available anims to VizLists -
+     rig.ddVizList.addItem("viz  "+index, index); //add all available anims to VizLists -
      }
      */
+    // new version using STRING //
+    for (int i=0; i<rig.availableAnimsNames.length; i++) {
+      String name = rig.availableAnimsNames[i];
+      rig.ddVizList.addItem(name, i);
+    }
+
     for (int i=0; i<rig.availableAlphaEnvelopes.length; i++) {
       int index = rig.availableAlphaEnvelopes[i];
       rig.ddAlphaListA.addItem("alph  "+index, index); //add all available anims to VizLists -

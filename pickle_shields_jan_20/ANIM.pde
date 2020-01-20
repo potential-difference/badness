@@ -1,5 +1,5 @@
 
-abstract class ManualAnim extends Anim {
+abstract public class ManualAnim extends Anim {
   ManualAnim(Rig _rig) {
     super(_rig);
     alphaRate = _rig.manualAlpha;
@@ -17,7 +17,7 @@ abstract class ManualAnim extends Anim {
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-class AllOn extends Anim {
+public class AllOn extends Anim {
   AllOn(Rig _rig) {
     super( _rig);
     alphaRate=manualSlider;
@@ -29,7 +29,7 @@ class AllOn extends Anim {
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
-class AllOff extends Anim {
+public class AllOff extends Anim {
   AllOff(Rig _rig) {
     super( _rig);
     alphaRate=manualSlider;
@@ -43,7 +43,7 @@ class AllOff extends Anim {
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class StarMesh extends Anim {
+public class StarMesh extends Anim {
   StarMesh ( Rig _rig) {
     super (_rig);
     animName = "starMesh";
@@ -63,7 +63,7 @@ class StarMesh extends Anim {
   }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Celtic extends Anim {
+public class Celtic extends Anim {
   Celtic (Rig _rig) {
     super(_rig);
   }
@@ -81,7 +81,7 @@ class Celtic extends Anim {
   }
 }
 
-class SpiralFlower extends Anim {
+public class SpiralFlower extends Anim {
   SpiralFlower(Rig _rig) {
     super(_rig);
   }
@@ -111,7 +111,7 @@ class SpiralFlower extends Anim {
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class BenjaminsBoxes extends Anim {
+public class BenjaminsBoxes extends Anim {
   BenjaminsBoxes (Rig _rig) {
     super(_rig);
   }
@@ -140,7 +140,7 @@ class BenjaminsBoxes extends Anim {
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-class Anim1 extends Anim { ///////// COME BACK TO THIS WITH NEW ENVELOPES
+public class Anim1 extends Anim { ///////// COME BACK TO THIS WITH NEW ENVELOPES
   Anim1(Rig _rig) {
     super(_rig);
   }
@@ -180,7 +180,7 @@ class Anim1 extends Anim { ///////// COME BACK TO THIS WITH NEW ENVELOPES
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Checkers extends Anim {
+public class Checkers extends Anim {
   Checkers(Rig _rig) {
     super(_rig);
   }
@@ -241,10 +241,10 @@ class Checkers extends Anim {
   }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Rings extends Anim {
+public class Rings extends Anim {
   /*
   what benjamin would do
-   Object wide,stroke,high; in anim main class
+   Object wide,stroke,high; in anim main public class
    make Processing/Java complain when you try to set wide/high
    so you get an error if you do it wrong
    in draw:
@@ -252,7 +252,7 @@ class Rings extends Anim {
    wide.set(wide.get() - (wide.get()*functionA);
    if wide is a Ref, this allows us to later
    anim.wide.mul(wideslider);
-   and the internals of the anim subclass don't need to have to remember to * by wideslider every time
+   and the internals of the anim subpublic class don't need to have to remember to * by wideslider every time
    this is sort of what Ref() is for.
    */
 
@@ -291,7 +291,7 @@ class Rings extends Anim {
   }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Rush extends Anim {
+public class Rush extends Anim {
   Rush (Rig _rig) {
     super(_rig);
   }
@@ -315,7 +315,7 @@ class Rush extends Anim {
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Rushed extends Anim {
+public class Rushed extends Anim {
   Rushed(Rig _rig) {
     super(_rig);
   }
@@ -354,7 +354,7 @@ class Rushed extends Anim {
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class SquareNuts extends Anim { 
+public class SquareNuts extends Anim { 
   SquareNuts(Rig _rig) { 
     super(_rig);
   }                                // maybe add beatcounter flip postion for this
@@ -380,7 +380,7 @@ class SquareNuts extends Anim {
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class DiagoNuts extends Anim { 
+public class DiagoNuts extends Anim { 
   DiagoNuts(Rig _rig) { 
     super(_rig);
   }                                // maybe add beatcounter flip postion for this
@@ -406,7 +406,7 @@ class DiagoNuts extends Anim {
   }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Stars extends Anim {
+public class Stars extends Anim {
   Stars(Rig _rig) {
     super(_rig);
   }
@@ -434,7 +434,7 @@ class Stars extends Anim {
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Swipe extends Anim {
+public class Swipe extends Anim {
   Swipe(Rig _rig) {
     super(_rig);
     //opcGrid.mirrorsOPC(opcMirror1, opcMirror2, 0);               // grids 0-3 MIX IT UPPPPP
@@ -455,7 +455,7 @@ class Swipe extends Anim {
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Swiped extends Anim {
+public class Swiped extends Anim {
   Swiped(Rig _rig) {
     super(_rig);
   }
@@ -475,7 +475,7 @@ class Swiped extends Anim {
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Teeth extends Anim {
+public class Teeth extends Anim {
   Teeth(Rig _rig) {
     super( _rig);
     //functionBEnvelope = new(oskP Envelope); /////////////////////////////////
@@ -510,7 +510,7 @@ class Teeth extends Anim {
     window.endDraw();
   }
 }
-class TwistedStar extends Anim {
+public class TwistedStar extends Anim {
   TwistedStar(Rig _rig) {
     super(_rig);
   }
@@ -533,7 +533,7 @@ class TwistedStar extends Anim {
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class SingleDonut extends Anim {
+public class SingleDonut extends Anim {
   SingleDonut(Rig _rig) {            
     super(_rig);
   }
@@ -551,7 +551,7 @@ class SingleDonut extends Anim {
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class BouncingDonut extends Anim {
+public class BouncingDonut extends Anim {
   int beatcounted;
   int numberofanims;
   BouncingDonut(Rig _rig) {            
@@ -573,7 +573,7 @@ class BouncingDonut extends Anim {
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class BouncingPolo extends Anim {
+public class BouncingPolo extends Anim {
   int beatcounted;
   int numberofanims;
   BouncingPolo(Rig _rig) {            
@@ -595,7 +595,7 @@ class BouncingPolo extends Anim {
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Polo extends Anim {
+public class Polo extends Anim {
   Polo(Rig _rig) {            
     super(_rig);
   }
@@ -613,7 +613,7 @@ class Polo extends Anim {
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Fill extends Anim {
+public class Fill extends Anim {
   Fill(Rig _rig) {
     super(_rig);
   }
@@ -633,7 +633,7 @@ class Fill extends Anim {
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Avoid extends Anim {
+public class Avoid extends Anim {
   Avoid(Rig _rig) {
     super(_rig);
   }
@@ -648,7 +648,7 @@ class Avoid extends Anim {
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Test extends Anim {
+public class Test extends Anim {
   int atk, sus, dec, atk1, sus1, dec1, str, dur, str_per, end_per;
   float atk_curv, dec_curv, atk_curv1, dec_curv1;
   Test(Rig _rig) {
@@ -668,7 +668,7 @@ class Test extends Anim {
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Anim {
+public class Anim {
   float alphaRate, funcRate, dimmer, alphMod=1, funcMod=1, funcFX=1, alphFX=1, alphaA, alphaB, functionA, functionB;
   int blury, prevblury, vizIndex, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, _beatCounter;
   color col1, col2;
@@ -724,7 +724,7 @@ class Anim {
   }
 
   void draw() {
-    //Override Me in subclass
+    //Override Me in subpublic class
     fill(300+(60*stutter));
     textSize(30);
     textAlign(CENTER);

@@ -11,6 +11,8 @@ public class Rig {
   boolean firsttime_sketchcolor=true, toggle, noiseToggle, play = true;
   ArrayList <Anim> animations;
   HashMap<Integer, Ref> dimmers;
+  String[] availableAnimsNames;
+
   int[] availableAnims;
   int[] availableBkgrnds;
   int[] availableAlphaEnvelopes;
@@ -34,6 +36,8 @@ public class Rig {
     cp5 = controlFrame.cp5;
 
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
+    availableAnimsNames = new String[] {"StarMesh", "singleDonut"};
+
     /*
     animNames = new String[] {"benjmains boxes", "checkers", "rings", "rush", "rushed", 
      "square nuts", "diaganol nuts", "stars", "swipe", "swiped", "teeth", "donut", "all on", "all off"}; 
@@ -692,110 +696,115 @@ public class Rig {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  void addAnim(int animIndex) {
+    try {
+      Anim anim = classMap.get(this.availableAnims[animIndex]).newInstance();
+    }
+    catch(Exception e) {
+      println("class name error:", e);
+    }
+  }
+
   /*
   void addAnim(int animIndex) {
-   try{
-   Anim anim = classMap.get(this.availableAnims[animIndex]).newInstance();
-   }catch(Exception e){println("class name error:",e);}
+   
+   //Object[] classList = new Object[] { new BenjaminsBoxes(this), new StarMesh(this), new Rings(this), new Celtic(this)};
+   
+   Anim anim = new Anim(this);
+   int index = this.availableAnims[animIndex];
+   switch (index) {
+   case 0:  
+   anim = new BenjaminsBoxes(this);
+   break;
+   case 1:  
+   anim = new StarMesh(this);
+   break;
+   case 2:  
+   anim = new Rings(this);
+   break;
+   case 3:  
+   anim = new Celtic(this);
+   break;
+   case 4:  
+   anim = new SpiralFlower(this);
+   break;
+   case 5:  
+   anim = new TwistedStar(this);
+   break;
+   case 6:  
+   anim = new Stars(this);
+   break;
+   case 7:  
+   anim = new SingleDonut(this);
+   break;
+   case 8:  
+   anim = new BouncingDonut(this);
+   break;
+   case 9:  
+   anim = new BouncingPolo(this);
+   break;
+   case 10:  
+   anim = new Polo(this);
+   break;
+   case 11:  
+   anim = new Checkers(this);
+   break;
+   case 12:  
+   anim = new Rush(this);
+   break;
+   case 13:  
+   anim = new Rushed(this);
+   break;
+   case 14:  
+   anim = new SquareNuts(this);
+   break;
+   case 15:  
+   anim = new DiagoNuts(this);
+   break;
+   case 16:  
+   anim = new Swipe(this);
+   break;
+   case 17:  
+   anim = new Swiped(this);
+   break;
+   case 18:  
+   anim = new Teeth(this);
+   break;
+   case 19:
+   anim = new AllOn(this);
+   break;
+   case 20:
+   anim = new AllOff(this);
+   break;
    }
    */
-
-  void addAnim(int animIndex) {
-
-    //Object[] classList = new Object[] { new BenjaminsBoxes(this), new StarMesh(this), new Rings(this), new Celtic(this)};
-
-    Anim anim = new Anim(this);
-    int index = this.availableAnims[animIndex];
-    switch (index) {
-    case 0:  
-      anim = new BenjaminsBoxes(this);
-      break;
-    case 1:  
-      anim = new StarMesh(this);
-      break;
-    case 2:  
-      anim = new Rings(this);
-      break;
-    case 3:  
-      anim = new Celtic(this);
-      break;
-    case 4:  
-      anim = new SpiralFlower(this);
-      break;
-    case 5:  
-      anim = new TwistedStar(this);
-      break;
-    case 6:  
-      anim = new Stars(this);
-      break;
-    case 7:  
-      anim = new SingleDonut(this);
-      break;
-    case 8:  
-      anim = new BouncingDonut(this);
-      break;
-    case 9:  
-      anim = new BouncingPolo(this);
-      break;
-    case 10:  
-      anim = new Polo(this);
-      break;
-    case 11:  
-      anim = new Checkers(this);
-      break;
-    case 12:  
-      anim = new Rush(this);
-      break;
-    case 13:  
-      anim = new Rushed(this);
-      break;
-    case 14:  
-      anim = new SquareNuts(this);
-      break;
-    case 15:  
-      anim = new DiagoNuts(this);
-      break;
-    case 16:  
-      anim = new Swipe(this);
-      break;
-    case 17:  
-      anim = new Swiped(this);
-      break;
-    case 18:  
-      anim = new Teeth(this);
-      break;
-    case 19:
-      anim = new AllOn(this);
-      break;
-    case 20:
-      anim = new AllOff(this);
-      break;
-    }
-    //    Ref t=new Ref(new float[]{1.0}, 0);
-    //    if (t != null) anim.animDimmer = anim.animDimmer.mul(t);
-    /*
+  //    Ref t=new Ref(new float[]{1.0}, 0);
+  //    if (t != null) anim.animDimmer = anim.animDimmer.mul(t);
+  /*
     // ramp out all previous anims
-     if (testToggle) {
-     for (Anim an : animations) {
-     float now = millis();
-     //if (alphaIndexA == 1) {
-     //  an.alphaEnvelopeA = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaA, an.alphaA, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.01));
-     //} else {
-     //an.alphaEnvelopeA = an.alphaEnvelopeA.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.8, 0.2, 0.01));
-     //an.alphaEnvelopeA.end_time = min(int(now+avgmillis*alphaRate*1.0), an.alphaEnvelopeA.end_time);
-     an.alphaEnvelopeA = an.alphaEnvelopeA.mul(0.8);
-     //}
-     //if (alphaIndexB == 1) {
-     //  an.alphaEnvelopeB = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaB, an.alphaB, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.01));
-     //} else {       
-     //an.alphaEnvelopeB = an.alphaEnvelopeB.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.9, 0.2, 0.01));
-     //an.alphaEnvelopeB.end_time = min(int(now+avgmillis*alphaRate*1.0), an.alphaEnvelopeB.end_time);
-     an.alphaEnvelopeB = an.alphaEnvelopeB.mul(0.8);
-     }
-     }
-     */
-    this.animations.add(anim);
-  }
+   if (testToggle) {
+   for (Anim an : animations) {
+   float now = millis();
+   //if (alphaIndexA == 1) {
+   //  an.alphaEnvelopeA = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaA, an.alphaA, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.01));
+   //} else {
+   //an.alphaEnvelopeA = an.alphaEnvelopeA.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.8, 0.2, 0.01));
+   //an.alphaEnvelopeA.end_time = min(int(now+avgmillis*alphaRate*1.0), an.alphaEnvelopeA.end_time);
+   an.alphaEnvelopeA = an.alphaEnvelopeA.mul(0.8);
+   //}
+   //if (alphaIndexB == 1) {
+   //  an.alphaEnvelopeB = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaB, an.alphaB, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.01));
+   //} else {       
+   //an.alphaEnvelopeB = an.alphaEnvelopeB.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.9, 0.2, 0.01));
+   //an.alphaEnvelopeB.end_time = min(int(now+avgmillis*alphaRate*1.0), an.alphaEnvelopeB.end_time);
+   an.alphaEnvelopeB = an.alphaEnvelopeB.mul(0.8);
+   }
+   }
+   
+   this.animations.add(anim);
+   }
+   */
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void drawAnimations() {
