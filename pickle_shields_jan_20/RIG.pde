@@ -699,7 +699,12 @@ public class Rig {
 
   void addAnim(int animIndex) {
     try {
-      Anim anim = classMap.get(this.availableAnims[animIndex]).newInstance();
+      //Anim anim = new Anim(this);
+      for (int i=0; i<classList.length; i++) {
+        if (classList[i].getSuperclass() == Class.forName("sketch_name"+"$Anim"));
+        Anim anim = classMap("Bar").getConstructor(Anim).newInstance(this);
+      }
+      //Anim anim = classMap.get(this.availableAnimsNames[animIndex]).newInstance();
     }
     catch(Exception e) {
       println("class name error:", e);

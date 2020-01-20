@@ -1,9 +1,12 @@
 HashMap<String, Class> classMap = new HashMap<String, Class>();
+Class[] classList= this.getClass().getClasses();
 
 void setupSpecifics() {
-  Class[] classList= this.getClass().getClasses();
   for (int i=0; i<classList.length; i++) {
+
     if (classList[i].getSuperclass() == new Anim(rigg).getClass()) {
+      //if (classList[i].getSuperclass() == Class.forName("sketch_name"+"$Anim")) {
+
       String name = classList[i].getName();
       classMap.put(name.substring(name.indexOf('$')+1), classList[i]);
       println(name.substring(name.indexOf('$')+1));
