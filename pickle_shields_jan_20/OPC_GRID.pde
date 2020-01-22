@@ -739,17 +739,17 @@ class OPCGrid {
   void pickleCansOPC(Rig _rig, OPC opc, int fadecandy) {
     rig = _rig;
     _cansLength = rig.high/1.2;
-   
+
     int fc = 2 * 512;
     fc = fadecandy;
     int channel = 64;
     int leds = 6;
     pd = int(_cansLength/6);
-        
+
     cansString[0] = new PVector(rig.size.x-(rig.wide/3), rig.size.y-(pd/4));
     cansString[1] = new PVector(rig.size.x, rig.size.y+(pd/4));
     cansString[2] = new PVector(rig.size.x+(rig.wide/3), rig.size.y-(pd/4));
-    
+
     opc.ledStrip(fc+(channel*1), leds, int(cansString[0].x), int(cansString[0].y), pd, PI/2, false);                   /////  PLUG INTO slot 1 on CANS BOX (first tail) /////// 
     opc.ledStrip(fc+(channel*2), leds, int(cansString[1].x), int(cansString[1].y), pd, PI/2, false);                   /////  PLUG INTO slot 2 on CANS BOX /////// 
     opc.ledStrip(fc+(channel*3), leds, int(cansString[2].x), int(cansString[2].y), pd, PI/2, false);                   /////  PLUG INTO slot 3 on CANS BOX /////// 
@@ -908,7 +908,7 @@ class OPCGrid {
     opc.led(fc+(channel*1), int(booth.x-5), int(booth.y));
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void pickleLanterns(Rig _rig, OPC opc, int fadecandy) {
+  void pickleLanternsIndividual(Rig _rig, OPC opc, int fadecandy) {
     rig = _rig;
     int Xoffset = int(rig.size.x - (rig.wide/2));
 
@@ -927,6 +927,30 @@ class OPCGrid {
     opc.led(fc+(channel*6), int(rig.position[11].x + Xoffset), int(rig.position[11].y));  
 
     opc.led(fc+(channel*7), int(rig.positionX[3][2].x + Xoffset), int(rig.positionX[3][2].y));
+  }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  void pickleLanternsDaisyChain(Rig _rig, OPC opc, int fadecandy) {
+    rig = _rig;
+    int Xoffset = int(rig.size.x - (rig.wide/2));
+
+    int fc = 9 * 512;
+    fc = fadecandy;
+    int channel = 64;
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////// if you need to make another chain just change the 0 to 1 (or whichever slot the start of the chain is plugged into)
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    opc.led(fc+(channel*0+0), int(rig.positionX[3][0].x + Xoffset), int(rig.positionX[3][0].y)); 
+
+    opc.led(fc+(channel*0+1), int(rig.position[0].x + Xoffset), int(rig.position[0].y));       
+    opc.led(fc+(channel*0+2), int(rig.position[5].x + Xoffset), int(rig.position[5].y));      
+
+    opc.led(fc+(channel*0+3), int(rig.positionX[2][1].x + Xoffset), int(rig.positionX[2][1].y)); 
+    opc.led(fc+(channel*0+4), int(rig.positionX[4][1].x + Xoffset), int(rig.positionX[4][1].y)); 
+
+    opc.led(fc+(channel*0+5), int(rig.position[6].x + Xoffset), int(rig.position[6].y)); 
+    opc.led(fc+(channel*0+6), int(rig.position[11].x + Xoffset), int(rig.position[11].y));  
+
+    opc.led(fc+(channel*0+7), int(rig.positionX[3][2].x + Xoffset), int(rig.positionX[3][2].y));
   }
   ////////////////////////////////// DMX  /////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

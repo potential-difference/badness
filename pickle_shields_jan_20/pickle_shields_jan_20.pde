@@ -91,8 +91,9 @@ void setup()
   int fadecandy9 = 9*512;
   int fadecandy10 = 10*512;
 
-  opcGrid.pickleCansOPC(roof, opcLocal, fadecandy9);    //opcNode7
-  opcGrid.pickleLanterns(cans, opcLocal, fadecandy10);  //opcNode3
+  opcGrid.pickleCansOPC(roof, opcNode7, fadecandy9);   
+  opcGrid.pickleLanternsIndividual(cans, opcNode3, fadecandy10);    // each lantern plugged into its own slot on the box, 0 - 7
+  //opcGrid.pickleLanternsDaisyChain(cans, opcNode3, fadecandy10);  // one chain starting at slot 0 on the box - see function if you need to add another chain
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
   midiSetup();
