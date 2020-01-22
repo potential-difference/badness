@@ -736,12 +736,12 @@ class OPCGrid {
     cansLength = _cansLength - (pd/2);
   } 
   /////////////////////////////////////////////////////////////////////////////////////////////////////
-  void pickleCansOPC(Rig _rig, OPC opc, int fadecandy) {
+  void pickleCansOPC(Rig _rig, OPC opc, int fc) {
     rig = _rig;
     _cansLength = rig.high/1.2;
 
-    int fc = 2 * 512;
-    fc = fadecandy;
+    //int fc = 2 * 512;
+    fc *= 512;
     int channel = 64;
     int leds = 6;
     pd = int(_cansLength/6);
@@ -887,15 +887,7 @@ class OPCGrid {
 
     // dig //
     opc.led(fc+(channel*5), int(dig.x+5), int(dig.y));
-
-    // star //
     opc.led(fc+(channel*6), int(dig.x-5), int(dig.y));
-    /*
-    // eggs //
-     fc = 2 * 512;
-     int gap = 30;
-     for (int i = 0; i < 3; i++) opc.led(fc+(channel*7+i), int(roof.size.x+20), int(pars.size.y-((1.5*gap))+(i*gap)));
-     */
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   void kingsHeadBoothOPC(OPC opc) {
@@ -908,12 +900,11 @@ class OPCGrid {
     opc.led(fc+(channel*1), int(booth.x-5), int(booth.y));
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void pickleLanternsIndividual(Rig _rig, OPC opc, int fadecandy) {
+  void pickleLanternsIndividual(Rig _rig, OPC opc, int fc) {
     rig = _rig;
     int Xoffset = int(rig.size.x - (rig.wide/2));
 
-    int fc = 9 * 512;
-    fc = fadecandy;
+    fc *= 512;
     int channel = 64;
     opc.led(fc+(channel*0), int(rig.positionX[3][0].x + Xoffset), int(rig.positionX[3][0].y)); 
 
@@ -929,12 +920,11 @@ class OPCGrid {
     opc.led(fc+(channel*7), int(rig.positionX[3][2].x + Xoffset), int(rig.positionX[3][2].y));
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void pickleLanternsDaisyChain(Rig _rig, OPC opc, int fadecandy) {
+  void pickleLanternsDaisyChain(Rig _rig, OPC opc, int fc) {
     rig = _rig;
     int Xoffset = int(rig.size.x - (rig.wide/2));
 
-    int fc = 9 * 512;
-    fc = fadecandy;
+    fc *=512;
     int channel = 64;
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////// if you need to make another chain just change the 0 to 1 (or whichever slot the start of the chain is plugged into)
@@ -954,9 +944,10 @@ class OPCGrid {
   }
   ////////////////////////////////// DMX  /////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void dmxParsOPC(Rig _rig, OPC opc) {
+  void dmxParsOPC(Rig _rig, OPC opc, int numberOfPars) {
     rig = _rig;
-    for (int i = 0; i < 12; i+=2) opc.led(6048+i, int(rig.size.x), int(rig.size.y-(rig.high/2)+100+(i*40)));
+    int gap = rig.high/(numberOfPars+2);
+    for (int i = 0; i < numberOfPars*2; i+=2) opc.led(6048+i, int(rig.size.x), int(rig.size.y-(gap*numberOfPars/2)+(gap/2)+(i/2*gap)));
   } 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void dmxSmokeOPC(OPC opc) {
