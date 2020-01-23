@@ -8,7 +8,7 @@ public class Rig {
   PVector position[] = new PVector[12];
   PVector positionX[][] = new PVector[7][3];
   String name;
-  boolean firsttime_sketchcolor=true, toggle, noiseToggle, play = true;
+  boolean firsttime_sketchcolor=true, toggle, noiseToggle, playWithYourSelf = true;
   ArrayList <Anim> animations;
   HashMap<Integer, Ref> dimmers;
   int[] availableAnims;
@@ -34,10 +34,7 @@ public class Rig {
     cp5 = controlFrame.cp5;
 
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
-    /*
-    animNames = new String[] {"benjmains boxes", "checkers", "rings", "rush", "rushed", 
-     "square nuts", "diaganol nuts", "stars", "swipe", "swiped", "teeth", "donut", "all on", "all off"}; 
-     */
+    
     backgroundNames = new String[] {"one col c", "vert mirror grad", "side by side", "horiz mirror grad", 
       "one color flash", "moving horiz grad", "checked", "radiators", "stripes", "one two three"}; 
 
@@ -119,30 +116,30 @@ public class Rig {
     int row = shigh+4;       // distance between rows
     ///////////////////////////////// SLIDERS  ///////////////////////////////////////////////////////////////////////////////////
     loadSlider( "dimmer", x+(clm*arrayListIndex), y+(0*row), swide, shigh, 0, 1, 1, act1, bac1, slider1);
-    loadSlider( "alphaRate", x+(clm*arrayListIndex), y+(1*row), swide, shigh, 0, 1, 0.3, act, bac, slider);
+    loadSlider( "alphaRate", x+(clm*arrayListIndex), y+(1*row), swide, shigh, 0, 1, 0.3, act, bac, slider);      // old alphaSlider - controls rate of DECAY for ALPHA
     cp5.getController(this.name+" "+"alphaRate").setLabel("alpha rate");
-    loadSlider( "funcRate", x+(clm*arrayListIndex), y+(2*row), swide, shigh, 0, 1, 0.4, act1, bac1, slider1);
+    loadSlider( "funcRate", x+(clm*arrayListIndex), y+(2*row), swide, shigh, 0, 1, 0.4, act1, bac1, slider1);    // old funcSlider - control rate of DECAY for FUNCTION
     cp5.getController(this.name+" "+"funcRate").setLabel("func rate");
-    loadSlider( "blurValue", x+(clm*arrayListIndex), y+(3*row), swide, shigh, 0, 1, 0.5, act, bac, slider);
+    loadSlider( "blurValue", x+(clm*arrayListIndex), y+(3*row), swide, shigh, 0, 1, 0.5, act, bac, slider);      // blurriness of vizulisation 
     cp5.getController(this.name+" "+"blurValue").setLabel("blurriness");
-    loadSlider( "funcSwapRate", x+(clm*arrayListIndex), y+(4*row), swide, shigh, 30, 0, 4, act1, bac1, slider1);
+    loadSlider( "funcSwapRate", x+(clm*arrayListIndex), y+(4*row), swide, shigh, 30, 0, 4, act1, bac1, slider1); // NUMBER of times FUNCTION changes PER VIZ
     cp5.getController(this.name+" "+"funcSwapRate").setLabel("func swap");
-    loadSlider( "alphaSwapRate", x+(clm*arrayListIndex), y+(5*row), swide, shigh, 30, 0, 6, act, bac, slider);
+    loadSlider( "alphaSwapRate", x+(clm*arrayListIndex), y+(5*row), swide, shigh, 30, 0, 6, act, bac, slider);   // NUMBER of times ALPHA changes PER VIZ
     cp5.getController(this.name+" "+"alphaSwapRate").setLabel("alpha swap");
-    loadSlider( "bgSwapRate", x+(clm*arrayListIndex), y+(6*row), swide, shigh, 30, 0, 12, act1, bac1, slider1);
+    loadSlider( "bgSwapRate", x+(clm*arrayListIndex), y+(6*row), swide, shigh, 30, 0, 12, act1, bac1, slider1);  // NUMBER of times BACKGROUND changes PER COLOUR
     cp5.getController(this.name+" "+"bgSwapRate").setLabel("bkgrnd swap");
 
     loadSlider("strokeSlider", x+(clm*arrayListIndex), y+row*7, swide, shigh, 1, 5, 0, act, bac, slider);
     loadSlider("wideSlider", x+(clm*arrayListIndex), y+row*8, swide, shigh, 1, 5, 0, act1, bac1, slider1);
     loadSlider("highSlider", x+(clm*arrayListIndex), y+row*9, swide, shigh, 1, 5, 0, act, bac, slider);
 
-    //loadSlider( "bgNoise", x+(clm*arrayListIndex), y+(4*row), swide, shigh, 0, 1, 0.5, act1, bac1, slider1);
-    //loadSlider( "manualAlpha", x+(clm*arrayListIndex), y+(5*row), swide, shigh, 0, 1, 0.8, act, bac, slider);
+    loadSlider( "manualAlpha", x+(clm*arrayListIndex), y+(10*row), swide, shigh, 0, 1, 0.8, act1, bac1, slider1);  // RATE of ALPHA DECAY for manual control - needs to be impemented properly
+    
     ///////////////////////////////// TOGGLES  ///////////////////////////////////////////////////////////////////////////////////
     //loadToggle(noiseToggle, "noiseToggle", x+(clm*arrayListIndex), y+row*7.5, swide, 10);
-    loadToggle(toggle, "toggle", x+(clm*arrayListIndex), y+row*10, swide-30, 20);
-    loadToggle(play, "play", x+(clm*arrayListIndex)+swide-25, y+row*10, 25, 20);
-    cp5.getController(this.name+" "+"play").setLabel("p.w.y.s");
+    loadToggle(toggle, "toggle", x+(clm*arrayListIndex), y+row*11, swide-30, 20);
+    loadToggle(playWithYourSelf, "playWithYourSelf", x+(clm*arrayListIndex)+swide-25, y+row*11, 25, 20);
+    cp5.getController(this.name+" "+"playWithYourSelf").setLabel("p.w.y.s");
 
     ///////////////////////////////// RADIO BUTTONS  //////////////////////////////////////////////////////////////////////////////
     cRadioButton = cp5.addRadioButton(name+" cRadioButton")
@@ -344,21 +341,6 @@ public class Rig {
       colorLayer.endDraw();
       break;
     }
-    /*
-        radGradBallBG(0, c, flash, 0);  
-     //if (rigBgr == 1) 
-     radialGradientBG(1, c, flash, func);
-     //if (rigBgr == 2) 
-     bigOppBG(2, c, flash);
-     //if (rigBgr == 3) 
-     eyeBG(3, c, flash);
-     //if (rigBgr == 4) 
-     radGradEyeBG(4, flash, c, func);
-     //if (rigBgr == 5) 
-     sipralBG(5, flash, c);
-     //if (rigBgr == 6) 
-     threeColBG(6, c, flash);
-     */
     blendMode(MULTIPLY);
     /*
     if (syphonToggle) { 
@@ -863,6 +845,7 @@ public class Rig {
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -10,7 +10,7 @@ void playWithYourself(float vizTm) {
       rig.ddListCallback(rig.ddVizList, rig.vizIndex);
     }
     ////////////////////////////// PLAY TOGGLE TO CONTROL AUTO CYCLING OF FUNCS AND ALPHAS /////////////////////////////////////////
-    if (rig.play) {  
+    if (rig.playWithYourSelf) {  
       ///////////// ALPHA TIMER ////////////////////////////////////////////////////////////////////////////////////////////////////
       if (millis()/1000 - rig.alphaTimer >= vizTm/rig.alphaSwapRate) {       //// SWAPRATE changes # of times every viz change /////
         rig.alphaIndexA = int(random(rig.availableAlphaEnvelopes.length));   //// select from alpha array
@@ -31,7 +31,7 @@ void playWithYourself(float vizTm) {
       }
     }
   }
-         
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////// PLAY WITH COLOUR ////////////////////////////////////////////////////////////////
   for (Rig rig : rigs) {
@@ -64,6 +64,8 @@ void playWithYourself(float vizTm) {
   ///////////////////////////////////////// LERP COLOUR //////////////////////////////////////////////////////////////////
   colBeat = false;
   if (beatCounter % 18 > 15)  colorLerping(rigg, (1-beat)*4);
+  if (beatCounter % 18 < 4)  colorLerping(cans, (1-beat)*4);
+
   //if (beatCounter % 32 > 27)  colorLerping(roof, (1-beat)*3);
   ////if (beatCounter % 32 > 28)  colorLerping(cans, (1-beat)*1.5);
 
