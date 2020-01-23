@@ -113,11 +113,11 @@ void setup()
     println(e);
     println("*** !!PROBABLY NO PROPERTIES FILE!! ***");
   }
-  //for (int i = 0; i < 17; i++) {
-  //  String controllerName = "slider "+i;
-  //  float value = sliderFrame.cp5.getController(controllerName).getValue();
-  //  setCCfromController(controllerName, value);
-  //}
+  for (int i = 0; i < 16; i++) {
+    String controllerName = "slider "+i;
+    float value = sliderFrame.cp5.getController(controllerName).getValue();
+    setCCfromController(controllerName, value);
+  }
   frameRate(30); // always needs to be last in setup
 }
 int colStepper = 1;

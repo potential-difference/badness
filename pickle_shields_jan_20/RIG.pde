@@ -123,11 +123,11 @@ public class Rig {
     loadSlider( "blurValue", x+(clm*arrayListIndex), y+(3*row), swide, shigh, 0, 1, 0.5, act, bac, slider);      // blurriness of vizulisation 
     cp5.getController(this.name+" "+"blurValue").setLabel("blurriness");
     loadSlider( "funcSwapRate", x+(clm*arrayListIndex), y+(4*row), swide, shigh, 30, 0, 4, act1, bac1, slider1); // NUMBER of times FUNCTION changes PER VIZ
-    cp5.getController(this.name+" "+"funcSwapRate").setLabel("func swap");
+    cp5.getController(this.name+" "+"funcSwapRate").setLabel("func change");
     loadSlider( "alphaSwapRate", x+(clm*arrayListIndex), y+(5*row), swide, shigh, 30, 0, 6, act, bac, slider);   // NUMBER of times ALPHA changes PER VIZ
-    cp5.getController(this.name+" "+"alphaSwapRate").setLabel("alpha swap");
+    cp5.getController(this.name+" "+"alphaSwapRate").setLabel("alpha change");
     loadSlider( "bgSwapRate", x+(clm*arrayListIndex), y+(6*row), swide, shigh, 30, 0, 12, act1, bac1, slider1);  // NUMBER of times BACKGROUND changes PER COLOUR
-    cp5.getController(this.name+" "+"bgSwapRate").setLabel("bkgrnd swap");
+    cp5.getController(this.name+" "+"bgSwapRate").setLabel("bkgrnd change");
 
     loadSlider("strokeSlider", x+(clm*arrayListIndex), y+row*7, swide, shigh, 1, 5, 0, act, bac, slider);
     loadSlider("wideSlider", x+(clm*arrayListIndex), y+row*8, swide, shigh, 1, 5, 0, act1, bac1, slider1);

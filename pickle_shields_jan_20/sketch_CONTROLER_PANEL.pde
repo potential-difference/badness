@@ -15,7 +15,6 @@ class MainControlFrame extends ControlFrame {
     this.high = 20;
     loadToggle("testToggle", testToggle, x, 10, 55, 55, bac1, bac, slider);
     loadToggle("onTop", onTop, x - 30, 45, wide, high, bac1, bac, slider);
-
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
@@ -55,17 +54,29 @@ class MainControlFrame extends ControlFrame {
       fill(rigg.c, 300);
       if (!roof.toggle) fill(rigg.c, 100);
       textSize(18);
-      textAlign(RIGHT);
-      x = size.roof.x+(size.roofWidth/2) - 130;
+      textAlign(LEFT);
+      x = size.roof.x-(size.roofWidth/2)+10;
       text("roofViz: " + roof.availableAnims[roof.vizIndex], x, y);
       text("bkgrnd: " + roof.availableBkgrnds[roof.bgIndex], x, y+20);
       text("func's: " + roof.availableFunctionEnvelopes[roof.functionIndexA] + " / " + roof.availableFunctionEnvelopes[roof.functionIndexB], x+120, y);
       text("alph's: " + roof.availableAlphaEnvelopes[roof.alphaIndexA] + " / " + roof.availableAlphaEnvelopes[roof.alphaIndexB], x+120, y+20);
     }
+    /////////////////////////////////////////////////// cans info ////////////////////////////////////////////////////////
+    if (size.cansWidth > 0 && size.cansHeight > 0) {
+      fill(rigg.c, 300);
+      if (!cans.toggle) fill(rigg.c, 100);
+      textSize(18);
+      textAlign(LEFT);
+      x = size.cans.x-(size.cansWidth/2)+10;
+      text("liveViz: " + cans.availableAnims[cans.vizIndex], x, y);
+      text("bkgrnd: " + cans.availableBkgrnds[cans.bgIndex], x, y+20);
+      text("func's: " + cans.availableFunctionEnvelopes[cans.functionIndexA] + " / " + cans.availableFunctionEnvelopes[cans.functionIndexB], x+120, y);
+      text("alph's: " + cans.availableAlphaEnvelopes[cans.alphaIndexA] + " / " + cans.availableAlphaEnvelopes[cans.alphaIndexB], x+120, y+20);
+    }
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     int sliderY =90;
-    sequencer(675, sliderY-20);
+    sequencer(rigg.wide, sliderY-20);
     pauseInfo(width-5, sliderY-15);
     dividerLines();
     fill(rigg.c);                              // divider for sliders
@@ -100,16 +111,16 @@ class SliderFrame extends ControlFrame {
     loadSlider("colorSwapSlider", x, y+row*4, wide, high, 0, 1, 0.9, act1, bac1, slider1);
     loadSlider("beatSlider", x, y+row*5, wide, high, 0, 1, 0.4, act, bac, slider);
 
-    loadSlider("smokeOnTime", x, y+row*7.5, wide/2, high, 0, 5, 3, act, bac, slider);
-    loadSlider("smokeOffTime", x, y+row*8.5, wide/2, high, 0, 20, 10, act1, bac1, slider1);
-    loadSlider("smokePumpValue", x, y+row*9.5, wide/2, high, 0, 1, 0.1, act, bac, slider);
+    loadSlider("smokeOnTime", x, y+row*7, wide/2, high, 0, 5, 3, act, bac, slider);
+    loadSlider("smokeOffTime", x, y+row*8, wide/2, high, 0, 20, 10, act1, bac1, slider1);
+    loadSlider("smokePumpValue", x, y+row*9, wide/2, high, 0, 1, 0.1, act, bac, slider);
+    loadToggle("smokeToggle", smokeToggle, x, y+row*10, wide, int(high*1.5), bac1, bac, slider);
 
-    loadToggle("smokeToggle", smokeToggle, x, y+row*10.5, wide, int(high*1.5), bac1, bac, slider);
-
-    int gap = 25;
-    y = this.y+row*15;
-    for (int i =0; i<6; i+=2) {
-      gap = 25;
+    high = 12;
+    int gap =  high +4;
+    y = this.y+row*13;
+    for (int i =0; i<16; i+=2) {
+      //gap = 25;
       String name = "slider "+i;
       String name1 = "slider "+(i+1);
       loadSlider( name, x, y+(i*gap), wide, high, 0, 1, 0.32, act1, bac1, slider1);
@@ -122,9 +133,8 @@ class SliderFrame extends ControlFrame {
     dividerLines();
 
     //Envelopes visulization
-    float y=500;
-    float y1=200;
-    x = 10;
+    float y=570;             // STARTING HEIGHT for sections
+    float y1=140;            // LENGTH of sections && GAP between them
     float dist = 15;
     int i=0;
 
@@ -135,8 +145,8 @@ class SliderFrame extends ControlFrame {
         } else {
           fill(rigg.flash1, 300);
         }
-        rect(20+(anim.alphaA*(this.width/2-32)), y+(dist*i), 10, 10);                // ALPHA A viz
-        rect(this.width/2+12+(anim.alphaB*(this.width/2-32)), y+(dist*i), 10, 10);   // ALPHA B viz
+        rect(20+(anim.alphaA*(this.width/2-32)), y+(dist*i), 10, 10);                      // ALPHA A viz
+        rect(this.width/2+12+(anim.alphaB*(this.width/2-32)), y+(dist*i), 10, 10);         // ALPHA B viz
         rect(20+(anim.functionA*(this.width/2-32)), y+(dist*i)+y1, 10, 10);                // FUNCTION A viz
         rect(this.width/2+12+(anim.functionB*(this.width/2-32)), y+(dist*i)+y1, 10, 10);   // FUNCTION B viz
         i+=1;
@@ -152,20 +162,20 @@ class SliderFrame extends ControlFrame {
     text("alph A : "+rigg.alphaIndexA, 12, y-12);
     text("alph B : "+rigg.alphaIndexB, this.width/2+12, y-12);
     rectMode(CORNER);
-    rect(12, y - 5, 1, 150);
-    rect(this.width/2-5, y - 5, 1, 150);
-    rect(this.width/2+5, y - 5, 1, 150);
-    rect(this.width-12, y - 5, 1, 150);
+    rect(12, y - 5, 1, y1-25);
+    rect(this.width/2-5, y - 5, 1, y1-25);
+    rect(this.width/2+5, y - 5, 1, y1-25);
+    rect(this.width-12, y - 5, 1, y1-25);
     rectMode(CENTER);
 
     fill(rigg.c1, 200);
     text("func A : "+rigg.functionIndexA, 12, y-12+y1);
     text("func B : "+rigg.functionIndexB, this.width/2+12, y-12+y1);
     rectMode(CORNER);
-    rect(12, y - 5 + y1, 1, 150);
-    rect(this.width/2-5, y - 5+y1, 1, 150);
-    rect(this.width/2+5, y - 5+y1, 1, 150);
-    rect(this.width-12, y - 5+y1, 1, 150);
+    rect(12, y - 5 + y1, 1, y1-25);
+    rect(this.width/2-5, y - 5+y1, 1, y1-25);
+    rect(this.width/2+5, y - 5+y1, 1, y1-25);
+    rect(this.width-12, y - 5+y1, 1, y1-25);
     rectMode(CENTER);
   }
 }
@@ -228,7 +238,6 @@ class ControlFrame extends PApplet {
   }
 
   //////////////////////////////////////// CALL BACK FOR SLIDER CONTROL FROM OTHER VARIABLES
-  // an event from slider sliderA will change the value of textfield textA here
   public void rigDimmer(float theValue) {
     int value = int(map(theValue, 0, 1, 0, 127));
     LPD8bus.sendControllerChange(0, 4, value) ;
@@ -268,7 +277,6 @@ class ControlFrame extends PApplet {
       if (theEvent.isFrom(rig.ddVizList)) {
         if (frameCount > someDelay)    println(rig.name+" viz selected "+intValue);
         rig.vizIndex = intValue;
-        //println(arrayValue);
       }
       if (theEvent.isFrom(rig.ddBgList)) {
         if (frameCount > someDelay)    println(rig.name+" background selected "+intValue);
