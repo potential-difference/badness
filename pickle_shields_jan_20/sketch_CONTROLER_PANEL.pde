@@ -1,5 +1,5 @@
 boolean testToggle, smokeToggle;
-float boothDimmer, digDimmer, vizTime, colorTime, colorSwapSlider, beatSlider;
+float boothDimmer, digDimmer, vizTime, colorTime, colorSwapSlider, beatSlider = 0.3;
 float smokePumpValue, smokeOnTime, smokeOffTime;
 
 class MainControlFrame extends ControlFrame {
@@ -104,21 +104,29 @@ class SliderFrame extends ControlFrame {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// GLOBAL SLIDERS ///////////////////////////////////////////////////////////
     loadSlider("boothDimmer", x, y, wide, high, 0, 1, 0.32, act1, bac1, slider1);
+    cp5.getController("boothDimmer").setLabel("booth dimmer");
     loadSlider("digDimmer", x, y+row, wide, high, 0, 1, 0.2, act, bac, slider);
+    cp5.getController("digDimmer").setLabel("dig dimmer");
     loadSlider("vizTime", x, y+row*2, wide, high, 0.5, 30, 5, act1, bac1, slider1);
+    cp5.getController("vizTime").setLabel("viz timer");
 
     loadSlider("colorTime", x, y+row*3, wide, high, 0.5, 30, 6, act, bac, slider);
+    cp5.getController("colorTime").setLabel("color timer");
     loadSlider("colorSwapSlider", x, y+row*4, wide, high, 0, 1, 0.9, act1, bac1, slider1);
-    loadSlider("beatSlider", x, y+row*5, wide, high, 0, 1, 0.4, act, bac, slider);
+    cp5.getController("colorSwapSlider").setLabel("color swap");
 
-    loadSlider("smokeOnTime", x, y+row*7, wide/2, high, 0, 5, 3, act, bac, slider);
-    loadSlider("smokeOffTime", x, y+row*8, wide/2, high, 0, 20, 10, act1, bac1, slider1);
-    loadSlider("smokePumpValue", x, y+row*9, wide/2, high, 0, 1, 0.1, act, bac, slider);
-    loadToggle("smokeToggle", smokeToggle, x, y+row*10, wide, int(high*1.5), bac1, bac, slider);
+    loadSlider("smokeOnTime", x, y+row*6.5, wide/2, high, 0, 5, 3, act, bac, slider);
+    cp5.getController("smokeOnTime").setLabel("smoke ON time");
+    loadSlider("smokeOffTime", x, y+row*7.5, wide/2, high, 0, 20, 10, act1, bac1, slider1);
+    cp5.getController("smokeOffTime").setLabel("smoke OFF time");
+    loadSlider("smokePumpValue", x, y+row*8.5, wide/2, high, 0, 1, 0.1, act, bac, slider);
+    cp5.getController("smokePumpValue").setLabel("smoke pump");
+    loadToggle("smokeToggle", smokeToggle, 2*x+wide, y+row*6.5, 70, int(high+row*1.25), bac1, bac, slider);
+    cp5.getController("smokeToggle").setLabel("smoke auto timer");
 
     high = 12;
     int gap =  high +4;
-    y = this.y+row*13;
+    y = this.y+row*11;
     for (int i =0; i<16; i+=2) {
       //gap = 25;
       String name = "slider "+i;
@@ -133,8 +141,8 @@ class SliderFrame extends ControlFrame {
     dividerLines();
 
     //Envelopes visulization
-    float y=570;             // STARTING HEIGHT for sections
-    float y1=140;            // LENGTH of sections && GAP between them
+    float y=540;             // STARTING HEIGHT for sections
+    float y1=160;            // LENGTH of sections
     float dist = 15;
     int i=0;
 

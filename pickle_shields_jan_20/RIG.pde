@@ -116,6 +116,7 @@ public class Rig {
     int row = shigh+4;       // distance between rows
     ///////////////////////////////// SLIDERS  ///////////////////////////////////////////////////////////////////////////////////
     loadSlider( "dimmer", x+(clm*arrayListIndex), y+(0*row), swide, shigh, 0, 1, 1, act1, bac1, slider1);
+    cp5.getController(this.name+" "+"dimmer").setLabel(name +" dimmer");
     loadSlider( "alphaRate", x+(clm*arrayListIndex), y+(1*row), swide, shigh, 0, 1, 0.3, act, bac, slider);      // old alphaSlider - controls rate of DECAY for ALPHA
     cp5.getController(this.name+" "+"alphaRate").setLabel("alpha rate");
     loadSlider( "funcRate", x+(clm*arrayListIndex), y+(2*row), swide, shigh, 0, 1, 0.4, act1, bac1, slider1);    // old funcSlider - control rate of DECAY for FUNCTION
@@ -130,10 +131,14 @@ public class Rig {
     cp5.getController(this.name+" "+"bgSwapRate").setLabel("bkgrnd change");
 
     loadSlider("strokeSlider", x+(clm*arrayListIndex), y+row*7, swide, shigh, 1, 5, 0, act, bac, slider);
+    cp5.getController(this.name+" "+"strokeSlider").setLabel("stroke slider");
     loadSlider("wideSlider", x+(clm*arrayListIndex), y+row*8, swide, shigh, 1, 5, 0, act1, bac1, slider1);
+    cp5.getController(this.name+" "+"wideSlider").setLabel("wide slider");
     loadSlider("highSlider", x+(clm*arrayListIndex), y+row*9, swide, shigh, 1, 5, 0, act, bac, slider);
+    cp5.getController(this.name+" "+"highSlider").setLabel("high slider");
 
     loadSlider( "manualAlpha", x+(clm*arrayListIndex), y+(10*row), swide, shigh, 0, 1, 0.8, act1, bac1, slider1);  // RATE of ALPHA DECAY for manual control - needs to be impemented properly
+    cp5.getController(this.name+" "+"manualAlpha").setLabel("manual alpha");
 
     ///////////////////////////////// TOGGLES  ///////////////////////////////////////////////////////////////////////////////////
     //loadToggle(noiseToggle, "noiseToggle", x+(clm*arrayListIndex), y+row*7.5, swide, 10);

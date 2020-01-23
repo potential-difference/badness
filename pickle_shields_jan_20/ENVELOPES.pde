@@ -111,7 +111,6 @@ Envelope envelopeFactory(int envelope_index, Rig rig, float overalltime) {
 }
 
 Envelope functionEnvelopeFactory(int envelope_index, Rig rig) {
-
   float overalltime = avgmillis;
 
   Envelope sine = new Sine(1, overalltime*rig.funcRate);
