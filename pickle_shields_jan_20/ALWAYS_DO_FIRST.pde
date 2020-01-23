@@ -17,10 +17,8 @@ void setupSpecifics() {
   //println("CLASS LIST");
   //print(classList);
 
-
   //rigg.availableAnims = new int[] {1, 2, 3, 6, 7, 8};      // setup which anims are used on which rig here
   rigg.availableAnimsNames = new String[] {"StarMesh", "Rings", "Celtic", "Stars", "SingleDonut", "BouncingDonut"};
-
 
   //roof.availableAnims = new int[] {0, 7, 8, 11, 12, 13, 14, 15, 17, 18, 19};        // setup which anims are used on which rig here - defualt is 0,1,2,3...
   //cans.availableAnims = new int[] {0, 7, 8, 11, 12, 13, 14, 15, 17, 18, 19};        // setup which anims are used on which rig here - defualt is 0,1,2,3...
