@@ -57,10 +57,9 @@ void setup()
   surface.setAlwaysOnTop(onTop);
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
 
-  controlFrame = new MainControlFrame(this, width, 325, size.surfacePositionX, size.surfacePositionY+height+5); // load control frame must come after shild ring etc
+  controlFrame = new MainControlFrame(this, width, 330, size.surfacePositionX, size.surfacePositionY+height+5); // load control frame must come after shild ring etc
   opcGrid = new OPCGrid();
 
-  //Rig(float _xpos, float _ypos, int _wide, int _high, String _name) {
   // order of these is important for layout of sliders
   rigg = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
   roof = new Rig(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
@@ -114,11 +113,11 @@ void setup()
     println(e);
     println("*** !!PROBABLY NO PROPERTIES FILE!! ***");
   }
-  for (int i = 0; i < 17; i++) {
-    String controllerName = "slider "+i;
-    float value = sliderFrame.cp5.getController(controllerName).getValue();
-    setCCfromController(controllerName, value);
-  }
+  //for (int i = 0; i < 17; i++) {
+  //  String controllerName = "slider "+i;
+  //  float value = sliderFrame.cp5.getController(controllerName).getValue();
+  //  setCCfromController(controllerName, value);
+  //}
   frameRate(30); // always needs to be last in setup
 }
 int colStepper = 1;
@@ -134,8 +133,6 @@ void draw()
   globalFunctions();
   //syphonLoadSentImage(syphonToggle);
 
-  //vizTime *=60;      // convert from minutes to seconds
-  //colorTime *=60;    // convert from minutes to seconds
   if (frameCount > 10) playWithYourself(vizTime*60);
   c = rigg.c;
   flash = rigg.flash;

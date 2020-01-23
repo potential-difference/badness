@@ -18,7 +18,7 @@ void setupSpecifics() {
   // rigg.availableAnims = String[] {"Boxes","StarMesh"...};
   roof.availableAnims = new int[] {0, 7, 8, 11, 12, 13, 14, 15, 17, 18, 19};        // setup which anims are used on which rig here - defualt is 0,1,2,3...
   cans.availableAnims = new int[] {0, 7, 8, 11, 12, 13, 14, 15, 17, 18, 19};        // setup which anims are used on which rig here - defualt is 0,1,2,3...
-  pars.availableAnims = new int[] {0, 20};      // setup which anims are used on which rig here
+  pars.availableAnims = new int[] {0, 19};      // setup which anims are used on which rig here
 
   rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
   roof.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
@@ -34,7 +34,6 @@ void setupSpecifics() {
 
   //rigg.availableColors = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
   //roof.availableColors = rigg.availableColors; // = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
-
 
   ///////////////////////////////// UPDATE THE DROPDOWN LISTS WITH AVLIABLE OPTIONS ///////////////////////////////////////////////////////
   for (Rig rig : rigs) {    

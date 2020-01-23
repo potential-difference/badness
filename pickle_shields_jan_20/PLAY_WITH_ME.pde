@@ -13,33 +13,14 @@ void playWithMe() {
     colorLerping(rigg, (1-beat)*2);
     colorLerping(roof, (1-beat)*1.5);
   }
-  ////////////////////////////////////////// HOLD BUTTONS FOR VIZ AND COLOUR /////////////////////////////////
- /*
-  if (vizHold) vizTimer = millis()/1000;              // hold viz change timer
-  if (colHold) {
-    rigg.colorTimer = millis()/1000;              // hold color change timer
-    roof.colorTimer = millis()/1000;              // hold color change timer
-    cans.colorTimer = millis()/1000;              // hold color change timer
-  }
-  */
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  if (keyP[' ']) { 
-    for (Rig rig : rigs) {
-      if (rig.toggle) {
-        beatTrigger = true;
-        //if (testToggle) rig.animations.add(new Test(rig));
-        rig.addAnim(rig.vizIndex);
-      }
-    }
-  } 
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
   float  debouncetime=100;
 
-  Envelope manualA = CrushPulse(0.0, 0, 1, manualSlider*500, 0.0, 0.0);
+  //Envelope manualA = CrushPulse(0.0, 0, 1, rig.manualAlpha*500, 0.0, 0.0);
   /*
   try {
    if (millis()-lastTime[44]>debouncetime) {
@@ -56,22 +37,36 @@ void playWithMe() {
    println(e, "playwithyourself error");
    }
    */
-/*
+  /*
   if (millis()-lastTime[44]>debouncetime) {
-    if (padVelocity[44]>0) rigg.animations.add(new StarMesh (rigg));
-    lastTime[44]=millis();
+   if (padVelocity[44]>0) rigg.animations.add(new StarMesh (rigg));
+   lastTime[44]=millis();
+   }
+   
+   if (millis()-lastTime[45]>debouncetime) {
+   if (padVelocity[45]>0) rigg.animations.add(new SpiralFlower(rigg));
+   lastTime[45]=millis();
+   }
+   
+   if (millis()-lastTime[46]>debouncetime) {
+   if (padVelocity[46]>0) rigg.animations.add(new Stars(rigg));
+   lastTime[46]=millis();
+   }
+   */
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////// ADD ANIM ////////////////////////////////////////////////////////////////////
+  if (millis()-lastTime[0]>debouncetime*2.5) {
+    if (keyP[' ']) {
+      for (Rig rig : rigs) {
+        if (rig.toggle) {
+          beatTrigger = true;
+          //if (testToggle) rig.animations.add(new Test(rig));
+          rig.addAnim(rig.vizIndex);
+        }
+      }
+      lastTime[0]=millis();
+    }
   }
-
-  if (millis()-lastTime[45]>debouncetime) {
-    if (padVelocity[45]>0) rigg.animations.add(new SpiralFlower(rigg));
-    lastTime[45]=millis();
-  }
-
-  if (millis()-lastTime[46]>debouncetime) {
-    if (padVelocity[46]>0) rigg.animations.add(new Stars(rigg));
-    lastTime[46]=millis();
-  }
-*/
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////// ALL ON ///////////////////////////////////////////////
 

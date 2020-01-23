@@ -1,9 +1,6 @@
-boolean glitchToggle, roofBasic = false, testToggle, smokeToggle;
-float vizTime, colorSwapSlider, colorTime, boothDimmer, digDimmer, backDropSlider;
-float tweakSlider, blurSlider, bgNoiseBrightnessSlider, bgNoiseDensitySlider, manualSlider, stutterSlider;
-float shimmerSlider, funcSlider, beatSlider;
+boolean testToggle, smokeToggle;
+float boothDimmer, digDimmer, vizTime, colorTime, colorSwapSlider, beatSlider;
 float smokePumpValue, smokeOnTime, smokeOffTime;
-//float wideSlider, strokeSlider, highSlider;
 
 class MainControlFrame extends ControlFrame {
   MainControlFrame(PApplet _parent, int _controlW, int _controlH, int _xpos, int _ypos) {
@@ -11,45 +8,14 @@ class MainControlFrame extends ControlFrame {
     cp5 = new ControlP5(this);
     cp5.getProperties().setFormat(ControlP5.SERIALIZED);
 
-    this.x = 10;
-    this.y = 90;
-    this.sliderY=y;
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    //////////////////////////////// GLOBAL SLIDERS ///////////////////////////////////////////////////////////
-    loadSlider("boothDimmer", x, y, wide, high, 0, 1, 0.32, act1, bac1, slider1);
-    loadSlider("digDimmer", x, y+row, wide, high, 0, 1, 0.2, act, bac, slider);
-    loadSlider("colorTime", x, y+row*3, wide, high, 0.5, 30, 6, act, bac, slider);
-    loadSlider("colorSwapSlider", x, y+row*4, wide, high, 0, 1, 0.9, act1, bac1, slider1);
-    loadSlider("beatSlider", x, y+row*5, wide, high, 0, 1, 0.4, act, bac, slider);
-    loadSlider("vizTime", x, y+row*2, wide, high, 0.5, 30, 5, act1, bac1, slider1);
-    //loadSlider("strokeSlider", x, y+row*7, wide/2, high, 1, 5, 0, act1, bac1, slider1);
-    //loadSlider("wideSlider", x, y+row*8, wide/2, high, 1, 5, 0, act, bac, slider);
-    //loadSlider("highSlider", x, y+row*9, wide/2, high, 1, 5, 0, act1, bac1, slider1);
-
-    loadSlider("smokeOnTime", x, y+row*8.5, wide/2, high, 0, 5, 3, act, bac, slider);
-    loadSlider("smokeOffTime", x, y+row*9.5, wide/2, high, 0, 20, 10, act1, bac1, slider1);
-    loadSlider("smokePumpValue", x, y+row*10.5, wide/2, high, 0, 1, 0.1, act, bac, slider);
-
-    loadToggle("smokeToggle", smokeToggle, x, y+row*6.5, wide, int(high*1.5), bac1, bac, slider);
-
-
-
-
-
-
-
     /////////////////////////////// GLOBAL TOGGLE BUTTONS//////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     this.x = this.width-65;
     this.wide = 20;
     this.high = 20;
-    loadToggle("onTop", onTop, 1200, 45, wide, high, bac1, bac, slider);
-    //loadToggle("glitchToggle", glitchToggle, x, y+35, wide, high, bac1, bac, slider);
-    //loadToggle("roofBasic", roofBasic, x, y+70, wide, high, bac1, bac, slider);
-    //loadToggle("syphonToggle", syphonToggle, x, y+105, wide, high, bac1, bac, slider);
-
     loadToggle("testToggle", testToggle, x, 10, 55, 55, bac1, bac, slider);
+    loadToggle("onTop", onTop, x - 30, 45, wide, high, bac1, bac, slider);
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
@@ -96,36 +62,9 @@ class MainControlFrame extends ControlFrame {
       text("func's: " + roof.availableFunctionEnvelopes[roof.functionIndexA] + " / " + roof.availableFunctionEnvelopes[roof.functionIndexB], x+120, y);
       text("alph's: " + roof.availableAlphaEnvelopes[roof.alphaIndexA] + " / " + roof.availableAlphaEnvelopes[roof.alphaIndexB], x+120, y+20);
     }
-    /////////////////////////////////////////////////// cans info ////////////////////////////////////////////////////////
-    /*
-    if (size.cansHeight > 0 && size.cansWidth > 0) {
-     fill(rigg.c, 300);
-     if (!cans.toggle) fill(rigg.c, 100);
-     textSize(18);
-     textAlign(RIGHT);
-     x = size.cans.x+(size.cansWidth/2) - 130;
-     text("cansViz: " + cans.availableAnims[cans.vizIndex], x, y);
-     text("bkgrnd: " + cans.availableBkgrnds[cans.bgIndex], x, y+20);
-     text("func's: " + cans.availableFunctionEnvelopes[cans.functionIndexA] + " / " + cans.availableFunctionEnvelopes[cans.functionIndexB], x+120, y);
-     text("alph's: " + cans.availableAlphaEnvelopes[cans.alphaIndexA] + " / " + cans.availableAlphaEnvelopes[cans.alphaIndexB], x+120, y+20);
-     }
-     */
-    /*
-     /////////////////////////////////////////////////// cans info ////////////////////////////////////////////////////////
-     if (size.donutHeight > 0 && size.donutHeight > 0) {
-     fill(rigg.c, 300);
-     if (!donut.toggle) fill(rigg.c, 100);
-     textSize(18);
-     textAlign(LEFT);
-     x = size.cans.x+(size.cansWidth/2) +25;
-     text("donutViz: " + donut.vizIndex, x, y);
-     text("bkgrnd: " + donut.bgIndex, x, y+20);
-     text("func's: " + donut.functionIndexA + " / " + donut.functionIndexB, x+120, y);
-     text("alph's: " + donut.alphaIndexA + " / " + donut.alphaIndexB, x+120, y+20);
-     }
-     */
 
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    int sliderY =90;
     sequencer(675, sliderY-20);
     pauseInfo(width-5, sliderY-15);
     dividerLines();
@@ -143,26 +82,38 @@ class SliderFrame extends ControlFrame {
   SliderFrame(PApplet _parent, int _controlW, int _controlH, int _xpos, int _ypos) {
     super (_parent, _controlW, _controlH, _xpos, _ypos);
     surface.setAlwaysOnTop(onTop);
-    //fullScreen();
     cp5 = new ControlP5(this);
     cp5.getProperties().setFormat(ControlP5.SERIALIZED);
 
-    this.x = 10;
-    this.y = 10;
-    //this.wide = 150;
-    //this.high = 20;
+    x = 10;
+    y = 10;
+    wide = 120;           // x size of sliders
+    high = 16;           // y size of slider
+    row = high +4;       // distance between rows
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////// GLOBAL SLIDERS ///////////////////////////////////////////////////////////
+    loadSlider("boothDimmer", x, y, wide, high, 0, 1, 0.32, act1, bac1, slider1);
+    loadSlider("digDimmer", x, y+row, wide, high, 0, 1, 0.2, act, bac, slider);
+    loadSlider("vizTime", x, y+row*2, wide, high, 0.5, 30, 5, act1, bac1, slider1);
 
-    int sliderWide = 150;
-    int sliderHigh = 20;
+    loadSlider("colorTime", x, y+row*3, wide, high, 0.5, 30, 6, act, bac, slider);
+    loadSlider("colorSwapSlider", x, y+row*4, wide, high, 0, 1, 0.9, act1, bac1, slider1);
+    loadSlider("beatSlider", x, y+row*5, wide, high, 0, 1, 0.4, act, bac, slider);
+
+    loadSlider("smokeOnTime", x, y+row*7.5, wide/2, high, 0, 5, 3, act, bac, slider);
+    loadSlider("smokeOffTime", x, y+row*8.5, wide/2, high, 0, 20, 10, act1, bac1, slider1);
+    loadSlider("smokePumpValue", x, y+row*9.5, wide/2, high, 0, 1, 0.1, act, bac, slider);
+
+    loadToggle("smokeToggle", smokeToggle, x, y+row*10.5, wide, int(high*1.5), bac1, bac, slider);
 
     int gap = 25;
-
-    for (int i =0; i<17; i+=2) {
+    y = this.y+row*15;
+    for (int i =0; i<6; i+=2) {
       gap = 25;
       String name = "slider "+i;
       String name1 = "slider "+(i+1);
-      loadSlider( name, x, y+(i*gap), sliderWide, sliderHigh, 0, 1, 0.32, act1, bac1, slider1);
-      loadSlider( name1, x, y+gap+(i*gap), sliderWide, sliderHigh, 0, 1, 0.32, act, bac, slider);
+      loadSlider( name, x, y+(i*gap), wide, high, 0, 1, 0.32, act1, bac1, slider1);
+      loadSlider( name1, x, y+gap+(i*gap), wide, high, 0, 1, 0.32, act, bac, slider);
     }
   }
   void draw() {
@@ -207,7 +158,6 @@ class SliderFrame extends ControlFrame {
     rect(this.width-12, y - 5, 1, 150);
     rectMode(CENTER);
 
-
     fill(rigg.c1, 200);
     text("func A : "+rigg.functionIndexA, 12, y-12+y1);
     text("func B : "+rigg.functionIndexB, this.width/2+12, y-12+y1);
@@ -222,7 +172,7 @@ class SliderFrame extends ControlFrame {
 
 class ControlFrame extends PApplet {
   int controlW, controlH, wide, high, xpos, ypos;
-  float clm, row, sliderY, x, y;
+  float clm, row, x, y;
   PApplet parent;
   ControlP5 cp5;
   public ControlFrame(PApplet _parent, int _controlW, int _controlH, int _xpos, int _ypos) {
@@ -247,20 +197,16 @@ class ControlFrame extends PApplet {
     ellipseMode(RADIUS);
     imageMode(CENTER);
     noStroke();
-    wide = 80;           // x size of sliders
-    high = 14;           // y size of slider
-    row = high +4;       // distance between rows
-    clm = 210;
   }
   void draw() {
     /// override in subclass
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void loadSlider(String label, float x, float y, int wide, int high, float min, float max, float startVal, color act1, color bac1, color slider1) {
+  void loadSlider(String label, float _x, float _y, int _wide, int _high, float min, float max, float startVal, color act1, color bac1, color slider1) {
     cp5.addSlider(label)
       .plugTo(parent, label)
-      .setPosition(x, y)
-      .setSize(wide, high)
+      .setPosition(_x, _y)
+      .setSize(_wide, _high)
       //.setFont(font)
       .setRange(min, max)
       .setValue(startVal)    // start value of slider
@@ -280,7 +226,7 @@ class ControlFrame extends PApplet {
       .setColorForeground(act) 
       ;
   }
- 
+
   //////////////////////////////////////// CALL BACK FOR SLIDER CONTROL FROM OTHER VARIABLES
   // an event from slider sliderA will change the value of textfield textA here
   public void rigDimmer(float theValue) {
@@ -395,51 +341,3 @@ void setCCfromController(String name, float value) {
   int someDelay = 120; // silence at startup
   if (frameCount > someDelay) println("set cc["+index+"]", value);
 }
-
-
-
-
-
-
-
-/* // old sliders 
- 
- x+=clm;
- //////////////////////////////////////////////////////////////////////////////////////////////////
- /////////////////////////////// FOURTH coloum of sliders ///////////////////////////////////////
- 
- cp5.addSlider("bgNoiseSlider")
- .plugTo(parent, "bgNoiseSlider")
- .setPosition(x, y+row*2)
- .setSize(wide, high)
- //.setFont(font)
- .setRange(0, 1)
- .setValue(0.3) // start value of slider
- .setColorActive(act1) 
- .setColorBackground(bac1) 
- .setColorForeground(slider1) 
- ;
- cp5.addSlider("bgNoiseBrightnessSlider")
- .plugTo(parent, "bgNoiseBrightnessSlider")
- .setPosition(x, y+row*3)
- .setSize(wide, high)
- //.setFont(font)
- .setRange(0, 1)
- .setValue(0.5) // start value of slider
- .setColorActive(act) 
- .setColorBackground(bac) 
- .setColorForeground(slider) 
- ;    
- cp5.addSlider("bgNoiseDensitySlider")
- .plugTo(parent, "bgNoiseDensitySlider")
- .setPosition(x, y+row*4)
- .setSize(wide, high)
- //.setFont(font)
- .setRange(0, 1)
- .setValue(0.1) // start value of slider
- .setColorActive(act1) 
- .setColorBackground(bac1) 
- .setColorForeground(slider1) 
- ;
- 
- */

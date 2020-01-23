@@ -12,9 +12,9 @@ class SizeSettings {
       rig = new PVector(rigWidth/2, (rigHeight/2));   // cordinates for center of rig
       break;
     case LANDSCAPE:
-      rigWidth = 700;                                    // WIDTH of rigViz
+      rigWidth = 600;                                    // WIDTH of rigViz
       if (SHITTYLAPTOP) rigWidth = 600;
-      rigHeight = 700;    
+      rigHeight = 600;    
       if (SHITTYLAPTOP) rigHeight = 250;
       rig = new PVector(rigWidth/2, (rigHeight/2));   // cordinates for center of rig
       break;
@@ -112,7 +112,7 @@ void drawingSetup() {
 
 PShader blur;
 void loadShaders() {
-  float blury = int(map(blurSlider, 0, 1, 0, 100));
+  float blury = int(10);
   blur = loadShader("blur.glsl");
   blur.set("blurSize", blury);
   blur.set("sigma", 10.0f);

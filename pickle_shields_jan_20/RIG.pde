@@ -34,7 +34,7 @@ public class Rig {
     cp5 = controlFrame.cp5;
 
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
-    
+
     backgroundNames = new String[] {"one col c", "vert mirror grad", "side by side", "horiz mirror grad", 
       "one color flash", "moving horiz grad", "checked", "radiators", "stripes", "one two three"}; 
 
@@ -108,11 +108,11 @@ public class Rig {
     col[14] = teal;
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
     ////////////////////////////// LOAD CONTROLLERS //////////////////////////////////////////////////////////////////////////////
-    int clm = 300;           // distance between coloms
-    float x = clm;
-    float y = 90;
-    int swide = 80;           // x size of sliders
-    int shigh = 14;           // y size of slider
+    float x = 140;            // starting x coordiante
+    float y = 90;            // starting y coordiante
+    int clm = 320;           // distance between coloms
+    int swide = 80;          // x size of sliders
+    int shigh = 14;          // y size of slider
     int row = shigh+4;       // distance between rows
     ///////////////////////////////// SLIDERS  ///////////////////////////////////////////////////////////////////////////////////
     loadSlider( "dimmer", x+(clm*arrayListIndex), y+(0*row), swide, shigh, 0, 1, 1, act1, bac1, slider1);
@@ -134,7 +134,7 @@ public class Rig {
     loadSlider("highSlider", x+(clm*arrayListIndex), y+row*9, swide, shigh, 1, 5, 0, act, bac, slider);
 
     loadSlider( "manualAlpha", x+(clm*arrayListIndex), y+(10*row), swide, shigh, 0, 1, 0.8, act1, bac1, slider1);  // RATE of ALPHA DECAY for manual control - needs to be impemented properly
-    
+
     ///////////////////////////////// TOGGLES  ///////////////////////////////////////////////////////////////////////////////////
     //loadToggle(noiseToggle, "noiseToggle", x+(clm*arrayListIndex), y+row*7.5, swide, 10);
     loadToggle(toggle, "toggle", x+(clm*arrayListIndex), y+row*11, swide-30, 20);
@@ -835,7 +835,7 @@ public class Rig {
     //dimmer = cc[40];
     blendMode(MULTIPLY);
     // this donesnt work anymore....
-    if (cc[107] > 0 || keyT['r'] || glitchToggle) bgNoise(colorLayer, 0, 0, cc[55]); //PGraphics layer,color,alpha
+    if (cc[107] > 0 || keyT['r']) bgNoise(colorLayer, 0, 0, cc[55]); //PGraphics layer,color,alpha
     drawColorLayer(bgIndex);
 
     blendMode(NORMAL);

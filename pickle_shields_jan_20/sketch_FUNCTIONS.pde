@@ -59,7 +59,7 @@ void globalFunctions() {
   sineSlow = map(sin(timer[1]/4), -1, 1, 0, 1);         //// 0-1-1-0 slow sine wave
   if (cc[102] > 0) stutter = map(sin(timer[4]*cc[2]*8), -1, 1, 0, 1);        //// 0-1-1-0 fast jitter sine wave
   else stutter = map(sin(timer[4]*50), -1, 1, 0, 1);        //// 0-1-1-0 fast jitter sine wave
-  shimmer = (shimmerSlider/2+(stutter*0.4*noize1*0.2));
+  //shimmer = (shimmerSlider/2+(stutter*0.4*noize1*0.2));
   noize();
   oskPulse();
 }
@@ -143,7 +143,6 @@ void testColors(boolean _test) {
 
     fill((millis()/50)%360, 100, 100, 360*rigg.dimmer); 
     for (Rig rig : rigs)     rect(rig.size.x, rig.size.y, rig.wide, rig.high);
-
 
     rect(opcGrid.booth.x, opcGrid.booth.y, 30, 10);
     rect(opcGrid.dig.x, opcGrid.dig.y, 30, 10);

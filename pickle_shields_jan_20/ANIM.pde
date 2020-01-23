@@ -2,7 +2,7 @@
 abstract class ManualAnim extends Anim {
   ManualAnim(Rig _rig) {
     super(_rig);
-    alphaRate = _rig.manualAlpha;
+    alphaRate = rig.manualAlpha;
   }
   void draw() {
   }
@@ -20,7 +20,7 @@ abstract class ManualAnim extends Anim {
 class AllOn extends Anim {
   AllOn(Rig _rig) {
     super( _rig);
-    alphaRate=manualSlider;
+    alphaRate=rig.manualAlpha;
   }
   void draw() {
     window.beginDraw();
@@ -32,7 +32,7 @@ class AllOn extends Anim {
 class AllOff extends Anim {
   AllOff(Rig _rig) {
     super( _rig);
-    alphaRate=manualSlider;
+    alphaRate=rig.manualAlpha;
   }
   void draw() {
     window.beginDraw();
