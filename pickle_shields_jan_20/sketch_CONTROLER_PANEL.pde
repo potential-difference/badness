@@ -128,11 +128,41 @@ class SliderFrame extends ControlFrame {
     int gap =  high +4;
     y = this.y+row*11;
     for (int i =0; i<16; i+=2) {
-      //gap = 25;
+      // load sliders that work as equlilavent for midi knobs
       String name = "slider "+i;
       String name1 = "slider "+(i+1);
       loadSlider( name, x, y+(i*gap), wide, high, 0, 1, 0.32, act1, bac1, slider1);
       loadSlider( name1, x, y+gap+(i*gap), wide, high, 0, 1, 0.32, act, bac, slider);
+    }
+
+    for (int i = 0; i < 16; i ++) {
+      cp5.addBang("bang "+i)
+        .setPosition(x + wide +50, y+(i*gap))
+        .setSize(high, high)
+        .setId(i)
+        .setLabelVisible(false) 
+        ;
+        
+        cp5.getController("bang "+i
+
+      cp5.addButton("button "+i)
+        .setValue(0)
+        .setPosition(x + wide +50 + high +5, y+(i*gap))
+        .setSize(high, high)
+        .setId(i)
+        .setLabelVisible(false) 
+        ;
+        
+  
+  b1.addCallback(new CallbackListener() {
+    public void controlEvent(CallbackEvent theEvent) {
+      switch(theEvent.getAction()) {
+        case(ControlP5.ACTION_PRESSED): println("start"); break;
+        case(ControlP5.ACTION_RELEASED): println("stop"); break;
+      }
+    }
+  }
+  );
     }
   }
   void draw() {
@@ -326,12 +356,16 @@ class ControlFrame extends PApplet {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     if (theEvent.isController()) {
       if (frameCount > someDelay)   println("- controller "+theEvent.getController().getName()+" "+theEvent.getValue());
-
       try {
         if (theEvent.getController().getName().startsWith("slider")) {
           String name = theEvent.getController().getName();
           setCCfromController(name, value);
         }
+        //   if( theEvent.getController().getName().startsWith("bang")){
+        //     for (int i=0;i<col.length;i++) {
+        //if (theEvent.getController().getName().equals("bang"+i)) {
+        //  col[i] = color(random(255));
+        //}
       }
       catch (Exception e) {
         println(e);
@@ -342,6 +376,8 @@ class ControlFrame extends PApplet {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
+}
+void setCCfromBang(String name, float value) {
 }
 
 void setCCfromController(String name, float value) {
