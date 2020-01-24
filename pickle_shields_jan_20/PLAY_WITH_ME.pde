@@ -19,24 +19,26 @@ void playWithMe() {
 
 
   float  debouncetime=100;
-
-  //Envelope manualA = CrushPulse(0.0, 0, 1, rig.manualAlpha*500, 0.0, 0.0);
+///////////////////////////// *** MANUAL ANIM WORK THAT DOESNT WORK **** ////////////////////////////
   /*
   try {
    if (millis()-lastTime[44]>debouncetime) {
    if (padVelocity[44]>0) rigg.animations.add(new Checkers (rigg));
-   //if (rigg.animations.size() > 0 ) { 
+   if (rigg.animations.size() > 0 ) { 
    Anim theanim = rigg.animations.get(rigg.animations.size()-1);
+   //Envelope manualA = CrushPulse(0.0, 0, 1, rigg.manualAlpha*500, 0.0, 0.0);
+   Envelope manualA = CrushPulse(0.05, 0.0, 1.0, avgmillis*(rigg.manualAlpha+0.5), 0.0, 0.0);
    theanim.alphaEnvelopeA = manualA;
    theanim.alphaEnvelopeB = manualA;
    lastTime[44]=millis();
-   //}
+   }
    }
    } 
    catch (Exception e) {
    println(e, "playwithyourself error");
    }
    */
+   
   /*
   if (millis()-lastTime[44]>debouncetime) {
    if (padVelocity[44]>0) rigg.animations.add(new StarMesh (rigg));
