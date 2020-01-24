@@ -134,35 +134,40 @@ class SliderFrame extends ControlFrame {
       loadSlider( name, x, y+(i*gap), wide, high, 0, 1, 0.32, act1, bac1, slider1);
       loadSlider( name1, x, y+gap+(i*gap), wide, high, 0, 1, 0.32, act, bac, slider);
     }
-
+    // bang buttons work as equlilivant to midi pad buttons
     for (int i = 0; i < 16; i ++) {
       cp5.addBang("bang "+i)
         .setPosition(x + wide +50, y+(i*gap))
         .setSize(high, high)
         .setId(i)
-        .setLabelVisible(false) 
-        ;
-        
-        cp5.getController("bang "+i
-
-      cp5.addButton("button "+i)
-        .setValue(0)
-        .setPosition(x + wide +50 + high +5, y+(i*gap))
-        .setSize(high, high)
-        .setId(i)
-        .setLabelVisible(false) 
-        ;
-        
-  
-  b1.addCallback(new CallbackListener() {
-    public void controlEvent(CallbackEvent theEvent) {
-      switch(theEvent.getAction()) {
-        case(ControlP5.ACTION_PRESSED): println("start"); break;
-        case(ControlP5.ACTION_RELEASED): println("stop"); break;
+        .setLabelVisible(false)
+        .setColorActive(act) 
+        .setColorForeground(bac)         
+        .addCallback(new CallbackListener() {
+        public void controlEvent(CallbackEvent theEvent) {
+          String name = theEvent.getController().getName();   
+          int tens = 0;
+          int ones = int(name.substring(5, 6));
+          if (name.length() > 6) {
+            tens = int(name.substring(5, 6));
+            ones = int(name.substring(6, 7));
+          }
+          int index = ones + (tens*10) + 36;
+          switch(theEvent.getAction()) {
+            case(ControlP5.ACTION_PRESS): 
+            println(name, "pressed // padVelocity["+index+"] = 1" ); 
+            padVelocity[index] = 1;
+            padPressed[36] = true;
+            break;
+            case(ControlP5.ACTION_RELEASE): 
+            println(name, "released // padVelocity["+index+"] = 0" ); 
+            padVelocity[index] = 0;
+            padPressed[36] = false;
+            break;
+          }
+        }
       }
-    }
-  }
-  );
+      );
     }
   }
   void draw() {
