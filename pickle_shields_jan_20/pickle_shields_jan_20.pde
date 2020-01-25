@@ -45,7 +45,7 @@ boolean onTop = false;
 
 void settings() {
   size = new SizeSettings(LANDSCAPE);
-  fullScreen();
+  //fullScreen();
   size(size.sizeX, size.sizeY, P2D);
   size.surfacePositionX = 1920-width-50;
   if (SHITTYLAPTOP) size.surfacePositionX = 0;
@@ -55,7 +55,7 @@ void setup()
 {
   surface.setSize(size.sizeX, size.sizeY);
   surface.setAlwaysOnTop(onTop);
-  surface.setLocation(size.surfacePositionX, size.surfacePositionY);
+  //surface.setLocation(size.surfacePositionX, size.surfacePositionY);
 
   controlFrame = new MainControlFrame(this, width, 330, size.surfacePositionX, size.surfacePositionY+height+5); // load control frame must come after shild ring etc
   opcGrid = new OPCGrid();
