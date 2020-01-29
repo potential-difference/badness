@@ -1,9 +1,7 @@
 # badness
 processing lighting code
 
-PICKLE SHIELDS LIGHTING BRANCH
+SENSING SYSTEMS BRANCH
 
-starting with new_years_eve_19
-
-using THEONEANDONLY.json
+for work on Matt's monolith
 
