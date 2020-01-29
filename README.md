@@ -1,9 +1,9 @@
 # badness
 processing lighting code
 
-PICKLE SHIELDS LIGHTING BRANCH
+MASTER BRANCH
 
-starting with new_years_eve_19
+working code for each event - new branches for development and merged back here for archive
 
 using THEONEANDONLY.json
 
