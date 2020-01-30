@@ -22,98 +22,68 @@ void playWithMe() {
   if (keyP[' ']) { 
     for (Rig rig : rigs) {
       if (rig.toggle) {
-        if (testToggle) rig.animations.add(new Test(rig));
+        beatTrigger = true;
+        //if (testToggle) rig.animations.add(new Test(rig));
         rig.addAnim(rig.availableAnims[rig.vizIndex]);
       }
     }
   } 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  
-  //for (Rig rig : rigs) {
-  //  for (Anim anim : rig.animations) {
-  //    //Envelope PullDown(int attack_time, int sustain_time, int decay_time, float attack_curv, float decay_curv, float effect_value) {
-  //    if (padVelocity[44] > 0)  anim.alphaEnvelopeA = anim.alphaEnvelopeA.mul(PullDown(int(cc[41]*1000), int(cc[42]*500), int(cc[43]*500), cc[44], cc[45], padVelocity[44]));
+  //rig.addAnim(rig.availableAnims[rig.vizIndex]);
+
+  if (padVelocity[44]>0) rigg.addAnim(rigg.availableAnims[0]);
+  if (padVelocity[45]>0) rigg.addAnim(rigg.availableAnims[1]);
+  if (padVelocity[46]>0) rigg.addAnim(rigg.availableAnims[2]);
+  if (padVelocity[47]>0) rigg.addAnim(rigg.availableAnims[3]);
+  if (padVelocity[48]>0) rigg.addAnim(rigg.availableAnims[4]);
+  if (padVelocity[49]>0) rigg.addAnim(rigg.availableAnims[5]);
+  if (padVelocity[50]>0) rigg.addAnim(rigg.availableAnims[6]);
+
+
+
+  //  if (padVelocity[36] > 0) {
+  //    rigg.colorIndexA = (rigg.colorIndexA+1)%rigg.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
+  //    cans.colorIndexA = (cans.colorIndexA+1)%cans.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
   //  }
-  //}
+  //  if (padVelocity[37] > 0) {
+  //    rigg.colorIndexB = (rigg.colorIndexB+1)%rigg.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
+  //    cans.colorIndexB = (cans.colorIndexB+1)%cans.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
+  //  }
+  if (padVelocity[36] > 0) rigg.colorFlip(true);
+  if (padVelocity[37] > 0) cans.colorFlip(true);
 
-  //rigg.animations.add(new Test(rigg));         // or space bar!
-  //if (keyP[' ']) animations.add(new Anim(roof.vizIndex, alphaSlider, funcSlider, roof));         // or space bar!
-  //if (keyP[' ']) animations.add(new AllOn( alphaSlider, funcSlider, cans));                    // or space bar!
-  //if (keyP[' ']) animations.add(new Anim(rigg.vizIndex, alphaSlider, funcSlider, donut));              // create an anim object for the cans 
+  if (padVelocity[38] > 0) rigg.colorSwap(0.9999999999);                // COLOR SWAP MOMENTARY
+  if (padVelocity[39] > 0) cans.colorSwap(0.9999999999);
 
-  /*
-  if (keyP['a']) rigg.animations.add(new AllOn(manualSlider, stutter, rigg));
-   if (keyP['s']) {
-   rigg.animations.add(new AllOn(manualSlider, stutter, rigg));
-   rigg.colorFlip(true);
-   }
-   if (keyP['z'] ) roof.animations.add(new AllOn(manualSlider, stutter, roof));
-   if (keyP['`'] ) { 
-   roof.animations.add(new AllOn(manualSlider, stutter, roof));
-   roof.colorFlip(true);
-   }
-   */
-  float alphaRate = cc[1];
-  float funcRate = cc[2];
 
-  //if (cc[101] > 0) animations.add(new MirrorsAnim(rigViz, alphaRate, funcRate, cc[101]*rigDimmer/2)); // current animation
-  //if (cc[102] > 0) animations.add(new RoofAnim(rigViz, alphaRate, funcRate, cc[102]*roofDimmer/2)); // current animation
-  if (cc[103] > 0) { 
-    rigg.colorSwap(0.9999999999);                // COLOR SWAP MOMENTARY
-    roof.colorSwap(0.9999999999);
-  }
-  //if (cc[104] > 0) {
-  //  animations.add(new MirrorsOn(manualSlider, 1-(stutter*stutterSlider), cc[104]*rigDimmer));
-  //  rigg.colorFlip(true);
-  //}
-  //if (cc[107] > 0) animations.add(new RoofOn(manualSlider, 1-(stutter*stutterSlider), cc[107]*roofDimmer));
-  //if (cc[108] > 0) { 
-  //  roof.colorFlip(true);
-  //  animations.add(new RoofOn(manualSlider, 1-(stutter*stutterSlider), cc[108]*roofDimmer));
-  //}
-  /*
-  for (int i = 0; i < 4; i++) if (padPressed[101+i]) {
-   rigg.dimmer = pad[101+i];
-   rigg.animations.add(new Anim(i, manualSlider, funcRate, rigg)); // use pad buttons to play differnt viz
-   }
-   for (int i = 0; i < 3; i++) if (padPressed[105+i]) {
-   roof.dimmer = pad[105+i];
-   roof.animations.add(new Anim(i, manualSlider, funcRate, roof)); // use pad buttons to play differnt viz
-   }
-   if (padPressed[108]) {
-   roof.dimmer = pad[108];
-   roof.animations.add(new Anim(10, manualSlider, funcRate, roof)); // use pad buttons to play differnt viz
-   }
-   
-   for (int i =0; i < 8; i++)if (padPressed[i]) {
-   rigg.dimmer = padVelocity[i];
-   rigg.animations.add(new Anim(i, alphaRate, funcRate, rigg)); // use pad buttons to play differnt viz
-   }
-   */
 
-  //for (int i = 0; i<8; i++) if (keyP[49+i]) rigg.animations.add(new Anim(i, manualSlider, funcSlider, rigg));       // use number buttons to play differnt viz
-  //if (keyP[48]) animations.add(new AllOn(manualSlider, 1, rigDimmer));   
-
-  // '0' triggers all on for the rig
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////// PLAY WITH DRAWING FUNCTIONS ////////////////////////////////////////////////////////////// 
 void playWithMeMore() {
+
+    // rig dimmer shold affect bgnosie
+
+  
   /////background noise over whole window/////
-  if (cc[105] > 0) {
+  if (padVelocity[51] > 0) {
     rigg.colorLayer.beginDraw();
     rigg.colorLayer.background(0, 0, 0, 0);
     rigg.colorLayer.endDraw();
-    bgNoise(rigg.colorLayer, rigg.flash, map(cc[105], 0, 1, 0.2, 1), cc[5]*rigg.dimmer);   //PGraphics layer,color,alpha
+    bgNoise(rigg.colorLayer, rigg.flash, map(cc[51], 0, 1, 0.2, 1), cc[48]*rigg.dimmer);   //PGraphics layer,color,alpha
     image(rigg.colorLayer, rigg.size.x, rigg.size.y, rigg.wide, rigg.high);
   }
-  if (cc[106] > 0) {
-    roof.colorLayer.beginDraw();
-    roof.colorLayer.background(0, 0, 0, 0);
-    roof.colorLayer.endDraw();
-    bgNoise(roof.colorLayer, roof.flash, map(cc[106], 0, 1, 0.2, 1), cc[6]*roof.dimmer);   //PGraphics layer,color,alpha
-    image(roof.colorLayer, roof.size.x, roof.size.y, roof.wide, roof.high);
+  if (padVelocity[43] > 0) {
+    cans.colorLayer.beginDraw();
+    cans.colorLayer.background(0, 0, 0, 0);
+    cans.colorLayer.endDraw();
+    bgNoise(cans.colorLayer, cans.flash, map(cc[43], 0, 1, 0.2, 1), cc[56]*cans.dimmer);   //PGraphics layer,color,alpha
+    image(cans.colorLayer, cans.size.x, cans.size.y, cans.wide, cans.high);
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -159,3 +129,41 @@ void controllerControl(color col, float alpha) {
   rect(opcGrid.controller[2].x, opcGrid.controller[2].y, opcGrid.controllerWidth, opcGrid.controllerWidth);
   rect(opcGrid.controller[3].x, opcGrid.controller[3].y, opcGrid.controllerWidth, opcGrid.controllerWidth);
 }
+
+/*
+ //if (cc[104] > 0) {
+ //  animations.add(new MirrorsOn(manualSlider, 1-(stutter*stutterSlider), cc[104]*rigDimmer));
+ //  rigg.colorFlip(true);
+ //}
+ //if (cc[107] > 0) animations.add(new RoofOn(manualSlider, 1-(stutter*stutterSlider), cc[107]*roofDimmer));
+ //if (cc[108] > 0) { 
+ //  roof.colorFlip(true);
+ //  animations.add(new RoofOn(manualSlider, 1-(stutter*stutterSlider), cc[108]*roofDimmer));
+ //}
+ */
+/*
+ for (int i = 0; i < 4; i++) if (padPressed[101+i]) {
+ rigg.dimmer = pad[101+i];
+ rigg.animations.add(new Anim(i, manualSlider, funcRate, rigg)); // use pad buttons to play differnt viz
+ }
+ for (int i = 0; i < 3; i++) if (padPressed[105+i]) {
+ roof.dimmer = pad[105+i];
+ roof.animations.add(new Anim(i, manualSlider, funcRate, roof)); // use pad buttons to play differnt viz
+ }
+ if (padPressed[108]) {
+ roof.dimmer = pad[108];
+ roof.animations.add(new Anim(10, manualSlider, funcRate, roof)); // use pad buttons to play differnt viz
+ }
+ 
+ for (int i =0; i < 8; i++)if (padPressed[i]) {
+ rigg.dimmer = padVelocity[i];
+ rigg.animations.add(new Anim(i, alphaRate, funcRate, rigg)); // use pad buttons to play differnt viz
+ }
+ */
+/*
+//for (int i = 0; i<8; i++) if (keyP[49+i]) rigg.animations.add(new Anim(i, manualSlider, funcSlider, rigg));       // use number buttons to play differnt viz
+ //if (keyP[48]) animations.add(new AllOn(manualSlider, 1, rigDimmer));   
+ 
+ // '0' triggers all on for the rig
+ 
+ */

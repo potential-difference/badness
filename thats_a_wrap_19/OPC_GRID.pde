@@ -455,8 +455,8 @@ class OPCGrid {
     rig = _rig;
 
     ////////////////////////////////// ROOF POSISTIONS FOR GRID ////////////////////////////////////////////////////
-    _seedsLength = rig.wide/3;
-    _seeds2Length = rig.wide/3;
+    _seedsLength = rig.wide/2;
+    _seeds2Length = rig.wide/2;
     //seeds[0] = new PVector (rig.size.x, rig.size.y-(rig.high/2)+(rig.high/5)); 
     //seeds[1] = new PVector (rig.size.x, rig.size.y-(rig.high/2)+(rig.high/5*2)); 
     //seeds[2] = new PVector (rig.size.x, rig.size.y-(rig.high/2)+(rig.high/5*3));

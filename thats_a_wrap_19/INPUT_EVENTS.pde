@@ -11,7 +11,6 @@ void keyPressed() {
       println("*** DELETE ALL ANIMS ***");
       for (Rig rig : rigs) {
         for (Anim anim : rig.animations) anim.deleteme = true; // immediately delete all anims
-        //rig.toggle = false;
       }
     }
   }
@@ -25,38 +24,47 @@ void keyPressed() {
   if (key == 'm') rigg.bgIndex = (rigg.bgIndex+1)%rigg.avaliableBkgrnds.length;                 //// CYCLE THROUGH RIG BACKGROUNDS
 
   /////////////////////////////// ROOF KEY FUNCTIONS ////////////////////////
-  if (key == 'h') roof.vizIndex = (roof.vizIndex+1)%roof.availableAnims.length;               //// STEP FORWARD TO NEXT RIG VIZ
-  if (key == 'g') roof.vizIndex -= 1;                          //// STEP BACK TO PREVIOUS RIG VIZ
-  if (roof.vizIndex <0) roof.vizIndex = roof.availableAnims.length-1;
-  if (key == 'j') roof.bgIndex = (roof.bgIndex+1)%roof.avaliableBkgrnds.length;               //// CYCLE THROUGH ROOF BACKGROUNDS
+  if (key == 'h') cans.vizIndex = (cans.vizIndex+1)%cans.availableAnims.length;               //// STEP FORWARD TO NEXT RIG VIZ
+  if (key == 'g') cans.vizIndex -= 1;                          //// STEP BACK TO PREVIOUS RIG VIZ
+  if (cans.vizIndex <0) cans.vizIndex = cans.availableAnims.length-1;
+  if (key == 'j') cans.bgIndex = (cans.bgIndex+1)%cans.avaliableBkgrnds.length;               //// CYCLE THROUGH ROOF BACKGROUNDS
 
   if (key == ',') {                                      //// CYCLE THROUGH RIG FUNCS
-    rigg.functionIndexA = (rigg.functionIndexA+1)%rigg.avaliableEnvelopes.length; //animations.func.length; 
-    rigg.functionIndexB = (rigg.functionIndexB+1)%rigg.avaliableEnvelopes.length; //fct.length;
+    rigg.functionIndexA = (rigg.functionIndexA+1)%rigg.avaliableFunctionEnvelopes.length; //animations.func.length; 
+    rigg.functionIndexB = (rigg.functionIndexB+1)%rigg.avaliableFunctionEnvelopes.length; //fct.length;
   }  
   if (key == '.') {                                      //// CYCLE THROUGH RIG ALPHAS
-    rigg.alphaIndexA = (rigg.alphaIndexA+1)% rigg.avaliableEnvelopes.length; //alph.length; 
-    rigg.alphaIndexB = (rigg.alphaIndexB+1)% rigg.avaliableEnvelopes.length; //alph.length;
+    rigg.alphaIndexA = (rigg.alphaIndexA+1)% rigg.avaliableAlphaEnvelopes.length; //alph.length; 
+    rigg.alphaIndexB = (rigg.alphaIndexB+1)% rigg.avaliableAlphaEnvelopes.length; //alph.length;
   }   
   if (key == 'k') {                                      //// CYCLE THROUGH ROOF FUNCS
-    roof.functionIndexA = (roof.functionIndexA+1)%roof.avaliableEnvelopes.length; 
-    roof.functionIndexB = (roof.functionIndexB+1)%roof.avaliableEnvelopes.length;
+    cans.functionIndexA = (cans.functionIndexA+1)%cans.avaliableFunctionEnvelopes.length; 
+    cans.functionIndexB = (cans.functionIndexB+1)%cans.avaliableFunctionEnvelopes.length;
   }  
   if (key == 'l') {                                      //// CYCLE THROUGH ROOF ALPHAS
-    roof.alphaIndexA = (roof.alphaIndexA+1)%roof.avaliableEnvelopes.length; 
-    roof.alphaIndexB = (roof.alphaIndexB+1)%roof.avaliableEnvelopes.length;
+    cans.alphaIndexA = (cans.alphaIndexA+1)%cans.avaliableAlphaEnvelopes.length; 
+    cans.alphaIndexB = (cans.alphaIndexB+1)%cans.avaliableAlphaEnvelopes.length;
   }   
   if (key == 'c') rigg.colorIndexA = (rigg.colorIndexA+1)%rigg.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
   if (key == 'v') rigg.colorIndexB = (rigg.colorIndexB+1)%rigg.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
 
   if (key == 'd') {
-    roof.colorIndexA = (roof.colorIndexA+1)%roof.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
     cans.colorIndexA = (cans.colorIndexA+1)%cans.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
   }
   if (key == 'f') {
-    roof.colorIndexB = (roof.colorIndexB+1)%roof.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
     cans.colorIndexB = (cans.colorIndexB+1)%cans.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
   }
+
+  roof.alphaIndexA = rigg.alphaIndexA;
+  roof.alphaIndexB = rigg.alphaIndexB;
+
+  roof.functionIndexA = roof.functionIndexA;
+  roof.functionIndexA = roof.functionIndexA;
+  
+  roof.c = rigg.c;
+  roof.flash = rigg.flash;
+
+
   if (key == '[') vizHold = !vizHold; 
   if (key == ']') colHold = !colHold; 
 
@@ -126,9 +134,6 @@ void keyReleased()
     char n = char(i);
     if (key == n) keyP[i]=false;
   }
-  
- 
-  
 } 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////// MIDI FUNCTIONS /////////////////////////////////////////////////////////////////////
@@ -141,7 +146,6 @@ void noteOn( int channel, int pitch, int _velocity) {
   pad[pitch] = velocity;
   padPressed[pitch] = true;
 
-  //midiMap = int(map(pitch, 36, 84, 0, 7));
   padPressed[pitch] = true;
   padVelocity[pitch] = velocity;
 
@@ -150,8 +154,7 @@ void noteOn( int channel, int pitch, int _velocity) {
 }
 void noteOff(Note note) {
   padPressed[note.pitch] = false;
-  padPressed[midiMap] = false;
-  //padVelocity[midiMap] = 0;
+  padVelocity[note.pitch] = 0;
 }
 float cc[] = new float[128];                   //// An array where to store the last value received for each CC controller
 //float prevcc[] = new float[128];

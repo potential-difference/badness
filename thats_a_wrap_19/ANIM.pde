@@ -50,8 +50,12 @@ class BenjaminsBoxes extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    wide = 1000;
-    high = 1500;
+    wide = 600;
+    high = 1000;
+    
+    stroke *=strokeSlider;
+    wide *=wideSlider;
+    high *=highSlider;
 
     rotate = 45+(15*noize); //+(functionB*30);
     float xpos = 10+(noize*window.width/4);
@@ -82,6 +86,11 @@ class Anim1 extends Anim { ///////// COME BACK TO THIS WITH NEW ENVELOPES
     else rotate = 60*functionB;                         /////////// CHANGE THIS TO A SPECIFIC FUNCTION IN THE ABOVE SECTION OF CODE
     wide = 10+(functionB*vizWidth);
     high = 110-(functionA*vizHeight);
+    
+    stroke *=strokeSlider;
+    wide *=wideSlider;
+    high *=highSlider;
+
     star(positionX[2][0].x, positionX[2][0].y, col1, stroke, wide, high, rotate, alphaA);
     star(positionX[4][2].x, positionX[4][2].y, col1, stroke, wide, high, rotate, alphaA);
     //
@@ -90,6 +99,11 @@ class Anim1 extends Anim { ///////// COME BACK TO THIS WITH NEW ENVELOPES
 
     wide = 10+(functionA*vizWidth);
     high = 110+(functionB*vizHeight);
+    
+    stroke *=strokeSlider;
+    wide *=wideSlider;
+    high *=highSlider;
+
     println("wide/high 2", wide, high);
 
     if (_beatCounter % 8 < 3) rotate = 60*functionA;    /////////// CHANGE THIS TO A SPECIFIC FUNCTION IN THE ABOVE SECTION OF CODE
@@ -114,12 +128,22 @@ class Checkers extends Anim {
         wide = (vizWidth*2)-(vizWidth/10);
         wide = 50+(wide-(wide*functionA)); 
         high = wide;
+        
+    stroke *=strokeSlider;
+    wide *=wideSlider;
+    high *=highSlider;
+
         donut(position[i].x, position[i].y, col1, stroke, wide, high, rotate, alphaA);
         donut(position[i+1 % opcGrid.columns+6].x, position[i+1 % opcGrid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
 
         wide = (vizWidth/4)-(vizWidth/10);
         wide = (wide-(wide*functionA)); 
         high = wide;
+        
+    stroke *=strokeSlider;
+    wide *=wideSlider;
+    high *=highSlider;
+
         donut(position[i+1 % opcGrid.columns].x, position[i+1 % opcGrid.columns].y, col1, stroke, wide, high, rotate, alphaA);
         donut(position[i+6].x, position[i+6].y, col1, stroke, wide, high, rotate, alphaA);
       }
@@ -128,11 +152,21 @@ class Checkers extends Anim {
         wide  = (vizWidth*2)-(vizWidth/10);
         wide = 50+(wide-(wide*functionA)); 
         high = wide;
+        
+    stroke *=strokeSlider;
+    wide *=wideSlider;
+    high *=highSlider;
+
         donut(position[i+1 % opcGrid.columns].x, position[i+1 % opcGrid.columns].y, col1, stroke, wide, high, rotate, alphaB);
         donut(position[i+6].x, position[i+6].y, col1, stroke, wide, high, rotate, alphaB);
         wide = (vizWidth/4)-(vizWidth/10);
         wide = (wide-(wide*functionB)); 
         high = wide;
+        
+    stroke *=strokeSlider;
+    wide *=wideSlider;
+    high *=highSlider;
+
         donut(position[i].x, position[i].y, col1, stroke, wide, high, rotate, alphaA);
         donut(position[i+1 % opcGrid.columns+6].x, position[i+1 % opcGrid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
       }
@@ -142,6 +176,20 @@ class Checkers extends Anim {
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Rings extends Anim {
+  /*
+  what benjamin would do
+  Object wide,stroke,high; in anim main class
+  make Processing/Java complain when you try to set wide/high
+  so you get an error if you do it wrong
+  in draw:
+      wide.set(vizWidth*1.2) etc.
+      wide.set(wide.get() - (wide.get()*functionA);
+  if wide is a Ref, this allows us to later
+  anim.wide.mul(wideslider);
+  and the internals of the anim subclass don't need to have to remember to * by wideslider every time
+  this is sort of what Ref() is for.
+  */
+  
   Rings(Rig _rig) {
     super(_rig);
     //animDimmer = animDimmer.mul(0.5);//this one is somehow blinding
@@ -149,11 +197,16 @@ class Rings extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    stroke = 30+(90*functionA*oskP);
+    stroke = 60+(90*functionA);
     wide = vizWidth*1.2;
     wide = wide-(wide*functionA);
     high = wide*2;
     rotate = 90*noize*functionB;
+    
+    stroke *=strokeSlider;
+    wide *=wideSlider;
+    high *=highSlider;
+
     donut(position[2].x, position[2].y, col1, stroke, wide, high, rotate, alphaA);
     donut(position[9].x, position[9].y, col1, stroke, wide, high, rotate, alphaA);
     stroke = 30+(90*functionB*oskP);
@@ -161,6 +214,11 @@ class Rings extends Anim {
     wide = wide-(wide*functionB);
     high = wide*2;
     rotate = -90*noize*functionA;
+    
+    stroke *=strokeSlider;
+    wide *=wideSlider;
+    high *=highSlider;
+
     donut(position[3].x, position[3].y, col1, stroke, wide, high, rotate, alphaA);
     donut(position[8].x, position[8].y, col1, stroke, wide, high, rotate, alphaA);
     window.endDraw();
@@ -175,6 +233,11 @@ class Rush extends Anim {
     window.beginDraw();
     window.background(0);
     wide = 500+(noize*150);
+    
+    stroke *=strokeSlider;
+    wide *=wideSlider;
+    high *=highSlider;
+
     if (_beatCounter % 8 < 3) {
       rush(position[0].x, position[3].y, col1, wide, vizHeight/2, functionA, alphaA);
       rush(position[11].x, position[8].y, col1, wide, vizHeight/2, -functionA, alphaA);
@@ -195,26 +258,31 @@ class Rushed extends Anim {
     window.background(0);
     wide = 150+(noize*600*functionA);
     high = vizHeight/2;
+    
+    stroke *=strokeSlider;
+    wide *=wideSlider;
+    high *=highSlider;
+
     if (beatCounter % 6 < 4) {
       rush(viz.x, position[3].y, col1, wide, high, functionA, alphaA);
-      rush(viz.x, position[3].y, col1, wide, high, 1-functionB, alphaB);
-      rush(viz.x, position[3].y, col1, wide, high, 1-functionA, alphaA);
+      rush(viz.x, position[3].y, col1, wide, high, -functionB, alphaB);
+      rush(viz.x, position[3].y, col1, wide, high, -functionA, alphaA);
       rush(viz.x, position[3].y, col1, wide, high, functionB, alphaB);
       //
-      rush(viz.x, position[8].y, col1, wide, high, 1-functionA, alphaB);
+      rush(viz.x, position[8].y, col1, wide, high, -functionA, alphaB);
       rush(viz.x, position[8].y, col1, wide, high, functionB, alphaA);
       rush(viz.x, position[8].y, col1, wide, high, functionA, alphaB);
-      rush(viz.x, position[8].y, col1, wide, high, 1-functionB, alphaA);
+      rush(viz.x, position[8].y, col1, wide, high, -functionB, alphaA);
     } else {
       rush(viz.x, position[3].y, col1, wide, high, functionB, alphaB);
-      rush(viz.x, position[3].y, col1, wide, high, 1-functionA, alphaA);
-      rush(viz.x, position[3].y, col1, wide, high, 1-functionB, alphaB);
+      rush(viz.x, position[3].y, col1, wide, high, -functionA, alphaA);
+      rush(viz.x, position[3].y, col1, wide, high, -functionB, alphaB);
       rush(viz.x, position[3].y, col1, wide, high, functionA, alphaA);
       //
-      rush(viz.x, position[8].y, col1, wide, high, 1-functionB, alphaA);
+      rush(viz.x, position[8].y, col1, wide, high, -functionB, alphaA);
       rush(viz.x, position[8].y, col1, wide, high, functionA, alphaB);
       rush(viz.x, position[8].y, col1, wide, high, functionB, alphaA);
-      rush(viz.x, position[8].y, col1, wide, high, 1-functionA, alphaB);
+      rush(viz.x, position[8].y, col1, wide, high, -functionA, alphaB);
     }
     window.endDraw();
   }
@@ -227,15 +295,46 @@ class SquareNuts extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    stroke = 300-(200*noize);
+    stroke = 300-(200*functionB);
     wide = vizWidth+(50);
     high = wide;
+    
+    stroke *=strokeSlider;
+    wide *=wideSlider;
+    high *=highSlider;
+
     if (rig == rigg) {
       squareNut(position[1].x, viz.y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
       squareNut(position[4].x, viz.y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
     } else {
       squareNut(window.width/4, window.height/4, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
       squareNut(window.width/4*3, window.height/4*3, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
+    }
+    window.endDraw();
+  }
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+class DiagNuts extends Anim { 
+  DiagNuts(Rig _rig) { 
+    super(_rig);
+  }                                // maybe add beatcounter flip postion for this
+  void draw() {
+    window.beginDraw();
+    window.background(0);
+    stroke = 100-(200*functionA);
+    wide = vizWidth+(50);
+    high = wide;
+    
+    stroke *=strokeSlider;
+    wide *=wideSlider;
+    high *=highSlider;
+
+    if (rig == rigg) {
+      squareNut(position[1].x, viz.y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 45, alphaA);
+      squareNut(position[4].x, viz.y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 45, alphaA);
+    } else {
+      squareNut(window.width/4, window.height/4, col1, stroke, wide-(wide*functionA), high-(high*functionA), 45, alphaA);
+      squareNut(window.width/4*3, window.height/4*3, col1, stroke, wide-(wide*functionA), high-(high*functionA), 45, alphaA);
     }
     window.endDraw();
   }
@@ -248,13 +347,19 @@ class Stars extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    wide = 10+(functionA*vizWidth*1.5);
-    high = 10+(functionB*vizHeight*1.5);
-    stroke = 30+(60*functionA*noize1);
-    rotate = 30*functionB;
+    wide = 50+(functionA*vizWidth*1.5);
+    high = 50+(functionB*vizHeight*1.5);
+    stroke = 15+(30*functionA);
+    rotate = 30+(30*functionB);
+    
+    stroke *=strokeSlider;
+    wide *=wideSlider;
+    high *=highSlider;
+
     star(positionX[1][1].x, viz.y, col1, stroke, wide, high, rotate, alphaA);
-    rotate = -30*functionB;
-    star(positionX[5][1].x, viz.y, col1, stroke, wide, high, rotate, alphaA);
+    star(positionX[5][1].x, viz.y, col1, stroke, wide, high, -rotate, alphaA);
+
+    star(viz.x, viz.y, col1, stroke, wide, high, 0, alphaB);
     window.endDraw();
   }
 }
@@ -267,6 +372,11 @@ class Swipe extends Anim {
     window.beginDraw();
     window.background(0);
     wide = 500+(noize*300);
+    
+    stroke *=strokeSlider;
+    wide *=wideSlider;
+    high *=highSlider;
+
     if   (beatCounter % 3 < 1) rush(position[0].x, viz.y, col1, wide, vizHeight, functionA, alphaA);
     else rush(position[0].x, viz.y, col1, wide, vizHeight, 1-functionA, alphaA);
     window.endDraw();
@@ -281,6 +391,11 @@ class Swiped extends Anim {
     window.beginDraw();
     window.background(0);
     wide = 150+(noize1*500*functionB);
+    
+    stroke *=strokeSlider;
+    wide *=wideSlider;
+    high *=highSlider;
+
     rush(viz.x, viz.y, col1, wide, vizHeight, functionA, alphaA);
     rush(-vizWidth/2, viz.y, col1, wide, vizHeight, 1-functionA, alphaA);
     window.endDraw();
@@ -300,6 +415,11 @@ class Teeth extends Anim {
     wide = vizWidth+(50);
     wide = wide-(wide*functionA);
     high = wide;
+    
+    stroke *=strokeSlider;
+    wide *=wideSlider;
+    high *=highSlider;
+
     squareNut(positionX[0][2].x, positionX[0][2].y, col1, stroke, wide, high, -45, alphaA);
     squareNut(positionX[1][0].x, positionX[1][0].y, col1, stroke, wide, high, -45, alphaA);
     squareNut(positionX[2][2].x, positionX[2][2].y, col1, stroke, wide, high, -45, alphaA);
@@ -321,6 +441,12 @@ class Donut extends Anim {
     wide = 10+(vizWidth*(1-functionB));
     high = wide;
     stroke = 2+(vizWidth/2*functionA);
+    
+    
+    stroke *=strokeSlider;
+    wide *=wideSlider;
+    high *=highSlider;
+
     //void donut(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
     donut(viz.x, viz.y, col1, stroke, wide, high, 0, alphaA);
     window.endDraw();
@@ -367,31 +493,6 @@ class Test extends Anim {
   float atk_curv, dec_curv, atk_curv1, dec_curv1;
   Test(Rig _rig) {
     super(_rig);
-    /*
-    //Envelope SimplePulse(int attack_time,int sustain_time,int decay_time,float attack_curv,float decay_curv){
-     atk = int(map(cc[41], 0, 1, 0, 5000));
-     sus = int(map(cc[42], 0, 1, 0, 5000));
-     dec = int(map(cc[43], 0, 1, 0, 5000));
-     atk_curv = cc[43];
-     dec_curv = cc[44];
-     atk1 = int(map(cc[49], 0, 1, 0, 1000));
-     sus1 = int(map(cc[50], 0, 1, 0, 1000));
-     dec1 = int(map(cc[51], 0, 1, 0, 1000));
-     atk_curv1 = cc[52];
-     dec_curv1 = cc[53];
-     
-     //alphaEnvelopeA =  ADSR(atk, sus, dec, atk_curv, dec_curv); //SimplePulse(atk, sus, dec, atk_curv, dec_curv);
-     //alphaEnvelopeB =  SimplePulse(atk1, sus1, dec1, atk_curv1, dec_curv1);
-     
-     //Envelope SlowFast(int start_time,int duration,int start_period,int end_period)
-     str = int(map(cc[47], 0, 1, 0, 1000));
-     dur = int(map(cc[55], 0, 1, 0, 1000));
-     str_per = int(map(cc[48], 0, 1, 0, 1000));
-     end_per = int(map(cc[56], 0, 1, 0, 1000));
-     
-     functionEnvelopeB =  SlowFast(str, dur, str_per, end_per);
-     functionEnvelopeA =  SlowFast(str, dur, str_per, end_per);
-     */
   }
   void draw() {  
     window.beginDraw();
@@ -402,54 +503,6 @@ class Test extends Anim {
     window.fill(360*alphaA);
     window.rect(viz.x, viz.y, 100, 100);
     window.endDraw();
-
-    /* 
-     window.fill(360*alphaA);
-     window.noStroke();
-     window.rect(viz.x-(window.width/2)+(window.width*functionA), viz.y-100, 100, 100);      
-     window.rect(viz.x-(window.width/2)+(window.width*functionA), viz.y-100, 100, 100);
-     window.ellipse(viz.x-200, viz.y, 100, 100);      
-     window.ellipse(viz.x-200, viz.y, 100, 100);
-     
-     
-     window.fill(360*alphaB);
-     window.ellipse(viz.x+200, viz.y, 100, 100);      
-     window.ellipse(viz.x+200, viz.y, 100, 100);
-     window.rect(viz.x-(window.width/2)+(window.width*functionB), viz.y+100, 100, 100);      
-     window.rect(viz.x-(window.width/2)+(window.width*functionB), viz.y+100, 100, 100);
-     window.endDraw();  
-     
-     window.fill(300);
-     window.rect(viz.x, viz.y, window.width/5, window.height/5);
-     
-     window.endDraw();
-     
-     window.endDraw();
-     
-     //  int atk, sus, dec, atk1, sus1, dec1, str, dur, str_per, end_per;
-     //float atk_curv, dec_curv, atk_curv1, dec_curv1;
-     int xgap = 140;
-     int ygap = 20;
-     
-     nf(atk_curv); 
-     
-     text("atk "+atk, 1000, 20); 
-     text("sus "+sus, 1000, 20+(ygap*1)); 
-     text("dec "+dec, 1000, 20+(ygap*2));
-     text("atk1 "+atk1, 1000+xgap, 20+(ygap*0));
-     text("sus1 "+sus1, 1000+xgap, 20+(ygap*1));
-     text("dec1 "+dec1, 1000+xgap, 20+(ygap*2));
-     
-     text("atk_curv "+atk_curv, 1000, 20+(ygap*4));
-     text("dec_curv "+dec_curv, 1000, 20+(ygap*5));
-     text("atk_curv1 "+atk_curv1, 1000, 20+(ygap*6));
-     text("dec_curv1 "+dec_curv1, 1000, 20+(ygap*7));
-     
-     
-     //text("dec "+dec, 1000, 10+(10*2));
-     //text("dec "+dec, 1000, 10+(10*2));
-     
-     */
   }
 }
 
@@ -475,7 +528,7 @@ class Anim {
     rig = _rig;
     alphaRate = rig.alphaRate;
     funcRate = rig.funcRate;
-    _beatCounter = beatCounter;
+    _beatCounter = (int)beatCounter;
     col1 = white;
     col2 = white;
 
@@ -496,7 +549,6 @@ class Anim {
     alphaEnvelopeB = envelopeFactory(rig.alphaIndexB, rig);
     functionEnvelopeA = envelopeFactory(rig.functionIndexA, rig);
     functionEnvelopeB = envelopeFactory(rig.functionIndexB, rig);
-    
   }
 
   void draw() {
@@ -507,6 +559,7 @@ class Anim {
     text("OOPS!!\nCHECK YOUR ANIM LIST", rig.size.x, rig.size.y-15);
   }
   float stroke, wide, high, rotate;
+  //Object highobj;
   Float vizWidth, vizHeight;
   void drawAnim() {
     int now = millis();
@@ -517,11 +570,6 @@ class Anim {
 
     functionA = functionEnvelopeA.value(now); 
     functionB = functionEnvelopeB.value(now);
-    //functionA*=funcFX;
-    //functionB*=funcFX;
-
-    //functionA = 1;
-    //functionB = 1;
 
     if (alphaEnvelopeA.end_time<now && alphaEnvelopeB.end_time<now) deleteme = true;  // only delete when all finished
 
@@ -542,7 +590,77 @@ class Anim {
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////// FUNCTION AND ALPHA ARRAYS //////////////////////////////////////////////
 
+  float sineFast, sineSlow, sine, d, e, stutter;
+  float timer[] = new float[6];
+
+  void alphaFunction() {
+    float tm = 0.05+(noize/50);
+    timer[2] += beatSlider;            
+    for (int i = 0; i<timer.length; i++) timer[i] += tm;
+    timer[3] += (0.3*5);
+    sine = map(sin(timer[0]), -1, 1, 0, 1);            //// 0-1-1-0 standard sine wave
+    sineFast = map(sin(timer[5]), -1, 1, 0, 1);            //// 0-1-1-0 standard sine wave
+    sineSlow = map(sin(timer[1]/4), -1, 1, 0, 1);         //// 0-1-1-0 slow sine wave
+    if (cc[102] > 0) stutter = map(sin(timer[4]*cc[2]*8), -1, 1, 0, 1);        //// 0-1-1-0 fast jitter sine wave
+    else stutter = map(sin(timer[4]*50), -1, 1, 0, 1);        //// 0-1-1-0 fast jitter sine wave
+
+    //// array of functions
+    func[0] = pulz;       //  
+    func[1] = beat;        
+    func[2] = pulzSlow; 
+    func[3] = (beatSlow*0.99)+(0.01*stutter);
+    func[4] = (0.99*pulz)+(stutter*pulz*0.01);       
+    func[5] = (0.99*beatSlow)+(stutter*pulz*0.01);
+    func[6] = pulzSlow;
+    func[7] = beatSlow;
+
+    //// array of alphas
+    alph[0] = beat;
+    alph[1] = pulz;
+    alph[2] = beat+(0.05*stutter);
+    alph[3] =(0.98*beat)+(stutter*pulz*0.02);
+    alph[4] = (0.98*pulz)+(beat*0.02*stutter);
+    alph[5] = beatFast;
+    alph[6] = pulzSlow;
+
+    for (int i = 0; i < alph.length; i++) alph[i] *=alphMod;
+    for (int i = 0; i < func.length; i++) func[i] *=funcMod;
+  }
+  //////////////////////////////////// BEATS //////////////////////////////////////////////
+  float beat, beatSlow, pulz, pulzSlow, pulzFast, beatFast;
+  long beatTimer;
+  void trigger() {
+    beat = 1;
+    beatFast = 1;
+    beatSlow = 1;
+
+    //beatCounter = (beatCounter + 1) % 120;
+    //weightedsum=beatTimer+(1-beatAlpha)*weightedsum;
+    //weightedcnt=1+(1-beatAlpha)*weightedcnt;
+    //avgtime=weightedsum/weightedcnt;
+    //beatTimer=0;
+  }
+  void decay() {             ////// BEAT DETECT THROUGHOUT SKETCH ///////
+    beatTimer++;
+    beatAlpha=0.2;//this affects how quickly code adapts to tempo changes 0.2 averages
+    // the last 10 onsets  0.02 would average the last 100
+    if (avgtime>0) beat*=pow(beatSlider, (1/avgtime)); //  changes rate alpha fades out!!
+    else beat*=0.95;
+    if (beat < 0.8) beat *= 0.98;
+    pulz = 1-beat;                     /// p is opposite of b
+    beatFast *=0.7;                 
+    pulzFast = 1-pulzFast;            /// bF is oppiste of pF
+    beatSlow -= 0.05;
+    pulzSlow = 1-beatSlow;
+    float end = 0.01;
+    if (beat < end) beat = end;
+    if (pulzFast > 1) pulzFast = 1;
+    if (beatFast < end) beatFast = end;
+    if (beatSlow < 0.4+(noize1*0.2)) beatSlow = 0.4+(noize1*0.2);
+    if (pulzSlow > 1) pulzSlow = 1;
+  }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
   void squareNut(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
@@ -557,14 +675,19 @@ class Anim {
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
   void donut(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
-    window.strokeWeight(-stroke);
-    window.stroke(360*alph);
-    window.noFill();
-    window.pushMatrix();
-    window.translate(xpos, ypos);
-    window.rotate(radians(rotate));
-    window.ellipse(0, 0, wide, high);
-    window.popMatrix();
+    try {
+      window.strokeWeight(-stroke);
+      window.stroke(360*alph);
+      window.noFill();
+      window.pushMatrix();
+      window.translate(xpos, ypos);
+      window.rotate(radians(rotate));
+      window.ellipse(0, 0, wide, high);
+      window.popMatrix();
+    }
+    catch(Exception e) {
+      println(e, "BENJAMIN REALLY NEEDDS TO FIX THIS");
+    }
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
   void star(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {

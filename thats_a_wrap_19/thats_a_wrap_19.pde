@@ -46,7 +46,7 @@ PFont myFont;
 boolean onTop = false;
 void settings() {
   size = new SizeSettings(LANDSCAPE);
-  //fullScreen();
+  fullScreen();
   size(size.sizeX, size.sizeY, P2D);
   size.surfacePositionX = 1920-width-50;
   if (SHITTYLAPTOP) size.surfacePositionX = 0;
@@ -62,9 +62,9 @@ void setup()
   cp5 = new ControlP5( controlFrame );
 
   opcGrid = new OPCGrid();
-  rigg = new Rig(true, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
+  rigg = new Rig(false, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
   cans = new Rig(false, size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "SEEDS");
-  roof = new Rig(false, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "CANS");
+  roof = new Rig(true, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "PREVIEW");
 
   //donut = new Rig(false,size.donut.x, size.donut.y, size.donutWidth, size.donutHeight, "DONUT");
 
@@ -161,7 +161,7 @@ void draw()
   if (beatTrigger) { 
     for (Rig rig : rigs) {
       if (rig.toggle) {
-        if (testToggle) rig.animations.add(new Test(rig));
+        //if (testToggle) rig.animations.add(new Test(rig));
         rig.addAnim(rig.availableAnims[rig.vizIndex]);
       }
     }

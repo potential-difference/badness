@@ -17,15 +17,17 @@ Envelope SlowFast(int start_time, int duration, int start_period, int end_period
   return new Sine(1.0, period); //Using an envelope as the parameter
 }
 // starts OSSCILIATING with the AMPLITUDE slowly RAMPING to 0.4, ADDITIONALLY ramping to 0.6 with the top 0.2 SQUIGGLING
-Envelope Squiggle(int attack_t, int sustain_t, int decay_t, float attack_curv, float decay_curv, float sqiggle_curv, float squiggliness, int squiggle_spd) {
-  Envelope base = SimplePulse(attack_t, sustain_t, decay_t, attack_curv, decay_curv);
-  int sin_start=millis()+attack_t;
-  int sin_duration=sustain_t+decay_t;
+Envelope Squiggle(Number attack_t, Number sustain_t, Number decay_t, Number total_time, float squiggle_spd, float squiggliness ) {
+
+  Envelope base = CrushPulse(attack_t.floatValue(), sustain_t.floatValue(), decay_t.floatValue(), total_time, 0.02, 0.02);
+
+  int sin_start=millis()+attack_t.intValue();
+  int sin_duration=sustain_t.intValue()+decay_t.intValue();
   int start_period=sin_duration;
   int end_period = sin_duration/5;
   // squiggle is always 0.4, squigglieness starts after ATTACKTIME and gets squigglier till end of SUSTAINTIME remains SQUIGGLING FOREVER
   //Envelope squiggle = SlowFast(sin_start, sin_duration, start_period, end_period).mul(new Ramp(sin_start, sin_start+sin_duration, 0.0, sqiggle_curv, squiggliness));
-  Envelope squiggle = new Sine(1, squiggle_spd).mul(new Ramp(sin_start, sin_start+sin_duration, 0.0, sqiggle_curv, squiggliness)).add(1-squiggliness);
+  Envelope squiggle = new Sine(1, squiggle_spd*500).mul(new Ramp(sin_start, sin_start+sin_duration, 0.0, 0.02, squiggliness)).add(1-squiggliness);
   return base.mul(squiggle);
 }
 Envelope SineBySine(float amplitude, int period, float amplitude1, int period1) {
@@ -69,105 +71,24 @@ Envelope CrushPulse(float attack_proportion, float sustain_proportion, float dec
   float decay_time = decay_proportion/total_prop*total_time.floatValue();
   return SimplePulse(attack_time, sustain_time, decay_time, attack_curv, decay_curv);
 }
-
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Envelope envelopeFactory(int envelope_index, Rig rig) {
   switch (envelope_index) {
   case 0: 
     //return SimplePulse(cc[41]*4000, cc[42]*4000, cc[43]*4000, cc[44], cc[45]);
-    return CrushPulse(cc[41]/3.0, cc[42], cc[43], avgmillis*rig.beatSlider*15+0.5, cc[44], cc[45]);
+    return CrushPulse(0.031, 0.040, 0.913, avgmillis*rig.beatSlider*15+0.5, 0.02, 0.02);
   case 1:
-      return CrushPulse(cc[49]/3.0, cc[50], cc[51], avgmillis*rig.beatSlider*15+0.5, cc[52], cc[53]);
-
-    //return SimplePulse(cc[50]*4000, cc[51]*4000, cc[52]*4000, cc[53], cc[54]);
+    //return CrushPulse(cc[49], cc[50], cc[51], avgmillis*rig.beatSlider*15+0.5, cc[52], cc[53]);
+    return CrushPulse(0.92, 0.055, 0.071, avgmillis*rig.beatSlider*15+0.5, 0.118, 0);
   case 2:
-    return SineBySine(cc[50], int(cc[50]*4000), cc[51], int(cc[52]*4000));
+    return CrushPulse(cc[41], cc[42], cc[43], avgmillis*rig.beatSlider*15+0.5, 0.02, 0.02);
   case 3:
-    //Envelope Squiggle(int attack_t, int sustain_t, int decay_t, float attack_curv, float decay_curv, float sqiggle_curv, float squiggliness) {
-    return Squiggle(int(cc[49]*4000), int(cc[50]*4000), int(cc[51]*4000), cc[52], cc[53], cc[54], cc[55], int(cc[56]*200));
+    return CrushPulse(cc[44], cc[45], cc[46], avgmillis*rig.beatSlider*15+0.5, 0.02, 0.02);
   case 4:
-    return SlowFast(millis(), 3000, 100, 1000);
+    //Envelope Squiggle(Number attack_t, Number sustain_t, Number decay_t, float attack_curv, float decay_curv, float sqiggle_curv, float squiggliness, int squiggle_spd) {
+    return Squiggle(cc[49], cc[50], cc[51], avgmillis*rig.beatSlider*15+0.5, 0.01+cc[52], cc[53]);
   default: 
-    return SimplePulse(cc[41]*4000, cc[42]*4000, int(cc[42]*4000), cc[44], cc[45]);
+    return CrushPulse(0.031, 0.040, 0.913, avgmillis*rig.beatSlider*15+0.5, 0.02, 0.02);
   }
 }
-
-Envelope functionEnvelopeFactory(int envelope_index, Rig rig) {
-  switch (envelope_index) {
-  case 0: 
-    return SimplePulse(int(cc[41]*6000), int(cc[42]*6000), int(cc[42]*6000), cc[44], cc[45]);
-  case 1:
-    return SimplePulse(int(cc[50]*6000), int(cc[51]*6000), int(cc[52]*6000), cc[53], cc[54]);
-  case 2:
-    return SineBySine(cc[50], int(cc[51]*4000), cc[51], int(cc[52]*4000));
-  case 3:
-    return SimplePulse(500, 100, 500, cc[1], cc[2]);
-  case 4:
-    return SlowFast(millis(), 3000, 100, 1000);
-  default: 
-    return SimplePulse(int(cc[41]*4000), int(cc[42]*4000), int(cc[42]*4000), cc[44], cc[45]);
-  }
-}
-
-/*
-class ADSR extends Envelope {
- int attack_time, sustain_time, decay_time;
- int sustain_func_index, envelope_index;
- int start_time;
- float attack_curve, decay_curve;
- Env_State state;
- boolean finished = false;
- 
- ADSR(int _atime, int _stime, int _dtime, float _acurv, int _sfunc, float _dcurv) {
- start_time = now();
- attack_time = start_time + _atime;
- sustain_time = attack_time + _stime;
- decay_time = sustain_time + _dtime;
- end_time = decay_time;//new Envelope formulation
- attack_curve = _acurv;
- decay_curve = _dcurv;
- sustain_func_index = _sfunc;
- state = Env_State.ATTACK;
- }
- 
- float curviness(float normalized_time, float curve) {
- //low values, like 0.1 give exponential sweep up
- // high values >1 approach a straight line
- if (normalized_time<=0) normalized_time = 0;
- if (normalized_time>=1) normalized_time = 1;
- return curve * exp(normalized_time*log((1+curve)/curve))-curve;
- }
- float inverse_curviness(float normalized_time, float curve) {
- return 1-curviness(1-normalized_time, curve);
- }
- float supercurviness(float normalized_time, float curve) {
- //curve from -1 to 1
- if (curve >= 1) curve = 0.999;
- if (curve <= -1) curve = -0.999;
- if (curve == 0) return normalized_time;
- if (curve < 0) return inverse_curviness(normalized_time, 1+curve);
- return curviness(normalized_time, 1-curve);
- }
- float value(int now) {
- float alpha=-1;
- float normalized_time = -1;
- switch (state) {
- case ATTACK: 
- if (now >= attack_time) state = Env_State.SUSTAIN;                               // is it possible to make this switch the case?!
- normalized_time = float(now - start_time)/float(attack_time-start_time);
- alpha = supercurviness(normalized_time, attack_curve);
- break;
- case SUSTAIN:
- if (now >= sustain_time) state = Env_State.DECAY;
- //if (sustain_time - now > 0) alpha = 0.4+(stutter*0.6);
- //else alpha = 1;
- break;
- case DECAY: 
- if (now >= decay_time) finished = true; //parent.deleteme=true;
- normalized_time = float(now - sustain_time)/float(decay_time-sustain_time);
- alpha = supercurviness(1-normalized_time, decay_curve);
- break;
- }
- return alpha;
- }
- }
- */

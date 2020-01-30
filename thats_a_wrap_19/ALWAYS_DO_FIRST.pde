@@ -1,18 +1,29 @@
 void setupSpecifics() {
 
   rigg.availableAnims = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};      // setup which anims are used on which rig here
-  roof.availableAnims = new int[] {4, 5, 6, 0, 7, 9};      // setup which anims are used on which rig here - defualt is 0,1,2,3...
+  roof.availableAnims = rigg.availableAnims;      // setup which anims are used on which rig here - defualt is 0,1,2,3...
 
-  rigg.avaliableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 7};
-  cans.avaliableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 7,8};
+  cans.availableAnims = new int[] {0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11};      // setup which anims are used on which rig here
+
+  rigg.avaliableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4};  
+
+  rigg.avaliableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6};
+  roof.avaliableBkgrnds =  rigg.avaliableBkgrnds;
+
+  cans.avaliableBkgrnds = new int[] {0, 1, 2, 3, 4, 5};
 
   ///////////////////////////////// UPDATE THE DROPDOWN LISTS WITH AVLIABLE OPTIONS ///////////////////////////////////////////////////////
   for (Rig rig : rigs) {
     rig.ddVizList.clear();
     rig.ddBgList.clear();
+    rig.ddAlphaList.clear();
+    rig.ddAlphaListB.clear();
     for (int i=0; i<rig.avaliableBkgrnds.length; i++) rig.ddBgList.addItem("background "+i, i); //add all avaliable anims to VizLists - 
     for (int i=0; i<rig.availableAnims.length; i++) rig.ddVizList.addItem("viz "+i, i); //add all avaliable anims to VizLists -
-        //need to use the actal numbers from the above aray
+    for (int i=0; i<rig.avaliableAlphaEnvelopes.length; i++) rig.ddAlphaList.addItem("alph "+i, i); //add all avaliable anims to VizLists -
+    for (int i=0; i<rig.avaliableAlphaEnvelopes.length; i++) rig.ddAlphaListB.addItem("alph "+i, i); //add all avaliable anims to VizLists -
+
+    //need to use the actal numbers from the above aray
   }
 
   rigg.dimmers.put(3, new Ref(cc, 34));
@@ -34,7 +45,7 @@ void setupSpecifics() {
   cans.colorIndexB = 11;
   //donut.colorIndexA = 
   //donut.colorIndexB = ;
-  
+
   cans.infoX += 100;
 
 
@@ -47,6 +58,9 @@ void setupSpecifics() {
   cc[4] = 1;
   cc[8] = 1;
   cc[MASTERFXON] = 0;
+
+
+  for (int i= 36; i < 52; i++)cc[i] = 0;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

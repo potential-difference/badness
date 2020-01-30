@@ -3,6 +3,7 @@ float vizTimeSlider, colorSwapSlider, colorTimerSlider, boothDimmer, digDimmer, 
 float tweakSlider, blurSlider, bgNoiseBrightnessSlider, bgNoiseDensitySlider, manualSlider, stutterSlider;
 float shimmerSlider, funcSlider, beatSlider;
 float smokePump, smokeFan, smokeOnTime, smokeOffTime;
+float wideSlider, strokeSlider, highSlider;
 
 class MainControlFrame extends ControlFrame {
   MainControlFrame(PApplet _parent, int _controlW, int _controlH, int _xpos, int _ypos) {
@@ -13,7 +14,6 @@ class MainControlFrame extends ControlFrame {
     y = 90;
     sliderY=y;
 
-    //fullScreen();
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// GLOBAL SLIDERS ///////////////////////////////////////////////////////////
     loadSlider("boothDimmer", x, y, wide, high, 0, 1, 0.32, act1, bac1, slider1);
@@ -22,6 +22,11 @@ class MainControlFrame extends ControlFrame {
     loadSlider("colorTimerSlider", x, y+row*3, wide, high, 0, 1, 0.45, act, bac, slider);
     loadSlider("colorSwapSlider", x, y+row*4, wide, high, 0, 1, 0.9, act1, bac1, slider1);
     loadSlider("manualSlider", x, y+row*5, wide, high, 0, 1, 0.9, act, bac, slider);
+
+    loadSlider("strokeSlider", x, y+row*7, wide, high, 1, 5, 0, act1, bac1, slider1);
+    loadSlider("wideSlider", x, y+row*8, wide, high, 1, 5, 0, act, bac, slider);
+    loadSlider("highSlider", x, y+row*9, wide, high, 1, 5, 0, act1, bac1, slider1);
+
     /////////////////////////////// GLOBAL TOGGLE BUTTONS//////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     x = this.width-65;
@@ -123,11 +128,12 @@ class SliderFrame extends ControlFrame {
   SliderFrame(PApplet _parent, int _controlW, int _controlH, int _xpos, int _ypos) {
     super (_parent, _controlW, _controlH, _xpos, _ypos);
     surface.setAlwaysOnTop(onTop);
+    //fullScreen();
     cp5 = new ControlP5(this);
     x = 10;
     y = 10;
-    wide = 150;
-    high = 20;
+    this.wide = 150;
+    this.high = 20;
     int gap = 25;
 
     for (int i =0; i<17; i+=2) {
@@ -211,6 +217,7 @@ class ControlFrame extends PApplet {
   }
   public void settings() {
     size(controlW, controlH);
+    fullScreen();
   }
   public void setup() {
     this.surface.setSize(controlW, controlH);

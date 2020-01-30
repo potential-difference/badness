@@ -81,6 +81,7 @@ void pause(int secondsToWait) {
     if (millis()/1000 - pauseTimer >= secondsToWait) {
       pause +=1;
       pauseTimer = millis()/1000;
+      avgmillis = 460;              /// need to make the same as the other thign we did for this varied bmp sthz
     }
   }
 }
