@@ -8,6 +8,9 @@ OPC opcNode7;
 OPC opcWifi;
 
 import java.util.*;
+import java.io.*;
+import java.lang.*;
+
 import controlP5.*;
 import ch.bildspur.artnet.*;
 ControlP5 cp5;

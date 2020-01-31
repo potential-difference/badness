@@ -2,20 +2,22 @@ HashMap<String, Class> classMap = new HashMap<String, Class>();
 Class[] classList= this.getClass().getClasses();
 
 void setupSpecifics() {
-  for (int i=0; i<classList.length; i++) {
 
+  println("ANIM NAMES:");
+  for (int i=0; i<classList.length; i++) {
     if (classList[i].getSuperclass() == new Anim(rigg).getClass()) {
       //if (classList[i].getSuperclass() == Class.forName("sketch_name"+"$Anim")) {
-
       String name = classList[i].getName();
       classMap.put(name.substring(name.indexOf('$')+1), classList[i]);
       println(name.substring(name.indexOf('$')+1));
       // if (classList[i].getSuperclass() == Class.forName("sketch_name"+"$Anim"));
     }
   }
-  //println("CLASSMAP",classMap);
-  //println("CLASS LIST");
-  //print(classList);
+  println("CLASSMAP");
+  println(classMap);
+  println();
+  println("CLASS LIST:");
+  println(classList);
 
   //rigg.availableAnims = new int[] {1, 2, 3, 6, 7, 8};      // setup which anims are used on which rig here
   rigg.availableAnimsNames = new String[] {"StarMesh", "Rings", "Celtic", "Stars", "SingleDonut", "BouncingDonut"};

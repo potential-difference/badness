@@ -700,9 +700,17 @@ public class Rig {
   void addAnim(int animIndex) {
     try {
       //Anim anim = new Anim(this);
+      String name = classList[0].getName();
+      String sketch_name = name.substring(0, name.indexOf('$'));
+     
       for (int i=0; i<classList.length; i++) {
-        if (classList[i].getSuperclass() == Class.forName("sketch_name"+"$Anim"));
-        Anim anim = classMap("Bar").getConstructor(Anim).newInstance(this);
+
+        if (classList[i].getSuperclass() == Class.forName(sketch_name+"$Anim")) {
+        //Anim anim = classMap("Bar", anim.getConstructor().newInstance(this));
+          classMap.get(this.availableAnimsNames[animIndex]).newInstance();
+          //Anim anim = classMap("Bar", getConstructor(anim)).newInstance(this);
+         //Anim anim = classMap.get(this.availableAnims[animIndex]).newInstance();
+        }
       }
       //Anim anim = classMap.get(this.availableAnimsNames[animIndex]).newInstance();
     }
@@ -849,7 +857,6 @@ public class Rig {
     }
   }
 
-  import java.util.*;
   void removeAnimations() {
     Iterator<Anim> animiter = this.animations.iterator();
     while (animiter.hasNext()) {
