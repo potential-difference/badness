@@ -79,8 +79,6 @@ println("put");
 }
 int shot;
 void keyPressed() { 
-
-  //int oneshotmap = int(map(argument, 1, 254, 1, player.length-1)); 
   shot = (shot + 1) % 80; 
   if (key == ' ') oneShot(shot);
 }
