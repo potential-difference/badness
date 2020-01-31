@@ -163,7 +163,10 @@ boolean[] keyP = new boolean[128];
 boolean[] keyT = new boolean[128];
 int keyNum;
 int mirrorStep, gridStep;
-void keyPressed() {  
+int shot;
+void keyPressed() {
+  shot = (shot + 1) % 80; 
+  if (key == ' ') oneShot(shot);
   /////////////////////////////// RIG KEY FUNCTIONS ////////////////////////
   if (key == 'n') rigViz = (rigViz+1)%rigVizList;        //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
   if (key == 'b') rigViz -=1;                            //// STEP BACK TO PREVIOUS RIG VIZ

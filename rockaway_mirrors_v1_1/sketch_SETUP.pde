@@ -77,12 +77,20 @@ AudioPlayer player[];
 void loadAudio() {
   //////////////////////////////// load one shot sounds ///////////////////////////////
   player = new AudioPlayer[81];
+  ArrayList<String> path_arraylist = new ArrayList<String>(Arrays.asList(split(sketchPath(), '/')));
+  path_arraylist.remove(path_arraylist.size() - 1);
+
+  String git_folder = String.join("/", path_arraylist);
+  println("git folder:", git_folder);
+  String wav_folder = String.join("/", git_folder, "one_shot_wavs");
+  println("wav folder:", wav_folder);
+
   for (int i = 1; i <= 80; i++) {
     int hundreds = i/100;
     int tens = (i%100)/10;
     int ones = i%10;
     String number =str(hundreds)+str(tens)+str(ones);
-    player[i] = minim.loadFile("oneshot_"+number+".wav");
+    player[i] = minim.loadFile(wav_folder+"/oneshot_"+number+".wav");
   }
   println("audio loaded");
 }
