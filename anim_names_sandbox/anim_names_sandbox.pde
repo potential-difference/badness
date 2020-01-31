@@ -43,12 +43,12 @@ void draw() {
   int animIndex = (frameCount / 120) % availableAnimsNames.length;  // switch animIndex every 120 frames
 
   addAnimations(keyPressed, animIndex);
-
+testAnimations(mousePressed,animIndex);
   drawAnimations();
   removeAnimations();
 
   fill(300); 
-  text("anims "+this.animations.size(), 0, 10);    // show number of anims onscreen
+  text("anims "+this.animations.size()+" // animIndex "+animIndex, 0, 10);    // show number of anims onscreen
 }
 void addAnimations(boolean trigger, int animIndex) {
   if (trigger) {
@@ -72,6 +72,21 @@ void addAnimations(boolean trigger, int animIndex) {
     catch(Exception e) {
       e.printStackTrace();
     }
+  }
+}
+
+void testAnimations(boolean trigger, int animIndex) {
+  if (trigger) {
+    Anim anim = new Anim();
+    switch(animIndex) {
+    case 0:
+      anim = new Square();
+      break;
+    case 1:
+      anim = new Circle();
+      break;
+    }
+    this.animations.add(anim);
   }
 }
 
