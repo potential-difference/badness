@@ -1,9 +1,11 @@
 import java.util.*;
 import java.io.*;
 import java.lang.*;
+import java.lang.reflect.*;
 
 HashMap<String, Class> classMap = new HashMap<String, Class>();
 Class[] classList= this.getClass().getClasses();
+
 ArrayList <Anim> animations;
 String[] availableAnimsNames;
 
@@ -20,6 +22,7 @@ void setup() {
       println(name.substring(name.indexOf('$')+1));
     }
   }
+
   // print the results at beginning //
   println();
   println("CLASSMAP");
@@ -58,7 +61,10 @@ void addAnimations(boolean trigger, int animIndex) {
 
           println("anim to be tirggered....", classMap.get(availableAnimsNames[animIndex]));
 
-          Anim anim = (Anim)classMap.get(availableAnimsNames[animIndex]).newInstance(); 
+          //Anim anim = (Anim)classMap.get(availableAnimsNames[animIndex]).newInstance(); 
+          Anim anim = (Anim)classList[animIndex].newInstance();
+          //Anim anim = classList[animIndex];
+
           this.animations.add(anim);
         }
       }
