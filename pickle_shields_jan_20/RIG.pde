@@ -822,7 +822,6 @@ public class Rig {
     }
   }
 
-  import java.util.*;
   void removeAnimations() {
     Iterator<Anim> animiter = this.animations.iterator();
     while (animiter.hasNext()) {

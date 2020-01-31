@@ -239,12 +239,12 @@ class ControlFrame extends PApplet {
   }
   public void settings() {
     size(controlW, controlH);
-    //fullScreen();
+    if(!NICKSLAPTOP) fullScreen();
   }
   public void setup() {
     this.surface.setSize(controlW, controlH);
     this.surface.setAlwaysOnTop(onTop);
-    //this.surface.setLocation(xpos, ypos);
+    if(!NICKSLAPTOP) this.surface.setLocation(xpos, ypos);
     colorMode(HSB, 360, 100, 100);
     rectMode(CENTER);
     ellipseMode(RADIUS);
