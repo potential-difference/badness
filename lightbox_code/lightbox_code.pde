@@ -25,9 +25,9 @@ Buffer rigBuffer, roofBuffer, cansBuffer;
 ArrayList <Anim> animations;
 
 import javax.sound.midi.ShortMessage;       // shorthand names for each control on the TR8
-import oscP5.*;
-import netP5.*;
-OscP5 oscP5[] = new OscP5[4];
+//import oscP5.*;
+//import netP5.*;
+//OscP5 oscP5[] = new OscP5[4];
 
 import themidibus.*;  
 MidiBus TR8bus;       // midibus for TR8
@@ -55,8 +55,7 @@ void setup()
   ///////////////// LOCAL opc /////////////////////
   opcLocal = new OPC(this, "127.0.0.1", 7890);
   //opcMirrors = new OPC(this, "127.0.0.1", 7890);       // Connect to the local instance of fcserver - MIRRORS
-  //opcCans = new OPC(this, "127.0.0.1", 7890);          // Connect to the remote instance of fcserver - CANS BOX
-
+  
   ///////////////// OPC over NETWORK /////////////////////
   //opcMirrors = new OPC(this, "192.168.0.70", 7890);       // Connect to the remote instance of fcserver - MIRROR 1
   //opcCans = new OPC(this, "192.168.0.10", 7890);          // Connect to the remote instance of fcserver - CANS BOX
