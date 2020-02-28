@@ -8,16 +8,16 @@ class SketchColor {
     col[1] = pink; 
     col[2] = orange1; 
     col[3] = teal;
-    col[4] = red;
-    col[5] = bloo;
+    col[4] = pink1;
+    col[5] = purple1;
     col[6] = pink;
-    col[7] = grin;
+    col[7] = purple;
     col[8] = orange;
-    col[9] = yell;
+    col[9] = pink1;
     col[10] = purple;
-    col[11] = grin;
-    col[12] = aqua;
-    col[13] = orange1;
+    col[11] = teal;
+    col[12] = purple;
+    col[13] = pink1;
     col[14] = teal;
   }
 
