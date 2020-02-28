@@ -25,9 +25,9 @@ Buffer rigBuffer, roofBuffer, cansBuffer;
 ArrayList <Anim> animations;
 
 import javax.sound.midi.ShortMessage;       // shorthand names for each control on the TR8
-//import oscP5.*;
-//import netP5.*;
-//OscP5 oscP5[] = new OscP5[4];
+import oscP5.*;
+import netP5.*;
+OscP5 oscP5[] = new OscP5[4];
 
 import themidibus.*;  
 MidiBus TR8bus;       // midibus for TR8
@@ -172,7 +172,7 @@ void draw()
   blendMode(NORMAL);
 
 
-  /////////////////////////////////////////// DUBSON LOGO ///////////////////////////////////////////////////////
+  /////////////////////////////////////////// L LOGO ///////////////////////////////////////////////////////
   //if (beatCounter % 9 < 6) {
   //  noStroke();
   //  float tempAlpha = (((1-beat)*0.6))+(0.2*noize1*(1-beat))+(0.05*(1-beat)*stutter);
@@ -186,12 +186,13 @@ void draw()
   //blendMode(NORMAL);
 
   
-  ///////////////////////////////////////// DUBSON LOGO ///////////////////////////////////////////////////////
+  ///////////////////////////////////////// LIPGLOSS LOGO ///////////////////////////////////////////////////////
   if (beatCounter % 9 < 6) {
-    noStroke();
+    noFill();
+    strokeWeight(20);
     float tempAlpha = (((1-beat)*0.6))+(0.2*noize1*(1-beat))+(0.05*(1-beat)*stutter);
-    fill(rigColor.clash, 360*tempAlpha);
-    ellipse(size.rig.x, size.rig.y, width/4, height/4.4);
+    fill(rigColor.flash, 360*tempAlpha);
+    rect(size.rig.x, size.rig.y, width, height);
   }
   //////////////////////////////////////// PLAY WITH ME MORE /////////////////////////////////////////////////////////////////////////////////
   playWithMeMore();
