@@ -6,7 +6,7 @@ class ShieldsOPCGrid extends OPCGrid {
   PVector[] eggs; 
   int eggLength;
   float[] ringSize;
-  OPC opc;
+  OPC[] opclist;
   Rig rig;
 
   float bigShieldRad, medShieldRad, smallShieldRad, _bigShieldRad, _medShieldRad, _smallShieldRad;
@@ -48,24 +48,25 @@ class ShieldsOPCGrid extends OPCGrid {
     eggLength += 20;
   }
 
-  void spiralShieldsOPC(OPC _opc) {
-    opc = _opc;
+  void spiralShieldsOPC(OPC[] _opc) {
+    opclist = _opc;
     ringSize = new float[] { rig.wide/8.3, rig.wide/5.5, rig.wide/4.5 };
     shieldSetup(9);
 
-    medShield(2, 0, 0, 33);   ///// SLOT b1 on BOX ///// 
-    smallShield(1, 8, 1, 48); ///// SLOT b0 on BOX /////
-    ballGrid(0, 7, 2);
+    medShieldWLED(opclist[2], 0, 0);   ///// SLOT b1 on BOX ///// 
 
-    medShield(4, 6, 0, 32);   ///// SLOT b5 on BOX /////
-    smallShield(3, 5, 1, 48); ///// SLOT b4 on BOX /////
-    ballGrid(1, 4, 2);
+    smallShieldWLED(opclist[1], 8, 1); ///// SLOT b0 on BOX /////
+    ballGrid(opclist[7], 0, 7, 2);
 
-    medShield(6, 3, 0, 32);   ///// SLOT b3 on BOX /////
-    smallShield(5, 2, 1, 48); ///// SLOT b2 on BOX /////
-    ballGrid(2, 1, 2);
+    medShieldWLED(opclist[4], 6, 0);   ///// SLOT b5 on BOX /////
+    smallShieldWLED(opclist[3], 5, 1); ///// SLOT b4 on BOX /////
+    ballGrid(opclist[7], 1, 4, 2);
 
-    bigShield(7, int(size.rig.x), int(size.rig.y));     ///// SLOT b7 on BOX /////
+    medShieldWLED(opclist[6], 3, 0);   ///// SLOT b3 on BOX /////
+    smallShieldWLED(opclist[5], 2, 1); ///// SLOT b2 on BOX /////
+    ballGrid(opclist[7], 2, 1, 2);
+
+    bigShieldWLED(opclist[0], int(size.rig.x), int(size.rig.y));     ///// SLOT b7 on BOX /////
     /////////////////////////// increase size of radius so its covered when drawing over it in the sketch
 
     shields[0] = new PVector (_shield[0][0].x, _shield[0][0].y);        // MEDIUM SHIELD
@@ -88,74 +89,78 @@ class ShieldsOPCGrid extends OPCGrid {
     rigg.position = shields;
   }
 
-  void triangleShieldsOPC(OPC _opc) {
-    opc = _opc;
+  void triangleShieldsOPC(OPC[] _opc) {
+    opclist = _opc;
     ringSize = new float[] { rig.wide/9, rig.wide/5, rig.wide/4.5 };
     shieldSetup(12);
     //// SHIELDS - #1 slot on box; #2 position on ring; #3 number of LEDS in 5v ring 
-    smallShield(1, 2, 0, 48); ///// SLOT b0 on BOX /////   
-    medShield(2, 2, 1, 33);   ///// SLOT b1 on BOX ///// 
-    smallShield(3, 6, 0, 48); ///// SLOT b2 on BOX /////
-    medShield(4, 6, 1, 32);   ///// SLOT b3 on BOX /////
-    smallShield(5, 10, 0, 48); ///// SLOT b4 on BOX /////
-    medShield(6, 10, 1, 32);   ///// SLOT b5 on BOX /////
-    bigShield(7, int(size.rig.x), int(size.rig.y));     ///// SLOT b7 on BOX /////
-    ballGrid(0, 0, 1);
-    ballGrid(1, 4, 1);
-    ballGrid(2, 8, 1);
+    smallShieldWLED(opclist[1], 2, 0); ///// SLOT b0 on BOX /////   
+    medShieldWLED(opclist[2], 2, 1);   ///// SLOT b1 on BOX ///// 
+    smallShieldWLED(opclist[3], 6, 0); ///// SLOT b2 on BOX /////
+    medShieldWLED(opclist[4], 6, 1);   ///// SLOT b3 on BOX /////
+    smallShieldWLED(opclist[5], 10, 0); ///// SLOT b4 on BOX /////
+    medShieldWLED(opclist[6], 10, 1);   ///// SLOT b5 on BOX /////
+    bigShieldWLED(opclist[0], int(size.rig.x), int(size.rig.y));     ///// SLOT b7 on BOX /////
+    ballGrid(opclist[7], 0, 0, 1);
+    ballGrid(opclist[7], 1, 4, 1);
+    ballGrid(opclist[7], 2, 8, 1);
+
+ 
   }
 
-  void ballGrid(int numb, int positionA, int positionB) {
+  void ballGrid(OPC opc, int numb, int positionA, int positionB) {
     opc.led(1024+(64*numb), int(_shield[positionA][positionB].x), int(_shield[positionA][positionB].y));
   }
 
-  void bigShield(int numb, int xpos, int ypos) {
-    int strt = (128*numb)+64; 
+
+  void bigShieldWLED(OPC opc, int xpos, int ypos) {
     ////// HIGH POWER LED RING ////
     int space = rig.wide/2/18;
-    opc.led(strt-64, xpos, ypos+space);
-    opc.led(strt-64+1, xpos+space, ypos);
-    opc.led(strt-64+2, xpos, ypos-space);
-    opc.led(strt-64+3, xpos-space, ypos);
+    opc.led(0, xpos, ypos+space);
+    opc.led(1, xpos+space, ypos);
+    opc.led(2, xpos, ypos-space);
+    opc.led(3, xpos-space, ypos);
     ///// 5V LED STRIP ////
-    int leds = 64;
-    _bigShieldRad = rig.wide/leds*7;       
+    int leds = 126;
+    int strt = 4;
+    _bigShieldRad = rig.wide/leds*16;       
     bigShieldRad = _bigShieldRad * 2 + 4; 
     for (int i=strt; i < strt+leds; i++) {     
       opc.led(i, int(sin(radians((i-strt)*360/leds))*_bigShieldRad)+xpos, (int(cos(radians((i-strt)*360/leds))*_bigShieldRad)+ypos));
     }
   }
-  void medShield(int numb, int positionA, int positionB, float leds) {
-    int strt = (128*numb)+64;
+  void medShieldWLED(OPC opc, int positionA, int positionB) {
     ////// USED FOR CIRCULAR / TIRANGULAR ARRANGEMENT /////
     int positionX = int(_shield[positionA][positionB].x);
     int positionY = int(_shield[positionA][positionB].y);
     ////// 5V LED RING for MEDIUM SHIELDS
+    int strt = 4;
+    int leds = 33;
     for (int i=strt; i < strt+leds; i++) {     
       opc.led(i, int(sin(radians((i-strt)*360/leds))*_medShieldRad)+int(positionX), (int(cos(radians((i-strt)*360/leds))*_medShieldRad)+int(positionY)));
     }
+
     ///// PLACE 4 HP LEDS in CENTER OF EACH RING /////
     for (int j = 1; j < 6; j +=2) {
       int space = rig.wide/2/20;
-      opc.led(strt-64, positionX, positionY+space);
-      opc.led(strt-64+1, positionX+space, positionY);
-      opc.led(strt-64+2, positionX, positionY-space);
-      opc.led(strt-64+3, positionX-space, positionY);
+      opc.led(0, positionX, positionY+space);
+      opc.led(1, positionX+space, positionY);
+      opc.led(2, positionX, positionY-space);
+      opc.led(3, positionX-space, positionY);
     }
   }
 
-  void smallShield(int numb, int positionA, int positionB, float leds) {
-    int strt = (128*numb)+64;
+  void smallShieldWLED(OPC opc, int positionA, int positionB) {
     ////// USED FOR CIRCULAR / TIRANGULAR ARRANGEMENT /////
     int positionX = int(_shield[positionA][positionB].x);
     int positionY = int(_shield[positionA][positionB].y);
+    ////// 1 HP LED IN MIDDLE OF EACH SMALL SHIELD //////
+    opc.led(0, int(positionX), int(positionY));
     /////// RING OF 5V LEDS TO MAKE SAMLL SHIELD ///////
+    int leds = 48;
+    int strt = 1;
     for (int i=strt; i < strt+leds; i++) {     
       opc.led(i, int(sin(radians((i-strt)*360/leds))*_smallShieldRad)+int(positionX), (int(cos(radians((i-strt)*360/leds))*_smallShieldRad)+int(positionY)));
-      ////// 1 HP LED IN MIDDLE OF EACH SMALL SHIELD //////
-      for (int j = 0; j < 6; j +=2) {
-        opc.led(strt-64, int(positionX), int(positionY));
-      }
     }
   }
 }
@@ -927,6 +932,27 @@ class OPCGrid {
     fc *=512;
     int channel = 64;
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////// if you need to make another chain just change the 0 to 1 (or whichever slot the start of the chain is plugged into)
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    opc.led(fc+(channel*0+0), int(rig.positionX[3][0].x + Xoffset), int(rig.positionX[3][0].y)); 
+
+    opc.led(fc+(channel*0+1), int(rig.position[0].x + Xoffset), int(rig.position[0].y));       
+    opc.led(fc+(channel*0+2), int(rig.position[5].x + Xoffset), int(rig.position[5].y));      
+
+    opc.led(fc+(channel*0+3), int(rig.positionX[2][1].x + Xoffset), int(rig.positionX[2][1].y)); 
+    opc.led(fc+(channel*0+4), int(rig.positionX[4][1].x + Xoffset), int(rig.positionX[4][1].y)); 
+
+    opc.led(fc+(channel*0+5), int(rig.position[6].x + Xoffset), int(rig.position[6].y)); 
+    opc.led(fc+(channel*0+6), int(rig.position[11].x + Xoffset), int(rig.position[11].y));  
+
+    opc.led(fc+(channel*0+7), int(rig.positionX[3][2].x + Xoffset), int(rig.positionX[3][2].y));
+  }
+   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  void wigflexLanterns(Rig _rig, OPC opc) {
+    rig = _rig;
+    int Xoffset = int(rig.size.x - (rig.wide/2));
+
+        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////// if you need to make another chain just change the 0 to 1 (or whichever slot the start of the chain is plugged into)
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     opc.led(fc+(channel*0+0), int(rig.positionX[3][0].x + Xoffset), int(rig.positionX[3][0].y)); 
