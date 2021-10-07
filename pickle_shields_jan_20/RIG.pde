@@ -20,7 +20,7 @@ public class Rig {
   int arrayListIndex;
   float infoX, infoY;
   float wideSlider, strokeSlider, highSlider;
-
+  ControlP5 cp5;
   PApplet parent;
   ScrollableList ddVizList, ddBgList, ddAlphaListA, ddFuncListA, ddAlphaListB, ddFuncListB;
   RadioButton cRadioButton, flashRadioButton;
@@ -31,7 +31,7 @@ public class Rig {
     high = _high;
     size = new PVector (_xpos, _ypos);
 
-    cp5 = controlFrame.cp5;
+    this.cp5 = controlFrame.cp5;
 
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
 
@@ -116,38 +116,38 @@ public class Rig {
     int row = shigh+4;       // distance between rows
     ///////////////////////////////// SLIDERS  ///////////////////////////////////////////////////////////////////////////////////
     loadSlider( "dimmer", x+(clm*arrayListIndex), y+(0*row), swide, shigh, 0, 1, 1, act1, bac1, slider1);
-    cp5.getController(this.name+" "+"dimmer").setLabel(name +" dimmer");
+    this.cp5.getController(this.name+" "+"dimmer").setLabel(name +" dimmer");
     loadSlider( "alphaRate", x+(clm*arrayListIndex), y+(1*row), swide, shigh, 0, 1, 0.3, act, bac, slider);      // old alphaSlider - controls rate of DECAY for ALPHA
-    cp5.getController(this.name+" "+"alphaRate").setLabel("alpha rate");
+    this.cp5.getController(this.name+" "+"alphaRate").setLabel("alpha rate");
     loadSlider( "funcRate", x+(clm*arrayListIndex), y+(2*row), swide, shigh, 0, 1, 0.4, act1, bac1, slider1);    // old funcSlider - control rate of DECAY for FUNCTION
-    cp5.getController(this.name+" "+"funcRate").setLabel("func rate");
+    this.cp5.getController(this.name+" "+"funcRate").setLabel("func rate");
     loadSlider( "blurValue", x+(clm*arrayListIndex), y+(3*row), swide, shigh, 0, 1, 0.5, act, bac, slider);      // blurriness of vizulisation 
-    cp5.getController(this.name+" "+"blurValue").setLabel("blurriness");
+    this.cp5.getController(this.name+" "+"blurValue").setLabel("blurriness");
     loadSlider( "funcSwapRate", x+(clm*arrayListIndex), y+(4*row), swide, shigh, 30, 0, 4, act1, bac1, slider1); // NUMBER of times FUNCTION changes PER VIZ
-    cp5.getController(this.name+" "+"funcSwapRate").setLabel("func change");
+    this.cp5.getController(this.name+" "+"funcSwapRate").setLabel("func change");
     loadSlider( "alphaSwapRate", x+(clm*arrayListIndex), y+(5*row), swide, shigh, 30, 0, 6, act, bac, slider);   // NUMBER of times ALPHA changes PER VIZ
-    cp5.getController(this.name+" "+"alphaSwapRate").setLabel("alpha change");
+    this.cp5.getController(this.name+" "+"alphaSwapRate").setLabel("alpha change");
     loadSlider( "bgSwapRate", x+(clm*arrayListIndex), y+(6*row), swide, shigh, 30, 0, 12, act1, bac1, slider1);  // NUMBER of times BACKGROUND changes PER COLOUR
-    cp5.getController(this.name+" "+"bgSwapRate").setLabel("bkgrnd change");
+    this.cp5.getController(this.name+" "+"bgSwapRate").setLabel("bkgrnd change");
 
     loadSlider("strokeSlider", x+(clm*arrayListIndex), y+row*7, swide, shigh, 1, 5, 0, act, bac, slider);
-    cp5.getController(this.name+" "+"strokeSlider").setLabel("stroke slider");
+    this.cp5.getController(this.name+" "+"strokeSlider").setLabel("stroke slider");
     loadSlider("wideSlider", x+(clm*arrayListIndex), y+row*8, swide, shigh, 1, 5, 0, act1, bac1, slider1);
-    cp5.getController(this.name+" "+"wideSlider").setLabel("wide slider");
+    this.cp5.getController(this.name+" "+"wideSlider").setLabel("wide slider");
     loadSlider("highSlider", x+(clm*arrayListIndex), y+row*9, swide, shigh, 1, 5, 0, act, bac, slider);
-    cp5.getController(this.name+" "+"highSlider").setLabel("high slider");
+    this.cp5.getController(this.name+" "+"highSlider").setLabel("high slider");
 
     loadSlider( "manualAlpha", x+(clm*arrayListIndex), y+(10*row), swide, shigh, 0, 1, 0.8, act1, bac1, slider1);  // RATE of ALPHA DECAY for manual control - needs to be impemented properly
-    cp5.getController(this.name+" "+"manualAlpha").setLabel("manual alpha");
+    this.cp5.getController(this.name+" "+"manualAlpha").setLabel("manual alpha");
 
     ///////////////////////////////// TOGGLES  ///////////////////////////////////////////////////////////////////////////////////
     //loadToggle(noiseToggle, "noiseToggle", x+(clm*arrayListIndex), y+row*7.5, swide, 10);
     loadToggle(toggle, "toggle", x+(clm*arrayListIndex), y+row*11, swide-30, 20);
     loadToggle(playWithYourSelf, "playWithYourSelf", x+(clm*arrayListIndex)+swide-25, y+row*11, 25, 20);
-    cp5.getController(this.name+" "+"playWithYourSelf").setLabel("p.w.y.s");
+    this.cp5.getController(this.name+" "+"playWithYourSelf").setLabel("p.w.y.s");
 
     ///////////////////////////////// RADIO BUTTONS  //////////////////////////////////////////////////////////////////////////////
-    cRadioButton = cp5.addRadioButton(name+" cRadioButton")
+    cRadioButton = this.cp5.addRadioButton(name+" cRadioButton")
       .setPosition(x+(clm*arrayListIndex)-130, y)
       .setSize(15, shigh);
     for (int i=0; i<availableColors.length; i++) {
@@ -159,7 +159,7 @@ public class Rig {
       cRadioButton.hideLabels();
     }
 
-    flashRadioButton = cp5.addRadioButton(name+" flashRadioButton")
+    flashRadioButton = this.cp5.addRadioButton(name+" flashRadioButton")
       .setPosition(x+(clm*arrayListIndex)-110, y)
       .setSize(15, shigh);
     for (int i=0; i<availableColors.length; i++) {
@@ -171,13 +171,13 @@ public class Rig {
       flashRadioButton.hideLabels() ;
     }
     ///////////////////////////////// DROPDOWN LISTS //////////////////////////////////////////////////////////////////////////////
-    ddVizList = cp5.addScrollableList(name+" vizLizt").setPosition(x+(clm*arrayListIndex)-90, y);
-    ddBgList = cp5.addScrollableList(name+" bgList").setPosition(x+(clm*arrayListIndex)-90, y+25);
-    ddAlphaListA = cp5.addScrollableList(name+" alpahLizt").setPosition(x+(clm*arrayListIndex)-90, y+60);
-    ddFuncListA = cp5.addScrollableList(name+" funcLizt").setPosition(x+(clm*arrayListIndex)-90, y+85);
+    ddVizList = this.cp5.addScrollableList(name+" vizLizt").setPosition(x+(clm*arrayListIndex)-90, y);
+    ddBgList = this.cp5.addScrollableList(name+" bgList").setPosition(x+(clm*arrayListIndex)-90, y+25);
+    ddAlphaListA = this.cp5.addScrollableList(name+" alpahLizt").setPosition(x+(clm*arrayListIndex)-90, y+60);
+    ddFuncListA = this.cp5.addScrollableList(name+" funcLizt").setPosition(x+(clm*arrayListIndex)-90, y+85);
 
-    ddAlphaListB = cp5.addScrollableList(name+" alpahLiztB").setPosition(x+(clm*arrayListIndex)-45, y+60);
-    ddFuncListB = cp5.addScrollableList(name+" funcLiztB").setPosition(x+(clm*arrayListIndex)-45, y+85);
+    ddAlphaListB = this.cp5.addScrollableList(name+" alpahLiztB").setPosition(x+(clm*arrayListIndex)-45, y+60);
+    ddFuncListB = this.cp5.addScrollableList(name+" funcLiztB").setPosition(x+(clm*arrayListIndex)-45, y+85);
 
     // the order of this has to be oppostie to the order they are displayed on screen
     customize(ddFuncListB, color(bac1, 200), bac, act, 40, "funcB");     // customize the list
@@ -194,7 +194,7 @@ public class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void loadToggle(boolean toggle, String label, float x, float y, int wide, int high) {
-    cp5.addToggle(this.name+" "+label)
+    this.cp5.addToggle(this.name+" "+label)
       .plugTo(this, label)
       .setLabel(label)
       .setPosition(x, y)
@@ -206,7 +206,7 @@ public class Rig {
       ;
   }
   void loadSlider(String label, float x, float y, int wide, int high, float min, float max, float startVal, color act1, color bac1, color slider1) {
-    cp5.addSlider(name+" "+label)
+    this.cp5.addSlider(name+" "+label)
       .plugTo(this, label)
       .setPosition(x, y)
       .setSize(wide, high)

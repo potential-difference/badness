@@ -1,13 +1,15 @@
+//can these go inside MainControlFrame?
 boolean testToggle, smokeToggle;
 float boothDimmer, digDimmer, vizTime, colorTime, colorSwapSlider, beatSlider = 0.3;
 float smokePumpValue, smokeOnTime, smokeOffTime;
 
 class MainControlFrame extends ControlFrame {
+    //private boolean initialized = false;
   MainControlFrame(PApplet _parent, int _controlW, int _controlH, int _xpos, int _ypos) {
     super (_parent, _controlW, _controlH, _xpos, _ypos);
-    cp5 = new ControlP5(this);
-    cp5.getProperties().setFormat(ControlP5.SERIALIZED);
-
+  }
+  void setup(){
+    super.setup();
     /////////////////////////////// GLOBAL TOGGLE BUTTONS//////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     this.x = this.width-65;
@@ -15,8 +17,14 @@ class MainControlFrame extends ControlFrame {
     this.high = 20;
     loadToggle("testToggle", testToggle, x, 10, 55, 55, bac1, bac, slider);
     loadToggle("onTop", onTop, x - 30, 45, wide, high, bac1, bac, slider);
+    rigg = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
+    roof = new Rig(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
+    cans = new Rig(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "LIVE");
+    pars = new Rig(size.pars.x, size.pars.y, size.parsWidth, size.parsHeight, "PARS");
+  
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    MCFinitialized = true;
   }
   void draw() {
     background(0);
@@ -92,10 +100,10 @@ class MainControlFrame extends ControlFrame {
 class SliderFrame extends ControlFrame {
   SliderFrame(PApplet _parent, int _controlW, int _controlH, int _xpos, int _ypos) {
     super (_parent, _controlW, _controlH, _xpos, _ypos);
+  }
+  void setup(){
+    super.setup();
     surface.setAlwaysOnTop(onTop);
-    cp5 = new ControlP5(this);
-    cp5.getProperties().setFormat(ControlP5.SERIALIZED);
-
     x = 10;
     y = 10;
     wide = 120;           // x size of sliders
@@ -104,25 +112,25 @@ class SliderFrame extends ControlFrame {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// GLOBAL SLIDERS ///////////////////////////////////////////////////////////
     loadSlider("boothDimmer", x, y, wide, high, 0, 1, 0.32, act1, bac1, slider1);
-    cp5.getController("boothDimmer").setLabel("booth dimmer");
+    this.cp5.getController("boothDimmer").setLabel("booth dimmer");
     loadSlider("digDimmer", x, y+row, wide, high, 0, 1, 0.2, act, bac, slider);
-    cp5.getController("digDimmer").setLabel("dig dimmer");
+    this.cp5.getController("digDimmer").setLabel("dig dimmer");
     loadSlider("vizTime", x, y+row*2, wide, high, 0.5, 30, 5, act1, bac1, slider1);
-    cp5.getController("vizTime").setLabel("viz timer");
+    this.cp5.getController("vizTime").setLabel("viz timer");
 
     loadSlider("colorTime", x, y+row*3, wide, high, 0.5, 30, 6, act, bac, slider);
-    cp5.getController("colorTime").setLabel("color timer");
+    this.cp5.getController("colorTime").setLabel("color timer");
     loadSlider("colorSwapSlider", x, y+row*4, wide, high, 0, 1, 0.9, act1, bac1, slider1);
-    cp5.getController("colorSwapSlider").setLabel("color swap");
+    this.cp5.getController("colorSwapSlider").setLabel("color swap");
 
     loadSlider("smokeOnTime", x, y+row*6.5, wide/2, high, 0, 5, 3, act, bac, slider);
-    cp5.getController("smokeOnTime").setLabel("smoke ON time");
+    this.cp5.getController("smokeOnTime").setLabel("smoke ON time");
     loadSlider("smokeOffTime", x, y+row*7.5, wide/2, high, 0, 20, 10, act1, bac1, slider1);
-    cp5.getController("smokeOffTime").setLabel("smoke OFF time");
+    this.cp5.getController("smokeOffTime").setLabel("smoke OFF time");
     loadSlider("smokePumpValue", x, y+row*8.5, wide/2, high, 0, 1, 0.1, act, bac, slider);
-    cp5.getController("smokePumpValue").setLabel("smoke pump");
+    this.cp5.getController("smokePumpValue").setLabel("smoke pump");
     loadToggle("smokeToggle", smokeToggle, 2*x+wide, y+row*6.5, 70, int(high+row*1.25), bac1, bac, slider);
-    cp5.getController("smokeToggle").setLabel("smoke auto timer");
+    this.cp5.getController("smokeToggle").setLabel("smoke auto timer");
 
     high = 12;
     int gap =  high +4;
@@ -136,7 +144,7 @@ class SliderFrame extends ControlFrame {
     }
     // bang buttons work as equlilivant to midi pad buttons
     for (int i = 0; i < 16; i ++) {
-      cp5.addBang("bang "+i)
+      this.cp5.addBang("bang "+i)
         .setPosition(x + wide +50, y+(i*gap))
         .setSize(high, high)
         .setId(i)
@@ -169,7 +177,9 @@ class SliderFrame extends ControlFrame {
       }
       );
     }
+    SFinitialized = true;
   }
+  //draw depends on both sliderframe and main control frame
   void draw() {
     surface.setAlwaysOnTop(onTop);
     background(0);
@@ -250,13 +260,15 @@ class ControlFrame extends PApplet {
     ellipseMode(RADIUS);
     imageMode(CENTER);
     noStroke();
+    cp5 = new ControlP5(this);
+    cp5.getProperties().setFormat(ControlP5.SERIALIZED);
   }
   void draw() {
     /// override in subclass
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void loadSlider(String label, float _x, float _y, int _wide, int _high, float min, float max, float startVal, color act1, color bac1, color slider1) {
-    cp5.addSlider(label)
+    this.cp5.addSlider(label)
       .plugTo(parent, label)
       .setPosition(_x, _y)
       .setSize(_wide, _high)
@@ -269,7 +281,7 @@ class ControlFrame extends PApplet {
       ;
   }
   void loadToggle(String label, Boolean toggle, float x, float y, int wide, int high, color bac1, color bac, color slider) {
-    cp5.addToggle(label)
+    this.cp5.addToggle(label)
       .plugTo(parent, label)
       .setPosition(x, y)
       .setSize(wide, high)
