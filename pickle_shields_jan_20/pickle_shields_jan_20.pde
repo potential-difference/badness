@@ -51,11 +51,14 @@ void settings() {
   size.surfacePositionX = 1920-width-50;
   if (SHITTYLAPTOP) size.surfacePositionX = 0;
   size.surfacePositionY = 150;
+
 }
 void setup()
 {
+
   surface.setSize(size.sizeX, size.sizeY);
   surface.setAlwaysOnTop(onTop);
+
   //surface.setLocation(size.surfacePositionX, size.surfacePositionY);
   MCFinitialized = false;
   controlFrame = new MainControlFrame(this, width, 330, size.surfacePositionX, size.surfacePositionY+height+5); // load control frame must come after shild ring etc

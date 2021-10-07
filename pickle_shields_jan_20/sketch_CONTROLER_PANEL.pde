@@ -255,6 +255,7 @@ class ControlFrame extends PApplet {
     this.surface.setSize(controlW, controlH);
     this.surface.setAlwaysOnTop(onTop);
     //this.surface.setLocation(xpos, ypos);
+    //pixelDensity(2);
     colorMode(HSB, 360, 100, 100);
     rectMode(CENTER);
     ellipseMode(RADIUS);
