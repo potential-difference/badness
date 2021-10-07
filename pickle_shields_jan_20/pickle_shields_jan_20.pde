@@ -89,8 +89,8 @@ void setup()
   opcGrid.dmxSmokeOPC(opcLocal);                          // ENTTEC BOX PLUGGED INTO LAPTOP VIZ USB - run json locally - smoke machine DMX address 100
 
   shieldsGrid = new ShieldsOPCGrid(rigg);        
-  shieldsGrid.spiralShieldsOPC(opcNode4);                 // SHIELDS plug into RIGHT SLOTS A-F = 1-6 *** BIG SHIELD = 7 *** H-G = LEFT SLOTS 0-2 ***
-  opcGrid.shieldsBoothOPC(opcNode4);                      // BOOTH and DIG lights plug into SHIELDS BOX LEFT slots: booth 3 & 5, dig 4 & 5 or use splitter joiners
+  shieldsGrid.spiralShieldsOPC(opcLocal);                 // SHIELDS plug into RIGHT SLOTS A-F = 1-6 *** BIG SHIELD = 7 *** H-G = LEFT SLOTS 0-2 ***
+  opcGrid.shieldsBoothOPC(opcLocal);                      // BOOTH and DIG lights plug into SHIELDS BOX LEFT slots: booth 3 & 5, dig 4 & 5 or use splitter joiners
 
   int fadecandy;
   opcGrid.pickleCansOPC(roof, opcNode7, fadecandy = 9);   
