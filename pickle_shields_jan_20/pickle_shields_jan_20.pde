@@ -12,10 +12,11 @@ import controlP5.*;
 import ch.bildspur.artnet.*;
 ControlP5 main_cp5;
 
-boolean SHITTYLAPTOP=true;//false;
+boolean SHITTYLAPTOP=false;//false;
 
 final int PORTRAIT = 0;
 final int LANDSCAPE = 1;
+final int SHIELDS = 3;
 final int RIG = 0;
 final int ROOF = 1;
 
@@ -44,7 +45,7 @@ boolean onTop = false;
 boolean MCFinitialized,SFinitialized;
 void settings() {
   System.setProperty("jogl.disable.openglcore", "true");
-  size = new SizeSettings(LANDSCAPE);
+  size = new SizeSettings(SHIELDS);
   //fullScreen();
   size(size.sizeX, size.sizeY, P2D);
   size.surfacePositionX = 1920-width-50;

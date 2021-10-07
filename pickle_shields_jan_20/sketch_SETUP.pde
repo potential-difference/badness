@@ -18,6 +18,13 @@ class SizeSettings {
       if (SHITTYLAPTOP) rigHeight = 250;
       rig = new PVector(rigWidth/2, (rigHeight/2));   // cordinates for center of rig
       break;
+    case SHIELDS:
+      rigWidth = 700;                                    // WIDTH of rigViz
+      if (SHITTYLAPTOP) rigWidth = 350;
+      rigHeight = 700;    
+      if (SHITTYLAPTOP) rigHeight = 350;
+      rig = new PVector(rigWidth/2, (rigHeight/2));   // cordinates for center of rig
+      break;
     }
 
     ////////////////////////////////  ROOF SETUP RIGHT OF RIG ///////////////////////

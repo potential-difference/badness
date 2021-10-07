@@ -44,7 +44,7 @@ String controlFrameValues, sliderFrameValues, mainFrameValues;
 boolean onTop = false;
 void settings() {
   size = new SizeSettings(LANDSCAPE);
-  fullScreen();
+  //fullScreen();
   size(size.sizeX, size.sizeY, P2D);
   size.surfacePositionX = 1920-width-50;
   if (SHITTYLAPTOP) size.surfacePositionX = 0;
