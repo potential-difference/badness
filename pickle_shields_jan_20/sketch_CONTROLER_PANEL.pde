@@ -19,7 +19,7 @@ class MainControlFrame extends ControlFrame {
     loadToggle("onTop", onTop, x - 30, 45, wide, high, bac1, bac, slider);
     rigg = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
     roof = new Rig(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
-    cans = new Rig(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "LIVE");
+    cans = new Rig(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "EGGS");
     pars = new Rig(size.pars.x, size.pars.y, size.parsWidth, size.parsHeight, "PARS");
    
     //////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -61,7 +61,7 @@ void setup()
 
   //surface.setLocation(size.surfacePositionX, size.surfacePositionY);
   MCFinitialized = false;
-  controlFrame = new MainControlFrame(this, width, 530, size.surfacePositionX, size.surfacePositionY+height+5); // load control frame must come after shild ring etc
+  controlFrame = new MainControlFrame(this, width*2, 530, size.surfacePositionX, size.surfacePositionY+height+5); // load control frame must come after shild ring etc
   opcGrid = new OPCGrid();
 
   // order of these is important for layout of sliders
@@ -106,9 +106,9 @@ void setup()
   opcNode3 = new OPC(this, "192.168.10.3", 7890);         // NODE IN CANS BOX
   opcNode7 = new OPC(this, "192.168.10.7", 7890);         // NODE IN LANTERNS BOX 
 
-  int numberOfPars;
-  opcGrid.dmxParsOPC(pars, opcLocal, numberOfPars = 6);   // ENTTEC BOX PLUGGED INTO LAPTOP VIZ USB - run json locally - pars DMX address 1,5,9,13,17,21
-  opcGrid.dmxSmokeOPC(opcLocal);                          // ENTTEC BOX PLUGGED INTO LAPTOP VIZ USB - run json locally - smoke machine DMX address 100
+  //int numberOfPars;
+  //opcGrid.dmxParsOPC(pars, opcLocal, numberOfPars = 6);   // ENTTEC BOX PLUGGED INTO LAPTOP VIZ USB - run json locally - pars DMX address 1,5,9,13,17,21
+  //opcGrid.dmxSmokeOPC(opcLocal);                          // ENTTEC BOX PLUGGED INTO LAPTOP VIZ USB - run json locally - smoke machine DMX address 100
 
   shieldsGrid = new ShieldsOPCGrid(rigg);  
 
@@ -116,11 +116,11 @@ void setup()
   //shieldsGridOPCs = {opcLocal, opcLocal, opcLocal, opcLocal, opcLocal, opcLocal, opcLocal, opcLocal};
 
   shieldsGrid.spiralShieldsOPC(shieldOPCs);        // SHIELDS plug into RIGHT SLOTS A-F = 1-6 *** BIG SHIELD = 7 *** H-G = LEFT SLOTS 0-2 ***
-  opcGrid.shieldsBoothOPC(opcLocal);                      // BOOTH and DIG lights plug into SHIELDS BOX LEFT slots: booth 3 & 5, dig 4 & 5 or use splitter joiners
+  opcGrid.standAloneBoothOPC(opcLocal);                      // BOOTH and DIG lights plug into SHIELDS BOX LEFT slots: booth 3 & 5, dig 4 & 5 or use splitter joiners
 
-  int fadecandy;
   //opcGrid.pickleCansOPC(roof, opcNode7, fadecandy = 9);   
-  opcGrid.pickleLanternsIndividual(cans, wledSeedsA, fadecandy = 10);    // each lantern plugged into its own slot on the box, 0 - 7
+  opcGrid.wigflexLanterns(roof, wledSeedsA);    // each lantern plugged into its own slot on the box, 0 - 7
+  opcGrid.eggsOPC(opcLocal, cans);
   //opcGrid.pickleLanternsDaisyChain(cans, opcNode3, fadecandy = 10);  // one chain starting at slot 0 on the box - see function if you need to add another chain
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
@@ -196,7 +196,7 @@ void draw()
   workLights(keyT['w']);
   testColors(keyT['t']);
   //////////////////////////////////////////// !!!SMOKE!!! ///////////////////////////////////////////////////////////////////////////////////////
-  dmxSmoke();
+  //dmxSmoke();
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   mouseInfo(keyT['q']);
   frameRateInfo(5, 20);                     // display frame rate X, Y /////

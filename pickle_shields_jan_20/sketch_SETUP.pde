@@ -33,13 +33,13 @@ class SizeSettings {
     roof = new PVector (rigWidth+(roofWidth/2), roofHeight/2);
 
     ////////////////////////////////  CANS SETUP RIGHT OF ROOF ///////////////////////
-    cansWidth = 300;
+    cansWidth = 200;
     cansHeight = rigHeight;
     //if (SHITTYLAPTOP) cansHeight = 250;
     cans = new PVector (rigWidth+roofWidth+(cansWidth/2), cansHeight/2);
 
     //////////////////////////////// PARS SETUP FAR RIGHT ////////////////////////////
-    parsWidth = 400;
+    parsWidth = 200;
     parsHeight = rigHeight;
     pars = new PVector(rigWidth+roofWidth+cansWidth+(parsWidth/2), parsHeight/2);      
 

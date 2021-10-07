@@ -3,8 +3,8 @@ class ShieldsOPCGrid extends OPCGrid {
   PVector[][] _shield; // = new PVector[numberOfShields][numberOfRings];    
   PVector[][] shield; // = new PVector[numberOfPositions][numberOfRings];  
   PVector[] shields = new PVector[12];
-  PVector[] eggs; 
-  int eggLength;
+  //PVector[] eggs = new PVector[2]; 
+  //int eggLength;
   float[] ringSize;
   OPC[] opclist;
   Rig rig;
@@ -36,18 +36,28 @@ class ShieldsOPCGrid extends OPCGrid {
       }
     }
   }
-  void eggsOPC(OPC opc, Rig rig) {
-    eggs[0] = new PVector(rig.size.x-75, rig.size.y-200);
-    eggs[1] = new PVector(rig.size.x+75, rig.size.y-200);
+  /*
+  void 
+  
+  OPC(OPC opc, Rig rig) {
+    //rig = _rig;
+    eggs[0] = new PVector(rig.size.x-75, rig.size.y);
+    eggs[1] = new PVector(rig.size.x+75, rig.size.y);
+    println("eggs x/y ", eggs[0], eggs[1]);
     eggLength = 100;
-    int fc = 2 * 512;
-    int slot = 64;
-    opc.led(fc+(slot*7), int(eggs[1].x), int(eggs[1].y-(eggLength/2)));          
-    opc.led(fc+(slot*7)+1, int(eggs[1].x), int(eggs[1].y));
-    opc.led(fc+(slot*7)+2, int(eggs[1].x), int(eggs[1].y+(eggLength/2)));
+    int fc = 10 * 512;
+    int channel = 64;
+    opc.led(fc+(channel*6), int(eggs[0].x), int(eggs[0].y-(eggLength/2)));          
+    opc.led(fc+(channel*6)+1, int(eggs[0].x), int(eggs[0].y));
+    opc.led(fc+(channel*6)+2, int(eggs[0].x), int(eggs[0].y+(eggLength/2)));
+
+    opc.led(fc+(channel*7), int(eggs[1].x), int(eggs[1].y-(eggLength/2)));          
+    opc.led(fc+(channel*7)+1, int(eggs[1].x), int(eggs[1].y));
+    opc.led(fc+(channel*7)+2, int(eggs[1].x), int(eggs[1].y+(eggLength/2)));
+
     eggLength += 20;
   }
-
+*/
   void spiralShieldsOPC(OPC[] _opc) {
     opclist = _opc;
     ringSize = new float[] { rig.wide/8.3, rig.wide/5.5, rig.wide/4.5 };
@@ -104,8 +114,6 @@ class ShieldsOPCGrid extends OPCGrid {
     ballGrid(opclist[7], 0, 0, 1);
     ballGrid(opclist[7], 1, 4, 1);
     ballGrid(opclist[7], 2, 8, 1);
-
- 
   }
 
   void ballGrid(OPC opc, int numb, int positionA, int positionB) {
@@ -174,12 +182,14 @@ class OPCGrid {
   PVector[] seeds = new PVector[4];
   PVector[] cansString = new PVector[3];
   PVector[] cans = new PVector[18];
+  PVector[] eggs = new PVector[2];
   PVector[] strip = new PVector[6];
   PVector[] controller = new PVector[4];
   PVector booth, dig, smokeFan, smokePump, uv;
   float yTop;                            // height Valuve for top line of mirrors
   float yBottom;  
   float yMid = size.rig.y;   
+  int eggLength;
 
   Rig rig;
 
@@ -874,25 +884,27 @@ class OPCGrid {
     int channel = 64;       
 
     opc.led(fc+(channel*1), int(booth.x-5), int(booth.y));
+    opc.led(fc+(channel*2), int(booth.x+5), int(booth.y));
 
-    opc.led(fc+(channel*2), int(dig.x-5), int(dig.y));
-    opc.led(fc+(channel*3), int(dig.x+5), int(dig.y));
+    opc.led(fc+(channel*3), int(dig.x-5), int(dig.y));
+    opc.led(fc+(channel*4), int(dig.x+5), int(dig.y));
   }
+
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   void shieldsBoothOPC(OPC opc) {
     booth = new PVector (104, 15);
     dig = new PVector (booth.x+110, booth.y);
 
-    int fc = 2 * 512;  
+    int fc = 5120;  
     int channel = 64;       
 
     // booth //
-    opc.led(fc+(channel*3), int(booth.x-5), int(booth.y));
-    opc.led(fc+(channel*4), int(booth.x+5), int(booth.y));
+    opc.led(fc+(channel*0), int(booth.x-5), int(booth.y));
+    opc.led(fc+(channel*1), int(booth.x+5), int(booth.y));
 
     // dig //
-    opc.led(fc+(channel*5), int(dig.x+5), int(dig.y));
-    opc.led(fc+(channel*6), int(dig.x-5), int(dig.y));
+    opc.led(fc+(channel*2), int(dig.x+5), int(dig.y));
+    opc.led(fc+(channel*3), int(dig.x-5), int(dig.y));
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   void kingsHeadBoothOPC(OPC opc) {
@@ -903,6 +915,25 @@ class OPCGrid {
     opc.led(fc+(channel*2), int(dig.x+5), int(dig.y));
 
     opc.led(fc+(channel*1), int(booth.x-5), int(booth.y));
+  }
+
+  void eggsOPC(OPC opc, Rig rig) {
+    //rig = _rig;
+    eggs[0] = new PVector(rig.size.x-75, rig.size.y);
+    eggs[1] = new PVector(rig.size.x+75, rig.size.y);
+    println("eggs x/y ", eggs[0], eggs[1]);
+    eggLength = 100;
+    int fc = 10 * 512;
+    int channel = 64;
+    opc.led(fc+(channel*5), int(eggs[0].x), int(eggs[0].y-(eggLength/2)));          
+    opc.led(fc+(channel*5)+1, int(eggs[0].x), int(eggs[0].y));
+    opc.led(fc+(channel*5)+2, int(eggs[0].x), int(eggs[0].y+(eggLength/2)));
+
+    opc.led(fc+(channel*6), int(eggs[1].x), int(eggs[1].y-(eggLength/2)));          
+    opc.led(fc+(channel*6)+1, int(eggs[1].x), int(eggs[1].y));
+    opc.led(fc+(channel*6)+2, int(eggs[1].x), int(eggs[1].y+(eggLength/2)));
+
+    eggLength += 20;
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void pickleLanternsIndividual(Rig _rig, OPC opc, int fc) {
@@ -947,26 +978,27 @@ class OPCGrid {
 
     opc.led(fc+(channel*0+7), int(rig.positionX[3][2].x + Xoffset), int(rig.positionX[3][2].y));
   }
-   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void wigflexLanterns(Rig _rig, OPC opc) {
     rig = _rig;
     int Xoffset = int(rig.size.x - (rig.wide/2));
 
-        ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////// if you need to make another chain just change the 0 to 1 (or whichever slot the start of the chain is plugged into)
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    opc.led(fc+(channel*0+0), int(rig.positionX[3][0].x + Xoffset), int(rig.positionX[3][0].y)); 
+    opc.led(0, int(rig.positionX[3][0].x + Xoffset), int(rig.positionX[3][0].y)); 
 
-    opc.led(fc+(channel*0+1), int(rig.position[0].x + Xoffset), int(rig.position[0].y));       
-    opc.led(fc+(channel*0+2), int(rig.position[5].x + Xoffset), int(rig.position[5].y));      
+    opc.led(1, int(rig.position[0].x + Xoffset), int(rig.position[0].y));       
+    opc.led(2, int(rig.position[5].x + Xoffset), int(rig.position[5].y));      
 
-    opc.led(fc+(channel*0+3), int(rig.positionX[2][1].x + Xoffset), int(rig.positionX[2][1].y)); 
-    opc.led(fc+(channel*0+4), int(rig.positionX[4][1].x + Xoffset), int(rig.positionX[4][1].y)); 
+    opc.led(3, int(rig.positionX[2][1].x + Xoffset), int(rig.positionX[2][1].y)); 
+    opc.led(4, int(rig.positionX[4][1].x + Xoffset), int(rig.positionX[4][1].y)); 
 
-    opc.led(fc+(channel*0+5), int(rig.position[6].x + Xoffset), int(rig.position[6].y)); 
-    opc.led(fc+(channel*0+6), int(rig.position[11].x + Xoffset), int(rig.position[11].y));  
+    opc.led(5, int(rig.position[6].x + Xoffset), int(rig.position[6].y)); 
+    opc.led(6, int(rig.position[11].x + Xoffset), int(rig.position[11].y));  
 
-    opc.led(fc+(channel*0+7), int(rig.positionX[3][2].x + Xoffset), int(rig.positionX[3][2].y));
+    opc.led(7, int(rig.positionX[3][2].x + Xoffset), int(rig.positionX[3][2].y));
+    opc.led(8, int(rig.positionX[3][1].x + Xoffset), int(rig.positionX[3][1].y)+(rig.high-(int(rig.high/1.2)))/2);
   }
   ////////////////////////////////// DMX  /////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
