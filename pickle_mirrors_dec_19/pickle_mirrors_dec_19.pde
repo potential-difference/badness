@@ -10,7 +10,7 @@ OPC opcWifi;
 import java.util.*;
 import controlP5.*;
 import ch.bildspur.artnet.*;
-ControlP5 cp5;
+ControlP5 main_cp5;
 ControlFrame ControlFrame; // load control frame must come after shild ring etc
 
 boolean SHITTYLAPTOP=false;
@@ -42,7 +42,9 @@ String controlFrameValues, sliderFrameValues, mainFrameValues;
 
 
 boolean onTop = false;
+boolean MCFinitialized, SFinitialized;
 void settings() {
+  System.setProperty("jogl.disable.openglcore", "true");
   size = new SizeSettings(LANDSCAPE);
   //fullScreen();
   size(size.sizeX, size.sizeY, P2D);
@@ -56,18 +58,30 @@ void setup()
   surface.setAlwaysOnTop(onTop);
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
 
-  controlFrame = new MainControlFrame(this, width, 290, size.surfacePositionX, size.surfacePositionY+height+5); // load control frame must come after shild ring etc
+  //surface.setLocation(size.surfacePositionX, size.surfacePositionY);
+  MCFinitialized = false;
+  controlFrame = new MainControlFrame(this, width*2, 530, size.surfacePositionX, size.surfacePositionY+height+5); // load control frame must come after shild ring etc
   opcGrid = new OPCGrid();
 
-  //Rig(boolean _toggle, float _xpos, float _ypos, int _wide, int _high, String _name) {
-  rigg = new Rig(false, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
-  cans = new Rig(false, size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "SEEDS");
-  roof = new Rig(true, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "CANS");
-  pars = new Rig(true, size.pars.x, size.pars.y, size.parsWidth, size.parsHeight, "PARS");
+  // order of these is important for layout of sliders
+  print("MainControlFrame");
+  while (!MCFinitialized) {
+    delay(100);
+    print(".");
+  }
+  println(".");
 
   int frameWidth = 220;
+  SFinitialized = false;
   sliderFrame = new SliderFrame(this, frameWidth, height+controlFrame.height+5, size.surfacePositionX-frameWidth-5, size.surfacePositionY); // load control frame must come after shild ring etc
 
+  print("SliderFrame");
+  //wait for MCF,SF to be initialized
+  while (!SFinitialized) {
+    delay(100);
+    print(".");
+  }
+  println(".");
   ///////////////// LOCAL opc /////////////////////
   opcLocal   = new OPC(this, "127.0.0.1", 7890);        // Connect to the local instance of fcserver - MIRRORS
 
@@ -99,7 +113,6 @@ void setup()
   sliderFrameValues  = sketchPath("cp5SliderFrameValues");
   mainFrameValues  = sketchPath("cp5MainFrameValues");
   try {
-    this.cp5.loadProperties(mainFrameValues);
     controlFrame.cp5.loadProperties(controlFrameValues);
     sliderFrame.cp5.loadProperties(sliderFrameValues);
   }
@@ -114,6 +127,8 @@ void setup()
   }
   frameRate(30); // always needs to be last in setup
 }
+
+
 float vizTime, colTime;
 int colStepper = 1;
 int time_since_last_anim=0;

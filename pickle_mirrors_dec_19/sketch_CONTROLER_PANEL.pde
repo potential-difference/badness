@@ -8,13 +8,17 @@ float wideSlider, strokeSlider, highSlider;
 class MainControlFrame extends ControlFrame {
   MainControlFrame(PApplet _parent, int _controlW, int _controlH, int _xpos, int _ypos) {
     super (_parent, _controlW, _controlH, _xpos, _ypos);
-    cp5 = new ControlP5(this);
-    cp5.getProperties().setFormat(ControlP5.SERIALIZED);
-
+  }
+  void setup() {
+    super.setup();
     this.x = 10;
     this.y = 90;
     this.sliderY=y;
-
+    rigg = new Rig(false,size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
+    roof = new Rig(false,size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
+    cans = new Rig(true,size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "EGGS");
+    pars = new Rig(true,size.pars.x, size.pars.y, size.parsWidth, size.parsHeight, "PARS");
+ 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// GLOBAL SLIDERS ///////////////////////////////////////////////////////////
     loadSlider("boothDimmer", x, y, wide, high, 0, 1, 0.32, act1, bac1, slider1);
@@ -45,6 +49,7 @@ class MainControlFrame extends ControlFrame {
     loadToggle("testToggle", testToggle, x, 10, 55, 55, bac1, bac, slider);
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
+    MCFinitialized = true;
   }
   void draw() {
     background(0);
@@ -132,10 +137,11 @@ class MainControlFrame extends ControlFrame {
 class SliderFrame extends ControlFrame {
   SliderFrame(PApplet _parent, int _controlW, int _controlH, int _xpos, int _ypos) {
     super (_parent, _controlW, _controlH, _xpos, _ypos);
+  }
+  void setup() {
+    super.setup();
     surface.setAlwaysOnTop(onTop);
     //fullScreen();
-    cp5 = new ControlP5(this);
-    cp5.getProperties().setFormat(ControlP5.SERIALIZED);
 
     this.x = 10;
     this.y = 10;
@@ -154,6 +160,7 @@ class SliderFrame extends ControlFrame {
       loadSlider( name, x, y+(i*gap), sliderWide, sliderHigh, 0, 1, 0.32, act1, bac1, slider1);
       loadSlider( name1, x, y+gap+(i*gap), sliderWide, sliderHigh, 0, 1, 0.32, act, bac, slider);
     }
+    SFinitialized = true;
   }
   void draw() {
     surface.setAlwaysOnTop(onTop);
@@ -237,6 +244,8 @@ class ControlFrame extends PApplet {
     ellipseMode(RADIUS);
     imageMode(CENTER);
     noStroke();
+    cp5 = new ControlP5(this);
+    cp5.getProperties().setFormat(ControlP5.SERIALIZED);
     wide = 80;           // x size of sliders
     high = 14;           // y size of slider
     row = high +4;       // distance between rows

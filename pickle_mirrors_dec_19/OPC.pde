@@ -22,7 +22,7 @@ public class OPC implements Runnable
   byte firmwareConfig;
   String colorCorrection;
   boolean enableShowLocations;
-
+  OPC(){}
   OPC(PApplet parent, String host, int port)
   {
     this.host = host;

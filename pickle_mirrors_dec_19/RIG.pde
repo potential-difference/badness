@@ -19,6 +19,7 @@ public class Rig {
   String[] animNames, backgroundNames, alphaNames, functionNames;
   int arrayListIndex;
   float infoX, infoY;
+  ControlP5 cp5;
   PApplet parent;
   ScrollableList ddVizList, ddBgList, ddAlphaList, ddFuncList, ddAlphaListB, ddFuncListB;
   RadioButton cRadioButton, flashRadioButton;
@@ -30,7 +31,7 @@ public class Rig {
     size = new PVector (_xpos, _ypos);
     toggle = _toggle;
 
-    cp5 = controlFrame.cp5;
+    this.cp5 = controlFrame.cp5;
 
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
 
