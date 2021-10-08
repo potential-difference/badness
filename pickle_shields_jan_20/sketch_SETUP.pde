@@ -51,9 +51,22 @@ class SizeSettings {
 void midiSetup() {
   MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
   println();
-  TR8bus = new MidiBus(this, "TR-8S", "TR8-S"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
-  LPD8bus = new MidiBus(this, "LPD8", "LPD8"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
-  beatStepBus = new MidiBus(this, "Arturia BeatStep", "Arturia BeatStep"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
+  String[] inputs = MidiBus.availableInputs();
+  //String[] outputs = MidiBus.availableOutputs(); 
+  for (String in : inputs){
+    if (in.contains("TR-8S")) { 
+      TR8bus = new MidiBus(this, in,in);
+      println("Found TR8: ",in);
+    }
+    if (in.contains("LPD8")) {
+      LPD8bus = new MidiBus(this,in,in);
+      println("Found LPD8: ", in);
+    }
+    if (in.contains("BeatStep")) { 
+      beatStepBus = new MidiBus(this,in,in);
+      println("Found Arturia BeatStep: ", in);
+    }
+  }
 }
 
 //////////////////////////////////////// LOAD IMAGES ///////////////////////////

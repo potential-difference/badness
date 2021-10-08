@@ -38,26 +38,26 @@ class ShieldsOPCGrid extends OPCGrid {
   }
   /*
   void 
-  
-  OPC(OPC opc, Rig rig) {
-    //rig = _rig;
-    eggs[0] = new PVector(rig.size.x-75, rig.size.y);
-    eggs[1] = new PVector(rig.size.x+75, rig.size.y);
-    println("eggs x/y ", eggs[0], eggs[1]);
-    eggLength = 100;
-    int fc = 10 * 512;
-    int channel = 64;
-    opc.led(fc+(channel*6), int(eggs[0].x), int(eggs[0].y-(eggLength/2)));          
-    opc.led(fc+(channel*6)+1, int(eggs[0].x), int(eggs[0].y));
-    opc.led(fc+(channel*6)+2, int(eggs[0].x), int(eggs[0].y+(eggLength/2)));
-
-    opc.led(fc+(channel*7), int(eggs[1].x), int(eggs[1].y-(eggLength/2)));          
-    opc.led(fc+(channel*7)+1, int(eggs[1].x), int(eggs[1].y));
-    opc.led(fc+(channel*7)+2, int(eggs[1].x), int(eggs[1].y+(eggLength/2)));
-
-    eggLength += 20;
-  }
-*/
+   
+   OPC(OPC opc, Rig rig) {
+   //rig = _rig;
+   eggs[0] = new PVector(rig.size.x-75, rig.size.y);
+   eggs[1] = new PVector(rig.size.x+75, rig.size.y);
+   println("eggs x/y ", eggs[0], eggs[1]);
+   eggLength = 100;
+   int fc = 10 * 512;
+   int channel = 64;
+   opc.led(fc+(channel*6), int(eggs[0].x), int(eggs[0].y-(eggLength/2)));          
+   opc.led(fc+(channel*6)+1, int(eggs[0].x), int(eggs[0].y));
+   opc.led(fc+(channel*6)+2, int(eggs[0].x), int(eggs[0].y+(eggLength/2)));
+   
+   opc.led(fc+(channel*7), int(eggs[1].x), int(eggs[1].y-(eggLength/2)));          
+   opc.led(fc+(channel*7)+1, int(eggs[1].x), int(eggs[1].y));
+   opc.led(fc+(channel*7)+2, int(eggs[1].x), int(eggs[1].y+(eggLength/2)));
+   
+   eggLength += 20;
+   }
+   */
   void spiralShieldsOPC(OPC[] _opc) {
     opclist = _opc;
     ringSize = new float[] { rig.wide/8.3, rig.wide/5.5, rig.wide/4.5 };
@@ -928,6 +928,10 @@ class OPCGrid {
     opc.led(fc+(channel*5), int(eggs[0].x), int(eggs[0].y-(eggLength/2)));          
     opc.led(fc+(channel*5)+1, int(eggs[0].x), int(eggs[0].y));
     opc.led(fc+(channel*5)+2, int(eggs[0].x), int(eggs[0].y+(eggLength/2)));
+    int leds = 28;
+    opc.ledStrip(fc+(channel*5)+3, leds, int(eggs[0].x+10), int(eggs[0].y), rig.high/1.5/leds, PI/2, false);
+    opc.ledStrip(fc+(channel*5)+3+leds, leds, int(eggs[0].x-10), int(eggs[0].y), rig.high/1.5/leds, PI/2, true);
+
 
     opc.led(fc+(channel*6), int(eggs[1].x), int(eggs[1].y-(eggLength/2)));          
     opc.led(fc+(channel*6)+1, int(eggs[1].x), int(eggs[1].y));
