@@ -48,7 +48,7 @@ void settings() {
   size = new SizeSettings(LANDSCAPE);
   //fullScreen();
   size(size.sizeX, size.sizeY, P2D);
-  size.surfacePositionX = 1920-width-50;
+  size.surfacePositionX = 1920-width-400;
   if (SHITTYLAPTOP) size.surfacePositionX = 0;
   size.surfacePositionY = 150;
 }
@@ -60,7 +60,7 @@ void setup()
 
   //surface.setLocation(size.surfacePositionX, size.surfacePositionY);
   MCFinitialized = false;
-  controlFrame = new MainControlFrame(this, width*2, 530, size.surfacePositionX, size.surfacePositionY+height+5); // load control frame must come after shild ring etc
+  controlFrame = new MainControlFrame(this, width*2, 530, size.surfacePositionX, size.surfacePositionY+height+50); // load control frame must come after shild ring etc
   opcGrid = new OPCGrid();
 
   // order of these is important for layout of sliders
@@ -88,15 +88,16 @@ void setup()
   ///////////////// OPC over NETWORK /////////////////////
   opcMirror1 = new OPC(this, "192.168.10.1", 7890);     // left hand mirror
   opcMirror2 = new OPC(this, "192.168.10.5", 7890);     // right hand mirror
-  opcNode4 = new OPC(this, "192.168.10.210", 7890);
-  opcNode3 = new OPC(this, "192.168.10.3", 7890);
+  //opcNode4 = new OPC(this, "192.168.10.210", 7890);
+  //opcNode3 = new OPC(this, "192.168.10.3", 7890);
   //opcNode6 = new OPC(this, "192.168.10.6", 7890);
   opcNode7 = new OPC(this, "192.168.10.7", 7890);
 
   opcGrid.mirrorsOPC(opcMirror1, opcMirror2, 1);               // grids 0-3 MIX IT UPPPPP 
-  opcGrid.standAloneBoothOPC(opcNode7);
-  opcGrid.tawSeedsOPC(cans, opcLocal, opcLocal);
+  opcGrid.standAloneBoothOPC(opcLocal);
+  //opcGrid.tawSeedsOPC(cans, opcLocal, opcLocal);
   opcGrid.individualCansOPC(roof, opcLocal, true);
+  opcGrid.wigflexBlinders(pars, opcLocal);
   //opcGrid.dmxParsOPC(opcLocal);
   opcGrid.dmxSmokeOPC(opcLocal);
 
@@ -211,6 +212,20 @@ void dmxSmoke() {
     fill(360*smokePumpValue);
     rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 10, 10);
   }
+
+  if (keyP[' ']) { 
+println("blinders strobe effect ",cc[41]*255);
+    fill (360);
+    rect(pars.size.x, pars.size.y, pars.wide, pars.high-50);
+  } 
+
+  fill(360*cc[40]);
+  rect(1062, 10, 10, 10); //blinders dimmer
+  fill(360*cc[41]);
+  rect(1062, 20, 10, 10); // blinders strobe effect
+  
+  fill(0);
+  rect(width-2,10,10,30);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////// THE END //////////////////////////////////////////////////////////////////////////////////////////////

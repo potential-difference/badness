@@ -679,6 +679,36 @@ class OPCGrid {
   }
   ////////////////////////////////// DMX  /////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  void wigflexBlinders(Rig _rig, OPC opc) {
+    rig = _rig;
+
+    int back = 8005;
+    int front = 8015;
+
+
+    opc.led(back, int(rig.size.x), int(rig.size.y-(rig.high/5)));
+    opc.led(front, int(rig.size.x), int(rig.size.y+(rig.high/3)));
+
+    opc.led( 8006, int(rig.size.x-(rig.wide/2)+10), int(rig.size.y-(rig.high/2)+20)); // shutter fx
+    opc.led( 8016, int(rig.size.x-(rig.wide/2)+12), int(rig.size.y-(rig.high/2)+20));
+
+    opc.led(8007, int(rig.size.x-(rig.wide/2)+10), int(rig.size.y-(rig.high/2)+10)); // master dimmer 
+    opc.led(8017, int(rig.size.x-(rig.wide/2)+12), int(rig.size.y-(rig.high/2)+10));
+
+    opc.led(8001, int(rig.size.x+(rig.wide/2)-2), int(rig.size.y-(rig.high/2)+10)); // channel 1
+    opc.led(8011, int(rig.size.x+(rig.wide/2)-2), int(rig.size.y-(rig.high/2)+11));
+
+    opc.led(8002, int(rig.size.x+(rig.wide/2)-2), int(rig.size.y-(rig.high/2)+12)); // channel 2
+    opc.led(8012, int(rig.size.x+(rig.wide/2)-2), int(rig.size.y-(rig.high/2)+13));
+
+    opc.led(8003, int(rig.size.x+(rig.wide/2)-2), int(rig.size.y-(rig.high/2)+14)); // channel 3
+    opc.led(8013, int(rig.size.x+(rig.wide/2)-2), int(rig.size.y-(rig.high/2)+15));
+    
+    opc.led(8004, int(rig.size.x+(rig.wide/2)-2), int(rig.size.y-(rig.high/2)+16)); // channel 4
+    opc.led(8014, int(rig.size.x+(rig.wide/2)-2), int(rig.size.y-(rig.high/2)+17));
+  }
+
+
   void dmxParsOPC(OPC opc) {
     for (int i = 0; i < 12; i+=2) opc.led(6048+i, int(pars.size.x), int(pars.size.y-(pars.high/2)+100+(i*40)));
   } 

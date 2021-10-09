@@ -708,7 +708,7 @@ class Anim {
     window.strokeWeight(stroke);
     window.stroke(360*alph);
     window.noFill();
-    window.pushMatrix();
+    window.pushMatrix();                /// CAUSES CRASHES
     window.translate(xpos, ypos);
     window.rotate(radians(rotate));
     window.ellipse(0, 0, wide, high);
