@@ -16,7 +16,7 @@ class MainControlFrame extends ControlFrame {
     this.sliderY=y;
     rigg = new Rig(false,size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
     roof = new Rig(false,size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
-    cans = new Rig(true,size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "EGGS");
+    cans = new Rig(true,size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "SEEDS");
     pars = new Rig(true,size.pars.x, size.pars.y, size.parsWidth, size.parsHeight, "PARS");
  
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////

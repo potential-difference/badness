@@ -463,11 +463,12 @@ public class Rig {
 
     float textHeight = 18;
     textSize(textHeight);
+
     float nameWidth = textWidth(name);
     float x = size.x+(wide/2)-(nameWidth/2)-12;
     float y = size.y-(high/2)+21;
 
-    //if (this == cans) x = size.x+25;
+    if (this == cans) y -=30;;
 
     fill(360);
     textAlign(CENTER);
@@ -482,6 +483,8 @@ public class Rig {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     x = x-(nameWidth+17);
     y = size.y-(high/2)+20;
+    
+    if (this == cans) y -=30;;
 
     ///// RECTANGLES TO SHOW CURRENT COLOURS /////
     fill(0);                              

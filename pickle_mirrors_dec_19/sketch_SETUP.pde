@@ -14,7 +14,7 @@ class SizeSettings {
     case LANDSCAPE:
       rigWidth = 900;                                    // WIDTH of rigViz
       if (SHITTYLAPTOP) rigWidth = 600;
-      rigHeight = 350;    
+      rigHeight = 310;    
       if (SHITTYLAPTOP) rigHeight = 250;
       rig = new PVector(rigWidth/2, (rigHeight/2));   // cordinates for center of rig
       break;
@@ -22,12 +22,12 @@ class SizeSettings {
 
     ////////////////////////////////  CANS SETUP UNDER RIG ///////////////////////
     cansWidth = rigWidth;
-    cansHeight = 250;
+    cansHeight = 50;
     if (SHITTYLAPTOP) cansHeight = 250;
     cans = new PVector (rig.x, rigHeight+(cansHeight/2));
 
     ////////////////////////////////  ROOF SETUP RIGHT OF RIG ///////////////////////
-    roofWidth = 300;
+    roofWidth = 150;
     roofHeight = rigHeight+cansHeight;
     roof = new PVector (rigWidth+(roofWidth/2), roofHeight/2);
 
@@ -45,9 +45,22 @@ class SizeSettings {
 void midiSetup() {
   MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
   println();
-  TR8bus = new MidiBus(this, "TR-8S", "TR8-S"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
-  LPD8bus = new MidiBus(this, "LPD8", "LPD8"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
-  beatStepBus = new MidiBus(this, "Arturia BeatStep", "Arturia BeatStep"); // Create a new MidiBus using the device index to select the Midi input and output devices respectively.
+  String[] inputs = MidiBus.availableInputs();
+  //String[] outputs = MidiBus.availableOutputs(); 
+  for (String in : inputs){
+    if (in.contains("TR-8S")) { 
+      TR8bus = new MidiBus(this, in,in);
+      println("Found TR8: ",in);
+    }
+    if (in.contains("LPD8")) {
+      LPD8bus = new MidiBus(this,in,in);
+      println("Found LPD8: ", in);
+    }
+    if (in.contains("BeatStep")) { 
+      beatStepBus = new MidiBus(this,in,in);
+      println("Found Arturia BeatStep: ", in);
+    }
+  }
 }
 
 //////////////////////////////////////// LOAD IMAGES ///////////////////////////

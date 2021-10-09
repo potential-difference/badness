@@ -705,7 +705,7 @@ class Anim {
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
   void star(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
-    window.strokeWeight(-stroke);
+    window.strokeWeight(stroke);
     window.stroke(360*alph);
     window.noFill();
     window.pushMatrix();

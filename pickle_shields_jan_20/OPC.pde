@@ -362,7 +362,7 @@ public class OPC implements Runnable
 
       // Pause thread to avoid massive CPU load
       try {
-        thread.sleep(500);
+        Thread.sleep(500);
       }
       catch(InterruptedException e) {
       }
