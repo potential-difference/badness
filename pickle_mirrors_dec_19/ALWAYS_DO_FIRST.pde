@@ -9,7 +9,7 @@ void setupSpecifics() {
   rigg.availableAnims = new int[] {0, 1, 3, 6, 7, 10, 11, 12};      // setup which anims are used on which rig here
   roof.availableAnims = new int[] {1, 3, 6, 7, 10, 11, 12};      // setup which anims are used on which rig here - defualt is 0,1,2,3...
   cans.availableAnims = new int[] {0, 1, 3, 6, 7, 10, 11, 12};      // setup which anims are used on which rig here
-  pars.availableAnims = new int[] {6,10,11,12};      // setup which anims are used on which rig here
+  pars.availableAnims = new int[] {6,11,12};      // setup which anims are used on which rig here
 
   rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5};  
   roof.availableFunctionEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  

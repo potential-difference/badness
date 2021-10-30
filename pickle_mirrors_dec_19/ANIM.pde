@@ -330,8 +330,10 @@ class DiagoNuts extends Anim {
     high *=highSlider;
 
     if (rig == rigg) {
-      squareNut(position[1].x, viz.y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 45, alphaA);
-      squareNut(position[4].x, viz.y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 45, alphaA);
+      squareNut(position[0].x, viz.y/4, col1, stroke, wide-(wide*functionA), high-(high*functionA), 45, alphaA);
+      squareNut(position[5].x, viz.y/4, col1, stroke, wide-(wide*functionA), high-(high*functionA), 45, alphaA);
+
+      squareNut(viz.x, viz.y/4*3, col1, stroke, wide-(wide*functionB), high-(high*functionA), 45, alphaB);
     } else {
       squareNut(window.width/4, window.height/4, col1, stroke, wide-(wide*functionA), high-(high*functionA), 45, alphaA);
       squareNut(window.width/4*3, window.height/4*3, col1, stroke, wide-(wide*functionA), high-(high*functionA), 45, alphaA);

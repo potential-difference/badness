@@ -96,7 +96,7 @@ void setup()
   opcGrid.mirrorsOPC(opcMirror1, opcMirror2, 1);               // grids 0-3 MIX IT UPPPPP 
   opcGrid.standAloneBoothOPC(opcLocal);
   //opcGrid.tawSeedsOPC(cans, opcLocal, opcLocal);
-  opcGrid.individualCansOPC(roof, opcLocal, true);
+  opcGrid.forestRoadCansOPC(roof, opcLocal);
   opcGrid.wigflexBlinders(pars, opcLocal);
   //opcGrid.dmxParsOPC(opcLocal);
   opcGrid.dmxSmokeOPC(opcLocal);
@@ -208,16 +208,16 @@ void dmxSmoke() {
   fill(300);
   text("smoke on in: "+smokeInfo+" seconds", opcGrid.smokePump.x+200, opcGrid.smokePump.y+5);
 
-  if (keyP['0']) {
+  if (keyP[' ']) {
     fill(360*smokePumpValue);
     rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 10, 10);
   }
 
-  if (keyP[' ']) { 
-println("blinders strobe effect ",cc[41]*255);
-    fill (360);
-    rect(pars.size.x, pars.size.y, pars.wide, pars.high-50);
-  } 
+//  if (keyP[' ']) { 
+//println("blinders strobe effect ",cc[41]*255);
+//    fill (360);
+//    rect(pars.size.x, pars.size.y, pars.wide, pars.high-50);
+//  } 
 
   fill(360*cc[40]);
   rect(1062, 10, 10, 10); //blinders dimmer
@@ -227,6 +227,7 @@ println("blinders strobe effect ",cc[41]*255);
   fill(0);
   rect(width-2,10,10,30);
 }
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////// THE END //////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

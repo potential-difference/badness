@@ -594,13 +594,35 @@ class OPCGrid {
     cansString[1] = new PVector(rig.size.x, rig.size.y);
     cansString[2] = new PVector(rig.size.x, rig.size.y+(rig.high/4));
 
-    int fc = 2 * 512;
+    int fc = 9 * 512;
     int channel = 64;
     int leds = 6;
     pd = int(_cansLength/6);
     opc.ledStrip(fc+(channel*5), leds, int(cansString[0].x), int(cansString[0].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
     opc.ledStrip(fc+(channel*6), leds, int(cansString[1].x), int(cansString[1].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
     opc.ledStrip(fc+(channel*7), leds, int(cansString[2].x), int(cansString[2].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
+
+    cansLength = _cansLength - (pd/2);
+  } /////////////////////////////////////////////////////////////////////////////////////////////////////
+  void forestRoadCansOPC(Rig _rig, OPC opc) {
+    rig = _rig;
+    _cansLength = size.rigHeight;
+        pd = int(_cansLength/6);
+
+    cansString[0] = new PVector(rig.size.x-(rig.wide/4), rig.size.y);
+    cansString[1] = new PVector(rig.size.x, rig.size.y+(pd/2));
+    cansString[2] = new PVector(rig.size.x+(rig.wide/4), rig.size.y-(pd/3));
+
+    int fc = 9 * 512;
+    int channel = 64;
+
+    opc.ledStrip(fc+(channel*0), 6, int(cansString[0].x), int(cansString[0].y), pd, PI/2, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
+
+
+    opc.ledStrip(fc+(channel*1), 6, int(cansString[1].x), int(cansString[1].y), pd, PI/2, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
+
+    pd = int(_cansLength/3);
+    opc.ledStrip(fc+(channel*2), 3, int(cansString[2].x), int(cansString[2].y), pd, PI/2, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
 
     cansLength = _cansLength - (pd/2);
   } /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -703,7 +725,7 @@ class OPCGrid {
 
     opc.led(8003, int(rig.size.x+(rig.wide/2)-2), int(rig.size.y-(rig.high/2)+14)); // channel 3
     opc.led(8013, int(rig.size.x+(rig.wide/2)-2), int(rig.size.y-(rig.high/2)+15));
-    
+
     opc.led(8004, int(rig.size.x+(rig.wide/2)-2), int(rig.size.y-(rig.high/2)+16)); // channel 4
     opc.led(8014, int(rig.size.x+(rig.wide/2)-2), int(rig.size.y-(rig.high/2)+17));
   }
