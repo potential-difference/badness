@@ -28,21 +28,33 @@ class SizeSettings {
     }
 
     ////////////////////////////////  ROOF SETUP RIGHT OF RIG ///////////////////////
-    roofWidth = rigHeight;
+  //  if (roof != null){
     roofHeight = rigHeight;
+    roofWidth = 400;
     roof = new PVector (rigWidth+(roofWidth/2), roofHeight/2);
-
+    //} else {
+    //  roofHeight = rigHeight;
+    //  roofWidth = 0;
+    //}
     ////////////////////////////////  CANS SETUP RIGHT OF ROOF ///////////////////////
+    if (cans != null){
     cansWidth = 200;
     cansHeight = rigHeight;
     //if (SHITTYLAPTOP) cansHeight = 250;
     cans = new PVector (rigWidth+roofWidth+(cansWidth/2), cansHeight/2);
-
+    } else {
+      cansWidth = 0;
+      cansHeight = rigHeight;
+    }
     //////////////////////////////// PARS SETUP FAR RIGHT ////////////////////////////
+    if (pars != null){
     parsWidth = 200;
     parsHeight = rigHeight;
     pars = new PVector(rigWidth+roofWidth+cansWidth+(parsWidth/2), parsHeight/2);      
-
+    } else {
+      parsWidth = 0;
+      parsHeight = rigHeight;
+    }
     sizeX = rigWidth+roofWidth+cansWidth+parsWidth;
     sizeY = rigHeight;
   }

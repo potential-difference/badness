@@ -23,7 +23,6 @@ Rig rigg, roof, cans, mirrors, strips, donut, seeds, pars;
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
 PFont font;
 
-
 import javax.sound.midi.ShortMessage;       // shorthand names for each control on the TR8
 import oscP5.*;
 import netP5.*;
@@ -50,7 +49,6 @@ void settings() {
 }
 void setup()
 {
-    
     surface.setSize(size.sizeX, size.sizeY);
     surface.setAlwaysOnTop(onTop);
     /*
@@ -61,7 +59,7 @@ void setup()
     
     //surface.setLocation(size.surfacePositionX, size.surfacePositionY);
     MCFinitialized = false;
-    controlFrame = new MainControlFrame(this, width * 2, 530, size.surfacePositionX, size.surfacePositionY + height + 5); // load control frame must come after shild ring etc
+    controlFrame = new MainControlFrame(this, width, 380, size.surfacePositionX, size.surfacePositionY + height + 5); // load control frame must come after shild ring etc
     opcGrid = new OPCGrid();
     
     //order of these is important for layout of sliders
@@ -74,7 +72,7 @@ void setup()
     
     int frameWidth = 220;
     SFinitialized = false;
-    sliderFrame = new SliderFrame(this, frameWidth, height + controlFrame.height + 5, size.surfacePositionX - frameWidth - 5, size.surfacePositionY); // load control frame must come after shild ring etc
+    sliderFrame = new SliderFrame(this, frameWidth, 560, size.surfacePositionX - frameWidth - 5, size.surfacePositionY); // load control frame must come after shild ring etc
     
     print("SliderFrame");
     //wait for MCF,SF to be initialized

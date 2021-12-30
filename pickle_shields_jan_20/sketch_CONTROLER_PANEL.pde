@@ -17,10 +17,12 @@ class MainControlFrame extends ControlFrame {
         this.high = 20;
         loadToggle("testToggle", testToggle, x, 10, 55, 55, bac1, bac, slider);
         loadToggle("onTop", onTop, x - 30, 45, wide, high, bac1, bac, slider);
+
         // *** NEVER REMOVE RIGG FOR NOW *** // it is the source of truth for colour etc
         
         rigg = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
         roof = new Rig(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
+
         //cans = new Rig(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "EGGS");
         //pars = new Rig(size.pars.x, size.pars.y, size.parsWidth, size.parsHeight, "PARS");
         
@@ -67,7 +69,7 @@ class MainControlFrame extends ControlFrame {
            if (!roof.toggle) fill(rigg.c, 100);
             textSize(18);
             textAlign(LEFT);
-            x = size.roof.x - (size.roofWidth / 2) + 10;
+            x = size.roof.x - (size.roofWidth / 2) + 30;
             text("roofViz: " + roof.availableAnims[roof.vizIndex], x, y);
             text("bkgrnd: " + roof.availableBkgrnds[roof.bgIndex], x, y + 20);
             text("func's: " + roof.availableFunctionEnvelopes[roof.functionIndexA] + " / " + roof.availableFunctionEnvelopes[roof.functionIndexB], x + 120, y);
@@ -80,7 +82,7 @@ class MainControlFrame extends ControlFrame {
            if (!cans.toggle) fill(rigg.c, 100);
             textSize(18);
             textAlign(LEFT);
-            x = size.cans.x - (size.cansWidth / 2) + 10;
+            x = size.cans.x - (size.cansWidth / 2) + 30;
             text("liveViz: " + cans.availableAnims[cans.vizIndex], x, y);
             text("bkgrnd: " + cans.availableBkgrnds[cans.bgIndex], x, y + 20);
             text("func's: " + cans.availableFunctionEnvelopes[cans.functionIndexA] + " / " + cans.availableFunctionEnvelopes[cans.functionIndexB], x + 120, y);
@@ -89,7 +91,7 @@ class MainControlFrame extends ControlFrame {
         
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         int sliderY = 90;
-        sequencer(rigg.wide, sliderY - 20);
+        sequencer(245, sliderY - 25);
         pauseInfo(width - 5, sliderY - 15);
         dividerLines();
         fill(rigg.c);                              // divider for sliders
@@ -100,7 +102,7 @@ class MainControlFrame extends ControlFrame {
         fill(flashtest);
         rect(1080, sliderY + 30, 50, 50);
         
-}
+    }
 }
 
 class SliderFrame extends ControlFrame {
@@ -138,45 +140,6 @@ class SliderFrame extends ControlFrame {
         loadToggle("smokeToggle", smokeToggle, 2 * x + wide, y + row * 6.5, 70, int(high + row * 1.25), bac1, bac, slider);
         this.cp5.getController("smokeToggle").setLabel("smoke auto timer");
         
-        high= 12;
-        int gap =  high + 4;
-        y = this.y + row * 11;
-       
-        // bang buttons work as equlilivant to midi pad buttons
-        for (int i = 0; i < 16; i ++) {
-            this.cp5.addBang("bang " + i)
-               .setPosition(x + wide + 50, y + (i * gap))
-               .setSize(high, high)
-               .setId(i)
-               .setLabelVisible(false)
-               .setColorActive(act) 
-               .setColorForeground(bac)         
-               .addCallback(new CallbackListener() {
-                public void controlEvent(CallbackEvent theEvent) {
-                   String name = theEvent.getController().getName();   
-                    int tens =0;
-                    int ones =int(name.substring(5, 6));
-                   if (name.length() > 6) {
-                       tens = int(name.substring(5, 6));
-                       ones = int(name.substring(6, 7));
-                }
-                    int index = ones + (tens * 10) + 36;
-                    switch(theEvent.getAction()) {
-                        case(ControlP5.ACTION_PRESS) : 
-                            println(name, "pressed // padVelocity[" + index + "] = 1"); 
-                        padVelocity[index] = 1;
-                        padPressed[36] = true;
-                        break;
-                        case(ControlP5.ACTION_RELEASE) : 
-                            println(name, "released // padVelocity[" + index + "] = 0"); 
-                        padVelocity[index] = 0;
-                        padPressed[36] = false;
-                        break;
-                }
-                }
-        }
-           );
-        }
         SFinitialized = true;
 }
     //draw depends on both sliderframe and main control frame
@@ -187,8 +150,8 @@ class SliderFrame extends ControlFrame {
         dividerLines();
         
         //Envelopes visulization
-        float y = 540;             // STARTING HEIGHT for sections
-        float y1 = 160;            // LENGTH of sections
+        float y = row*12;             // STARTING HEIGHT for sections
+        float y1 = 160;               // LENGTH of sections
         float dist = 15;
         int i = 0;
         
@@ -232,7 +195,7 @@ class SliderFrame extends ControlFrame {
         rect(this.width - 12, y - 5 + y1, 1, y1 - 25);
         rectMode(CENTER);
         
-}
+  }
 }
 
 class ControlFrame extends PApplet {

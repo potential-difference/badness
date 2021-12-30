@@ -14,7 +14,6 @@ void setupSpecifics() {
     println(classMap);
     */
 
-    
     if (rigg != null) {
         // setup which anims are used on which rig here
         rigg.availableAnims = new int[] {1, 2, 3, 6, 7, 8};      
@@ -22,8 +21,7 @@ void setupSpecifics() {
         rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
         rigg.availableFunctionEnvelopes = new int[] {0, 1, 2};  
         rigg.availableBkgrnds = new int[] {0, 1, 10, 11, 12, 13, 14};
-        //rigg.availableColors = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
-        
+        //rigg.availableColors = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};     
     }
     
     if (roof != null) {
@@ -32,13 +30,13 @@ void setupSpecifics() {
         roof.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
         roof.availableFunctionEnvelopes = new int[] {0, 1, 2};  
         roof.availableBkgrnds = new int[] {0, 1, 3, 4, 5, 8, 10};
-        //roof.availableColors = rigg.availableColors; // = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
-        
+        //roof.availableColors = rigg.availableColors; 
+        // = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
     }
     
     if (cans!= null) {
-        cans.availableAnims = new int[] {0, 7, 8, 11, 12, 13, 14, 15, 17, 18, 19};        // setup which anims are used on which rig here - defualt is 0,1,2,3...
-    }
+        // setup which anims are used on which rig here - defualt is 0,1,2,3...
+        cans.availableAnims = new int[] {0, 7, 8, 11, 12, 13, 14, 15, 17, 18, 19};     }
     
     if (pars != null) {
         pars.availableAnims = new int[] {0, 19};      // setup which anims are used on which rig here
@@ -69,7 +67,7 @@ void setupSpecifics() {
         for (int i = 0; i<rig.availableAnims.length; i++) {
         String name = rig.availableAnims[i];
         rig.ddVizList.addItem(name,i); 
-    }
+        }
         */
         for (int i = 0; i < rig.availableAlphaEnvelopes.length; i++) {
             int index = rig.availableAlphaEnvelopes[i];
@@ -90,28 +88,24 @@ void setupSpecifics() {
         //need to use the actal numbers from the above aray
     }
     
-    //rigg.dimmers.put(3, new Ref(cc, 34));
     
     rigg.vizIndex = 2;
-    roof.vizIndex = 1;
     rigg.functionIndexA = 0;
     rigg.functionIndexB = 1;
     rigg.alphaIndexA = 0;
     rigg.alphaIndexB = 1;
     rigg.bgIndex = 0;
-    roof.bgIndex = 4;
-    
     rigg.colorIndexA = 2;
     rigg.colorIndexB = 1;
-    roof.colorIndexA = 1;
+   
+
+if (roof != null){
+    roof.vizIndex = 1;
+    roof.bgIndex = 4;
+     roof.colorIndexA = 1;
     roof.colorIndexB = 0;
-    //cans.colorIndexA = 7;
-    //cans.colorIndexB = 11;
-    //donut.colorIndexA = 
-    //donut.colorIndexB =;
-    
-    //cans.infoX += 100;
-    
+}
+        
     
     for (int i = 0; i < cc.length; i++) cc[i] = 0;  // set all midi values to 0;
     for (int i = 0; i < 100; i++) cc[i] = 1;      // set all knobs to 1 ready for shit happen

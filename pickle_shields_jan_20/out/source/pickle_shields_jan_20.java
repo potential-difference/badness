@@ -60,7 +60,6 @@ Rig rigg, roof, cans, mirrors, strips, donut, seeds, pars;
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
 PFont font;
 
-
        // shorthand names for each control on the TR8
 
 
@@ -87,7 +86,6 @@ public void settings() {
 }
 public void setup()
 {
-    
     surface.setSize(size.sizeX, size.sizeY);
     surface.setAlwaysOnTop(onTop);
     /*
@@ -98,7 +96,7 @@ public void setup()
     
     //surface.setLocation(size.surfacePositionX, size.surfacePositionY);
     MCFinitialized = false;
-    controlFrame = new MainControlFrame(this, width * 2, 530, size.surfacePositionX, size.surfacePositionY + height + 5); // load control frame must come after shild ring etc
+    controlFrame = new MainControlFrame(this, width, 380, size.surfacePositionX, size.surfacePositionY + height + 5); // load control frame must come after shild ring etc
     opcGrid = new OPCGrid();
     
     //order of these is important for layout of sliders
@@ -111,7 +109,7 @@ public void setup()
     
     int frameWidth = 220;
     SFinitialized = false;
-    sliderFrame = new SliderFrame(this, frameWidth, height + controlFrame.height + 5, size.surfacePositionX - frameWidth - 5, size.surfacePositionY); // load control frame must come after shild ring etc
+    sliderFrame = new SliderFrame(this, frameWidth, 560, size.surfacePositionX - frameWidth - 5, size.surfacePositionY); // load control frame must come after shild ring etc
     
     print("SliderFrame");
     //wait for MCF,SF to be initialized
@@ -267,7 +265,6 @@ public void setupSpecifics() {
     println(classMap);
     */
 
-    
     if (rigg != null) {
         // setup which anims are used on which rig here
         rigg.availableAnims = new int[] {1, 2, 3, 6, 7, 8};      
@@ -275,8 +272,7 @@ public void setupSpecifics() {
         rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
         rigg.availableFunctionEnvelopes = new int[] {0, 1, 2};  
         rigg.availableBkgrnds = new int[] {0, 1, 10, 11, 12, 13, 14};
-        //rigg.availableColors = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
-        
+        //rigg.availableColors = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};     
     }
     
     if (roof != null) {
@@ -285,13 +281,13 @@ public void setupSpecifics() {
         roof.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
         roof.availableFunctionEnvelopes = new int[] {0, 1, 2};  
         roof.availableBkgrnds = new int[] {0, 1, 3, 4, 5, 8, 10};
-        //roof.availableColors = rigg.availableColors; // = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
-        
+        //roof.availableColors = rigg.availableColors; 
+        // = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
     }
     
     if (cans!= null) {
-        cans.availableAnims = new int[] {0, 7, 8, 11, 12, 13, 14, 15, 17, 18, 19};        // setup which anims are used on which rig here - defualt is 0,1,2,3...
-    }
+        // setup which anims are used on which rig here - defualt is 0,1,2,3...
+        cans.availableAnims = new int[] {0, 7, 8, 11, 12, 13, 14, 15, 17, 18, 19};     }
     
     if (pars != null) {
         pars.availableAnims = new int[] {0, 19};      // setup which anims are used on which rig here
@@ -322,7 +318,7 @@ public void setupSpecifics() {
         for (int i = 0; i<rig.availableAnims.length; i++) {
         String name = rig.availableAnims[i];
         rig.ddVizList.addItem(name,i); 
-    }
+        }
         */
         for (int i = 0; i < rig.availableAlphaEnvelopes.length; i++) {
             int index = rig.availableAlphaEnvelopes[i];
@@ -343,28 +339,24 @@ public void setupSpecifics() {
         //need to use the actal numbers from the above aray
     }
     
-    //rigg.dimmers.put(3, new Ref(cc, 34));
     
     rigg.vizIndex = 2;
-    roof.vizIndex = 1;
     rigg.functionIndexA = 0;
     rigg.functionIndexB = 1;
     rigg.alphaIndexA = 0;
     rigg.alphaIndexB = 1;
     rigg.bgIndex = 0;
-    roof.bgIndex = 4;
-    
     rigg.colorIndexA = 2;
     rigg.colorIndexB = 1;
-    roof.colorIndexA = 1;
+   
+
+if (roof != null){
+    roof.vizIndex = 1;
+    roof.bgIndex = 4;
+     roof.colorIndexA = 1;
     roof.colorIndexB = 0;
-    //cans.colorIndexA = 7;
-    //cans.colorIndexB = 11;
-    //donut.colorIndexA = 
-    //donut.colorIndexB =;
-    
-    //cans.infoX += 100;
-    
+}
+        
     
     for (int i = 0; i < cc.length; i++) cc[i] = 0;  // set all midi values to 0;
     for (int i = 0; i < 100; i++) cc[i] = 1;      // set all knobs to 1 ready for shit happen
@@ -3868,7 +3860,7 @@ public void playWithYourself(float vizTm) {
 }
 
 public void colorLerping(Rig _rig, float function) {
-  if (_rig != null){
+  if (_rig != null) { 
   _rig.c = lerpColor(_rig.col[_rig.colorIndexB], _rig.col[_rig.colorIndexA], function);
   _rig.flash = lerpColor(_rig.col[_rig.colorIndexA], _rig.col[_rig.colorIndexB], function);
   colBeat = true;
@@ -3984,14 +3976,17 @@ public class Rig {
     col[14] = teal;
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
     ////////////////////////////// LOAD CONTROLLERS //////////////////////////////////////////////////////////////////////////////
-    int scaleFactor = 3;
-    int x = 10;            // starting x coordiante
-    int y = 90;            // starting y coordiante
-    int clm = 575;           // distance between coloms
-    int swide = 50*scaleFactor;          // x size of sliders
-    int shigh = 10*scaleFactor;          // y size of slider
-    int gap = shigh/6;
-    int row = shigh+4;       // distance between rows
+    float scaleFactor = 1.8f;
+    int x = 10;                               // starting x coordiante
+    int y = 90;                               // starting y coordiante
+    int swide = PApplet.parseInt(50*scaleFactor);          // x size of sliders
+    int shigh = PApplet.parseInt(10*scaleFactor);          // y size of slider
+    int listWidth = 140;                      // width of dropdown lists
+
+    int gap = shigh/4;
+    int row = shigh+4;                        // distance between rows
+    int clm = shigh + listWidth + swide + x + 100;                // distance between columns
+    clm = this.wide;                          // distance between columns based on rig width
 
     ///////////////////////////////// RADIO BUTTONS  //////////////////////////////////////////////////////////////////////////////
     cRadioButton = this.cp5.addRadioButton(name+" cRadioButton")
@@ -4020,15 +4015,14 @@ public class Rig {
     x += 2*(shigh+gap);
 
     ///////////////////////////////// DROPDOWN LISTS //////////////////////////////////////////////////////////////////////////////
-    int listWidth = 200;
     ddVizList = this.cp5.addScrollableList(name+" vizLizt").setPosition(x+(clm*arrayListIndex), y);
     ddBgList = this.cp5.addScrollableList(name+" bgList").setPosition(x+(clm*arrayListIndex), y+35);
 
     ddAlphaListA = this.cp5.addScrollableList(name+" alpahLizt").setPosition(x+(clm*arrayListIndex), y+70);
     ddFuncListA = this.cp5.addScrollableList(name+" funcLizt").setPosition(x+(clm*arrayListIndex), y+105);
 
-    ddAlphaListB = this.cp5.addScrollableList(name+" alpahLiztB").setPosition(x+(clm*arrayListIndex)+listWidth/2, y+70);
-    ddFuncListB = this.cp5.addScrollableList(name+" funcLiztB").setPosition(x+(clm*arrayListIndex)+listWidth/2, y+105);
+    ddAlphaListB = this.cp5.addScrollableList(name+" alpahLiztB").setPosition(x+(clm*arrayListIndex)+listWidth/2+5, y+70);
+    ddFuncListB = this.cp5.addScrollableList(name+" funcLiztB").setPosition(x+(clm*arrayListIndex)+listWidth/2+5, y+105);
 
     // the order of this has to be oppostie to the order they are displayed on screen
     customize(ddFuncListB, color(bac1, 200), bac, act, PApplet.parseInt(listWidth/2.1f), "funcB");     // customize the list
@@ -5098,10 +5092,12 @@ class MainControlFrame extends ControlFrame {
         this.high = 20;
         loadToggle("testToggle", testToggle, x, 10, 55, 55, bac1, bac, slider);
         loadToggle("onTop", onTop, x - 30, 45, wide, high, bac1, bac, slider);
+
         // *** NEVER REMOVE RIGG FOR NOW *** // it is the source of truth for colour etc
         
         rigg = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
         roof = new Rig(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
+
         //cans = new Rig(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "EGGS");
         //pars = new Rig(size.pars.x, size.pars.y, size.parsWidth, size.parsHeight, "PARS");
         
@@ -5148,7 +5144,7 @@ class MainControlFrame extends ControlFrame {
            if (!roof.toggle) fill(rigg.c, 100);
             textSize(18);
             textAlign(LEFT);
-            x = size.roof.x - (size.roofWidth / 2) + 10;
+            x = size.roof.x - (size.roofWidth / 2) + 30;
             text("roofViz: " + roof.availableAnims[roof.vizIndex], x, y);
             text("bkgrnd: " + roof.availableBkgrnds[roof.bgIndex], x, y + 20);
             text("func's: " + roof.availableFunctionEnvelopes[roof.functionIndexA] + " / " + roof.availableFunctionEnvelopes[roof.functionIndexB], x + 120, y);
@@ -5161,7 +5157,7 @@ class MainControlFrame extends ControlFrame {
            if (!cans.toggle) fill(rigg.c, 100);
             textSize(18);
             textAlign(LEFT);
-            x = size.cans.x - (size.cansWidth / 2) + 10;
+            x = size.cans.x - (size.cansWidth / 2) + 30;
             text("liveViz: " + cans.availableAnims[cans.vizIndex], x, y);
             text("bkgrnd: " + cans.availableBkgrnds[cans.bgIndex], x, y + 20);
             text("func's: " + cans.availableFunctionEnvelopes[cans.functionIndexA] + " / " + cans.availableFunctionEnvelopes[cans.functionIndexB], x + 120, y);
@@ -5170,7 +5166,7 @@ class MainControlFrame extends ControlFrame {
         
         /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
         int sliderY = 90;
-        sequencer(rigg.wide, sliderY - 20);
+        sequencer(245, sliderY - 25);
         pauseInfo(width - 5, sliderY - 15);
         dividerLines();
         fill(rigg.c);                              // divider for sliders
@@ -5181,7 +5177,7 @@ class MainControlFrame extends ControlFrame {
         fill(flashtest);
         rect(1080, sliderY + 30, 50, 50);
         
-}
+    }
 }
 
 class SliderFrame extends ControlFrame {
@@ -5219,45 +5215,6 @@ class SliderFrame extends ControlFrame {
         loadToggle("smokeToggle", smokeToggle, 2 * x + wide, y + row * 6.5f, 70, PApplet.parseInt(high + row * 1.25f), bac1, bac, slider);
         this.cp5.getController("smokeToggle").setLabel("smoke auto timer");
         
-        high= 12;
-        int gap =  high + 4;
-        y = this.y + row * 11;
-       
-        // bang buttons work as equlilivant to midi pad buttons
-        for (int i = 0; i < 16; i ++) {
-            this.cp5.addBang("bang " + i)
-               .setPosition(x + wide + 50, y + (i * gap))
-               .setSize(high, high)
-               .setId(i)
-               .setLabelVisible(false)
-               .setColorActive(act) 
-               .setColorForeground(bac)         
-               .addCallback(new CallbackListener() {
-                public void controlEvent(CallbackEvent theEvent) {
-                   String name = theEvent.getController().getName();   
-                    int tens =0;
-                    int ones =PApplet.parseInt(name.substring(5, 6));
-                   if (name.length() > 6) {
-                       tens = PApplet.parseInt(name.substring(5, 6));
-                       ones = PApplet.parseInt(name.substring(6, 7));
-                }
-                    int index = ones + (tens * 10) + 36;
-                    switch(theEvent.getAction()) {
-                        case(ControlP5.ACTION_PRESS) : 
-                            println(name, "pressed // padVelocity[" + index + "] = 1"); 
-                        padVelocity[index] = 1;
-                        padPressed[36] = true;
-                        break;
-                        case(ControlP5.ACTION_RELEASE) : 
-                            println(name, "released // padVelocity[" + index + "] = 0"); 
-                        padVelocity[index] = 0;
-                        padPressed[36] = false;
-                        break;
-                }
-                }
-        }
-           );
-        }
         SFinitialized = true;
 }
     //draw depends on both sliderframe and main control frame
@@ -5268,8 +5225,8 @@ class SliderFrame extends ControlFrame {
         dividerLines();
         
         //Envelopes visulization
-        float y = 540;             // STARTING HEIGHT for sections
-        float y1 = 160;            // LENGTH of sections
+        float y = row*12;             // STARTING HEIGHT for sections
+        float y1 = 160;               // LENGTH of sections
         float dist = 15;
         int i = 0;
         
@@ -5313,7 +5270,7 @@ class SliderFrame extends ControlFrame {
         rect(this.width - 12, y - 5 + y1, 1, y1 - 25);
         rectMode(CENTER);
         
-}
+  }
 }
 
 class ControlFrame extends PApplet {
@@ -5762,6 +5719,8 @@ public void cordinatesInfo(Rig rig, boolean _info) {
   }
 }
 public void dividerLines() {
+
+  // *** TO DO *** // sort out roof variables here
   fill(rigg.flash, 200);
   rect(size.rigWidth, height/2, 1, height);                                         //// vertical line to show end of rig viz area
   rect(size.rigWidth+size.roofWidth, height/2, 1, height);                          //// vertical line to show end of roof viz area
@@ -5845,21 +5804,33 @@ class SizeSettings {
     }
 
     ////////////////////////////////  ROOF SETUP RIGHT OF RIG ///////////////////////
-    roofWidth = rigHeight;
+  //  if (roof != null){
     roofHeight = rigHeight;
+    roofWidth = 400;
     roof = new PVector (rigWidth+(roofWidth/2), roofHeight/2);
-
+    //} else {
+    //  roofHeight = rigHeight;
+    //  roofWidth = 0;
+    //}
     ////////////////////////////////  CANS SETUP RIGHT OF ROOF ///////////////////////
+    if (cans != null){
     cansWidth = 200;
     cansHeight = rigHeight;
     //if (SHITTYLAPTOP) cansHeight = 250;
     cans = new PVector (rigWidth+roofWidth+(cansWidth/2), cansHeight/2);
-
+    } else {
+      cansWidth = 0;
+      cansHeight = rigHeight;
+    }
     //////////////////////////////// PARS SETUP FAR RIGHT ////////////////////////////
+    if (pars != null){
     parsWidth = 200;
     parsHeight = rigHeight;
     pars = new PVector(rigWidth+roofWidth+cansWidth+(parsWidth/2), parsHeight/2);      
-
+    } else {
+      parsWidth = 0;
+      parsHeight = rigHeight;
+    }
     sizeX = rigWidth+roofWidth+cansWidth+parsWidth;
     sizeY = rigHeight;
   }

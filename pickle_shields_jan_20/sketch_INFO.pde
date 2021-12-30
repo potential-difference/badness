@@ -64,6 +64,8 @@ void cordinatesInfo(Rig rig, boolean _info) {
   }
 }
 void dividerLines() {
+
+  // *** TO DO *** // sort out roof variables here
   fill(rigg.flash, 200);
   rect(size.rigWidth, height/2, 1, height);                                         //// vertical line to show end of rig viz area
   rect(size.rigWidth+size.roofWidth, height/2, 1, height);                          //// vertical line to show end of roof viz area

@@ -108,14 +108,17 @@ public class Rig {
     col[14] = teal;
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
     ////////////////////////////// LOAD CONTROLLERS //////////////////////////////////////////////////////////////////////////////
-    int scaleFactor = 3;
-    int x = 10;            // starting x coordiante
-    int y = 90;            // starting y coordiante
-    int clm = 575;           // distance between coloms
-    int swide = 50*scaleFactor;          // x size of sliders
-    int shigh = 10*scaleFactor;          // y size of slider
-    int gap = shigh/6;
-    int row = shigh+4;       // distance between rows
+    float scaleFactor = 1.8;
+    int x = 10;                               // starting x coordiante
+    int y = 90;                               // starting y coordiante
+    int swide = int(50*scaleFactor);          // x size of sliders
+    int shigh = int(10*scaleFactor);          // y size of slider
+    int listWidth = 140;                      // width of dropdown lists
+
+    int gap = shigh/4;
+    int row = shigh+4;                        // distance between rows
+    int clm = shigh + listWidth + swide + x + 100;                // distance between columns
+    clm = this.wide;                          // distance between columns based on rig width
 
     ///////////////////////////////// RADIO BUTTONS  //////////////////////////////////////////////////////////////////////////////
     cRadioButton = this.cp5.addRadioButton(name+" cRadioButton")
@@ -144,15 +147,14 @@ public class Rig {
     x += 2*(shigh+gap);
 
     ///////////////////////////////// DROPDOWN LISTS //////////////////////////////////////////////////////////////////////////////
-    int listWidth = 200;
     ddVizList = this.cp5.addScrollableList(name+" vizLizt").setPosition(x+(clm*arrayListIndex), y);
     ddBgList = this.cp5.addScrollableList(name+" bgList").setPosition(x+(clm*arrayListIndex), y+35);
 
     ddAlphaListA = this.cp5.addScrollableList(name+" alpahLizt").setPosition(x+(clm*arrayListIndex), y+70);
     ddFuncListA = this.cp5.addScrollableList(name+" funcLizt").setPosition(x+(clm*arrayListIndex), y+105);
 
-    ddAlphaListB = this.cp5.addScrollableList(name+" alpahLiztB").setPosition(x+(clm*arrayListIndex)+listWidth/2, y+70);
-    ddFuncListB = this.cp5.addScrollableList(name+" funcLiztB").setPosition(x+(clm*arrayListIndex)+listWidth/2, y+105);
+    ddAlphaListB = this.cp5.addScrollableList(name+" alpahLiztB").setPosition(x+(clm*arrayListIndex)+listWidth/2+5, y+70);
+    ddFuncListB = this.cp5.addScrollableList(name+" funcLiztB").setPosition(x+(clm*arrayListIndex)+listWidth/2+5, y+105);
 
     // the order of this has to be oppostie to the order they are displayed on screen
     customize(ddFuncListB, color(bac1, 200), bac, act, int(listWidth/2.1), "funcB");     // customize the list
