@@ -1,6 +1,7 @@
 # badness
 processing lighting code
 
+TOOD - remove all extar folders and rename to shields to wigflex
 
 WIGFLEX BRANCH 2021
 
