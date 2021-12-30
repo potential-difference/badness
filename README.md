@@ -2,11 +2,10 @@
 processing lighting code
 
 
-WIGFLEX BRANCH 2021
+NYE BRANCH 2021
 
-Running mirrors code on outside stage. Mirrors, cans and rental blinders
+using most advanced shields code to just run the cans
 
-Shields code running inside, still waiting to be pushed
 
 using THEONEANDONLY.json
 
