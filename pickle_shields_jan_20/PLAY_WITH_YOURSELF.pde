@@ -74,7 +74,9 @@ void playWithYourself(float vizTm) {
 }
 
 void colorLerping(Rig _rig, float function) {
+  if (_rig != null){colorLerping
   _rig.c = lerpColor(_rig.col[_rig.colorIndexB], _rig.col[_rig.colorIndexA], function);
   _rig.flash = lerpColor(_rig.col[_rig.colorIndexA], _rig.col[_rig.colorIndexB], function);
   colBeat = true;
+  }
 }
