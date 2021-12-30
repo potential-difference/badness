@@ -1,6 +1,7 @@
 # badness
 processing lighting code
 
+TODO - rename pickle shields to nye_2021
 
 NYE BRANCH 2021
 
