@@ -52,12 +52,12 @@ class BenjaminsBoxes extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    wide = 600;
-    high = 1000;
+    wide = 200;
+    high = 200;
 
-    //stroke *=strokeSlider;
-    //wide *=wideSlider;
-    //high *=highSlider;
+    stroke *=strokeSlider;
+    wide *=wideSlider;
+    high *=highSlider;
 
     rotate = 45+(15*noize); //+(functionB*30);
     float xpos = 10+(noize*window.width/4);
@@ -146,8 +146,8 @@ class Checkers extends Anim {
         wide *=wideSlider;
         high *=highSlider;
 
-        donut(position[i+1 % opcGrid.columns].x, position[i+1 % opcGrid.columns].y, col1, stroke, wide, high, rotate, alphaA);
-        donut(position[i+6].x, position[i+6].y, col1, stroke, wide, high, rotate, alphaA);
+        donut(position[i+1 % opcGrid.columns].x, position[i+1 % opcGrid.columns].y, col1, stroke, wide, high, rotate, alphaB);
+        donut(position[i+6].x, position[i+6].y, col1, stroke, wide, high, rotate, alphaB);
       }
     } else { // opposite way around
       for (int i = 0; i < opcGrid.columns; i+=2) {
@@ -425,19 +425,19 @@ class Teeth extends Anim {
     wide *=wideSlider;
     high *=highSlider;
 
-    //squareNut(positionX[0][2].x, positionX[0][2].y, col1, stroke, wide, high, -45, alphaA);
-    squareNut(positionX[1][0].x, positionX[1][0].y, col1, stroke, wide, high, -45, alphaA);
-    squareNut(positionX[2][2].x, positionX[2][2].y, col1, stroke, wide, high, -45, alphaA);
-    //squareNut(positionX[3][0].x, positionX[3][0].y, col1, stroke, wide, high, -45, alphaA);
+    squareNut(positionX[0][2].x, positionX[0][2].y, col1, stroke, wide, high, -45, alphaA);
     squareNut(positionX[4][2].x, positionX[4][2].y, col1, stroke, wide, high, -45, alphaA);
+    //squareNut(positionX[0][3].x, positionX[0][3].y, col1, stroke, wide, high, -45, alphaA);
+    squareNut(positionX[1][0].x, positionX[1][0].y, col1, stroke, wide, high, -45, alphaA);
     squareNut(positionX[5][0].x, positionX[5][0].y, col1, stroke, wide, high, -45, alphaA);
+    //squareNut(positionX[5][0].x, positionX[5][0].y, col1, stroke, wide, high, -45, alphaA);
     //squareNut(positionX[6][2].x, positionX[6][2].y, col1, stroke, wide, high, -45, alphaA);
 
-    wide = wide-(wide*functionB);
+    wide = wide+(wide*functionB);
     high = wide;
-    squareNut(positionX[0][2].x, positionX[0][2].y, col1, stroke, wide, high, -45, alphaA);
-    squareNut(positionX[3][0].x, positionX[3][0].y, col1, stroke, wide, high, -45, alphaA);
-    squareNut(positionX[6][2].x, positionX[6][2].y, col1, stroke, wide, high, -45, alphaA);
+    squareNut(positionX[2][1].x, positionX[2][1].y, col1, stroke, wide, high, -45, alphaB);
+    squareNut(positionX[6][1].x, positionX[6][1].y, col1, stroke, wide, high, -45, alphaB);
+    //squareNut(positionX[6][2].x, positionX[6][2].y, col1, stroke, wide, high, -45, alphaA);
 
     window.endDraw();
   }
@@ -572,7 +572,7 @@ class Anim {
     fill(300+(60*stutter));
     textSize(30);
     textAlign(CENTER);
-    text("OOPS!!\nCHECK YOUR ANIM LIST", rig.size.x, rig.size.y-15);
+    text("OOPS!!\nCHECK YOUR ", rig.size.x, rig.size.y-15);
   }
   float stroke, wide, high, rotate;
   //Object highobj;

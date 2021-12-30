@@ -7,7 +7,7 @@ void setupSpecifics() {
    */
 
   rigg.availableAnims = new int[] {0, 1, 3, 6, 7, 10, 11, 12};      // setup which anims are used on which rig here
-  roof.availableAnims = new int[] {1, 3, 6, 7, 10, 11, 12};      // setup which anims are used on which rig here - defualt is 0,1,2,3...
+  roof.availableAnims = new int[] {0, 1, 6, 10, 11};      // setup which anims are used on which rig here - defualt is 0,1,2,3...
   cans.availableAnims = new int[] {0, 1, 3, 6, 7, 10, 11, 12};      // setup which anims are used on which rig here
   pars.availableAnims = new int[] {6,11,12};      // setup which anims are used on which rig here
 
@@ -93,7 +93,7 @@ void setupSpecifics() {
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/////////////////////////// COLOR SETUP CHOSE COLOUR VALUES ///////////////////////////////////////////////
+/////////////////////////// COLOR SETUP CHOSE VALUES ///////////////////////////////////////////////
 color red, pink, yell, grin, bloo, purple, teal, orange, aqua, white, black;
 color red1, pink1, yell1, grin1, bloo1, purple1, teal1, aqua1, orange1;
 color red2, pink2, yell2, grin2, bloo2, purple2, teal2, aqua2, orange2;

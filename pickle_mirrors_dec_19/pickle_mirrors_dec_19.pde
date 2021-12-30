@@ -48,7 +48,7 @@ void settings() {
   size = new SizeSettings(LANDSCAPE);
   //fullScreen();
   size(size.sizeX, size.sizeY, P2D);
-  size.surfacePositionX = 1920-width-400;
+  size.surfacePositionX = 1920-width;
   if (SHITTYLAPTOP) size.surfacePositionX = 0;
   size.surfacePositionY = 150;
 }
