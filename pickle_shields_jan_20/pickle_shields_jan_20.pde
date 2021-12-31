@@ -122,7 +122,7 @@ void setup()
     // *** PUT ALL THE ROOF GRIDS ETC HERE *** //
     if (roof!= null) {
         // each lantern plugged into its own slot on the box, 0 - 7
-         opcGrid.pickleCansOPC(roof, opcNode1);    
+         opcGrid.pickleCansOPC(rigg, opcNode1);    
     } 
     
     // *** PUT ALL THE CANS GRIDS ETC HERE *** //
