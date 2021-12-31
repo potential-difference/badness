@@ -66,6 +66,11 @@ void midiSetup() {
       beatStepBus = new MidiBus(this,in,in);
       println("Found Arturia BeatStep: ", in);
     }
+    if (in.contains("MPD218")) { 
+      MPD8bus = new MidiBus(this,in,in);
+      println("Found AKAI MPD218: ", in);
+    }
+
   }
 }
 
