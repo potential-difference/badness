@@ -1,4 +1,4 @@
-OPC opcLocal, opcMirror1, opcMirror2, opcNode4, opcNode3, opcNode6, opcNode7, opcWifi;
+OPC opcLocal, opcMirror1, opcMirror2, opcNode4, opcNode3, opcNode6, opcNode7, opcWifi, opcNode1;
 WLED wledBigShield, wledShieldA, wledShieldB, wledShieldC, wledShieldD, wledShieldE, wledShieldF, wledBalls, wledSeedsA, wledSeedsB;
 
 import java.util.*;
@@ -94,8 +94,10 @@ void setup()
     
     wledSeedsA   = new WLED(this, "192.168.10.20", 21324);
     wledSeedsB   = new WLED(this, "192.168.10.21", 21324);
+
+
     
-    
+
     ///////////////// OPC over NETWORK /////////////////////
     //opcMirror1 = new OPC(this, "192.168.10.2", 7890);     // left hand mirror
     //opcMirror2 = new OPC(this, "192.168.10.5", 7890);     // right hand mirror
@@ -103,6 +105,8 @@ void setup()
     opcNode3 = new OPC(this, "192.168.10.3", 7890);         // NODE IN CANS BOX
     opcNode7 = new OPC(this, "192.168.10.7", 7890);         // NODE IN LANTERNS BOX 
     
+    opcNode1 = new OPC(this, "192.168.8.1", 7890);         // NODE IN LANTERNS BOX 
+
     //int numberOfPars;
     //opcGrid.dmxParsOPC(pars, opcLocal, numberOfPars = 6);   // ENTTEC BOX PLUGGED INTO LAPTOP VIZ USB - run json locally - pars DMX address 1,5,9,13,17,21
     //opcGrid.dmxSmokeOPC(opcLocal);                          // ENTTEC BOX PLUGGED INTO LAPTOP VIZ USB - run json locally - smoke machine DMX address 100
@@ -112,13 +116,13 @@ void setup()
     OPC[] shieldOPCs = {wledBigShield, wledShieldA, wledShieldB, wledShieldC, wledShieldD, wledShieldE, wledShieldF, wledBalls};
     //shieldsGridOPCs = {opcLocal, opcLocal, opcLocal, opcLocal, opcLocal, opcLocal, opcLocal, opcLocal};
     
-    shieldsGrid.spiralShieldsOPC(shieldOPCs);        // SHIELDS plug into RIGHT SLOTS A-F = 1-6 *** BIG SHIELD = 7 *** H-G = LEFT SLOTS 0-2 ***
+   shieldsGrid.spiralShieldsOPC(shieldOPCs);        // SHIELDS plug into RIGHT SLOTS A-F = 1-6 *** BIG SHIELD = 7 *** H-G = LEFT SLOTS 0-2 ***
     opcGrid.standAloneBoothOPC(opcLocal);                      // BOOTH and DIG lights plug into SHIELDS BOX LEFT slots: booth 3 & 5, dig 4 & 5 or use splitter joiners
     
     // *** PUT ALL THE ROOF GRIDS ETC HERE *** //
     if (roof!= null) {
         // each lantern plugged into its own slot on the box, 0 - 7
-        // opcGrid.wigfleopcGrid.wigflexLanterns(roof, wledSeedsA);    
+         opcGrid.pickleCansOPC(roof, opcNode1);    
     } 
     
     // *** PUT ALL THE CANS GRIDS ETC HERE *** //
@@ -150,7 +154,7 @@ void setup()
         println("*** !!PROBABLY NO PROPERTIES FILE!! ***");
     }
    
-    //frameRate(30); // always needs to be last in setup
+    frameRate(30); // always needs to be last in setup
 }
 int colStepper = 1;
 int time_since_last_anim = 0;
