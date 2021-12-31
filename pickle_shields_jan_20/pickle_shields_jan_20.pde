@@ -41,11 +41,11 @@ boolean MCFinitialized, SFinitialized;
 void settings() {
     System.setProperty("jogl.disable.openglcore", "true");
     size = new SizeSettings(SHIELDS);
-    //fullScreen();
     size(size.sizeX, size.sizeY, P2D);
-    size.surfacePositionX = 1920 - width - 50;
+    // *** TO DO *** // figure out why this is not working 
+    size.surfacePositionX = 900;
     if (SHITTYLAPTOP) size.surfacePositionX = 0;
-    size.surfacePositionY = 150;
+    size.surfacePositionY = 80;
 }
 void setup()
 {
@@ -56,7 +56,6 @@ void setup()
     font = createFont("Liberation Sans Narrow Bold Italic", 18); //_ select a font
     textFont(font); //___________________ set font for text function
     */
-    
     //surface.setLocation(size.surfacePositionX, size.surfacePositionY);
     MCFinitialized = false;
     controlFrame = new MainControlFrame(this, width, 380, size.surfacePositionX, size.surfacePositionY + height + 5); // load control frame must come after shild ring etc
