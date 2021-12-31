@@ -35,7 +35,7 @@ import java.io.IOException;
 
 public class pickle_shields_jan_20 extends PApplet {
 
-OPC opcLocal, opcMirror1, opcMirror2, opcNode4, opcNode3, opcNode6, opcNode7, opcWifi;
+OPC opcLocal, opcMirror1, opcMirror2, opcNode4, opcNode3, opcNode6, opcNode7, opcWifi, opcNode1;
 WLED wledBigShield, wledShieldA, wledShieldB, wledShieldC, wledShieldD, wledShieldE, wledShieldF, wledBalls, wledSeedsA, wledSeedsB;
 
 
@@ -143,6 +143,7 @@ public void setup()
   opcNode4 = new OPC(this, "192.168.10.211", 7890);       // NODE IN THE SHIELDS BOX
   opcNode3 = new OPC(this, "192.168.10.3", 7890);         // NODE IN CANS BOX
   opcNode7 = new OPC(this, "192.168.10.7", 7890);         // NODE IN LANTERNS BOX 
+  opcNode1 = new OPC(this, "192.168.8.1", 7890);
 
   //int numberOfPars;
   //opcGrid.dmxParsOPC(pars, opcLocal, numberOfPars = 6);   // ENTTEC BOX PLUGGED INTO LAPTOP VIZ USB - run json locally - pars DMX address 1,5,9,13,17,21
@@ -156,9 +157,9 @@ public void setup()
   shieldsGrid.spiralShieldsOPC(shieldOPCs);        // SHIELDS plug into RIGHT SLOTS A-F = 1-6 *** BIG SHIELD = 7 *** H-G = LEFT SLOTS 0-2 ***
   opcGrid.standAloneBoothOPC(opcLocal);                      // BOOTH and DIG lights plug into SHIELDS BOX LEFT slots: booth 3 & 5, dig 4 & 5 or use splitter joiners
 
-  //opcGrid.pickleCansOPC(roof, opcNode7, fadecandy = 9);   
-  opcGrid.wigflexLanterns(roof, wledSeedsA);    // each lantern plugged into its own slot on the box, 0 - 7
-  opcGrid.eggsOPC(opcLocal, cans);
+  opcGrid.pickleCansOPC(roof, opcNode1, fadecandy = 9);   
+  //opcGrid.wigflexLanterns(roof, wledSeedsA);    // each lantern plugged into its own slot on the box, 0 - 7
+  //opcGrid.eggsOPC(opcLocal, cans);
   //opcGrid.pickleLanternsDaisyChain(cans, opcNode3, fadecandy = 10);  // one chain starting at slot 0 on the box - see function if you need to add another chain
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
