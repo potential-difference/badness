@@ -39,7 +39,7 @@ void playWithMe() {
    }
    */
    
-  /*
+  
   if (millis()-lastTime[44]>debouncetime) {
    if (padVelocity[44]>0) rigg.animations.add(new StarMesh (rigg));
    lastTime[44]=millis();
@@ -54,7 +54,23 @@ void playWithMe() {
    if (padVelocity[46]>0) rigg.animations.add(new Stars(rigg));
    lastTime[46]=millis();
    }
-   */
+   
+    ////////////////////////////
+  if (millis()-lastTime[36]>debouncetime) {
+   if (padVelocity[36]>0) rigg.animations.add(new StarMesh (roof));
+   lastTime[36]=millis();
+   }
+   
+   if (millis()-lastTime[37]>debouncetime) {
+   if (padVelocity[37]>0) rigg.animations.add(new SingleDonut(roof));
+   lastTime[37]=millis();
+   }
+   
+   if (millis()-lastTime[38]>debouncetime) {
+   if (padVelocity[38]>0) rigg.animations.add(new BenjaminsBoxes(roof));
+   lastTime[38]=millis();
+   }
+   
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////// ADD ANIM ////////////////////////////////////////////////////////////////////
   if (millis()-lastTime[0]>debouncetime*2.5) {
@@ -83,10 +99,7 @@ void playWithMe() {
     if (padVelocity[39]>0) roof.animations.add( new AllOn(roof));
     lastTime[39]=millis();
   }
-  if (millis()-lastTime[42]>debouncetime) {
-    if (padVelocity[42]>0) for (Anim anim : pars.animations) anim.deleteme = true;
-    lastTime[42]=millis();
-  }
+ 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////// KILL ALL ANIMS - BLACKOUT ///////////////////////////////////////////////
   if (millis()-lastTime[48]>debouncetime) {
@@ -99,7 +112,7 @@ void playWithMe() {
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////// STUTTER ///////////////////////////////////////////////x
-  /*
+  
   if (millis()-lastTime[49]>debouncetime) {
    if (padVelocity[49]>0) for (Anim anim : rigg.animations) {
    anim.alphaEnvelopeA = anim.alphaEnvelopeA.mul((1-cc[46])+(stutter*cc[46])); // anim.alphaEnvelopeA.mul(0.6+(stutter*0.4));     //anim.alphaEnvelopeA.mul((1-cc[46])+(stutter*cc[46]));
@@ -115,7 +128,7 @@ void playWithMe() {
    }
    lastTime[41]=millis();
    }
-   */
+   
   //  if (padVelocity[36] > 0) {
   //    rigg.colorIndexA = (rigg.colorIndexA+1)%rigg.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
   //    cans.colorIndexA = (cans.colorIndexA+1)%cans.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
@@ -124,11 +137,11 @@ void playWithMe() {
   //    rigg.colorIndexB = (rigg.colorIndexB+1)%rigg.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
   //    cans.colorIndexB = (cans.colorIndexB+1)%cans.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
   //  }
-  if (padVelocity[36] > 0) rigg.colorFlip(true);
-  if (padVelocity[37] > 0) rigg.colorSwap(0.9999999999);
+  if (padVelocity[50] > 0) rigg.colorFlip(true);
+  if (padVelocity[42] > 0) rigg.colorSwap(0.9999999999);
 
-  if (padVelocity[38] > 0) roof.colorSwap(0.9999999999);
-  if (padVelocity[39] > 0) pars.colorSwap(0.9999999999);                // COLOR SWAP MOMENTARY
+  if (padVelocity[51] > 0) roof.colorSwap(0.9999999999);
+  if (padVelocity[43] > 0) pars.colorSwap(0.9999999999);                // COLOR SWAP MOMENTARY
 
 
 

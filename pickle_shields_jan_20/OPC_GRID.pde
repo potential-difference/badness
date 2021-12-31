@@ -883,11 +883,11 @@ class OPCGrid {
     int fc = 10 * 512;
     int channel = 64;       
 
-    opc.led(fc+(channel*1), int(booth.x-5), int(booth.y));
-    opc.led(fc+(channel*2), int(booth.x+5), int(booth.y));
+    opc.led(fc+(channel*3), int(booth.x-5), int(booth.y));
+    opc.led(fc+(channel*4), int(booth.x+5), int(booth.y));
 
-    opc.led(fc+(channel*3), int(dig.x-5), int(dig.y));
-    opc.led(fc+(channel*4), int(dig.x+5), int(dig.y));
+    opc.led(fc+(channel*1), int(dig.x-5), int(dig.y));
+    opc.led(fc+(channel*2), int(dig.x+5), int(dig.y));
   }
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -990,19 +990,22 @@ class OPCGrid {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////// if you need to make another chain just change the 0 to 1 (or whichever slot the start of the chain is plugged into)
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    opc.led(0, int(rig.positionX[3][0].x + Xoffset), int(rig.positionX[3][0].y)); 
 
-    opc.led(1, int(rig.position[0].x + Xoffset), int(rig.position[0].y));       
-    opc.led(2, int(rig.position[5].x + Xoffset), int(rig.position[5].y));      
+    opc.led(0, int(rig.position[0].x + Xoffset), int(rig.position[0].y));       
+    
+    
+    opc.led(3, int(rig.position[5].x + Xoffset), int(rig.position[5].y));      
 
-    opc.led(3, int(rig.positionX[2][1].x + Xoffset), int(rig.positionX[2][1].y)); 
+    opc.led(1, int(rig.positionX[2][1].x + Xoffset), int(rig.positionX[2][1].y)); 
     opc.led(4, int(rig.positionX[4][1].x + Xoffset), int(rig.positionX[4][1].y)); 
 
-    opc.led(5, int(rig.position[6].x + Xoffset), int(rig.position[6].y)); 
-    opc.led(6, int(rig.position[11].x + Xoffset), int(rig.position[11].y));  
+    opc.led(2, int(rig.position[6].x + Xoffset), int(rig.position[6].y)); 
+    opc.led(5, int(rig.position[11].x + Xoffset), int(rig.position[11].y));  
 
-    opc.led(7, int(rig.positionX[3][2].x + Xoffset), int(rig.positionX[3][2].y));
-    opc.led(8, int(rig.positionX[3][1].x + Xoffset), int(rig.positionX[3][1].y)+(rig.high-(int(rig.high/1.2)))/2);
+    opc.led(6, int(rig.positionX[3][0].x + Xoffset), int(rig.positionX[3][0].y)); 
+
+    opc.led(8, int(rig.positionX[3][2].x + Xoffset), int(rig.positionX[3][2].y));
+    opc.led(7, int(rig.positionX[3][1].x + Xoffset), int(rig.positionX[3][1].y)+(rig.high-(int(rig.high/1.2)))/2);
   }
   ////////////////////////////////// DMX  /////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

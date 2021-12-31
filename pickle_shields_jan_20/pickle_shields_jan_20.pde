@@ -34,6 +34,7 @@ MidiBus TR8bus;           // midibus for TR8
 MidiBus faderBus;         // midibus for APC mini
 MidiBus LPD8bus;          // midibus for LPD8
 MidiBus beatStepBus;      // midibus for Artuia BeatStep
+MidiBus MPD8bus;
 
 String controlFrameValues, sliderFrameValues, mainFrameValues;
 
@@ -148,7 +149,7 @@ void setup()
     float value = sliderFrame.cp5.getController(controllerName).getValue();
     setCCfromController(controllerName, value);
   }
-  //frameRate(30); // always needs to be last in setup
+  frameRate(30); // always needs to be last in setup
 }
 int colStepper = 1;
 int time_since_last_anim=0;
