@@ -751,18 +751,18 @@ class OPCGrid {
     cansLength = _cansLength - (pd/2);
   } 
   /////////////////////////////////////////////////////////////////////////////////////////////////////
-  void pickleCansOPC(Rig _rig, OPC opc, int fc) {
+void pickleCansOPC(Rig _rig, OPC opc) {
     rig = _rig;
     _cansLength = rig.high/1.2;
 
     //int fc = 2 * 512;
-    fc  = 2048;
+    int fc = 2560;
     int channel = 64;
     int leds = 6;
     pd = int(_cansLength/6);
 
-    cansString[0] = new PVector(rig.size.x-(rig.wide/3), rig.size.y-(pd/4));
-    cansString[1] = new PVector(rig.size.x, rig.size.y+(pd/4));
+    cansString[1] = new PVector(rig.size.x-(rig.wide/3), rig.size.y-(pd/4));
+    cansString[0] = new PVector(rig.size.x, rig.size.y+(pd/4));
     cansString[2] = new PVector(rig.size.x+(rig.wide/3), rig.size.y-(pd/4));
 
     opc.ledStrip(fc+(channel*0), leds, int(cansString[0].x), int(cansString[0].y), pd, PI/2, false);                   /////  PLUG INTO slot 1 on CANS BOX (first tail) /////// 

@@ -118,9 +118,9 @@ void setup()
   //shieldsGridOPCs = {opcLocal, opcLocal, opcLocal, opcLocal, opcLocal, opcLocal, opcLocal, opcLocal};
 
   shieldsGrid.spiralShieldsOPC(shieldOPCs);        // SHIELDS plug into RIGHT SLOTS A-F = 1-6 *** BIG SHIELD = 7 *** H-G = LEFT SLOTS 0-2 ***
-  opcGrid.standAloneBoothOPC(opcLocal);                      // BOOTH and DIG lights plug into SHIELDS BOX LEFT slots: booth 3 & 5, dig 4 & 5 or use splitter joiners
+  opcGrid.standAloneBoothOPC(opcNode3);                      // BOOTH and DIG lights plug into SHIELDS BOX LEFT slots: booth 3 & 5, dig 4 & 5 or use splitter joiners
 
-  opcGrid.pickleCansOPC(roof, opcNode1, fadecandy = 9);   
+  opcGrid.pickleCansOPC(rigg, opcNode1);   
   //opcGrid.wigflexLanterns(roof, wledSeedsA);    // each lantern plugged into its own slot on the box, 0 - 7
   //opcGrid.eggsOPC(opcLocal, cans);
   //opcGrid.pickleLanternsDaisyChain(cans, opcNode3, fadecandy = 10);  // one chain starting at slot 0 on the box - see function if you need to add another chain

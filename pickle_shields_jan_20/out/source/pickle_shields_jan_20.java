@@ -155,9 +155,9 @@ public void setup()
   //shieldsGridOPCs = {opcLocal, opcLocal, opcLocal, opcLocal, opcLocal, opcLocal, opcLocal, opcLocal};
 
   shieldsGrid.spiralShieldsOPC(shieldOPCs);        // SHIELDS plug into RIGHT SLOTS A-F = 1-6 *** BIG SHIELD = 7 *** H-G = LEFT SLOTS 0-2 ***
-  opcGrid.standAloneBoothOPC(opcLocal);                      // BOOTH and DIG lights plug into SHIELDS BOX LEFT slots: booth 3 & 5, dig 4 & 5 or use splitter joiners
+  opcGrid.standAloneBoothOPC(opcNode3);                      // BOOTH and DIG lights plug into SHIELDS BOX LEFT slots: booth 3 & 5, dig 4 & 5 or use splitter joiners
 
-  opcGrid.pickleCansOPC(roof, opcNode1, fadecandy = 9);   
+  opcGrid.pickleCansOPC(rigg, opcNode1);   
   //opcGrid.wigflexLanterns(roof, wledSeedsA);    // each lantern plugged into its own slot on the box, 0 - 7
   //opcGrid.eggsOPC(opcLocal, cans);
   //opcGrid.pickleLanternsDaisyChain(cans, opcNode3, fadecandy = 10);  // one chain starting at slot 0 on the box - see function if you need to add another chain
@@ -3232,23 +3232,23 @@ class OPCGrid {
     cansLength = _cansLength - (pd/2);
   } 
   /////////////////////////////////////////////////////////////////////////////////////////////////////
-  public void pickleCansOPC(Rig _rig, OPC opc, int fc) {
+public void pickleCansOPC(Rig _rig, OPC opc) {
     rig = _rig;
     _cansLength = rig.high/1.2f;
 
     //int fc = 2 * 512;
-    fc *= 512;
+    int fc = 2560;
     int channel = 64;
     int leds = 6;
     pd = PApplet.parseInt(_cansLength/6);
 
-    cansString[0] = new PVector(rig.size.x-(rig.wide/3), rig.size.y-(pd/4));
-    cansString[1] = new PVector(rig.size.x, rig.size.y+(pd/4));
+    cansString[1] = new PVector(rig.size.x-(rig.wide/3), rig.size.y-(pd/4));
+    cansString[0] = new PVector(rig.size.x, rig.size.y+(pd/4));
     cansString[2] = new PVector(rig.size.x+(rig.wide/3), rig.size.y-(pd/4));
 
-    opc.ledStrip(fc+(channel*1), leds, PApplet.parseInt(cansString[0].x), PApplet.parseInt(cansString[0].y), pd, PI/2, false);                   /////  PLUG INTO slot 1 on CANS BOX (first tail) /////// 
-    opc.ledStrip(fc+(channel*2), leds, PApplet.parseInt(cansString[1].x), PApplet.parseInt(cansString[1].y), pd, PI/2, false);                   /////  PLUG INTO slot 2 on CANS BOX /////// 
-    opc.ledStrip(fc+(channel*3), leds, PApplet.parseInt(cansString[2].x), PApplet.parseInt(cansString[2].y), pd, PI/2, false);                   /////  PLUG INTO slot 3 on CANS BOX /////// 
+    opc.ledStrip(fc+(channel*0), leds, PApplet.parseInt(cansString[0].x), PApplet.parseInt(cansString[0].y), pd, PI/2, false);                   /////  PLUG INTO slot 1 on CANS BOX (first tail) /////// 
+    opc.ledStrip(fc+(channel*1), leds, PApplet.parseInt(cansString[1].x), PApplet.parseInt(cansString[1].y), pd, PI/2, false);                   /////  PLUG INTO slot 2 on CANS BOX /////// 
+    opc.ledStrip(fc+(channel*2), leds, PApplet.parseInt(cansString[2].x), PApplet.parseInt(cansString[2].y), pd, PI/2, false);                   /////  PLUG INTO slot 3 on CANS BOX /////// 
 
     cansLength = _cansLength - (pd/2);
   } 
