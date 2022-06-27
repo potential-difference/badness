@@ -306,7 +306,7 @@ public class Rig {
   void mirrorGradient(color col1, color col2, float func) {
     //// LEFT SIDE OF GRADIENT
     colorLayer.beginShape(POLYGON); 
-    //colorLayer.noStroke();
+    colorLayer.rectMode(CENTER);
     colorLayer.fill(col1);
     colorLayer.vertex(0, 0);
     colorLayer.fill(col2);
@@ -331,6 +331,7 @@ public class Rig {
   /////////////////////////////////// RADIAL GRADIENT BACKGROUND //////////////////////////////////////////////////////////
   void radialGradient(color col1, color col2, float function) {
     colorLayer.background(col1);
+    colorLayer.rectMode(CENTER);
     float radius = colorLayer.height*function;
     int numPoints = 12;
     float angle=360/numPoints;
@@ -349,6 +350,7 @@ public class Rig {
   /// MIRROR GRADIENT BACKGROUND top one direction - bottom opposite direction ///
   void mirrorGradientHalfHalf(color col1, color col2, float func) {
     //////// TOP //// LEFT SIDE OF GRADIENT
+    colorLayer.rectMode(CENTER);
     colorLayer.beginShape(POLYGON); 
     colorLayer.fill(col1);
     colorLayer.vertex(0, 0);
@@ -401,6 +403,7 @@ public class Rig {
   /////////////////////////////////////////////////// HORIZONAL GRADIENT ///////////////////////////////////////////////////////
   void horizontalMirrorGradient(color col1, color col2, float func) {
     //// TOP HALF OF GRADIENT
+    colorLayer.rectMode(CENTER);
     colorLayer.beginShape(POLYGON); 
     colorLayer.fill(col2);
     colorLayer.vertex(0, 0);
@@ -425,11 +428,13 @@ public class Rig {
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void radiator(color col1, color col2) {
+    colorLayer.rectMode(CENTER);
     colorLayer.fill(col2);
     for (int i = 0; i < opcGrid.rad.length; i++) colorLayer.rect(this.position[i].x, this.position[i].y, 15, this.high/2.2);
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void check(color col1, color col2) {
+    colorLayer.rectMode(CENTER);
     colorLayer.fill(col2);
     colorLayer.rect(colorLayer.width/2, colorLayer.height/2, colorLayer.width, colorLayer.height);        
     colorLayer.fill(col1);  
@@ -438,7 +443,8 @@ public class Rig {
     //if (opcGrid.rows == 3) for (int i = opcGrid.columns*opcGrid.rows; i < opcGrid.mirror.length/opcGrid.rows+(opcGrid.columns*2); i+=2)  colorLayer.rect(position[i].x, position[i].y, opcGrid.mirrorWidth, opcGrid.mirrorWidth);
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void sideBySide( color col1, color col2) {
+  void sideBySide(color col1, color col2) {
+    colorLayer.rectMode(CENTER);
     colorLayer.fill(col2);
     colorLayer.rect(colorLayer.width/4, colorLayer.height/2, colorLayer.width/2, colorLayer.height);     
     colorLayer.fill(col1);                                
@@ -446,9 +452,10 @@ public class Rig {
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void oneTwoThree( color col1, color col2) {
+    colorLayer.rectMode(CENTER);
     colorLayer.background(col1);
     colorLayer.fill(col2);                                
-    colorLayer.rect(colorLayer.width/2, colorLayer.height/2, colorLayer.width/3*2, colorLayer.height);
+    colorLayer.rect(colorLayer.width/2, colorLayer.height/2, colorLayer.width/6*2, colorLayer.height);
   }
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -468,7 +475,8 @@ public class Rig {
     float x = size.x+(wide/2)-(nameWidth/2)-12;
     float y = size.y-(high/2)+21;
 
-    if (this == cans) y -=30;;
+    if (this == cans) y -=30;
+    ;
 
     fill(360);
     textAlign(CENTER);
@@ -483,8 +491,9 @@ public class Rig {
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     x = x-(nameWidth+17);
     y = size.y-(high/2)+20;
-    
-    if (this == cans) y -=30;;
+
+    if (this == cans) y -=30;
+    ;
 
     ///// RECTANGLES TO SHOW CURRENT COLOURS /////
     fill(0);                              

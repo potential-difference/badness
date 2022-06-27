@@ -5,8 +5,52 @@ void setupSpecifics() {
    backgroundNames = new String[] {"one col c", "vert mirror grad", "side by side", "horiz mirror grad", 
    "one color flash", "moving horiz grad", "checked", "radiators", "stripes", "one two three"}; 
    */
-
-  rigg.availableAnims = new int[] {0, 1, 3, 6, 7, 10, 11, 12};      // setup which anims are used on which rig here
+   /*
+       switch (index) {
+    case 0:  
+      anim = new BenjaminsBoxes(this);
+      break;
+    case 1:  
+      anim = new Checkers(this);
+      break;
+    case 2:  
+      anim = new Rings(this);
+      break;
+    case 3:  
+      anim = new Rush(this);
+      break;
+    case 4:  
+      anim = new Rushed(this);
+      break;
+    case 5:  
+      anim = new SquareNuts(this);
+      break;
+    case 6:  
+      anim = new DiagoNuts(this);
+      break;
+    case 7:  
+      anim = new Stars(this);
+      break;
+    case 8:  
+      anim = new Swipe(this);
+      break;
+    case 9:  
+      anim = new Swiped(this);
+      break;
+    case 10:  
+      anim = new Teeth(this);
+      break;
+    case 11:  
+      anim = new Donut(this);
+      break;
+    case 12:
+      anim = new AllOn(this);
+      break;
+    case 13:
+      anim = new AllOff(this);
+      break;
+*/
+  rigg.availableAnims = new int[] {0, 2, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};      // setup which anims are used on which rig here
   roof.availableAnims = new int[] {0, 1, 6, 10, 11};      // setup which anims are used on which rig here - defualt is 0,1,2,3...
   cans.availableAnims = new int[] {0, 1, 3, 6, 7, 10, 11, 12};      // setup which anims are used on which rig here
   pars.availableAnims = new int[] {6,11,12};      // setup which anims are used on which rig here

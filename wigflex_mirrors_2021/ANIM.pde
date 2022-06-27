@@ -369,7 +369,6 @@ class Stars extends Anim {
 class Swipe extends Anim {
   Swipe(Rig _rig) {
     super(_rig);
-    //opcGrid.mirrorsOPC(opcMirror1, opcMirror2, 0);               // grids 0-3 MIX IT UPPPPP
   }
   void draw() {
 
@@ -542,9 +541,6 @@ class Anim {
     _beatCounter = (int)beatCounter;
     col1 = white;
     col2 = white;
-
-    //opcGrid.mirrorsOPC(opcMirror1, opcMirror2, 1);               // grids 0-3 MIX IT UPPPPP 
-
 
     animName = "default";
 

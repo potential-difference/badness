@@ -13,8 +13,8 @@ class SizeSettings {
       break;
     case LANDSCAPE:
       rigWidth = 900;                                    // WIDTH of rigViz
-      if (SHITTYLAPTOP) rigWidth = 600;
-      rigHeight = 310;    
+      if (SHITTYLAPTOP) rigWidth = 800;
+      rigHeight = 400;    
       if (SHITTYLAPTOP) rigHeight = 250;
       rig = new PVector(rigWidth/2, (rigHeight/2));   // cordinates for center of rig
       break;

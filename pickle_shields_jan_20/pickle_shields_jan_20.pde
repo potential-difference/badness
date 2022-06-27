@@ -87,14 +87,14 @@ void setup()
   ///////////////// LOCAL opc /////////////////////
   opcLocal   = new OPC(this, "127.0.0.1", 7890);        // Connect to the local instance of fcserver - MIRRORS
 
-  wledBigShield = new WLED(this, "192.168.10.10", 21324);
-  wledShieldA = new WLED(this, "192.168.10.11", 21324);
-  wledShieldB = new WLED(this, "192.168.10.12", 21324);
-  wledShieldC = new WLED(this, "192.168.10.13", 21324);
-  wledShieldD = new WLED(this, "192.168.10.14", 21324);
-  wledShieldE = new WLED(this, "192.168.10.15", 21324);
-  wledShieldF = new WLED(this, "192.168.10.16", 21324);
-  wledBalls   = new WLED(this, "192.168.10.17", 21324);
+  wledBigShield = new WLED(this, "192.168.8.10", 21324);
+  wledShieldA = new WLED(this, "192.168.8.11", 21324);
+  wledShieldB = new WLED(this, "192.168.8.12", 21324);
+  wledShieldC = new WLED(this, "192.168.8.13", 21324);
+  wledShieldD = new WLED(this, "192.168.8.14", 21324);
+  wledShieldE = new WLED(this, "192.168.8.15", 21324);
+  wledShieldF = new WLED(this, "192.168.8.16", 21324);
+  wledBalls   = new WLED(this, "192.168.8.17", 21324);
 
   wledSeedsA   = new WLED(this, "192.168.10.20", 21324);
   wledSeedsB   = new WLED(this, "192.168.10.21", 21324);

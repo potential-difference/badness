@@ -19,7 +19,7 @@ void playWithMe() {
 
 
   float  debouncetime=100;
-///////////////////////////// *** MANUAL ANIM WORK THAT DOESNT WORK **** ////////////////////////////
+  ///////////////////////////// *** MANUAL ANIM WORK THAT DOESNT WORK **** ////////////////////////////
   /*
   try {
    if (millis()-lastTime[44]>debouncetime) {
@@ -38,89 +38,108 @@ void playWithMe() {
    println(e, "playwithyourself error");
    }
    */
-   
-  
-  if (millis()-lastTime[44]>debouncetime) {
-   if (padVelocity[44]>0) rigg.animations.add(new StarMesh (rigg));
-   lastTime[44]=millis();
-   }
-   
-   if (millis()-lastTime[45]>debouncetime) {
-   if (padVelocity[45]>0) rigg.animations.add(new SpiralFlower(rigg));
-   lastTime[45]=millis();
-   }
-   
-   if (millis()-lastTime[46]>debouncetime) {
-   if (padVelocity[46]>0) rigg.animations.add(new Stars(rigg));
-   lastTime[46]=millis();
-   }
-   
-    ////////////////////////////
-  if (millis()-lastTime[36]>debouncetime) {
-   if (padVelocity[36]>0) rigg.animations.add(new StarMesh (roof));
-   lastTime[36]=millis();
-   }
-   
-   if (millis()-lastTime[37]>debouncetime) {
-   if (padVelocity[37]>0) rigg.animations.add(new SingleDonut(roof));
-   lastTime[37]=millis();
-   }
-   
-   if (millis()-lastTime[38]>debouncetime) {
-   if (padVelocity[38]>0) rigg.animations.add(new BenjaminsBoxes(roof));
-   lastTime[38]=millis();
-   }
-   
+
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////// ADD ANIM ////////////////////////////////////////////////////////////////////
   if (millis()-lastTime[0]>debouncetime*2.5) {
     if (keyP[' ']) {
       for (Rig rig : rigs) {
         if (rig.toggle) {
-          beatTrigger = true;
-          //if (testToggle) rig.animations.add(new Test(rig));
           rig.addAnim(rig.vizIndex);
         }
       }
       lastTime[0]=millis();
     }
   }
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  if (millis()-lastTime[44]>debouncetime) {
+    if (padVelocity[44]>0) rigg.animations.add(new StarMesh (rigg));
+    lastTime[44]=millis();
+  }
+
+  //if (millis()-lastTime[45]>debouncetime) {
+  //  if (padVelocity[45]>0) rigg.animations.add(new SpiralFlower(rigg));
+  //  lastTime[45]=millis();
+  //}
+
+  if (millis()-lastTime[45]>debouncetime) {
+    if (padVelocity[45]>0) rigg.animations.add(new Stars(rigg));
+    lastTime[45]=millis();
+  }
+
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////// ALL ON ///////////////////////////////////////////////
 
-  if (millis()-lastTime[47]>debouncetime) {
-    if (padVelocity[47]>0) {
+  if (millis()-lastTime[46]>debouncetime) {
+    if (padVelocity[46]>0) {
       rigg.animations.add( new AllOn(rigg)); //rigg.anim.alphaEnvelopeA = new CrushPulse(0.031, 0.040, 0.913, avgmillis*rigg.alphaRate*3+0.5, 0.0, 0.0);
       //anim = rigg.animations.get(rigg.animations.size()-1);
-      lastTime[47]=millis();
+      lastTime[46]=millis();
     }
   }
-  if (millis()-lastTime[39]>debouncetime) {
-    if (padVelocity[39]>0) roof.animations.add( new AllOn(roof));
-    lastTime[39]=millis();
-  }
- 
+
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////// KILL ALL ANIMS - BLACKOUT ///////////////////////////////////////////////
-  if (millis()-lastTime[48]>debouncetime) {
-    if (padVelocity[48]>0) for (Anim anim : rigg.animations) anim.deleteme = true;  // immediately delete all anims
-    lastTime[48]=millis();
+
+  ///// DEBOUNCE?! /////
+
+  if (millis()-lastTime[47]>debouncetime) {
+    if (padVelocity[47]>0) for (Anim anim : rigg.animations) anim.deleteme = true;  // immediately delete all anims
+    lastTime[47]=millis();
   }
-  if (millis()-lastTime[40]>debouncetime) {
-    if (padVelocity[40]>0) for (Anim anim : roof.animations) anim.deleteme = true;  // immediately delete all anims
-    lastTime[40]=millis();
-  }
+
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////// STUTTER ///////////////////////////////////////////////x
-  
-  if (millis()-lastTime[49]>debouncetime) {
-   if (padVelocity[49]>0) for (Anim anim : rigg.animations) {
-   anim.alphaEnvelopeA = anim.alphaEnvelopeA.mul((1-cc[46])+(stutter*cc[46])); // anim.alphaEnvelopeA.mul(0.6+(stutter*0.4));     //anim.alphaEnvelopeA.mul((1-cc[46])+(stutter*cc[46]));
-   anim.alphaEnvelopeB = anim.alphaEnvelopeB.mul((1-cc[46])+(stutter*cc[46])); //anim.alphaEnvelopeA.mul(0.6+(stutter*0.4)); //anim.alphaEnvelopeB.mul((1-cc[46])+(stutter*cc[46]));
+
+  /// doesnt work as expected ///
+
+  if (millis()-lastTime[48]>debouncetime) {
+    if (padVelocity[48]>0) for (Anim anim : rigg.animations) {
+      anim.alphaEnvelopeA = anim.alphaEnvelopeA.mul((1-cc[45])+(stutter*cc[45])); // anim.alphaEnvelopeA.mul(0.6+(stutter*0.4));     //anim.alphaEnvelopeA.mul((1-cc[46])+(stutter*cc[46]));
+      anim.alphaEnvelopeB = anim.alphaEnvelopeB.mul((1-cc[45])+(stutter*cc[45])); //anim.alphaEnvelopeA.mul(0.6+(stutter*0.4)); //anim.alphaEnvelopeB.mul((1-cc[46])+(stutter*cc[46]));
+    }
+    lastTime[48]=millis();
+  }
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////  COLOUR //////////////////////////////////////////////////////////////////////////////
+
+  if (padVelocity[49] > 0) rigg.colorFlip(true);
+  if (padVelocity[50] > 0) rigg.colorSwap(0.9999999999);
+
+
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  //if (millis()-lastTime[36]>debouncetime) {
+  // if (padVelocity[36]>0) rigg.animations.add(new StarMesh (roof));
+  // lastTime[36]=millis();
+  // }
+
+  // if (millis()-lastTime[37]>debouncetime) {
+  // if (padVelocity[37]>0) rigg.animations.add(new SingleDonut(roof));
+  // lastTime[37]=millis();
+  // }
+
+  // if (millis()-lastTime[38]>debouncetime) {
+  // if (padVelocity[38]>0) rigg.animations.add(new BenjaminsBoxes(roof));
+  // lastTime[38]=millis();
+  // }
+  /*
+  if (millis()-lastTime[39]>debouncetime) {
+   if (padVelocity[39]>0) roof.animations.add( new AllOn(roof));
+   lastTime[39]=millis();
    }
-   lastTime[49]=millis();
+   */
+  /*
+  if (millis()-lastTime[40]>debouncetime) {
+   if (padVelocity[40]>0) for (Anim anim : roof.animations) anim.deleteme = true;  // immediately delete all anims
+   lastTime[40]=millis();
    }
-   
+   */
+  /*
    if (millis()-lastTime[41]>debouncetime) {
    if (padVelocity[41]>0) for (Anim anim : rigg.animations) {
    anim.functionEnvelopeA = anim.functionEnvelopeA.mul(0.6+(stutter*0.4));  //     anim.functionEnvelopeA.mul((1-cc[54])+(stutter*cc[54]));
@@ -128,7 +147,7 @@ void playWithMe() {
    }
    lastTime[41]=millis();
    }
-   
+   */
   //  if (padVelocity[36] > 0) {
   //    rigg.colorIndexA = (rigg.colorIndexA+1)%rigg.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
   //    cans.colorIndexA = (cans.colorIndexA+1)%cans.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
@@ -137,11 +156,8 @@ void playWithMe() {
   //    rigg.colorIndexB = (rigg.colorIndexB+1)%rigg.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
   //    cans.colorIndexB = (cans.colorIndexB+1)%cans.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
   //  }
-  if (padVelocity[50] > 0) rigg.colorFlip(true);
-  if (padVelocity[42] > 0) rigg.colorSwap(0.9999999999);
-
-  if (padVelocity[51] > 0) roof.colorSwap(0.9999999999);
-  if (padVelocity[43] > 0) pars.colorSwap(0.9999999999);                // COLOR SWAP MOMENTARY
+  //if (padVelocity[51] > 0) roof.colorSwap(0.9999999999);
+  //if (padVelocity[43] > 0) pars.colorSwap(0.9999999999);                // COLOR SWAP MOMENTARY
 
 
 
@@ -170,7 +186,7 @@ void playWithMeMore() {
     bgNoise(roof.colorLayer, roof.flash, map(padVelocity[43], 0, 1, 0, roof.dimmer), cc[56]);   //PGraphics layer,color,alpha
     image(roof.colorLayer, roof.size.x, roof.size.y, roof.wide, roof.high);
   }
-
+/*
   if (padVelocity[50] > 0) {
     pars.colorLayer.beginDraw();
     pars.colorLayer.background(0, 0, 0, 0);
@@ -180,6 +196,7 @@ void playWithMeMore() {
     bgNoise(pars.colorLayer, pars.flash, map(padVelocity[50], 0, 1, 0, pars.dimmer), cc[47]);   //PGraphics layer,color,alpha
     image(pars.colorLayer, pars.size.x, pars.size.y, pars.wide, pars.high);
   }
+  */
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
