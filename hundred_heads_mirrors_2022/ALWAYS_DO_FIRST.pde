@@ -6,13 +6,13 @@ void setupSpecifics() {
    "one color flash", "moving horiz grad", "checked", "radiators", "stripes", "one two three"}; 
    */
 
-  rigg.availableAnims = new int[] {0, 2, 1, 5, 6, 7, 8, 10, 11};      // setup which anims are used on which rig here
+  rigg.availableAnims = new int[] {0, 2, 1, 6, 7, 10, 11};      // setup which anims are used on which rig here
   roof.availableAnims = new int[] {0, 1, 6, 10, 11};      // setup which anims are used on which rig here - defualt is 0,1,2,3...
   cans.availableAnims = new int[] {0, 1, 3, 6, 7, 10, 11, 12};      // setup which anims are used on which rig here
   pars.availableAnims = new int[] {6, 11, 12};      // setup which anims are used on which rig here
 
   rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5};  
-  roof.availableFunctionEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
+  roof.availableFunctionEnvelopes = new int[] {0, 1, 4, 5, 6};  
 
   rigg.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 6, 9};
   cans.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5}; 

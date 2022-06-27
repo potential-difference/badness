@@ -441,7 +441,7 @@ class Teeth extends Anim {
     
     wide = vizWidth-(wide*functionB);
     high = wide;
-    squareNut(positionX[3][1].x, positionX[2][1].y, col1, stroke, wide, high, 45, alphaB);
+    squareNut(positionX[3][1].x, positionX[2][1].y, col1, stroke, wide, high, 0, alphaB);
 
     window.endDraw();
   }

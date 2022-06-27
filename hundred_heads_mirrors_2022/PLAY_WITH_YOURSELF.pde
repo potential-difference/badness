@@ -1,4 +1,4 @@
-int rigVizList = 11, roofVizList =11, alphLength = 5, funcLength = 8;
+int roofVizList =11, alphLength = 5, funcLength = 8;
 float alf;
 int vizTimer, alphaTimer, functionTimer;
 void playWithYourself(float vizTm) {

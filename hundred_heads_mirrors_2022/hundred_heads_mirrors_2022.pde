@@ -159,8 +159,6 @@ void draw()
   if (beatTrigger) { 
     for (Rig rig : rigs) {
       if (rig.toggle) {
-        //if (testToggle) rig.animations.add(new Test(rig));
-        //println(rig.name+" vizIndex", rig.vizIndex);
         rig.addAnim(rig.vizIndex);           // create a new anim object and add it to the beginning of the arrayList
       }
     }

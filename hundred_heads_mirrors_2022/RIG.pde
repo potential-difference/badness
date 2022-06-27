@@ -153,7 +153,6 @@ public class Rig {
       .setPosition(x+(clm*arrayListIndex)-130, y)
       .setSize(15, shigh);
 
-
     for (int i=0; i<availableColorsC.length; i++) {
       cRadioButton.addItem(name+" colc "+i, i);
       cRadioButton.getItem(name+" colc "+i)
@@ -163,12 +162,7 @@ public class Rig {
       cRadioButton.hideLabels();
     }
 
-
-
-
     flashRadioButton = cp5.addRadioButton(name+" flashRadioButton")
-      //.plugTo(this, "flashRadioButton")
-      //.setLabel(this.name+" flashRadioButton")
       .setPosition(x+(clm*arrayListIndex)-110, y)
       .setSize(15, shigh);
     for (int i=0; i<availableColorsFlash.length; i++) {
@@ -631,13 +625,7 @@ public class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void addAnim(int animIndex) {
     Anim anim = new Anim(this);
-
-    //    println(name+" aval anims");
-    //println(availableAnims);
     int index = this.availableAnims[animIndex];
-
-    //println(name+" index", index);
-    //println();
 
     switch (index) {
     case 0:  
