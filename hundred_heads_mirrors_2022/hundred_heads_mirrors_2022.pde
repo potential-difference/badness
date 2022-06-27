@@ -57,10 +57,8 @@ void setup()
   surface.setSize(size.sizeX, size.sizeY);
   surface.setAlwaysOnTop(onTop);
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
-
-  //surface.setLocation(size.surfacePositionX, size.surfacePositionY);
   MCFinitialized = false;
-  controlFrame = new MainControlFrame(this, width*2, 530, size.surfacePositionX, size.surfacePositionY+height+50); // load control frame must come after shild ring etc
+  controlFrame = new MainControlFrame(this, width, 360, size.surfacePositionX, size.surfacePositionY+height+50); // load control frame must come after shild ring etc
   opcGrid = new OPCGrid();
 
   // order of these is important for layout of sliders
@@ -71,16 +69,21 @@ void setup()
   }
   println(".");
 
-  int frameWidth = 220;
-  SFinitialized = false;
-  sliderFrame = new SliderFrame(this, frameWidth, height+controlFrame.height+5, size.surfacePositionX-frameWidth-5, size.surfacePositionY); // load control frame must come after shild ring etc
-
-  print("SliderFrame");
-  //wait for MCF,SF to be initialized
-  while (!SFinitialized) {
-    delay(100);
-    print(".");
-  }
+  /*   ///////////////////////// SLIDER FRAME ////////////////////////////////////////
+   int frameWidth = 220;
+   SFinitialized = false;
+   
+   sliderFrame = new SliderFrame(this, frameWidth, height+controlFrame.height+5, size.surfacePositionX-frameWidth-5, size.surfacePositionY); // load control frame must come after shild ring etc
+   
+   print("SliderFrame");
+   //wait for MCF,SF to be initialized
+   while (!SFinitialized) {
+   delay(100);
+   print(".");
+   }
+   */
+  //////////////////////////////////////////////////////////////////
+  /////
   println(".");
   ///////////////// LOCAL opc /////////////////////
   opcLocal   = new OPC(this, "127.0.0.1", 7890);        // Connect to the local instance of fcserver - MIRRORS
@@ -121,11 +124,13 @@ void setup()
     println(e);
     println("*** !!PROBABLY NO PROPERTIES FILE!! ***");
   }
+  /*
   for (int i = 0; i < 17; i++) {
-    String controllerName = "slider "+i;
-    float value = sliderFrame.cp5.getController(controllerName).getValue();
-    setCCfromController(controllerName, value);
-  }
+   String controllerName = "slider "+i;
+   float value = sliderFrame.cp5.getController(controllerName).getValue();
+   setCCfromController(controllerName, value);
+   }
+   */
   frameRate(30); // always needs to be last in setup
 }
 
@@ -213,19 +218,19 @@ void dmxSmoke() {
     rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 10, 10);
   }
 
-//  if (keyP[' ']) { 
-//println("blinders strobe effect ",cc[41]*255);
-//    fill (360);
-//    rect(pars.size.x, pars.size.y, pars.wide, pars.high-50);
-//  } 
+  //  if (keyP[' ']) { 
+  //println("blinders strobe effect ",cc[41]*255);
+  //    fill (360);
+  //    rect(pars.size.x, pars.size.y, pars.wide, pars.high-50);
+  //  } 
 
   fill(360*cc[40]);
   rect(1062, 10, 10, 10); //blinders dimmer
   fill(360*cc[41]);
   rect(1062, 20, 10, 10); // blinders strobe effect
-  
+
   fill(0);
-  rect(width-2,10,10,30);
+  rect(width-2, 10, 10, 30);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

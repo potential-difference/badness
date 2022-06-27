@@ -307,16 +307,19 @@ class SquareNuts extends Anim {
       if   (beatCounter % 8 < 2) {
         squareNut(position[1].x, window.height, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
         squareNut(position[10].x, 0, col1, stroke, wide-(wide*functionB), high-(high*functionB), 45, alphaA);
-      }  if   (beatCounter % 8 >= 2 && beatCounter % 8 < 4) {
+      }  
+      if   (beatCounter % 8 >= 2 && beatCounter % 8 < 4) {
         squareNut(position[1].x, window.height, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
         squareNut(position[10].x, 0, col1, stroke, wide-(wide*functionB), high-(high*functionB), 45, alphaA);
-      } if   (beatCounter % 8 >= 4 && beatCounter % 8 < 6) {
+      } 
+      if   (beatCounter % 8 >= 4 && beatCounter % 8 < 6) {
         squareNut(position[10].x, window.height, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
         squareNut(position[1].x, 0, col1, stroke, wide-(wide*functionB), high-(high*functionB), 45, alphaA);
-      } if   (beatCounter % 8 >= 6 && beatCounter % 8 < 8) {
+      } 
+      if   (beatCounter % 8 >= 6 && beatCounter % 8 < 8) {
         squareNut(position[10].x, 0, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
         squareNut(position[1].x, window.height, col1, stroke, wide-(wide*functionB), high-(high*functionB), 45, alphaA);
-      } 
+      }
     } else {
       squareNut(window.width/4, window.height/4, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
       squareNut(window.width/4*3, window.height/4*3, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
@@ -360,9 +363,9 @@ class Stars extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    wide = 50+(functionA*vizWidth*1.5);
-    high = 50+(functionB*vizHeight*1.5);
-    stroke = 15+(30*functionA);
+    wide = 20+(functionA*vizWidth*1.5);
+    high = 20+(functionB*vizHeight*1.5);
+    stroke = 5+(30*functionA);
     rotate = 30+(30*functionB);
 
     stroke *=strokeSlider;
@@ -424,29 +427,21 @@ class Teeth extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    //stroke = 50+(100*functionB);
-    stroke = 50+(100*oskP);
-    wide = vizWidth+(50);
-    wide = wide-(wide*functionA);
+    window.rectMode(CENTER);
+    stroke = 10+(100*functionB);
+    wide = vizWidth-(wide*functionA);
     high = wide;
 
     stroke *=strokeSlider;
     wide *=wideSlider;
     high *=highSlider;
 
-    squareNut(positionX[0][2].x, positionX[0][2].y, col1, stroke, wide, high, -45, alphaA);
-    squareNut(positionX[4][2].x, positionX[4][2].y, col1, stroke, wide, high, -45, alphaA);
-    //squareNut(positionX[0][3].x, positionX[0][3].y, col1, stroke, wide, high, -45, alphaA);
-    squareNut(positionX[1][0].x, positionX[1][0].y, col1, stroke, wide, high, -45, alphaA);
-    squareNut(positionX[5][0].x, positionX[5][0].y, col1, stroke, wide, high, -45, alphaA);
-    //squareNut(positionX[5][0].x, positionX[5][0].y, col1, stroke, wide, high, -45, alphaA);
-    //squareNut(positionX[6][2].x, positionX[6][2].y, col1, stroke, wide, high, -45, alphaA);
-
-    wide = wide+(wide*functionB);
+    squareNut(positionX[6][2].x, positionX[6][2].y, col1, stroke, wide, high, -45, alphaA);
+    squareNut(positionX[0][0].x, positionX[0][0].y, col1, stroke, wide, high, -45, alphaA);
+    
+    wide = vizWidth-(wide*functionB);
     high = wide;
-    squareNut(positionX[2][1].x, positionX[2][1].y, col1, stroke, wide, high, -45, alphaB);
-    squareNut(positionX[6][1].x, positionX[6][1].y, col1, stroke, wide, high, -45, alphaB);
-    //squareNut(positionX[6][2].x, positionX[6][2].y, col1, stroke, wide, high, -45, alphaA);
+    squareNut(positionX[3][1].x, positionX[2][1].y, col1, stroke, wide, high, 45, alphaB);
 
     window.endDraw();
   }
@@ -461,7 +456,7 @@ class Donut extends Anim {
     window.background(0);
     wide = 10+(vizWidth*(1-functionB));
     high = wide;
-    stroke = 2+(vizWidth/2*functionA);
+    stroke = 2+(vizWidth/10*functionA);
 
     stroke *=strokeSlider;
     wide *=wideSlider;
@@ -708,30 +703,31 @@ class Anim {
       window.popMatrix();
     }
     catch(Exception e) {
-      println(e, "Donut caught exception. strokeWeight was:",stroke);
+      println(e, "Donut caught exception. strokeWeight was:", stroke);
     }
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
   void star(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
-    try{
+    try {
       window.strokeWeight(-stroke);
-    window.stroke(360*alph);
-    window.noFill();
-    window.pushMatrix();                /// CAUSES CRASHES
-    window.translate(xpos, ypos);
-    window.rotate(radians(rotate));
-    window.ellipse(0, 0, wide, high);
-    window.rotate(radians(120));
-    window.ellipse(0, 0, wide, high);
-    window.rotate(radians(120));
-    window.ellipse(0, 0, wide, high);
-    window.popMatrix();
-    }catch(Exception e) {
-      println(e, "Star caught exception. strokeWeight was:",stroke);
+      window.stroke(360*alph);
+      window.noFill();
+      window.pushMatrix();                /// CAUSES CRASHES
+      window.translate(xpos, ypos);
+      window.rotate(radians(rotate));
+      window.ellipse(0, 0, wide, high);
+      window.rotate(radians(120));
+      window.ellipse(0, 0, wide, high);
+      window.rotate(radians(120));
+      window.ellipse(0, 0, wide, high);
+      window.popMatrix();
+    }
+    catch(Exception e) {
+      println(e, "Star caught exception. strokeWeight was:", stroke);
     }
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
-    void rush(float xpos, float ypos, color col, float wide, float high, float func, float alph) {
+  void rush(float xpos, float ypos, color col, float wide, float high, float func, float alph) {
     float moveA;
     float strt = xpos;
     moveA = (strt+((window.width)*func));

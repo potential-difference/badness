@@ -5,69 +5,29 @@ void setupSpecifics() {
    backgroundNames = new String[] {"one col c", "vert mirror grad", "side by side", "horiz mirror grad", 
    "one color flash", "moving horiz grad", "checked", "radiators", "stripes", "one two three"}; 
    */
-   /*
-       switch (index) {
-    case 0:  
-      anim = new BenjaminsBoxes(this);
-      break;
-    case 1:  
-      anim = new Checkers(this);
-      break;
-    case 2:  
-      anim = new Rings(this);
-      break;
-    case 3:  
-      anim = new Rush(this);
-      break;
-    case 4:  
-      anim = new Rushed(this);
-      break;
-    case 5:  
-      anim = new SquareNuts(this);
-      break;
-    case 6:  
-      anim = new DiagoNuts(this);
-      break;
-    case 7:  
-      anim = new Stars(this);
-      break;
-    case 8:  
-      anim = new Swipe(this);
-      break;
-    case 9:  
-      anim = new Swiped(this);
-      break;
-    case 10:  
-      anim = new Teeth(this);
-      break;
-    case 11:  
-      anim = new Donut(this);
-      break;
-    case 12:
-      anim = new AllOn(this);
-      break;
-    case 13:
-      anim = new AllOff(this);
-      break;
-*/
-  rigg.availableAnims = new int[] {0, 2, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};      // setup which anims are used on which rig here
+
+  rigg.availableAnims = new int[] {0, 2, 1, 5, 6, 7, 8, 10, 11};      // setup which anims are used on which rig here
   roof.availableAnims = new int[] {0, 1, 6, 10, 11};      // setup which anims are used on which rig here - defualt is 0,1,2,3...
   cans.availableAnims = new int[] {0, 1, 3, 6, 7, 10, 11, 12};      // setup which anims are used on which rig here
-  pars.availableAnims = new int[] {6,11,12};      // setup which anims are used on which rig here
+  pars.availableAnims = new int[] {6, 11, 12};      // setup which anims are used on which rig here
 
-  rigg.availablePalettes = new Palette[] {
-    new Palette(new int[]{3,4,5,8},new int[]{13,12,11,15}), 
-    new Palette(new int[]{1,2,3},new int[]{10,11,12})
-  };
-  
-  
   rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5};  
   roof.availableFunctionEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
 
-  rigg.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6, 9};
-  cans.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5}; //rigg.availableBkgrnds;
+  rigg.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 6, 9};
+  cans.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5}; 
   roof.availableBkgrnds = new int[] {0, 1, 3, 4, 5, 8};
   pars.availableBkgrnds = new int[] {0, 4};
+
+  //  col[0] = teal;  col[1] = orange; col[2] = pink; col[3] = purple; col[4] = bloo; col[5] = red;
+  //  col[6] = grin;  col[7] = aqua;  col[8] = teal2;  col[9] = orange2; col[10] = pink2; col[11] = purple2; 
+  // col[12] = bloo2; col[13] = red2; col[14] = grin2; col[15] = aqua2; col[16] = yell2;  col[17] = yell;
+
+  rigg.availablePalettes = new Palette[] {
+    new Palette(new int[]{5, 13, 11, 15, 12, 4}, new int[]{5, 13, 11, 15, 12, 4}), // reds and blues
+    new Palette(new int[]{0, 1, 3, 8, 9, 12, 15}, new int[]{0, 1, 3, 8, 9, 12, 15}), // teals and oranges
+    new Palette(new int[]{6, 2, 3, 6, 10, 11, 6}, new int[]{6, 2, 3, 6, 10, 11, 6})
+  };
 
   ///////////////////////////////// UPDATE THE DROPDOWN LISTS WITH AVLIABLE OPTIONS ///////////////////////////////////////////////////////
   for (Rig rig : rigs) {    
@@ -86,12 +46,11 @@ void setupSpecifics() {
       int index = rig.availableAnims[i];
       rig.ddVizList.addItem(rig.animNames[index], index); //add all available anims to VizLists -
     }
-    if (rig.availablePalettes == null){
-      rig.availablePalettes = new Palette[]{new Palette(new int[]{1,2,3,4,5},new int[]{10,11,12,13,14})};
+    if (rig.availablePalettes == null) {
+      rig.availablePalettes = new Palette[]{new Palette(new int[]{1, 2, 3, 4, 5}, new int[]{10, 11, 12, 13, 14})};
     }
-    
-    for (int i=0; i<rig.availablePalettes.length; i++){
-      rig.ddPalList.addItem("palette " + i,i);
+    for (int i=0; i<rig.availablePalettes.length; i++) {
+      rig.ddPalList.addItem("palette " + i, i);
     }
     for (int i=0; i<rig.availableAlphaEnvelopes.length; i++) {
       int index = rig.availableAlphaEnvelopes[i];
@@ -113,6 +72,7 @@ void setupSpecifics() {
     //need to use the actal numbers from the above aray
   }
 
+
   //rigg.dimmers.put(3, new Ref(cc, 34));
 
   rigg.vizIndex = 2;
@@ -123,13 +83,14 @@ void setupSpecifics() {
   rigg.alphaIndexB = 1;
   rigg.bgIndex = 0;
   roof.bgIndex = 4;
-
+  /*
   rigg.colorIndexA = 2;
-  rigg.colorIndexB = 1;
-  roof.colorIndexA = 1;
-  roof.colorIndexB = 0;
-  cans.colorIndexA = 7;
-  cans.colorIndexB = 11;
+   rigg.colorIndexB = 1;
+   roof.colorIndexA = 1;
+   roof.colorIndexB = 0;
+   cans.colorIndexA = 7;
+   cans.colorIndexB = 11;
+   */
   //donut.colorIndexA = 
   //donut.colorIndexB = ;
 
@@ -195,7 +156,7 @@ void colorSetup() {
   alt = -5;
   aqua2 = color(190-alt, 80, 100);
   pink2 = color(323-alt, sat2, 90);
-  bloo2 = color(239-alt, sat2, 100);
+  bloo2 = color(260-alt, sat2, 100);
   yell2 = color(60-alt, sat2, 100);
   grin2 = color(160-alt, sat2, 100);
   orange2 = color(34.02-alt, sat2, 90);

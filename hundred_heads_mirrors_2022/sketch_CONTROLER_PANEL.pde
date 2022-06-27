@@ -15,9 +15,9 @@ class MainControlFrame extends ControlFrame {
     this.y = 90;
     this.sliderY=y;
     rigg = new Rig(false, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
-    roof = new Rig(false, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
+   roof = new Rig(false, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
     cans = new Rig(true, size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "SEEDS");
-    pars = new Rig(true, size.pars.x, size.pars.y, size.parsWidth, size.parsHeight, "PARS");
+   pars = new Rig(true, size.pars.x, size.pars.y, size.parsWidth, size.parsHeight, "PARS");
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// GLOBAL SLIDERS ///////////////////////////////////////////////////////////
@@ -133,7 +133,7 @@ class MainControlFrame extends ControlFrame {
     rect(1080, sliderY+30, 50, 50);
   }
 }
-
+/*
 class SliderFrame extends ControlFrame {
   SliderFrame(PApplet _parent, int _controlW, int _controlH, int _xpos, int _ypos) {
     super (_parent, _controlW, _controlH, _xpos, _ypos);
@@ -153,13 +153,14 @@ class SliderFrame extends ControlFrame {
 
     int gap = 25;
 
-    for (int i =0; i<17; i+=2) {
-      gap = 25;
-      String name = "slider "+i;
-      String name1 = "slider "+(i+1);
-      loadSlider( name, x, y+(i*gap), sliderWide, sliderHigh, 0, 1, 0.32, act1, bac1, slider1);
-      loadSlider( name1, x, y+gap+(i*gap), sliderWide, sliderHigh, 0, 1, 0.32, act, bac, slider);
-    }
+    //for (int i =0; i<17; i+=2) {
+    //  gap = 25;
+    //  String name = "slider "+i;
+    //  String name1 = "slider "+(i+1);
+    //  loadSlider( name, x, y+(i*gap), sliderWide, sliderHigh, 0, 1, 0.32, act1, bac1, slider1);
+    //  loadSlider( name1, x, y+gap+(i*gap), sliderWide, sliderHigh, 0, 1, 0.32, act, bac, slider);
+    //}
+    
     SFinitialized = true;
   }
   void draw() {
@@ -216,7 +217,7 @@ class SliderFrame extends ControlFrame {
     rectMode(CENTER);
   }
 }
-
+*/
 class ControlFrame extends PApplet {
   int controlW, controlH, wide, high, xpos, ypos;
   float clm, row, sliderY, x, y;

@@ -1,7 +1,7 @@
 public class Palette {
   int[] colorsC;
   int[] colorsFlash;
-  Palette(int[] c,int[] f){
+  Palette(int[] c, int[] f) {
     colorsC = c;
     colorsFlash = f;
   }
@@ -12,7 +12,7 @@ public class Rig {
   PGraphics colorLayer, buffer, pass1, pass2;
   PVector size;
   color c, flash, c1, flash1, clash, clash1, clashed, colorIndexA, colorIndexB = 1, colA, colB, colC, colD, scol1, scol2, scol3;
-  color col[] = new color[17];  /// length of color array??!
+  color col[] = new color[18];  /// length of color array??!
   PVector position[] = new PVector[12];
   PVector positionX[][] = new PVector[7][3];
   String name;
@@ -24,7 +24,7 @@ public class Rig {
   int[] availableAlphaEnvelopes;
   int[] availableFunctionEnvelopes;
   Palette[] availablePalettes;
-   // added this
+  // added this
   int[] availableColorsC;
   int[] availableColorsFlash;
 
@@ -42,7 +42,7 @@ public class Rig {
     high = _high;
     size = new PVector (_xpos, _ypos);
     toggle = _toggle;
- 
+
     this.cp5 = controlFrame.cp5;
 
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
@@ -115,7 +115,6 @@ public class Rig {
     col[5] = red;
     col[6] = grin;
     col[7] = aqua;
-    col[8] = yell;
     col[8] = teal2;
     col[9] = orange2;
     col[10] = pink2;
@@ -125,6 +124,8 @@ public class Rig {
     col[14] = grin2;
     col[15] = aqua2;
     col[16] = yell2;
+    col[17] = yell;
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
     ////////////////////////////// LOAD CONTROLLERS //////////////////////////////////////////////////////////////////////////////
     int clm = 300;           // distance between coloms
@@ -151,8 +152,8 @@ public class Rig {
       //.setLabel(this.name+" cRadioButton")
       .setPosition(x+(clm*arrayListIndex)-130, y)
       .setSize(15, shigh);
-      
-      
+
+
     for (int i=0; i<availableColorsC.length; i++) {
       cRadioButton.addItem(name+" colc "+i, i);
       cRadioButton.getItem(name+" colc "+i)
@@ -161,9 +162,9 @@ public class Rig {
         .setColorActive(color(col[availableColorsC[i]], 360));
       cRadioButton.hideLabels();
     }
-    
- 
-    
+
+
+
 
     flashRadioButton = cp5.addRadioButton(name+" flashRadioButton")
       //.plugTo(this, "flashRadioButton")
@@ -182,12 +183,14 @@ public class Rig {
     ///////////////////////////////// DROPDOWN LISTS //////////////////////////////////////////////////////////////////////////////
     ddVizList = cp5.addScrollableList(name+" vizLizt").setPosition(x+(clm*arrayListIndex)-90, y);
     ddBgList = cp5.addScrollableList(name+" bkList").setPosition(x+(clm*arrayListIndex)-90, y+25);
-    ddPalList = cp5.addScrollableList(name+" palList").setPosition(x+(clm*arrayListIndex)-90,y+50);
-    ddAlphaList = cp5.addScrollableList(name+" alpahLizt").setPosition(x+(clm*arrayListIndex)-90, y+60);
-    ddFuncList = cp5.addScrollableList(name+" funcLizt").setPosition(x+(clm*arrayListIndex)-90, y+85);
 
-    ddAlphaListB = cp5.addScrollableList(name+" alpahLiztB").setPosition(x+(clm*arrayListIndex)-45, y+60);
-    ddFuncListB = cp5.addScrollableList(name+" funcLiztB").setPosition(x+(clm*arrayListIndex)-45, y+85);
+    ddPalList = cp5.addScrollableList(name+" palList").setPosition(x+(clm*arrayListIndex)-90, y+50);
+
+    ddAlphaList = cp5.addScrollableList(name+" alpahLizt").setPosition(x+(clm*arrayListIndex)-90, y+80);
+    ddFuncList = cp5.addScrollableList(name+" funcLizt").setPosition(x+(clm*arrayListIndex)-90, y+105);
+
+    ddAlphaListB = cp5.addScrollableList(name+" alpahLiztB").setPosition(x+(clm*arrayListIndex)-45, y+80);
+    ddFuncListB = cp5.addScrollableList(name+" funcLiztB").setPosition(x+(clm*arrayListIndex)-45, y+105);
 
     // the order of this has to be oppostie to the order they are displayed on screen
     customize(ddFuncListB, color(bac1, 200), bac, act, 40, "funcB");     // customize the list
@@ -195,10 +198,11 @@ public class Rig {
     customize(ddFuncList, color(bac1, 200), bac, act, 40, "funcA");     // customize the list
     customize(ddAlphaList, color(bac1, 200), bac, act, 40, "alphA");   // customize the list
 
+    customize(ddPalList, color(bac, 200), bac1, act, 85, name+" pal");
+
     customize(ddBgList, color(bac, 200), bac1, act, 85, name+" bkgrnd");       // customize the list
     customize(ddVizList, color(bac, 200), bac1, act, 85, name+" viz");       // customize the list
-    customize(ddPalList, color(bac, 200), bac1, act, 85, name+" pal");
-    /////////  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

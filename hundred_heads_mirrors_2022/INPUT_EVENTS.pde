@@ -72,7 +72,7 @@ void keyPressed() {
 
   if (key=='1') {
     controlFrame.cp5.saveProperties(controlFrameValues);//"cp5values.json");
-    sliderFrame.cp5.saveProperties(sliderFrameValues);//"cp5SliderValues.json");
+    //sliderFrame.cp5.saveProperties(sliderFrameValues);//"cp5SliderValues.json");
     //this.cp5.saveProperties(mainFrameValues);
     println("** SAVED CONTROLER VALUES **");
     //println("saved to", controlFrameValues, sliderFrameValues);
