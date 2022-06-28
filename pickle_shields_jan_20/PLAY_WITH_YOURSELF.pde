@@ -51,20 +51,19 @@ void playWithYourself(float vizTm) {
   ///////////////////////////////////// COLORSWAP TIMER /////////////////////////////////////////////////////////////////
   if (colorSwapSlider > 0) for (Rig rig : rigs) rig.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
   if (beatCounter%64<4) rigg.colorSwap(1000000*noize);  
-  if (beatCounter%82>78) roof.colorSwap(1000000*noize);
+  //if (beatCounter%82>78) roof.colorSwap(1000000*noize);
   //if (beatCounter%64>61) cans.colorSwap(1000000*noize);
 
   ////////////////////////////////////////// COLOR FLIP ///////////////////////////////////////////////////////////////////
   for (int i = 16; i<22; i+=2) if ( beatCounter % 128 == i) rigg.colFlip = true;
   else rigg.colFlip = false;
-  for (int i = 11; i<19; i+=2) if ( beatCounter % 128 == i) roof.colFlip = true;
-  else roof.colFlip = false;
+  
   for (Rig rig : rigs) rig.colorFlip(rigg.colFlip);
 
   ///////////////////////////////////////// LERP COLOUR //////////////////////////////////////////////////////////////////
   colBeat = false;
   if (beatCounter % 18 > 15)  colorLerping(rigg, (1-beat)*4);
-  if (beatCounter % 18 < 4)  colorLerping(cans, (1-beat)*4);
+  //if (beatCounter % 18 < 4)  colorLerping(cans, (1-beat)*4);
 
   //if (beatCounter % 32 > 27)  colorLerping(roof, (1-beat)*3);
   ////if (beatCounter % 32 > 28)  colorLerping(cans, (1-beat)*1.5);

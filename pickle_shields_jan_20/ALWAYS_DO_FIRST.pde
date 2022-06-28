@@ -16,22 +16,13 @@ void setupSpecifics() {
 
   rigg.availableAnims = new int[] {1, 2, 3, 6, 7, 8};      // setup which anims are used on which rig here
   // rigg.availableAnims = String[] {"Boxes","StarMesh"...};
-  roof.availableAnims = new int[] {0, 7, 8, 11, 12, 13, 14, 15, 17, 18, 19};        // setup which anims are used on which rig here - defualt is 0,1,2,3...
-  cans.availableAnims = new int[] {0, 7, 8, 11, 12, 13, 14, 15, 17, 18, 19};        // setup which anims are used on which rig here - defualt is 0,1,2,3...
-  pars.availableAnims = new int[] {0, 19};      // setup which anims are used on which rig here
-
+ 
   rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
-  roof.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
-  pars.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
 
   rigg.availableFunctionEnvelopes = new int[] {0, 1, 2};  
-  roof.availableFunctionEnvelopes = new int[] {0, 1, 2};  
-  pars.availableFunctionEnvelopes = new int[] {0, 1, 2};  
-
+ 
   rigg.availableBkgrnds = new int[] {0, 1, 10, 11, 12, 13, 14};
-  roof.availableBkgrnds = new int[] {0, 1, 3, 4, 5, 8, 10};
-  pars.availableBkgrnds = roof.availableBkgrnds; //new int[] {0, 3, 4, 5};
-
+  
   //rigg.availableColors = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
   //roof.availableColors = rigg.availableColors; // = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
 
@@ -81,26 +72,15 @@ void setupSpecifics() {
   //rigg.dimmers.put(3, new Ref(cc, 34));
 
   rigg.vizIndex = 2;
-  roof.vizIndex = 1;
   rigg.functionIndexA = 0;
   rigg.functionIndexB = 1;
   rigg.alphaIndexA = 0;
   rigg.alphaIndexB = 1;
   rigg.bgIndex = 0;
-  roof.bgIndex = 4;
 
   rigg.colorIndexA = 2;
   rigg.colorIndexB = 1;
-  roof.colorIndexA = 1;
-  roof.colorIndexB = 0;
-  //cans.colorIndexA = 7;
-  //cans.colorIndexB = 11;
-  //donut.colorIndexA = 
-  //donut.colorIndexB = ;
-
-  //cans.infoX += 100;
-
-
+ 
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
   for (int i = 0; i < 100; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen
   cc[1] = 0.75;
@@ -109,8 +89,6 @@ void setupSpecifics() {
   cc[6] = 0.75;
   cc[4] = 1;
   cc[8] = 1;
-  cc[MASTERFXON] = 0;
-
 
   for (int i= 36; i < 52; i++)cc[i] = 0;
 }
