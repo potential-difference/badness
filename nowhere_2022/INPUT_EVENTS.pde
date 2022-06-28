@@ -4,17 +4,29 @@ boolean vizHold, colHold, colBeat;
 boolean[] keyP = new boolean[128];
 boolean[] keyT = new boolean[128];
 void keyPressed() {  
-
-  if (key == CODED) {
-    //println("keycode", keyCode);
-    if (keyCode == 157) {
-      println("*** DELETE ALL ANIMS ***");
-      for (Rig rig : rigs) {
-        for (Anim anim : rig.animations) anim.deleteme = true; // immediately delete all anims
-      }
+  if (keyCode == BACKSPACE) {
+    println("*** DELETE ALL ANIMS ***");
+    for (Rig rig : rigs) {
+      for (Anim anim : rig.animations) anim.deleteme = true; // immediately delete all anims
     }
   }
 
+  if (key=='1') {
+    controlFrame.cp5.saveProperties(controlFrameValues);//"cp5values.json");
+    //this.cp5.saveProperties(mainFrameValues);
+    println("** SAVED CONTROLER VALUES **");
+    //println("saved to", controlFrameValues, sliderFrameValues);
+  } else if (key=='2') {
+    try {
+      controlFrame.cp5.loadProperties(controlFrameValues);
+      //this.cp5.loadProperties(mainFrameValues);
+      println("** LOADED CONTROLER VALUES **");
+      //println("loaded from", controlFrameValues, sliderFrameValues);
+    }
+    catch(Exception e) {
+      println(e, "ERROR LOADING CONTROLLER VALUES");
+    }
+  }
   //// debound or thorttle this ////
 
   /////////////////////////////// RIG KEY FUNCTIONS ////////////////////////
@@ -33,7 +45,7 @@ void keyPressed() {
   if (key == 'c') rigg.colorIndexA = (rigg.colorIndexA+1)%rigg.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
   if (key == 'v') rigg.colorIndexB = (rigg.colorIndexB+1)%rigg.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
- 
+
   /////////////////////////////////// momentaory key pressed array /////////////////////////////////////////////////
   for (int i = 32; i <=63; i++)  if (key == char(i)) keyP[i]=true;
   for (int i = 91; i <=127; i++) if (key == char(i)) keyP[i]=true;

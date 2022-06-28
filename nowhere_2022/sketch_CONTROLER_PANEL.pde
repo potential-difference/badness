@@ -12,13 +12,30 @@ class MainControlFrame extends ControlFrame {
     super.setup();
     /////////////////////////////// GLOBAL TOGGLE BUTTONS//////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
-    this.x = this.width-65;
+    this.x = this.width/2;
     this.wide = 20;
     this.high = 20;
-    loadToggle("testToggle", testToggle, x, 10, 55, 55, bac1, bac, slider);
-    loadToggle("onTop", onTop, x - 30, 45, wide, high, bac1, bac, slider);
+
     rigg = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
- 
+
+    x = width/2+80;
+    y = 90;
+    wide = 120;           // x size of sliders
+    high = 20;           // y size of slider
+    row = high +4;       // distance between rows
+
+    loadSlider("boothDimmer", x, y, wide, high, 0, 1, 0.32, act1, bac1, slider1);
+    this.cp5.getController("boothDimmer").setLabel("booth dimmer");
+    loadSlider("digDimmer", x, y+row, wide, high, 0, 1, 0.2, act, bac, slider);
+    this.cp5.getController("digDimmer").setLabel("dig dimmer");
+    loadSlider("vizTime", x, y+row*2, wide, high, 0.5, 30, 5, act1, bac1, slider1);
+    this.cp5.getController("vizTime").setLabel("viz timer");
+
+    loadSlider("colorTime", x, y+row*3, wide, high, 0.5, 30, 6, act, bac, slider);
+    this.cp5.getController("colorTime").setLabel("color timer");
+    loadSlider("colorSwapSlider", x, y+row*4, wide, high, 0, 1, 0.9, act1, bac1, slider1);
+    this.cp5.getController("colorSwapSlider").setLabel("color swap");
+
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     MCFinitialized = true;
@@ -35,6 +52,8 @@ class MainControlFrame extends ControlFrame {
     int totalAnims=0;      
     for (Rig rig : rigs) totalAnims += rig.animations.size();
     text("# of anims: "+totalAnims, x, y+45);
+    sequencer(x+130, y +42);
+
     ///////////// rig info/ ///////////////////////////////////////////////////////////////////
     fill(rigg.flash, 300);
     if (!rigg.toggle) fill(rigg.c, 100);
@@ -46,7 +65,6 @@ class MainControlFrame extends ControlFrame {
     ///// NEXT VIZ IN....
     x=250;
     fill(rigg.c, 300);
-
     String sec = nf(int(vizTime*60 - (millis()/1000 - vizTimer)) % 60, 2, 0);
     int min = int(vizTime*60 - (millis()/1000 - vizTimer)) /60 % 60;
     text("next viz in: "+min+":"+sec, x, y);
@@ -79,7 +97,7 @@ class ControlFrame extends PApplet {
     frameRate(10);
     this.surface.setSize(controlW, controlH);
     this.surface.setAlwaysOnTop(onTop);
-    //this.surface.setLocation(xpos, ypos);
+    this.surface.setLocation(xpos, ypos);
     //pixelDensity(2);
     colorMode(HSB, 360, 100, 100);
     rectMode(CENTER);
@@ -204,11 +222,7 @@ class ControlFrame extends PApplet {
           String name = theEvent.getController().getName();
           setCCfromController(name, value);
         }
-        //   if( theEvent.getController().getName().startsWith("bang")){
-        //     for (int i=0;i<col.length;i++) {
-        //if (theEvent.getController().getName().equals("bang"+i)) {
-        //  col[i] = color(random(255));
-        //}
+       
       }
       catch (Exception e) {
         println(e);
