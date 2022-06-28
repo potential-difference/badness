@@ -151,7 +151,7 @@ class MainControlFrame extends ControlFrame {
     
   }
 }
-
+/*
 class SliderFrame extends ControlFrame {
   SliderFrame(PApplet _parent, int _controlW, int _controlH, int _xpos, int _ypos) {
     super (_parent, _controlW, _controlH, _xpos, _ypos);
@@ -178,7 +178,7 @@ class SliderFrame extends ControlFrame {
     this.cp5.getController("colorTime").setLabel("color timer");
     loadSlider("colorSwapSlider", x, y+row*4, wide, high, 0, 1, 0.9, act1, bac1, slider1);
     this.cp5.getController("colorSwapSlider").setLabel("color swap");
-*/
+
 
     //high = 12;
     //int gap =  high +4;
@@ -202,7 +202,7 @@ class SliderFrame extends ControlFrame {
     dividerLines();
   }
 }
-
+*/
 class ControlFrame extends PApplet {
   int controlW, controlH, wide, high, xpos, ypos;
   float clm, row, x, y;

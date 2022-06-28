@@ -17,7 +17,7 @@ final int ROOF = 1;
 SizeSettings size;
 OPCGrid opcGrid;
 ShieldsOPCGrid shieldsGrid;
-ControlFrame controlFrame, sliderFrame;
+ControlFrame controlFrame;
 
 Rig rigg, roof, cans, mirrors, strips, donut, seeds, pars;
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
@@ -36,7 +36,7 @@ MidiBus LPD8bus;          // midibus for LPD8
 MidiBus beatStepBus;      // midibus for Artuia BeatStep
 MidiBus MPD8bus;
 
-String controlFrameValues, sliderFrameValues, mainFrameValues;
+String controlFrameValues, mainFrameValues;
 
 boolean onTop = false;
 boolean MCFinitialized, SFinitialized;
@@ -54,12 +54,7 @@ void setup()
 
   surface.setSize(size.sizeX, size.sizeY);
   surface.setAlwaysOnTop(onTop);
-  /*
- printArray( PFont.list() ); //_______ list all available fonts
-   font = createFont("Liberation Sans Narrow Bold Italic", 18); //_ select a font
-   textFont(font); //___________________ set font for text function
-   */
-
+  
   //surface.setLocation(size.surfacePositionX, size.surfacePositionY);
   MCFinitialized = false;
   controlFrame = new MainControlFrame(this, width*2, 530, size.surfacePositionX, size.surfacePositionY+height+5); // load control frame must come after shild ring etc
@@ -73,17 +68,7 @@ void setup()
   }
   println(".");
 
-  int frameWidth = 220;
-  SFinitialized = false;
-  sliderFrame = new SliderFrame(this, frameWidth, height+controlFrame.height+5, size.surfacePositionX-frameWidth-5, size.surfacePositionY); // load control frame must come after shild ring etc
-
-  print("SliderFrame");
-  //wait for MCF,SF to be initialized
-  while (!SFinitialized) {
-    delay(100);
-    print(".");
-  }
-  println(".");
+  
   ///////////////// LOCAL opc /////////////////////
   opcLocal   = new OPC(this, "127.0.0.1", 7890);        // Connect to the local instance of fcserver - MIRRORS
 
@@ -135,11 +120,11 @@ void setup()
   //artNetSetup();
 
   controlFrameValues = sketchPath("cp5ControlFrameValues");
-  sliderFrameValues  = sketchPath("cp5SliderFrameValues");
+  //sliderFrameValues  = sketchPath("cp5SliderFrameValues");
   //mainFrameValues  = sketchPath("cp5MainFrameValues");
   try {
     controlFrame.cp5.loadProperties(controlFrameValues);
-    sliderFrame.cp5.loadProperties(sliderFrameValues);
+    //sliderFrame.cp5.loadProperties(sliderFrameValues);
   }
   catch(Exception e) {
     println(e);

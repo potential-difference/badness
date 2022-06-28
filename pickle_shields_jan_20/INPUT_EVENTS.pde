@@ -44,17 +44,13 @@ void keyPressed() {
   if (key == '[') vizHold = !vizHold; 
   if (key == ']') colHold = !colHold; 
 
-
   if (key=='1') {
     controlFrame.cp5.saveProperties(controlFrameValues);//"cp5values.json");
-    sliderFrame.cp5.saveProperties(sliderFrameValues);//"cp5SliderValues.json");
     //this.cp5.saveProperties(mainFrameValues);
     println("** SAVED CONTROLER VALUES **");
-    //println("saved to", controlFrameValues, sliderFrameValues);
   } else if (key=='2') {
     try {
       controlFrame.cp5.loadProperties(controlFrameValues);
-      sliderFrame.cp5.loadProperties(sliderFrameValues);
       //this.cp5.loadProperties(mainFrameValues);
       println("** LOADED CONTROLER VALUES **");
       //println("loaded from", controlFrameValues, sliderFrameValues);
@@ -63,32 +59,6 @@ void keyPressed() {
       println(e, "ERROR LOADING CONTROLLER VALUES");
     }
   }
-
-
-
-  //  switch(key) {
-  //    case('1'):
-  //    /* make the ScrollableList behave like a ListBox */
-  //    cp5.get(ScrollableList.class, "dropdown").setType(ControlP5.LIST);
-  //    break;
-  //    case('2'):
-  //    /* make the ScrollableList behave like a DropdownList */
-  //    cp5.get(ScrollableList.class, "dropdown").setType(ControlP5.DROPDOWN);
-  //    break;
-  //    case('3'):
-  //    /*change content of the ScrollableList */
-  //    List l = Arrays.asList("a-1", "b-1", "c-1", "d-1", "e-1", "f-1", "g-1", "h-1", "i-1", "j-1", "k-1");
-  //    cp5.get(ScrollableList.class, "dropdown").setItems(l);
-  //    break;
-  //    case('4'):
-  //    /* remove an item from the ScrollableList */
-  //    cp5.get(ScrollableList.class, "dropdown").removeItem("k-1");
-  //    break;
-  //    case('5'):
-  //    /* clear the ScrollableList */
-  //    cp5.get(ScrollableList.class, "dropdown").clear();
-  //    break;
-  //  }
 
   /////////////////////////////////// momentaory key pressed array /////////////////////////////////////////////////
   for (int i = 32; i <=63; i++)  if (key == char(i)) keyP[i]=true;
@@ -144,8 +114,7 @@ void controllerChange(int channel, int number, int value) {
 
   String name = "slider "+(number-40);
   try {
-    //sliderFrame.cp5.getController(name).setValue(cc[number]);
-    sliderFrame.cp5.getController(name).setValue(cc[number]);
+    controlFrame.cp5.getController(name).setValue(cc[number]);
   } 
   catch (Exception e) {
     println(e);
