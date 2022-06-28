@@ -661,12 +661,18 @@ class Anim {
   void squareNut(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
     try {
       window.strokeWeight(-stroke);
-    window.stroke(360*alph);
-    window.noFill();
-    window.pushMatrix();
-    window.translate(xpos, ypos);
-    window.rotate(radians(rotate));
-    window.rect(0, 0, wide, high);
+      window.stroke(360*alph);
+      window.noFill();
+    }catch(Exception e){
+      println(e,"Squarenut caught exception");
+      return;  
+    }
+    
+    try{
+      window.pushMatrix();
+      window.translate(xpos, ypos);
+      window.rotate(radians(rotate));
+      window.rect(0, 0, wide, high);
     }catch(Exception e){
       println(e,"SquareNut caught exception");
     }
@@ -739,6 +745,11 @@ class Anim {
       window.strokeWeight(-stroke);
       window.stroke(360*alph);
       window.noFill();
+    }catch(Exception e){
+      println(e,"Star caught exception");
+      return;
+    }
+    try{
       window.pushMatrix();                /// CAUSES CRASHES
       window.translate(xpos, ypos);
       window.rotate(radians(rotate));
@@ -748,11 +759,10 @@ class Anim {
       window.rotate(radians(120));
       window.ellipse(0, 0, wide, high);
       //window.popMatrix();
+    } catch(Exception e) {
+      println(e, "Star caught exception.");
     }
-    catch(Exception e) {
-      println(e, "Star caught exception. strokeWeight was:", stroke);
-    }
-    window.popMatrix();
+      window.popMatrix();
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
   void rush(float xpos, float ypos, color col, float wide, float high, float func, float alph) {

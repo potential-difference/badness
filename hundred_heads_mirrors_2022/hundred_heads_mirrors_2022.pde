@@ -28,7 +28,7 @@ import javax.sound.midi.ShortMessage;       // shorthand names for each control 
 MidiBus TR8bus, apcBus, LPD8bus, beatStepBus;          
 
 boolean onTop = false;
-boolean MCFinitialized, SFinitialized;
+boolean MCFinitialized, SFinitialized,SettingsLoaded;
 
 void settings() {
   System.setProperty("jogl.disable.openglcore", "true");
@@ -40,6 +40,7 @@ void settings() {
 }
 void setup()
 {
+  SettingsLoaded = false;
   surface.setSize(size.sizeX, size.sizeY);
   surface.setAlwaysOnTop(onTop);
   surface.setLocation(size.surfacePositionX, size.surfacePositionY);
@@ -50,13 +51,14 @@ void setup()
   // order of these is important for layout of sliders
   print("MainControlFrame");
   while (!MCFinitialized) {
-    delay(100);
+    try{
+      Thread.sleep(100);
+    }catch(Exception e){}
     print(".");
   }
-  println(".");
+  println("DONE");
 
   //////////////////////////////////////////////////////////////////
-  println(".");
   ///////////////// LOCAL opc /////////////////////
   opcLocal   = new OPC(this, "127.0.0.1", 7890);        // Connect to the local instance of fcserver - MIRRORS
 
@@ -75,14 +77,17 @@ void setup()
   setupSpecifics();
 
   controlFrameValues = sketchPath("cp5ControlFrameValues");
-  mainFrameValues  = sketchPath("cp5MainFrameValues");
+  //mainFrameValues  = sketchPath("cp5MainFrameValues");
+  println("loading cp5 properties");
   try {
     controlFrame.cp5.loadProperties(controlFrameValues);
+    //println("loaded.");
   }
   catch(Exception e) {
     println(e);
     println("*** !!PROBABLY NO PROPERTIES FILE!! ***");
   }
+  SettingsLoaded = true;
   frameRate(30); // always needs to be last in setup
 }
 
