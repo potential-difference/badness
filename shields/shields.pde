@@ -1,4 +1,3 @@
-OPC opcLocal, opcMirror1, opcMirror2, opcNode4, opcNode3, opcNode6, opcNode7, opcWifi, opcNode1;
 WLED wledBigShield, wledShieldA, wledShieldB, wledShieldC, wledShieldD, wledShieldE, wledShieldF, wledBalls, wledSeedsA, wledSeedsB;
 
 import java.util.*;
@@ -22,7 +21,6 @@ ControlFrame controlFrame;
 Rig rigg, roof, cans, mirrors, strips, donut, seeds, pars;
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
 PFont font;
-
 
 import javax.sound.midi.ShortMessage;       // shorthand names for each control on the TR8
 import oscP5.*;
@@ -54,7 +52,7 @@ void setup()
 
   surface.setSize(size.sizeX, size.sizeY);
   surface.setAlwaysOnTop(onTop);
-  
+
   //surface.setLocation(size.surfacePositionX, size.surfacePositionY);
   MCFinitialized = false;
   controlFrame = new MainControlFrame(this, width*2, 530, size.surfacePositionX, size.surfacePositionY+height+5); // load control frame must come after shild ring etc
@@ -68,10 +66,7 @@ void setup()
   }
   println(".");
 
-  
   ///////////////// LOCAL opc /////////////////////
-  opcLocal   = new OPC(this, "127.0.0.1", 7890);        // Connect to the local instance of fcserver - MIRRORS
-
   wledBigShield = new WLED(this, "192.168.8.10", 21324);
   wledShieldA = new WLED(this, "192.168.8.11", 21324);
   wledShieldB = new WLED(this, "192.168.8.12", 21324);
@@ -84,31 +79,10 @@ void setup()
   wledSeedsA   = new WLED(this, "192.168.10.20", 21324);
   wledSeedsB   = new WLED(this, "192.168.10.21", 21324);
 
-
-  ///////////////// OPC over NETWORK /////////////////////
-  //opcMirror1 = new OPC(this, "192.168.10.2", 7890);     // left hand mirror
-  //opcMirror2 = new OPC(this, "192.168.10.5", 7890);     // right hand mirror
-  opcNode4 = new OPC(this, "192.168.10.211", 7890);       // NODE IN THE SHIELDS BOX
-  opcNode3 = new OPC(this, "192.168.10.3", 7890);         // NODE IN CANS BOX
-  opcNode7 = new OPC(this, "192.168.10.7", 7890);         // NODE IN LANTERNS BOX 
-  opcNode1 = new OPC(this, "192.168.8.1", 7890);
-
-  //int numberOfPars;
-  //opcGrid.dmxParsOPC(pars, opcLocal, numberOfPars = 6);   // ENTTEC BOX PLUGGED INTO LAPTOP VIZ USB - run json locally - pars DMX address 1,5,9,13,17,21
-  //opcGrid.dmxSmokeOPC(opcLocal);                          // ENTTEC BOX PLUGGED INTO LAPTOP VIZ USB - run json locally - smoke machine DMX address 100
-
   shieldsGrid = new ShieldsOPCGrid(rigg);  
 
   OPC[] shieldOPCs = {wledBigShield, wledShieldA, wledShieldB, wledShieldC, wledShieldD, wledShieldE, wledShieldF, wledBalls};
-  //shieldsGridOPCs = {opcLocal, opcLocal, opcLocal, opcLocal, opcLocal, opcLocal, opcLocal, opcLocal};
-
   shieldsGrid.spiralShieldsOPC(shieldOPCs);        // SHIELDS plug into RIGHT SLOTS A-F = 1-6 *** BIG SHIELD = 7 *** H-G = LEFT SLOTS 0-2 ***
-  opcGrid.standAloneBoothOPC(opcNode3);                      // BOOTH and DIG lights plug into SHIELDS BOX LEFT slots: booth 3 & 5, dig 4 & 5 or use splitter joiners
-
-  opcGrid.pickleCansOPC(rigg, opcNode1);   
-  //opcGrid.wigflexLanterns(roof, wledSeedsA);    // each lantern plugged into its own slot on the box, 0 - 7
-  //opcGrid.eggsOPC(opcLocal, cans);
-  //opcGrid.pickleLanternsDaisyChain(cans, opcNode3, fadecandy = 10);  // one chain starting at slot 0 on the box - see function if you need to add another chain
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
   midiSetup();
@@ -178,7 +152,7 @@ void draw()
   playWithMeMore();
 
   //////////////////////////////////////////// BOOTH & DIG ///////////////////////////////////////////////////////////////////////////////////////
-  boothLights();
+  //boothLights();
   //////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
   workLights(keyT['w']);
   testColors(keyT['t']);
