@@ -29,12 +29,7 @@ import netP5.*;
 OscP5 oscP5[] = new OscP5[4];
 
 import themidibus.*;  
-MidiBus TR8bus;           // midibus for TR8
-MidiBus faderBus;         // midibus for APC mini
-MidiBus LPD8bus;          // midibus for LPD8
-MidiBus beatStepBus;      // midibus for Artuia BeatStep
-MidiBus MPD8bus;
-
+MidiBus TR8bus, apcBus, LPD8bus, beatStepBus, MPD8bus;    
 String controlFrameValues, mainFrameValues;
 
 boolean onTop = false;
@@ -77,22 +72,10 @@ void setup()
   wledShieldF = new WLED(this, "192.168.8.16", 21324);
   wledBalls   = new WLED(this, "192.168.8.17", 21324);
 
-  wledSeedsA   = new WLED(this, "192.168.10.20", 21324);
-  wledSeedsB   = new WLED(this, "192.168.10.21", 21324);
-
-  ///////////////// OPC over NETWORK /////////////////////
-  opcNode4 = new OPC(this, "192.168.10.211", 7890);       // NODE IN THE SHIELDS BOX
-  opcNode3 = new OPC(this, "192.168.10.3", 7890);         // NODE IN CANS BOX
-  opcNode7 = new OPC(this, "192.168.10.7", 7890);         // NODE IN LANTERNS BOX 
-  opcNode1 = new OPC(this, "192.168.8.1", 7890);
- shieldsGrid = new ShieldsOPCGrid(rigg);  
+  shieldsGrid = new ShieldsOPCGrid(rigg);  
 
   OPC[] shieldOPCs = {wledBigShield, wledShieldA, wledShieldB, wledShieldC, wledShieldD, wledShieldE, wledShieldF, wledBalls};
-
   shieldsGrid.spiralShieldsOPC(shieldOPCs);        // SHIELDS plug into RIGHT SLOTS A-F = 1-6 *** BIG SHIELD = 7 *** H-G = LEFT SLOTS 0-2 ***
-  opcGrid.standAloneBoothOPC(opcNode3);                      // BOOTH and DIG lights plug into SHIELDS BOX LEFT slots: booth 3 & 5, dig 4 & 5 or use splitter joiners
-
-  opcGrid.pickleCansOPC(rigg, opcNode1);   
  
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
   midiSetup();
@@ -100,7 +83,7 @@ void setup()
   loadImages();
   loadShaders();
   setupSpecifics();
- 
+
   controlFrameValues = sketchPath("cp5ControlFrameValues");
   try {
     controlFrame.cp5.loadProperties(controlFrameValues);
@@ -134,8 +117,6 @@ void draw()
   if (beatTrigger) { 
     for (Rig rig : rigs) {
       if (rig.toggle) {
-        //if (testToggle) rig.animations.add(new Test(rig));
-        //println(rig.name+" vizIndex", rig.vizIndex);
         rig.addAnim(rig.vizIndex);           // create a new anim object and add it to the beginning of the arrayList
       }
     }
@@ -147,7 +128,7 @@ void draw()
   //////////////////////////////////////////// PLAY WITH ME MORE /////////////////////////////////////////////////////////////////////////////////
   playWithMeMore();
   //////////////////////////////////////////// BOOTH & DIG ///////////////////////////////////////////////////////////////////////////////////////
-  boothLights();
+  //boothLights();
   //////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
   workLights(keyT['w']);
   testColors(keyT['t']);

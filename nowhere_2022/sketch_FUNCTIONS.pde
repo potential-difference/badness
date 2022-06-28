@@ -144,8 +144,8 @@ void testColors(boolean _test) {
     fill((millis()/50)%360, 100, 100, 360*rigg.dimmer); 
     for (Rig rig : rigs)     rect(rig.size.x, rig.size.y, rig.wide, rig.high);
 
-    rect(opcGrid.booth.x, opcGrid.booth.y, 30, 10);
-    rect(opcGrid.dig.x, opcGrid.dig.y, 30, 10);
+    if(opcGrid.booth != null)rect(opcGrid.booth.x, opcGrid.booth.y, 30, 10);
+    if(opcGrid.dig != null)rect(opcGrid.dig.x, opcGrid.dig.y, 30, 10);
   }
 }
 /////////////////// WORK LIGHTS - ALL ON WHITE SO YOU CAN SEE SHIT ///////////////////////////
@@ -154,8 +154,8 @@ void workLights(boolean _work) {
     pause = 10;
     fill(360*cc[9], 360*cc[10]);
     rect(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight);
-     rect(opcGrid.booth.x, opcGrid.booth.y, 30, 10);
-    rect(opcGrid.dig.x, opcGrid.dig.y, 30, 10);
+    if(opcGrid.booth != null) rect(opcGrid.booth.x, opcGrid.booth.y, 30, 10);
+    if(opcGrid.dig != null)rect(opcGrid.dig.x, opcGrid.dig.y, 30, 10);
   }
 }
 /////////////////////////////////////////////// OSKP///////////////////////////////////////////
