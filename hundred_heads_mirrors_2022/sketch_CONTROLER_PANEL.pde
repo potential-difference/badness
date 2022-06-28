@@ -15,9 +15,9 @@ class MainControlFrame extends ControlFrame {
     this.y = 90;
     this.sliderY=y;
     rigg = new Rig(false, size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
-   roof = new Rig(false, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
-    cans = new Rig(true, size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "SEEDS");
-   pars = new Rig(true, size.pars.x, size.pars.y, size.parsWidth, size.parsHeight, "PARS");
+ //  roof = new Rig(false, size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
+  //  cans = new Rig(true, size.cans.x, size.cans.y, size.cansWidth, size.cansHeight, "SEEDS");
+  // pars = new Rig(true, size.pars.x, size.pars.y, size.parsWidth, size.parsHeight, "PARS");
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// GLOBAL SLIDERS ///////////////////////////////////////////////////////////
@@ -41,12 +41,12 @@ class MainControlFrame extends ControlFrame {
     this.x = this.width-65;
     this.wide = 20;
     this.high = 20;
-    loadToggle("onTop", onTop, 1200, 45, wide, high, bac1, bac, slider);
+   // loadToggle("onTop", onTop, 1200, 45, wide, high, bac1, bac, slider);
     //loadToggle("glitchToggle", glitchToggle, x, y+35, wide, high, bac1, bac, slider);
     //loadToggle("roofBasic", roofBasic, x, y+70, wide, high, bac1, bac, slider);
     //loadToggle("syphonToggle", syphonToggle, x, y+105, wide, high, bac1, bac, slider);
 
-    loadToggle("testToggle", testToggle, x, 10, 55, 55, bac1, bac, slider);
+   // loadToggle("testToggle", testToggle, x, 10, 55, 55, bac1, bac, slider);
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
     MCFinitialized = true;

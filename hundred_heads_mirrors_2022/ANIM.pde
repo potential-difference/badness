@@ -1,3 +1,4 @@
+import java.lang.*;
 
 abstract class ManualAnim extends Anim {
   ManualAnim(Rig _rig) {
@@ -131,7 +132,6 @@ class Checkers extends Anim {
         wide = 50+(wide-(wide*functionA)); 
         high = wide;
 
-        //stroke *=strokeSlider;
         wide *=wideSlider;
         high *=highSlider;
 
@@ -142,7 +142,6 @@ class Checkers extends Anim {
         wide = (wide-(wide*functionA)); 
         high = wide;
 
-        //stroke *=strokeSlider;
         wide *=wideSlider;
         high *=highSlider;
 
@@ -155,7 +154,6 @@ class Checkers extends Anim {
         wide = 50+(wide-(wide*functionA)); 
         high = wide;
 
-        //stroke *=strokeSlider;
         wide *=wideSlider;
         high *=highSlider;
 
@@ -165,7 +163,6 @@ class Checkers extends Anim {
         wide = (wide-(wide*functionB)); 
         high = wide;
 
-        //stroke *=strokeSlider;
         wide *=wideSlider;
         high *=highSlider;
 
@@ -422,7 +419,6 @@ class Swiped extends Anim {
 class Teeth extends Anim {
   Teeth(Rig _rig) {
     super( _rig);
-    //functionBEnvelope = new(oskP Envelope); /////////////////////////////////
   }
   void draw() {
     window.beginDraw();
@@ -438,7 +434,7 @@ class Teeth extends Anim {
 
     squareNut(positionX[6][2].x, positionX[6][2].y, col1, stroke, wide, high, -45, alphaA);
     squareNut(positionX[0][0].x, positionX[0][0].y, col1, stroke, wide, high, -45, alphaA);
-    
+
     wide = vizWidth-(wide*functionB);
     high = wide;
     squareNut(positionX[3][1].x, positionX[2][1].y, col1, stroke, wide, high, 0, alphaB);
@@ -492,13 +488,10 @@ class Avoid extends Anim {
     super(_rig);
   }
   void draw() {
-    window.beginDraw();
-    window.background(0);
     stroke = -window.width*functionA;
     wide = window.width;
     high = wide;
     squareNut(viz.x, viz.y, col1, stroke, wide, high, 0, 1);
-    window.endDraw();
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -575,9 +568,7 @@ class Anim {
     textAlign(CENTER);
     text("OOPS!!\nCHECK YOUR ", rig.size.x, rig.size.y-15);
   }
-  float stroke, wide, high, rotate;
-  //Object highobj;
-  Float vizWidth, vizHeight;
+  float stroke, wide, high, rotate, vizWidth, vizHeight;
   void drawAnim() {
     int now = millis();
     alphaA = alphaEnvelopeA.value(now);
@@ -585,30 +576,17 @@ class Anim {
     alphaA *=rig.dimmer;
     alphaB *=rig.dimmer;          // not sure how to link this yet
 
-    functionA = functionEnvelopeA.value(now); 
-    functionB = functionEnvelopeB.value(now);
-
+    functionA = constrain(functionEnvelopeA.value(now),0.0,1.0); 
+    functionB = constrain(functionEnvelopeB.value(now),0.0,1.0);
+    
     if (alphaEnvelopeA.end_time<now && alphaEnvelopeB.end_time<now) deleteme = true;  // only delete when all finished
 
     this.draw();
-
-    /*
-    if (syphonToggle) {
-     if (this.rig == rigg) {
-     ///// only send the rig animations???!!!???!!! /////
-     syphonImageSent.beginDraw();
-     syphonImageSent.blendMode(LIGHTEST);
-     syphonImageSent.image(pass2, syphonImageSent.width/2, syphonImageSent.height/2, syphonImageSent.width, syphonImageSent.height);
-     syphonImageSent.endDraw();
-     }
-     }
-     */
     blurPGraphics();
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////// FUNCTION AND ALPHA ARRAYS //////////////////////////////////////////////
-
   float sineFast, sineSlow, sine, d, e, stutter;
   float timer[] = new float[6];
 
@@ -637,7 +615,7 @@ class Anim {
     alph[0] = beat;
     alph[1] = pulz;
     alph[2] = beat+(0.05*stutter);
-    alph[3] =(0.98*beat)+(stutter*pulz*0.02);
+    alph[3] = (0.98*beat)+(stutter*pulz*0.02);
     alph[4] = (0.98*pulz)+(beat*0.02*stutter);
     alph[5] = beatFast;
     alph[6] = pulzSlow;
@@ -681,29 +659,78 @@ class Anim {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
   void squareNut(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
-    window.strokeWeight(-stroke);
+    try {
+      window.strokeWeight(-stroke);
     window.stroke(360*alph);
     window.noFill();
     window.pushMatrix();
     window.translate(xpos, ypos);
     window.rotate(radians(rotate));
     window.rect(0, 0, wide, high);
+    }catch(Exception e){
+      println(e,"SquareNut caught exception");
+    }
     window.popMatrix();
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
   void donut(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
-    try {
-      window.strokeWeight(-stroke);
-      window.stroke(360*alph);
-      window.noFill();
-      window.pushMatrix();
+    try{
+      try{
+        window.strokeWeight(-stroke);
+      }catch(Exception e){
+        println("strokeWeight exception: ",e,", stroke:",stroke);
+        return;
+      }
+      try{
+        window.stroke(360*alph);
+      }catch(Exception e){
+        println("stroke exception: ", e,", alph:",alph);
+        return;
+      }
+      
+      try{
+        window.noFill();
+      }catch(Exception e){
+        println("noFill exception: ",e);
+        return;
+      }
+      try{
+        window.pushMatrix();
+      }catch(Exception f) {
+        println(f,"pushMatrix exception");
+        window.popMatrix();
+        return;
+      }
+      try{
+        
       window.translate(xpos, ypos);
+      }catch(Exception e){
+        println(e,"translate caught exception. x,y:",xpos,ypos);
+        window.popMatrix();
+        return;
+      }
+      try{
       window.rotate(radians(rotate));
+      }catch(Exception e){
+        println(e,"rotate caught exception. rotate:",rotate);
+        window.popMatrix();
+        return;
+    }
+      try{
       window.ellipse(0, 0, wide, high);
+      }catch(Exception e){
+        println(e,"ellipse caught exception. wide,high:",wide,high);
+        window.popMatrix();
+        return;
+      }
+      try{
       window.popMatrix();
+      }catch(Exception e){
+        println("popMatrix caught exception:",e);
+      }
     }
     catch(Exception e) {
-      println(e, "Donut caught exception. strokeWeight was:", stroke);
+      println(e, "Donut caught exception. ");
     }
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
@@ -720,11 +747,12 @@ class Anim {
       window.ellipse(0, 0, wide, high);
       window.rotate(radians(120));
       window.ellipse(0, 0, wide, high);
-      window.popMatrix();
+      //window.popMatrix();
     }
     catch(Exception e) {
       println(e, "Star caught exception. strokeWeight was:", stroke);
     }
+    window.popMatrix();
   }
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 
   void rush(float xpos, float ypos, color col, float wide, float high, float func, float alph) {
@@ -743,7 +771,6 @@ class Anim {
     if (r<atan(w.y/w.x)) return w.x/cos(r);
     return w.y/cos(PI*0.5-r);
   }
-
 
   void benjaminsBox(float xpos, float ypos, color col, float wide, float high, float func, float rotate, float alph) {
     rotate = radians(rotate);

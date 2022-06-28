@@ -1,28 +1,7 @@
 void setupSpecifics() {
-  /*
-   animNames = new String[] {"benjmains boxes", "checkers", "rings", "rush", "rushed", 
-   "square nuts", "diaganol nuts", "stars", "swipe", "swiped", "teeth", "donut"}; 
-   backgroundNames = new String[] {"one col c", "vert mirror grad", "side by side", "horiz mirror grad", 
-   "one color flash", "moving horiz grad", "checked", "radiators", "stripes", "one two three"}; 
-   */
-
   rigg.availableAnims = new int[] {0, 2, 1, 6, 7, 10, 11};      // setup which anims are used on which rig here
-  roof.availableAnims = new int[] {0, 1, 6, 10, 11};      // setup which anims are used on which rig here - defualt is 0,1,2,3...
-  cans.availableAnims = new int[] {0, 1, 3, 6, 7, 10, 11, 12};      // setup which anims are used on which rig here
-  pars.availableAnims = new int[] {6, 11, 12};      // setup which anims are used on which rig here
-
   rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5};  
-  roof.availableFunctionEnvelopes = new int[] {0, 1, 4, 5, 6};  
-
   rigg.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 6, 9};
-  cans.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5}; 
-  roof.availableBkgrnds = new int[] {0, 1, 3, 4, 5, 8};
-  pars.availableBkgrnds = new int[] {0, 4};
-
-  //  col[0] = teal;  col[1] = orange; col[2] = pink; col[3] = purple; col[4] = bloo; col[5] = red;
-  //  col[6] = grin;  col[7] = aqua;  col[8] = teal2;  col[9] = orange2; col[10] = pink2; col[11] = purple2; 
-  // col[12] = bloo2; col[13] = red2; col[14] = grin2; col[15] = aqua2; col[16] = yell2;  col[17] = yell;
-
   rigg.availablePalettes = new Palette[] {
     new Palette(new int[]{5, 13, 11, 15, 12, 4}, new int[]{5, 13, 11, 15, 12, 4}), // reds and blues
     new Palette(new int[]{0, 1, 3, 8, 9, 12, 15}, new int[]{0, 1, 3, 8, 9, 12, 15}), // teals and oranges
@@ -68,34 +47,15 @@ void setupSpecifics() {
     for (int i=0; i<rig.availableFunctionEnvelopes.length; i++) {
       int index = rig.availableFunctionEnvelopes[i];
       rig.ddFuncListB.addItem("func "+index, index); //add all available anims to VizLists -
-    }
-    //need to use the actal numbers from the above aray
+    }     //need to use the actal numbers from the above aray
   }
 
-
-  //rigg.dimmers.put(3, new Ref(cc, 34));
-
   rigg.vizIndex = 2;
-  roof.vizIndex = 1;
   rigg.functionIndexA = 0;
   rigg.functionIndexB = 1;
   rigg.alphaIndexA = 0;
   rigg.alphaIndexB = 1;
   rigg.bgIndex = 0;
-  roof.bgIndex = 4;
-  /*
-  rigg.colorIndexA = 2;
-   rigg.colorIndexB = 1;
-   roof.colorIndexA = 1;
-   roof.colorIndexB = 0;
-   cans.colorIndexA = 7;
-   cans.colorIndexB = 11;
-   */
-  //donut.colorIndexA = 
-  //donut.colorIndexB = ;
-
-  cans.infoX += 100;
-
 
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
   for (int i = 0; i < 100; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen
@@ -105,9 +65,6 @@ void setupSpecifics() {
   cc[6] = 0.75;
   cc[4] = 1;
   cc[8] = 1;
-  cc[MASTERFXON] = 0;
-
-
   for (int i= 36; i < 52; i++)cc[i] = 0;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

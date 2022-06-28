@@ -22,20 +22,19 @@ class SizeSettings {
 
     ////////////////////////////////  CANS SETUP UNDER RIG ///////////////////////
     cansWidth = rigWidth;
-    cansHeight = 50;
+    cansHeight = 0;
     if (SHITTYLAPTOP) cansHeight = 250;
     cans = new PVector (rig.x, rigHeight+(cansHeight/2));
 
     ////////////////////////////////  ROOF SETUP RIGHT OF RIG ///////////////////////
-    roofWidth = 400;
+    roofWidth = 0;
     roofHeight = rigHeight+cansHeight;
     roof = new PVector (rigWidth+(roofWidth/2), roofHeight/2);
 
     /////////////////////////////////////////////////////////////////////////////////////
-    parsWidth = 120;
+    parsWidth = 0;
     parsHeight = rigHeight+cansHeight;
     pars = new PVector(rigWidth+roofWidth+(parsWidth/2),parsHeight/2);                        //( (rig.x + (rigHeight/2)) + (cans.x+(cansHeight/2)) + (parsHeight/2), parsWidth/2);
-
 
     sizeX = rigWidth+roofWidth+parsWidth;
     sizeY = rigHeight+cansHeight;
@@ -98,19 +97,7 @@ void audioSetup(int sensitivity) {
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
-AudioPlayer player[];
-void loadAudio() {
-  //////////////////////////////// load one shot sounds ///////////////////////////////
-  player = new AudioPlayer[81];
-  for (int i = 1; i <= 80; i++) {
-    int hundreds = i/100;
-    int tens = (i%100)/10;
-    int ones = i%10;
-    String number =str(hundreds)+str(tens)+str(ones);
-    player[i] = minim.loadFile("oneshot_"+number+".wav");
-  }
-  println("audio loaded");
-}
+
 ////////////////////////////////// SETUP SKETCH DRAWING NORMALS ////////////////////////
 void drawingSetup() {
 

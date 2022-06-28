@@ -1,10 +1,7 @@
 float[] lastTime = new float[cc.length];
 
 void playWithMe() {
-
-
-
-
+  if (keyP[' ']) beatTrigger = true;
   ////////////////////////////////////// COLOR SWAP AND FLIP BUTTONS /////////////////////////////////////////
   if (keyP['o']) rigg.colorSwap(0.9999999999);               // COLOR SWAP MOMENTARY 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -14,36 +11,22 @@ void playWithMe() {
   ////////////////////////////// LERP COLOUR ON BEAT /////////////////////////////////////////////////////////
   if (keyT['y']) {
     colorLerping(rigg, (1-beat)*2);
-    colorLerping(roof, (1-beat)*1.5);
+    if (roof != null) colorLerping(roof, (1-beat)*1.5);
   }
   ////////////////////////////////////////// HOLD BUTTONS FOR VIZ AND COLOUR /////////////////////////////////
   if (vizHold) vizTimer = millis()/1000;              // hold viz change timer
   if (colHold) {
     rigg.colorTimer = millis()/1000;              // hold color change timer
-    roof.colorTimer = millis()/1000;              // hold color change timer
-    cans.colorTimer = millis()/1000;              // hold color change timer
+    if (roof != null)   roof.colorTimer = millis()/1000;              // hold color change timer
+    if (cans != null)   cans.colorTimer = millis()/1000;              // hold color change timer
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  if (keyP[' ']) { 
-    
-    fill (360);
-    rect(pars.size.x,pars.size.y,20,pars.high-50);
-    
-    /*for (Rig rig : rigs) {
-      if (rig.toggle) {
-        beatTrigger = true;
-        //if (testToggle) rig.animations.add(new Test(rig));
-        rig.addAnim(rig.vizIndex);
-      }
-    }*/
-  } 
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   float  debouncetime=100;
-
   Envelope manualA = CrushPulse(0.0, 0, 1, manualSlider*500, 0.0, 0.0);
   /*
   try {
@@ -165,13 +148,10 @@ void playWithMeMore() {
     bgNoise(roof.colorLayer, roof.flash, map(padVelocity[43], 0, 1, 0, roof.dimmer), cc[56]);   //PGraphics layer,color,alpha
     image(roof.colorLayer, roof.size.x, roof.size.y, roof.wide, roof.high);
   }
-
   if (padVelocity[50] > 0) {
     pars.colorLayer.beginDraw();
     pars.colorLayer.background(0, 0, 0, 0);
     pars.colorLayer.endDraw();
-    //void bgNoise(PGraphics layer, color _col, float bright, float fizzyness) {
-
     bgNoise(pars.colorLayer, pars.flash, map(padVelocity[50], 0, 1, 0, pars.dimmer), cc[47]);   //PGraphics layer,color,alpha
     image(pars.colorLayer, pars.size.x, pars.size.y, pars.wide, pars.high);
   }
