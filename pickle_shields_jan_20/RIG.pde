@@ -361,11 +361,6 @@ public class Rig {
       break;
     }
     blendMode(MULTIPLY);
-    /*
-    if (syphonToggle) { 
-     if (syphonImageReceived != null) image(syphonImageReceived, size.x, size.y, wide, high);
-     } else 
-     */
     image(colorLayer, size.x, size.y);
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -693,15 +688,7 @@ public class Rig {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  /*
-  void addAnim(int animIndex) {
-   try{
-   Anim anim = classMap.get(this.availableAnims[animIndex]).newInstance();
-   }catch(Exception e){println("class name error:",e);}
-   }
-   */
-
-  void addAnim(int animIndex) {
+   void addAnim(int animIndex) {
 
     //Object[] classList = new Object[] { new BenjaminsBoxes(this), new StarMesh(this), new Rings(this), new Celtic(this)};
 
@@ -772,29 +759,7 @@ public class Rig {
       anim = new AllOff(this);
       break;
     }
-    //    Ref t=new Ref(new float[]{1.0}, 0);
-    //    if (t != null) anim.animDimmer = anim.animDimmer.mul(t);
-    /*
-    // ramp out all previous anims
-     if (testToggle) {
-     for (Anim an : animations) {
-     float now = millis();
-     //if (alphaIndexA == 1) {
-     //  an.alphaEnvelopeA = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaA, an.alphaA, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.01));
-     //} else {
-     //an.alphaEnvelopeA = an.alphaEnvelopeA.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.8, 0.2, 0.01));
-     //an.alphaEnvelopeA.end_time = min(int(now+avgmillis*alphaRate*1.0), an.alphaEnvelopeA.end_time);
-     an.alphaEnvelopeA = an.alphaEnvelopeA.mul(0.8);
-     //}
-     //if (alphaIndexB == 1) {
-     //  an.alphaEnvelopeB = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaB, an.alphaB, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.01));
-     //} else {       
-     //an.alphaEnvelopeB = an.alphaEnvelopeB.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.9, 0.2, 0.01));
-     //an.alphaEnvelopeB.end_time = min(int(now+avgmillis*alphaRate*1.0), an.alphaEnvelopeB.end_time);
-     an.alphaEnvelopeB = an.alphaEnvelopeB.mul(0.8);
-     }
-     }
-     */
+    
     this.animations.add(anim);
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -816,23 +781,7 @@ public class Rig {
 
         an.overalltime*=0.9;
 
-
-        //if (alphaIndexA == 1) {
-        //an.alphaEnvelopeA = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaA, an.alphaA, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.01));
-        //} else {
-        //Envelope decayA = new Envelope an.alphaEnvelopeA.value(now).mul(0.9);
-        //float decayA = an.alphaEnvelopeA.value(now)*0.6;
-        //an.alphaA = an.alphaEnvelopeA.value(now)*0.6; // decayA; //an.alphaEnvelopeA.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.8, 0.2, 0.01));
-        //an.alphaEnvelopeA.end_time = min(int(now+avgmillis*alphaRate*3.0), an.alphaEnvelopeA.end_time);
-        //an.alphaEnvelopeA = an.alphaEnvelopeA.mul(0.95);
-        //}
-        //if (alphaIndexB == 1) {
-        //  an.alphaEnvelopeB = new Ramp(now, now+avgmillis*alphaRate*3.0, an.alphaB, an.alphaB, 0.9).mul(new Ramp(now+avgmillis*alphaRate*3.0, now+avgmillis*alphaRate*4.0, 1.0, 0.1, 0.01));
-        //} else {       
-        //an.alphaEnvelopeB = an.alphaEnvelopeB.mul(new Ramp(now, now+avgmillis*alphaRate*3.0, 0.9, 0.2, 0.01));
-        //an.alphaEnvelopeB.end_time = min(int(now+avgmillis*alphaRate*1.0), an.alphaEnvelopeB.end_time);
-        //an.alphaEnvelopeB = an.alphaEnvelopeB.mul(0.95);
-      }
+  }
     }
   }
 
@@ -871,17 +820,3 @@ public class Rig {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*
-PApplet getparent () {
- try {
- return (PApplet) getClass().getDeclaredField("this$0").get(this);
- }
- catch (ReflectiveOperationException cause) {
- throw new RuntimeException(cause);
- }
- }
- */

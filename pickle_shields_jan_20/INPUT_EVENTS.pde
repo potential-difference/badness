@@ -5,13 +5,10 @@ boolean[] keyP = new boolean[128];
 boolean[] keyT = new boolean[128];
 void keyPressed() {  
 
-  if (key == CODED) {
-    //println("keycode", keyCode);
-    if (keyCode == 157) {
-      println("*** DELETE ALL ANIMS ***");
-      for (Rig rig : rigs) {
-        for (Anim anim : rig.animations) anim.deleteme = true; // immediately delete all anims
-      }
+  if (keyCode == BACKSPACE) {
+    println("*** DELETE ALL ANIMS ***");
+    for (Rig rig : rigs) {
+      for (Anim anim : rig.animations) anim.deleteme = true; // immediately delete all anims
     }
   }
 
@@ -33,25 +30,7 @@ void keyPressed() {
   if (key == 'c') rigg.colorIndexA = (rigg.colorIndexA+1)%rigg.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
   if (key == 'v') rigg.colorIndexB = (rigg.colorIndexB+1)%rigg.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  /////////////////////////////// ROOF KEY FUNCTIONS ///////////////////////////////////////////////////////////////////////////////
-  if (key == 'h') roof.vizIndex = (roof.vizIndex+1)%roof.availableAnims.length;               //// STEP FORWARD TO NEXT RIG VIZ
-  if (key == 'g') roof.vizIndex -= 1;                          //// STEP BACK TO PREVIOUS RIG VIZ
-  if (roof.vizIndex <0) roof.vizIndex = roof.availableAnims.length-1;
-  if (key == 'j') roof.bgIndex = (roof.bgIndex+1)%roof.availableBkgrnds.length;               //// CYCLE THROUGH ROOF BACKGROUNDS
-  if (key == 'k') {                                      //// CYCLE THROUGH ROOF FUNCS
-    roof.functionIndexA = (roof.functionIndexA+1)%roof.availableFunctionEnvelopes.length; 
-    roof.functionIndexB = (roof.functionIndexB+1)%roof.availableFunctionEnvelopes.length;
-  }  
-  if (key == 'l') {                                      //// CYCLE THROUGH ROOF ALPHAS
-    roof.alphaIndexA = (roof.alphaIndexA+1)%roof.availableAlphaEnvelopes.length; 
-    roof.alphaIndexB = (roof.alphaIndexB+1)%roof.availableAlphaEnvelopes.length;
-  }
-  if (key == 'd') {
-    roof.colorIndexA = (roof.colorIndexA+1)%cans.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
-  }
-  if (key == 'f') {
-    roof.colorIndexB = (roof.colorIndexB+1)%cans.col.length;      //// CYCLE BACKWARD THROUGH ROOF COLORS
-  }
+
 
   for (Rig rig : rigs) {
     rig.ddListCallback(rig.ddVizList, rig.vizIndex);
@@ -61,17 +40,6 @@ void keyPressed() {
     rig.ddListCallback(rig.ddAlphaListB, rig.alphaIndexB);
     rig.ddListCallback(rig.ddBgList, rig.bgIndex);
   }
-
-
-  //roof.alphaIndexA = rigg.alphaIndexA;
-  //roof.alphaIndexB = rigg.alphaIndexB;
-
-  //roof.functionIndexA = roof.functionIndexA;
-  //roof.functionIndexA = roof.functionIndexA;
-
-  //roof.c = rigg.c;
-  //roof.flash = rigg.flash;
-
 
   if (key == '[') vizHold = !vizHold; 
   if (key == ']') colHold = !colHold; 
