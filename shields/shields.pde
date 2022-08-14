@@ -3,6 +3,7 @@ WLED wledBigShield, wledShieldA, wledShieldB, wledShieldC, wledShieldD, wledShie
 import java.util.*;
 import controlP5.*;
 import ch.bildspur.artnet.*;
+import java.lang.reflect.*;
 ControlP5 main_cp5;
 
 boolean SHITTYLAPTOP=false;//false;
@@ -25,7 +26,7 @@ PFont font;
 import javax.sound.midi.ShortMessage;       // shorthand names for each control on the TR8
 import oscP5.*;
 import netP5.*;
-OscP5 oscP5[] = new OscP5[4];
+OscP5 oscP5 = new OscP5(this,12000);
 
 import themidibus.*;  
 MidiBus TR8bus;           // midibus for TR8
@@ -38,6 +39,7 @@ String controlFrameValues, mainFrameValues;
 
 boolean onTop = false;
 boolean MCFinitialized, SFinitialized;
+
 void settings() {
   System.setProperty("jogl.disable.openglcore", "true");
   size = new SizeSettings(SHIELDS);
@@ -47,8 +49,19 @@ void settings() {
   if (SHITTYLAPTOP) size.surfacePositionX = 0;
   size.surfacePositionY = 150;
 }
+
 void setup()
 {
+  try{
+    Field[] flds = this.getClass().getDeclaredFields();
+    println("fields are:");
+    for (int i =0;i<flds.length;i++){
+      Field fld = flds[i];
+      println(fld.getName());
+    }
+  }catch (Exception e){
+    println("error gettin fields:",e);
+  }
 
   surface.setSize(size.sizeX, size.sizeY);
   surface.setAlwaysOnTop(onTop);
@@ -109,6 +122,10 @@ void setup()
     float value = controlFrame.cp5.getController(controllerName).getValue();
     setCCfromController(controllerName, value);
   }
+
+
+  println("##########################################");
+
   frameRate(30); // always needs to be last in setup
 }
 int colStepper = 1;

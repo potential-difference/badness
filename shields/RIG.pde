@@ -121,7 +121,7 @@ public class Rig {
     cRadioButton = this.cp5.addRadioButton(name+" cRadioButton")
       .setPosition(x+(clm*arrayListIndex), y)
       .setSize(shigh, shigh);
-    for (int i=0; i<availableColors.length; i++) {
+    for (int i=0; i<availableColors.length; i++) {//see shit like this happens all the time
       cRadioButton.addItem(name+" colc "+i, i);
       cRadioButton.getItem(name+" colc "+i)
         .setColorBackground(color(col[availableColors[i]], 100))
@@ -168,6 +168,8 @@ public class Rig {
     ///////////////////////////////// SLIDERS  ///////////////////////////////////////////////////////////////////////////////////
     loadSlider( "dimmer", x+(clm*arrayListIndex), y+(0*row), swide, shigh, 0, 1, 1, act1, bac1, slider1);
     this.cp5.getController(this.name+" "+"dimmer").setLabel(name +" dimmer");
+    //e.g.
+    //loadSlider(this.dimmer)//needs to be a reference, even though its a float.
     loadSlider( "alphaRate", x+(clm*arrayListIndex), y+(1*row), swide, shigh, 0, 1, 0.3, act, bac, slider);      // old alphaSlider - controls rate of DECAY for ALPHA
     this.cp5.getController(this.name+" "+"alphaRate").setLabel("alpha rate");
     loadSlider( "funcRate", x+(clm*arrayListIndex), y+(2*row), swide, shigh, 0, 1, 0.4, act1, bac1, slider1);    // old funcSlider - control rate of DECAY for FUNCTION

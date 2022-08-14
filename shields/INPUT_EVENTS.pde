@@ -185,17 +185,32 @@ HashMap<String, Integer> OscAddrMap = new HashMap<String, Integer>();
 void oscEvent(OscMessage theOscMessage) {
   //split address into parts
   String addr[]=theOscMessage.addrPattern().split("/");
-  String messageType=addr[addr.length-1];
-  addr[addr.length-1]="";
-  String address=String.join("/", addr);
-  int argument = (int)theOscMessage.arguments()[0];
-
-  if ( !(messageType.equals("throttle") || messageType.equals("throttle_button_2"))) {
-    print("address = '"+address+"'");
-    print(" mesgtype = '"+messageType+"'");
-    println(" mesgArgument = "+argument);
+  //String messageType=addr[addr.length-1];
+  //addr[addr.length-1]="";
+  //String address=String.join("/", addr);
+  //int argument = (int)theOscMessage.arguments()[0];
+  print("received osc message to '");
+  printArray(addr);
+  println("'");
+  Object obj = this;
+  Field fld;
+  try{
+    for (int i = 1;i < addr.length - 1;i++){
+        fld = obj.getClass().getDeclaredField(addr[i]);
+        obj = fld.get(obj);
+      }
+    fld = obj.getClass().getDeclaredField(addr[addr.length-1]);
+    fld.set(obj,theOscMessage.arguments()[0]);
+    //println("set ",fld.getName(),"to ",theOscMessage.arguments()[0]);
+  }catch(Exception e){
+    print("osc message ");
+    printArray(addr);
+    println(" failed with exception ",e);
   }
-  OscAddrMap.put(theOscMessage.addrPattern(), argument);
+  
+  
+  //OscAddrMap.put(theOscMessage.addrPattern(), argument);
+
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
