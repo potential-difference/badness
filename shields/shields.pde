@@ -1,4 +1,5 @@
 WLED wledBigShield, wledShieldA, wledShieldB, wledShieldC, wledShieldD, wledShieldE, wledShieldF, wledBalls, wledSeedsA, wledSeedsB;
+OPC opcLocal;
 
 import java.util.*;
 import controlP5.*;
@@ -83,6 +84,9 @@ void setup()
 
   OPC[] shieldOPCs = {wledBigShield, wledShieldA, wledShieldB, wledShieldC, wledShieldD, wledShieldE, wledShieldF, wledBalls};
   shieldsGrid.spiralShieldsOPC(shieldOPCs);        // SHIELDS plug into RIGHT SLOTS A-F = 1-6 *** BIG SHIELD = 7 *** H-G = LEFT SLOTS 0-2 ***
+
+  opcLocal   = new OPC(this, "127.0.0.1", 7890);        // Connect to the local instance of fcserver - MIRRORS
+  opcGrid.dmxSmokeOPC(opcLocal) ;
 
   audioSetup(100); ///// AUDIO SETUP - sensitivity /////
   midiSetup();

@@ -54,19 +54,20 @@ void playWithMe() {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  if (millis()-lastTime[44]>debouncetime) {
-    if (padVelocity[44]>0) rigg.animations.add(new StarMesh (rigg));
-    lastTime[44]=millis();
+  int ccc = 101;
+  if (millis()-lastTime[ccc]>debouncetime) {
+    if (padVelocity[ccc]>0) rigg.animations.add(new StarMesh (rigg));
+    lastTime[ccc]=millis();
   }
 
   //if (millis()-lastTime[45]>debouncetime) {
   //  if (padVelocity[45]>0) rigg.animations.add(new SpiralFlower(rigg));
   //  lastTime[45]=millis();
   //}
-
-  if (millis()-lastTime[45]>debouncetime) {
-    if (padVelocity[45]>0) rigg.animations.add(new Stars(rigg));
-    lastTime[45]=millis();
+  ccc= 102;
+    if (millis()-lastTime[ccc]>debouncetime) {
+    if (padVelocity[ccc]>0) rigg.animations.add(new Stars(rigg));
+    lastTime[ccc]=millis();
   }
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -186,17 +187,17 @@ void playWithMeMore() {
     bgNoise(roof.colorLayer, roof.flash, map(padVelocity[43], 0, 1, 0, roof.dimmer), cc[56]);   //PGraphics layer,color,alpha
     image(roof.colorLayer, roof.size.x, roof.size.y, roof.wide, roof.high);
   }
-/*
+  /*
   if (padVelocity[50] > 0) {
-    pars.colorLayer.beginDraw();
-    pars.colorLayer.background(0, 0, 0, 0);
-    pars.colorLayer.endDraw();
-    //void bgNoise(PGraphics layer, color _col, float bright, float fizzyness) {
-
-    bgNoise(pars.colorLayer, pars.flash, map(padVelocity[50], 0, 1, 0, pars.dimmer), cc[47]);   //PGraphics layer,color,alpha
-    image(pars.colorLayer, pars.size.x, pars.size.y, pars.wide, pars.high);
-  }
-  */
+   pars.colorLayer.beginDraw();
+   pars.colorLayer.background(0, 0, 0, 0);
+   pars.colorLayer.endDraw();
+   //void bgNoise(PGraphics layer, color _col, float bright, float fizzyness) {
+   
+   bgNoise(pars.colorLayer, pars.flash, map(padVelocity[50], 0, 1, 0, pars.dimmer), cc[47]);   //PGraphics layer,color,alpha
+   image(pars.colorLayer, pars.size.x, pars.size.y, pars.wide, pars.high);
+   }
+   */
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
