@@ -92,6 +92,10 @@ void draw()
   rigg.funcRate = 0.5;
   vizTime = 0.5;
   colorTime = 0.5;
+  rigg.wideSlider = 0.5;
+  rigg.highSlider = 0.5;
+  rigg.strokeSlider= 0.5;
+  rigg.blurValue = 0.2;
 
   int start_time = millis();
   surface.setAlwaysOnTop(onTop);
