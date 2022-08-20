@@ -31,7 +31,7 @@ void keyPressed() {
   if (key == 'v') rigg.colorIndexB = (rigg.colorIndexB+1)%rigg.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-
+/*
   for (Rig rig : rigs) {
     rig.ddListCallback(rig.ddVizList, rig.vizIndex);
     rig.ddListCallback(rig.ddFuncListA, rig.functionIndexA);
@@ -40,7 +40,7 @@ void keyPressed() {
     rig.ddListCallback(rig.ddAlphaListB, rig.alphaIndexB);
     rig.ddListCallback(rig.ddBgList, rig.bgIndex);
   }
-
+*/
   if (key == '[') vizHold = !vizHold; 
   if (key == ']') colHold = !colHold; 
 

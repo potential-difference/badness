@@ -1,70 +1,49 @@
 void setupSpecifics() {
 
-  /* 
-   HashMap<String, Class> classMap = new HashMap<String, Class>();
-   Class[] classList= this.getClass().getClasses();
-   for (int i=0; i<classList.length; i++) {
-   if (classList[i].getSuperclass() == new Anim(rigg).getClass()) {
-   String name = classList[i].getName();
-   classMap.put(name.substring(name.indexOf('$')+1), classList[i]);
-   
-   // if (classList[i].getSuperclass() == Class.forName("sketch_name"+"$Anim"));
-   }
-   }
-   println(classMap);
-   */
-
   rigg.availableAnims = new int[] {1, 2, 3, 6, 7, 8};      // setup which anims are used on which rig here
-  // rigg.availableAnims = String[] {"Boxes","StarMesh"...};
- 
   rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
-
   rigg.availableFunctionEnvelopes = new int[] {0, 1, 2};  
- 
   rigg.availableBkgrnds = new int[] {0, 1, 10, 11, 12, 13, 14};
   
   //rigg.availableColors = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
   //roof.availableColors = rigg.availableColors; // = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
 
   ///////////////////////////////// UPDATE THE DROPDOWN LISTS WITH AVLIABLE OPTIONS ///////////////////////////////////////////////////////
+  
   for (Rig rig : rigs) {    
-    rig.ddVizList.clear();
-    rig.ddBgList.clear();
-    rig.ddAlphaListA.clear();
-    rig.ddAlphaListA.clear();
-    rig.ddFuncListB.clear();
-    rig.ddFuncListB.clear();
+    // rig.ddVizList.clear();
+    // rig.ddBgList.clear();
+    // rig.ddAlphaListA.clear();
+    // rig.ddAlphaListA.clear();
+    // rig.ddFuncListB.clear();
+    // rig.ddFuncListB.clear();
     for (int i=0; i<rig.availableBkgrnds.length; i++) { 
       int index = rig.availableBkgrnds[i];
       //rig.ddBgList.addItem(rig.backgroundNames[index], index); //add all available anims to VizLists -
-      rig.ddBgList.addItem("backround  "+index, index); //add all available anims to VizLists -
+      // rig.ddBgList.addItem("backround  "+index, index); //add all available anims to VizLists -
     }
     for (int i=0; i<rig.availableAnims.length; i++) {
       int index = rig.availableAnims[i];
       //rig.ddVizList.addItem(rig.animNames[index], index); //add all available anims to VizLists -
-      rig.ddVizList.addItem("viz  "+index, index); //add all available anims to VizLists -
+      // rig.ddVizList.addItem("viz  "+index, index); //add all available anims to VizLists -
     }
-    /*
-    for (int i=0; i<rig.availableAnims.length; i++) {
-     String name = rig.availableAnims[i];
-     rig.ddVizList.addItem(name, i); 
-     }
-     */
+    
+     
     for (int i=0; i<rig.availableAlphaEnvelopes.length; i++) {
       int index = rig.availableAlphaEnvelopes[i];
-      rig.ddAlphaListA.addItem("alph  "+index, index); //add all available anims to VizLists -
+      // rig.ddAlphaListA.addItem("alph  "+index, index); //add all available anims to VizLists -
     }
     for (int i=0; i<rig.availableAlphaEnvelopes.length; i++) {
       int index = rig.availableAlphaEnvelopes[i];
-      rig.ddAlphaListB.addItem("alph  "+index, index); //add all available anims to VizLists -
+      // rig.ddAlphaListB.addItem("alph  "+index, index); //add all available anims to VizLists -
     }
     for (int i=0; i<rig.availableFunctionEnvelopes.length; i++) {
       int index = rig.availableFunctionEnvelopes[i];
-      rig.ddFuncListA.addItem("func  "+index, index); //add all available anims to VizLists -
+      // rig.ddFuncListA.addItem("func  "+index, index); //add all available anims to VizLists -
     }
     for (int i=0; i<rig.availableFunctionEnvelopes.length; i++) {
       int index = rig.availableFunctionEnvelopes[i];
-      rig.ddFuncListB.addItem("func  "+index, index); //add all available anims to VizLists -
+      // rig.ddFuncListB.addItem("func  "+index, index); //add all available anims to VizLists -
     } 
     //need to use the actal numbers from the above aray
   }

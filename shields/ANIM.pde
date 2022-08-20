@@ -756,17 +756,7 @@ class Anim {
 
     this.draw();
 
-    /*
-    if (syphonToggle) {
-     if (this.rig == rigg) {
-     ///// only send the rig animations???!!!???!!! /////
-     syphonImageSent.beginDraw();
-     syphonImageSent.blendMode(LIGHTEST);
-     syphonImageSent.image(pass2, syphonImageSent.width/2, syphonImageSent.height/2, syphonImageSent.width, syphonImageSent.height);
-     syphonImageSent.endDraw();
-     }
-     }
-     */
+    
     blurPGraphics();
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

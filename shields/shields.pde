@@ -50,22 +50,8 @@ void setup()
   surface.setSize(size.sizeX, size.sizeY);
   surface.setAlwaysOnTop(onTop);
 
-  //surface.setLocation(size.surfacePositionX, size.surfacePositionY);
- // MCFinitialized = false;
- // controlFrame = new MainControlFrame(this, width*2, 530, size.surfacePositionX, size.surfacePositionY+height+5); // load control frame must come after shild ring etc
-  
   rigg = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
-
   opcGrid = new OPCGrid();
-/*
-  // order of these is important for layout of sliders
-  print("MainControlFrame");
-  while (!MCFinitialized) {
-    delay(100);
-    print(".");
-  }
-  println(".");
-*/
 
   ///////////////// LOCAL opc /////////////////////
   wledBigShield = new WLED(this, "192.168.8.10", 21324);
@@ -94,27 +80,19 @@ void setup()
   loadImages();
   loadShaders();
   setupSpecifics();
-/*
-  controlFrameValues = sketchPath("cp5ControlFrameValues");
-   try {
-    controlFrame.cp5.loadProperties(controlFrameValues);
-  }
-  catch(Exception e) {
-    println(e);
-    println("*** !!PROBABLY NO PROPERTIES FILE!! ***");
-  }
-  for (int i = 0; i < 16; i++) {
-    String controllerName = "slider "+i;
-    float value = controlFrame.cp5.getController(controllerName).getValue();
-    setCCfromController(controllerName, value);
-  }
-*/
+
   frameRate(30); // always needs to be last in setup
 }
 int colStepper = 1;
 int time_since_last_anim=0;
 void draw()
 {
+  rigg.dimmer = 1;
+  rigg.alphaRate = 0.5;
+  rigg.funcRate = 0.5;
+  vizTime = 0.5;
+  colorTime = 0.5;
+
   int start_time = millis();
   surface.setAlwaysOnTop(onTop);
   background(0);
@@ -132,23 +110,18 @@ void draw()
   playWithMe();
   if (beatTrigger) { 
     for (Rig rig : rigs) {
-      if (rig.toggle) {
-        //if (testToggle) rig.animations.add(new Test(rig));
+            //if (testToggle) rig.animations.add(new Test(rig));
         //println(rig.name+" vizIndex", rig.vizIndex);
         rig.addAnim(rig.vizIndex);  // create a new anim object and add it to the beginning of the arrayList
       }
-    }
   }
 
   if (keyT['s']) for (Anim anim : rigg.animations)  anim.funcFX = 1-(stutter*noize1*0.1);
  
   //////////////////// Must be after playwithme, before rig.draw()////
-
   for (Rig rig : rigs) rig.draw();  
-
   //////////////////////////////////////////// PLAY WITH ME MORE /////////////////////////////////////////////////////////////////////////////////
   playWithMeMore();
-
   //////////////////////////////////////////// BOOTH & DIG ///////////////////////////////////////////////////////////////////////////////////////
   //boothLights();
   //////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
@@ -158,8 +131,7 @@ void draw()
   //dmxSmoke();
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   mouseInfo(keyT['q']);
-  frameRateInfo(5, 20);                     // display frame rate X, Y /////
-  dividerLines();
+  onScreenInfo();
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -24,6 +24,60 @@ void onScreenInfo() {
   mouseInfo(keyT['q']);
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   dividerLines();
+
+  //////////////////////////////// SHOW INFO ABOUT CURRENT RIG ARRAY SELECTION //////////////////////////////////////////////////////////////// 
+    float x = 420;
+    float y = 25;
+    textAlign(LEFT);
+    textSize(18);
+    ///////////// rig info/ ///////////////////////////////////////////////////////////////////
+    fill(rigg.flash, 300);
+    if (!rigg.toggle) fill(rigg.c, 100);
+    text("rigViz: " + rigg.availableAnims[rigg.vizIndex], x, y);
+    text("bkgrnd: " + rigg.availableBkgrnds[rigg.bgIndex], x, y+20);
+    text("func's: " + rigg.availableFunctionEnvelopes[rigg.functionIndexA] + " / " + rigg.availableFunctionEnvelopes[rigg.functionIndexB], x+110, y);
+    text("alph's: " + rigg.availableAlphaEnvelopes[rigg.alphaIndexA] + " / " + rigg.availableAlphaEnvelopes[rigg.alphaIndexB], x+110, y+20);
+    /////////// info about PLAYWITHYOURSELF functions /////////////////////////////////////////////////////////////////////////////////////////////
+  
+    fill(rigg.c, 300);
+    String sec = nf(int(vizTime*60 - (millis()/1000 - vizTimer)) % 60, 2, 0);
+    int min = int(vizTime*60 - (millis()/1000 - vizTimer)) /60 % 60;
+    text("next viz in: "+min+":"+sec, x, y+40);
+    ///// NEXT COLOR CHANGE IN....
+    sec = nf(int(colorTime*60 - (millis()/1000 - rigg.colorTimer)) %60, 2, 0);
+    min = int(colorTime*60 - (millis()/1000 - rigg.colorTimer)) /60 %60;
+    text("next color in: "+ min+":"+sec, x, y+60);
+    //text("c-" + rigg.colorIndexA + "  " + "flash-" + rigg.colorIndexB, x, y+40);
+    int totalAnims=0;      
+    for (Rig rig : rigs) totalAnims += rig.animations.size();
+    text("# of anims: "+totalAnims, x,y+80);
+
+///////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
+//Envelopes visulization
+     y=200;             // STARTING HEIGHT for sections
+    float y1=160;            // LENGTH of sections
+    float dist = 15;
+    int i=0;
+ try {
+      for (Anim anim : rigg.animations) {
+        if (i<rigg.animations.size()-1) {
+          fill(rigg.c1, 120);
+        } else {
+          fill(rigg.flash1, 300);
+        }
+        float xAxis = (this.width/8);
+        rect(x+20+(anim.alphaA*xAxis-32), y+(dist*i), 10, 10);                      // ALPHA A viz
+        rect(x+xAxis+12+(anim.alphaB*xAxis-32), y+(dist*i), 10, 10);         // ALPHA B viz
+        rect(x+20+(anim.functionA*xAxis-32), y+(dist*i)+y1, 10, 10);                // FUNCTION A viz
+        rect(x+xAxis+12+(anim.functionB*xAxis-32), y+(dist*i)+y1, 10, 10);   // FUNCTION B viz
+        i+=1;
+      }
+    }
+    catch (Exception e) {
+      println(e);
+      println("erorr on alpah / function  envelope visulization");
+    }
 }
 void pauseInfo() {
   //pause = 0;
