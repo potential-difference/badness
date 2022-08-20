@@ -31,23 +31,21 @@ void onScreenInfo() {
     textAlign(LEFT);
     textSize(18);
     ///////////// rig info/ ///////////////////////////////////////////////////////////////////
-    fill(rigg.flash, 300);
-    if (!rigg.toggle) fill(rigg.c, 100);
+    fill(300);
     text("rigViz: " + rigg.availableAnims[rigg.vizIndex], x, y);
     text("bkgrnd: " + rigg.availableBkgrnds[rigg.bgIndex], x, y+20);
     text("func's: " + rigg.availableFunctionEnvelopes[rigg.functionIndexA] + " / " + rigg.availableFunctionEnvelopes[rigg.functionIndexB], x+110, y);
     text("alph's: " + rigg.availableAlphaEnvelopes[rigg.alphaIndexA] + " / " + rigg.availableAlphaEnvelopes[rigg.alphaIndexB], x+110, y+20);
     /////////// info about PLAYWITHYOURSELF functions /////////////////////////////////////////////////////////////////////////////////////////////
   
-    fill(rigg.c, 300);
+    fill(300);
     String sec = nf(int(vizTime*60 - (millis()/1000 - vizTimer)) % 60, 2, 0);
     int min = int(vizTime*60 - (millis()/1000 - vizTimer)) /60 % 60;
     text("next viz in: "+min+":"+sec, x, y+40);
     ///// NEXT COLOR CHANGE IN....
-    sec = nf(int(colorTime*60 - (millis()/1000 - rigg.colorTimer)) %60, 2, 0);
-    min = int(colorTime*60 - (millis()/1000 - rigg.colorTimer)) /60 %60;
+    sec = nf(int(colorChangeTime*60 - (millis()/1000 - rigg.colorTimer)) %60, 2, 0);
+    min = int(colorChangeTime*60 - (millis()/1000 - rigg.colorTimer)) /60 %60;
     text("next color in: "+ min+":"+sec, x, y+60);
-    //text("c-" + rigg.colorIndexA + "  " + "flash-" + rigg.colorIndexB, x, y+40);
     int totalAnims=0;      
     for (Rig rig : rigs) totalAnims += rig.animations.size();
     text("# of anims: "+totalAnims, x,y+80);
@@ -55,7 +53,7 @@ void onScreenInfo() {
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 //Envelopes visulization
-     y=200;             // STARTING HEIGHT for sections
+    y=200;             // STARTING HEIGHT for sections
     float y1=160;            // LENGTH of sections
     float dist = 15;
     int i=0;
