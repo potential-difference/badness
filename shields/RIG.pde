@@ -10,7 +10,6 @@ public class Rig {
   String name;
   boolean firsttime_sketchcolor=true, toggle, noiseToggle, playWithYourSelf = true;
   ArrayList <Anim> animations;
-  HashMap<Integer, Ref> dimmers;
   int[] availableAnims;
   int[] availableBkgrnds;
   int[] availableAlphaEnvelopes;
@@ -20,10 +19,6 @@ public class Rig {
   int arrayListIndex;
   float infoX, infoY;
   float wideSlider, strokeSlider, highSlider;
-  ControlP5 cp5;
-  PApplet parent;
-  ScrollableList ddVizList, ddBgList, ddAlphaListA, ddFuncListA, ddAlphaListB, ddFuncListB;
-  RadioButton cRadioButton, flashRadioButton;
 
   Rig(float _xpos, float _ypos, int _wide, int _high, String _name) {
     name = _name;
@@ -42,8 +37,6 @@ public class Rig {
     availableBkgrnds = new int[] {0, 1, 2, 3};    // default - changed when initalised;
     availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5};  
     availableFunctionEnvelopes = new int[] {0, 1, 2, 5, 6};  
-
-    //dimmers = new HashMap<Integer, Ref>();
 
     int xw = 2;
     for (int i = 0; i < position.length/xw; i++) position[i] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*1);

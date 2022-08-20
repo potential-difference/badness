@@ -26,8 +26,8 @@ void onScreenInfo() {
   dividerLines();
 
   //////////////////////////////// SHOW INFO ABOUT CURRENT RIG ARRAY SELECTION //////////////////////////////////////////////////////////////// 
-    float x = 420;
-    float y = 25;
+    float x = size.info.x-size.infoWidth/2+10;
+    float y = size.info.y-size.infoHeight/2+20;
     textAlign(LEFT);
     textSize(18);
     ///////////// rig info/ ///////////////////////////////////////////////////////////////////
@@ -53,10 +53,11 @@ void onScreenInfo() {
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 //Envelopes visulization
-    y=200;             // STARTING HEIGHT for sections
+    y+=200;             // STARTING HEIGHT for sections
     float y1=160;            // LENGTH of sections
     float dist = 15;
     int i=0;
+    x+=20;
  try {
       for (Anim anim : rigg.animations) {
         if (i<rigg.animations.size()-1) {
@@ -64,7 +65,7 @@ void onScreenInfo() {
         } else {
           fill(rigg.flash1, 300);
         }
-        float xAxis = (this.width/8);
+        float xAxis = (size.infoWidth/4);
         rect(x+20+(anim.alphaA*xAxis-32), y+(dist*i), 10, 10);                      // ALPHA A viz
         rect(x+xAxis+12+(anim.alphaB*xAxis-32), y+(dist*i), 10, 10);         // ALPHA B viz
         rect(x+20+(anim.functionA*xAxis-32), y+(dist*i)+y1, 10, 10);                // FUNCTION A viz

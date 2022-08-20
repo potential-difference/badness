@@ -8,47 +8,14 @@ void setupSpecifics() {
   //rigg.availableColors = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
   //roof.availableColors = rigg.availableColors; // = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
 
-  ///////////////////////////////// UPDATE THE DROPDOWN LISTS WITH AVLIABLE OPTIONS ///////////////////////////////////////////////////////
-  
   for (Rig rig : rigs) {    
-    // rig.ddVizList.clear();
-    // rig.ddBgList.clear();
-    // rig.ddAlphaListA.clear();
-    // rig.ddAlphaListA.clear();
-    // rig.ddFuncListB.clear();
-    // rig.ddFuncListB.clear();
-    for (int i=0; i<rig.availableBkgrnds.length; i++) { 
-      int index = rig.availableBkgrnds[i];
-      //rig.ddBgList.addItem(rig.backgroundNames[index], index); //add all available anims to VizLists -
-      // rig.ddBgList.addItem("backround  "+index, index); //add all available anims to VizLists -
-    }
-    for (int i=0; i<rig.availableAnims.length; i++) {
-      int index = rig.availableAnims[i];
-      //rig.ddVizList.addItem(rig.animNames[index], index); //add all available anims to VizLists -
-      // rig.ddVizList.addItem("viz  "+index, index); //add all available anims to VizLists -
-    }
-    
-     
-    for (int i=0; i<rig.availableAlphaEnvelopes.length; i++) {
-      int index = rig.availableAlphaEnvelopes[i];
-      // rig.ddAlphaListA.addItem("alph  "+index, index); //add all available anims to VizLists -
-    }
-    for (int i=0; i<rig.availableAlphaEnvelopes.length; i++) {
-      int index = rig.availableAlphaEnvelopes[i];
-      // rig.ddAlphaListB.addItem("alph  "+index, index); //add all available anims to VizLists -
-    }
-    for (int i=0; i<rig.availableFunctionEnvelopes.length; i++) {
-      int index = rig.availableFunctionEnvelopes[i];
-      // rig.ddFuncListA.addItem("func  "+index, index); //add all available anims to VizLists -
-    }
-    for (int i=0; i<rig.availableFunctionEnvelopes.length; i++) {
-      int index = rig.availableFunctionEnvelopes[i];
-      // rig.ddFuncListB.addItem("func  "+index, index); //add all available anims to VizLists -
-    } 
-    //need to use the actal numbers from the above aray
+    for (int i=0; i<rig.availableBkgrnds.length; i++) { int index = rig.availableBkgrnds[i]; }
+    for (int i=0; i<rig.availableAnims.length; i++) { int index = rig.availableAnims[i]; }
+    for (int i=0; i<rig.availableAlphaEnvelopes.length; i++) { int index = rig.availableAlphaEnvelopes[i]; }
+    for (int i=0; i<rig.availableAlphaEnvelopes.length; i++) { int index = rig.availableAlphaEnvelopes[i]; }
+    for (int i=0; i<rig.availableFunctionEnvelopes.length; i++) { int index = rig.availableFunctionEnvelopes[i]; }
+    for (int i=0; i<rig.availableFunctionEnvelopes.length; i++) { int index = rig.availableFunctionEnvelopes[i];  } 
   }
-
-  //rigg.dimmers.put(3, new Ref(cc, 34));
 
   rigg.vizIndex = 2;
   rigg.functionIndexA = 0;
@@ -71,7 +38,7 @@ void setupSpecifics() {
 
   for (int i= 36; i < 52; i++)cc[i] = 0;
 }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////// COLOR SETUP CHOSE COLOUR VALUES ///////////////////////////////////////////////
 color red, pink, yell, grin, bloo, purple, teal, orange, aqua, white, black;

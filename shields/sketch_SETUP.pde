@@ -1,16 +1,16 @@
 class SizeSettings {
-  int rigWidth, rigHeight, roofWidth, roofHeight, infoWidth, vizWidth, vizHeight, cansWidth, cansHeight, parsWidth, parsHeight;
-  PVector rig, roof, info, cans, donut, pars;
+  int rigWidth, rigHeight, roofWidth, roofHeight, vizWidth, vizHeight, cansWidth;
+  int cansHeight, parsWidth, parsHeight, infoWidth, infoHeight;
+  PVector rig, roof, cans, donut, pars, info;
   int surfacePositionX, surfacePositionY, sizeX, sizeY, orientation;
 
   SizeSettings() {
-      rigWidth = 400;                                    // WIDTH of rigViz
+      rigWidth = 600;                                    // WIDTH of rigViz
       if (SHITTYLAPTOP) rigWidth = 350;
-      rigHeight = 400;    
+      rigHeight = 600;    
       if (SHITTYLAPTOP) rigHeight = 350;
       rig = new PVector(rigWidth/2, rigHeight/2);   // cordinates for center of rig
      
-
     ////////////////////////////////  ROOF SETUP RIGHT OF RIG ///////////////////////
     roofWidth = 0;
     roofHeight = rigHeight;
@@ -27,14 +27,16 @@ class SizeSettings {
     parsHeight = rigHeight;
     pars = new PVector(rigWidth+roofWidth+cansWidth+(parsWidth/2), parsHeight/2);      
 
-    //////////////////////////////// TEMP CONTROLLER AREA BELOW SHIELDS //////////////////////
-
-    int sliderWidth = rigWidth;
-
-    sizeX = rigWidth+roofWidth+cansWidth+parsWidth+sliderWidth;
+    //////////////////////////////// INFO AREA TO RIGHT OF ALL RIGS //////////////////////
+    infoWidth = rigWidth/2;
+    infoHeight = rigHeight;
+    info = new PVector(rigWidth+roofWidth+cansWidth+parsWidth+(infoWidth/2), infoHeight/2);      
+    ///////////////////////////////////// OVERALL SIZE OF SKETCH WINDOW /////////////////////
+    sizeX = rigWidth+roofWidth+cansWidth+parsWidth+infoWidth;
     sizeY = rigHeight;
   }
 }
+///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 void midiSetup() {
   MidiBus.list(); // List all available Midi devices on STDOUT. This will show each device's index and name.
@@ -58,7 +60,6 @@ void midiSetup() {
       MPD8bus = new MidiBus(this,in,in);
       println("Found AKAI MPD218: ", in);
     }
-
   }
 }
 
@@ -95,22 +96,9 @@ void audioSetup(int sensitivity, float beatTempo) {
 }
 //////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////
-AudioPlayer player[];
-void loadAudio() {
-  //////////////////////////////// load one shot sounds ///////////////////////////////
-  player = new AudioPlayer[81];
-  for (int i = 1; i <= 80; i++) {
-    int hundreds = i/100;
-    int tens = (i%100)/10;
-    int ones = i%10;
-    String number =str(hundreds)+str(tens)+str(ones);
-    player[i] = minim.loadFile("oneshot_"+number+".wav");
-  }
-  println("audio loaded");
-}
+
 ////////////////////////////////// SETUP SKETCH DRAWING NORMALS ////////////////////////
 void drawingSetup() {
-
   colorMode(HSB, 360, 100, 100);
   blendMode(ADD);
   rectMode(CENTER);

@@ -2,10 +2,8 @@ WLED wledBigShield, wledShieldA, wledShieldB, wledShieldC, wledShieldD, wledShie
 OPC opcLocal;
 
 import java.util.*;
-import controlP5.*;
 import ch.bildspur.artnet.*;
 import java.lang.reflect.*;
-ControlP5 main_cp5;
 
 boolean SHITTYLAPTOP=false;//false;
 
@@ -15,7 +13,6 @@ final int ROOF = 1;
 SizeSettings size;
 OPCGrid opcGrid;
 ShieldsOPCGrid shieldsGrid;
-ControlFrame controlFrame;
 
 Rig rigg, roof, cans, strips, donut, seeds, pars;
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
@@ -33,10 +30,11 @@ MidiBus LPD8bus;          // midibus for LPD8
 MidiBus beatStepBus;      // midibus for Artuia BeatStep
 MidiBus MPD8bus;
 
-String controlFrameValues, mainFrameValues;
-
 boolean onTop = false;
-boolean MCFinitialized, SFinitialized;
+
+boolean testToggle, smokeToggle;
+float boothDimmer, digDimmer, vizTime, colorChangeTime, colorSwapSlider, beatSlider = 0.3;
+float smokePumpValue, smokeOnTime, smokeOffTime;
 
 void settings() {
   System.setProperty("jogl.disable.openglcore", "true");
