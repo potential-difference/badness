@@ -4,6 +4,7 @@ OPC opcLocal;
 import java.util.*;
 import controlP5.*;
 import ch.bildspur.artnet.*;
+import java.lang.reflect.*;
 ControlP5 main_cp5;
 
 boolean SHITTYLAPTOP=false;//false;
@@ -23,7 +24,7 @@ PFont font;
 import javax.sound.midi.ShortMessage;       // shorthand names for each control on the TR8
 import oscP5.*;
 import netP5.*;
-OscP5 oscP5[] = new OscP5[4];
+OscP5 oscP5 = new OscP5(this,12000);
 
 import themidibus.*;  
 MidiBus TR8bus;           // midibus for TR8
@@ -36,6 +37,7 @@ String controlFrameValues, mainFrameValues;
 
 boolean onTop = false;
 boolean MCFinitialized, SFinitialized;
+
 void settings() {
   System.setProperty("jogl.disable.openglcore", "true");
   size = new SizeSettings();
@@ -45,6 +47,7 @@ void settings() {
   if (SHITTYLAPTOP) size.surfacePositionX = 0;
   size.surfacePositionY = 150;
 }
+
 void setup()
 {
   surface.setSize(size.sizeX, size.sizeY);

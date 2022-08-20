@@ -243,40 +243,4 @@ void controllerControl(color col, float alpha) {
   rect(opcGrid.controller[3].x, opcGrid.controller[3].y, opcGrid.controllerWidth, opcGrid.controllerWidth);
 }
 
-/*
- //if (cc[104] > 0) {
- //  animations.add(new MirrorsOn(manualSlider, 1-(stutter*stutterSlider), cc[104]*rigDimmer));
- //  rigg.colorFlip(true);
- //}
- //if (cc[107] > 0) animations.add(new RoofOn(manualSlider, 1-(stutter*stutterSlider), cc[107]*roofDimmer));
- //if (cc[108] > 0) { 
- //  roof.colorFlip(true);
- //  animations.add(new RoofOn(manualSlider, 1-(stutter*stutterSlider), cc[108]*roofDimmer));
- //}
- */
-/*
- for (int i = 0; i < 4; i++) if (padPressed[101+i]) {
- rigg.dimmer = pad[101+i];
- rigg.animations.add(new Anim(i, manualSlider, funcRate, rigg)); // use pad buttons to play differnt viz
- }
- for (int i = 0; i < 3; i++) if (padPressed[105+i]) {
- roof.dimmer = pad[105+i];
- roof.animations.add(new Anim(i, manualSlider, funcRate, roof)); // use pad buttons to play differnt viz
- }
- if (padPressed[108]) {
- roof.dimmer = pad[108];
- roof.animations.add(new Anim(10, manualSlider, funcRate, roof)); // use pad buttons to play differnt viz
- }
- 
- for (int i =0; i < 8; i++)if (padPressed[i]) {
- rigg.dimmer = padVelocity[i];
- rigg.animations.add(new Anim(i, alphaRate, funcRate, rigg)); // use pad buttons to play differnt viz
- }
- */
-/*
-//for (int i = 0; i<8; i++) if (keyP[49+i]) rigg.animations.add(new Anim(i, manualSlider, funcSlider, rigg));       // use number buttons to play differnt viz
- //if (keyP[48]) animations.add(new AllOn(manualSlider, 1, rigDimmer));   
- 
- // '0' triggers all on for the rig
- 
- */
+

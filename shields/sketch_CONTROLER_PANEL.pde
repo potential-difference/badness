@@ -134,11 +134,6 @@ class ControlFrame extends PApplet {
       ;
   }
 
-  //////////////////////////////////////// CALL BACK FOR SLIDER CONTROL FROM OTHER VARIABLES
-  public void rigDimmer(float theValue) {
-    int value = int(map(theValue, 0, 1, 0, 127));
-    LPD8bus.sendControllerChange(0, 4, value) ;
-  }
   void dividerLines() {
     fill(rigg.c, 200);                         // box around the outside
     rect(width/2, height-1, width, 1);  

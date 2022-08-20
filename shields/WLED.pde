@@ -1,3 +1,14 @@
+/*
+
+Single class file :) 
+
+depends upon PApplet, OPC classes
+
+provides OPC api for streaming pixels into a wled
+
+*/
+
+
 import java.net.*;
 import java.util.Arrays;
 
