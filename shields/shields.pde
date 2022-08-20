@@ -84,22 +84,21 @@ void setup()
   loadShaders();
   setupSpecifics();
 
+  rigg.dimmer = 1;
+  rigg.alphaRate = 0.5;
+  rigg.functionRate = 0.5;
+  vizTime = 0.5;
+  colorChangeTime = 0.5;
+  rigg.wideSlider = 0.5;
+  rigg.highSlider = 0.5;
+  rigg.strokeSlider= 0.5;
+  rigg.blurriness = 0.2;
   frameRate(30); // always needs to be last in setup
 }
 int colStepper = 1;
 int time_since_last_anim=0;
 void draw()
 {
-  rigg.dimmer = 1;
-  rigg.alphaRate = 0.5;
-  rigg.funcRate = 0.5;
-  vizTime = 0.5;
-  colorTime = 0.5;
-  rigg.wideSlider = 0.5;
-  rigg.highSlider = 0.5;
-  rigg.strokeSlider= 0.5;
-  rigg.blurValue = 0.2;
-
   int start_time = millis();
   surface.setAlwaysOnTop(onTop);
   background(0);

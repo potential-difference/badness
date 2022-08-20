@@ -113,28 +113,28 @@ Envelope envelopeFactory(int envelope_index, Rig rig, float overalltime) {
 Envelope functionEnvelopeFactory(int envelope_index, Rig rig) {
   float overalltime = avgmillis;
 
-  Envelope sine = new Sine(1, overalltime*rig.funcRate);
+  Envelope sine = new Sine(1, overalltime*rig.functionRate);
   int now = millis();
   float sined = sine.value(now); 
 
-  float funcRate = rig.funcRate*10;
+  float functionRate = rig.functionRate*10;
   switch (envelope_index) {
   case 0: 
     //return SimplePulse(cc[41]*4000, cc[42]*4000, cc[43]*4000, cc[44], cc[45]);
-    return CrushPulse(0.2, 0.0, 1.0, overalltime*(funcRate+0.5), 0.0, sined);
+    return CrushPulse(0.2, 0.0, 1.0, overalltime*(functionRate+0.5), 0.0, sined);
   case 1:
     //return CrushPulse(cc[49], cc[50], cc[51], avgmillis*rig.beatSlider*15+0.5, cc[52], cc[53]);
-    return SimpleRamp(overalltime*funcRate, 0, 1, sined);
+    return SimpleRamp(overalltime*functionRate, 0, 1, sined);
     //SimplePulse(Number attack_time, Number sustain_time, Number decay_time, float attack_curv, float decay_curv)
   case 2:
-    return  SimpleRamp(overalltime*funcRate/0.3, 1, 0, sined);
-    //CrushPulse(cc[41], cc[42], cc[43], avgmillis*rig.funcRate*15+0.5, 0.00, 0.00);
+    return  SimpleRamp(overalltime*functionRate/0.3, 1, 0, sined);
+    //CrushPulse(cc[41], cc[42], cc[43], avgmillis*rig.functionRate*15+0.5, 0.00, 0.00);
     //case 3:
-    //  return CrushPulse(cc[44], cc[45], cc[46], avgmillis*rig.funcRate*15+0.5, 0.02, 0.02);
+    //  return CrushPulse(cc[44], cc[45], cc[46], avgmillis*rig.functionRate*15+0.5, 0.02, 0.02);
     //case 4:
     //  //Envelope Squiggle(Number attack_t, Number sustain_t, Number decay_t, float attack_curv, float decay_curv, float sqiggle_curv, float squiggliness, int squiggle_spd) {
-    //  return Squiggle(cc[49], cc[50], cc[51], avgmillis*rig.funcRate*15+0.5, 0.01+cc[52], cc[53]);
+    //  return Squiggle(cc[49], cc[50], cc[51], avgmillis*rig.functionRate*15+0.5, 0.01+cc[52], cc[53]);
   default: 
-    return CrushPulse(0.0, 0.0, 1.0, overalltime*(funcRate+0.5), 0.0, 0.0);
+    return CrushPulse(0.0, 0.0, 1.0, overalltime*(functionRate+0.5), 0.0, 0.0);
   }
 }

@@ -1,5 +1,5 @@
 public class Rig {
-  float dimmer, alphaRate, funcRate, blurValue, bgNoise, manualAlpha, funcSwapRate, alphaSwapRate, bgSwapRate;
+  float dimmer, alphaRate, functionRate, blurriness, bgNoise, manualAlpha, functionChangeRate, alphaChangeRate, backgroundChangeRate;
   int wide, high, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, bgIndex, vizIndex, alphaTimer, functionTimer;
   PGraphics colorLayer, buffer, pass1, pass2;
   PVector size;

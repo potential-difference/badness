@@ -1,6 +1,6 @@
 //can these go inside MainControlFrame?
 boolean testToggle, smokeToggle;
-float boothDimmer, digDimmer, vizTime, colorTime, colorSwapSlider, beatSlider = 0.3;
+float boothDimmer, digDimmer, vizTime, colorChangeTime, colorSwapSlider, beatSlider = 0.3;
 float smokePumpValue, smokeOnTime, smokeOffTime;
 
 class MainControlFrame extends ControlFrame {
@@ -52,8 +52,8 @@ class MainControlFrame extends ControlFrame {
     int min = int(vizTime*60 - (millis()/1000 - vizTimer)) /60 % 60;
     text("next viz in: "+min+":"+sec, x, y);
     ///// NEXT COLOR CHANGE IN....
-    sec = nf(int(colorTime*60 - (millis()/1000 - rigg.colorTimer)) %60, 2, 0);
-    min = int(colorTime*60 - (millis()/1000 - rigg.colorTimer)) /60 %60;
+    sec = nf(int(colorChangeTime*60 - (millis()/1000 - rigg.colorTimer)) %60, 2, 0);
+    min = int(colorChangeTime*60 - (millis()/1000 - rigg.colorTimer)) /60 %60;
     text("next color in: "+ min+":"+sec, x, y+20);
     //text("c-" + rigg.colorIndexA + "  " + "flash-" + rigg.colorIndexB, x, y+40);
 

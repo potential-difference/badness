@@ -1,4 +1,4 @@
-int vizTimer, bgChangeTimer;
+int vizTimer, bgChangeTimer; // TODO does this need to be global / is it needed at all?
 void playWithYourself(float vizTm) {
 
   for (Rig rig : rigs) {
@@ -7,39 +7,33 @@ void playWithYourself(float vizTm) {
       rig.vizIndex = int(random(rig.availableAnims.length));
       println(rig.name+" VIZ:", rig.vizIndex, "@", (hour()+":"+minute()+":"+second()));
       vizTimer = millis()/1000;
-      //rig.ddListCallback(rig.ddVizList, rig.vizIndex);
     }
     ////////////////////////////// PLAY TOGGLE TO CONTROL AUTO CYCLING OF FUNCS AND ALPHAS /////////////////////////////////////////
     if (rig.playWithYourSelf) {  
       ///////////// ALPHA TIMER ////////////////////////////////////////////////////////////////////////////////////////////////////
-      if (millis()/1000 - rig.alphaTimer >= vizTm/rig.alphaSwapRate) {       //// SWAPRATE changes # of times every viz change /////
+      if (millis()/1000 - rig.alphaTimer >= vizTm/(1+rig.alphaChangeRate*20)) {       //// SWAPRATE changes # of times every viz change /////
         rig.alphaIndexA = int(random(rig.availableAlphaEnvelopes.length));   //// select from alpha array
         rig.alphaIndexB = int(random(rig.availableAlphaEnvelopes.length));   //// select from alpha array
         println(rig.name+" alpha change @", (hour()+":"+minute()+":"+second()), "new envelopes:", rig.alphaIndexA, "&", rig.alphaIndexB);
         rig.alphaTimer = millis()/1000;
-       // rig.ddListCallback(rig.ddAlphaListA, rig.alphaIndexA);
-       // rig.ddListCallback(rig.ddAlphaListB, rig.alphaIndexB);
-      }
+          }
       //////////// FUNCTION TIMER //////////////////////////////////////////////////////////////////////////////////////////////////
-      if (millis()/1000 - rig.functionTimer >= vizTm/rig.funcSwapRate) {
+      if (millis()/1000 - rig.functionTimer >= vizTm/(1+rig.functionChangeRate*20)) {
         rig.functionIndexA = int(random(rig.availableFunctionEnvelopes.length));  //// select from function array
         rig.functionIndexB = int(random(rig.availableFunctionEnvelopes.length));  //// select from function array
         println(rig.name+" function change @", (hour()+":"+minute()+":"+second()), "new envelope:", rig.functionIndexA, "&", rig.functionIndexB);
         rig.functionTimer = millis()/1000;
-       //rig.ddListCallback(rig.ddFuncListA, rig.functionIndexA);
-       // rig.ddListCallback(rig.ddFuncListB, rig.functionIndexB);
-      }
+       }
     }
   }
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////// PLAY WITH COLOUR ////////////////////////////////////////////////////////////////
   for (Rig rig : rigs) {
-    rig.colorTimer(colorTime*60, 1); //// seconds between colour change, number of steps to cycle through colours
-    if (millis()/1000 - bgChangeTimer >= colorTime*60/rig.bgSwapRate) {
+    rig.colorTimer(colorChangeTime*60, 1); //// seconds between colour change, number of steps to cycle through colours
+    if (millis()/1000 - bgChangeTimer >= colorChangeTime*60/rig.backgroundChangeRate) {
       rig.bgIndex = (int(random(rig.availableBkgrnds.length)));  // change colour layer 4 times every auto color change
       bgChangeTimer = millis()/1000;
-      //rig.ddListCallback(rig.ddBgList, rig.bgIndex);
     }
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

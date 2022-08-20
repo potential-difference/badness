@@ -2,7 +2,7 @@
 abstract class ManualAnim extends Anim {
   ManualAnim(Rig _rig) {
     super(_rig);
-    alphaRate = rig.manualAlpha;
+    rig.alphaRate = rig.manualAlpha;
   }
   void draw() {
   }
@@ -20,7 +20,7 @@ abstract class ManualAnim extends Anim {
 class AllOn extends Anim {
   AllOn(Rig _rig) {
     super( _rig);
-    alphaRate=rig.manualAlpha;
+    rig.alphaRate=rig.manualAlpha;
   }
   void draw() {
     window.beginDraw();
@@ -32,7 +32,7 @@ class AllOn extends Anim {
 class AllOff extends Anim {
   AllOff(Rig _rig) {
     super( _rig);
-    alphaRate=rig.manualAlpha;
+    rig.alphaRate=rig.manualAlpha;
   }
   void draw() {
     window.beginDraw();
@@ -669,7 +669,7 @@ class Test extends Anim {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Anim {
-  float alphaRate, funcRate, dimmer, alphMod=1, funcMod=1, funcFX=1, alphFX=1, alphaA, alphaB, functionA, functionB;
+  float alphMod=1, funcMod=1, funcFX=1, alphFX=1, alphaA, alphaB, functionA, functionB;
   int blury, prevblury, vizIndex, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, _beatCounter;
   color col1, col2;
   PVector viz;
@@ -689,14 +689,13 @@ class Anim {
   Anim(Rig _rig) {
     animDimmer=new Ref(new float[]{1.0}, 0);
     rig = _rig;
-    alphaRate = rig.alphaRate;
-    funcRate = rig.funcRate;
+   
     _beatCounter = (int)beatCounter;
     col1 = white;
     col2 = white;
     animName = "default";
 
-    blury = int(map(rig.blurValue, 0, 1, 0, 100));     //// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
+    blury = int(map(rig.blurriness, 0, 1, 0, 100));     //// adjust blur amount using slider only when slider is changed - cheers Benjamin!! ////////
     if (blury!=prevblury) prevblury=blury;
 
     window = rig.buffer;
