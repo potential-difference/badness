@@ -3,29 +3,13 @@ class SizeSettings {
   PVector rig, roof, info, cans, donut, pars;
   int surfacePositionX, surfacePositionY, sizeX, sizeY, orientation;
 
-  SizeSettings(int _orientation) {
-    orientation = _orientation;
-    switch (orientation) {
-    case PORTRAIT:
-      rigWidth = 600;                                    // WIDTH of rigViz
-      rigHeight = 350;                                   // HEIGHT of rigViz
-      rig = new PVector(rigWidth/2, (rigHeight/2));   // cordinates for center of rig
-      break;
-    case LANDSCAPE:
-      rigWidth = 500;                                    // WIDTH of rigViz
-      if (SHITTYLAPTOP) rigWidth = 600;
-      rigHeight = 500;    
-      if (SHITTYLAPTOP) rigHeight = 250;
-      rig = new PVector(rigWidth/2, (rigHeight/2));   // cordinates for center of rig
-      break;
-    case SHIELDS:
+  SizeSettings() {
       rigWidth = 400;                                    // WIDTH of rigViz
       if (SHITTYLAPTOP) rigWidth = 350;
       rigHeight = 400;    
       if (SHITTYLAPTOP) rigHeight = 350;
-      rig = new PVector(rigWidth/2, (rigHeight/2));   // cordinates for center of rig
-      break;
-    }
+      rig = new PVector(rigWidth/2, rigHeight/2);   // cordinates for center of rig
+     
 
     ////////////////////////////////  ROOF SETUP RIGHT OF RIG ///////////////////////
     roofWidth = 0;
@@ -43,7 +27,11 @@ class SizeSettings {
     parsHeight = rigHeight;
     pars = new PVector(rigWidth+roofWidth+cansWidth+(parsWidth/2), parsHeight/2);      
 
-    sizeX = rigWidth+roofWidth+cansWidth+parsWidth;
+    //////////////////////////////// TEMP CONTROLLER AREA BELOW SHIELDS //////////////////////
+
+    int sliderWidth = rigWidth;
+
+    sizeX = rigWidth+roofWidth+cansWidth+parsWidth+sliderWidth;
     sizeY = rigHeight;
   }
 }
@@ -91,17 +79,15 @@ import javax.sound.sampled.*;
 Minim minim;
 AudioInput in;
 BeatDetect beatDetect;
-float avgtime, avgvolume;
-float weightedsum, weightedcnt;
-float beatAlpha;
-void audioSetup(int sensitivity) {
+float avgtime, avgvolume, weightedsum, weightedcnt, beatTempo;
+void audioSetup(int sensitivity, float beatTempo) {
+  // beatTempo affects how quickly code adapts to tempo changes 0.2 averages
+  // the last 10 onsets  0.02 would average the last 100
+    
   minim = new Minim(this);
   in = minim.getLineIn(Minim.STEREO, 512);
   beatDetect = new BeatDetect();
   beatDetect.setSensitivity(sensitivity);
-
-  beatAlpha=0.2;//this affects how quickly code adapts to tempo changes 0.2 averages
-  // the last 10 onsets  0.02 would average the last 100
   weightedsum=0;
   weightedcnt=0;
   avgtime=0;

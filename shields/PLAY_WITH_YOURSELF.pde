@@ -7,7 +7,7 @@ void playWithYourself(float vizTm) {
       rig.vizIndex = int(random(rig.availableAnims.length));
       println(rig.name+" VIZ:", rig.vizIndex, "@", (hour()+":"+minute()+":"+second()));
       vizTimer = millis()/1000;
-      rig.ddListCallback(rig.ddVizList, rig.vizIndex);
+      //rig.ddListCallback(rig.ddVizList, rig.vizIndex);
     }
     ////////////////////////////// PLAY TOGGLE TO CONTROL AUTO CYCLING OF FUNCS AND ALPHAS /////////////////////////////////////////
     if (rig.playWithYourSelf) {  
@@ -17,8 +17,8 @@ void playWithYourself(float vizTm) {
         rig.alphaIndexB = int(random(rig.availableAlphaEnvelopes.length));   //// select from alpha array
         println(rig.name+" alpha change @", (hour()+":"+minute()+":"+second()), "new envelopes:", rig.alphaIndexA, "&", rig.alphaIndexB);
         rig.alphaTimer = millis()/1000;
-        rig.ddListCallback(rig.ddAlphaListA, rig.alphaIndexA);
-        rig.ddListCallback(rig.ddAlphaListB, rig.alphaIndexB);
+       // rig.ddListCallback(rig.ddAlphaListA, rig.alphaIndexA);
+       // rig.ddListCallback(rig.ddAlphaListB, rig.alphaIndexB);
       }
       //////////// FUNCTION TIMER //////////////////////////////////////////////////////////////////////////////////////////////////
       if (millis()/1000 - rig.functionTimer >= vizTm/rig.funcSwapRate) {
@@ -26,8 +26,8 @@ void playWithYourself(float vizTm) {
         rig.functionIndexB = int(random(rig.availableFunctionEnvelopes.length));  //// select from function array
         println(rig.name+" function change @", (hour()+":"+minute()+":"+second()), "new envelope:", rig.functionIndexA, "&", rig.functionIndexB);
         rig.functionTimer = millis()/1000;
-        rig.ddListCallback(rig.ddFuncListA, rig.functionIndexA);
-        rig.ddListCallback(rig.ddFuncListB, rig.functionIndexB);
+       //rig.ddListCallback(rig.ddFuncListA, rig.functionIndexA);
+       // rig.ddListCallback(rig.ddFuncListB, rig.functionIndexB);
       }
     }
   }
@@ -39,7 +39,7 @@ void playWithYourself(float vizTm) {
     if (millis()/1000 - bgChangeTimer >= colorTime*60/rig.bgSwapRate) {
       rig.bgIndex = (int(random(rig.availableBkgrnds.length)));  // change colour layer 4 times every auto color change
       bgChangeTimer = millis()/1000;
-      rig.ddListCallback(rig.ddBgList, rig.bgIndex);
+      //rig.ddListCallback(rig.ddBgList, rig.bgIndex);
     }
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

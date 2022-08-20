@@ -1016,8 +1016,8 @@ void pickleCansOPC(Rig _rig, OPC opc) {
   } 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void dmxSmokeOPC(OPC opc) {
-    smokePump = new PVector (304, 15);
-    smokeFan = new PVector (smokePump.x+140, 15);
+    smokePump = new PVector (height-10, width-20);
+    smokeFan = new PVector (smokePump.x+10, smokePump.y);
 
     opc.led(7000, int(smokePump.x), int(smokePump.y));
     opc.led(7001, int(smokeFan.x), int(smokeFan.y));

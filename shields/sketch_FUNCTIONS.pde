@@ -73,8 +73,8 @@ void resetbeats() {
   beat = 1;
   beatCounter = (beatCounter + 1) % 120;
 
-  weightedsum=beatTimer+(1-beatAlpha)*weightedsum;
-  weightedcnt=1+(1-beatAlpha)*weightedcnt;
+  weightedsum=beatTimer+(1-beatTempo)*weightedsum;
+  weightedcnt=1+(1-beatTempo)*weightedcnt;
   avgtime=weightedsum/weightedcnt;
   avgmillis = avgtime*1000/frameRate;
   beatTimer=0;
@@ -82,7 +82,7 @@ void resetbeats() {
 ///////////////////////////////////////// BEATS /////////////////////////////////////////////////////////////////////
 void beats() {            
   beatTimer++;
-  beatAlpha=0.2; //this affects how quickly code adapts to tempo changes 0.2 averages the last 10 onsets  0.02 would average the last 100
+  beatTempo=0.2; //TODO - global vairable set twice, this affects how quickly code adapts to tempo changes 0.2 averages the last 10 onsets  0.02 would average the last 100
   beatTrigger = false;
   if (beatDetect.isOnset()) beatTrigger = true;
   // trigger beats without audio input
