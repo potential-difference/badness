@@ -8,9 +8,6 @@ ControlP5 main_cp5;
 
 boolean SHITTYLAPTOP=false;//false;
 
-final int PORTRAIT = 0;
-final int LANDSCAPE = 1;
-final int SHIELDS = 3;
 final int RIG = 0;
 final int ROOF = 1;
 
@@ -19,7 +16,7 @@ OPCGrid opcGrid;
 ShieldsOPCGrid shieldsGrid;
 ControlFrame controlFrame;
 
-Rig rigg, roof, cans, mirrors, strips, donut, seeds, pars;
+Rig rigg, roof, cans, strips, donut, seeds, pars;
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
 PFont font;
 
@@ -41,7 +38,7 @@ boolean onTop = false;
 boolean MCFinitialized, SFinitialized;
 void settings() {
   System.setProperty("jogl.disable.openglcore", "true");
-  size = new SizeSettings(SHIELDS);
+  size = new SizeSettings();
   //fullScreen();
   size(size.sizeX, size.sizeY, P2D);
   size.surfacePositionX = 1920-width-50;
@@ -50,15 +47,17 @@ void settings() {
 }
 void setup()
 {
-
   surface.setSize(size.sizeX, size.sizeY);
   surface.setAlwaysOnTop(onTop);
 
   //surface.setLocation(size.surfacePositionX, size.surfacePositionY);
-  MCFinitialized = false;
-  controlFrame = new MainControlFrame(this, width*2, 530, size.surfacePositionX, size.surfacePositionY+height+5); // load control frame must come after shild ring etc
-  opcGrid = new OPCGrid();
+ // MCFinitialized = false;
+ // controlFrame = new MainControlFrame(this, width*2, 530, size.surfacePositionX, size.surfacePositionY+height+5); // load control frame must come after shild ring etc
+  
+  rigg = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
 
+  opcGrid = new OPCGrid();
+/*
   // order of these is important for layout of sliders
   print("MainControlFrame");
   while (!MCFinitialized) {
@@ -66,6 +65,7 @@ void setup()
     print(".");
   }
   println(".");
+*/
 
   ///////////////// LOCAL opc /////////////////////
   wledBigShield = new WLED(this, "192.168.8.10", 21324);
@@ -88,21 +88,16 @@ void setup()
   opcLocal   = new OPC(this, "127.0.0.1", 7890);        // Connect to the local instance of fcserver - MIRRORS
   opcGrid.dmxSmokeOPC(opcLocal) ;
 
-  audioSetup(100); ///// AUDIO SETUP - sensitivity /////
+  audioSetup(100, 0.2); ///// AUDIO SETUP - sensitivity, beatTempo /////
   midiSetup();
   drawingSetup();
   loadImages();
   loadShaders();
   setupSpecifics();
-  //syphonSetup(syphonToggle);
-  //artNetSetup();
-
+/*
   controlFrameValues = sketchPath("cp5ControlFrameValues");
-  //sliderFrameValues  = sketchPath("cp5SliderFrameValues");
-  //mainFrameValues  = sketchPath("cp5MainFrameValues");
-  try {
+   try {
     controlFrame.cp5.loadProperties(controlFrameValues);
-    //sliderFrame.cp5.loadProperties(sliderFrameValues);
   }
   catch(Exception e) {
     println(e);
@@ -113,6 +108,7 @@ void setup()
     float value = controlFrame.cp5.getController(controllerName).getValue();
     setCCfromController(controllerName, value);
   }
+*/
   frameRate(30); // always needs to be last in setup
 }
 int colStepper = 1;
@@ -125,9 +121,8 @@ void draw()
   noStroke();
   beatDetect.detect(in.mix);
   beats();
-  //pause(10);                                ////// number of seconds before no music detected and auto kicks in
+  //pause(10);           ////// number of seconds before no music detected and auto kicks in
   globalFunctions();
-  //syphonLoadSentImage(syphonToggle);
 
   if (frameCount > 10) playWithYourself(vizTime*60);
   c = rigg.c;
@@ -140,14 +135,13 @@ void draw()
       if (rig.toggle) {
         //if (testToggle) rig.animations.add(new Test(rig));
         //println(rig.name+" vizIndex", rig.vizIndex);
-        rig.addAnim(rig.vizIndex);           // create a new anim object and add it to the beginning of the arrayList
+        rig.addAnim(rig.vizIndex);  // create a new anim object and add it to the beginning of the arrayList
       }
     }
   }
 
   if (keyT['s']) for (Anim anim : rigg.animations)  anim.funcFX = 1-(stutter*noize1*0.1);
-  //////////////////////////////////////////// Artnet  /////////////
-  //DMXcontrollingUs();
+ 
   //////////////////// Must be after playwithme, before rig.draw()////
 
   for (Rig rig : rigs) rig.draw();  
@@ -166,8 +160,6 @@ void draw()
   mouseInfo(keyT['q']);
   frameRateInfo(5, 20);                     // display frame rate X, Y /////
   dividerLines();
-  //gid.mirrorTest(false);                  // true to test physical mirror orientation
-  //syphonSendImage(syphonToggle);
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
