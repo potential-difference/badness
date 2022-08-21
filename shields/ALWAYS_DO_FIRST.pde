@@ -1,21 +1,13 @@
-void setupSpecifics() {
-
+void alwaysDoFirst() {
+  //This is confusing.  can these be words please
+  //like, rigg.availableAnims = {Donuts,GoodAnim3,BoxesRed} or sth. an enum? can it be an enum?
   rigg.availableAnims = new int[] {1, 2, 3, 6, 7, 8};      // setup which anims are used on which rig here
   rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
   rigg.availableFunctionEnvelopes = new int[] {0, 1, 2};  
-  rigg.availableBkgrnds = new int[] {0, 1, 10, 11, 12, 13, 14};
+  rigg.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6};
   
   //rigg.availableColors = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
   //roof.availableColors = rigg.availableColors; // = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
-
-  for (Rig rig : rigs) {    
-    for (int i=0; i<rig.availableBkgrnds.length; i++) { int index = rig.availableBkgrnds[i]; }
-    for (int i=0; i<rig.availableAnims.length; i++) { int index = rig.availableAnims[i]; }
-    for (int i=0; i<rig.availableAlphaEnvelopes.length; i++) { int index = rig.availableAlphaEnvelopes[i]; }
-    for (int i=0; i<rig.availableAlphaEnvelopes.length; i++) { int index = rig.availableAlphaEnvelopes[i]; }
-    for (int i=0; i<rig.availableFunctionEnvelopes.length; i++) { int index = rig.availableFunctionEnvelopes[i]; }
-    for (int i=0; i<rig.availableFunctionEnvelopes.length; i++) { int index = rig.availableFunctionEnvelopes[i];  } 
-  }
 
   rigg.vizIndex = 2;
   rigg.functionIndexA = 0;
@@ -37,6 +29,16 @@ void setupSpecifics() {
   cc[8] = 1;
 
   for (int i= 36; i < 52; i++)cc[i] = 0;
+
+  rigg.dimmer = 1;
+  rigg.alphaRate = 0.5;
+  rigg.functionRate = 0.5;
+  vizTime = 0.5;
+  colorChangeTime = 0.5;
+  rigg.wideSlider = 0.5;
+  rigg.highSlider = 0.5;
+  rigg.strokeSlider= 0.5;
+  rigg.blurriness = 0.2;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

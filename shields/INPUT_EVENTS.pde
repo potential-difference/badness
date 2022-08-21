@@ -13,7 +13,11 @@ void keyPressed() {
   }
 
   //// debound or thorttle this ////
-
+  if (cans != null) 
+  {
+   // TODO make more of these for each rig allowing rigs to not exist
+   if (key == 'h') cans.vizIndex = (cans.vizIndex+1)%cans.availableAnims.length;  //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
+  }
   /////////////////////////////// RIG KEY FUNCTIONS ////////////////////////
   if (key == 'n') rigg.vizIndex = (rigg.vizIndex+1)%rigg.availableAnims.length;        //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
   if (key == 'b') rigg.vizIndex -=1;                            //// STEP BACK TO PREVIOUS RIG VIZ

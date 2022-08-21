@@ -15,7 +15,6 @@ abstract class ManualAnim extends Anim {
     image(window, rig.size.x, rig.size.y, window.width, window.height);
   }
 }
-
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 class AllOn extends Anim {
   AllOn(Rig _rig) {
@@ -40,8 +39,6 @@ class AllOff extends Anim {
     window.endDraw();
   }
 }
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class StarMesh extends Anim {
   StarMesh ( Rig _rig) {
@@ -916,6 +913,7 @@ class Anim {
 
 
   void benjaminsBox(float xpos, float ypos, color col, float wide, float high, float func, float rotate, float alph) {
+    // string animName = 
     rotate = radians(rotate);
 
     PVector box = new PVector(window.width, window.height);

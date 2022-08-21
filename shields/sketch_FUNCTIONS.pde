@@ -80,9 +80,8 @@ void resetbeats() {
   beatTimer=0;
 }
 ///////////////////////////////////////// BEATS /////////////////////////////////////////////////////////////////////
-void beats() {            
+void beats(float _beatSlider) {  
   beatTimer++;
-  beatTempo=0.2; //TODO - global vairable set twice, this affects how quickly code adapts to tempo changes 0.2 averages the last 10 onsets  0.02 would average the last 100
   beatTrigger = false;
   if (beatDetect.isOnset()) beatTrigger = true;
   // trigger beats without audio input
@@ -95,7 +94,7 @@ void beats() {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
   if (beatTrigger) resetbeats();
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  if (avgmillis>0) beat*= pow(beatSlider, (20/avgmillis));       //  changes rate alpha fades out based on average millis between beats
+  if (avgmillis>0) beat*= pow(_beatSlider, (20/avgmillis));       //  changes rate alpha fades out based on average millis between beats
   else beat*=0.95;
   float end = 0.001;
   if (beat < end) beat = end;

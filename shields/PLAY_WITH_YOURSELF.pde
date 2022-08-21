@@ -55,7 +55,16 @@ void playWithYourself(float vizTm) {
   ///////////////////////////////////////// LERP COLOUR //////////////////////////////////////////////////////////////////
   colBeat = false;
   if (beatCounter % 18 > 15)  colorLerping(rigg, (1-beat)*4);
-  
+  /*for (Rig rig : rigs) 
+  {
+    switch (rig){
+      case cans:
+        if (beatCounter % 18 < 4) colorLerping(rig,(1-beat)*4);break;
+      case roof:
+        if (beatCounter % 32 > 27) colorLerping(rig,(1-beat)*3);break;
+    }
+  }
+  */
   //TODO if loop that only affects rigs that are present
   
   //if (beatCounter % 18 < 4)  colorLerping(cans, (1-beat)*4);
