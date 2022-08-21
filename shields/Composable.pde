@@ -183,8 +183,6 @@ class Linear extends Envelope{
   }
 }
 
-
-
 class Ramp extends Envelope {
   int start_time;
   Object[] values;

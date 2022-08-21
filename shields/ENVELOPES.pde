@@ -25,7 +25,7 @@ Envelope SlowFast(int start_time, int duration, int start_period, int end_period
 }
 // starts OSSCILIATING with the AMPLITUDE slowly RAMPING to 0.4, ADDITIONALLY ramping to 0.6 with the top 0.2 SQUIGGLING
 Envelope Squiggle(Number attack_t, Number sustain_t, Number decay_t, Number total_time, float squiggle_spd, float squiggliness ) {
-  Envelope base = CrushPulse(attack_t.floatValue(), sustain_t.floatValue(), decay_t.floatValue(), total_time, 0.02, 0.02);
+  Envelope base = ComplexPulse(attack_t.floatValue(), sustain_t.floatValue(), decay_t.floatValue(), total_time, 0.02, 0.02);
   int sin_start=millis()+attack_t.intValue();
   int sin_duration=sustain_t.intValue()+decay_t.intValue();
   int start_period=sin_duration;
@@ -64,7 +64,11 @@ Envelope NoizeEnv() {
 //}
 // WRITE FUNCTION THAT CRUSHES RATE OF ALL ENVELOPES
 
-Envelope CrushPulse(float attack_proportion, float sustain_proportion, float decay_proportion, Number total_time, float attack_curv, float decay_curv) {
+Envelope Beatz (float total_time, float decay_curv){
+  return ComplexPulse(0.0, 0.0, 1.0,total_time, 0.0, decay_curv);
+}
+
+Envelope ComplexPulse(float attack_proportion, float sustain_proportion, float decay_proportion, Number total_time, float attack_curv, float decay_curv) {
   if (attack_proportion<0) attack_proportion=0;
   if (sustain_proportion<0) sustain_proportion=0;
   if (decay_proportion<0) decay_proportion=0;
@@ -75,38 +79,41 @@ Envelope CrushPulse(float attack_proportion, float sustain_proportion, float dec
   return SimplePulse(attack_time, sustain_time, decay_time, attack_curv, decay_curv);
 }
 
+Envelope BeatzOskp(float overalltime, float decay_curv, float threashold){
+  Envelope beatz = Beatz(overalltime, decay_curv);
+  Envelope mask = LessThan(beatz,0.1); 
+  Evnelope oskP = OSKp();
+  return beatz*(mask*oskP);
+}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-Envelope envelopeFactory(int envelope_index, Rig rig, float overalltime) {
-  float alphaRate = rig.alphaRate*10;
+Envelope alphaEnvelopeFactory(int envelope_index, Rig rig, float overalltime) {
+  float alphaRate = rig.alphaRate*10; //TODO why do we *10 here?
   //float overalltime = avgmillis;
 
   switch (envelope_index) {
   case 0: 
     // BEATZ
-    return CrushPulse(0.05, 0.0, 1.0, overalltime*(alphaRate+0.5), 0.0, 0.0);
-    //CrushPulse(0.031, 0.040, 0.913, avgmillis*rig.alphaRate*15+0.5, 0.0, 0.0);
+    //Envelope ComplexPulse(float attack_proportion, float sustain_proportion, float decay_proportion, Number total_time, float attack_curv, float decay_curv) {
+    //curve: 0.5 = STRAIGHT, 0 = SWOOP-UP, 1 = ARC-UP
+      return Beatz(overalltime*(alphaRate+0.5), 0.0);
   case 1:
-    // PULZ
-    return CrushPulse(1.0, 0.0, 0.1, overalltime*(alphaRate*0.8+0.5), 1.0, 1.0);
-    //CrushPulse(0.92, 0.055, 0.071, avgmillis*rig.alphaRate*10+0.5, 0.0, 0.0);
+      return ComplexPulse(0.0, 0.0, 1.0, overalltime*(alphaRate+0.5), 0.0, 1.0);
   case 2:
-    // BEAT CONROLLED BY PAD
-    return CrushPulse(cc[41], cc[42], cc[43], overalltime*(alphaRate+0.5), 0.0, 0.0);
+      return ComplexPulse(0.9, 0.0, 0.01, overalltime*(alphaRate*0.8+0.5), 0.0, 1.0);
   case 3:
-    // PULZ CONTROLLED BY PAD
-    return CrushPulse(cc[49], cc[50], cc[51], overalltime*(alphaRate+0.5), 0.0, 0.0);
+      return ComplexPulse(0.9, 0.0, 0.01, overalltime*(alphaRate*0.8+0.5), 0.0, 0.0);
   case 4:
-    // SQUIGGLE (BEATS) CONTROLLED BY PAD 
-    return Squiggle(cc[41], cc[42], cc[43], overalltime*(alphaRate+0.5), 0.01+cc[44], cc[45]);
+      return ComplexPulse(0.5, 0.5, 0.5, overalltime*(alphaRate+0.5), 1.0, 1.0);
+   // return Squiggle(cc[41], cc[42], cc[43], overalltime*(alphaRate+0.5), 0.01+cc[44], cc[45]);
   case 5:
-    // SQUIGGLE (PULZ) CONTROLLED BY PAD 
-    return Squiggle(cc[49], cc[50], cc[51], overalltime*(alphaRate+0.5), 0.01+cc[52], cc[53]);
+    return ComplexPulse(0.031, 0.040, 0.913, overalltime*(alphaRate+0.5), 0.0, 0.0).mul(stutter);
+//    return Squiggle(cc[49], cc[50], cc[51], overalltime*(alphaRate+0.5), 0.01+cc[52], cc[53]);
   case 6:
     // STUTTER
-    return CrushPulse(0.031, 0.040, 0.913, overalltime*(alphaRate+0.5), 0.0, 0.0).mul(stutter);
+    return ComplexPulse(0.031, 0.040, 0.913, overalltime*(alphaRate+0.5), 0.0, 0.0).mul(stutter);
   default: 
-    return CrushPulse(0.031, 0.040, 0.913, overalltime*(alphaRate+0.5), 0.02, 0.02);
+    return ComplexPulse(0.031, 0.040, 0.913, overalltime*(alphaRate+0.5), 0.02, 0.02);
   }
 }
 
@@ -121,20 +128,20 @@ Envelope functionEnvelopeFactory(int envelope_index, Rig rig) {
   switch (envelope_index) {
   case 0: 
     //return SimplePulse(cc[41]*4000, cc[42]*4000, cc[43]*4000, cc[44], cc[45]);
-    return CrushPulse(0.2, 0.0, 1.0, overalltime*(functionRate+0.5), 0.0, sined);
+    return ComplexPulse(0.2, 0.0, 1.0, overalltime*(functionRate+0.5), 0.0, sined);
   case 1:
-    //return CrushPulse(cc[49], cc[50], cc[51], avgmillis*rig.beatSlider*15+0.5, cc[52], cc[53]);
+    //return ComplexPulse(cc[49], cc[50], cc[51], avgmillis*rig.beatSlider*15+0.5, cc[52], cc[53]);
     return SimpleRamp(overalltime*functionRate, 0, 1, sined);
     //SimplePulse(Number attack_time, Number sustain_time, Number decay_time, float attack_curv, float decay_curv)
   case 2:
     return  SimpleRamp(overalltime*functionRate/0.3, 1, 0, sined);
-    //CrushPulse(cc[41], cc[42], cc[43], avgmillis*rig.functionRate*15+0.5, 0.00, 0.00);
+    //ComplexPulse(cc[41], cc[42], cc[43], avgmillis*rig.functionRate*15+0.5, 0.00, 0.00);
     //case 3:
-    //  return CrushPulse(cc[44], cc[45], cc[46], avgmillis*rig.functionRate*15+0.5, 0.02, 0.02);
+    //  return ComplexPulse(cc[44], cc[45], cc[46], avgmillis*rig.functionRate*15+0.5, 0.02, 0.02);
     //case 4:
     //  //Envelope Squiggle(Number attack_t, Number sustain_t, Number decay_t, float attack_curv, float decay_curv, float sqiggle_curv, float squiggliness, int squiggle_spd) {
     //  return Squiggle(cc[49], cc[50], cc[51], avgmillis*rig.functionRate*15+0.5, 0.01+cc[52], cc[53]);
   default: 
-    return CrushPulse(0.0, 0.0, 1.0, overalltime*(functionRate+0.5), 0.0, 0.0);
+    return ComplexPulse(0.0, 0.0, 1.0, overalltime*(functionRate+0.5), 0.0, 0.0);
   }
 }

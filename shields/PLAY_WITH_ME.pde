@@ -26,8 +26,8 @@ void playWithMe() {
    if (padVelocity[44]>0) rigg.animations.add(new Checkers (rigg));
    if (rigg.animations.size() > 0 ) { 
    Anim theanim = rigg.animations.get(rigg.animations.size()-1);
-   //Envelope manualA = CrushPulse(0.0, 0, 1, rigg.manualAlpha*500, 0.0, 0.0);
-   Envelope manualA = CrushPulse(0.05, 0.0, 1.0, avgmillis*(rigg.manualAlpha+0.5), 0.0, 0.0);
+   //Envelope manualA = ComplexPulse(0.0, 0, 1, rigg.manualAlpha*500, 0.0, 0.0);
+   Envelope manualA = ComplexPulse(0.05, 0.0, 1.0, avgmillis*(rigg.manualAlpha+0.5), 0.0, 0.0);
    theanim.alphaEnvelopeA = manualA;
    theanim.alphaEnvelopeB = manualA;
    lastTime[44]=millis();
@@ -75,7 +75,7 @@ void playWithMe() {
 
   if (millis()-lastTime[46]>debouncetime) {
     if (padVelocity[46]>0) {
-      rigg.animations.add( new AllOn(rigg)); //rigg.anim.alphaEnvelopeA = new CrushPulse(0.031, 0.040, 0.913, avgmillis*rigg.alphaRate*3+0.5, 0.0, 0.0);
+      rigg.animations.add( new AllOn(rigg)); //rigg.anim.alphaEnvelopeA = new ComplexPulse(0.031, 0.040, 0.913, avgmillis*rigg.alphaRate*3+0.5, 0.0, 0.0);
       //anim = rigg.animations.get(rigg.animations.size()-1);
       lastTime[46]=millis();
     }

@@ -708,8 +708,8 @@ class Anim {
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     overalltime = avgmillis;
 
-    alphaEnvelopeA = envelopeFactory(rig.availableAlphaEnvelopes[rig.alphaIndexA], rig, overalltime);
-    alphaEnvelopeB = envelopeFactory(rig.availableAlphaEnvelopes[rig.alphaIndexB], rig, overalltime);
+    alphaEnvelopeA = alphaEnvelopeFactory(rig.availableAlphaEnvelopes[rig.alphaIndexA], rig, overalltime);
+    alphaEnvelopeB = alphaEnvelopeFactory(rig.availableAlphaEnvelopes[rig.alphaIndexB], rig, overalltime);
     //if(functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexA], rig) != NaN)
     functionEnvelopeA = functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexA], rig);
     functionEnvelopeB = functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexB], rig);
@@ -749,10 +749,7 @@ class Anim {
 
     if (alphaEnvelopeA.end_time<now && alphaEnvelopeB.end_time<now) deleteme = true;  // only delete when all finished
 
-
     this.draw();
-
-    
     blurPGraphics();
   }
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

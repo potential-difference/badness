@@ -13,28 +13,29 @@ void keyPressed() {
   }
 
   //// debound or thorttle this ////
-  if (cans != null) 
-  {
+  if (cans != null) {
+
    // TODO make more of these for each rig allowing rigs to not exist
    if (key == 'h') cans.vizIndex = (cans.vizIndex+1)%cans.availableAnims.length;  //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
   }
   /////////////////////////////// RIG KEY FUNCTIONS ////////////////////////
-  if (key == 'n') rigg.vizIndex = (rigg.vizIndex+1)%rigg.availableAnims.length;        //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
-  if (key == 'b') rigg.vizIndex -=1;                            //// STEP BACK TO PREVIOUS RIG VIZ
-  if (rigg.vizIndex <0) rigg.vizIndex = rigg.availableAnims.length-1;
-  if (key == 'm') rigg.bgIndex = (rigg.bgIndex+1)%rigg.availableBkgrnds.length;                 //// CYCLE THROUGH RIG BACKGROUNDS
-  if (key == ',') {                                      //// CYCLE THROUGH RIG FUNCS
-    rigg.functionIndexA = (rigg.functionIndexA+1)%rigg.availableFunctionEnvelopes.length; //animations.func.length; 
-    rigg.functionIndexB = (rigg.functionIndexB+1)%rigg.availableFunctionEnvelopes.length; //fct.length;
-  }  
-  if (key == '.') {                                      //// CYCLE THROUGH RIG ALPHAS
-    rigg.alphaIndexA = (rigg.alphaIndexA+1)% rigg.availableAlphaEnvelopes.length; //alph.length; 
-    rigg.alphaIndexB = (rigg.alphaIndexB+1)% rigg.availableAlphaEnvelopes.length; //alph.length;
-  }   
-  if (key == 'c') rigg.colorIndexA = (rigg.colorIndexA+1)%rigg.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
-  if (key == 'v') rigg.colorIndexB = (rigg.colorIndexB+1)%rigg.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+  if(rigg != null){
+    if (key == 'n') rigg.vizIndex = (rigg.vizIndex+1)%rigg.availableAnims.length;        //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
+    if (key == 'b') rigg.vizIndex -=1;                            //// STEP BACK TO PREVIOUS RIG VIZ
+    if (rigg.vizIndex <0) rigg.vizIndex = rigg.availableAnims.length-1;
+    if (key == 'm') rigg.bgIndex = (rigg.bgIndex+1)%rigg.availableBkgrnds.length;                 //// CYCLE THROUGH RIG BACKGROUNDS
+    if (key == ',') {                                      //// CYCLE THROUGH RIG FUNCS
+      rigg.functionIndexA = (rigg.functionIndexA+1)%rigg.availableFunctionEnvelopes.length; //animations.func.length; 
+      rigg.functionIndexB = (rigg.functionIndexB+1)%rigg.availableFunctionEnvelopes.length; //fct.length;
+    }  
+    if (key == '.') {                                      //// CYCLE THROUGH RIG ALPHAS
+      rigg.alphaIndexA = (rigg.alphaIndexA+1)% rigg.availableAlphaEnvelopes.length; //alph.length; 
+      rigg.alphaIndexB = (rigg.alphaIndexB+1)% rigg.availableAlphaEnvelopes.length; //alph.length;
+    }   
+    if (key == 'c') rigg.colorIndexA = (rigg.colorIndexA+1)%rigg.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
+    if (key == 'v') rigg.colorIndexB = (rigg.colorIndexB+1)%rigg.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  }
   if (key == '[') vizHold = !vizHold; 
   if (key == ']') colHold = !colHold; 
 
