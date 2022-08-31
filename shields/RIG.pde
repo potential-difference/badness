@@ -1,4 +1,10 @@
+enum RigType{
+    Shields,Roof,Cans,Strips,Seeds,Pars,Booth,Dig
+}
+//static RigType Shields = RigType.Shields;
 public class Rig {
+  RigType type;
+  OPCGrid opcgrid;
   float dimmer, alphaRate, functionRate, blurriness, bgNoise, manualAlpha, functionChangeRate, alphaChangeRate, backgroundChangeRate;
   int wide, high, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, bgIndex, vizIndex, alphaTimer, functionTimer;
   PGraphics colorLayer, buffer, pass1, pass2;
@@ -7,7 +13,6 @@ public class Rig {
   color col[] = new color[15];
   PVector position[] = new PVector[12];
   PVector positionX[][] = new PVector[7][3];
-  String name;
   boolean firsttime_sketchcolor=true, toggle, noiseToggle, playWithYourSelf = true;
   ArrayList <Anim> animations;
   int[] availableAnims;
@@ -20,8 +25,8 @@ public class Rig {
   float infoX, infoY;
   float wideSlider, strokeSlider, highSlider;
 
-  Rig(float _xpos, float _ypos, int _wide, int _high, String _name) {
-    name = _name;
+  Rig(float _xpos, float _ypos, int _wide, int _high, RigType _name) {
+    type = _name;
     wide = _wide;
     high = _high;
     size = new PVector (_xpos, _ypos);
@@ -414,17 +419,17 @@ public class Rig {
   void rigInfo() {
     float textHeight = 18;
     textSize(textHeight);
-    float nameWidth = textWidth(name);
+    float nameWidth = textWidth(type.name());
     float x = size.x+(wide/2)-(nameWidth/2)-12;
     float y = size.y-(high/2)+21;
 
     fill(360);
     textAlign(CENTER);
     textLeading(18);
-    text(name, x, y);
+    text(type.name(), x, y);
 
     fill(0, 100);
-    stroke(rigg.flash, 60);
+    stroke(shields.flash, 60);
     strokeWeight(1);
     rect(x, y-(textHeight/2)+3, nameWidth+17, 30);
     noStroke();
@@ -440,7 +445,7 @@ public class Rig {
     rect(x+15, y, 10, 10);                 // rect to show NEXT color FLASH1
 
     fill(0, 100);
-    stroke(rigg.flash, 60);
+    stroke(shields.flash, 60);
     strokeWeight(1);
     rect(x+7.5, y-5, 30, 30);
 
@@ -635,7 +640,6 @@ public class Rig {
     }
   }
 
-  import java.util.*;
   void removeAnimations() {
     Iterator<Anim> animiter = this.animations.iterator();
     while (animiter.hasNext()) {

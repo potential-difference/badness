@@ -1,3 +1,6 @@
+class FieldManeuversGrid extends OPCGrid {
+
+}
 class ShieldsOPCGrid extends OPCGrid {
   //  PVectors for positions of shields
   PVector[][] _shield; // = new PVector[numberOfShields][numberOfRings];    
@@ -95,8 +98,8 @@ class ShieldsOPCGrid extends OPCGrid {
     shields[10] = new PVector (_shield[4][2].x, _shield[4][2].y);       // BALL
     shields[11] = new PVector (_shield[1][2].x, _shield[1][2].y);       // BALL
 
-    rigg.positionX = _shield; 
-    rigg.position = shields;
+    rig.positionX = _shield; 
+    rig.position = shields;
   }
 
   void triangleShieldsOPC(OPC[] _opc) {
@@ -185,6 +188,7 @@ class OPCGrid {
   PVector[] eggs = new PVector[2];
   PVector[] strip = new PVector[6];
   PVector[] controller = new PVector[4];
+  
   PVector booth, dig, smokeFan, smokePump, uv;
   float yTop;                            // height Valuve for top line of mirrors
   float yBottom;  
@@ -394,8 +398,8 @@ class OPCGrid {
       }
       break;
     }
-    rigg.position=opcGrid.mirror;
-    rigg.positionX=opcGrid.mirrorX;
+    shields.position=opcGrid.mirror;
+    shields.positionX=opcGrid.mirrorX;
   }
   ////////////////////////////////////// MIRROR TEST ///////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

@@ -14,7 +14,7 @@ SizeSettings size;
 OPCGrid opcGrid;
 ShieldsOPCGrid shieldsGrid;
 
-Rig rigg, roof, cans, strips, donut, seeds, pars;
+Rig shields, roof, cans, strips, donut, seeds, pars;
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
 PFont font;
 
@@ -50,10 +50,10 @@ void setup()
 {
   surface.setSize(size.sizeX, size.sizeY);
   surface.setAlwaysOnTop(onTop);
-
-  rigg = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
+  
+  shields = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, RigType.Shields);
   opcGrid = new OPCGrid();
-
+  
   ///////////////// LOCAL opc /////////////////////
   wledBigShield = new WLED(this, "192.168.8.10", 21324);
   wledShieldA = new WLED(this, "192.168.8.11", 21324);
@@ -67,10 +67,10 @@ void setup()
   wledSeedsA   = new WLED(this, "192.168.10.20", 21324);
   wledSeedsB   = new WLED(this, "192.168.10.21", 21324);
 
-  shieldsGrid = new ShieldsOPCGrid(rigg);  
-
+  shields.opcgrid = new ShieldsOPCGrid(shields);  
+  
   OPC[] shieldOPCs = {wledBigShield, wledShieldA, wledShieldB, wledShieldC, wledShieldD, wledShieldE, wledShieldF, wledBalls};
-  shieldsGrid.spiralShieldsOPC(shieldOPCs);        // SHIELDS plug into RIGHT SLOTS A-F = 1-6 *** BIG SHIELD = 7 *** H-G = LEFT SLOTS 0-2 ***
+  ((ShieldsOPCGrid)(shields.opcgrid)).spiralShieldsOPC(shieldOPCs);        // SHIELDS plug into RIGHT SLOTS A-F = 1-6 *** BIG SHIELD = 7 *** H-G = LEFT SLOTS 0-2 ***
 
   opcLocal   = new OPC(this, "127.0.0.1", 7890);        // Connect to the local instance of fcserver - MIRRORS
   opcGrid.dmxSmokeOPC(opcLocal) ;
@@ -82,15 +82,15 @@ void setup()
   loadShaders();
   setupSpecifics();
 
-  rigg.dimmer = 1;
-  rigg.alphaRate = 0.5;
-  rigg.functionRate = 0.5;
+  shields.dimmer = 1;
+  shields.alphaRate = 0.5;
+  shields.functionRate = 0.5;
   vizTime = 0.5;
   colorChangeTime = 0.5;
-  rigg.wideSlider = 0.5;
-  rigg.highSlider = 0.5;
-  rigg.strokeSlider= 0.5;
-  rigg.blurriness = 0.2;
+  shields.wideSlider = 0.5;
+  shields.highSlider = 0.5;
+  shields.strokeSlider= 0.5;
+  shields.blurriness = 0.2;
   frameRate(30); // always needs to be last in setup
 }
 int colStepper = 1;
@@ -107,20 +107,20 @@ void draw()
   globalFunctions();
 
   if (frameCount > 10) playWithYourself(vizTime*60);
-  c = rigg.c;
-  flash = rigg.flash;
+  c = shields.c;
+  flash = shields.flash;
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   playWithMe();
   if (beatTrigger) { 
     for (Rig rig : rigs) {
             //if (testToggle) rig.animations.add(new Test(rig));
-        //println(rig.name+" vizIndex", rig.vizIndex);
+        //println(rig.type," vizIndex", rig.vizIndex);
         rig.addAnim(rig.vizIndex);  // create a new anim object and add it to the beginning of the arrayList
       }
   }
 
-  if (keyT['s']) for (Anim anim : rigg.animations)  anim.funcFX = 1-(stutter*noize1*0.1);
+  if (keyT['s']) for (Anim anim : shields.animations)  anim.funcFX = 1-(stutter*noize1*0.1);
  
   //////////////////// Must be after playwithme, before rig.draw()////
   for (Rig rig : rigs) rig.draw();  

@@ -75,6 +75,22 @@ Envelope CrushPulse(float attack_proportion, float sustain_proportion, float dec
   return SimplePulse(attack_time, sustain_time, decay_time, attack_curv, decay_curv);
 }
 
+/////////////////////////////////////////////// OSKP///////////////////////////////////////////
+Envelope oskPulseX(){
+  //osk1 added 0.01 every 33 ms
+  //so millis() / 33ms gives number of frames
+  //that multiplied by 0.1 is osk1
+  return new LambdaEnv((int time)->{
+    float osk1 = (float)time / 33.0 * 0.01;
+    float timer1 = 2*log(map(sin(osk1),-1,1,0.1,10000));
+    float oskP = map(sin(timer1),-1,1,0,1);
+    return oskP;
+  });
+}
+
+enum AlphaEnvelopeKind{
+  Beatz,Pulz,PadBeatz,PadPulz,PadBeatzSquiggle,PadPulzSquiggle,Stutter
+}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Envelope envelopeFactory(int envelope_index, Rig rig, float overalltime) {

@@ -1,12 +1,12 @@
 void setupSpecifics() {
 
-  rigg.availableAnims = new int[] {1, 2, 3, 6, 7, 8};      // setup which anims are used on which rig here
-  rigg.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
-  rigg.availableFunctionEnvelopes = new int[] {0, 1, 2};  
-  rigg.availableBkgrnds = new int[] {0, 1, 10, 11, 12, 13, 14};
+  shields.availableAnims = new int[] {1, 2, 3, 6, 7, 8};      // setup which anims are used on which rig here
+  shields.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
+  shields.availableFunctionEnvelopes = new int[] {0, 1, 2};  
+  shields.availableBkgrnds = new int[] {0, 1, 10, 11, 12, 13, 14};
   
-  //rigg.availableColors = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
-  //roof.availableColors = rigg.availableColors; // = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
+  //shields.availableColors = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
+  //roof.availableColors = shields.availableColors; // = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
 
   for (Rig rig : rigs) {    
     for (int i=0; i<rig.availableBkgrnds.length; i++) { int index = rig.availableBkgrnds[i]; }
@@ -17,15 +17,15 @@ void setupSpecifics() {
     for (int i=0; i<rig.availableFunctionEnvelopes.length; i++) { int index = rig.availableFunctionEnvelopes[i];  } 
   }
 
-  rigg.vizIndex = 2;
-  rigg.functionIndexA = 0;
-  rigg.functionIndexB = 1;
-  rigg.alphaIndexA = 0;
-  rigg.alphaIndexB = 1;
-  rigg.bgIndex = 0;
+  shields.vizIndex = 2;
+  shields.functionIndexA = 0;
+  shields.functionIndexB = 1;
+  shields.alphaIndexA = 0;
+  shields.alphaIndexB = 1;
+  shields.bgIndex = 0;
 
-  rigg.colorIndexA = 2;
-  rigg.colorIndexB = 1;
+  shields.colorIndexA = 2;
+  shields.colorIndexB = 1;
  
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
   for (int i = 0; i < 100; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen

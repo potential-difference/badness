@@ -19,7 +19,7 @@ void dmxSmoke() {
   ////////////////////////////////////// DMX SMOKE //////////////////////////////////
   fill(0, 150);
   strokeWeight(1);
-  stroke(rigg.flash, 60);
+  stroke(shields.flash, 60);
   rect(opcGrid.smokePump.x+80, opcGrid.smokePump.y, 220, 30);
   noStroke();
   fill(0);
@@ -33,7 +33,7 @@ void dmxSmoke() {
     if (smokeToggle)  rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 10, 10);
   }
   float smokeInfo = millis()/1000 % smokeInterval - (smokeInterval);
-  fill(rigg.c, 360);
+  fill(shields.c, 360);
   textAlign(LEFT);
   textSize(16);
 
@@ -122,16 +122,16 @@ void boothLights() {
   rect(opcGrid.dig.x, opcGrid.dig.y, 40, 15);
   fill(0, 150);
   strokeWeight(1);
-  stroke(rigg.flash, 60);
+  stroke(shields.flash, 60);
   rect(opcGrid.booth.x+70, opcGrid.booth.y, 200, 30);
   noStroke();
-  fill(rigg.flash1, 360*boothDimmer);
+  fill(shields.flash1, 360*boothDimmer);
   rect(opcGrid.booth.x, opcGrid.booth.y, 40, 15);
-  fill(rigg.c, 360*digDimmer);
+  fill(shields.c, 360*digDimmer);
   rect(opcGrid.dig.x, opcGrid.dig.y, 40, 15);
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  fill(rigg.c, 360);
+  fill(shields.c, 360);
   textAlign(LEFT);
   textSize(16);
   text("BOOTH", opcGrid.booth.x+25, opcGrid.booth.y+6);
@@ -141,7 +141,7 @@ void boothLights() {
 void testColors(boolean _test) {
   if (_test) {
 
-    fill((millis()/50)%360, 100, 100, 360*rigg.dimmer); 
+    fill((millis()/50)%360, 100, 100, 360*shields.dimmer); 
     for (Rig rig : rigs)     rect(rig.size.x, rig.size.y, rig.wide, rig.high);
 
     rect(opcGrid.booth.x, opcGrid.booth.y, 30, 10);

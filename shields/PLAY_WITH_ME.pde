@@ -3,14 +3,14 @@ float[] lastTime = new float[cc.length];
 void playWithMe() {
 
   ////////////////////////////////////// COLOR SWAP AND FLIP BUTTONS /////////////////////////////////////////
-  if (keyP['o']) rigg.colorSwap(0.9999999999);               // COLOR SWAP MOMENTARY 
+  if (keyP['o']) shields.colorSwap(0.9999999999);               // COLOR SWAP MOMENTARY 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  if (keyT['i']) rigg.colorFlip(keyT['i']);                  // COLOR FLIP TOGGLE 
-  if (keyP['u']) rigg.colorFlip(keyP['u']);                  // COLOR FLIP MOMENTARY
+  if (keyT['i']) shields.colorFlip(keyT['i']);                  // COLOR FLIP TOGGLE 
+  if (keyP['u']) shields.colorFlip(keyP['u']);                  // COLOR FLIP MOMENTARY
 
   ////////////////////////////// LERP COLOUR ON BEAT /////////////////////////////////////////////////////////
   //if (keyT['y']) {
-  //  colorLerping(rigg, (1-beat)*2);
+  //  colorLerping(shields, (1-beat)*2);
   //  colorLerping(roof, (1-beat)*1.5);
   //}
 
@@ -23,11 +23,11 @@ void playWithMe() {
   /*
   try {
    if (millis()-lastTime[44]>debouncetime) {
-   if (padVelocity[44]>0) rigg.animations.add(new Checkers (rigg));
-   if (rigg.animations.size() > 0 ) { 
-   Anim theanim = rigg.animations.get(rigg.animations.size()-1);
-   //Envelope manualA = CrushPulse(0.0, 0, 1, rigg.manualAlpha*500, 0.0, 0.0);
-   Envelope manualA = CrushPulse(0.05, 0.0, 1.0, avgmillis*(rigg.manualAlpha+0.5), 0.0, 0.0);
+   if (padVelocity[44]>0) shields.animations.add(new Checkers (shields));
+   if (shields.animations.size() > 0 ) { 
+   Anim theanim = shields.animations.get(shields.animations.size()-1);
+   //Envelope manualA = CrushPulse(0.0, 0, 1, shields.manualAlpha*500, 0.0, 0.0);
+   Envelope manualA = CrushPulse(0.05, 0.0, 1.0, avgmillis*(shields.manualAlpha+0.5), 0.0, 0.0);
    theanim.alphaEnvelopeA = manualA;
    theanim.alphaEnvelopeB = manualA;
    lastTime[44]=millis();
@@ -56,17 +56,17 @@ void playWithMe() {
 
   int ccc = 101;
   if (millis()-lastTime[ccc]>debouncetime) {
-    if (padVelocity[ccc]>0) rigg.animations.add(new StarMesh (rigg));
+    if (padVelocity[ccc]>0) shields.animations.add(new StarMesh (shields));
     lastTime[ccc]=millis();
   }
 
   //if (millis()-lastTime[45]>debouncetime) {
-  //  if (padVelocity[45]>0) rigg.animations.add(new SpiralFlower(rigg));
+  //  if (padVelocity[45]>0) shields.animations.add(new SpiralFlower(shields));
   //  lastTime[45]=millis();
   //}
   ccc= 102;
     if (millis()-lastTime[ccc]>debouncetime) {
-    if (padVelocity[ccc]>0) rigg.animations.add(new Stars(rigg));
+    if (padVelocity[ccc]>0) shields.animations.add(new Stars(shields));
     lastTime[ccc]=millis();
   }
 
@@ -75,8 +75,8 @@ void playWithMe() {
 
   if (millis()-lastTime[46]>debouncetime) {
     if (padVelocity[46]>0) {
-      rigg.animations.add( new AllOn(rigg)); //rigg.anim.alphaEnvelopeA = new CrushPulse(0.031, 0.040, 0.913, avgmillis*rigg.alphaRate*3+0.5, 0.0, 0.0);
-      //anim = rigg.animations.get(rigg.animations.size()-1);
+      shields.animations.add( new AllOn(shields)); //shields.anim.alphaEnvelopeA = new CrushPulse(0.031, 0.040, 0.913, avgmillis*shields.alphaRate*3+0.5, 0.0, 0.0);
+      //anim = shields.animations.get(shields.animations.size()-1);
       lastTime[46]=millis();
     }
   }
@@ -87,7 +87,7 @@ void playWithMe() {
   ///// DEBOUNCE?! /////
 
   if (millis()-lastTime[47]>debouncetime) {
-    if (padVelocity[47]>0) for (Anim anim : rigg.animations) anim.deleteme = true;  // immediately delete all anims
+    if (padVelocity[47]>0) for (Anim anim : shields.animations) anim.deleteme = true;  // immediately delete all anims
     lastTime[47]=millis();
   }
 
@@ -97,7 +97,7 @@ void playWithMe() {
   /// doesnt work as expected ///
 
   if (millis()-lastTime[48]>debouncetime) {
-    if (padVelocity[48]>0) for (Anim anim : rigg.animations) {
+    if (padVelocity[48]>0) for (Anim anim : shields.animations) {
       anim.alphaEnvelopeA = anim.alphaEnvelopeA.mul((1-cc[45])+(stutter*cc[45])); // anim.alphaEnvelopeA.mul(0.6+(stutter*0.4));     //anim.alphaEnvelopeA.mul((1-cc[46])+(stutter*cc[46]));
       anim.alphaEnvelopeB = anim.alphaEnvelopeB.mul((1-cc[45])+(stutter*cc[45])); //anim.alphaEnvelopeA.mul(0.6+(stutter*0.4)); //anim.alphaEnvelopeB.mul((1-cc[46])+(stutter*cc[46]));
     }
@@ -106,8 +106,8 @@ void playWithMe() {
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////  COLOUR //////////////////////////////////////////////////////////////////////////////
 
-  if (padVelocity[49] > 0) rigg.colorFlip(true);
-  if (padVelocity[50] > 0) rigg.colorSwap(0.9999999999);
+  if (padVelocity[49] > 0) shields.colorFlip(true);
+  if (padVelocity[50] > 0) shields.colorSwap(0.9999999999);
 
 
 
@@ -115,17 +115,17 @@ void playWithMe() {
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   //if (millis()-lastTime[36]>debouncetime) {
-  // if (padVelocity[36]>0) rigg.animations.add(new StarMesh (roof));
+  // if (padVelocity[36]>0) shields.animations.add(new StarMesh (roof));
   // lastTime[36]=millis();
   // }
 
   // if (millis()-lastTime[37]>debouncetime) {
-  // if (padVelocity[37]>0) rigg.animations.add(new SingleDonut(roof));
+  // if (padVelocity[37]>0) shields.animations.add(new SingleDonut(roof));
   // lastTime[37]=millis();
   // }
 
   // if (millis()-lastTime[38]>debouncetime) {
-  // if (padVelocity[38]>0) rigg.animations.add(new BenjaminsBoxes(roof));
+  // if (padVelocity[38]>0) shields.animations.add(new BenjaminsBoxes(roof));
   // lastTime[38]=millis();
   // }
   /*
@@ -142,7 +142,7 @@ void playWithMe() {
    */
   /*
    if (millis()-lastTime[41]>debouncetime) {
-   if (padVelocity[41]>0) for (Anim anim : rigg.animations) {
+   if (padVelocity[41]>0) for (Anim anim : shields.animations) {
    anim.functionEnvelopeA = anim.functionEnvelopeA.mul(0.6+(stutter*0.4));  //     anim.functionEnvelopeA.mul((1-cc[54])+(stutter*cc[54]));
    anim.functionEnvelopeB = anim.functionEnvelopeB.mul(0.6+(stutter*0.4));    //anim.functionEnvelopeB.mul((1-cc[54])+(stutter*cc[54]));
    }
@@ -150,11 +150,11 @@ void playWithMe() {
    }
    */
   //  if (padVelocity[36] > 0) {
-  //    rigg.colorIndexA = (rigg.colorIndexA+1)%rigg.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
+  //    shields.colorIndexA = (shields.colorIndexA+1)%shields.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
   //    cans.colorIndexA = (cans.colorIndexA+1)%cans.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
   //  }
   //  if (padVelocity[37] > 0) {
-  //    rigg.colorIndexB = (rigg.colorIndexB+1)%rigg.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
+  //    shields.colorIndexB = (shields.colorIndexB+1)%shields.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
   //    cans.colorIndexB = (cans.colorIndexB+1)%cans.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
   //  }
   //if (padVelocity[51] > 0) roof.colorSwap(0.9999999999);
@@ -174,11 +174,11 @@ void playWithMeMore() {
 
   /////background noise over whole window/////
   if (padVelocity[51] > 0) {
-    rigg.colorLayer.beginDraw();
-    rigg.colorLayer.background(0, 0, 0, 0);
-    rigg.colorLayer.endDraw();
-    bgNoise(rigg.colorLayer, rigg.flash, map(padVelocity[51], 0, 1, 0, rigg.dimmer/1.5), cc[48]);   //PGraphics layer,color,alpha
-    image(rigg.colorLayer, rigg.size.x, rigg.size.y, rigg.wide, rigg.high);
+    shields.colorLayer.beginDraw();
+    shields.colorLayer.background(0, 0, 0, 0);
+    shields.colorLayer.endDraw();
+    bgNoise(shields.colorLayer, shields.flash, map(padVelocity[51], 0, 1, 0, shields.dimmer/1.5), cc[48]);   //PGraphics layer,color,alpha
+    image(shields.colorLayer, shields.size.x, shields.size.y, shields.wide, shields.high);
   }
   if (padVelocity[43] > 0) {
     roof.colorLayer.beginDraw();

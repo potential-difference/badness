@@ -127,6 +127,19 @@ abstract class Envelope implements Composable{
     return new CompositeEnvelope(new Sin01(),this);
   }
 }
+interface Env{
+  abstract float value(int time);
+}
+class LambdaEnv extends Envelope{
+  Env env;
+  LambdaEnv(Env e){
+    env = e;
+  }
+  float value(int time){
+    return env.value(time);
+  }
+}
+
 class CompositeEnvelope extends Envelope{
   Operator op;
   Object[] children;

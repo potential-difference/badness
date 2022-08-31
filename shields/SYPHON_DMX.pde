@@ -26,18 +26,18 @@ void DMXcontrollingUs() {
   //attach bits of the code to DMX channels
   //attach to vizIndex
   if (dmxData[4]>0 ) {
-    rigg.vizIndex=int(map(dmxData[3], 1, 255, 0, rigg.availableAnims.length-1)+0.5);//plus 0.5 rounds rather than truncates
+    shields.vizIndex=int(map(dmxData[3], 1, 255, 0, shields.availableAnims.length-1)+0.5);//plus 0.5 rounds rather than truncates
   }
   //DMX attach color
   if (dmxData[0]>0 || dmxData[1]>0 || dmxData[2]>0) {
-    rigg.c = xcolor(dmxData[0], dmxData[1], dmxData[2]);
-    rigg.flash = xcolor(dmxData[0],dmxData[1],dmxData[2]);
+    shields.c = xcolor(dmxData[0], dmxData[1], dmxData[2]);
+    shields.flash = xcolor(dmxData[0],dmxData[1],dmxData[2]);
   }
   //DMX attach trigger
   if (dmxData[7]>0 ) {
     //debounce
     if (triggertimes[7]<millis()+debouncetime) {
-      rigg.addAnim(rigg.availableAnims[rigg.vizIndex]);
+      shields.addAnim(shields.availableAnims[shields.vizIndex]);
       triggertimes[7]=millis();
     }
   }

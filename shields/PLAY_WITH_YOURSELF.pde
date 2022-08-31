@@ -5,7 +5,7 @@ void playWithYourself(float vizTm) {
     ///////////////// VIZ TIMER ////////////////////////////////////////////////////////////////////////////////////////////////////
     if (millis()/1000 - vizTimer >= vizTm) {
       rig.vizIndex = int(random(rig.availableAnims.length));
-      println(rig.name+" VIZ:", rig.vizIndex, "@", (hour()+":"+minute()+":"+second()));
+      println(rig.type," VIZ:", rig.vizIndex, "@", (hour()+":"+minute()+":"+second()));
       vizTimer = millis()/1000;
     }
     ////////////////////////////// PLAY TOGGLE TO CONTROL AUTO CYCLING OF FUNCS AND ALPHAS /////////////////////////////////////////
@@ -14,14 +14,14 @@ void playWithYourself(float vizTm) {
       if (millis()/1000 - rig.alphaTimer >= vizTm/(1+rig.alphaChangeRate*20)) {       //// SWAPRATE changes # of times every viz change /////
         rig.alphaIndexA = int(random(rig.availableAlphaEnvelopes.length));   //// select from alpha array
         rig.alphaIndexB = int(random(rig.availableAlphaEnvelopes.length));   //// select from alpha array
-        println(rig.name+" alpha change @", (hour()+":"+minute()+":"+second()), "new envelopes:", rig.alphaIndexA, "&", rig.alphaIndexB);
+        println(rig.type," alpha change @", (hour()+":"+minute()+":"+second()), "new envelopes:", rig.alphaIndexA, "&", rig.alphaIndexB);
         rig.alphaTimer = millis()/1000;
           }
       //////////// FUNCTION TIMER //////////////////////////////////////////////////////////////////////////////////////////////////
       if (millis()/1000 - rig.functionTimer >= vizTm/(1+rig.functionChangeRate*20)) {
         rig.functionIndexA = int(random(rig.availableFunctionEnvelopes.length));  //// select from function array
         rig.functionIndexB = int(random(rig.availableFunctionEnvelopes.length));  //// select from function array
-        println(rig.name+" function change @", (hour()+":"+minute()+":"+second()), "new envelope:", rig.functionIndexA, "&", rig.functionIndexB);
+        println(rig.type," function change @", (hour()+":"+minute()+":"+second()), "new envelope:", rig.functionIndexA, "&", rig.functionIndexB);
         rig.functionTimer = millis()/1000;
        }
     }
@@ -42,19 +42,19 @@ void playWithYourself(float vizTm) {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////// COLORSWAP TIMER /////////////////////////////////////////////////////////////////
   if (colorSwapSlider > 0) for (Rig rig : rigs) rig.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
-  if (beatCounter%64<4) rigg.colorSwap(1000000*noize);  
+  if (beatCounter%64<4) shields.colorSwap(1000000*noize);  
   //if (beatCounter%82>78) roof.colorSwap(1000000*noize);
   //if (beatCounter%64>61) cans.colorSwap(1000000*noize);
 
   ////////////////////////////////////////// COLOR FLIP ///////////////////////////////////////////////////////////////////
-  for (int i = 16; i<22; i+=2) if ( beatCounter % 128 == i) rigg.colFlip = true;
-  else rigg.colFlip = false;
+  for (int i = 16; i<22; i+=2) if ( beatCounter % 128 == i) shields.colFlip = true;
+  else shields.colFlip = false;
   
-  for (Rig rig : rigs) rig.colorFlip(rigg.colFlip);
+  for (Rig rig : rigs) rig.colorFlip(shields.colFlip);
 
   ///////////////////////////////////////// LERP COLOUR //////////////////////////////////////////////////////////////////
   colBeat = false;
-  if (beatCounter % 18 > 15)  colorLerping(rigg, (1-beat)*4);
+  if (beatCounter % 18 > 15)  colorLerping(shields, (1-beat)*4);
   
   //TODO if loop that only affects rigs that are present
   

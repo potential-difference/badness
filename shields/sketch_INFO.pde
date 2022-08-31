@@ -32,10 +32,10 @@ void onScreenInfo() {
     textSize(18);
     ///////////// rig info/ ///////////////////////////////////////////////////////////////////
     fill(300);
-    text("rigViz: " + rigg.availableAnims[rigg.vizIndex], x, y);
-    text("bkgrnd: " + rigg.availableBkgrnds[rigg.bgIndex], x, y+20);
-    text("func's: " + rigg.availableFunctionEnvelopes[rigg.functionIndexA] + " / " + rigg.availableFunctionEnvelopes[rigg.functionIndexB], x+110, y);
-    text("alph's: " + rigg.availableAlphaEnvelopes[rigg.alphaIndexA] + " / " + rigg.availableAlphaEnvelopes[rigg.alphaIndexB], x+110, y+20);
+    text("rigViz: " + shields.availableAnims[shields.vizIndex], x, y);
+    text("bkgrnd: " + shields.availableBkgrnds[shields.bgIndex], x, y+20);
+    text("func's: " + shields.availableFunctionEnvelopes[shields.functionIndexA] + " / " + shields.availableFunctionEnvelopes[shields.functionIndexB], x+110, y);
+    text("alph's: " + shields.availableAlphaEnvelopes[shields.alphaIndexA] + " / " + shields.availableAlphaEnvelopes[shields.alphaIndexB], x+110, y+20);
     /////////// info about PLAYWITHYOURSELF functions /////////////////////////////////////////////////////////////////////////////////////////////
   
     fill(300);
@@ -43,8 +43,8 @@ void onScreenInfo() {
     int min = int(vizTime*60 - (millis()/1000 - vizTimer)) /60 % 60;
     text("next viz in: "+min+":"+sec, x, y+40);
     ///// NEXT COLOR CHANGE IN....
-    sec = nf(int(colorChangeTime*60 - (millis()/1000 - rigg.colorTimer)) %60, 2, 0);
-    min = int(colorChangeTime*60 - (millis()/1000 - rigg.colorTimer)) /60 %60;
+    sec = nf(int(colorChangeTime*60 - (millis()/1000 - shields.colorTimer)) %60, 2, 0);
+    min = int(colorChangeTime*60 - (millis()/1000 - shields.colorTimer)) /60 %60;
     text("next color in: "+ min+":"+sec, x, y+60);
     int totalAnims=0;      
     for (Rig rig : rigs) totalAnims += rig.animations.size();
@@ -59,11 +59,11 @@ void onScreenInfo() {
     int i=0;
     x+=20;
  try {
-      for (Anim anim : rigg.animations) {
-        if (i<rigg.animations.size()-1) {
-          fill(rigg.c1, 120);
+      for (Anim anim : shields.animations) {
+        if (i<shields.animations.size()-1) {
+          fill(shields.c1, 120);
         } else {
-          fill(rigg.flash1, 300);
+          fill(shields.flash1, 300);
         }
         float xAxis = (size.infoWidth/4);
         rect(x+20+(anim.alphaA*xAxis-32), y+(dist*i), 10, 10);                      // ALPHA A viz
@@ -117,7 +117,7 @@ void cordinatesInfo(Rig rig, boolean _info) {
   }
 }
 void dividerLines() {
-  fill(rigg.flash, 200);
+  fill(shields.flash, 200);
   rect(size.rigWidth, height/2, 1, height);                                         //// vertical line to show end of rig viz area
   rect(size.rigWidth+size.roofWidth, height/2, 1, height);                          //// vertical line to show end of roof viz area
   rect(size.rigWidth+size.roofWidth+size.cansWidth, height/2, 1, height);           //// vertical line to show end of cans viz area
@@ -125,7 +125,7 @@ void dividerLines() {
   rect(size.rig.x, size.rigHeight, size.rigWidth, 1);                               //// horizontal line to divide landscape rig / roof areas
 
   // box around the outside
-  fill(rigg.flash, 200);   
+  fill(shields.flash, 200);   
   rect(width/2, height-1, width, 1);  
   rect(width/2, 0, width, 1);                              
   rect(0, height/2, 1, height);
@@ -135,7 +135,7 @@ void dividerLines() {
 void frameRateInfo(float x, float y) {
   fill(0, 150);
   strokeWeight(1);
-  stroke(rigg.flash, 60);
+  stroke(shields.flash, 60);
   rect(x+28, y-5, 75, 30);
   noStroke();
   textAlign(LEFT);
@@ -159,10 +159,10 @@ void toggleKeysInfo() {
   if (keyT['p']) fill(300+(60*stutter));
   text("P = shimmer", x, y+40);
   fill(50);
-  if (!rigg.colSwap) fill(300+(60*stutter));
+  if (!shields.colSwap) fill(300+(60*stutter));
   text("O = color swap", x, y+60);
   fill(50);
-  if (rigg.colFlip) fill(300+(60*stutter));
+  if (shields.colFlip) fill(300+(60*stutter));
   text("I / U = color flip", x, y+80);
   fill(50);
   if (colBeat) fill(300+(60*stutter));

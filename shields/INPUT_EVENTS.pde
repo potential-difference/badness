@@ -15,20 +15,20 @@ void keyPressed() {
   //// debound or thorttle this ////
 
   /////////////////////////////// RIG KEY FUNCTIONS ////////////////////////
-  if (key == 'n') rigg.vizIndex = (rigg.vizIndex+1)%rigg.availableAnims.length;        //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
-  if (key == 'b') rigg.vizIndex -=1;                            //// STEP BACK TO PREVIOUS RIG VIZ
-  if (rigg.vizIndex <0) rigg.vizIndex = rigg.availableAnims.length-1;
-  if (key == 'm') rigg.bgIndex = (rigg.bgIndex+1)%rigg.availableBkgrnds.length;                 //// CYCLE THROUGH RIG BACKGROUNDS
+  if (key == 'n') shields.vizIndex = (shields.vizIndex+1)%shields.availableAnims.length;        //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
+  if (key == 'b') shields.vizIndex -=1;                            //// STEP BACK TO PREVIOUS RIG VIZ
+  if (shields.vizIndex <0) shields.vizIndex = shields.availableAnims.length-1;
+  if (key == 'm') shields.bgIndex = (shields.bgIndex+1)%shields.availableBkgrnds.length;                 //// CYCLE THROUGH RIG BACKGROUNDS
   if (key == ',') {                                      //// CYCLE THROUGH RIG FUNCS
-    rigg.functionIndexA = (rigg.functionIndexA+1)%rigg.availableFunctionEnvelopes.length; //animations.func.length; 
-    rigg.functionIndexB = (rigg.functionIndexB+1)%rigg.availableFunctionEnvelopes.length; //fct.length;
+    shields.functionIndexA = (shields.functionIndexA+1)%shields.availableFunctionEnvelopes.length; //animations.func.length; 
+    shields.functionIndexB = (shields.functionIndexB+1)%shields.availableFunctionEnvelopes.length; //fct.length;
   }  
   if (key == '.') {                                      //// CYCLE THROUGH RIG ALPHAS
-    rigg.alphaIndexA = (rigg.alphaIndexA+1)% rigg.availableAlphaEnvelopes.length; //alph.length; 
-    rigg.alphaIndexB = (rigg.alphaIndexB+1)% rigg.availableAlphaEnvelopes.length; //alph.length;
+    shields.alphaIndexA = (shields.alphaIndexA+1)% shields.availableAlphaEnvelopes.length; //alph.length; 
+    shields.alphaIndexB = (shields.alphaIndexB+1)% shields.availableAlphaEnvelopes.length; //alph.length;
   }   
-  if (key == 'c') rigg.colorIndexA = (rigg.colorIndexA+1)%rigg.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
-  if (key == 'v') rigg.colorIndexB = (rigg.colorIndexB+1)%rigg.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
+  if (key == 'c') shields.colorIndexA = (shields.colorIndexA+1)%shields.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
+  if (key == 'v') shields.colorIndexB = (shields.colorIndexB+1)%shields.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   if (key == '[') vizHold = !vizHold; 

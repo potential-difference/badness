@@ -369,10 +369,11 @@ class SquareNuts extends Anim {
     wide *=wideSlider;
     high *=highSlider;
 
-    if (rig == rigg) {
+    switch (rig.type) {
+    case Shields:
       squareNut(position[1].x, viz.y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
       squareNut(position[4].x, viz.y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
-    } else {
+    default:
       squareNut(window.width/4, window.height/4, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
       squareNut(window.width/4*3, window.height/4*3, col1, stroke, wide-(wide*functionA), high-(high*functionA), 0, alphaA);
     }
@@ -395,10 +396,12 @@ class DiagoNuts extends Anim {
     wide *=wideSlider;
     high *=highSlider;
 
-    if (rig == rigg) {
+    switch (rig.type) {
+    case Shields:
       squareNut(position[1].x, viz.y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 45, alphaA);
       squareNut(position[4].x, viz.y, col1, stroke, wide-(wide*functionA), high-(high*functionA), 45, alphaA);
-    } else {
+      break;
+    default:
       squareNut(window.width/4, window.height/4, col1, stroke, wide-(wide*functionA), high-(high*functionA), 45, alphaA);
       squareNut(window.width/4*3, window.height/4*3, col1, stroke, wide-(wide*functionA), high-(high*functionA), 45, alphaA);
     }
@@ -427,7 +430,13 @@ class Stars extends Anim {
     star(positionX[7][2].x, positionX[7][2].y, col1, stroke, wide, high, -rotate, alphaA);
 
     stroke = 12+(10*functionA);
-    wide = 5+(shieldsGrid.bigShieldRad*1.2*(1-functionB));
+    switch (rig.type){
+    case Shields:
+      wide = 5+((ShieldsOPCGrid)(rig.opcgrid)).bigShieldRad*1.2*(1-functionB);
+    default:
+      
+    }
+    //wide = 5+(shieldsGrid.bigShieldRad*1.2*(1-functionB));
     high = wide;
     donut(viz.x, viz.y, col1, stroke, wide, high, 0, alphaB);
     window.endDraw();
@@ -519,11 +528,19 @@ class TwistedStar extends Anim {
     window.background(0);
     // star(int n, float wide, float high, float rotate, color col, float stroke, float alph) {
     stroke = 10+((rig.high+rig.wide)/2/20*functionB);
-    wide = shieldsGrid.bigShieldRad/2+(functionA*rig.wide*1.2);
-    high = shieldsGrid.bigShieldRad/2+((1-functionA)*rig.high*1.2);
 
+    switch (rig.type){
+      case Shields:
+        wide = shieldsGrid.bigShieldRad/2+(functionA*rig.wide*1.2);
+        high = shieldsGrid.bigShieldRad/2+((1-functionA)*rig.high*1.2);
+        break;
+      default:
+        wide = (rig.wide/64*7*2+6)/2+(functionA*rig.wide*1.2);
+        high = (rig.wide/64*7*2+6)/2+((1-functionA)*rig.high*1.2);
+    }
     float wideB = shieldsGrid.bigShieldRad/2+(functionB*rig.high*1.2);
     float highB = shieldsGrid.bigShieldRad/2+((1-functionB)*rig.wide*1.2);
+    
     rotate = 60*functionA;
     //void star(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
     starNine(viz.x, viz.y, col1, stroke, wide, high, wideB, highB, 40+rotate, alphaA, alphaB); 
@@ -748,7 +765,7 @@ class Anim {
     if (!Float.isNaN(funcZ)) functionB = funcZ;
     //functionB = functionEnvelopeB.value(now);
 
-    //println("functionA "+functionA,"alphaA "+alphaA, "rigdimmer " +rigg.dimmer);
+    //println("functionA "+functionA,"alphaA "+alphaA, "rigdimmer " +shields.dimmer);
 
     if (alphaEnvelopeA.end_time<now && alphaEnvelopeB.end_time<now) deleteme = true;  // only delete when all finished
 
