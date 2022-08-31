@@ -1,5 +1,11 @@
 float[] lastTime = new float[cc.length];
 
+midiMap[46] = (float cc)->{
+  if (cc == 1.0){
+    shields.animations.add new StarMesh(shields);
+  }
+};
+
 void playWithMe() {
 
   ////////////////////////////////////// COLOR SWAP AND FLIP BUTTONS /////////////////////////////////////////
@@ -59,7 +65,9 @@ void playWithMe() {
     if (padVelocity[ccc]>0) shields.animations.add(new StarMesh (shields));
     lastTime[ccc]=millis();
   }
+/*
 
+*/
   //if (millis()-lastTime[45]>debouncetime) {
   //  if (padVelocity[45]>0) shields.animations.add(new SpiralFlower(shields));
   //  lastTime[45]=millis();

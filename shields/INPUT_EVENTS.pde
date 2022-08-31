@@ -65,7 +65,16 @@ void keyReleased()
 float pad[] = new float[128];                //// An array where to store the last value received for each midi Note controller
 float padVelocity[] = new float[128];
 boolean padPressed[] = new boolean[128];
-int midiMap;
+interface MidiTarget{
+  void send(float controllerchange);
+}
+MidiTarget midiMap[] = new MidiTarget[128];
+
+//////////////////////////////////////////////////////////
+//Here's How Midi Mapping Works//
+//midiMap[35] = (float cc)->{shields.dimmer = cc;};
+////////That's it/////////////////////////////////////////
+
 void noteOn( int channel, int pitch, int _velocity) {
   float velocity = map(_velocity, 0, 127, 0, 1);
   pad[pitch] = velocity;
@@ -85,6 +94,10 @@ float cc[] = new float[128];                   //// An array where to store the 
 void controllerChange(int channel, int number, int value) {
   cc[number] = map(value, 0, 127, 0, 1);
   println("cc[" + number + "]", "Velocity: "+cc[number], "Channel: "+channel);
+  //see if cc value is associated in our midi mapping
+  if (midiMap[number]!=null){
+    midiMap[number].send(cc[number]);
+  }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
