@@ -14,14 +14,14 @@ void playWithYourself(float vizTm) {
       if (millis()/1000 - rig.alphaTimer >= vizTm/(1+rig.alphaChangeRate*20)) {       //// SWAPRATE changes # of times every viz change /////
       // TODO reinstate rig.alphaIndexA = int(random(rig.availableAlphaEnvelopes.length));   //// select from alpha array
       // TODO reinstate rig.alphaIndexB = int(random(rig.availableAlphaEnvelopes.length));   //// select from alpha array
-        println(rig.name+" alpha change @", (hour()+":"+minute()+":"+second()), "new envelopes:", rig.alphaIndexA, "&", rig.alphaIndexB);
+        println(rig.type+" alpha change @", (hour()+":"+minute()+":"+second()), "new envelopes:", rig.alphaIndexA, "&", rig.alphaIndexB);
         rig.alphaTimer = millis()/1000;
           }
       //////////// FUNCTION TIMER //////////////////////////////////////////////////////////////////////////////////////////////////
       if (millis()/1000 - rig.functionTimer >= vizTm/(1+rig.functionChangeRate*20)) {
       // TODO reinstate rig.functionIndexA = int(random(rig.availableFunctionEnvelopes.length));  //// select from function array
       // TODO reinstate rig.functionIndexB = int(random(rig.availableFunctionEnvelopes.length));  //// select from function array
-        println(rig.name+" function change @", (hour()+":"+minute()+":"+second()), "new envelope:", rig.functionIndexA, "&", rig.functionIndexB);
+        println(rig.type+" function change @", (hour()+":"+minute()+":"+second()), "new envelope:", rig.functionIndexA, "&", rig.functionIndexB);
         rig.functionTimer = millis()/1000;
        }
     }
@@ -54,7 +54,7 @@ void playWithYourself(float vizTm) {
 
   ///////////////////////////////////////// LERP COLOUR //////////////////////////////////////////////////////////////////
   colBeat = false;
-  if (beatCounter % 18 > 15)  colorLerping(rigg, (1-beat)*4);
+  if (beatCounter % 18 > 15)  colorLerping(shields, (1-beat)*4);
   /*for (Rig rig : rigs) 
   {
     switch (rig){

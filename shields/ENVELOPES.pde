@@ -97,9 +97,13 @@ enum AlphaEnvelopeKind{
 }
 Envelope BeatzOskp(float overalltime, float decay_curv, float threashold){
   Envelope beatz = Beatz(overalltime, decay_curv);
-  Envelope mask = LessThan(beatz,0.1); 
-  Evnelope oskP = OSKp();
-  return beatz*(mask*oskP);
+  return new LambdaEnv((int time)->{
+    float val = beatz.value(time);
+    if (val < 0.1){
+      val *= oskP;
+    }
+    return val;
+  });
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

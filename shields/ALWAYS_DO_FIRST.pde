@@ -1,6 +1,6 @@
 void alwaysDoFirst() {
   //This is confusing.  can these be words please
-  //like, rigg.availableAnims = {Donuts,GoodAnim3,BoxesRed} or sth. an enum? can it be an enum?
+  //like, shields.availableAnims = {Donuts,GoodAnim3,BoxesRed} or sth. an enum? can it be an enum?
   shields.availableAnims = new int[] {1, 2, 3, 6, 7, 8};      // setup which anims are used on which rig here
   shields.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
   shields.availableFunctionEnvelopes = new int[] {0, 1, 2};  
@@ -30,15 +30,15 @@ void alwaysDoFirst() {
 
   for (int i= 36; i < 52; i++)cc[i] = 0;
 
-  rigg.dimmer = 1;
-  rigg.alphaRate = 0.5;
-  rigg.functionRate = 0.5;
+  shields.dimmer = 1;
+  shields.alphaRate = 0.5;
+  shields.functionRate = 0.5;
   vizTime = 0.5;
   colorChangeTime = 0.5;
-  rigg.wideSlider = 0.5;
-  rigg.highSlider = 0.5;
-  rigg.strokeSlider= 0.5;
-  rigg.blurriness = 0.2;
+  shields.wideSlider = 0.5;
+  shields.highSlider = 0.5;
+  shields.strokeSlider= 0.5;
+  shields.blurriness = 0.2;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
