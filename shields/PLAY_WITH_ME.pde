@@ -12,7 +12,25 @@ void setupMidiActions(){
   });
 
   noteOnActions[99] = (float velocity)->{
+    //Anim x = new Stars(shields);
+    //x.animDimmer.set(velocity);
     shields.animations.add(new Stars(shields));
+  };
+
+  noteOnActions[46] = (float velocity)->{
+    for (Rig rig: rigs){
+      rig.animations.add(new AllOn(rig));
+    } 
+  };
+
+///////////////////////////////////////////////// STUTTER ///////////////////////////////////////////////x
+
+  
+  noteOnActions[48] =(float velocity)->{
+     for (Anim anim : shields.animations) {
+      anim.alphaEnvelopeA = anim.alphaEnvelopeA.mul((1-cc[45])+(stutter*cc[45])); // anim.alphaEnvelopeA.mul(0.6+(stutter*0.4));     //anim.alphaEnvelopeA.mul((1-cc[46])+(stutter*cc[46]));
+      anim.alphaEnvelopeB = anim.alphaEnvelopeB.mul((1-cc[45])+(stutter*cc[45])); //anim.alphaEnvelopeA.mul(0.6+(stutter*0.4)); //anim.alphaEnvelopeB.mul((1-cc[46])+(stutter*cc[46]));
+    }
   };
 
 }
@@ -22,6 +40,7 @@ void playWithMe() {
   for (int idx=0;idx<128;idx++){//action: everyFrameActions){
     FrameAction action = everyFrameActions[idx];
     if (action != null){
+      println("action!");
       action.doit();
     }
   }
@@ -63,74 +82,64 @@ void playWithMe() {
    println(e, "playwithyourself error");
    }
    */
-
+  
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////// ADD ANIM ////////////////////////////////////////////////////////////////////
-  if (millis()-lastTime[0]>debouncetime*2.5) {
+  /*if (millis()-lastTime[0]>debouncetime*2.5) {
     if (keyP[' ']) {
       for (Rig rig : rigs) {
-        if (rig.toggle) {
+        if (true){
           rig.addAnim(rig.vizIndex);
         }
       }
       lastTime[0]=millis();
     }
   }
+  */
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+  /*
   int ccc = 101;
   if (millis()-lastTime[ccc]>debouncetime) {
     if (padVelocity[ccc]>0) shields.animations.add(new StarMesh (shields));
     lastTime[ccc]=millis();
   }
-/*
-
-*/
+  */
   //if (millis()-lastTime[45]>debouncetime) {
   //  if (padVelocity[45]>0) shields.animations.add(new SpiralFlower(shields));
   //  lastTime[45]=millis();
   //}
+  /*
   ccc= 102;
     if (millis()-lastTime[ccc]>debouncetime) {
     if (padVelocity[ccc]>0) shields.animations.add(new Stars(shields));
     lastTime[ccc]=millis();
   }
-
+  */
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////// ALL ON ///////////////////////////////////////////////
 
-  if (millis()-lastTime[46]>debouncetime) {
+  /*if (millis()-lastTime[46]>debouncetime) {
     if (padVelocity[46]>0) {
       shields.animations.add( new AllOn(shields)); //shields.anim.alphaEnvelopeA = new CrushPulse(0.031, 0.040, 0.913, avgmillis*shields.alphaRate*3+0.5, 0.0, 0.0);
       //anim = shields.animations.get(shields.animations.size()-1);
       lastTime[46]=millis();
     }
   }
+  */
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////// KILL ALL ANIMS - BLACKOUT ///////////////////////////////////////////////
 
   ///// DEBOUNCE?! /////
-
+  /*
   if (millis()-lastTime[47]>debouncetime) {
     if (padVelocity[47]>0) for (Anim anim : shields.animations) anim.deleteme = true;  // immediately delete all anims
     lastTime[47]=millis();
   }
-
+  */
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////////// STUTTER ///////////////////////////////////////////////x
-
-  /// doesnt work as expected ///
-
-  if (millis()-lastTime[48]>debouncetime) {
-    if (padVelocity[48]>0) for (Anim anim : shields.animations) {
-      anim.alphaEnvelopeA = anim.alphaEnvelopeA.mul((1-cc[45])+(stutter*cc[45])); // anim.alphaEnvelopeA.mul(0.6+(stutter*0.4));     //anim.alphaEnvelopeA.mul((1-cc[46])+(stutter*cc[46]));
-      anim.alphaEnvelopeB = anim.alphaEnvelopeB.mul((1-cc[45])+(stutter*cc[45])); //anim.alphaEnvelopeA.mul(0.6+(stutter*0.4)); //anim.alphaEnvelopeB.mul((1-cc[46])+(stutter*cc[46]));
-    }
-    lastTime[48]=millis();
-  }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////  COLOUR //////////////////////////////////////////////////////////////////////////////
 
   if (padVelocity[49] > 0) shields.colorFlip(true);
