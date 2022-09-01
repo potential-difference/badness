@@ -1,12 +1,31 @@
 float[] lastTime = new float[cc.length];
 
-midiMap[46] = (float cc)->{
+/*midiMap[46] = (float cc)->{
   if (cc == 1.0){
     shields.animations.add new StarMesh(shields);
   }
 };
+*/
+void setupMidiActions(){
+  newMomentary(100,()->{
+    shields.colorSwap(0.9999);
+  });
 
+  noteOnActions[99] = (float velocity)->{
+    shields.animations.add(new Stars(shields));
+  };
+
+}
 void playWithMe() {
+
+  ////////////////////////////////////// Momentary pad button actions //////////////////////////////
+  for (int idx=0;idx<128;idx++){//action: everyFrameActions){
+    FrameAction action = everyFrameActions[idx];
+    if (action != null){
+      action.doit();
+    }
+  }
+
 
   ////////////////////////////////////// COLOR SWAP AND FLIP BUTTONS /////////////////////////////////////////
   if (keyP['o']) shields.colorSwap(0.9999999999);               // COLOR SWAP MOMENTARY 
@@ -188,7 +207,7 @@ void playWithMeMore() {
     bgNoise(shields.colorLayer, shields.flash, map(padVelocity[51], 0, 1, 0, shields.dimmer/1.5), cc[48]);   //PGraphics layer,color,alpha
     image(shields.colorLayer, shields.size.x, shields.size.y, shields.wide, shields.high);
   }
-  if (padVelocity[43] > 0) {
+  if (padVelocity[43] > 0 && roof != null) {
     roof.colorLayer.beginDraw();
     roof.colorLayer.background(0, 0, 0, 0);
     roof.colorLayer.endDraw();

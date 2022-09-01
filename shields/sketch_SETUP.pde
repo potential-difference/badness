@@ -43,7 +43,8 @@ void midiSetup() {
   println();
   String[] inputs = MidiBus.availableInputs();
   //String[] outputs = MidiBus.availableOutputs(); 
-  for (String in : inputs){
+  for (String in : inputs){//(int idx=0;idx < inputs.length;idx++){//in : inputs){
+    //String in = inputs[idx];
     if (in.contains("TR-8S")) { 
       TR8bus = new MidiBus(this, in,in);
       println("Found TR8: ",in);
@@ -61,6 +62,7 @@ void midiSetup() {
       println("Found AKAI MPD218: ", in);
     }
   }
+  setupMidiActions();
 }
 
 //////////////////////////////////////// LOAD IMAGES ///////////////////////////

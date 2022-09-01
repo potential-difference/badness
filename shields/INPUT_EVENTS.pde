@@ -65,15 +65,61 @@ void keyReleased()
 float pad[] = new float[128];                //// An array where to store the last value received for each midi Note controller
 float padVelocity[] = new float[128];
 boolean padPressed[] = new boolean[128];
-interface MidiTarget{
+interface MidiAction{
   void send(float controllerchange);
 }
-MidiTarget midiMap[] = new MidiTarget[128];
+interface FrameAction{
+  void doit();
+}
+MidiAction ccActions[] = new MidiAction[128];
+FrameAction everyFrameActions[] = new FrameAction[128];
+MidiAction noteOnActions[]= new MidiAction[128];
+FrameAction noteOffActions[]= new FrameAction[128];
+
+void newMomentary(int note,FrameAction action){
+  noteOnActions[note] = (float velocity) ->{
+    everyFrameActions[note] = action;
+  };
+  noteOffActions[note] = ()->{everyFrameActions[note]=null;};
+  println("new momentary for ",note);
+}
+//if you dont care about velocity you can use this function:
+/*
+newMomentary(35,()->{
+  for (rig:rigs){
+    rig.colorSwap(10000);
+  }
+})
+this will
+//if you want to use velocity you have to do it by hand:
+
+noteOnActions[55] = (float velocity)->{
+  everyFrameActions[55] = ()->{shields.dimmer=velocity;};
+};
+noteOffActions[55] = ()->{everyFrameActions[55]=null;}; 
+
+//if you just want a thing to trigger once, just add it to noteOnActions
+noteOnActions[56] = (float velocity)->{
+  shield.animations.add(new StarMesh(shields));
+};
+
+*/
 
 //////////////////////////////////////////////////////////
 //Here's How Midi Mapping Works//
 //midiMap[35] = (float cc)->{shields.dimmer = cc;};
 ////////That's it/////////////////////////////////////////
+
+/*TODO:
+  toggle behaviours with noteons,offs
+  e.g. colorswap everything, add oskp to stuff
+
+  to add a noteon behaviour to a pad:
+  padMap[97] = (float velocity)->{shields.colorswap(10000);}
+  //this will run every frame
+
+*/
+
 
 void noteOn( int channel, int pitch, int _velocity) {
   float velocity = map(_velocity, 0, 127, 0, 1);
@@ -82,21 +128,29 @@ void noteOn( int channel, int pitch, int _velocity) {
 
   padPressed[pitch] = true;
   padVelocity[pitch] = velocity;
-
+  if (noteOnActions[pitch]!=null){
+    noteOnActions[pitch].send(velocity);
+    println("sent ",velocity," to action",pitch);
+  }
   println();
   println("padVelocity: "+pitch, "Velocity: "+velocity, "Channel: "+channel);
+
 }
 void noteOff(Note note) {
   padPressed[note.pitch] = false;
   padVelocity[note.pitch] = 0;
+  if (noteOffActions[note.pitch]!=null){
+    noteOffActions[note.pitch].doit();
+    println("noteoff action for ",note.pitch);
+  }
 }
 float cc[] = new float[128];                   //// An array where to store the last value received for each CC controller
 void controllerChange(int channel, int number, int value) {
   cc[number] = map(value, 0, 127, 0, 1);
   println("cc[" + number + "]", "Velocity: "+cc[number], "Channel: "+channel);
   //see if cc value is associated in our midi mapping
-  if (midiMap[number]!=null){
-    midiMap[number].send(cc[number]);
+  if (ccActions[number]!=null){
+    ccActions[number].send(cc[number]);
   }
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
