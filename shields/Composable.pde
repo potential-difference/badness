@@ -1,6 +1,3 @@
-import java.util.Arrays;
-
-
 //////////////////////////////////////////////////////////////////
 //////////////Composition interface /////////////////////////////
 interface Composable {
@@ -198,8 +195,6 @@ class Linear extends Envelope{
     return floatValue(Scale,time)*(float)time;
   }
 }
-
-
 
 class Ramp extends Envelope {
   int start_time;

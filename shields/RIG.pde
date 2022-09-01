@@ -22,7 +22,6 @@ public class Rig {
   int[] availableColors;
   String[] animNames, backgroundNames, alphaNames, functionNames;
   int arrayListIndex;
-  float infoX, infoY;
   float wideSlider, strokeSlider, highSlider;
 
   Rig(float _xpos, float _ypos, int _wide, int _high, RigType _name) {
@@ -51,36 +50,7 @@ public class Rig {
     for (int i=0; i<positionX.length; i++)  positionX[i][1] = new PVector(wide/(positionX.length)*(i+0.5), high/4*2);
     for (int i=0; i<positionX.length; i++)  positionX[i][2] = new PVector(wide/(positionX.length)*(i+0.5), high/6*5);
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    colorLayer = createGraphics(wide, high, P2D);
-    colorLayer.beginDraw();
-    colorLayer.noStroke();
-    colorLayer.colorMode(HSB, 360, 100, 100);
-    colorLayer.imageMode(CENTER);
-    colorLayer.rectMode(CENTER);
-    colorLayer.endDraw();
-    buffer = createGraphics(wide, high, P2D);
-    buffer.beginDraw();
-    buffer.colorMode(HSB, 360, 100, 100);
-    buffer.blendMode(NORMAL);
-    buffer.ellipseMode(CENTER);
-    buffer.rectMode(CENTER);
-    buffer.imageMode(CENTER);
-    buffer.noStroke();
-    buffer.noFill();
-    buffer.endDraw();
-    ///////////////////////////////////// LOAD GRAPHICS FOR SHADER LAYERS //////////////////////
-    pass1 = createGraphics(wide/2, high/2, P2D);
-    pass1.noSmooth();
-    pass1.imageMode(CENTER);
-    pass1.beginDraw();
-    pass1.noStroke();
-    pass1.endDraw();
-    pass2 = createGraphics(wide/2, high/2, P2D);
-    pass2.noSmooth();
-    pass2.beginDraw();
-    pass2.imageMode(CENTER);
-    pass2.noStroke();
-    pass2.endDraw();
+    createGraphicLayers();
     /////////////////////////////////////// COLOR ARRAY ARRANGEMENT ////////////////////////////////////////
     if (firsttime_sketchcolor) {
       colorSetup();                        // setup colors red bloo etc once
@@ -103,152 +73,105 @@ public class Rig {
     col[13] = orange1;
     col[14] = teal;
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
-  
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+  void createGraphicLayers(){
+      colorLayer = createGraphics(wide, high, P2D);
+      colorLayer.beginDraw();
+      colorLayer.noStroke();
+      colorLayer.colorMode(HSB, 360, 100, 100);
+      colorLayer.imageMode(CENTER);
+      colorLayer.rectMode(CENTER);
+      colorLayer.endDraw();
+      buffer = createGraphics(wide, high, P2D);
+      buffer.beginDraw();
+      buffer.colorMode(HSB, 360, 100, 100);
+      buffer.blendMode(NORMAL);
+      buffer.ellipseMode(CENTER);
+      buffer.rectMode(CENTER);
+      buffer.imageMode(CENTER);
+      buffer.noStroke();
+      buffer.noFill();
+      buffer.endDraw();
+      ///////////////////////////////////// LOAD GRAPHICS FOR SHADER LAYERS //////////////////////
+      pass1 = createGraphics(wide/2, high/2, P2D);
+      pass1.noSmooth();
+      pass1.imageMode(CENTER);
+      pass1.beginDraw();
+      pass1.noStroke();
+      pass1.endDraw();
+      pass2 = createGraphics(wide/2, high/2, P2D);
+      pass2.noSmooth();
+      pass2.beginDraw();
+      pass2.imageMode(CENTER);
+      pass2.noStroke();
+      pass2.endDraw();
+  }
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void drawColorLayer(int backgroundIndex) {
     int index = this.availableBkgrnds[backgroundIndex];
     switch(index) {
-    case 0:
-      colorLayer.beginDraw();
-      colorLayer.background(0);
-      oneColour(c);
-      colorLayer.endDraw();
-      break;
-    case 1:
-      colorLayer.beginDraw();
-      colorLayer.background(0);
-      oneColour(flash);
-      colorLayer.endDraw();
-      break;
-    case 2:
-      colorLayer.beginDraw();
-      colorLayer.background(0);
-      sideBySide(c, flash);
-      colorLayer.endDraw();
-      break;
-    case 3:
-      colorLayer.beginDraw();
-      colorLayer.background(0);
-      horizontalMirrorGradient(c, flash, 1);
-      colorLayer.endDraw();
-      break;
-    case 4:
-      colorLayer.beginDraw();
-      colorLayer.background(0);
-      mirrorGradient(c, flash, 0.5);
-      colorLayer.endDraw();
-      break;
-    case 5:
-      colorLayer.beginDraw();
-      colorLayer.background(0);
-      horizontalMirrorGradient(c, flash, noize1);
-      colorLayer.endDraw();
-      break;
-    case 6:
-      colorLayer.beginDraw();
-      colorLayer.background(0);
-      check(c, flash);
-      colorLayer.endDraw();
-      break;
-    case 7:
-      colorLayer.beginDraw();
-      colorLayer.background(0);
-      radiator(c, flash);
-      colorLayer.endDraw();
-      break;
-    case 8:
-      colorLayer.beginDraw();
-      colorLayer.background(0);
-      stripes(c, flash);
-      colorLayer.endDraw();
-      break;
-    case 9:
-      colorLayer.beginDraw();
-      colorLayer.background(0);
-      oneTwoThree(c, flash);
-      colorLayer.endDraw();
-      break;
-    case 10:
-      colorLayer.beginDraw();
-      colorLayer.background(0);
-      radialGradient(flash, c, sine);
-      colorLayer.endDraw();
-      break;
-    case 11:
-      colorLayer.beginDraw();
-      colorLayer.background(0);
-      radialGradient(c, flash, beat);
-      bigShield(c, flash);
-      balls(clash);
-      colorLayer.endDraw();
-      break;
-    case 12:
-      colorLayer.beginDraw();
-      colorLayer.background(0);
-      oneColour(c);
-      bigShield(flash, flash);
-      colorLayer.endDraw();
-      break;
-    case 13:
-      colorLayer.beginDraw();
-      colorLayer.background(0);
-      oneColour(flash);
-      bigShield(c, clash);
-      colorLayer.endDraw();
-      break;
-    case 14:
-      colorLayer.beginDraw();
-      colorLayer.background(0);
-      oneColour(c);
-      bigShield(clash, clashed);
-      mediumShield(flash, flash);
-      smallShield(c);
-      balls(clash1);
-      colorLayer.endDraw();
-      break;
-    default:
-      colorLayer.beginDraw();
-      colorLayer.background(0);
-      oneColour(c);
-      colorLayer.endDraw();
-      break;
-    }
+      case 0:
+        colorLayer.beginDraw();
+        colorLayer.background(0);
+        oneColour(c);
+        colorLayer.endDraw();
+        break;
+      case 1:
+        colorLayer.beginDraw();
+        colorLayer.background(0);
+        oneColour(flash);
+        colorLayer.endDraw();
+        break;
+      case 2:
+        colorLayer.beginDraw();
+        colorLayer.background(0);
+        radialGradient(flash, c, sine);
+        colorLayer.endDraw();
+        break;
+      case 3:
+        colorLayer.beginDraw();
+        colorLayer.background(0);
+        radialGradient(c, flash, beat);
+        bigShield(c, flash);
+        balls(clash);
+        colorLayer.endDraw();
+        break;
+      case 4:
+        colorLayer.beginDraw();
+        colorLayer.background(0);
+        oneColour(c);
+        bigShield(flash, flash);
+        colorLayer.endDraw();
+        break;
+      case 5:
+        colorLayer.beginDraw();
+        colorLayer.background(0);
+        oneColour(flash);
+        bigShield(c, clash);
+        colorLayer.endDraw();
+        break;
+      case 6:
+        colorLayer.beginDraw();
+        colorLayer.background(0);
+        oneColour(c);
+        bigShield(clash, clashed);
+        mediumShield(flash, flash);
+        smallShield(c);
+        balls(clash1);
+        colorLayer.endDraw();
+        break;
+      default:
+        colorLayer.beginDraw();
+        colorLayer.background(0);
+        oneColour(c);
+        colorLayer.endDraw();
+        break;
+      }
     blendMode(MULTIPLY);
     image(colorLayer, size.x, size.y);
   }
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  /////////////////////////////////// VERTICAL MIRROR GRADIENT BACKGROUND ////////////////////////////////////////////////
-  void mirrorGradient(color col1, color col2, float func) {
-    //// LEFT SIDE OF GRADIENT
-    colorLayer.beginShape(POLYGON); 
-    //colorLayer.noStroke();
-    colorLayer.fill(col1);
-    colorLayer.vertex(0, 0);
-    colorLayer.fill(col2);
-    colorLayer.vertex(colorLayer.width*func, 0);
-    colorLayer.fill(col2);
-    colorLayer.vertex(colorLayer.width*func, colorLayer.height);
-    colorLayer.fill(col1);
-    colorLayer.vertex(0, colorLayer.height);
-    colorLayer.endShape(CLOSE);
-    //// RIGHT SIDE OF colorLayerIENT
-    colorLayer.beginShape(POLYGON); 
-    colorLayer.fill(col2);
-    colorLayer.vertex(colorLayer.width*func, 0);
-    colorLayer.fill(col1);
-    colorLayer.vertex(colorLayer.width, 0);
-    colorLayer.fill(col1);
-    colorLayer.vertex(colorLayer.width, colorLayer.height);
-    colorLayer.fill(col2);
-    colorLayer.vertex(colorLayer.width*func, colorLayer.height);
-    colorLayer.endShape(CLOSE);
-  }
-  /////////////////////////////////// RADIAL GRADIENT BACKGROUND //////////////////////////////////////////////////////////
+  ///////////////////////////////////////// RADIAL GRADIENT BACKGROUND //////////////////////////////////////////////////////////
   void radialGradient(color col1, color col2, float function) {
     colorLayer.background(col1);
     float radius = colorLayer.height*function; //*function;
@@ -267,117 +190,11 @@ public class Rig {
       colorLayer.endShape(CLOSE);
     }
   }
-  /// MIRROR GRADIENT BACKGROUND top one direction - bottom opposite direction ///
-  void mirrorGradientHalfHalf(color col1, color col2, float func) {
-    //////// TOP //// LEFT SIDE OF GRADIENT
-    colorLayer.beginShape(POLYGON); 
-    colorLayer.fill(col1);
-    colorLayer.vertex(0, 0);
-    colorLayer.fill(col2);
-    colorLayer.vertex(colorLayer.width*func, 0);
-    colorLayer.fill(col2);
-    colorLayer.vertex(colorLayer.width*func, colorLayer.height/2);
-    colorLayer.fill(col1);
-    colorLayer.vertex(0, colorLayer.height/2);
-    colorLayer.endShape(CLOSE);
-    //// RIGHT SIDE OF colorLayerIENT
-    colorLayer.beginShape(POLYGON); 
-    colorLayer.fill(col2);
-    colorLayer.vertex(colorLayer.width*func, 0);
-    colorLayer.fill(col1);
-    colorLayer.vertex(colorLayer.width, 0);
-    colorLayer.fill(col1);
-    colorLayer.vertex(colorLayer.width, colorLayer.height/2);
-    colorLayer.fill(col2);
-    colorLayer.vertex(colorLayer.width*func, colorLayer.height/2);
-    colorLayer.endShape(CLOSE);
-    colorLayer.endDraw();
-    //////////////////////////////////
-    func = 1-func;
-    colorLayer.beginDraw();
-    ///// BOTTOM
-    //// LEFT SIDE OF GRADIENT
-    colorLayer.beginShape(POLYGON); 
-    colorLayer.fill(col1);
-    colorLayer.vertex(0, colorLayer.height/2);
-    colorLayer.fill(col2);
-    colorLayer.vertex(colorLayer.width*func, colorLayer.height);
-    colorLayer.fill(col2);
-    colorLayer.vertex(colorLayer.width*func, colorLayer.height);
-    colorLayer.fill(col1);
-    colorLayer.vertex(0, colorLayer.height/2);
-    colorLayer.endShape(CLOSE);
-    //// RIGHT SIDE OF colorLayerIENT
-    colorLayer.beginShape(POLYGON); 
-    colorLayer.fill(col2);
-    colorLayer.vertex(colorLayer.width*func, colorLayer.height/2);
-    colorLayer.fill(col1);
-    colorLayer.vertex(colorLayer.width, colorLayer.height/2);
-    colorLayer.fill(col1);
-    colorLayer.vertex(colorLayer.width, colorLayer.height);
-    colorLayer.fill(col2);
-    colorLayer.vertex(colorLayer.width*func, colorLayer.height);
-    colorLayer.endShape(CLOSE);
-  }
-  /////////////////////////////////////////////////// HORIZONAL GRADIENT ///////////////////////////////////////////////////////
-  void horizontalMirrorGradient(color col1, color col2, float func) {
-    //// TOP HALF OF GRADIENT
-    colorLayer.beginShape(POLYGON); 
-    colorLayer.fill(col2);
-    colorLayer.vertex(0, 0);
-    colorLayer.vertex(colorLayer.width, 0);
-    colorLayer.fill(col1);
-    colorLayer.vertex(colorLayer.width, colorLayer.height*func);
-    colorLayer.vertex(0, colorLayer.height*func);
-    colorLayer.endShape(CLOSE);
-    //// BOTTOM HALF OF GRADIENT 
-    colorLayer.beginShape(POLYGON); 
-    colorLayer.fill(col1);
-    colorLayer.vertex(0, colorLayer.height*func);
-    colorLayer.vertex(colorLayer.width, colorLayer.height*func);
-    colorLayer.fill(col2);
-    colorLayer.vertex(colorLayer.width, colorLayer.height);
-    colorLayer.vertex(0, colorLayer.height);
-    colorLayer.endShape(CLOSE);
-  }
   ///////////////////////////////////////// ONE COLOUR BACKGOUND //////////////////////////////////////////////////////////////////////////
   void oneColour(color col1) {
     colorLayer.background(col1);
   }
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void radiator(color col1, color col2) {
-    colorLayer.fill(col2);
-    for (int i = 0; i < opcGrid.rad.length; i++) colorLayer.rect(this.position[i].x, this.position[i].y, 15, this.high/2.2);
-  }
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void check(color col1, color col2) {
-    colorLayer.fill(col2);
-    colorLayer.rect(colorLayer.width/2, colorLayer.height/2, colorLayer.width, colorLayer.height);        
-    colorLayer.fill(col1);  
-    for (int i = 0; i < position.length/2; i+=2)  colorLayer.rect(position[i].x, position[i].y, opcGrid.mirrorWidth, opcGrid.mirrorWidth);
-    for (int i = position.length/2+1; i < position.length; i+=2)  colorLayer.rect(position[i].x, position[i].y, opcGrid.mirrorWidth, opcGrid.mirrorWidth);
-    //if (opcGrid.rows == 3) for (int i = opcGrid.columns*opcGrid.rows; i < opcGrid.mirror.length/opcGrid.rows+(opcGrid.columns*2); i+=2)  colorLayer.rect(position[i].x, position[i].y, opcGrid.mirrorWidth, opcGrid.mirrorWidth);
-  }
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void sideBySide( color col1, color col2) {
-    colorLayer.fill(col2);
-    colorLayer.rect(colorLayer.width/4, colorLayer.height/2, colorLayer.width/2, colorLayer.height);     
-    colorLayer.fill(col1);                                
-    colorLayer.rect(colorLayer.width/4*3, colorLayer.height/2, colorLayer.width/2, colorLayer.height);
-  }
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void oneTwoThree( color col1, color col2) {
-    colorLayer.background(col1);
-    colorLayer.fill(col2);                                
-    colorLayer.rect(colorLayer.width/2, colorLayer.height/2, colorLayer.width/3*2, colorLayer.height);
-  }
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void stripes( color col1, color col2) {
-    colorLayer.background(col1);
-    colorLayer.fill(col2);                                
-    colorLayer.rect(colorLayer.width/2, colorLayer.height/2, colorLayer.width/3, colorLayer.height);
-  }
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////// SHIELDS BACKGROUNDS /////////////////////////////////////////////////////////////////////////////////////////////
   void bigShield( color col1, color col2) {
     colorLayer.noStroke();
     colorLayer.fill(col1);      
@@ -412,11 +229,7 @@ public class Rig {
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void rigInfo() {
+   void rigInfo() {
     float textHeight = 18;
     textSize(textHeight);
     float nameWidth = textWidth(type.name());
@@ -544,7 +357,6 @@ public class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    void addAnim(int animIndex) {
-
     //Object[] classList = new Object[] { new BenjaminsBoxes(this), new StarMesh(this), new Rings(this), new Celtic(this)};
 
     Anim anim = new Anim(this);
@@ -584,59 +396,36 @@ public class Rig {
       anim = new Polo(this);
       break;
     case 11:  
-      anim = new Checkers(this);
-      break;
-    case 12:  
-      anim = new Rush(this);
-      break;
-    case 13:  
-      anim = new Rushed(this);
-      break;
-    case 14:  
       anim = new SquareNuts(this);
       break;
-    case 15:  
+    case 12:  
       anim = new DiagoNuts(this);
       break;
-    case 16:  
-      anim = new Swipe(this);
-      break;
-    case 17:  
-      anim = new Swiped(this);
-      break;
-    case 18:  
-      anim = new Teeth(this);
-      break;
-    case 19:
+    case 13:
       anim = new AllOn(this);
       break;
-    case 20:
+    case 14:
       anim = new AllOff(this);
       break;
     }
-    
     this.animations.add(anim);
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void drawAnimations() {
-
     blendMode(LIGHTEST);
     for (int i = this.animations.size()-1; i >=0; i--) {                                  // loop  through the list
       Anim anim = this.animations.get(i);  
       anim.drawAnim();           // draw the animation
     }
-
     /// alter all but the most recent animations
     if (testToggle) {
       for (int i = 0; i < this.animations.size()-1; i++) {   // loop  through the list excluding the last one added
         int animIndex = i;
         Anim an = this.animations.get(animIndex);  
         int now = millis();
-
         an.overalltime*=0.9;
-
-  }
+        }
     }
   }
 
@@ -650,11 +439,8 @@ public class Rig {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void draw() {
- 
     clash(beat);
     drawAnimations();
-    
-    //dimmer = cc[40];
     blendMode(MULTIPLY);
     // this donesnt work anymore....
     if (cc[107] > 0 || keyT['r']) bgNoise(colorLayer, 0, 0, cc[55]); //PGraphics layer,color,alpha
@@ -664,11 +450,9 @@ public class Rig {
     rigInfo();
     removeAnimations();
     cordinatesInfo(this, keyT['e']);
-    
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
-
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

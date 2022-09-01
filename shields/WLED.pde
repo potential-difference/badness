@@ -9,8 +9,6 @@ provides OPC api for streaming pixels into a wled
 */
 
 
-import java.net.*;
-import java.util.Arrays;
 
 public class WLED extends OPC
 {
@@ -36,10 +34,10 @@ public class WLED extends OPC
     parent.registerMethod("draw", this);
     try{
       udpsock = new DatagramSocket();
-    }catch(Exception e){println("Failed to Open WLED Socket",e);}
+    }catch(Exception e){println("WLED: Failed to Open WLED Socket",e);}
     try{
       wledaddress = InetAddress.getByName(host);
-    }catch(Exception e){println("DNS lookup failed for ",host,e);}
+    }catch(Exception e){println("WLED: DNS lookup failed for ",host,e);}
     
     
     
@@ -118,8 +116,6 @@ public class WLED extends OPC
     enableShowLocations = enabled;
   }
   
-  
-
   // Automatically called at the end of each draw().
   // This handles the automatic Pixel to LED mapping.
   // If you aren't using that mapping, this function has no effect.
@@ -132,7 +128,6 @@ public class WLED extends OPC
       // No pixels defined yet
       return;
     }
-
 
     int numPixels = pixelLocations.length;
     int ledAddress = 4;
@@ -148,7 +143,7 @@ public class WLED extends OPC
       int wledAddress = (ledAddress-4) % (489*3) + 4;
       //ledAddress 489*3 is the last one
       //ledAddress 4+490*3 becomes 4
-      //println("ledAddress: ",ledAddress,", wledPacket_idx: ",wledPacket_idx,", wledAddress",wledAddress);
+      //println("WLED: ledAddress: ",ledAddress,", wledPacket_idx: ",wledPacket_idx,", wledAddress",wledAddress);
       byte R = (byte)(pixel >> 16);
       byte G = (byte)(pixel >> 8);
       byte B = (byte)(pixel);
@@ -168,7 +163,7 @@ public class WLED extends OPC
     if (enableShowLocations) {
       updatePixels();
     }
-    //println("wled draw: ",millis()-start_time);
+    //println("WLED Draw: ",millis()-start_time);
   }
   
   // Change the number of pixels in our output packet.
@@ -186,14 +181,14 @@ public class WLED extends OPC
     // 255: infinite timeout
     // byte 2-3: start index H-L
     int numWledPackets = numPixels / 490 + 1;
-    //println("Packets= ",numWledPackets,", Pixels= ",numPixels);
+    //println("WLED Packets= ",numWledPackets,", Pixels= ",numPixels);
     
     if (wledData == null || wledData.length != numWledPackets) {
       wledData = new byte[numWledPackets][];
       for(int i=0;i<numWledPackets;i++){
         int packet_pixels = min(numPixels,489);
         numPixels -= packet_pixels;
-        println("creating packet of size ",4+packet_pixels*3);
+        println("WLED: creating packet of size ",4+packet_pixels*3);
         wledData[i] = new byte[4+packet_pixels*3];
         int offset = 490 * i;
         byte highByte = (byte)(offset >> 8);
@@ -206,9 +201,6 @@ public class WLED extends OPC
     }
 
   }
-  
-  
-
   // Transmit our current buffer of pixel values to the OPC server. This is handled
   // automatically in draw() if any pixels are mapped to the screen, but if you haven't
   // mapped any pixels to the screen you'll want to call this directly.
@@ -221,7 +213,7 @@ public class WLED extends OPC
         try{
           udpsock.send(packet);
         }catch(Exception e){
-          println("failed to send packet ",e);
+          println("WLED: failed to send packet ",e);
         }
       }
     }

@@ -12,16 +12,16 @@ void playWithYourself(float vizTm) {
     if (rig.playWithYourSelf) {  
       ///////////// ALPHA TIMER ////////////////////////////////////////////////////////////////////////////////////////////////////
       if (millis()/1000 - rig.alphaTimer >= vizTm/(1+rig.alphaChangeRate*20)) {       //// SWAPRATE changes # of times every viz change /////
-        rig.alphaIndexA = int(random(rig.availableAlphaEnvelopes.length));   //// select from alpha array
-        rig.alphaIndexB = int(random(rig.availableAlphaEnvelopes.length));   //// select from alpha array
-        println(rig.type," alpha change @", (hour()+":"+minute()+":"+second()), "new envelopes:", rig.alphaIndexA, "&", rig.alphaIndexB);
+      // TODO reinstate rig.alphaIndexA = int(random(rig.availableAlphaEnvelopes.length));   //// select from alpha array
+      // TODO reinstate rig.alphaIndexB = int(random(rig.availableAlphaEnvelopes.length));   //// select from alpha array
+        println(rig.name+" alpha change @", (hour()+":"+minute()+":"+second()), "new envelopes:", rig.alphaIndexA, "&", rig.alphaIndexB);
         rig.alphaTimer = millis()/1000;
           }
       //////////// FUNCTION TIMER //////////////////////////////////////////////////////////////////////////////////////////////////
       if (millis()/1000 - rig.functionTimer >= vizTm/(1+rig.functionChangeRate*20)) {
-        rig.functionIndexA = int(random(rig.availableFunctionEnvelopes.length));  //// select from function array
-        rig.functionIndexB = int(random(rig.availableFunctionEnvelopes.length));  //// select from function array
-        println(rig.type," function change @", (hour()+":"+minute()+":"+second()), "new envelope:", rig.functionIndexA, "&", rig.functionIndexB);
+      // TODO reinstate rig.functionIndexA = int(random(rig.availableFunctionEnvelopes.length));  //// select from function array
+      // TODO reinstate rig.functionIndexB = int(random(rig.availableFunctionEnvelopes.length));  //// select from function array
+        println(rig.name+" function change @", (hour()+":"+minute()+":"+second()), "new envelope:", rig.functionIndexA, "&", rig.functionIndexB);
         rig.functionTimer = millis()/1000;
        }
     }
@@ -54,8 +54,17 @@ void playWithYourself(float vizTm) {
 
   ///////////////////////////////////////// LERP COLOUR //////////////////////////////////////////////////////////////////
   colBeat = false;
-  if (beatCounter % 18 > 15)  colorLerping(shields, (1-beat)*4);
-  
+  if (beatCounter % 18 > 15)  colorLerping(rigg, (1-beat)*4);
+  /*for (Rig rig : rigs) 
+  {
+    switch (rig){
+      case cans:
+        if (beatCounter % 18 < 4) colorLerping(rig,(1-beat)*4);break;
+      case roof:
+        if (beatCounter % 32 > 27) colorLerping(rig,(1-beat)*3);break;
+    }
+  }
+  */
   //TODO if loop that only affects rigs that are present
   
   //if (beatCounter % 18 < 4)  colorLerping(cans, (1-beat)*4);

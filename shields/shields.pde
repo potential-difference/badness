@@ -2,6 +2,9 @@ WLED wledBigShield, wledShieldA, wledShieldB, wledShieldC, wledShieldD, wledShie
 OPC opcLocal;
 
 import java.util.*;
+import java.util.Arrays;
+import java.net.*;
+
 import ch.bildspur.artnet.*;
 import java.lang.reflect.*;
 
@@ -80,7 +83,7 @@ void setup()
   drawingSetup();
   loadImages();
   loadShaders();
-  setupSpecifics();
+  alwaysDoFirst();
 
   shields.dimmer = 1;
   shields.alphaRate = 0.5;
@@ -102,7 +105,7 @@ void draw()
   background(0);
   noStroke();
   beatDetect.detect(in.mix);
-  beats();
+  beats(beatSlider);   
   //pause(10);           ////// number of seconds before no music detected and auto kicks in
   globalFunctions();
 
