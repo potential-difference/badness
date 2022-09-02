@@ -1,5 +1,63 @@
-class FieldManeuversGrid extends OPCGrid {
+//OPC GRID
+//contains points of interest in whole-window coords
+//and all the OPC objects relevant.
+//A rig generally encapsulates an opcgrid 
+//but for the misc stuff (booth,smoke,etc)
+//they just get drawn to the screen
+//and we handle it with rects.
+class OPCGrid{
+  Map<String,OPC> opclist;
+  OPCGrid(){}
+}
+class BoothGrid extends OPCGrid{
+  PVector booth,dig;
+  PVector smoke[][] = new PVector[2][2];
+  PVector uvs[][] = new PVector[6][3];
+  BoothGrid(Map<String,OPC> opcs){
+    booth = new PVector(5,10);
+    dig = new PVector(10,15);
 
+    OPC entec = opcs.get("Entec");
+    int x = (int)size.info.x;
+    int y = (int)size.info.y;
+    int xgap = 10;
+    int pixh = 2;
+    int ygap = 10;
+    for (int i=0;i<6;i++){
+      for (int j=0;j<3;j++){
+        int xx = x+j*xgap;
+        int yy = y+i*ygap;
+        uvs[i][j] = new PVector(xx,yy);
+        entec.led(8000+j+3*i,xx,yy);
+      }
+    }
+
+    //opcs.get("Booth").led(0,booth.x,booth.y);
+    //opcs.get("Booth").led(1,digg.x,digg.y);
+
+    //fm22 6 uv batons 3 pixels each
+    //starting at 8000
+
+    //entec.led()
+    //fm22 2 blinders
+  }
+
+  //rect coordinates for
+  //uv.dimmers,uv.program_speed,uv.program
+  //
+  
+}
+class DiamondsGrid extends OPCGrid {
+
+}
+class LanternsGrid extends OPCGrid {
+  //FieldManeuvers2022
+  Rig rig;
+  PVector[][] thirties = new PVector[3][10];
+  LanternsGrid(Rig _rig){
+    rig = _rig;
+    
+  }
 }
 class ShieldsOPCGrid extends OPCGrid {
   //  PVectors for positions of shields
@@ -9,7 +67,6 @@ class ShieldsOPCGrid extends OPCGrid {
   //PVector[] eggs = new PVector[2]; 
   //int eggLength;
   float[] ringSize;
-  OPC[] opclist;
   Rig rig;
 
   float bigShieldRad, medShieldRad, smallShieldRad, _bigShieldRad, _medShieldRad, _smallShieldRad;
@@ -38,25 +95,25 @@ class ShieldsOPCGrid extends OPCGrid {
       }
     }
   }
-    void spiralShieldsOPC(OPC[] _opc) {
+    void spiralShieldsOPC(Map<String,OPC> _opc) {
     opclist = _opc;
     ringSize = new float[] { rig.wide/8.3, rig.wide/5.5, rig.wide/4.5 };
     shieldSetup(9);
 
-    medShieldWLED(opclist[2], 0, 0);   ///// SLOT b1 on BOX ///// 
+    medShieldWLED(opclist.get("MedShieldA"), 0, 0);   ///// SLOT b1 on BOX ///// 
 
-    smallShieldWLED(opclist[1], 8, 1); ///// SLOT b0 on BOX /////
-    ballGrid(opclist[7], 0, 7, 2);
+    smallShieldWLED(opclist.get("SmallShieldA"), 8, 1); ///// SLOT b0 on BOX /////
+    ballGrid(opclist.get("Balls"), 0, 7, 2);
 
-    medShieldWLED(opclist[4], 6, 0);   ///// SLOT b5 on BOX /////
-    smallShieldWLED(opclist[3], 5, 1); ///// SLOT b4 on BOX /////
-    ballGrid(opclist[7], 1, 4, 2);
+    medShieldWLED(opclist.get("MedShieldB"), 6, 0);   ///// SLOT b5 on BOX /////
+    smallShieldWLED(opclist.get("SmallShieldB"), 5, 1); ///// SLOT b4 on BOX /////
+    ballGrid(opclist.get("Balls"), 1, 4, 2);
 
-    medShieldWLED(opclist[6], 3, 0);   ///// SLOT b3 on BOX /////
-    smallShieldWLED(opclist[5], 2, 1); ///// SLOT b2 on BOX /////
-    ballGrid(opclist[7], 2, 1, 2);
+    medShieldWLED(opclist.get("MedShieldC"), 3, 0);   ///// SLOT b3 on BOX /////
+    smallShieldWLED(opclist.get("SmallShieldC"), 2, 1); ///// SLOT b2 on BOX /////
+    ballGrid(opclist.get("Balls"), 2, 1, 2);
 
-    bigShieldWLED(opclist[0], int(size.rig.x), int(size.rig.y));     ///// SLOT b7 on BOX /////
+    bigShieldWLED(opclist.get("BigShield"), int(size.rig.x), int(size.rig.y));     ///// SLOT b7 on BOX /////
     /////////////////////////// increase size of radius so its covered when drawing over it in the sketch
 
     shields[0] = new PVector (_shield[0][0].x, _shield[0][0].y);        // MEDIUM SHIELD
@@ -78,21 +135,21 @@ class ShieldsOPCGrid extends OPCGrid {
     rig.positionX = _shield; 
     rig.position = shields;
   }
-  void triangleShieldsOPC(OPC[] _opc) {
+  void triangleShieldsOPC(Map<String,OPC> _opc) {
     opclist = _opc;
     ringSize = new float[] { rig.wide/9, rig.wide/5, rig.wide/4.5 };
     shieldSetup(12);
     //// SHIELDS - #1 slot on box; #2 position on ring; #3 number of LEDS in 5v ring 
-    smallShieldWLED(opclist[1], 2, 0); ///// SLOT b0 on BOX /////   
-    medShieldWLED(opclist[2], 2, 1);   ///// SLOT b1 on BOX ///// 
-    smallShieldWLED(opclist[3], 6, 0); ///// SLOT b2 on BOX /////
-    medShieldWLED(opclist[4], 6, 1);   ///// SLOT b3 on BOX /////
-    smallShieldWLED(opclist[5], 10, 0); ///// SLOT b4 on BOX /////
-    medShieldWLED(opclist[6], 10, 1);   ///// SLOT b5 on BOX /////
-    bigShieldWLED(opclist[0], int(size.rig.x), int(size.rig.y));     ///// SLOT b7 on BOX /////
-    ballGrid(opclist[7], 0, 0, 1);
-    ballGrid(opclist[7], 1, 4, 1);
-    ballGrid(opclist[7], 2, 8, 1);
+    smallShieldWLED(opclist.get("SmallShieldA"), 2, 0); ///// SLOT b0 on BOX /////   
+    medShieldWLED(opclist.get("MedShieldA"), 2, 1);   ///// SLOT b1 on BOX ///// 
+    smallShieldWLED(opclist.get("SmallShieldB"), 6, 0); ///// SLOT b2 on BOX /////
+    medShieldWLED(opclist.get("MedShieldB"), 6, 1);   ///// SLOT b3 on BOX /////
+    smallShieldWLED(opclist.get("SmallShieldC"), 10, 0); ///// SLOT b4 on BOX /////
+    medShieldWLED(opclist.get("MedShieldC"), 10, 1);   ///// SLOT b5 on BOX /////
+    bigShieldWLED(opclist.get("BigShield"), int(size.rig.x), int(size.rig.y));     ///// SLOT b7 on BOX /////
+    ballGrid(opclist.get("Balls"), 0, 0, 1);
+    ballGrid(opclist.get("Balls"), 1, 4, 1);
+    ballGrid(opclist.get("Balls"), 2, 8, 1);
   }
   void ballGrid(OPC opc, int numb, int positionA, int positionB) {
     opc.led(1024+(64*numb), int(_shield[positionA][positionB].x), int(_shield[positionA][positionB].y));
@@ -149,7 +206,7 @@ class ShieldsOPCGrid extends OPCGrid {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class OPCGrid {
+class OGOPCGrid extends OPCGrid{
   PVector[] mirror = new PVector[12];
   PVector[][] mirrorX = new PVector[7][4];
   PVector[] _mirror = new PVector[12];
@@ -171,7 +228,7 @@ class OPCGrid {
   int pd, ld, dist, controllerGridStep, rows, columns;
   float mirrorAndGap, seedsLength, _seedsLength, seeds2Length, _seeds2Length, cansLength, _cansLength, _mirrorWidth, mirrorWidth, controllerWidth;
 
-  OPCGrid () {
+  OGOPCGrid () {
 
   }
 
@@ -179,6 +236,8 @@ class OPCGrid {
   ///////////////////////////////////////////// CANS //////////////////////////////////////////////////
   void individualCansOPC(Rig _rig, OPC opc, boolean offset) {
     rig = _rig;
+    //TODO: put into CANS opc
+    OGOPCGrid opcGrid = ((OGOPCGrid)(rig.opcgrid));
     float xw = 6;
     float y = rig.size.y;
     if (offset) y = rig.size.y - rig.high/(xw+1)/(xw/2);
@@ -233,7 +292,7 @@ class OPCGrid {
 void pickleCansOPC(Rig _rig, OPC opc) {
     rig = _rig;
     _cansLength = rig.high/1.2;
-
+    
     //int fc = 2 * 512;
     int fc = 2560;
     int channel = 64;
@@ -253,6 +312,11 @@ void pickleCansOPC(Rig _rig, OPC opc) {
   /////////////////////////////////////////////////////////////////////////////////////////////////////
   void castleCansOPC(Rig _rig, OPC opc, OPC opc1, boolean offset) {
     rig = _rig;
+    //TODO accessing opcGrid from within opcGrid is 
+    //terrifying what does that even mean
+    //This should probably just be deleted
+    //Making sure this segfaults
+    OGOPCGrid opcGrid = ((OGOPCGrid)new OPCGrid());
     float xw = 6;
     float y = rig.size.y;
     if (offset) y = rig.size.y - rig.high/(xw+1)/(xw/2);

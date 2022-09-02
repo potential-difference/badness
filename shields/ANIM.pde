@@ -178,6 +178,7 @@ class Anim1 extends Anim { ///////// COME BACK TO THIS WITH NEW ENVELOPES
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Checkers extends Anim {
+  //Mirrors only, really
   Checkers(Rig _rig) {
     super(_rig);
   }
@@ -186,6 +187,11 @@ class Checkers extends Anim {
     window.background(0);
     stroke = 20+(10*strokeSlider);
     rotate = 0;
+    if (rig.type!=RigType.Mirrors){
+      println("ERROR: Checkers only works on Mirrors!");
+      return;
+    }
+    OGOPCGrid opcGrid = ((OGOPCGrid)(rig.opcgrid));
     if (_beatCounter % 9 <4) { 
       for (int i = 0; i < opcGrid.columns; i+=2) {
         wide = (vizWidth*2)-(vizWidth/10);
@@ -695,13 +701,13 @@ class Anim {
   boolean deleteme=false;
   String animName;
   Envelope alphaEnvelopeA, alphaEnvelopeB, functionEnvelopeA, functionEnvelopeB;
-  Ref animDimmer;
+  Ref dimmer;
   Rig rig;
-  float overalltime;
+  //float overalltime;
   float strokeSlider, wideSlider, highSlider;
 
   Anim(Rig _rig) {
-    animDimmer=new Ref(new float[]{1.0}, 0);
+    dimmer= ()->{return 1.0;};//new Ref(new float[]{1.0}, 0);
     rig = _rig;
    
     _beatCounter = (int)beatCounter;
@@ -723,10 +729,10 @@ class Anim {
     positionX = rig.positionX;
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    overalltime = avgmillis;
+    //overalltime = avgmillis;
 
-    alphaEnvelopeA = alphaEnvelopeFactory(rig.availableAlphaEnvelopes[rig.alphaIndexA], rig, overalltime);
-    alphaEnvelopeB = alphaEnvelopeFactory(rig.availableAlphaEnvelopes[rig.alphaIndexB], rig, overalltime);
+    alphaEnvelopeA = alphaEnvelopeFactory(rig.availableAlphaEnvelopes[rig.alphaIndexA], rig, avgmillis);
+    alphaEnvelopeB = alphaEnvelopeFactory(rig.availableAlphaEnvelopes[rig.alphaIndexB], rig, avgmillis);
     //if(functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexA], rig) != NaN)
     functionEnvelopeA = functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexA], rig);
     functionEnvelopeB = functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexB], rig);
@@ -748,11 +754,11 @@ class Anim {
   Float vizWidth, vizHeight;
   void drawAnim() {
     int now = millis();
-    alphaA = alphaEnvelopeA.value(now);
-    alphaB = alphaEnvelopeB.value(now);
+    //alphaA = alphaEnvelopeA.value(now);
+    //alphaB = alphaEnvelopeB.value(now);
 
-    alphaA *=rig.dimmer;
-    alphaB *=rig.dimmer;
+    alphaA = alphaEnvelopeA.value(now) * rig.dimmer * this.dimmer.get();
+    alphaB = alphaEnvelopeB.value(now) * rig.dimmer * this.dimmer.get();
 
     Float funcX = functionEnvelopeA.value(now);
     if (!Float.isNaN(funcX)) functionA = funcX; 
@@ -990,14 +996,6 @@ class Anim {
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  float getval() {
-    try {
-      return animDimmer.f[animDimmer.i];
-    } 
-    catch (Exception e) {
-      return 1;
-    }
-  }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

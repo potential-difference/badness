@@ -49,7 +49,10 @@ float floatValue(Object o,Number time){
 /////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////
 /////////////////Reference Class///////////////////////////////////////
-
+interface Ref{
+  float get();
+}
+/*
 class Ref implements Composable{
   float[] f;
   int i;
@@ -96,7 +99,7 @@ class CompositeRef extends Ref{
     return op.operate(millis(),children);
   }
 }
-
+*/
 
 ///////////////////////////////////////////////////////////////////
 ////////////////Envelope class/////////////////////////////////////
@@ -129,8 +132,9 @@ interface Env{
 }
 class LambdaEnv extends Envelope{
   Env env;
-  LambdaEnv(Env e){
+  LambdaEnv(Env e,int endtime){
     env = e;
+    end_time = endtime;
   }
   float value(int time){
     return env.value(time);

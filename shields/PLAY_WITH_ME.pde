@@ -47,7 +47,6 @@ void playWithMe() {
     }
   }
 
-
   ////////////////////////////////////// COLOR SWAP AND FLIP BUTTONS /////////////////////////////////////////
   if (keyP['o']) shields.colorSwap(0.9999999999);               // COLOR SWAP MOMENTARY 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -236,45 +235,3 @@ void playWithMeMore() {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void cansControl(color col, float alpha) {
-  fill(col, 360*alpha);
-  rect(opcGrid.cans[0].x, opcGrid.cans[0].y, opcGrid.cansLength, 3);
-  rect(opcGrid.cans[1].x, opcGrid.cans[1].y, opcGrid.cansLength, 3);
-}
-void rigControl(color col, float alpha) {
-  noFill();
-  strokeWeight(5);
-  stroke( col, 360*alpha);
-  for (int i  = 0; i < opcGrid.mirror.length; i++) rect(opcGrid.mirror[i].x, opcGrid.mirror[i].y, opcGrid._mirrorWidth, opcGrid._mirrorWidth);
-  noStroke();
-}
-void seedsControlA(color col, float alpha) {
-  noFill();
-  strokeWeight(5);
-  stroke(col, 360*alpha);  
-  rect(opcGrid.seeds[0].x, opcGrid.seeds[0].y, opcGrid.seedsLength, 3);
-  noStroke();
-}
-void seedsControlB(color col, float alpha) {
-  noFill();
-  strokeWeight(5);
-  stroke(col, 360*alpha);  
-  rect(opcGrid.seeds[1].x, opcGrid.seeds[1].y, opcGrid.seedsLength, 3);
-  noStroke();
-}
-void seedsControlC(color col, float alpha) {
-  noFill();
-  strokeWeight(5);
-  stroke(col, 360*alpha);  
-  rect(opcGrid.seeds[2].x, opcGrid.seeds[2].y, 3, opcGrid.seeds2Length);
-  noStroke();
-}
-void controllerControl(color col, float alpha) {
-  fill(col, 360*alpha);
-  rect(opcGrid.controller[0].x, opcGrid.controller[0].y, opcGrid.controllerWidth, opcGrid.controllerWidth);
-  rect(opcGrid.controller[1].x, opcGrid.controller[1].y, opcGrid.controllerWidth, opcGrid.controllerWidth);
-  rect(opcGrid.controller[2].x, opcGrid.controller[2].y, opcGrid.controllerWidth, opcGrid.controllerWidth);
-  rect(opcGrid.controller[3].x, opcGrid.controller[3].y, opcGrid.controllerWidth, opcGrid.controllerWidth);
-}
-
-

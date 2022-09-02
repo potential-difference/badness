@@ -15,7 +15,7 @@
  }
  }*/
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void dmxSmoke() {
+void dmxSmoke(BoothGrid opcGrid) {
   ////////////////////////////////////// DMX SMOKE //////////////////////////////////
   fill(0, 150);
   strokeWeight(1);
@@ -75,7 +75,7 @@ void resetbeats() {
 
   weightedsum=beatTimer+(1-beatTempo)*weightedsum;
   weightedcnt=1+(1-beatTempo)*weightedcnt;
-  avgtime=weightedsum/weightedcnt;
+  float avgtime=weightedsum/weightedcnt;
   avgmillis = avgtime*1000/frameRate;
   beatTimer=0;
 }
@@ -115,7 +115,7 @@ void pause(int secondsToWait) {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////// BOOTH AND DIG LIGHTS /////////////////////////////////////////////////////////////////////
-void boothLights() {
+void boothLights(BoothGrid opcGrid) {
   fill(0);
   rect(opcGrid.booth.x, opcGrid.booth.y, 40, 15);
   rect(opcGrid.dig.x, opcGrid.dig.y, 40, 15);
@@ -137,8 +137,8 @@ void boothLights() {
   text("DIG", opcGrid.dig.x+25, opcGrid.dig.y+6);
 }
 /////////////////// TEST ALL COLOURS - TURN ALL LEDS ON AND CYCLE COLOURS ////////////////////////////////
-void testColors(boolean _test) {
-  if (_test) {
+void testColors(boolean test,BoothGrid opcGrid) {
+  if (test) {
 
     fill((millis()/50)%360, 100, 100, 360*shields.dimmer); 
     for (Rig rig : rigs)     rect(rig.size.x, rig.size.y, rig.wide, rig.high);
@@ -148,7 +148,7 @@ void testColors(boolean _test) {
   }
 }
 /////////////////// WORK LIGHTS - ALL ON WHITE SO YOU CAN SEE SHIT ///////////////////////////
-void workLights(boolean _work) {
+void workLights(boolean _work,BoothGrid opcGrid) {
   if (_work) {
     pause = 10;
     fill(360*cc[9], 360*cc[10]);
