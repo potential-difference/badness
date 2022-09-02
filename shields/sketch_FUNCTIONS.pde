@@ -113,21 +113,47 @@ void pause(int secondsToWait) {
     }
   }
 }
+
+/////////////////UV BATONS //////////////////
+void uvBatons(BoothGrid opcGrid){
+  fill(0);
+  rect(opcGrid.uvDimmer);
+  rect(opcGrid.uvSpeed);
+  rect(opcGrid.uvProgram);
+
+  fill(0,150);
+  strokeWeight(1);
+  stroke(shields.flash, 60);
+  rect(opcGrid.uvSpeed.x,opcGrid.uvSpeed.y,50,80);
+  noStroke();
+  fill(360*uvDimmer);
+  rect(opcGrid.uvDimmer);
+  fill(360*uvSpeed);
+  rect(opcGrid.uvSpeed);
+  fill(360*uvProgram);
+  rect(opcGrid.uvProgram);
+  fill(shields.c);
+  textAlign(LEFT);
+  text("BATONS",opcGrid.uvDimmer.x-20,opcGrid.uvDimmer.y+50);
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////// BOOTH AND DIG LIGHTS /////////////////////////////////////////////////////////////////////
 void boothLights(BoothGrid opcGrid) {
   fill(0);
-  rect(opcGrid.booth.x, opcGrid.booth.y, 40, 15);
-  rect(opcGrid.dig.x, opcGrid.dig.y, 40, 15);
+  //rect(opcGrid.booth.x, opcGrid.booth.y, 40, 15);
+  rect(opcGrid.booth);
+  rect(opcGrid.dig);
+  //rect(opcGrid.dig.x, opcGrid.dig.y, 40, 15);
   fill(0, 150);
   strokeWeight(1);
   stroke(shields.flash, 60);
   rect(opcGrid.booth.x+70, opcGrid.booth.y, 200, 30);
   noStroke();
   fill(shields.flash1, 360*boothDimmer);
-  rect(opcGrid.booth.x, opcGrid.booth.y, 40, 15);
+  rect(opcGrid.booth);//rect(opcGrid.booth.x, opcGrid.booth.y, 40, 15);
   fill(shields.c, 360*digDimmer);
-  rect(opcGrid.dig.x, opcGrid.dig.y, 40, 15);
+  rect(opcGrid.dig);//rect(opcGrid.dig.x, opcGrid.dig.y, 40, 15);
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   fill(shields.c, 360);
@@ -152,11 +178,11 @@ void workLights(boolean _work,BoothGrid opcGrid) {
   if (_work) {
     pause = 10;
     fill(360*cc[9], 360*cc[10]);
-    rect(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight);
-    rect(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight);
-    rect(size.cans.x, size.cans.y, size.cansWidth, size.cansHeight);
-    rect(opcGrid.booth.x, opcGrid.booth.y, 30, 10);
-    rect(opcGrid.dig.x, opcGrid.dig.y, 30, 10);
+    rect(size.shields);
+    rect(size.diamonds);
+    rect(size.cans);
+    rect(opcGrid.booth);
+    rect(opcGrid.dig);
   }
 }
 /////////////////////////////////////////////// OSKP///////////////////////////////////////////

@@ -705,7 +705,7 @@ class Anim {
   Rig rig;
   //float overalltime;
   float strokeSlider, wideSlider, highSlider;
-
+  float vizWidth,vizHeight;
   Anim(Rig _rig) {
     dimmer= ()->{return 1.0;};//new Ref(new float[]{1.0}, 0);
     rig = _rig;
@@ -751,7 +751,6 @@ class Anim {
   }
   float stroke, wide, high, rotate;
   //Object highobj;
-  Float vizWidth, vizHeight;
   void drawAnim() {
     int now = millis();
     //alphaA = alphaEnvelopeA.value(now);

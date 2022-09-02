@@ -1,39 +1,54 @@
+void rect(Coord c){rect(c.x,c.y,c.wide,c.high);}
+void rect(Intcoord c){rect(c.x,c.y,c.wide,c.high);}
+class Coord{
+  float x,y,wide,high;
+  Coord(float _x,float _y,float _wide,float _high){
+    x=_x; y=_y; wide=_wide; high=_high;
+  }
+}
+class IntCoord{
+  int x,y,wide,high;
+  IntCoord(int _x,int _y,int _wide,int _high){
+    x = _x; y=_y;wide=_wide;high=_high;
+  }
+}
+
 class SizeSettings {
-  int rigWidth, rigHeight, roofWidth, roofHeight, vizWidth, vizHeight, cansWidth;
-  int cansHeight, parsWidth, parsHeight, infoWidth, infoHeight;
-  PVector rig, roof, cans, donut, pars, info;
-  int surfacePositionX, surfacePositionY, sizeX, sizeY, orientation;
+  //int rigWidth, rigHeight, roofWidth, roofHeight, vizWidth, vizHeight, cansWidth;
+  //int cansHeight, parsWidth, parsHeight, infoWidth, infoHeight;
+  IntCoord shields,diamonds,lanterns,megaSeeds,cans,info,booth;
+  //PVector rig, roof, cans, donut, pars, info;
+  int sizeX, sizeY;
 
   SizeSettings() {
-      rigWidth = 600;                                    // WIDTH of rigViz
-      if (SHITTYLAPTOP) rigWidth = 350;
-      rigHeight = 600;    
-      if (SHITTYLAPTOP) rigHeight = 350;
-      rig = new PVector(rigWidth/2, rigHeight/2);   // cordinates for center of rig
-     
+    int rigWidth = 600;                                    // WIDTH of rigViz
+    if (SHITTYLAPTOP) rigWidth = 350;
+    int rigHeight = 600;    
+    if (SHITTYLAPTOP) rigHeight = 350;
+    shields = new IntCoord(rigWidth/2,rigHeight/2,rigWidth,rigHeight);
+
     ////////////////////////////////  ROOF SETUP RIGHT OF RIG ///////////////////////
-    roofWidth = 0;
-    roofHeight = rigHeight;
-    roof = new PVector (rigWidth+(roofWidth/2), roofHeight/2);
+    diamonds = new IntCoord(shields.wide+rigWidth/2,shields.y,rigWidth,rigHeight);
+    
+    lanterns = new IntCoord(shields.wide+diamonds.wide+rigWidth/2,rigWidth,rigHeight);
 
-    ////////////////////////////////  CANS SETUP RIGHT OF ROOF ///////////////////////
-    cansWidth = 0;
-    cansHeight = rigHeight;
-    //if (SHITTYLAPTOP) cansHeight = 250;
-    cans = new PVector (rigWidth+roofWidth+(cansWidth/2), cansHeight/2);
+    rigHeight = 200;
+    megaSeeds = new IntCoord(shields.x,shields.high+rigHeight/2,rigWidth,rigHeight);
 
-    //////////////////////////////// PARS SETUP FAR RIGHT ////////////////////////////
-    parsWidth = 0;
-    parsHeight = rigHeight;
-    pars = new PVector(rigWidth+roofWidth+cansWidth+(parsWidth/2), parsHeight/2);      
+    rigWidth = 2*rigWidth;
+    int cansx = (lanterns.x + diamonds.x)/2;
+    cans = new IntCoord(cansx,lanterns.y+rigHeight/2,rigWidth,rigHeight);
+    
+    rigWidth = shields.wide/2;
+    rigHeight = shields.high;    
+    info = new IntCoord(shields.wide+lanterns.wide+diamonds.wide+rigWidth/2,shields.y,rigWidth,rigHeight);
 
-    //////////////////////////////// INFO AREA TO RIGHT OF ALL RIGS //////////////////////
-    infoWidth = rigWidth/2;
-    infoHeight = rigHeight;
-    info = new PVector(rigWidth+roofWidth+cansWidth+parsWidth+(infoWidth/2), infoHeight/2);      
-    ///////////////////////////////////// OVERALL SIZE OF SKETCH WINDOW /////////////////////
-    sizeX = rigWidth+roofWidth+cansWidth+parsWidth+infoWidth;
-    sizeY = rigHeight;
+    rigHeight = cans.high;
+    booth = new IntCoord(cans.x+cans.wide/2+rigWidth/2,cans.y,rigWidth,rigHeight);
+
+
+    sizeX = shields.wide+lanterns.wide+diamonds.wide+info.wide;
+    sizeY = shields.high+megaSeeds.high;
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////
