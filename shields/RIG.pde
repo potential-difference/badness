@@ -1,5 +1,5 @@
 enum RigType{
-    Shields,Roof,Cans,Strips,Seeds,Pars,Booth,Dig
+    Shields,Roof,Mirrors,Cans,Strips,Seeds,Pars,Booth,Dig
 }
 //static RigType Shields = RigType.Shields;
 public class Rig {
@@ -39,7 +39,7 @@ public class Rig {
     rigs.add(this);
     arrayListIndex = rigs.indexOf(this);          // where this is the rig object
     availableBkgrnds = new int[] {0, 1, 2, 3};    // default - changed when initalised;
-    availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5};  
+    availableAlphaEnvelopes = new int[] {0, 1};// 2, 3, 4, 5};  
     availableFunctionEnvelopes = new int[] {0, 1, 2, 5, 6};  
 
     int xw = 2;
@@ -410,6 +410,24 @@ public class Rig {
     }
     this.animations.add(anim);
   }
+
+
+  //decayRate: higher is slower
+  //curve: 0.5 is linear, 0.0 is u shaped 1.0 is n shaped 
+  //think of it like control points on a bezier
+
+  void animFader(float decayRate,float curve){
+    int now = millis();
+    for (int i = 0; i < this.animations.size()-1; i++) {   // loop  through the list excluding the last one added
+      Anim an = this.animations.get(i);  
+      int time_leftA = (int)((an.alphaEnvelopeA.end_time - now)*0.95);
+      int time_leftB = (int)((an.alphaEnvelopeB.end_time - now)*0.95);
+      an.alphaEnvelopeA = an.alphaEnvelopeA.mul(new Ramp(now,now+time_leftA,1.0,0.1,0.01));
+      an.alphaEnvelopeB = an.alphaEnvelopeB.mul(new Ramp(now,now+time_leftB,1.0,0.1,0.01));
+      an.alphaEnvelopeA.end_time = now + time_leftA;
+      an.alphaEnvelopeB.end_time = now + time_leftB;
+    }
+  }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void drawAnimations() {
@@ -419,13 +437,12 @@ public class Rig {
       anim.drawAnim();           // draw the animation
     }
     /// alter all but the most recent animations
-    if (testToggle) {
-      for (int i = 0; i < this.animations.size()-1; i++) {   // loop  through the list excluding the last one added
-        int animIndex = i;
-        Anim an = this.animations.get(animIndex);  
-        int now = millis();
-        an.overalltime*=0.9;
-        }
+    //TODO set this to a toggle so touchosc can turn it on and off.
+    if (keyT['t']) {
+      //decayRate: higher is slower
+      //curve: 0.5 is linear, 0.0 is u shaped 1.0 is n shaped 
+      //think of it like control points on a bezier
+      animFader(0.95,0.1);
     }
   }
 

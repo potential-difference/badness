@@ -82,7 +82,7 @@ import javax.sound.sampled.*;
 Minim minim;
 AudioInput in;
 BeatDetect beatDetect;
-float avgtime, avgvolume, weightedsum, weightedcnt, beatTempo;
+float avgvolume, weightedsum, weightedcnt, beatTempo;
 void audioSetup(int sensitivity, float beatTempo) {
   // beatTempo affects how quickly code adapts to tempo changes 0.2 averages
   // the last 10 onsets  0.02 would average the last 100
@@ -93,7 +93,6 @@ void audioSetup(int sensitivity, float beatTempo) {
   beatDetect.setSensitivity(sensitivity);
   weightedsum=0;
   weightedcnt=0;
-  avgtime=0;
   avgvolume = 0;
 }
 //////////////////////////////////////////////////////////////////////////////////////////

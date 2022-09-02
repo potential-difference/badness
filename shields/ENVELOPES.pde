@@ -80,30 +80,18 @@ Envelope ComplexPulse(float attack_proportion, float sustain_proportion, float d
 }
 
 /////////////////////////////////////////////// OSKP///////////////////////////////////////////
-Envelope oskPulseX(){
-  //osk1 added 0.01 every 33 ms
-  //so millis() / 33ms gives number of frames
-  //that multiplied by 0.1 is osk1
-  return new LambdaEnv((int time)->{
-    float osk1 = (float)time / 33.0 * 0.01;
-    float timer1 = 2*log(map(sin(osk1),-1,1,0.1,10000));
-    float oskP = map(sin(timer1),-1,1,0,1);
-    return oskP;
-  });
-}
-
 enum AlphaEnvelopeKind{
   Beatz,Pulz,PadBeatz,PadPulz,PadBeatzSquiggle,PadPulzSquiggle,Stutter
 }
-Envelope BeatzOskp(float overalltime, float decay_curv, float threashold){
+Envelope BeatzOskp(float overalltime, float decay_curv, float threshold){
   Envelope beatz = Beatz(overalltime, decay_curv);
   return new LambdaEnv((int time)->{
     float val = beatz.value(time);
-    if (val < 0.1){
-      val *= oskP;
+    if (val < threshold){
+      val *= oskP;//map(sin(millis()*0.05),-1,1,0.1,1.2);
     }
     return val;
-  });
+  },beatz.end_time);
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -118,18 +106,20 @@ Envelope alphaEnvelopeFactory(int envelope_index, Rig rig, float overalltime) {
     //curve: 0.5 = STRAIGHT, 0 = SWOOP-UP, 1 = ARC-UP
       return Beatz(overalltime*(alphaRate+0.5), 0.0);
   case 1:
-      return ComplexPulse(0.0, 0.0, 1.0, overalltime*(alphaRate+0.5), 0.0, 1.0);
+      return BeatzOskp(overalltime*(alphaRate+0.5),0.0,0.5);//BeatzOskp(float overalltime, float decay_curv, float threshold)
   case 2:
-      return ComplexPulse(0.9, 0.0, 0.01, overalltime*(alphaRate*0.8+0.5), 0.0, 1.0);
+      return ComplexPulse(0.0, 0.0, 1.0, overalltime*(alphaRate+0.5), 0.0, 1.0);
   case 3:
-      return ComplexPulse(0.9, 0.0, 0.01, overalltime*(alphaRate*0.8+0.5), 0.0, 0.0);
+      return ComplexPulse(0.9, 0.0, 0.01, overalltime*(alphaRate*0.8+0.5), 0.0, 1.0);
   case 4:
+      return ComplexPulse(0.9, 0.0, 0.01, overalltime*(alphaRate*0.8+0.5), 0.0, 0.0);
+  case 5:
       return ComplexPulse(0.5, 0.5, 0.5, overalltime*(alphaRate+0.5), 1.0, 1.0);
    // return Squiggle(cc[41], cc[42], cc[43], overalltime*(alphaRate+0.5), 0.01+cc[44], cc[45]);
-  case 5:
+  case 6:
     return ComplexPulse(0.031, 0.040, 0.913, overalltime*(alphaRate+0.5), 0.0, 0.0).mul(stutter);
 //    return Squiggle(cc[49], cc[50], cc[51], overalltime*(alphaRate+0.5), 0.01+cc[52], cc[53]);
-  case 6:
+  case 7:
     // STUTTER
     return ComplexPulse(0.031, 0.040, 0.913, overalltime*(alphaRate+0.5), 0.0, 0.0).mul(stutter);
   default: 

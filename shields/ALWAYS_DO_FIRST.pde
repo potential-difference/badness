@@ -13,7 +13,7 @@ void alwaysDoFirst() {
   shields.functionIndexA = 0;
   shields.functionIndexB = 1;
   shields.alphaIndexA = 0;
-  shields.alphaIndexB = 1;
+  shields.alphaIndexB = 0;
   shields.bgIndex = 0;
 
   shields.colorIndexA = 2;
