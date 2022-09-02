@@ -1,0 +1,64 @@
+DMX mapping
+Note:
+to copy a line while incrementing,
+record a vim macro 
+    q a 
+'a' could be any letter. 
+copy the line, paste it below
+    Vyp
+V selects whole line. y yanks p pastes
+navigate to the number you want to change using 
+   l,h
+increment the number
+    <Ctrl>-a
+repeat for additional numbers
+stop recording
+    q
+all together that's
+    qaVyp4l<Ctrl>-a5w<Ctrl-a>q
+then replay the macro 9 times say
+    9@a
+(or 9@b etc whatever letter the macro was saved to)
+				[0, 7000, "l", 100], smokepump 1
+				[0, 7000, "l", 100], smokepump 1
+				[0, 7001, "l", 101], smokefan 1
+                [0, 7010, "l", 110], smokepump 2
+                [0, 7011, "l", 111], smokefan 2
+                
+                [0, 8000, "l", 200],//uv1 dimmer
+                [0, 8001, "l", 201],program speed (slow to fast)
+                [0, 8002, "l", 202],
+                0-30 dimming
+                31-61 strobe
+                62-92 increasing intensity
+                93-123 decreasign intensity
+                124-154 increase-decrease
+                155-185 three flash
+                186-216 one and two flash
+                217-247 flash
+                248-255 sound active
+
+                [0, 8003, "l", 203],//uv2
+                [0, 8004, "l", 204],
+                [0, 8005, "l", 205],
+
+                [0, 8006, "l", 206],
+                [0, 8007, "l", 207],
+                [0, 8008, "l", 208],
+
+                [0, 8009, "l", 209],
+                [0, 8010, "l", 210],
+                [0, 8011, "l", 211],
+
+                [0, 8012, "l", 212],
+                [0, 8013, "l", 213],
+                [0, 8014, "l", 214],
+                
+                [0, 8015, "l", 215],
+                [0, 8016, "l", 216],
+                [0, 8017, "l", 217],
+
+                [0, 1, "l", 250],//blinders
+                [0, 2, "l", 251],
+
+ 
