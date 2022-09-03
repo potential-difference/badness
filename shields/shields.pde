@@ -1,4 +1,5 @@
-WLED wledBigShield, wledShieldA, wledShieldB, wledShieldC, wledShieldD, wledShieldE, wledShieldF, wledBalls, wledSeedsA, wledSeedsB;
+WLED wledBigShield, wledShieldA, wledShieldB, wledShieldC, wledShieldD, wledShieldE, wledShieldF, wledBalls;
+WLED wledBooth;
 OPC opcLocal;
 
 import java.util.*;
@@ -39,6 +40,21 @@ boolean testToggle, smokeToggle;
 float boothDimmer, digDimmer, vizTime, colorChangeTime, colorSwapSlider, beatSlider = 0.3;
 float smokePumpValue, smokeOnTime, smokeOffTime;
 
+//prove to myself that lambdas work
+interface Thing{
+  int doit(int hi);
+}
+
+class Foo{
+  Thing thing;
+  Foo(Thing t){
+    thing = t;
+  }
+  void test(int lo){
+    println("testing: ",lo," became",thing.doit(lo));
+  }
+}
+
 void settings() {
   System.setProperty("jogl.disable.openglcore", "true");
   size = new SizeSettings();
@@ -51,10 +67,14 @@ void settings() {
 
 void setup()
 {
+  Foo foo = new Foo((int x)->{return x*x;});
+  foo.test(3);
   surface.setSize(size.sizeX, size.sizeY);
   surface.setAlwaysOnTop(onTop);
 
   rigg = new Rig(size.rig.x, size.rig.y, size.rigWidth, size.rigHeight, "RIG");
+  roof = new Rig(size.roof.x, size.roof.y, size.roofWidth, size.roofHeight, "ROOF");
+
   opcGrid = new OPCGrid();
 
   ///////////////// LOCAL opc /////////////////////
@@ -67,13 +87,13 @@ void setup()
   wledShieldF = new WLED(this, "192.168.8.16", 21324);
   wledBalls   = new WLED(this, "192.168.8.17", 21324);
 
-  wledSeedsA   = new WLED(this, "192.168.10.20", 21324);
-  wledSeedsB   = new WLED(this, "192.168.10.21", 21324);
-
   shieldsGrid = new ShieldsOPCGrid(rigg);  
+  wledBooth = new WLED(this, "192.168.8.20", 21324);
+
 
   OPC[] shieldOPCs = {wledBigShield, wledShieldA, wledShieldB, wledShieldC, wledShieldD, wledShieldE, wledShieldF, wledBalls};
   shieldsGrid.spiralShieldsOPC(shieldOPCs);        // SHIELDS plug into RIGHT SLOTS A-F = 1-6 *** BIG SHIELD = 7 *** H-G = LEFT SLOTS 0-2 ***
+  opcGrid.standAloneBoothOPC(wledBooth);
 
   opcLocal   = new OPC(this, "127.0.0.1", 7890);        // Connect to the local instance of fcserver - MIRRORS
   opcGrid.dmxSmokeOPC(opcLocal) ;
@@ -121,7 +141,7 @@ void draw()
   //////////////////////////////////////////// PLAY WITH ME MORE /////////////////////////////////////////////////////////////////////////////////
   playWithMeMore();
   //////////////////////////////////////////// BOOTH & DIG ///////////////////////////////////////////////////////////////////////////////////////
-  //boothLights();
+  boothLights();
   //////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
   workLights(keyT['w']);
   testColors(keyT['t']);

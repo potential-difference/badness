@@ -37,7 +37,6 @@ void onScreenInfo() {
     text("func's: " + rigg.availableFunctionEnvelopes[rigg.functionIndexA] + " / " + rigg.availableFunctionEnvelopes[rigg.functionIndexB], x+110, y);
     text("alph's: " + rigg.availableAlphaEnvelopes[rigg.alphaIndexA] + " / " + rigg.availableAlphaEnvelopes[rigg.alphaIndexB], x+110, y+20);
     /////////// info about PLAYWITHYOURSELF functions /////////////////////////////////////////////////////////////////////////////////////////////
-  
     fill(300);
     String sec = nf(int(vizTime*60 - (millis()/1000 - vizTimer)) % 60, 2, 0);
     int min = int(vizTime*60 - (millis()/1000 - vizTimer)) /60 % 60;
@@ -53,7 +52,7 @@ void onScreenInfo() {
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 //Envelopes visulization
-    y+=200;             // STARTING HEIGHT for sections
+    y+=120;             // STARTING HEIGHT for sections
     float y1=160;            // LENGTH of sections
     float dist = 15;
     int i=0;

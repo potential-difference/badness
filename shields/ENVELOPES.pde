@@ -78,18 +78,20 @@ Envelope ComplexPulse(float attack_proportion, float sustain_proportion, float d
   float decay_time = decay_proportion/total_prop*total_time.floatValue();
   return SimplePulse(attack_time, sustain_time, decay_time, attack_curv, decay_curv);
 }
-
+/*
 Envelope BeatzOskp(float overalltime, float decay_curv, float threashold){
   Envelope beatz = Beatz(overalltime, decay_curv);
   Envelope mask = LessThan(beatz,0.1); 
   Evnelope oskP = OSKp();
   return beatz*(mask*oskP);
 }
+*/
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 Envelope alphaEnvelopeFactory(int envelope_index, Rig rig, float overalltime) {
   float alphaRate = rig.alphaRate*10; //TODO why do we *10 here?
   //float overalltime = avgmillis;
+  float decay = rig.decaySlider;
 
   switch (envelope_index) {
   case 0: 

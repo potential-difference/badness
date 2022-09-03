@@ -1,5 +1,16 @@
+/*
+public class ShieldsRig extends Rig{
+    ShieldsRig(float _xpos, float _ypos, int _wide, int _high, String _name) {
+      super(_rig);
+      PVector bigShield;
+      PVector[] mediumShield = new PVector[3];
+      PVector[] smallShield = new PVector[3];
+      PVector[] balls = new PVector[3];
+    }
+      
 
-
+}
+*/
 public class Rig {
   float dimmer, alphaRate, functionRate, blurriness, bgNoise, manualAlpha, functionChangeRate, alphaChangeRate, backgroundChangeRate;
   int wide, high, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, bgIndex, vizIndex, alphaTimer, functionTimer;
@@ -19,7 +30,7 @@ public class Rig {
   int[] availableColors;
   String[] animNames, backgroundNames, alphaNames, functionNames;
   int arrayListIndex;
-  float wideSlider, strokeSlider, highSlider;
+  float wideSlider, strokeSlider, highSlider, decaySlider;
   Rig(float _xpos, float _ypos, int _wide, int _high, String _name) {
     name = _name;
     wide = _wide;

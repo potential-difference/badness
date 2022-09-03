@@ -2,15 +2,16 @@ float[] lastTime = new float[cc.length];
 
 void playWithMe() {
 
+if (rigg != null){
   ////////////////////////////////////// COLOR SWAP AND FLIP BUTTONS /////////////////////////////////////////
   if (keyP['o']) rigg.colorSwap(0.9999999999);               // COLOR SWAP MOMENTARY 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
   if (keyT['i']) rigg.colorFlip(keyT['i']);                  // COLOR FLIP TOGGLE 
   if (keyP['u']) rigg.colorFlip(keyP['u']);                  // COLOR FLIP MOMENTARY
-
+}
   ////////////////////////////// LERP COLOUR ON BEAT /////////////////////////////////////////////////////////
   //if (keyT['y']) {
-  //  colorLerping(rigg, (1-beat)*2);
+  //  colorLerping(shields, (1-beat)*2);
   //  colorLerping(roof, (1-beat)*1.5);
   //}
 
@@ -23,11 +24,11 @@ void playWithMe() {
   /*
   try {
    if (millis()-lastTime[44]>debouncetime) {
-   if (padVelocity[44]>0) rigg.animations.add(new Checkers (rigg));
+   if (padVelocity[44]>0) rigg.animations.add(new Checkers (shields));
    if (rigg.animations.size() > 0 ) { 
    Anim theanim = rigg.animations.get(rigg.animations.size()-1);
-   //Envelope manualA = ComplexPulse(0.0, 0, 1, rigg.manualAlpha*500, 0.0, 0.0);
-   Envelope manualA = ComplexPulse(0.05, 0.0, 1.0, avgmillis*(rigg.manualAlpha+0.5), 0.0, 0.0);
+   //Envelope manualA = CrushPulse(0.0, 0, 1, rigg.manualAlpha*500, 0.0, 0.0);
+   Envelope manualA = CrushPulse(0.05, 0.0, 1.0, avgmillis*(rigg.manualAlpha+0.5), 0.0, 0.0);
    theanim.alphaEnvelopeA = manualA;
    theanim.alphaEnvelopeB = manualA;
    lastTime[44]=millis();
@@ -61,7 +62,7 @@ void playWithMe() {
   }
 
   //if (millis()-lastTime[45]>debouncetime) {
-  //  if (padVelocity[45]>0) rigg.animations.add(new SpiralFlower(rigg));
+  //  if (padVelocity[45]>0) rigg.animations.add(new SpiralFlower(shields));
   //  lastTime[45]=millis();
   //}
   ccc= 102;
@@ -75,7 +76,7 @@ void playWithMe() {
 
   if (millis()-lastTime[46]>debouncetime) {
     if (padVelocity[46]>0) {
-      rigg.animations.add( new AllOn(rigg)); //rigg.anim.alphaEnvelopeA = new ComplexPulse(0.031, 0.040, 0.913, avgmillis*rigg.alphaRate*3+0.5, 0.0, 0.0);
+      rigg.animations.add( new AllOn(rigg)); //rigg.anim.alphaEnvelopeA = new CrushPulse(0.031, 0.040, 0.913, avgmillis*rigg.alphaRate*3+0.5, 0.0, 0.0);
       //anim = rigg.animations.get(rigg.animations.size()-1);
       lastTime[46]=millis();
     }
@@ -207,40 +208,8 @@ void cansControl(color col, float alpha) {
   rect(opcGrid.cans[0].x, opcGrid.cans[0].y, opcGrid.cansLength, 3);
   rect(opcGrid.cans[1].x, opcGrid.cans[1].y, opcGrid.cansLength, 3);
 }
-void rigControl(color col, float alpha) {
-  noFill();
-  strokeWeight(5);
-  stroke( col, 360*alpha);
-  for (int i  = 0; i < opcGrid.mirror.length; i++) rect(opcGrid.mirror[i].x, opcGrid.mirror[i].y, opcGrid._mirrorWidth, opcGrid._mirrorWidth);
-  noStroke();
-}
-void seedsControlA(color col, float alpha) {
-  noFill();
-  strokeWeight(5);
-  stroke(col, 360*alpha);  
-  rect(opcGrid.seeds[0].x, opcGrid.seeds[0].y, opcGrid.seedsLength, 3);
-  noStroke();
-}
-void seedsControlB(color col, float alpha) {
-  noFill();
-  strokeWeight(5);
-  stroke(col, 360*alpha);  
-  rect(opcGrid.seeds[1].x, opcGrid.seeds[1].y, opcGrid.seedsLength, 3);
-  noStroke();
-}
-void seedsControlC(color col, float alpha) {
-  noFill();
-  strokeWeight(5);
-  stroke(col, 360*alpha);  
-  rect(opcGrid.seeds[2].x, opcGrid.seeds[2].y, 3, opcGrid.seeds2Length);
-  noStroke();
-}
-void controllerControl(color col, float alpha) {
-  fill(col, 360*alpha);
-  rect(opcGrid.controller[0].x, opcGrid.controller[0].y, opcGrid.controllerWidth, opcGrid.controllerWidth);
-  rect(opcGrid.controller[1].x, opcGrid.controller[1].y, opcGrid.controllerWidth, opcGrid.controllerWidth);
-  rect(opcGrid.controller[2].x, opcGrid.controller[2].y, opcGrid.controllerWidth, opcGrid.controllerWidth);
-  rect(opcGrid.controller[3].x, opcGrid.controller[3].y, opcGrid.controllerWidth, opcGrid.controllerWidth);
-}
+
+
+
 
 

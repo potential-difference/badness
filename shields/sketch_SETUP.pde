@@ -5,21 +5,18 @@ class SizeSettings {
   int surfacePositionX, surfacePositionY, sizeX, sizeY, orientation;
 
   SizeSettings() {
-      rigWidth = 600;                                    // WIDTH of rigViz
-      if (SHITTYLAPTOP) rigWidth = 350;
-      rigHeight = 600;    
-      if (SHITTYLAPTOP) rigHeight = 350;
+      rigWidth = 400;                                    // WIDTH of rigViz
+      rigHeight = 400;    
       rig = new PVector(rigWidth/2, rigHeight/2);   // cordinates for center of rig
      
     ////////////////////////////////  ROOF SETUP RIGHT OF RIG ///////////////////////
-    roofWidth = 0;
+    roofWidth = 400;
     roofHeight = rigHeight;
     roof = new PVector (rigWidth+(roofWidth/2), roofHeight/2);
 
     ////////////////////////////////  CANS SETUP RIGHT OF ROOF ///////////////////////
     cansWidth = 0;
     cansHeight = rigHeight;
-    //if (SHITTYLAPTOP) cansHeight = 250;
     cans = new PVector (rigWidth+roofWidth+(cansWidth/2), cansHeight/2);
 
     //////////////////////////////// PARS SETUP FAR RIGHT ////////////////////////////
