@@ -1,5 +1,5 @@
 enum RigType{
-    Shields,Lanterns,Diamonds,MegaSeeds,Roof,Mirrors,Cans,Strips,Seeds,Pars,Booth,Dig
+    Shields,Lanterns,Diamonds,MegaSeeds,RoofLeft,RoofRight,Bar,Mirrors,Cans,Strips,Seeds,Pars,Booth,Dig
 }
 //static RigType Shields = RigType.Shields;
 public class Rig {
@@ -8,12 +8,12 @@ public class Rig {
   float dimmer, alphaRate, functionRate, blurriness, bgNoise, manualAlpha, functionChangeRate, alphaChangeRate, backgroundChangeRate;
   int wide, high, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, bgIndex, vizIndex, alphaTimer, functionTimer;
   PGraphics colorLayer, buffer, pass1, pass2;
-  PVector size;
+  IntCoord size;
   color c, flash, c1, flash1, clash, clash1, clashed, colorIndexA, colorIndexB = 1, colA, colB, colC, colD, scol1, scol2, scol3;
   color col[] = new color[15];
   PVector position[] = new PVector[12];
   PVector positionX[][] = new PVector[7][3];
-  boolean firsttime_sketchcolor=true, toggle, noiseToggle, playWithYourSelf = true;
+  boolean firsttime_sketchcolor=true, noiseToggle, playWithYourSelf = true;
   ArrayList <Anim> animations;
   int[] availableAnims;
   int[] availableBkgrnds;
@@ -28,7 +28,7 @@ public class Rig {
     type = _name;
     wide = coord.wide;
     high = coord.high;
-    size = new PVector (coord.x,coord.y);
+    size = coord;//new PVector (coord.x,coord.y);
 
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
 

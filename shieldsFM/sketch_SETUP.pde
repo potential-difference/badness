@@ -1,5 +1,5 @@
 void rect(Coord c){rect(c.x,c.y,c.wide,c.high);}
-void rect(Intcoord c){rect(c.x,c.y,c.wide,c.high);}
+void rect(IntCoord c){rect(c.x,c.y,c.wide,c.high);}
 class Coord{
   float x,y,wide,high;
   Coord(float _x,float _y,float _wide,float _high){
@@ -16,38 +16,38 @@ class IntCoord{
 class SizeSettings {
   //int rigWidth, rigHeight, roofWidth, roofHeight, vizWidth, vizHeight, cansWidth;
   //int cansHeight, parsWidth, parsHeight, infoWidth, infoHeight;
-  IntCoord shields,diamonds,lanterns,megaSeeds,cans,info,booth;
+  IntCoord shields,roofleft,roofright,megaSeeds,info,booth,bar;
   //PVector rig, roof, cans, donut, pars, info;
   int sizeX, sizeY;
 
   SizeSettings() {
     int rigWidth = 600;                                    // WIDTH of rigViz
-    if (SHITTYLAPTOP) rigWidth = 350;
+    if (SHITTYLAPTOP) rigWidth = 547;
     int rigHeight = 600;    
-    if (SHITTYLAPTOP) rigHeight = 350;
+    if (SHITTYLAPTOP) rigHeight = 547;
     shields = new IntCoord(rigWidth/2,rigHeight/2,rigWidth,rigHeight);
 
     ////////////////////////////////  ROOF SETUP RIGHT OF RIG ///////////////////////
-    diamonds = new IntCoord(shields.wide+rigWidth/2,shields.y,rigWidth,rigHeight);
+    roofleft = new IntCoord(shields.wide+rigWidth/2,shields.y,rigWidth,rigHeight);
     
-    lanterns = new IntCoord(shields.wide+diamonds.wide+rigWidth/2,rigWidth,rigHeight);
+    roofright = new IntCoord(shields.wide+roofleft.wide+rigWidth/2,shields.y,rigWidth,rigHeight);
 
     rigHeight = 200;
     megaSeeds = new IntCoord(shields.x,shields.high+rigHeight/2,rigWidth,rigHeight);
 
     rigWidth = 2*rigWidth;
-    int cansx = (lanterns.x + diamonds.x)/2;
-    cans = new IntCoord(cansx,lanterns.y+rigHeight/2,rigWidth,rigHeight);
+    int cansx = (roofright.x + roofleft.x)/2;
+    booth = new IntCoord(cansx,roofright.high+rigHeight/2,rigWidth,rigHeight);
     
     rigWidth = shields.wide/2;
     rigHeight = shields.high;    
-    info = new IntCoord(shields.wide+lanterns.wide+diamonds.wide+rigWidth/2,shields.y,rigWidth,rigHeight);
+    info = new IntCoord(shields.wide+roofright.wide+roofleft.wide+rigWidth/2,shields.y,rigWidth,rigHeight);
 
-    rigHeight = cans.high;
-    booth = new IntCoord(cans.x+cans.wide/2+rigWidth/2,cans.y,rigWidth,rigHeight);
+    rigHeight = booth.high;
+    bar = new IntCoord(booth.x+booth.wide/2+rigWidth/2,booth.y,rigWidth,rigHeight);
 
 
-    sizeX = shields.wide+lanterns.wide+diamonds.wide+info.wide;
+    sizeX = shields.wide+roofright.wide+roofleft.wide+info.wide;
     sizeY = shields.high+megaSeeds.high;
   }
 }

@@ -27,8 +27,8 @@ void onScreenInfo() {
   dividerLines();
 
   //////////////////////////////// SHOW INFO ABOUT CURRENT RIG ARRAY SELECTION //////////////////////////////////////////////////////////////// 
-    float x = size.info.x-size.infoWidth/2+10;
-    float y = size.info.y-size.infoHeight/2+20;
+    float x = size.info.x-size.info.wide/2+10;
+    float y = size.info.y-size.info.high/2+20;
     textAlign(LEFT);
     textSize(18);
     ///////////// rig info/ ///////////////////////////////////////////////////////////////////
@@ -66,7 +66,7 @@ void onScreenInfo() {
         } else {
           fill(shields.flash1, 300);
         }
-        float xAxis = (size.infoWidth/4);
+        float xAxis = (size.info.wide/4);
         rect(x+20+(anim.alphaA*xAxis-32), y+(dist*i), 10, 10);                      // ALPHA A viz
         rect(x+xAxis+12+(anim.alphaB*xAxis-32), y+(dist*i), 10, 10);         // ALPHA B viz
         rect(x+20+(anim.functionA*xAxis-32), y+(dist*i)+y1, 10, 10);                // FUNCTION A viz
@@ -118,19 +118,29 @@ void cordinatesInfo(Rig rig, boolean _info) {
   }
 }
 void dividerLines() {
-  fill(shields.flash, 200);
-  rect(size.rigWidth, height/2, 1, height);                                         //// vertical line to show end of rig viz area
-  rect(size.rigWidth+size.roofWidth, height/2, 1, height);                          //// vertical line to show end of roof viz area
-  rect(size.rigWidth+size.roofWidth+size.cansWidth, height/2, 1, height);           //// vertical line to show end of cans viz area
-  rect(size.roof.x, size.roofHeight, size.roofWidth, 1);                            //// horizontal line to divide landscape rig / roof areas
-  rect(size.rig.x, size.rigHeight, size.rigWidth, 1);                               //// horizontal line to divide landscape rig / roof areas
+  //fill(shields.flash, 200);
+  noFill();
+  stroke(shields.flash,200);
+  strokeWeight(1);
+  rect(size.shields);
+  rect(size.roofleft);
+  rect(size.roofright);
+  rect(size.info);
+  rect(size.megaSeeds);
+  rect(size.bar);
+  rect(size.booth);
+  //rect(size.shields.width, height/2, 1, height);                                         //// vertical line to show end of rig viz area
+  //rect(size.rigWidth+size.roofWidth, height/2, 1, height);                          //// vertical line to show end of roof viz area
+  //rect(size.rigWidth+size.roofWidth+size.cansWidth, height/2, 1, height);           //// vertical line to show end of cans viz area
+  //rect(size.roof.x, size.roofHeight, size.roofWidth, 1);                            //// horizontal line to divide landscape rig / roof areas
+  //rect(size.rig.x, size.rigHeight, size.rigWidth, 1);                               //// horizontal line to divide landscape rig / roof areas
 
   // box around the outside
-  fill(shields.flash, 200);   
-  rect(width/2, height-1, width, 1);  
-  rect(width/2, 0, width, 1);                              
-  rect(0, height/2, 1, height);
-  rect(width-1, height/2, 1, height);
+  //fill(shields.flash, 200);   
+  //rect(width/2, height-1, width, 1);  
+  //rect(width/2, 0, width, 1);                              
+  //rect(0, height/2, 1, height);
+  //rect(width-1, height/2, 1, height);
 }
 
 void frameRateInfo(float x, float y) {

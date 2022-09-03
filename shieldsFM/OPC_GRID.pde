@@ -23,15 +23,15 @@ class BoothGrid extends OPCGrid{
     opclist = opcs;
     booth = new Coord(50,20,40,15);
     dig = new Coord(booth.x+110,booth.y,booth.wide,booth.high);
-    OPC boothopc = opcs.get("Booth");
+    OPC boothopc = opcs.get("FrontLeft");
     boothopc.led(0,int(booth.x-5),int(booth.y));
     boothopc.led(1,int(booth.x+5),int(booth.y));
     boothopc.led(2,int(dig.x-5),int(dig.y));
     boothopc.led(3,int(dig.x+5),int(dig.y));
 
     OPC entec = opcs.get("Entec");
-    int x = (int)size.info.x+100;
-    int y = (int)size.info.y-250;
+    int x = (int)size.booth.x;//+100;
+    int y = (int)size.booth.y;//-250;
     int xgap = 10;
     int ygap = 10;
     for (int i=0;i<6;i++){
@@ -55,8 +55,8 @@ class BoothGrid extends OPCGrid{
     uvProgram = new Coord(pgmx,pgmy,uvwide,uvhigh);
 
     //BLINDERS
-    x = (int)size.info.x + 100;
-    y = (int)size.info.y - 100;
+    x = (int)size.booth.x + 100;
+    y = (int)size.booth.y;
     for (int i=0;i<4;i++){
       //blinderv[i][j] = new PVector(xx,yy);
       int xx = x + i*xgap;
@@ -84,23 +84,63 @@ class MegaSeedsGrid extends OPCGrid{
     int rx=size.megaSeeds.x+50;
     front = new PVector(fx, size.megaSeeds.y);
     centre = new PVector(rx, size.megaSeeds.y);
-    opcs.get("Front").led(0,fx,size.megaSeeds.y);
-    opcs.get("Centre").led(0,rx,size.megaSeeds.y);
+    opcs.get("FrontSeed").led(0,fx,size.megaSeeds.y);
+    opcs.get("CentreSeed").led(0,rx,size.megaSeeds.y);
 
   }
 }
-class DiamondsGrid extends OPCGrid {
-
-}
-class LanternsGrid extends OPCGrid {
-  //FieldManeuvers2022
+class RoofLeftGrid extends OPCGrid {
   Rig rig;
-  PVector[][] thirties = new PVector[3][10];
-  LanternsGrid(Rig _rig){
+  RoofLeftGrid(Rig _rig,Map<String,OPC> opcs){
     rig = _rig;
-    
+    OPC dopc = opcs.get("StageRight");
+    IntCoord sz = size.roofleft;
+    dopc.ledStrip(0,53,(sz.x+sz.wide/4),sz.y,(sz.high)/54,PI/2,true);
+    dopc.ledStrip(54,77,(sz.x-sz.wide/4),sz.y,(sz.high)/78,PI/2,true);
   }
 }
+
+class LanternInfo{
+  String opcname;
+  int start_pixel;
+  int pixelcounts[];
+  String unitname;
+  LanternInfo(String name,String opcn,int stpix,int[] pixcounts){
+    unitname = name;
+    opcname = opcn;
+    start_pixel = stpix;
+    pixelcounts = pixcounts;
+  }
+}
+int sum(int[] ints){
+  int result=0;
+  for (int i:ints){
+    result += i;
+  }
+  return result;
+}
+class FMRoofGrid extends OPCGrid {
+  Rig rig;
+  //Map<String,PVector> opcPositions=new Map<String,PVector>;
+  //Map<String,PVector> rigPositions=new Map<String,PVector>;
+  FMRoofGrid(Rig _rig,Map<String,OPC> opcs,Map<String,LanternInfo> units,String[] unitnames){
+    rig = _rig;
+    //vertical strips left to right
+    int nunits = unitnames.length;
+    for (int i=0;i<nunits;i++){
+      println("setting up "+unitnames[i]);
+      LanternInfo unit = units.get(unitnames[i]);
+      int xpos = rig.size.x-rig.size.wide/2 + (i+1)*rig.size.wide/(nunits+1);
+      int ypos = rig.size.y;
+      int npixels = sum(unit.pixelcounts);
+      OPC opc = opcs.get(unit.opcname);
+      float spacing = rig.size.high / (npixels+1);
+      boolean reverse = true;
+      opc.ledStrip(unit.start_pixel,npixels,xpos,ypos,spacing,PI/2,reverse);
+    }
+  }
+}
+
 class ShieldsOPCGrid extends OPCGrid {
   //  PVectors for positions of shields
   PVector[][] _shield; // = new PVector[numberOfShields][numberOfRings];    
