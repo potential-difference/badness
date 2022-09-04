@@ -15,11 +15,11 @@ public class Rig {
   PVector positionX[][] = new PVector[7][3];
   boolean firsttime_sketchcolor=true, noiseToggle, playWithYourSelf = true;
   ArrayList <Anim> animations;
-  int[] availableAnims;
-  int[] availableBkgrnds;
-  int[] availableAlphaEnvelopes;
-  int[] availableFunctionEnvelopes;
-  int[] availableColors;
+  AvailableAnims[] availableAnims;
+  AvailableBkgrnds[] availableBkgrnds;
+  AvailableAlphaEnvelopes[] availableAlphaEnvelopes;
+  AvailableFunctionEnvelopes[] availableFunctionEnvelopes;
+  AvailableColors[] availableColors;
   String[] animNames, backgroundNames, alphaNames, functionNames;
   int arrayListIndex;
   float wideSlider, strokeSlider, highSlider;

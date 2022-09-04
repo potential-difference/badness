@@ -95,7 +95,7 @@ void setup()
   );
   shields = new Rig(size.shields, RigType.Shields);
   shields.opcgrid = new ShieldsOPCGrid(shields);
-  ((ShieldsOPCGrid)(shields.opcgrid)).spiralShieldsOPC(OPCs); 
+  ((ShieldsOPCGrid)(shields.opcgrid)).triangleShieldsOPC(OPCs); 
 
   //opc: FrontLeft
   //boothL,mixer,boothR,dig, (leftfar)

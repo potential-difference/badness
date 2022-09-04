@@ -1,4 +1,18 @@
+enum AvailableAnims{
 
+};
+enum AvailableBkgrnds{
+
+};
+enum AvailableAlphaEnvelopes{
+
+};
+enum AvailableFunctionEnvelopes{
+
+};
+enum AvailableColors{
+  
+}
 abstract class ManualAnim extends Anim {
   ManualAnim(Rig _rig) {
     super(_rig);
