@@ -75,19 +75,26 @@ class BoothGrid extends OPCGrid{
   //
   
 }
-
-class MegaSeedsGrid extends OPCGrid{
+class MegaSeedCentreGrid extends OPCGrid{
   Rig rig;
-  PVector front,centre;
-  MegaSeedsGrid(Rig _rig,Map<String,OPC> opcs){
+  //PVector centre;
+  MegaSeedCentreGrid(Rig _rig,Map<String,OPC> opcs){
     opclist = opcs;
     rig = _rig;
-    int fx=size.megaSeeds.x-50;
-    int rx=size.megaSeeds.x+50;
-    front = new PVector(fx, size.megaSeeds.y);
-    centre = new PVector(rx, size.megaSeeds.y);
-    opcs.get("FrontSeed").led(0,fx,size.megaSeeds.y);
-    opcs.get("CentreSeed").led(0,rx,size.megaSeeds.y);
+    //front = new PVector(fx, size.megaSeeds.y);
+    //centre = new PVector(size.megaSeedCentre.x, size.megaSeedCentre.y);
+    //opcs.get("FrontSeed").led(0,fx,size.megaSeeds.y);
+    opcs.get("CentreSeed").led(0,size.megaSeedCentre.x,size.megaSeedCentre.y);
+  }
+}
+
+class MegaSeedFrontGrid extends OPCGrid{
+  Rig rig;
+  //PVector front;
+  MegaSeedFrontGrid(Rig _rig,Map<String,OPC> opcs){
+    opclist = opcs;
+    rig = _rig;
+    opcs.get("FrontSeed").led(0,size.megaSeedFront.x,size.megaSeedFront.y);
 
   }
 }

@@ -1,5 +1,5 @@
 enum RigType{
-    Shields,Lanterns,Diamonds,MegaSeeds,RoofMid,RoofSides,Roof,Bar,Mirrors,Cans,Strips,Seeds,Pars,Booth,Dig // rigs
+    Shields,Lanterns,Diamonds,MegaSeedFront,MegaSeedCentre,RoofMid,RoofSides,Roof,Bar,Mirrors,Cans,Strips,Seeds,Pars,Booth,Dig // rigs
 }
 //static RigType Shields = RigType.Shields;
 public class Rig {

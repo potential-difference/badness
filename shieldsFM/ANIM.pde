@@ -964,7 +964,6 @@ class Anim {
 
 
   void benjaminsBox(float xpos, float ypos, color col, float wide, float high, float func, float rotate, float alph) {
-    // string animName = 
     rotate = radians(rotate);
 
     PVector box = new PVector(window.width, window.height);

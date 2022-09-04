@@ -16,7 +16,7 @@ class IntCoord{
 class SizeSettings {
   //int rigWidth, rigHeight, roofWidth, roofHeight, vizWidth, vizHeight, cansWidth;
   //int cansHeight, parsWidth, parsHeight, infoWidth, infoHeight;
-  IntCoord shields,roofmid,roofsides,megaSeeds,info,booth,bar;
+  IntCoord shields,roofmid,roofsides,megaSeedFront,megaSeedCentre,info,booth,bar;
   //PVector rig, roof, cans, donut, pars, info;
   int sizeX, sizeY;
 
@@ -33,7 +33,8 @@ class SizeSettings {
     roofsides = new IntCoord(shields.wide+roofmid.wide+rigWidth/2,shields.y,rigWidth,rigHeight);
 
     rigHeight = 200;
-    megaSeeds = new IntCoord(shields.x,shields.high+rigHeight/2,rigWidth,rigHeight);
+    megaSeedFront = new IntCoord(shields.x-shields.wide/4,shields.high+rigHeight/2,rigWidth/2,rigHeight);
+    megaSeedCentre = new IntCoord(shields.x+shields.wide/4,shields.high+rigHeight/2,rigWidth/2,rigHeight);
 
     rigWidth = 2*rigWidth;
     int cansx = (roofsides.x + roofmid.x)/2;
@@ -48,7 +49,7 @@ class SizeSettings {
 
 
     sizeX = shields.wide+roofsides.wide+roofmid.wide+info.wide;
-    sizeY = shields.high+megaSeeds.high;
+    sizeY = shields.high+megaSeedFront.high;
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////
