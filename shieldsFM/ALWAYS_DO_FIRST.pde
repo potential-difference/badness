@@ -35,7 +35,8 @@ void alwaysDoFirst() {
   shields.colorIndexA = 2;
   shields.colorIndexB = 1;
 
-  megaSeeds.vizIndex = 5;
+  megaSeedFront.vizIndex = 5;
+  megaSeedCentre.vizIndex = 5;
   roofmid.colorIndexA = 2;
   roofmid.colorIndexB = 1;
 
