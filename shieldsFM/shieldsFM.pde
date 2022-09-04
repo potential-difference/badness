@@ -80,14 +80,14 @@ void setup()
     entry("CentreSeed",new WLED(this,"192.168.10.30",21324))
   );
   Map<String,LanternInfo> units = Map.ofEntries(
-    entry("leftmid", new LanternInfo("leftmid","FrontRight",0,new int[] {1,1,25,1,1})),
+    entry("leftmid", new LanternInfo("leftmid","FrontRight",0,new int[] {25,1,25,1,1})),
     entry("leftfar", new LanternInfo("leftfar","FrontLeft",400,new int[] {1,25,1,1,25})),
     entry("rightmid",new LanternInfo("rightmid","FrontRight",100,new int[]{25,1,1,25,1,1})),
     entry("rightfar",new LanternInfo("rightfar","FrontRight",200,new int[]{1,1,25,1})),
-    entry("truss", new LanternInfo("truss","Truss",300,new int[]{1})),
-    entry("centre", new LanternInfo("centre","Truss",400,new int[]{1,25})),
-    entry("barleft", new LanternInfo("barleft","Truss",0,new int[]{1})),
-    entry("barmid", new LanternInfo("barmid","Truss",100,new int[]{1})),
+    entry("truss", new LanternInfo("truss","Truss",400,new int[]{1})),
+    entry("centre", new LanternInfo("centre","Truss",0,new int[]{1,25})),
+    entry("barleft", new LanternInfo("barleft","Truss",300,new int[]{1})),
+    entry("barmid", new LanternInfo("barmid","Truss",200,new int[]{1})),
     entry("barright", new LanternInfo("barright","Truss",200,new int[]{1}))
   );
   shields = new Rig(size.shields, RigType.Shields);

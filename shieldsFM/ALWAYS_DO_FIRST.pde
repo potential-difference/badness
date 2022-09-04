@@ -2,11 +2,26 @@ void alwaysDoFirst() {
   //This is confusing.  can these be words please
   //like, shields.availableAnims = {Donuts,GoodAnim3,BoxesRed} or sth. an enum? can it be an enum?
   //shields.availableAnims = new Anim
-  shields.availableAnims = new int[] {1, 2, 3, 6, 7, 8};      // setup which anims are used on which rig here
+  shields.availableAnims = new int[] {1, 2, 6, 7, 8};      // setup which anims are used on which rig here
   shields.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
   shields.availableFunctionEnvelopes = new int[] {0, 1, 2};  
   shields.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6};
   
+  for (Rig rig : rigs){
+    switch (rig.type){
+    case Shields:
+      rig.availableAnims = new int[] {1, 2, 6, 7, 8};      // setup which anims are used on which rig here
+      rig.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
+      rig.availableFunctionEnvelopes = new int[] {0, 1, 2};  
+      rig.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6};   
+      break;
+    default:
+      rig.availableAnims = new int[] {1, 2, 6, 7, 8, 4};      // setup which anims are used on which rig here
+      rig.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
+      rig.availableFunctionEnvelopes = new int[] {0, 1, 2};  
+      rig.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6}; 
+    }
+  }
   //shields.availableColors = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
   //roof.availableColors = shields.availableColors; // = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
 
@@ -20,6 +35,7 @@ void alwaysDoFirst() {
   shields.colorIndexA = 2;
   shields.colorIndexB = 1;
 
+  megaSeeds.vizIndex = 5;
   roofmid.colorIndexA = 2;
   roofmid.colorIndexB = 1;
 
