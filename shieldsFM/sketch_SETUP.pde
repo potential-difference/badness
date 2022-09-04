@@ -16,7 +16,7 @@ class IntCoord{
 class SizeSettings {
   //int rigWidth, rigHeight, roofWidth, roofHeight, vizWidth, vizHeight, cansWidth;
   //int cansHeight, parsWidth, parsHeight, infoWidth, infoHeight;
-  IntCoord shields,roofleft,roofright,megaSeeds,info,booth,bar;
+  IntCoord shields,roofmid,roofsides,megaSeeds,info,booth,bar;
   //PVector rig, roof, cans, donut, pars, info;
   int sizeX, sizeY;
 
@@ -26,28 +26,28 @@ class SizeSettings {
     int rigHeight = 600;    
     if (SHITTYLAPTOP) rigHeight = 547;
     shields = new IntCoord(rigWidth/2,rigHeight/2,rigWidth,rigHeight);
-
+    rigWidth = 300;
     ////////////////////////////////  ROOF SETUP RIGHT OF RIG ///////////////////////
-    roofleft = new IntCoord(shields.wide+rigWidth/2,shields.y,rigWidth,rigHeight);
+    roofmid = new IntCoord(shields.wide+rigWidth/2,shields.y,rigWidth,rigHeight);
     
-    roofright = new IntCoord(shields.wide+roofleft.wide+rigWidth/2,shields.y,rigWidth,rigHeight);
+    roofsides = new IntCoord(shields.wide+roofmid.wide+rigWidth/2,shields.y,rigWidth,rigHeight);
 
     rigHeight = 200;
     megaSeeds = new IntCoord(shields.x,shields.high+rigHeight/2,rigWidth,rigHeight);
 
     rigWidth = 2*rigWidth;
-    int cansx = (roofright.x + roofleft.x)/2;
-    booth = new IntCoord(cansx,roofright.high+rigHeight/2,rigWidth,rigHeight);
+    int cansx = (roofsides.x + roofmid.x)/2;
+    booth = new IntCoord(cansx,roofsides.high+rigHeight/2,rigWidth,rigHeight);
     
     rigWidth = shields.wide/2;
     rigHeight = shields.high;    
-    info = new IntCoord(shields.wide+roofright.wide+roofleft.wide+rigWidth/2,shields.y,rigWidth,rigHeight);
+    info = new IntCoord(shields.wide+roofsides.wide+roofmid.wide+rigWidth/2,shields.y,rigWidth,rigHeight);
 
     rigHeight = booth.high;
     bar = new IntCoord(booth.x+booth.wide/2+rigWidth/2,booth.y,rigWidth,rigHeight);
 
 
-    sizeX = shields.wide+roofright.wide+roofleft.wide+info.wide;
+    sizeX = shields.wide+roofsides.wide+roofmid.wide+info.wide;
     sizeY = shields.high+megaSeeds.high;
   }
 }

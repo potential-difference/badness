@@ -1,5 +1,5 @@
 enum RigType{
-    Shields,Lanterns,Diamonds,MegaSeeds,RoofLeft,RoofRight,Bar,Mirrors,Cans,Strips,Seeds,Pars,Booth,Dig
+    Shields,Lanterns,Diamonds,MegaSeeds,RoofMid,RoofSides,Roof,Bar,Mirrors,Cans,Strips,Seeds,Pars,Booth,Dig // rigs
 }
 //static RigType Shields = RigType.Shields;
 public class Rig {
@@ -56,7 +56,7 @@ public class Rig {
       colorSetup();                        // setup colors red bloo etc once
       firsttime_sketchcolor = false;
     }
-    availableColors = new int[] { 0, 1, 2, 3, 13, 10, 11, 12, 2, 3};
+    availableColors = new int[] { 0, 1, 2, 3, 13, 10, 11, 12, 2, 3}; /// ALWAYS DO FIRST!! //////////////
     col[0] = teal; 
     col[1] = orange; 
     col[2] = pink; 
@@ -420,8 +420,8 @@ public class Rig {
     int now = millis();
     for (int i = 0; i < this.animations.size()-1; i++) {   // loop  through the list excluding the last one added
       Anim an = this.animations.get(i);  
-      int time_leftA = (int)((an.alphaEnvelopeA.end_time - now)*0.95);
-      int time_leftB = (int)((an.alphaEnvelopeB.end_time - now)*0.95);
+      int time_leftA = (int)((an.alphaEnvelopeA.end_time - now)*decayRate);
+      int time_leftB = (int)((an.alphaEnvelopeB.end_time - now)*decayRate);
       an.alphaEnvelopeA = an.alphaEnvelopeA.mul(new Ramp(now,now+time_leftA,1.0,0.1,0.01));
       an.alphaEnvelopeB = an.alphaEnvelopeB.mul(new Ramp(now,now+time_leftB,1.0,0.1,0.01));
       an.alphaEnvelopeA.end_time = now + time_leftA;
@@ -438,11 +438,11 @@ public class Rig {
     }
     /// alter all but the most recent animations
     //TODO set this to a toggle so touchosc can turn it on and off.
-    if (keyT['t']) {
+    if (true) {
       //decayRate: higher is slower
       //curve: 0.5 is linear, 0.0 is u shaped 1.0 is n shaped 
       //think of it like control points on a bezier
-      animFader(0.95,0.1);
+      animFader(0.9,0.1);
     }
   }
 
@@ -456,7 +456,7 @@ public class Rig {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void draw() {
-    clash(beat);
+    if (beatCounter % 16 == 0) clash(beat); // TODO // this shouldnt happen al the time - need more control over it!
     drawAnimations();
     blendMode(MULTIPLY);
     // this donesnt work anymore....

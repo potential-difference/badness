@@ -11,6 +11,9 @@ void playWithYourself(float vizTm) {
     ////////////////////////////// PLAY TOGGLE TO CONTROL AUTO CYCLING OF FUNCS AND ALPHAS /////////////////////////////////////////
     if (rig.playWithYourSelf) {  
       ///////////// ALPHA TIMER ////////////////////////////////////////////////////////////////////////////////////////////////////
+      //rig,duration,something_that_happens
+      //  this is a timer function with a callback, repeatedly
+      //
       if (millis()/1000 - rig.alphaTimer >= vizTm/(1+rig.alphaChangeRate*20)) {       //// SWAPRATE changes # of times every viz change /////
       // TODO reinstate rig.alphaIndexA = int(random(rig.availableAlphaEnvelopes.length));   //// select from alpha array
       // TODO reinstate rig.alphaIndexB = int(random(rig.availableAlphaEnvelopes.length));   //// select from alpha array
@@ -30,7 +33,7 @@ void playWithYourself(float vizTm) {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////// PLAY WITH COLOUR ////////////////////////////////////////////////////////////////
   for (Rig rig : rigs) {
-    rig.colorTimer(colorChangeTime*60, 1); //// seconds between colour change, number of steps to cycle through colours
+    rig.colorTimer(colorChangeTime*60*20, 1); //// seconds between colour change, number of steps to cycle through colours
     if (millis()/1000 - bgChangeTimer >= colorChangeTime*60/rig.backgroundChangeRate) {
       rig.bgIndex = (int(random(rig.availableBkgrnds.length)));  // change colour layer 4 times every auto color change
       bgChangeTimer = millis()/1000;
@@ -42,7 +45,14 @@ void playWithYourself(float vizTm) {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////// COLORSWAP TIMER /////////////////////////////////////////////////////////////////
   if (colorSwapSlider > 0) for (Rig rig : rigs) rig.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
-  if (beatCounter%64<4) shields.colorSwap(1000000*noize);  
+  for (Rig rig : rigs){
+    switch(rig.type){
+    case Shields: if (beatCounter%64<4) rig.colorSwap(1000000*noize);  break;
+    case Roof:  
+    case Cans:
+    default:
+    }
+  }
   //if (beatCounter%82>78) roof.colorSwap(1000000*noize);
   //if (beatCounter%64>61) cans.colorSwap(1000000*noize);
 

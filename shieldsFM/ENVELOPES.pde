@@ -95,6 +95,12 @@ Envelope BeatzOskp(float overalltime, float decay_curv, float threshold){
 }
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//Envelope alphaEnvelopeFactory(AlphaEnvs envelope_index, Rig rig, float overalltime) {
+//  switch(envelope_index){
+//  case Beatz: return Beatz(overalltime...)
+//  case FooBar: return ComplexPulse...
+//  default:
+//}
 Envelope alphaEnvelopeFactory(int envelope_index, Rig rig, float overalltime) {
   float alphaRate = rig.alphaRate*10; //TODO why do we *10 here?
   //float overalltime = avgmillis;

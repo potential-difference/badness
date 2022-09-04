@@ -147,20 +147,23 @@ void boothLights(BoothGrid opcGrid) {
   //rect(opcGrid.dig.x, opcGrid.dig.y, 40, 15);
   fill(0, 150);
   strokeWeight(1);
-  stroke(shields.flash, 60);
+  stroke(shields.flash, 60);  /// TODO CHANGE THIS SO IT DOESNT COLOR SWAP
   rect(opcGrid.booth.x+70, opcGrid.booth.y, 200, 30);
   noStroke();
   fill(shields.flash1, 360*boothDimmer);
   rect(opcGrid.booth);//rect(opcGrid.booth.x, opcGrid.booth.y, 40, 15);
   fill(shields.c, 360*digDimmer);
   rect(opcGrid.dig);//rect(opcGrid.dig.x, opcGrid.dig.y, 40, 15);
+  fill(shields.c, 360*mixerDimmer);
+  rect(opcGrid.mixer);
 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   fill(shields.c, 360);
   textAlign(LEFT);
   textSize(16);
   text("BOOTH", opcGrid.booth.x+25, opcGrid.booth.y+6);
-  text("DIG", opcGrid.dig.x+25, opcGrid.dig.y+6);
+  text("DIG", opcGrid.dig.x-6, opcGrid.dig.y+25);
+  text("MIXER",opcGrid.mixer.x-12,opcGrid.mixer.y+25);
 }
 /////////////////// TEST ALL COLOURS - TURN ALL LEDS ON AND CYCLE COLOURS ////////////////////////////////
 void testColors(boolean test,BoothGrid opcGrid) {
@@ -179,8 +182,8 @@ void workLights(boolean _work,BoothGrid opcGrid) {
     pause = 10;
     fill(360*cc[9], 360*cc[10]);
     rect(size.shields);
-    rect(size.roofleft);
-    rect(size.roofright);
+    rect(size.roofmid);
+    rect(size.roofsides);
     //rect(size.cans);
     rect(opcGrid.booth);
     rect(opcGrid.dig);

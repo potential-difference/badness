@@ -18,16 +18,18 @@ class BoothGrid extends OPCGrid{
   PVector uvs[][] = new PVector[6][3];
   PVector blins[] = new PVector[4];
   Coord uvDimmer,uvSpeed,uvProgram;
-  Coord booth,dig,blinders;
+  Coord booth,dig,mixer,blinders;
   BoothGrid(Map<String,OPC> opcs){
     opclist = opcs;
-    booth = new Coord(50,20,40,15);
-    dig = new Coord(booth.x+110,booth.y,booth.wide,booth.high);
+
+    booth = new Coord(size.booth.x-size.booth.wide/2+20,size.booth.y,40,15);
+    dig = new Coord(booth.x+110,booth.y,20,booth.high);
+    mixer = new Coord(dig.x + 30, dig.y,dig.wide,dig.high);
     OPC boothopc = opcs.get("FrontLeft");
     boothopc.led(0,int(booth.x-5),int(booth.y));
-    boothopc.led(1,int(booth.x+5),int(booth.y));
-    boothopc.led(2,int(dig.x-5),int(dig.y));
-    boothopc.led(3,int(dig.x+5),int(dig.y));
+    boothopc.led(200,int(booth.x+5),int(booth.y));
+    boothopc.led(100,int(mixer.x),int(mixer.y));//mixer
+    boothopc.led(300,int(dig.x),int(dig.y));
 
     OPC entec = opcs.get("Entec");
     int x = (int)size.booth.x;//+100;
@@ -89,16 +91,6 @@ class MegaSeedsGrid extends OPCGrid{
 
   }
 }
-class RoofLeftGrid extends OPCGrid {
-  Rig rig;
-  RoofLeftGrid(Rig _rig,Map<String,OPC> opcs){
-    rig = _rig;
-    OPC dopc = opcs.get("StageRight");
-    IntCoord sz = size.roofleft;
-    dopc.ledStrip(0,53,(sz.x+sz.wide/4),sz.y,(sz.high)/54,PI/2,true);
-    dopc.ledStrip(54,77,(sz.x-sz.wide/4),sz.y,(sz.high)/78,PI/2,true);
-  }
-}
 
 class LanternInfo{
   String opcname;
@@ -131,12 +123,24 @@ class FMRoofGrid extends OPCGrid {
       println("setting up "+unitnames[i]);
       LanternInfo unit = units.get(unitnames[i]);
       int xpos = rig.size.x-rig.size.wide/2 + (i+1)*rig.size.wide/(nunits+1);
-      int ypos = rig.size.y;
-      int npixels = sum(unit.pixelcounts);
+      float xspacing = rig.size.wide/(nunits+1);
+      //int ypos = rig.size.y;
+      //int npixels = sum(unit.pixelcounts);
       OPC opc = opcs.get(unit.opcname);
-      float spacing = rig.size.high / (npixels+1);
+      float spacing = (rig.size.high-100) / (unit.pixelcounts.length+1);
       boolean reverse = true;
-      opc.ledStrip(unit.start_pixel,npixels,xpos,ypos,spacing,PI/2,reverse);
+      //opc.ledStrip(unit.start_pixel,npixels,xpos,ypos,spacing,PI/2,reverse);
+      int pixelnumber=unit.start_pixel;
+      for (int j=0;j<unit.pixelcounts.length;j++){
+        int npixels=unit.pixelcounts[j];
+        float ypos = rig.size.y-rig.size.high/2 + 50 + spacing*j;
+        if (npixels==1) {opc.led(pixelnumber,xpos,int(ypos));
+        }else if (npixels==25){
+          float gridspacing = min(spacing,xspacing)*0.5/5;
+          opc.ledGrid(pixelnumber,5,5,xpos,ypos,gridspacing,gridspacing,0,false);
+        }
+        pixelnumber += npixels;
+      }
     }
   }
 }

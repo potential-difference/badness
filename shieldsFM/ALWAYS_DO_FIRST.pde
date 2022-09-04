@@ -1,6 +1,7 @@
 void alwaysDoFirst() {
   //This is confusing.  can these be words please
   //like, shields.availableAnims = {Donuts,GoodAnim3,BoxesRed} or sth. an enum? can it be an enum?
+  //shields.availableAnims = new Anim
   shields.availableAnims = new int[] {1, 2, 3, 6, 7, 8};      // setup which anims are used on which rig here
   shields.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
   shields.availableFunctionEnvelopes = new int[] {0, 1, 2};  
@@ -18,6 +19,12 @@ void alwaysDoFirst() {
 
   shields.colorIndexA = 2;
   shields.colorIndexB = 1;
+
+  roofmid.colorIndexA = 2;
+  roofmid.colorIndexB = 1;
+
+///// TODO  make an easy way of changing colour
+  
  
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
   for (int i = 0; i < 100; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen
@@ -33,12 +40,16 @@ void alwaysDoFirst() {
   shields.dimmer = 1;
   shields.alphaRate = 0.5;
   shields.functionRate = 0.5;
-  vizTime = 0.5;
-  colorChangeTime = 0.5;
   shields.wideSlider = 0.5;
   shields.highSlider = 0.5;
-  shields.strokeSlider= 0.5;
+  shields.strokeSlider= 1;
   shields.blurriness = 0.2;
+
+  roofmid.dimmer = 0.1;
+  roofsides.dimmer = 0.1;
+
+  vizTime = 1;
+  colorChangeTime = 1;
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

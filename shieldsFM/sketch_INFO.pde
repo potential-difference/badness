@@ -123,8 +123,8 @@ void dividerLines() {
   stroke(shields.flash,200);
   strokeWeight(1);
   rect(size.shields);
-  rect(size.roofleft);
-  rect(size.roofright);
+  rect(size.roofmid);
+  rect(size.roofsides);
   rect(size.info);
   rect(size.megaSeeds);
   rect(size.bar);

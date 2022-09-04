@@ -19,7 +19,7 @@ OPCGrid opcGrid;
 //Gig Specific
 ShieldsOPCGrid shieldsGrid;
 BoothGrid boothGrid;
-Rig shields, roofleft,roofright,roofcentre,bar,booth, megaSeeds,cans,roof;
+Rig shields, roofmid,roofsides,bar,booth, megaSeeds,cans,roof;
 
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
 PFont font;
@@ -39,11 +39,11 @@ MidiBus MPD8bus;
 boolean onTop = false;
 
 boolean testToggle, smokeToggle;
-float boothDimmer, digDimmer, vizTime, colorChangeTime, colorSwapSlider, beatSlider = 0.3;
+float boothDimmer=0.5, mixerDimmer=0.5, digDimmer=1.0, vizTime, colorChangeTime, colorSwapSlider, beatSlider = 0.3;
 float smokePumpValue, smokeOnTime, smokeOffTime;
-float uvDimmer=1.0;
+float uvDimmer=0.2;
 float uvSpeed=0.5;
-float uvProgram=1.0;
+float uvProgram=0.5;
 void settings() {
   System.setProperty("jogl.disable.openglcore", "true");
   size = new SizeSettings();
@@ -59,13 +59,12 @@ void setup()
   ///////////////// LOCAL opc /////////////////////
   Map<String,OPC> OPCs = Map.ofEntries(
     entry("BigShield", new WLED(this, "192.168.10.10", 21324)),
-    entry("SmallShieldA", new WLED(this, "192.168.10.11", 21324)),
+    entry("SmallShieldA", new WLED(this, "192.168.10.11", 21324)),//bottom right
     entry("MedShieldA", new WLED(this, "192.168.10.12", 21324)),
-    entry("SmallShieldB", new WLED(this, "192.168.10.13", 21324)),
+    entry("SmallShieldB", new WLED(this, "192.168.10.13", 21324)),//bottom left
     entry("MedShieldB", new WLED(this, "192.168.10.14", 21324)),
     entry("SmallShieldC", new WLED(this, "192.168.10.15", 21324)),
-    entry("MedShieldC", new WLED(this, "192.168.10.16", 21324)),
-    //bottom right
+    entry("MedShieldC", new WLED(this, "192.168.10.16", 21324)), //bottom right
     entry("Balls", new WLED(this, "192.168.10.17", 21324)),
     //entry("SeedsA", new WLED(this, "192.168.10.20", 21324)),
     //entry("SeedsB", new WLED(this, "192.168.10.21", 21324)),
@@ -116,32 +115,23 @@ void setup()
   //same
   megaSeeds.opcgrid = new MegaSeedsGrid(megaSeeds,OPCs);
 
-  roofleft = new Rig(size.roofleft,RigType.RoofLeft);
+  roofmid = new Rig(size.roofmid,RigType.RoofMid);
   //opc: FrontLeft,FrontRight
   //leftmid, leftfar
   //1+1+25+1+1  1+25+1+1+25
   //FrontRight(100) FrontLeft(500)
   //
-  String roofleftunits[] = {"leftfar","leftmid","centre"};
-  roofleft.opcgrid = new FMRoofGrid(roofleft,OPCs,units,roofleftunits);
+  String roofmidunits[] = {"leftmid","truss","rightmid"};
+  roofmid.opcgrid = new FMRoofGrid(roofmid,OPCs,units,roofmidunits);
 
-  roofright = new Rig(size.roofright,RigType.RoofRight);
+  roofsides = new Rig(size.roofsides,RigType.RoofSides); // name change of rig
   //opc:FrontRight
   //rightmid rightfar
   //25+1+1+25+1+1         1+1+25+1  
   //FrontRight(100) FrontRight(200)
-  String roofrightunits[] = {"truss","centre","rightmid","rightfar"};
-  roofright.opcgrid = new FMRoofGrid(roofright,OPCs,units,roofrightunits);
+  String roofsidesunits[] = {"leftfar","centre", "rightfar"};
+  roofsides.opcgrid = new FMRoofGrid(roofsides,OPCs,units,roofsidesunits);
   
-  /*roofcentre = new Rig(size.roofcentre,RigType.Roof);
-  //opc:Truss
-  //truss centre
-  //Truss(300) Truss(400)
-  //pixels:
-  //1           1+25
-  String centreunits[] = {"truss","centre"};
-  roofcentre.opcgrid = new FMRoofGrid(roofcentre,OPCs,units,centreunits);
-  */
   bar = new Rig(size.bar,RigType.Bar);
   //opc:Truss
   //barleft barmid barright
@@ -187,7 +177,7 @@ void draw()
   globalFunctions();
 
   
-  if (frameCount > 10) playWithYourself(vizTime*60);
+  if (frameCount > 10) playWithYourself(vizTime*60*8);
   c = shields.c;
   flash = shields.flash;
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -213,9 +203,18 @@ void draw()
   uvBatons(boothGrid);
   //////////////////////BLINDERS//////////
   //static boolean blindersOn = false;
-  if (false){//(millis() % 10000 < 100){
-    fill(200);
-    rect(boothGrid.blinders);
+  //to create a dimmer
+  //make a new global variable blinderDimmer=0.2 or whatever
+  //then copy and paste a fader in touchosc
+  //under the booth panel
+  //change the name to blinderDimmer
+  //and the label to blinderDimmer
+  if (beatCounter % 32 < 4){
+    if (shields.animations.size() > 0){
+      Anim anim = shields.animations.get(0);
+      fill(100*anim.alphaA);
+      rect(boothGrid.blinders);
+    }
   }
   //////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
   //workLights(keyT['w']);
