@@ -71,9 +71,19 @@ class Celtic extends Anim {
     wide = (10+(rig.wide-(rig.wide*functionA-20)))*wideSlider;
     high = wide;
     rotate = 0;
-    donut(positionX[8][0].x, positionX[8][0].y, col1, stroke, wide, high, rotate, alphaA);
-    donut(positionX[5][0].x, positionX[5][0].y, col1, stroke, wide, high, rotate, alphaA);
-    donut(positionX[2][0].x, positionX[2][0].y, col1, stroke, wide, high, rotate, alphaA);
+    switch(rig.type){
+      case Shields:
+        ShieldsOPCGrid opcGrid = (ShieldsOPCGrid)(rig.opcgrid);
+        donut(opcGrid.shields[1].x, opcGrid.shields[1].y, col1, stroke, wide, high, rotate, alphaA);
+       donut(opcGrid.shields[2].x, opcGrid.shields[2].x, col1, stroke, wide, high, rotate, alphaA);
+//donut(positionX[1][0].x, positionX[1][0].y, col1, stroke, wide, high, rotate, alphaA);
+      break;
+      default:
+        donut(positionX[6][0].x, positionX[6][0].y, col1, stroke, wide, high, rotate, alphaA);
+        donut(positionX[3][0].x, positionX[3][0].y, col1, stroke, wide, high, rotate, alphaA);
+        donut(positionX[1][0].x, positionX[1][0].y, col1, stroke, wide, high, rotate, alphaA);
+    }
+    
     window.endDraw();
   }
 }
