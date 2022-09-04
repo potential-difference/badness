@@ -19,7 +19,7 @@ OPCGrid opcGrid;
 //Gig Specific
 ShieldsOPCGrid shieldsGrid;
 BoothGrid boothGrid;
-Rig shields, roofmid,roofsides,bar,booth, megaSeeds,cans,roof;
+Rig shields, roofmid,roofsides,bar,booth, megaSeedFront,megaSeedCentre,cans,roof;
 
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
 PFont font;
@@ -88,51 +88,29 @@ void setup()
     entry("centre", new LanternInfo("centre","Truss",400,new int[]{1,25})),
     entry("barleft", new LanternInfo("barleft","Truss",0,new int[]{1})),
     entry("barmid", new LanternInfo("barmid","Truss",100,new int[]{1})),
-    entry("barright", new LanternInfo("barright","Truss",200,new int[]{1}))
+    entry("barright", new LanternInfo("barright","Truss",200,new int[]{1})),
+    entry("uvbatons", new LanternInfo("uvbatons","Entec",8000,new int[]{}))
   );
   shields = new Rig(size.shields, RigType.Shields);
   shields.opcgrid = new ShieldsOPCGrid(shields);
   ((ShieldsOPCGrid)(shields.opcgrid)).triangleShieldsOPC(OPCs); 
 
-  //opc: FrontLeft
-  //boothL,mixer,boothR,dig, (leftfar)
-  //100    200   300    400
-  //rectangles are:
-  //mixer,dig,booth
-  //
   boothGrid = new BoothGrid(OPCs);
 
-  megaSeeds = new Rig(size.megaSeeds,RigType.MegaSeeds);
-  //opc:FrontSeed,CentreSeed
-  //frontseed, centreseed
-  //FrontSeed(0)  CentreSeed(0)
-  //pvectors are:
-  //frontseed,centreseed
-  //positions are:
-  //same
-  megaSeeds.opcgrid = new MegaSeedsGrid(megaSeeds,OPCs);
+  megaSeedFront = new Rig(size.megaSeedFront,RigType.MegaSeedFront);
+  megaSeedFront.opcgrid = new MegaSeedFrontGrid(megaSeedFront,OPCs);
+  megaSeedCentre = new Rig(size.megaSeedCentre,RigType.MegaSeedFront);
+  megaSeedCentre.opcgrid = new MegaSeedCentreGrid(megaSeedCentre,OPCs);
 
   roofmid = new Rig(size.roofmid,RigType.RoofMid);
-  //opc: FrontLeft,FrontRight
-  //leftmid, leftfar
-  //1+1+25+1+1  1+25+1+1+25
-  //FrontRight(100) FrontLeft(500)
-  //
   String roofmidunits[] = {"leftmid","truss","rightmid"};
   roofmid.opcgrid = new FMRoofGrid(roofmid,OPCs,units,roofmidunits);
 
   roofsides = new Rig(size.roofsides,RigType.RoofSides); // name change of rig
-  //opc:FrontRight
-  //rightmid rightfar
-  //25+1+1+25+1+1         1+1+25+1  
-  //FrontRight(100) FrontRight(200)
   String roofsidesunits[] = {"leftfar","centre", "rightfar"};
   roofsides.opcgrid = new FMRoofGrid(roofsides,OPCs,units,roofsidesunits);
   
   bar = new Rig(size.bar,RigType.Bar);
-  //opc:Truss
-  //barleft barmid barright
-  //1     1     1
   String barunits[] = {"barleft","barmid","barright"};
   bar.opcgrid = new FMRoofGrid(bar,OPCs,units,barunits);
 

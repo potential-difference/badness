@@ -126,7 +126,8 @@ void dividerLines() {
   rect(size.roofmid);
   rect(size.roofsides);
   rect(size.info);
-  rect(size.megaSeeds);
+  rect(size.megaSeedFront);
+  rect(size.megaSeedCentre);
   rect(size.bar);
   rect(size.booth);
   //rect(size.shields.width, height/2, 1, height);                                         //// vertical line to show end of rig viz area

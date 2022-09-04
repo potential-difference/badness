@@ -15,15 +15,15 @@ void playWithYourself(float vizTm) {
       //  this is a timer function with a callback, repeatedly
       //
       if (millis()/1000 - rig.alphaTimer >= vizTm/(1+rig.alphaChangeRate*20)) {       //// SWAPRATE changes # of times every viz change /////
-      // TODO reinstate rig.alphaIndexA = int(random(rig.availableAlphaEnvelopes.length));   //// select from alpha array
-      // TODO reinstate rig.alphaIndexB = int(random(rig.availableAlphaEnvelopes.length));   //// select from alpha array
+        rig.alphaIndexA = int(random(rig.availableAlphaEnvelopes.length));   //// select from alpha array
+        rig.alphaIndexB = int(random(rig.availableAlphaEnvelopes.length));   //// select from alpha array
         println(rig.type+" alpha change @", (hour()+":"+minute()+":"+second()), "new envelopes:", rig.alphaIndexA, "&", rig.alphaIndexB);
         rig.alphaTimer = millis()/1000;
           }
       //////////// FUNCTION TIMER //////////////////////////////////////////////////////////////////////////////////////////////////
       if (millis()/1000 - rig.functionTimer >= vizTm/(1+rig.functionChangeRate*20)) {
-      // TODO reinstate rig.functionIndexA = int(random(rig.availableFunctionEnvelopes.length));  //// select from function array
-      // TODO reinstate rig.functionIndexB = int(random(rig.availableFunctionEnvelopes.length));  //// select from function array
+        rig.functionIndexA = int(random(rig.availableFunctionEnvelopes.length));  //// select from function array
+        rig.functionIndexB = int(random(rig.availableFunctionEnvelopes.length));  //// select from function array
         println(rig.type+" function change @", (hour()+":"+minute()+":"+second()), "new envelope:", rig.functionIndexA, "&", rig.functionIndexB);
         rig.functionTimer = millis()/1000;
        }
@@ -48,9 +48,12 @@ void playWithYourself(float vizTm) {
   for (Rig rig : rigs){
     switch(rig.type){
     case Shields: if (beatCounter%64<4) rig.colorSwap(1000000*noize);  break;
-    case Roof:  
-    case Cans:
+    case RoofMid:
+    case RoofSides:
+    case MegaSeedFront:
+    case MegaSeedCentre:
     default:
+      if (beatCounter%82 > 78) rig.colorSwap(noize);
     }
   }
   //if (beatCounter%82>78) roof.colorSwap(1000000*noize);
