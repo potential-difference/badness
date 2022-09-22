@@ -150,6 +150,7 @@ void draw()
   globalFunctions();
   
   if (frameCount > 10) playWithYourself(vizTime*60*8);
+  // TODO made a global variable class to include these and alpha and funcs
   c = rigs.get(0).c;
   flash = rigs.get(0).flash;
   c1 = rigs.get(0).c1;
