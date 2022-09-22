@@ -88,7 +88,7 @@ void setup()
     entry("centre", new LanternInfo("centre","Truss",0,new int[]{1,25})),
     entry("barleft", new LanternInfo("barleft","Truss",300,new int[]{1})),
     entry("barmid", new LanternInfo("barmid","Truss",200,new int[]{1})),
-    entry("barright", new LanternInfo("barright","Truss",200,new int[]{1}))
+    entry("barright", new LanternInfo("barright","Truss",100,new int[]{1}))
   );
   shields = new Rig(size.shields, RigType.Shields);
   shields.opcgrid = new ShieldsOPCGrid(shields);
@@ -98,7 +98,7 @@ void setup()
 
   megaSeedFront = new Rig(size.megaSeedFront,RigType.MegaSeedFront);
   megaSeedFront.opcgrid = new MegaSeedFrontGrid(megaSeedFront,OPCs);
-  megaSeedCentre = new Rig(size.megaSeedCentre,RigType.MegaSeedFront);
+  megaSeedCentre = new Rig(size.megaSeedCentre,RigType.MegaSeedCentre);
   megaSeedCentre.opcgrid = new MegaSeedCentreGrid(megaSeedCentre,OPCs);
 
   roofmid = new Rig(size.roofmid,RigType.RoofMid);
@@ -125,14 +125,13 @@ void setup()
   vizTime = 0.5;
   colorChangeTime = 0.5;
   for (Rig rig :rigs){
-   rig.dimmer = 1;
+  rig.dimmer = 1;
   rig.alphaRate = 0.5;
   rig.functionRate = 0.5;
   rig.wideSlider = 0.5;
   rig.highSlider = 0.5;
   rig.strokeSlider= 0.5;
   rig.blurriness = 0.2;
- 
   }
     frameRate(30); // always needs to be last in setup
 }
@@ -176,20 +175,7 @@ void draw()
   ///////////////////UV BATONS/////////
   uvBatons(boothGrid);
   //////////////////////BLINDERS//////////
-  //static boolean blindersOn = false;
-  //to create a dimmer
-  //make a new global variable blinderDimmer=0.2 or whatever
-  //then copy and paste a fader in touchosc
-  //under the booth panel
-  //change the name to blinderDimmer
-  //and the label to blinderDimmer
-  if (beatCounter % 32 < 4){
-    if (shields.animations.size() > 0){
-      Anim anim = shields.animations.get(0);
-      fill(100*anim.alphaA);
-      rect(boothGrid.blinders);
-    }
-  }
+  blinders(boothGrid);
   //////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
   //workLights(keyT['w']);
   //testColors(keyT['t']);

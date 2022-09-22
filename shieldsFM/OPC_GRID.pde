@@ -21,19 +21,20 @@ class BoothGrid extends OPCGrid{
   Coord booth,dig,mixer,blinders;
   BoothGrid(Map<String,OPC> opcs){
     opclist = opcs;
-
-    booth = new Coord(size.booth.x-size.booth.wide/2+20,size.booth.y,40,15);
-    dig = new Coord(booth.x+110,booth.y,20,booth.high);
-    mixer = new Coord(dig.x + 30, dig.y,dig.wide,dig.high);
+    ////////////////////////// BOOTH, DIG, MIXER LIGHTS /////////////////////
+    booth = new Coord(size.booth.x-size.booth.wide/2+35,size.booth.y-size.booth.high/2+20,30,15);
+    dig = new Coord(booth.x,booth.y+20,booth.wide,booth.high);
+    mixer = new Coord(dig.x, dig.y+20,dig.wide,dig.high);
     OPC boothopc = opcs.get("FrontLeft");
     boothopc.led(0,int(booth.x-5),int(booth.y));
     boothopc.led(200,int(booth.x+5),int(booth.y));
-    boothopc.led(100,int(mixer.x),int(mixer.y));//mixer
+    boothopc.led(100,int(mixer.x),int(mixer.y));
     boothopc.led(300,int(dig.x),int(dig.y));
 
+    ///////////////////////// DMX UV BATONS /////////////////////////////////
     OPC entec = opcs.get("Entec");
-    int x = (int)size.booth.x;//+100;
-    int y = (int)size.booth.y;//-250;
+    int x = int(mixer.x);           // CHANGES THE X POSITION OF THE BATONS
+    int y = int(mixer.y+40);        // CHANGES THE Y POSITION OF THE BATONS
     int xgap = 10;
     int ygap = 10;
     for (int i=0;i<6;i++){
@@ -56,9 +57,9 @@ class BoothGrid extends OPCGrid{
     uvSpeed = new Coord(spdx,spdy,uvwide,uvhigh);
     uvProgram = new Coord(pgmx,pgmy,uvwide,uvhigh);
 
-    //BLINDERS
-    x = (int)size.booth.x + 100;
-    y = (int)size.booth.y;
+    /////////////////////////// DMX BLINDERS ////////////////////////////////////
+    x = int(uvDimmer.x)+90;
+    y = int(uvDimmer.y)-8;
     for (int i=0;i<4;i++){
       //blinderv[i][j] = new PVector(xx,yy);
       int xx = x + i*xgap;
@@ -483,54 +484,7 @@ void pickleCansOPC(Rig _rig, OPC opc) {
     rig.position[7].x=cans[10].x-(rig.size.x-(rig.wide/2));
     rig.position[7].y=cans[10].y-(rig.size.y-(rig.high/2));
   }
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-/*  void kingsHeadCansOPC(Rig _rig, OPC opc) {
-    rig = _rig;
-    _cansLength = size.cansWidth;
-    cansString[0] = new PVector(rig.size.x, rig.size.y-(rig.high/4));
-    cansString[1] = new PVector(rig.size.x, rig.size.y);
-    cansString[2] = new PVector(rig.size.x, rig.size.y+(rig.high/4));
 
-    int fc = 0 * 512;
-    int channel = 64;
-    int leds = 6;
-    pd = int(_cansLength/6);
-    opc.ledStrip(fc+(channel*0), leds, int(cansString[0].x), int(cansString[0].y), pd, 0, true);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
-    opc.ledStrip(fc+(channel*1), leds, int(cansString[1].x), int(cansString[1].y), pd, 0, true);                   /////  6 CANS PLUG INTO slot 1 on CANS BOX /////// 
-    opc.ledStrip(fc+(channel*2), leds, int(cansString[2].x), int(cansString[2].y), pd, 0, true);                   /////  6 CANS PLUG INTO slot 2 on CANS BOX /////// 
-    cansLength = _cansLength - (pd/2);
-  }
-*/
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/*  void castleFireplaceCansOPC(Rig rig, OPC opc) {
-    int fc = 10 * 512;
-    int channel = 64;
-    for (int i = 0; i < 6; i++) opc.led(fc+(channel*2+i), int(pars.size.x), int(pars.size.y-(pars.high/2)+100+(i*80)));
-  } 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-  //////////////////////////////////////////// UV /////////////////////////////////////////////////////
-  void kallidaUV(OPC opc) {
-    int fc = 2 * 512;
-    int channel = 64;                 
-    opc.led(fc+(channel*7), int(uv.x), int(uv.y));
-  }
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-  /////////////////////////////// STRIP ///////////////////////////////////////////////////////////////
-  void kingsHeadStripOPC(Rig _rig, OPC opc) {
-    rig = _rig;
-    int fc = 3 * 512;
-    int channel = 64;
-    int leds = 64;
-    int pd = rig.wide/2/leds;
-    for (int i = 0; i < 3; i++) strip[i] = new PVector (rig.size.x-(pd*leds/2), rig.size.y-(rig.high/2)+rig.high/6*(i*2+1));
-    for (int i = 0; i < 3; i++) strip[i+3] = new PVector (rig.size.x+(pd*leds/2), rig.size.y-(rig.high/2)+rig.high/6*(i*2+1));
-
-    for (int i=0; i<6; i++)  opc.ledStrip(fc+(channel), leds, int(strip[i].x), int(strip[i].y), pd, 0, true);
-  }
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-*/
   void espTestOPC(Rig _rig, OPC opc) {
     rig = _rig;
     int fc = 0 * 512;

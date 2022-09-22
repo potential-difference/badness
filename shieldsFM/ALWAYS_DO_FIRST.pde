@@ -1,12 +1,7 @@
 void alwaysDoFirst() {
   //This is confusing.  can these be words please
   //like, shields.availableAnims = {Donuts,GoodAnim3,BoxesRed} or sth. an enum? can it be an enum?
-  //shields.availableAnims = new Anim
-  shields.availableAnims = new int[] {1, 2, 6, 7, 8};      // setup which anims are used on which rig here
-  shields.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
-  shields.availableFunctionEnvelopes = new int[] {0, 1, 2};  
-  shields.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6};
-  
+
   for (Rig rig : rigs){
     switch (rig.type){
     case Shields:
@@ -39,6 +34,14 @@ void alwaysDoFirst() {
   megaSeedCentre.vizIndex = 5;
   roofmid.colorIndexA = 2;
   roofmid.colorIndexB = 1;
+  roofsides.colorIndexA = 3;
+  roofsides.colorIndexB = 2;
+
+  megaSeedCentre.colorIndexA = 1;
+  megaSeedCentre.colorIndexB = 2;
+
+  megaSeedFront.colorIndexA = 2;
+  megaSeedFront.colorIndexB = 1;
 
 ///// TODO  make an easy way of changing colour
   
@@ -62,8 +65,37 @@ void alwaysDoFirst() {
   shields.strokeSlider= 1;
   shields.blurriness = 0.2;
 
-  roofmid.dimmer = 0.1;
-  roofsides.dimmer = 0.1;
+  roofmid.dimmer = 0.45;
+  roofmid.alphaRate = 0.84;
+  roofmid.functionRate = 0.56;
+  roofmid.blurriness = 0.075;
+  roofmid.strokeSlider = 0.9;
+
+  roofsides.dimmer = 0.8;
+  roofsides.alphaRate = 0.45;
+  roofsides.functionRate = 0.72;
+  roofsides.blurriness = 0.25;
+  roofsides. strokeSlider = 0.9;
+
+  megaSeedCentre.dimmer = 0.7;
+  megaSeedCentre.alphaRate = 0.73;
+  megaSeedCentre.functionRate = 0.6;
+  megaSeedCentre.blurriness = 0.05;
+  megaSeedCentre.strokeSlider = 0.7;
+
+  megaSeedFront.dimmer = 0.4;
+  megaSeedFront.alphaRate = 0.9;
+  megaSeedFront.functionRate = 0.3;
+  megaSeedFront.blurriness = 0.04;
+  megaSeedFront.strokeSlider = 0.9;
+
+  //booth.dimmer = 0.18;
+  //mixer.dimmer = 0.15;
+  //dig.dimmer = 0.11;
+  
+  uvDimmer = 0.03;
+  uvSpeed = 0.57;
+  uvProgram = 0.306;
 
   vizTime = 1;
   colorChangeTime = 1;

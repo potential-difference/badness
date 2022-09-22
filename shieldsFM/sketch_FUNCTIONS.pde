@@ -116,54 +116,78 @@ void pause(int secondsToWait) {
 
 /////////////////UV BATONS //////////////////
 void uvBatons(BoothGrid opcGrid){
-  fill(0);
+  fill(0);                // FILL IN BLACK TO CANCEL ANY ANIMATIONS ETC
   rect(opcGrid.uvDimmer);
   rect(opcGrid.uvSpeed);
   rect(opcGrid.uvProgram);
-
-  fill(0,150);
+  fill(0,150);            // DRAW OUTLINE BOX
   strokeWeight(1);
   stroke(shields.flash, 60);
-  rect(opcGrid.uvSpeed.x,opcGrid.uvSpeed.y,50,80);
+  rect(opcGrid.uvSpeed.x,opcGrid.uvSpeed.y+7,70,100);
   noStroke();
+  //////////////////// RECTANGLES TO CONTROL BIRGHTNESS AND COLOUR //////////////
   fill(360*uvDimmer);
   rect(opcGrid.uvDimmer);
   fill(360*uvSpeed);
   rect(opcGrid.uvSpeed);
   fill(360*uvProgram);
   rect(opcGrid.uvProgram);
+  //////////////////// ON SCREEN TEXT INFO //////////////////////////////////////
   fill(shields.c);
-  textAlign(LEFT);
-  text("BATONS",opcGrid.uvDimmer.x-20,opcGrid.uvDimmer.y+50);
+  textAlign(CENTER);
+  textSize(16);
+  text("BATONS",opcGrid.uvDimmer.x+10,opcGrid.uvDimmer.y+50);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////// BOOTH AND DIG LIGHTS /////////////////////////////////////////////////////////////////////
 void boothLights(BoothGrid opcGrid) {
-  fill(0);
-  //rect(opcGrid.booth.x, opcGrid.booth.y, 40, 15);
+  fill(0);              // FILL IN BLACK TO CANCEL ANY ANIMATIONS ETC
   rect(opcGrid.booth);
   rect(opcGrid.dig);
-  //rect(opcGrid.dig.x, opcGrid.dig.y, 40, 15);
-  fill(0, 150);
+  rect(opcGrid.mixer);
+  fill(0, 150);         // DRAW OUTLINE BOX 
   strokeWeight(1);
-  stroke(shields.flash, 60);  /// TODO CHANGE THIS SO IT DOESNT COLOR SWAP
-  rect(opcGrid.booth.x+70, opcGrid.booth.y, 200, 30);
+  stroke(shields.flash, 60);  
+  rect(opcGrid.dig.x+30, opcGrid.dig.y, 110, 70);
   noStroke();
+  //////////////////// RECTANGLES TO CONTROL BIRGHTNESS AND COLOUR //////////////
   fill(shields.flash1, 360*boothDimmer);
-  rect(opcGrid.booth);//rect(opcGrid.booth.x, opcGrid.booth.y, 40, 15);
+  rect(opcGrid.booth);
   fill(shields.c, 360*digDimmer);
-  rect(opcGrid.dig);//rect(opcGrid.dig.x, opcGrid.dig.y, 40, 15);
+  rect(opcGrid.dig);
   fill(shields.c, 360*mixerDimmer);
   rect(opcGrid.mixer);
-
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  //////////////////// ON SCREEN TEXT INFO //////////////////////////////////////
   fill(shields.c, 360);
   textAlign(LEFT);
   textSize(16);
   text("BOOTH", opcGrid.booth.x+25, opcGrid.booth.y+6);
-  text("DIG", opcGrid.dig.x-6, opcGrid.dig.y+25);
-  text("MIXER",opcGrid.mixer.x-12,opcGrid.mixer.y+25);
+  text("DIG", opcGrid.dig.x+25, opcGrid.dig.y+6);
+  text("MIXER",opcGrid.mixer.x+25, opcGrid.mixer.y+6);
+}
+void blinders(BoothGrid opcgrid){
+  //static boolean blindersOn = false;
+  //to create a dimmer
+  //make a new global variable blinderDimmer=0.2 or whatever
+  //then copy and paste a fader in touchosc
+  //under the booth panel
+  //change the name to blinderDimmer
+  //and the label to blinderDimmer
+  fill(0);              // FILL IN BLACK TO CANCEL ANY ANIMATIONS ETC
+  rect(boothGrid.blinders); // TODO - why is this boothgrid and not opcGrid like the ones above?!
+  fill(0, 150);         // DRAW OUTLINE BOX 
+  strokeWeight(1);
+  stroke(shields.flash, 60);  
+  rect(boothGrid.blinders.x, boothGrid.blinders.y, 110, 70); 
+  noStroke();
+  // if (beatCounter % 32 < 4){
+    if (shields.animations.size() > 0){
+      Anim anim = shields.animations.get(0);
+      fill(100*anim.alphaA);
+      rect(boothGrid.blinders);
+    }
+  // }
 }
 /////////////////// TEST ALL COLOURS - TURN ALL LEDS ON AND CYCLE COLOURS ////////////////////////////////
 void testColors(boolean test,BoothGrid opcGrid) {
