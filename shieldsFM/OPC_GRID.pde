@@ -33,6 +33,7 @@ class BoothGrid extends OPCGrid{
 
     ///////////////////////// DMX UV BATONS /////////////////////////////////
     OPC entec = opcs.get("Entec");
+    // FOUR LAMPS LAID OUT VERTICALY - EACH LAMP HAS 3 CHANNELS, DIMMER, SPEED, PROGRAM
     int x = int(mixer.x);           // CHANGES THE X POSITION OF THE BATONS
     int y = int(mixer.y+40);        // CHANGES THE Y POSITION OF THE BATONS
     int xgap = 10;

@@ -19,7 +19,7 @@ OPCGrid opcGrid;
 //Gig Specific
 ShieldsOPCGrid shieldsGrid;
 BoothGrid boothGrid;
-Rig shields, roofmid,roofsides,bar,booth, megaSeedFront,megaSeedCentre,cans,roof;
+Rig shields,roofmid,roofsides,bar,booth,megaSeedFront,megaSeedCentre,cans,roof;
 
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
 PFont font;
@@ -72,7 +72,7 @@ void setup()
     
     entry("FrontRight",new WLED(this,"192.168.10.40",21324)),
     //A:leftmid B:rightmid C:righfar
-//A: 19,B: 18, C: 17, D: 16, 4
+    //A: 19,B: 18, C: 17, D: 16, 4
     entry("Truss",new WLED(this,"192.168.10.60",21324)),
     //A:barleft B:barmid C:barright D:truss E:centre
 
@@ -133,7 +133,7 @@ void setup()
   rig.strokeSlider= 0.5;
   rig.blurriness = 0.2;
   }
-    frameRate(30); // always needs to be last in setup
+  frameRate(30); // always needs to be last in setup
 }
 
 int colStepper = 1;
@@ -148,11 +148,12 @@ void draw()
   beats(beatSlider);   
   //pause(10);           ////// number of seconds before no music detected and auto kicks in
   globalFunctions();
-
   
   if (frameCount > 10) playWithYourself(vizTime*60*8);
-  c = shields.c;
-  flash = shields.flash;
+  c = rigs.get(0).c;
+  flash = rigs.get(0).flash;
+  c1 = rigs.get(0).c1;
+  flash1 = rigs.get(0).flash1;
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   playWithMe();

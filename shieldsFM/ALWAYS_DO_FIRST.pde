@@ -43,9 +43,8 @@ void alwaysDoFirst() {
   megaSeedFront.colorIndexA = 2;
   megaSeedFront.colorIndexB = 1;
 
-///// TODO  make an easy way of changing colour
-  
- 
+  ///// TODO  make an easy way of changing colour
+   
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
   for (int i = 0; i < 100; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen
   cc[1] = 0.75;
@@ -89,9 +88,10 @@ void alwaysDoFirst() {
   megaSeedFront.blurriness = 0.04;
   megaSeedFront.strokeSlider = 0.9;
 
-  //booth.dimmer = 0.18;
-  //mixer.dimmer = 0.15;
-  //dig.dimmer = 0.11;
+  // THESE ARE SLIGHTLY DIFFERENT COZ THEY ARENT THEIR OWN RIGS //
+  boothDimmer = 0.18;
+  mixerDimmer = 0.15;
+  digDimmer = 0.11;
   
   uvDimmer = 0.03;
   uvSpeed = 0.57;
@@ -106,7 +106,7 @@ void alwaysDoFirst() {
 color red, pink, yell, grin, bloo, purple, teal, orange, aqua, white, black;
 color red1, pink1, yell1, grin1, bloo1, purple1, teal1, aqua1, orange1;
 color red2, pink2, yell2, grin2, bloo2, purple2, teal2, aqua2, orange2;
-color c, flash;
+color c, flash, c1, flash1;
 color act = #07E0D3;
 color act1 = #00FC84;
 color bac = #370064;

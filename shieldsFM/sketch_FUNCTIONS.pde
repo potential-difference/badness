@@ -19,7 +19,7 @@ void dmxSmoke(BoothGrid opcGrid) {
   ////////////////////////////////////// DMX SMOKE //////////////////////////////////
   fill(0, 150);
   strokeWeight(1);
-  stroke(shields.flash, 60);
+  stroke(flash, 60);
   rect(opcGrid.smokePump.x+80, opcGrid.smokePump.y, 220, 30);
   noStroke();
   fill(0);
@@ -33,7 +33,7 @@ void dmxSmoke(BoothGrid opcGrid) {
     if (smokeToggle)  rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 10, 10);
   }
   float smokeInfo = millis()/1000 % smokeInterval - (smokeInterval);
-  fill(shields.c, 360);
+  fill(c, 360);
   textAlign(LEFT);
   textSize(16);
 
@@ -121,8 +121,7 @@ void uvBatons(BoothGrid opcGrid){
   rect(opcGrid.uvSpeed);
   rect(opcGrid.uvProgram);
   fill(0,150);            // DRAW OUTLINE BOX
-  strokeWeight(1);
-  stroke(shields.flash, 60);
+  stroke(flash, 60);
   rect(opcGrid.uvSpeed.x,opcGrid.uvSpeed.y+7,70,100);
   noStroke();
   //////////////////// RECTANGLES TO CONTROL BIRGHTNESS AND COLOUR //////////////
@@ -133,10 +132,17 @@ void uvBatons(BoothGrid opcGrid){
   fill(360*uvProgram);
   rect(opcGrid.uvProgram);
   //////////////////// ON SCREEN TEXT INFO //////////////////////////////////////
-  fill(shields.c);
+  fill(c);
   textAlign(CENTER);
   textSize(16);
   text("BATONS",opcGrid.uvDimmer.x+10,opcGrid.uvDimmer.y+50);
+  noFill();
+  strokeWeight(1);
+  stroke(flash,60);
+  rect(opcGrid.uvDimmer);
+  rect(opcGrid.uvSpeed);
+  rect(opcGrid.uvProgram);
+  noStroke();
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -147,26 +153,32 @@ void boothLights(BoothGrid opcGrid) {
   rect(opcGrid.dig);
   rect(opcGrid.mixer);
   fill(0, 150);         // DRAW OUTLINE BOX 
-  strokeWeight(1);
-  stroke(shields.flash, 60);  
   rect(opcGrid.dig.x+30, opcGrid.dig.y, 110, 70);
   noStroke();
   //////////////////// RECTANGLES TO CONTROL BIRGHTNESS AND COLOUR //////////////
-  fill(shields.flash1, 360*boothDimmer);
+  fill(flash1, 360*boothDimmer);
   rect(opcGrid.booth);
-  fill(shields.c, 360*digDimmer);
+  fill(c, 360*digDimmer);
   rect(opcGrid.dig);
-  fill(shields.c, 360*mixerDimmer);
+  fill(c, 360*mixerDimmer);
   rect(opcGrid.mixer);
-  //////////////////// ON SCREEN TEXT INFO //////////////////////////////////////
-  fill(shields.c, 360);
+  //////////////////// ON SCREEN INFO /////////////////////////////////////////////
+  fill(c, 360);
   textAlign(LEFT);
   textSize(16);
   text("BOOTH", opcGrid.booth.x+25, opcGrid.booth.y+6);
   text("DIG", opcGrid.dig.x+25, opcGrid.dig.y+6);
   text("MIXER",opcGrid.mixer.x+25, opcGrid.mixer.y+6);
+  noFill();
+  strokeWeight(1);
+  stroke(flash,60);
+  rect(opcGrid.booth);
+  rect(opcGrid.dig);
+  rect(opcGrid.mixer);
+  noStroke();
 }
-void blinders(BoothGrid opcgrid){
+
+void blinders(BoothGrid opcGrid){
   //static boolean blindersOn = false;
   //to create a dimmer
   //make a new global variable blinderDimmer=0.2 or whatever
@@ -175,19 +187,28 @@ void blinders(BoothGrid opcgrid){
   //change the name to blinderDimmer
   //and the label to blinderDimmer
   fill(0);              // FILL IN BLACK TO CANCEL ANY ANIMATIONS ETC
-  rect(boothGrid.blinders); // TODO - why is this boothgrid and not opcGrid like the ones above?!
+  rect(opcGrid.blinders); 
   fill(0, 150);         // DRAW OUTLINE BOX 
   strokeWeight(1);
-  stroke(shields.flash, 60);  
-  rect(boothGrid.blinders.x, boothGrid.blinders.y, 110, 70); 
+  stroke(flash,60);
+  rect(opcGrid.blinders.x, opcGrid.blinders.y, 110, 70); 
   noStroke();
   // if (beatCounter % 32 < 4){
     if (shields.animations.size() > 0){
       Anim anim = shields.animations.get(0);
       fill(100*anim.alphaA);
-      rect(boothGrid.blinders);
+      rect(opcGrid.blinders);
     }
   // }
+  fill(c, 360);
+  textAlign(CENTER);
+  textSize(16);
+  text("BLINDERS", opcGrid.blinders.x, opcGrid.blinders.y+30);
+  noFill();
+  strokeWeight(1);
+  stroke(flash,60);
+  rect(opcGrid.blinders);
+  noStroke();
 }
 /////////////////// TEST ALL COLOURS - TURN ALL LEDS ON AND CYCLE COLOURS ////////////////////////////////
 void testColors(boolean test,BoothGrid opcGrid) {
