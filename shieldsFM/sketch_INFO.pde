@@ -108,7 +108,7 @@ void cordinatesInfo(Rig rig, boolean _info) {
     textSize(12);
     textAlign(CENTER);
     fill(360);  
-    for (int i = 0; i < rig.position.length; i++) text(i, rig.size.x-(rig.wide/2)+rig.position[i].x, rig.size.y-(rig.high/2)+rig.position[i].y);   /// mirrors Position info
+    for (int i = 0; i < rig.position.length; i++) text(i, rig.size.x-(rig.wide/2)+rig.position[i].x, rig.size.y-(rig.high/2)+rig.position[i].y);   ///  Position info
     fill(200);  
     for (int i = 0; i < rig.positionX.length; i++) {
       text(i+".", rig.size.x-(rig.wide/2)+rig.positionX[i][0].x, rig.size.y-(rig.high/2)+rig.positionX[i][0].y);   /// mirrors Position info
@@ -121,12 +121,20 @@ void dividerLines() {
   noFill();
   stroke(shields.flash,200);
   strokeWeight(1);
+  /*
+  // TO DO is this possible?? 
+  for (Rig rig : rigs){
+    rect(size.rig);
+  }
+  */
   rect(size.shields);
+  rect(size.roofcentre);
   rect(size.roofmid);
   rect(size.roofsides);
   rect(size.info);
-  rect(size.megaSeedFront);
-  rect(size.megaSeedCentre);
+  rect(size.megaSeedA);
+  rect(size.megaSeedB);
+  rect(size.uvPars);
   rect(size.bar);
   rect(size.booth);
 }

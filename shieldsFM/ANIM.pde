@@ -56,9 +56,10 @@ class StarMesh extends Anim {
 
     switch (rig.type){
       case Shields:
-      star(position[3].x, position[3].y, col1, stroke, wide, high, rotate, alphaA);
-      star(position[4].x, position[4].y, col1, stroke, wide, high, rotate, alphaA);
-      star(position[5].x, position[5].y, col1, stroke, wide, high, rotate, alphaA);
+      ShieldsOPCGrid opcGrid = (ShieldsOPCGrid)(rig.opcgrid);
+      star(opcGrid.smallShieldA.x,opcGrid.smallShieldA.y, col1, stroke, wide, high, rotate, alphaA);
+      star(opcGrid.smallShieldB.x,opcGrid.smallShieldB.y, col1, stroke, wide, high, rotate, alphaA);
+      star(opcGrid.smallShieldC.x,opcGrid.smallShieldC.y, col1, stroke, wide, high, rotate, alphaA);
       break;
       default:
       star(window.width/4, window.height/4, col1, stroke, wide, high, -rotate, alphaA);
@@ -77,22 +78,21 @@ class Celtic extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    stroke = 10+((rig.high+rig.wide)/2/20*strokeSlider); //16+(10*func1);
-    wide = (10+(rig.wide-(rig.wide*functionA-20)))*wideSlider;
-    high = wide;
+    wide = (10+(functionA*rig.wide*1.5));
+    high = (10+((1-functionA)*rig.high*1.5));
+    stroke = 10+((rig.high+rig.wide)/40*strokeSlider); 
     rotate = 0;
     switch(rig.type){
       case Shields:
         ShieldsOPCGrid opcGrid = (ShieldsOPCGrid)(rig.opcgrid);
-        donut(opcGrid.shields[1].x, opcGrid.shields[1].y, col1, stroke, wide, high, rotate, alphaA);
-       donut(positionX[1][0].x, positionX[1][0].x, col1, stroke, wide, high, rotate, alphaA);
-       donut(positionX[5][0].x, positionX[6][0].x, col1, stroke, wide, high, rotate, alphaA);
-//donut(positionX[1][0].x, positionX[1][0].y, col1, stroke, wide, high, rotate, alphaA);
+        donut(positionX[9][0].x, positionX[9][0].y, col1, stroke, wide, high, rotate, alphaA);
+        donut(positionX[3][0].x, positionX[3][0].y, col1, stroke, wide, high, rotate-60, alphaA);
+        donut(positionX[15][0].x, positionX[15][0].y, col1, stroke, wide, high, rotate+60, alphaA);
       break;
       default:
-        donut(positionX[6][0].x, positionX[6][0].y, col1, stroke, wide, high, rotate, alphaA);
         donut(positionX[3][0].x, positionX[3][0].y, col1, stroke, wide, high, rotate, alphaA);
-        donut(positionX[1][0].x, positionX[1][0].y, col1, stroke, wide, high, rotate, alphaA);
+        donut(positionX[3][1].x, positionX[3][1].y, col1, stroke, wide, high, rotate-90, alphaA);
+        donut(positionX[3][2].x, positionX[3][2].y, col1, stroke, wide, high, rotate+90, alphaA);
     }
     
     window.endDraw();
@@ -106,24 +106,29 @@ class SpiralFlower extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    stroke = (rig.high+rig.wide)/2/20*strokeSlider;
-    wide = (rig.wide)-(rig.wide/10);
-    wide = 5+(wide-(wide*functionA)); //100+(20*i); //
+    stroke = (rig.high+rig.wide)/40*strokeSlider;
+    wide = 5+(wide-(wide*functionA)); 
     high = wide;
     rotate = 0;
+    switch(rig.type){
+      case Shields:
+      donut(positionX[1][0].x, positionX[1][0].y, col1, stroke, wide, high, rotate, alphaA);
+      donut(positionX[5][1].x, positionX[5][1].y, col1, stroke, wide, high, rotate, alphaA);
+      donut(positionX[7][2].x, positionX[7][2].y, col1, stroke, wide, high, rotate, alphaA);
 
-    donut(positionX[1][1].x, positionX[1][1].y, col1, stroke, wide, high, rotate, alphaA);
-    donut(positionX[4][0].x, positionX[4][0].y, col1, stroke, wide, high, rotate, alphaA);
-    donut(positionX[6][1].x, positionX[6][1].y, col1, stroke, wide, high, rotate, alphaA);
+      donut(positionX[7][0].x, positionX[7][0].y, col1, stroke, wide, high, rotate, alphaA);
+      donut(positionX[11][1].x, positionX[11][1].y, col1, stroke, wide, high, rotate, alphaA);
+      donut(positionX[13][2].x, positionX[13][2].y, col1, stroke, wide, high, rotate, alphaA);
 
-    donut(positionX[0][2].x, positionX[0][2].y, col1, stroke, wide, high, rotate, alphaB);
-    donut(positionX[3][1].x, positionX[3][1].y, col1, stroke, wide, high, rotate, alphaB);
-    donut(positionX[6][2].x, positionX[6][2].y, col1, stroke, wide, high, rotate, alphaB);
+      donut(positionX[13][0].x, positionX[13][0].y, col1, stroke, wide, high, rotate, alphaA);
+      donut(positionX[17][1].x, positionX[17][1].y, col1, stroke, wide, high, rotate, alphaA);
+      donut(positionX[1][2].x, positionX[1][2].y, col1, stroke, wide, high, rotate, alphaA);
 
-    wide = (rig.wide/3.5)-(rig.wide/10);
-    wide = 10+(wide-(wide*(1-functionA))); 
-    high = wide;
-    donut(viz.x, viz.y, col1, stroke, wide, high, rotate, alphaA);
+    default:
+    //  donut(positionX[1][0].x, positionX[1][0].y, col1, stroke, wide, high, rotate, alphaA);
+    //   donut(positionX[5][1].x, positionX[5][1].y, col1, stroke, wide, high, rotate, alphaA);
+    //   donut(positionX[6][2].x, positionX[6][2].y, col1, stroke, wide, high, rotate, alphaA);
+    }
     window.endDraw();
   }
 }
@@ -296,11 +301,18 @@ class Rings extends Anim {
     wide *=wideSlider;
     high *=highSlider;
 
-    donut(window.width/4,window.height/4, col1, stroke, wide, high, -rotate, alphaA);
-    donut(window.width/4*3,window.height/4, col1, stroke, wide, high, -rotate-60, alphaA);
-    donut(window.width/2,window.height/4*3, col1, stroke, wide, high, -rotate+60, alphaA);
-    
-    
+    switch (rig.type){
+      case Shields:
+      donut(positionX[3][0].x,positionX[3][0].y, col1, stroke, wide, high, -rotate-60, alphaA);
+      donut(positionX[9][0].x,positionX[9][0].y, col1, stroke, wide, high, -rotate, alphaA);
+      donut(positionX[15][0].x,positionX[15][0].y, col1, stroke, wide, high, -rotate+60, alphaA);
+      break;
+      default:
+      donut(window.width/4,window.height/4, col1, stroke, wide, high, -rotate, alphaA);
+      donut(window.width/4*3,window.height/4, col1, stroke, wide, high, -rotate-60, alphaA);
+      donut(window.width/2,window.height/4*3, col1, stroke, wide, high, -rotate+60, alphaA);
+    }
+
     stroke = 15+((rig.high+rig.wide)/2/20*functionB*oskP)+(10*strokeSlider);
     wide = vizWidth*1.2;
     wide = wide-(wide*functionB);
@@ -310,9 +322,21 @@ class Rings extends Anim {
     wide *=wideSlider;
     high *=highSlider;
 
-   // donut(position[6].x, position[6].y, col1, stroke, wide, high, rotate, alphaB);
+    switch (rig.type){
+      case Shields:
+      donut(positionX[0][1].x,positionX[0][1].y, col1, stroke, wide, high, rotate-60, alphaB);
+      donut(positionX[6][1].x,positionX[6][1].y, col1, stroke, wide, high, rotate, alphaB);
+      donut(positionX[12][1].x,positionX[12][1].y, col1, stroke, wide, high, rotate+60, alphaB);
+      // donut(position[6].x, position[6].y, col1, stroke, wide, high, rotate, alphaB);
    // donut(position[7].x, position[7].y, col1, stroke, wide, high, rotate-60, alphaB);
     //donut(position[8].x, position[8].y, col1, stroke, wide, high, rotate+60, alphaB);
+      break;
+      default:
+      donut(window.width/4,window.height/4, col1, stroke, wide, high, -rotate, alphaA);
+      donut(window.width/4*3,window.height/4, col1, stroke, wide, high, -rotate-60, alphaA);
+      donut(window.width/2,window.height/4*3, col1, stroke, wide, high, -rotate+60, alphaA);
+    }
+   
     window.endDraw();
   }
 }
@@ -452,10 +476,9 @@ class Stars extends Anim {
     high *=highSlider;
     switch (rig.type){
     case Shields:
-      star(positionX[0][2].x, positionX[0][2].y, col1, stroke, wide, high, -rotate, alphaA);
-      star(positionX[8][2].x, positionX[8][2].y, col1, stroke, wide, high, -rotate, alphaA);
-    
-      star(positionX[4][2].x, positionX[4][2].y, col1, stroke, wide, high, -rotate, alphaA);
+      star(positionX[3][2].x, positionX[3][2].y, col1, stroke, wide, high, -rotate, alphaA);
+      star(positionX[9][2].x, positionX[9][2].y, col1, stroke, wide, high, -rotate, alphaA);
+      star(positionX[6][2].x, positionX[15][2].y, col1, stroke, wide, high, -rotate, alphaA);
       break;
     default:
       star(window.width/4, window.height/4, col1, stroke, wide, high, -rotate, alphaA);

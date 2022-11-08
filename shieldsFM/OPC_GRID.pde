@@ -30,8 +30,20 @@ class BoothGrid extends OPCGrid{
     boothopc.led(200,int(booth.x+5),int(booth.y));
     boothopc.led(100,int(mixer.x),int(mixer.y));
     boothopc.led(300,int(dig.x),int(dig.y));
+  }
+}
 
-    ///////////////////////// DMX UV BATONS /////////////////////////////////
+class UvParsGrid extends OPCGrid{
+  Rig rig;
+  //PVector centre;
+  UvParsGrid(Rig _rig,Map<String,OPC> opcs){
+    opclist = opcs;
+    rig = _rig;
+    opcs.get("Entec").led(0,size.uvPars.x,size.uvPars.y);
+  }
+}
+/*
+ ///////////////////////// DMX UV BATONS /////////////////////////////////
     OPC entec = opcs.get("Entec");
     // FOUR LAMPS LAID OUT VERTICALY - EACH LAMP HAS 3 CHANNELS, DIMMER, SPEED, PROGRAM
     int x = int(mixer.x);           // CHANGES THE X POSITION OF THE BATONS
@@ -57,46 +69,23 @@ class BoothGrid extends OPCGrid{
     uvDimmer = new Coord(dimx,dimy,uvwide,uvhigh);
     uvSpeed = new Coord(spdx,spdy,uvwide,uvhigh);
     uvProgram = new Coord(pgmx,pgmy,uvwide,uvhigh);
+*/
 
-    /////////////////////////// DMX BLINDERS ////////////////////////////////////
-    x = int(uvDimmer.x)+90;
-    y = int(uvDimmer.y)-8;
-    for (int i=0;i<4;i++){
-      //blinderv[i][j] = new PVector(xx,yy);
-      int xx = x + i*xgap;
-      blins[i] = new PVector(xx,y);
-      entec.led(9000+i,xx,y);
-    }
-    float blinx = 0.5*(blins[1].x+blins[2].x);
-    blinders = new Coord(blinx,y,xgap*(blins.length+1),20);
-
-  }
-
-  //rect coordinates for
-  //uv.dimmers,uv.program_speed,uv.program
-  //
-  
-}
-class MegaSeedCentreGrid extends OPCGrid{
+class MegaSeedBGrid extends OPCGrid{
   Rig rig;
-  //PVector centre;
-  MegaSeedCentreGrid(Rig _rig,Map<String,OPC> opcs){
+  MegaSeedBGrid(Rig _rig,Map<String,OPC> opcs){
     opclist = opcs;
     rig = _rig;
-    //front = new PVector(fx, size.megaSeeds.y);
-    //centre = new PVector(size.megaSeedCentre.x, size.megaSeedCentre.y);
-    //opcs.get("FrontSeed").led(0,fx,size.megaSeeds.y);
-    opcs.get("CentreSeed").led(0,size.megaSeedCentre.x,size.megaSeedCentre.y);
+    opcs.get("CentreSeed").led(0,size.megaSeedB.x,size.megaSeedB.y);
   }
 }
 
-class MegaSeedFrontGrid extends OPCGrid{
+class MegaSeedAGrid extends OPCGrid{
   Rig rig;
-  //PVector front;
-  MegaSeedFrontGrid(Rig _rig,Map<String,OPC> opcs){
+  MegaSeedAGrid(Rig _rig,Map<String,OPC> opcs){
     opclist = opcs;
     rig = _rig;
-    opcs.get("FrontSeed").led(0,size.megaSeedFront.x,size.megaSeedFront.y);
+    opcs.get("FrontSeed").led(0,size.megaSeedA.x,size.megaSeedA.y);
 
   }
 }
@@ -157,24 +146,11 @@ class FMRoofGrid extends OPCGrid {
 class ShieldsOPCGrid extends OPCGrid {
   //  PVectors for positions of shields
   PVector[][] _shield; // = new PVector[numberOfShields][numberOfRings];    
-  PVector medShieldBottomRight;
+  PVector smallShieldA,medShieldA,smallShieldB,medShieldB,smallShieldC,medShieldRC,bigShield;
   PVector[][] shield; // = new PVector[numberOfPositions][numberOfRings];  
   PVector[] shields = new PVector[12];
-  //PVector[] eggs = new PVector[2]; 
-  //int eggLength;
   float[] ringSize;
   Rig rig;
-  int bigShield = 0;
-  int smallSheildRight=1;
-  int smallSheildTop=2;
-  int smallShieldLeft=3;
-  int medShieldRight=4;
-  int medShieldTop=5;
-  int medSheildRight=6;
-  int ballRight=7;
-  int ballLeft=8;
-  int ballBottom=9;
-  //shields[medShieldBottomRight]
   float bigShieldRad, medShieldRad, smallShieldRad, _bigShieldRad, _medShieldRad, _smallShieldRad;
 
   ShieldsOPCGrid(Rig _rig) {
@@ -222,7 +198,7 @@ class ShieldsOPCGrid extends OPCGrid {
     bigShieldWLED(opclist.get("BigShield"), int(size.shields.x), int(size.shields.y));     ///// SLOT b7 on BOX /////
     /////////////////////////// increase size of radius so its covered when drawing over it in the sketch
 
-    medShieldBottomRight = new PVector (_shield[0][0].x, _shield[0][0].y);        // MEDIUM SHIELD
+   // medShieldBottomRight = new PVector (_shield[0][0].x, _shield[0][0].y);        // MEDIUM SHIELD
     shields[3] = new PVector (_shield[8][1].x, _shield[8][1].y);        // SMALL SHEILD
     shields[6] = new PVector (_shield[7][2].x, _shield[7][2].y);        // BALL
 
@@ -278,6 +254,30 @@ class ShieldsOPCGrid extends OPCGrid {
     rig.positionX = _shield; 
     rig.position = shields;
   }
+  void smallTriangleShieldsOPC(Map<String,OPC> _opc) {
+    opclist = _opc;
+    ringSize = new float[] { rig.wide/8, rig.wide/5, rig.wide/4.5 };
+    
+    _smallShieldRad = rig.wide/2/48*5.12; 
+    smallShieldRad = _smallShieldRad * 2 + 6; 
+
+    shieldSetup(18);
+    //// SHIELDS - #1 shield address; #2 position on ring; #3 which ring 
+    smallShieldWLED(opclist.get("SmallShieldA"), 3, 0);  
+    smallShieldA = new PVector(_shield[3][0].x,_shield[3][0].y);
+
+    smallShieldWLED(opclist.get("SmallShieldB"), 15, 0); 
+    smallShieldB = new PVector(_shield[15][0].x,_shield[15][0].y);
+
+    smallShieldWLED(opclist.get("SmallShieldC"), 9, 0); 
+    smallShieldC = new PVector(_shield[9][0].x,_shield[9][0].y);
+
+    bigShieldWLED(opclist.get("BigShield"), int(size.shields.x), int(size.shields.y));     
+    bigShield = new PVector(int(size.shields.x), int(size.shields.y));
+
+    rig.positionX = _shield; 
+  }
+
   void ballGrid(OPC opc, int numb, int positionA, int positionB) {
     opc.led(130+numb, int(_shield[positionA][positionB].x), int(_shield[positionA][positionB].y));
   }

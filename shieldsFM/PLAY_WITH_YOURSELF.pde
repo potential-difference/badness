@@ -50,8 +50,8 @@ void playWithYourself(float vizTm) {
     case Shields: if (beatCounter%64<4) rig.colorSwap(1000000*noize);  break;
     case RoofMid:
     case RoofSides:
-    case MegaSeedFront:
-    case MegaSeedCentre:
+    case MegaSeedA:
+    case MegaSeedB:
     default:
       if (beatCounter%82 > 78) rig.colorSwap(noize);
     }

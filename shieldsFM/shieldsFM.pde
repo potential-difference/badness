@@ -8,7 +8,7 @@ import java.net.*;
 import ch.bildspur.artnet.*;
 import java.lang.reflect.*;
 
-boolean SHITTYLAPTOP=true;//false;
+boolean SHITTYLAPTOP=false;
 
 final int RIG = 0;
 final int ROOF = 1;
@@ -19,7 +19,7 @@ OPCGrid opcGrid;
 //Gig Specific
 ShieldsOPCGrid shieldsGrid;
 BoothGrid boothGrid;
-Rig shields,roofmid,roofsides,bar,booth,megaSeedFront,megaSeedCentre,cans,roof;
+Rig shields,roofmid,roofsides,roofcentre,bar,booth,megaSeedA,megaSeedB,cans,roof,uvPars;
 
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
 PFont font;
@@ -60,11 +60,11 @@ void setup()
   Map<String,OPC> OPCs = Map.ofEntries(
     entry("BigShield", new WLED(this, "192.168.10.10", 21324)),
     entry("SmallShieldA", new WLED(this, "192.168.10.11", 21324)),//bottom right
-    entry("MedShieldA", new WLED(this, "192.168.10.16", 21324)),
-    entry("SmallShieldB", new WLED(this, "192.168.10.15", 21324)),//bottom left
+    entry("MedShieldA", new WLED(this, "192.168.10.12", 21324)),
+    entry("SmallShieldB", new WLED(this, "192.168.10.13", 21324)),//bottom left
     entry("MedShieldB", new WLED(this, "192.168.10.14", 21324)),
-    entry("SmallShieldC", new WLED(this, "192.168.10.13", 21324)),
-    entry("MedShieldC", new WLED(this, "192.168.10.12", 21324)), //bottom right
+    entry("SmallShieldC", new WLED(this, "192.168.10.15", 21324)),
+    entry("MedShieldC", new WLED(this, "192.168.10.16", 21324)), //bottom right
     entry("Entec",new OPC(this,"127.0.0.1",7890)),
 
     entry("FrontLeft",new WLED(this,"192.168.10.50",21324)),
@@ -92,21 +92,28 @@ void setup()
   );
   shields = new Rig(size.shields, RigType.Shields);
   shields.opcgrid = new ShieldsOPCGrid(shields);
-  ((ShieldsOPCGrid)(shields.opcgrid)).triangleShieldsOPC(OPCs); 
+  ((ShieldsOPCGrid)(shields.opcgrid)).smallTriangleShieldsOPC(OPCs); 
 
   boothGrid = new BoothGrid(OPCs);
 
-  megaSeedFront = new Rig(size.megaSeedFront,RigType.MegaSeedFront);
-  megaSeedFront.opcgrid = new MegaSeedFrontGrid(megaSeedFront,OPCs);
-  megaSeedCentre = new Rig(size.megaSeedCentre,RigType.MegaSeedCentre);
-  megaSeedCentre.opcgrid = new MegaSeedCentreGrid(megaSeedCentre,OPCs);
+  megaSeedA = new Rig(size.megaSeedA,RigType.MegaSeedA);
+  megaSeedA.opcgrid = new MegaSeedAGrid(megaSeedA,OPCs);
+  megaSeedB = new Rig(size.megaSeedB,RigType.MegaSeedB);
+  megaSeedB.opcgrid = new MegaSeedBGrid(megaSeedB,OPCs);
+
+  uvPars = new Rig(size.uvPars,RigType.UvPars);
+  uvPars.opcgrid = new UvParsGrid(uvPars,OPCs);
 
   roofmid = new Rig(size.roofmid,RigType.RoofMid);
-  String roofmidunits[] = {"leftmid","truss","rightmid"};
+  String roofmidunits[] = {"leftmid","rightmid"};
   roofmid.opcgrid = new FMRoofGrid(roofmid,OPCs,units,roofmidunits);
 
+  roofcentre = new Rig(size.roofcentre,RigType.RoofCentre);
+  String roofcentreunits[] = {"truss","centre"};
+  roofcentre.opcgrid = new FMRoofGrid(roofcentre,OPCs,units,roofcentreunits);
+
   roofsides = new Rig(size.roofsides,RigType.RoofSides); // name change of rig
-  String roofsidesunits[] = {"leftfar","centre", "rightfar"};
+  String roofsidesunits[] = {"leftfar","rightfar"};
   roofsides.opcgrid = new FMRoofGrid(roofsides,OPCs,units,roofsidesunits);
   
   bar = new Rig(size.bar,RigType.Bar);
@@ -174,10 +181,10 @@ void draw()
   playWithMeMore();
   //////////////////////////////////////////// BOOTH & DIG ///////////////////////////////////////////////////////////////////////////////////////
   boothLights(boothGrid);
-  ///////////////////UV BATONS/////////
-  uvBatons(boothGrid);
-  //////////////////////BLINDERS//////////
-  blinders(boothGrid);
+  /////////////////// UV BATONS FM22 /////////
+  // uvBatons(boothGrid);
+  ////////////////////// BLINDERS FM22 //////////
+  // blinders(boothGrid);
   //////////////////////////////////////////// DISPLAY ///////////////////////////////////////////////////////////////////////////////////////////
   //workLights(keyT['w']);
   //testColors(keyT['t']);

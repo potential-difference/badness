@@ -5,7 +5,7 @@ void alwaysDoFirst() {
   for (Rig rig : rigs){
     switch (rig.type){
     case Shields:
-      rig.availableAnims = new int[] {1, 2, 6, 7, 8};      // setup which anims are used on which rig here
+      rig.availableAnims = new int[] {1, 2, 3, 4, 6, 7, 8};      // setup which anims are used on which rig here
       rig.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
       rig.availableFunctionEnvelopes = new int[] {0, 1, 2};  
       rig.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6};   
@@ -30,18 +30,18 @@ void alwaysDoFirst() {
   shields.colorIndexA = 2;
   shields.colorIndexB = 1;
 
-  megaSeedFront.vizIndex = 5;
-  megaSeedCentre.vizIndex = 5;
+  megaSeedA.vizIndex = 5;
+  megaSeedB.vizIndex = 5;
   roofmid.colorIndexA = 2;
   roofmid.colorIndexB = 1;
   roofsides.colorIndexA = 3;
   roofsides.colorIndexB = 2;
 
-  megaSeedCentre.colorIndexA = 1;
-  megaSeedCentre.colorIndexB = 2;
+  megaSeedB.colorIndexA = 1;
+  megaSeedB.colorIndexB = 2;
 
-  megaSeedFront.colorIndexA = 2;
-  megaSeedFront.colorIndexB = 1;
+  megaSeedA.colorIndexA = 2;
+  megaSeedA.colorIndexB = 1;
 
   ///// TODO  make an easy way of changing colour
    
@@ -76,17 +76,17 @@ void alwaysDoFirst() {
   roofsides.blurriness = 0.25;
   roofsides. strokeSlider = 0.9;
 
-  megaSeedCentre.dimmer = 0.7;
-  megaSeedCentre.alphaRate = 0.73;
-  megaSeedCentre.functionRate = 0.6;
-  megaSeedCentre.blurriness = 0.05;
-  megaSeedCentre.strokeSlider = 0.7;
+  megaSeedB.dimmer = 0.7;
+  megaSeedB.alphaRate = 0.73;
+  megaSeedB.functionRate = 0.6;
+  megaSeedB.blurriness = 0.05;
+  megaSeedB.strokeSlider = 0.7;
 
-  megaSeedFront.dimmer = 0.4;
-  megaSeedFront.alphaRate = 0.9;
-  megaSeedFront.functionRate = 0.3;
-  megaSeedFront.blurriness = 0.04;
-  megaSeedFront.strokeSlider = 0.9;
+  megaSeedA.dimmer = 0.4;
+  megaSeedA.alphaRate = 0.9;
+  megaSeedA.functionRate = 0.3;
+  megaSeedA.blurriness = 0.04;
+  megaSeedA.strokeSlider = 0.9;
 
   // THESE ARE SLIGHTLY DIFFERENT COZ THEY ARENT THEIR OWN RIGS //
   boothDimmer = 0.18;

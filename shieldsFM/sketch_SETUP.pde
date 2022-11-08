@@ -14,42 +14,50 @@ class IntCoord{
 }
 
 class SizeSettings {
-  //int rigWidth, rigHeight, roofWidth, roofHeight, vizWidth, vizHeight, cansWidth;
-  //int cansHeight, parsWidth, parsHeight, infoWidth, infoHeight;
-  IntCoord shields,roofmid,roofsides,megaSeedFront,megaSeedCentre,info,booth,bar;
+  IntCoord shields,roofmid,roofcentre,roofsides,megaSeedA,megaSeedB,info,booth,bar,uvPars;
   //PVector rig, roof, cans, donut, pars, info;
   int sizeX, sizeY;
 
   SizeSettings() {
-    int rigWidth = 600;                                    // WIDTH of rigViz
-    if (SHITTYLAPTOP) rigWidth = 547;
+    int rigWidth = 600;   
     int rigHeight = 600;    
+                               
+    if (SHITTYLAPTOP) rigWidth = 547;
     if (SHITTYLAPTOP) rigHeight = 547;
+
     shields = new IntCoord(rigWidth/2,rigHeight/2,rigWidth,rigHeight);
-    rigWidth = 300;
-    ////////////////////////////////  ROOF SETUP RIGHT OF RIG ///////////////////////
-    roofmid = new IntCoord(shields.wide+rigWidth/2,shields.y,rigWidth,rigHeight);
+
+    ////////////////////////////////  TOP LINE OF RIGS RIGHT OF MAIN ONE ///////////////////////
+    rigWidth = shields.wide/3;
+    // TODO - MAKE THIS EASIER TO ADJUST //
+    roofcentre = new IntCoord(shields.wide+rigWidth/2,shields.y,rigWidth,rigHeight);
+    roofmid = new IntCoord(roofcentre.x+roofcentre.wide/2+rigWidth/2,shields.y,rigWidth,rigHeight);
+    roofsides = new IntCoord(roofmid.x+roofmid.wide/2+rigWidth/2,shields.y,rigWidth,rigHeight);
+
+    rigWidth = 250;
+    info = new IntCoord(roofsides.x+roofsides.wide/2+rigWidth/2,shields.y,rigWidth,rigHeight);
+
+    ////////////////////////////////  BOTTOM LINE OF RIGS ///////////////////////
+
+    rigHeight = 100;
+    rigWidth = 200;
+    int bottomRigY = shields.high+rigHeight/2;
+
+    megaSeedA = new IntCoord(rigWidth/2,bottomRigY,rigWidth,rigHeight);
+    megaSeedB = new IntCoord(megaSeedA.wide+rigWidth/2,bottomRigY,rigWidth,rigHeight);
+
+    rigWidth = 400;
+   
+    uvPars = new IntCoord(megaSeedB.x+megaSeedB.wide/2+rigWidth/2,bottomRigY,rigWidth,rigHeight);
+    bar = new IntCoord(uvPars.x+uvPars.wide/2+rigWidth/2,bottomRigY,rigWidth,rigHeight);
+
+    rigWidth = info.wide;
+    booth = new IntCoord(info.x,bottomRigY,rigWidth,rigHeight);
     
-    roofsides = new IntCoord(shields.wide+roofmid.wide+rigWidth/2,shields.y,rigWidth,rigHeight);
+    ////////////////////////////////  OVERALL SIZE /////////////////////////////
 
-    rigHeight = 200;
-    megaSeedFront = new IntCoord(shields.x-shields.wide/4,shields.high+rigHeight/2,rigWidth/2,rigHeight);
-    megaSeedCentre = new IntCoord(shields.x+shields.wide/4,shields.high+rigHeight/2,rigWidth/2,rigHeight);
-
-    rigWidth = 2*rigWidth;
-    int cansx = (roofsides.x + roofmid.x)/2;
-    booth = new IntCoord(cansx,roofsides.high+rigHeight/2,rigWidth,rigHeight);
-    
-    rigWidth = shields.wide/2;
-    rigHeight = shields.high;    
-    info = new IntCoord(shields.wide+roofsides.wide+roofmid.wide+rigWidth/2,shields.y,rigWidth,rigHeight);
-
-    rigHeight = booth.high;
-    bar = new IntCoord(booth.x+booth.wide/2+rigWidth/2,booth.y,rigWidth,rigHeight);
-
-
-    sizeX = shields.wide+roofsides.wide+roofmid.wide+info.wide;
-    sizeY = shields.high+megaSeedFront.high;
+    sizeX = shields.wide+roofsides.wide+roofmid.wide+roofcentre.wide+info.wide;
+    sizeY = shields.high+megaSeedA.high;
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////
