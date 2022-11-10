@@ -67,28 +67,30 @@ void setup()
     entry("MedShieldC", new WLED(this, "192.168.10.16", 21324)), //bottom right
     entry("Entec",new OPC(this,"127.0.0.1",7890)),
 
-    entry("FrontLeft",new WLED(this,"192.168.10.50",21324)),
-    //A:boothL B:mixer C:boothR D:dig E:leftfar
-    
-    entry("FrontRight",new WLED(this,"192.168.10.40",21324)),
-    //A:leftmid B:rightmid C:righfar
-    //A: 19,B: 18, C: 17, D: 16, 4
-    entry("Truss",new WLED(this,"192.168.10.60",21324)),
-    //A:barleft B:barmid C:barright D:truss E:centre
+    entry("LunchBox1",new WLED(this,"192.168.10.21",21324)),
+    //A:19 B:18 C:17 D:16 E:4
 
-    entry("FrontSeed",new WLED(this,"192.168.10.90",21324)),
-    entry("CentreSeed",new WLED(this,"192.168.10.30",21324))
+    entry("LunchBox2",new WLED(this,"192.168.10.22",21324)),
+    //A:19 B:18 C:17 D:16 E:4
+
+    entry("LunchBox3",new WLED(this,"192.168.10.23",21324)),
+    //A:12 B:14 C:27 D:26 E:25
+
+    entry("megaSeedA",new WLED(this,"192.168.10.90",21324)),
+    entry("megaSeedB",new WLED(this,"192.168.10.30",21324))
   );
   Map<String,LanternInfo> units = Map.ofEntries(
-    entry("leftmid", new LanternInfo("leftmid","FrontRight",0,new int[] {25,1,25,1,1})),
-    entry("leftfar", new LanternInfo("leftfar","FrontLeft",400,new int[] {1,25,1,1,25})),
-    entry("rightmid",new LanternInfo("rightmid","FrontRight",100,new int[]{25,1,1,25,1,1})),
-    entry("rightfar",new LanternInfo("rightfar","FrontRight",200,new int[]{1,1,25,1})),
-    entry("truss", new LanternInfo("truss","Truss",400,new int[]{1})),
-    entry("centre", new LanternInfo("centre","Truss",0,new int[]{1,25})),
-    entry("barleft", new LanternInfo("barleft","Truss",300,new int[]{1})),
-    entry("barmid", new LanternInfo("barmid","Truss",200,new int[]{1})),
-    entry("barright", new LanternInfo("barright","Truss",100,new int[]{1}))
+    entry("leftside", new LanternInfo("leftside","LunchBox1",0,new int[] {1,1,1,1})),
+    entry("leftmid", new LanternInfo("leftmid","LunchBox1",100,new int[] {1,1,1})),
+
+    entry("rightside",new LanternInfo("rightside","LunchBox2",100,new int[]{1,1,1,1})),
+    entry("rightmid",new LanternInfo("rightmid","LunchBox2",0,new int[]{1,1,1,})),
+
+    entry("centre", new LanternInfo("centre","LunchBox2",200,new int[]{1,1,1,1})),
+
+    entry("barleft", new LanternInfo("barleft","LunchBox3",300,new int[]{1})),
+    entry("barmid", new LanternInfo("barmid","LunchBox3",200,new int[]{1})),
+    entry("barright", new LanternInfo("barright","LunchBox3",100,new int[]{1}))
   );
   shields = new Rig(size.shields, RigType.Shields);
   shields.opcgrid = new ShieldsOPCGrid(shields);
@@ -106,19 +108,19 @@ void setup()
 
   roofmid = new Rig(size.roofmid,RigType.RoofMid);
   String roofmidunits[] = {"leftmid","rightmid"};
-  roofmid.opcgrid = new FMRoofGrid(roofmid,OPCs,units,roofmidunits);
+  roofmid.opcgrid = new VerticalRoofGrid(roofmid,OPCs,units,roofmidunits);
 
   roofcentre = new Rig(size.roofcentre,RigType.RoofCentre);
-  String roofcentreunits[] = {"truss","centre"};
-  roofcentre.opcgrid = new FMRoofGrid(roofcentre,OPCs,units,roofcentreunits);
+  String roofcentreunits[] = {"centre"};
+  roofcentre.opcgrid = new VerticalRoofGrid(roofcentre,OPCs,units,roofcentreunits);
 
   roofsides = new Rig(size.roofsides,RigType.RoofSides); // name change of rig
-  String roofsidesunits[] = {"leftfar","rightfar"};
-  roofsides.opcgrid = new FMRoofGrid(roofsides,OPCs,units,roofsidesunits);
+  String roofsidesunits[] = {"leftside","rightside"};
+  roofsides.opcgrid = new VerticalRoofGrid(roofsides,OPCs,units,roofsidesunits);
   
   bar = new Rig(size.bar,RigType.Bar);
   String barunits[] = {"barleft","barmid","barright"};
-  bar.opcgrid = new FMRoofGrid(bar,OPCs,units,barunits);
+ // bar.opcgrid = new VerticalRoofGrid(bar,OPCs,units,barunits);
 
 
 //

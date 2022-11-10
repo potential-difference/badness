@@ -25,7 +25,7 @@ class BoothGrid extends OPCGrid{
     booth = new Coord(size.booth.x-size.booth.wide/2+35,size.booth.y-size.booth.high/2+20,30,15);
     dig = new Coord(booth.x,booth.y+20,booth.wide,booth.high);
     mixer = new Coord(dig.x, dig.y+20,dig.wide,dig.high);
-    OPC boothopc = opcs.get("FrontLeft");
+    OPC boothopc = opcs.get("LunchBox1");
     boothopc.led(0,int(booth.x-5),int(booth.y));
     boothopc.led(200,int(booth.x+5),int(booth.y));
     boothopc.led(100,int(mixer.x),int(mixer.y));
@@ -76,7 +76,7 @@ class MegaSeedBGrid extends OPCGrid{
   MegaSeedBGrid(Rig _rig,Map<String,OPC> opcs){
     opclist = opcs;
     rig = _rig;
-    opcs.get("CentreSeed").led(0,size.megaSeedB.x,size.megaSeedB.y);
+    opcs.get("megaSeedB").led(0,size.megaSeedB.x,size.megaSeedB.y);
   }
 }
 
@@ -85,7 +85,7 @@ class MegaSeedAGrid extends OPCGrid{
   MegaSeedAGrid(Rig _rig,Map<String,OPC> opcs){
     opclist = opcs;
     rig = _rig;
-    opcs.get("FrontSeed").led(0,size.megaSeedA.x,size.megaSeedA.y);
+    opcs.get("megaSeedA").led(0,size.megaSeedA.x,size.megaSeedA.y);
 
   }
 }
@@ -109,29 +109,31 @@ int sum(int[] ints){
   }
   return result;
 }
-class FMRoofGrid extends OPCGrid {
+class VerticalRoofGrid extends OPCGrid {
   Rig rig;
   //Map<String,PVector> opcPositions=new Map<String,PVector>;
   //Map<String,PVector> rigPositions=new Map<String,PVector>;
-  FMRoofGrid(Rig _rig,Map<String,OPC> opcs,Map<String,LanternInfo> units,String[] unitnames){
+  VerticalRoofGrid(Rig _rig,Map<String,OPC> opcs,Map<String,LanternInfo> units,String[] unitnames){
     rig = _rig;
     //vertical strips left to right
-    int nunits = unitnames.length;
+    int nunits = unitnames.length; // number of strings in the rig, doesnt have to be from the same ESP
     for (int i=0;i<nunits;i++){
-      println("setting up "+unitnames[i]);
+      println("setting up "+unitnames[i]+": "+unitnames.length+" pixel strings in the rig");
       LanternInfo unit = units.get(unitnames[i]);
       int xpos = rig.size.x-rig.size.wide/2 + (i+1)*rig.size.wide/(nunits+1);
       float xspacing = rig.size.wide/(nunits+1);
       //int ypos = rig.size.y;
-      //int npixels = sum(unit.pixelcounts);
       OPC opc = opcs.get(unit.opcname);
-      float spacing = (rig.size.high-100) / (unit.pixelcounts.length+1);
+      //unit.pixelcounts.length = number of pixels in the string
+      float spacing = (rig.size.high) / (unit.pixelcounts.length+1);
       boolean reverse = true;
-      //opc.ledStrip(unit.start_pixel,npixels,xpos,ypos,spacing,PI/2,reverse);
       int pixelnumber=unit.start_pixel;
       for (int j=0;j<unit.pixelcounts.length;j++){
         int npixels=unit.pixelcounts[j];
-        float ypos = rig.size.y-rig.size.high/2 + 50 + spacing*j;
+        // offset centers the pixels based on number of pixels
+        float offset = (rig.size.high) / (unit.pixelcounts.length+2); 
+        float ypos = rig.size.y-rig.size.high/2 + offset + spacing*j;
+        // println("xpos "+xpos+" ypos "+ypos+ " spacing "+spacing+" offset "+offset);
         if (npixels==1) {opc.led(pixelnumber,xpos,int(ypos));
         }else if (npixels==25){
           float gridspacing = min(spacing,xspacing)*0.5/5;

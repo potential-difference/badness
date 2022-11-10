@@ -47,43 +47,46 @@ void playWithYourself(float vizTm) {
   if (colorSwapSlider > 0) for (Rig rig : rigs) rig.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
   for (Rig rig : rigs){
     switch(rig.type){
-    case Shields: if (beatCounter%64<4) rig.colorSwap(1000000*noize);  break;
-    case RoofMid:
-    case RoofSides:
-    case MegaSeedA:
-    case MegaSeedB:
+    case Shields:     if (beatCounter%64<4) rig.colorSwap(1000000*noize);  break;
+    case RoofSides:   if (beatCounter%32>27) rig.colorSwap(1000000*noize);  break;
+    case RoofMid:     if (beatCounter%34>29) rig.colorSwap(1000000*noize);  break;
+    case RoofCentre:  if (beatCounter%36>31) rig.colorSwap(1000000*noize);  break;
+    case MegaSeedA:   if (beatCounter%64>61) rig.colorSwap(1000000*noize); break;
+    case MegaSeedB:   if (beatCounter%64>61) rig.colorSwap(1000000*noize); break;
+    case Bar:
     default:
       if (beatCounter%82 > 78) rig.colorSwap(noize);
     }
   }
-  //if (beatCounter%82>78) roof.colorSwap(1000000*noize);
-  //if (beatCounter%64>61) cans.colorSwap(1000000*noize);
-
   ////////////////////////////////////////// COLOR FLIP ///////////////////////////////////////////////////////////////////
   for (int i = 16; i<22; i+=2) if ( beatCounter % 128 == i) shields.colFlip = true;
   else shields.colFlip = false;
-  
   for (Rig rig : rigs) rig.colorFlip(shields.colFlip);
-
   ///////////////////////////////////////// LERP COLOUR //////////////////////////////////////////////////////////////////
-  colBeat = false;
-  if (beatCounter % 18 > 15)  colorLerping(shields, (1-beat)*4);
-  /*for (Rig rig : rigs) 
-  {
-    switch (rig){
-      case cans:
-        if (beatCounter % 18 < 4) colorLerping(rig,(1-beat)*4);break;
-      case roof:
-        if (beatCounter % 32 > 27) colorLerping(rig,(1-beat)*3);break;
+  //colBeat = false;
+ // if (beatCounter % 18 > 15)  colorLerping(shields, (1-beat)*4);
+  for (Rig rig : rigs){
+    switch(rig.type){
+    case Shields:     if (beatCounter % 18 > 15)  colorLerping(rig, (1-beat)*4); break;
+    case RoofSides:   if (beatCounter % 32 > 27) colorLerping(rig,(1-beat)*3);break;
+    case RoofMid:     if (beatCounter % 32 > 27) colorLerping(rig,(1-beat)*3);break;
+    case RoofCentre:  if (beatCounter % 18 < 4) colorLerping(rig,(1-beat)*4);break;
+    case MegaSeedA:   //if (beatCounter%64>61) rig.colorSwap(1000000*noize); break;
+    case MegaSeedB:  //if (beatCounter%64>61) rig.colorSwap(1000000*noize); break;
+    case Bar:
+    default:
+      if (beatCounter % 18 > 15)  colorLerping(rig, (1-beat)*4); break;
     }
   }
-  */
-  //TODO if loop that only affects rigs that are present
+  // for (Rig rig : rigs) 
+  // {
+  //   switch (rig){
+  //     case cans:  if (beatCounter % 18 < 4) colorLerping(rig,(1-beat)*4);break;
+  //     case roof:
+  //       if (beatCounter % 32 > 27) colorLerping(rig,(1-beat)*3);break;
+  //   }
+  // }
   
-  //if (beatCounter % 18 < 4)  colorLerping(cans, (1-beat)*4);
-  //if (beatCounter % 32 > 27)  colorLerping(roof, (1-beat)*3);
-  ////if (beatCounter % 32 > 28)  colorLerping(cans, (1-beat)*1.5);
-
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
@@ -91,5 +94,5 @@ void playWithYourself(float vizTm) {
 void colorLerping(Rig _rig, float function) {
   _rig.c = lerpColor(_rig.col[_rig.colorIndexB], _rig.col[_rig.colorIndexA], function);
   _rig.flash = lerpColor(_rig.col[_rig.colorIndexA], _rig.col[_rig.colorIndexB], function);
-  colBeat = true;
+  //colBeat = true;
 }

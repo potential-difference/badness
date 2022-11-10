@@ -240,6 +240,13 @@ public class Rig {
     textAlign(CENTER);
     textLeading(18);
     text(type.name(), x, y);
+    // TODO why doesnt this work?
+    // Anim anim = new Anim(this);
+    // text(anim.animName,x,y+20);
+
+    Anim anim = new Anim(this);
+    int index = this.availableAnims[vizIndex];
+    text("viz :"+index, x, y+20);
 
     fill(0, 100);
     stroke(shields.flash, 60);
@@ -360,7 +367,7 @@ public class Rig {
     //Object[] classList = new Object[] { new BenjaminsBoxes(this), new StarMesh(this), new Rings(this), new Celtic(this)};
 
     Anim anim = new Anim(this);
-    int index = this.availableAnims[animIndex];
+    int index = this.availableAnims[animIndex];    
     switch (index) {
     case 0:  
       anim = new BenjaminsBoxes(this);

@@ -13,10 +13,12 @@ void keyPressed() {
   }
 
   //// debound or thorttle this ////
-  if (cans != null) {
+  if (roofcentre != null) {
+    // TODO make more of these for each rig allowing rigs to not exist
+    if (key == 'j') roofcentre.vizIndex = (roofcentre.vizIndex+1)%roofcentre.availableAnims.length;  //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
+    if (key == 'h') roofcentre.vizIndex = -1;  //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
+    if (roofcentre.vizIndex <0) roofcentre.vizIndex = roofcentre.availableAnims.length-1;
 
-   // TODO make more of these for each rig allowing rigs to not exist
-   if (key == 'h') cans.vizIndex = (cans.vizIndex+1)%cans.availableAnims.length;  //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
   }
   /////////////////////////////// RIG KEY FUNCTIONS ////////////////////////
   if (shields != null){

@@ -20,6 +20,8 @@ class AllOn extends Anim {
   AllOn(Rig _rig) {
     super( _rig);
     rig.alphaRate=rig.manualAlpha;
+    animName = "AllOn";
+
   }
   void draw() {
     window.beginDraw();
@@ -43,9 +45,10 @@ class AllOff extends Anim {
 class StarMesh extends Anim {
   StarMesh ( Rig _rig) {
     super (_rig);
-    animName = "starMesh";
   }
   void draw() {
+        animName = "starMesh";
+
     window.beginDraw();
     window.background(0);
     stroke = (rig.high+rig.wide)/2/20*strokeSlider;
@@ -287,6 +290,8 @@ class Rings extends Anim {
 
   Rings(Rig _rig) {
     super(_rig);
+    animName = "rings";
+
     //animDimmer = animDimmer.mul(0.5);//this one is somehow blinding
   }
   void draw() {
@@ -464,6 +469,8 @@ class Stars extends Anim {
     super(_rig);
   }
   void draw() {
+        animName = "stars";
+
     window.beginDraw();
     window.background(0);
     wide = 2+(functionA*vizWidth*1.5);
@@ -476,9 +483,9 @@ class Stars extends Anim {
     high *=highSlider;
     switch (rig.type){
     case Shields:
-      star(positionX[3][2].x, positionX[3][2].y, col1, stroke, wide, high, -rotate, alphaA);
-      star(positionX[9][2].x, positionX[9][2].y, col1, stroke, wide, high, -rotate, alphaA);
-      star(positionX[6][2].x, positionX[15][2].y, col1, stroke, wide, high, -rotate, alphaA);
+      star(positionX[6][0].x, positionX[6][0].y, col1, stroke, wide, high, -rotate, alphaA);
+      star(positionX[12][0].x, positionX[12][0].y, col1, stroke, wide, high, -rotate, alphaA);
+      star(positionX[0][0].x, positionX[0][0].y, col1, stroke, wide, high, -rotate, alphaA);
       break;
     default:
       star(window.width/4, window.height/4, col1, stroke, wide, high, -rotate, alphaA);
