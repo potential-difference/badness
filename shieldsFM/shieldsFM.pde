@@ -27,7 +27,7 @@ PFont font;
 import javax.sound.midi.ShortMessage;       // shorthand names for each control on the TR8
 import oscP5.*;
 import netP5.*;
-OscP5 oscP5 = new OscP5(this,12000);
+OscP5 oscP5 = new OscP5(this,8000);
 
 import themidibus.*;  
 MidiBus TR8bus;           // midibus for TR8
