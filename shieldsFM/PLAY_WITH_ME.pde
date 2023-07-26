@@ -39,6 +39,15 @@ void setupMidiActions(){
 }
 void playWithMe() {
 
+/////////////////////// KEY PRESS ////////////////////////////
+if (keyP[' ']){ 
+    for (Rig rig : rigs) {
+            //if (testToggle) rig.animations.add(new Test(rig));
+        //println(rig.type," vizIndex", rig.vizIndex);
+        rig.addAnim(rig.vizIndex);  // create a new anim object and add it to the beginning of the arrayList
+      }
+} 
+
   ////////////////////////////////////// Momentary pad button actions //////////////////////////////
   for (int idx=0;idx<128;idx++){//action: everyFrameActions){
     FrameAction action = everyFrameActions[idx];
