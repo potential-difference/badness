@@ -1,0 +1,3 @@
+[submodule "fadecandy"]
+	path = fadecandy
+	url = ssh://git@github.com/j9brown/fadecandy
