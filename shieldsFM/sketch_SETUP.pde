@@ -96,25 +96,21 @@ void loadImages() {
   bar1 = loadImage("bar1.png");
 }
 //////////////////////////// AUDIO SETUP ////////////////////////////////////
-import ddf.minim.*;
-import ddf.minim.analysis.*;
-import ddf.minim.effects.*;
-import ddf.minim.signals.*;
-import ddf.minim.spi.*;
-import ddf.minim.ugens.*;
-import javax.sound.sampled.*;
-Minim minim;
-AudioInput in;
-BeatDetect beatDetect;
+
+import processing.sound.*;
+AudioIn in;
+BeatDetector beatDetect;
 float avgvolume, weightedsum, weightedcnt, beatTempo;
 void audioSetup(int sensitivity, float beatTempo) {
   // beatTempo affects how quickly code adapts to tempo changes 0.2 averages
   // the last 10 onsets  0.02 would average the last 100
     
-  minim = new Minim(this);
-  in = minim.getLineIn(Minim.STEREO, 512);
-  beatDetect = new BeatDetect();
-  beatDetect.setSensitivity(sensitivity);
+  in = new AudioIn(this, 0);
+  in.start();
+  beatDetect = new BeatDetector(this);
+  beatDetect.input(in);
+  beatDetect.sensitivity(sensitivity);
+
   weightedsum=0;
   weightedcnt=0;
   avgvolume = 0;

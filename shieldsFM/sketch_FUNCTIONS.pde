@@ -83,8 +83,8 @@ void resetbeats() {
 void beats(float _beatSlider) {  
   beatTimer++;
   beatTrigger = false;
-  if (beatDetect.isOnset()) println("beat detected");
-  if (beatDetect.isOnset()) beatTrigger = true;
+  if (beatDetect.isBeat()) println("beat detected");
+  if (beatDetect.isBeat()) beatTrigger = true;
   // trigger beats without audio input
   if (pause > 1) {
     if ((millis() % pauseTriggerTime) == 0) {
@@ -103,7 +103,7 @@ void beats(float _beatSlider) {
 //////////////////////////////////////// PAUSE ///////////////////////////////////////////////////
 int pause, pauseTimer;
 void pause(int secondsToWait) {
-  if (beatDetect.isOnset()) {
+  if (beatDetect.isBeat()) {
     pause = 0;
     pauseTimer = millis()/1000;
   } else {

@@ -153,7 +153,6 @@ void draw()
   surface.setAlwaysOnTop(onTop);
   background(0);
   noStroke();
-  beatDetect.detect(in.mix);
   beats(beatSlider);   
   //pause(10);           ////// number of seconds before no music detected and auto kicks in
   globalFunctions();
