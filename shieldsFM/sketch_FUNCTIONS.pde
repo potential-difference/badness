@@ -212,14 +212,14 @@ void blinders(BoothGrid opcGrid){
   noStroke();
 }
 /////////////////// TEST ALL COLOURS - TURN ALL LEDS ON AND CYCLE COLOURS ////////////////////////////////
-void testColors(boolean test,BoothGrid opcGrid) {
+void testColors(boolean test) {
   if (test) {
 
     fill((millis()/50)%360, 100, 100, 360*shields.dimmer); 
     for (Rig rig : rigs)     rect(rig.size.x, rig.size.y, rig.wide, rig.high);
 
-    rect(opcGrid.booth.x, opcGrid.booth.y, 30, 10);
-    rect(opcGrid.dig.x, opcGrid.dig.y, 30, 10);
+   //rect(opcGrid.booth.x, opcGrid.booth.y, 30, 10);
+   //rect(opcGrid.dig.x, opcGrid.dig.y, 30, 10);
   }
 }
 /////////////////// WORK LIGHTS - ALL ON WHITE SO YOU CAN SEE SHIT ///////////////////////////
