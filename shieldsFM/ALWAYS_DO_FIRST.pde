@@ -5,7 +5,7 @@ void alwaysDoFirst() {
   for (Rig rig : rigs){
     switch (rig.type){
     case Shields:
-      rig.availableAnims = new int[] {1, 2, 3, 4, 6, 7, 8};      // setup which anims are used on which rig here
+      rig.availableAnims = new int[] {1, 2, 6, 7, 8};      // setup which anims are used on which rig here
       rig.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
       rig.availableFunctionEnvelopes = new int[] {0, 1, 2};  
       rig.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6};   
