@@ -58,13 +58,13 @@ void setup()
   
   ///////////////// LOCAL opc /////////////////////
   Map<String,OPC> OPCs = Map.ofEntries(
-    entry("BigShield", new WLED(this, "192.168.10.10", 21324)),
-    entry("SmallShieldA", new WLED(this, "192.168.10.11", 21324)),//bottom right
+    entry("BigShield", new WLED(this, "big_shield.local", 21324)),
+    entry("SmallShieldA", new WLED(this, "small_shield_a.local", 21324)),    //bottom right
     entry("MedShieldA", new WLED(this, "192.168.10.12", 21324)),
-    entry("SmallShieldB", new WLED(this, "192.168.10.13", 21324)),//bottom left
+    entry("SmallShieldB", new WLED(this, "small_shield_b.local", 21324)),    //bottom left
     entry("MedShieldB", new WLED(this, "192.168.10.14", 21324)),
-    entry("SmallShieldC", new WLED(this, "192.168.10.15", 21324)),
-    entry("MedShieldC", new WLED(this, "192.168.10.16", 21324)), //bottom right
+    entry("SmallShieldC", new WLED(this, "small_shield_c.local", 21324)),    //top
+    entry("MedShieldC", new WLED(this, "192.168.10.16", 21324)),             
     entry("Entec",new OPC(this,"127.0.0.1",7890)),
 
     entry("LunchBox1",new WLED(this,"192.168.10.21",21324)),
@@ -94,7 +94,7 @@ void setup()
   );
   shields = new Rig(size.shields, RigType.Shields);
   shields.opcgrid = new ShieldsOPCGrid(shields);
-  ((ShieldsOPCGrid)(shields.opcgrid)).smallTriangleShieldsOPC(OPCs); 
+  ((ShieldsOPCGrid)(shields.opcgrid)).bigTriangleShieldsOPC(OPCs); 
 
   boothGrid = new BoothGrid(OPCs);
 
