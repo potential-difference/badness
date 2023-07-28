@@ -1,1 +1,1 @@
-./fadecandy/server/fcserver THEONEANDONLY.json
+./fadecandy/server/fcserver DMXONLY.json
