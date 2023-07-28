@@ -1,16 +1,3 @@
-/**
- * BeatDetection
- * by Alex Miller
- *
- * This sketch shows how to use the BeatDetector class to detect spikes
- * in sound energy that correspond to rhythmic beats. Change the sensitivity
- * value to adjust how much dampening the algorithm uses (higher values
- * make the algorithm less sensitive).
- *
- * This sketch also draws a debug view which renders the underlying energy
- * levels computed by the beat detection algorithm.
- */
-
 import processing.sound.*;
 AudioIn in;
 BeatDetector beatDetector;
