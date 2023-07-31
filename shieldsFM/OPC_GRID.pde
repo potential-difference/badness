@@ -112,27 +112,29 @@ int sum(int[] ints){
 
 class CircularRoofGrid extends OPCGrid {
   Rig rig;
-  //Map<String,PVector> opcPositions=new Map<String,PVector>;
-  //Map<String,PVector> rigPositions=new Map<String,PVector>;
-  VerticalRoofGrid(Rig _rig,Map<String,OPC> opcs,Map<String,PixelMapping> units,String[] unitnames){
+  CircularRoofGrid(Rig _rig,Map<String,OPC> opcs,Map<String,PixelMapping> channels,String[] unitnames){
     rig = _rig;
     //vertical strips left to right
     int nunits = unitnames.length; // number of strings in the rig, doesnt have to be from the same ESP
     for (int i=0;i<nunits;i++){
       println("setting up "+unitnames[i]+": "+unitnames.length+" pixel strings in the rig");
-      PixelMapping unit = units.get(unitnames[i]);
+      PixelMapping channel = channels.get(unitnames[i]);
+      OPC opc = opcs.get(channel.opcname);
+      int pixelnumber=channel.start_pixel;
+      boolean reverse = true;
+      //channel.pixelcounts.length = number of pixels in the string
+      
+      //rig specific math
       int xpos = rig.size.x-rig.size.wide/2 + (i+1)*rig.size.wide/(nunits+1);
       float xspacing = rig.size.wide/(nunits+1);
       //int ypos = rig.size.y;
-      OPC opc = opcs.get(unit.opcname);
-      //unit.pixelcounts.length = number of pixels in the string
-      float spacing = (rig.size.high) / (unit.pixelcounts.length+1);
-      boolean reverse = true;
-      int pixelnumber=unit.start_pixel;
-      for (int j=0;j<unit.pixelcounts.length;j++){
-        int npixels=unit.pixelcounts[j];
+      float spacing = (rig.size.high) / (channel.pixelcounts.length+1);
+      
+      for (int j=0;j<channel.pixelcounts.length;j++){
+        int npixels=channel.pixelcounts[j];
+
         // offset centers the pixels based on number of pixels
-        float offset = (rig.size.high) / (unit.pixelcounts.length+2); 
+        float offset = (rig.size.high) / (channel.pixelcounts.length+2); 
         float ypos = rig.size.y-rig.size.high/2 + offset + spacing*j;
         // println("xpos "+xpos+" ypos "+ypos+ " spacing "+spacing+" offset "+offset);
         if (npixels==1) {opc.led(pixelnumber,xpos,int(ypos));
@@ -145,31 +147,32 @@ class CircularRoofGrid extends OPCGrid {
     }
   }
 }
-
 
 class VerticalRoofGrid extends OPCGrid {
   Rig rig;
-  //Map<String,PVector> opcPositions=new Map<String,PVector>;
-  //Map<String,PVector> rigPositions=new Map<String,PVector>;
-  VerticalRoofGrid(Rig _rig,Map<String,OPC> opcs,Map<String,PixelMapping> units,String[] unitnames){
+  VerticalRoofGrid(Rig _rig,Map<String,OPC> opcs,Map<String,PixelMapping> channels,String[] unitnames){
     rig = _rig;
     //vertical strips left to right
     int nunits = unitnames.length; // number of strings in the rig, doesnt have to be from the same ESP
     for (int i=0;i<nunits;i++){
       println("setting up "+unitnames[i]+": "+unitnames.length+" pixel strings in the rig");
-      PixelMapping unit = units.get(unitnames[i]);
+      PixelMapping channel = channels.get(unitnames[i]);
+      OPC opc = opcs.get(channel.opcname);
+      int pixelnumber=channel.start_pixel;
+      boolean reverse = true;
+      //channel.pixelcounts.length = number of pixels in the string
+      
+      //rig specific math
       int xpos = rig.size.x-rig.size.wide/2 + (i+1)*rig.size.wide/(nunits+1);
       float xspacing = rig.size.wide/(nunits+1);
       //int ypos = rig.size.y;
-      OPC opc = opcs.get(unit.opcname);
-      //unit.pixelcounts.length = number of pixels in the string
-      float spacing = (rig.size.high) / (unit.pixelcounts.length+1);
-      boolean reverse = true;
-      int pixelnumber=unit.start_pixel;
-      for (int j=0;j<unit.pixelcounts.length;j++){
-        int npixels=unit.pixelcounts[j];
+      float spacing = (rig.size.high) / (channel.pixelcounts.length+1);
+      
+      for (int j=0;j<channel.pixelcounts.length;j++){
+        int npixels=channel.pixelcounts[j];
+
         // offset centers the pixels based on number of pixels
-        float offset = (rig.size.high) / (unit.pixelcounts.length+2); 
+        float offset = (rig.size.high) / (channel.pixelcounts.length+2); 
         float ypos = rig.size.y-rig.size.high/2 + offset + spacing*j;
         // println("xpos "+xpos+" ypos "+ypos+ " spacing "+spacing+" offset "+offset);
         if (npixels==1) {opc.led(pixelnumber,xpos,int(ypos));
@@ -182,6 +185,7 @@ class VerticalRoofGrid extends OPCGrid {
     }
   }
 }
+
 
 class ShieldsOPCGrid extends OPCGrid {
   //  PVectors for positions of shields
