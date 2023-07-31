@@ -108,13 +108,11 @@ void cordinatesInfo(Rig rig, boolean _info) {
     textSize(12);
     textAlign(CENTER);
     fill(360);  
-    for (int i = 0; i < rig.position.length; i++) text(i, rig.size.x-(rig.wide/2)+rig.position[i].x, rig.size.y-(rig.high/2)+rig.position[i].y);   ///  Position info
+    for (int i = 0; i < rig.position.length; i++){
+      text(i, rig.size.x-(rig.wide/2)+rig.position[i].x, rig.size.y-(rig.high/2)+rig.position[i].y);   ///  Position info
+    } 
     fill(200);  
-    for (int i = 0; i < rig.positionX.length; i++) {
-      text(i+".", rig.size.x-(rig.wide/2)+rig.positionX[i][0].x, rig.size.y-(rig.high/2)+rig.positionX[i][0].y);   /// mirrors Position info
-      text(i+".", rig.size.x-(rig.wide/2)+rig.positionX[i][1].x, rig.size.y-(rig.high/2)+rig.positionX[i][1].y);   /// mirrors Position info
-      text(i+".", rig.size.x-(rig.wide/2)+rig.positionX[i][2].x, rig.size.y-(rig.high/2)+rig.positionX[i][2].y);   /// mirrors Position info
-    }
+    
   }
 }
 void dividerLines() {

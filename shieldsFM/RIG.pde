@@ -108,6 +108,7 @@ public class Rig {
       pass2.endDraw();
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////  COLOUR LAYERS FOR RIG ///////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void drawColorLayer(int backgroundIndex) {
     int index = this.availableBkgrnds[backgroundIndex];
     switch(index) {
@@ -171,6 +172,7 @@ public class Rig {
     blendMode(MULTIPLY);
     image(colorLayer, size.x, size.y);
   }
+  //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////// RADIAL GRADIENT BACKGROUND //////////////////////////////////////////////////////////
   void radialGradient(color col1, color col2, float function) {
     colorLayer.background(col1);
@@ -196,37 +198,56 @@ public class Rig {
   }
   ///////////////////////////////////////// SHIELDS BACKGROUNDS /////////////////////////////////////////////////////////////////////////////////////////////
   void bigShield( color col1, color col2) {
+    ShieldsOPCGrid opcGrid = (ShieldsOPCGrid)(opcgrid);  // why is this nessessary?!
+
     colorLayer.noStroke();
-    colorLayer.fill(col1);      
-    colorLayer.ellipse(colorLayer.width/2, colorLayer.height/2, shieldsGrid.bigShieldRad, shieldsGrid.bigShieldRad);
+    colorLayer.fill(col1);  
+    colorLayer.ellipse(colorLayer.width/2, colorLayer.height/2, opcGrid.bigShieldRad, opcGrid.bigShieldRad);
     colorLayer.fill(col2);      
-    colorLayer.ellipse(colorLayer.width/2, colorLayer.height/2, shieldsGrid.bigShieldRad/2, shieldsGrid.bigShieldRad/2);
+    colorLayer.ellipse(colorLayer.width/2, colorLayer.height/2, opcGrid.bigShieldRad/2, opcGrid.bigShieldRad/2);
   }
   void balls(color col1) {
+    ShieldsOPCGrid opcGrid = (ShieldsOPCGrid)(opcgrid);  // why is this nessessary?!
+
     colorLayer.fill(col1);     
     colorLayer.noStroke();
-    colorLayer.ellipse(shieldsGrid.shields[7].x, shieldsGrid.shields[7].y, 15, 15);
-    colorLayer.ellipse(shieldsGrid.shields[8].x, shieldsGrid.shields[8].y, 15, 15);
-    colorLayer.ellipse(shieldsGrid.shields[9].x, shieldsGrid.shields[9].y, 15, 15);
+    colorLayer.ellipse(opcGrid.ballA.x, opcGrid.ballA.y, 15, 15);
+    colorLayer.ellipse(opcGrid.ballB.x, opcGrid.ballB.y, 15, 15);
+    colorLayer.ellipse(opcGrid.ballC.x, opcGrid.ballC.y, 15, 15);
   }
+  
   void mediumShield(color col1, color col2) {
-    colorLayer.fill(col1);      
-    colorLayer.noStroke();
-    colorLayer.ellipse(shieldsGrid.shields[0].x, shieldsGrid.shields[0].y, shieldsGrid.medShieldRad, shieldsGrid.medShieldRad);
-    colorLayer.ellipse(shieldsGrid.shields[1].x, shieldsGrid.shields[1].y, shieldsGrid.medShieldRad, shieldsGrid.medShieldRad);
-    colorLayer.ellipse(shieldsGrid.shields[2].x, shieldsGrid.shields[2].y, shieldsGrid.medShieldRad, shieldsGrid.medShieldRad);
+    ShieldsOPCGrid opcGrid = (ShieldsOPCGrid)(opcgrid);  // fixed typo in variable name
 
-    colorLayer.fill(col2);      
-    colorLayer.ellipse(shieldsGrid.shields[0].x, shieldsGrid.shields[0].y, shieldsGrid.medShieldRad/2, shieldsGrid.medShieldRad/2);
-    colorLayer.ellipse(shieldsGrid.shields[1].x, shieldsGrid.shields[1].y, shieldsGrid.medShieldRad/2, shieldsGrid.medShieldRad/2);
-    colorLayer.ellipse(shieldsGrid.shields[2].x, shieldsGrid.shields[2].y, shieldsGrid.medShieldRad/2, shieldsGrid.medShieldRad/2);
+   colorLayer.fill(col1);      
+    colorLayer.noStroke();
+
+    drawShield(colorLayer, opcGrid.medShieldA, opcGrid.medShieldRad, col1, col2);
+    drawShield(colorLayer, opcGrid.medShieldB, opcGrid.medShieldRad, col1, col2);
+    drawShield(colorLayer, opcGrid.medShieldC, opcGrid.medShieldRad, col1, col2);
   }
+
   void smallShield(color col1) {
+    ShieldsOPCGrid opcGrid = (ShieldsOPCGrid)(opcgrid);  // fixed typo in variable name
+
     colorLayer.fill(col1);      
-    colorLayer.ellipse(shieldsGrid.shields[3].x, shieldsGrid.shields[3].y, shieldsGrid.smallShieldRad, shieldsGrid.smallShieldRad);
-    colorLayer.ellipse(shieldsGrid.shields[4].x, shieldsGrid.shields[4].y, shieldsGrid.smallShieldRad, shieldsGrid.smallShieldRad);
-    colorLayer.ellipse(shieldsGrid.shields[5].x, shieldsGrid.shields[5].y, shieldsGrid.smallShieldRad, shieldsGrid.smallShieldRad);
+    drawShield(colorLayer, opcGrid.smallShieldA, opcGrid.smallShieldRad, col1, col1);
+    drawShield(colorLayer, opcGrid.smallShieldB, opcGrid.smallShieldRad, col1, col1);
+    drawShield(colorLayer, opcGrid.smallShieldC, opcGrid.smallShieldRad, col1, col1);
+     }
+
+  ////////////////////// funcitons to draw shields quickly /////////////////////
+  void drawCircle(PGraphics colorLayer, PVector position, float radius, color col){
+    colorLayer.fill(col);
+    colorLayer.noStroke();
+    colorLayer.ellipse(position.x, position.y, radius, radius);
   }
+
+  void drawShield(PGraphics colorLayer, PVector shield, float radius, color col1, color col2) {
+    drawCircle(colorLayer, shield, radius, col1);
+    drawCircle(colorLayer, shield, radius/2, col2);
+  }
+
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    void rigInfo() {
