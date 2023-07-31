@@ -79,18 +79,21 @@ void setup()
     entry("megaSeedA",new WLED(this,"192.168.10.90",21324)),
     entry("megaSeedB",new WLED(this,"192.168.10.30",21324))
   );
-  Map<String,LanternInfo> units = Map.ofEntries(
-    entry("leftside", new LanternInfo("leftside","LunchBox1",0,new int[] {1,1,1,1})),
-    entry("leftmid", new LanternInfo("leftmid","LunchBox1",100,new int[] {1,1,1})),
+  // change units to a description of what it really is
+  Map<String,PixelMapping> units = Map.ofEntries(
+    // document this: ("stringOne","LunchBox1",0,new int[] {1,1,1})
+    entry("stringOne", new PixelMapping("stringOne","LunchBox1",0,new int[] {1,1,1})),
+    entry("stringTwo", new PixelMapping("stringTwo","LunchBox1",100,new int[] {1,1,1})),  
+    entry("stringThree", new PixelMapping("stringThree","LunchBox1",200,new int[] {1,1,1})),
 
-    entry("rightside",new LanternInfo("rightside","LunchBox2",100,new int[]{1,1,1,1})),
-    entry("rightmid",new LanternInfo("rightmid","LunchBox2",0,new int[]{1,1,1,})),
+    entry("rightside",new PixelMapping("rightside","LunchBox2",100,new int[]{1,1,1,1})),
+    entry("rightmid",new PixelMapping("rightmid","LunchBox2",0,new int[]{1,1,1,})),
 
-    entry("centre", new LanternInfo("centre","LunchBox2",200,new int[]{1,1,1,1})),
+    entry("centre", new PixelMapping("centre","LunchBox2",200,new int[]{1,1,1,1})),
 
-    entry("barleft", new LanternInfo("barleft","LunchBox3",300,new int[]{1})),
-    entry("barmid", new LanternInfo("barmid","LunchBox3",200,new int[]{1})),
-    entry("barright", new LanternInfo("barright","LunchBox3",100,new int[]{1}))
+    entry("barleft", new PixelMapping("barleft","LunchBox3",300,new int[]{1})),
+    entry("barmid", new PixelMapping("barmid","LunchBox3",200,new int[]{1})),
+    entry("barright", new PixelMapping("barright","LunchBox3",100,new int[]{1}))
   );
   shields = new Rig(size.shields, RigType.Shields);
   shields.opcgrid = new ShieldsOPCGrid(shields);
@@ -107,8 +110,8 @@ void setup()
   uvPars.opcgrid = new UvParsGrid(uvPars,OPCs);
 
   roofmid = new Rig(size.roofmid,RigType.RoofMid);
-  String roofmidunits[] = {"leftmid","rightmid"};
-  roofmid.opcgrid = new VerticalRoofGrid(roofmid,OPCs,units,roofmidunits);
+  String roofmidunits[] = {"stringOne","stringTwo","stringThree"};
+  roofmid.opcgrid = new CircularRoofGrid(roofmid,OPCs,units,roofmidunits);
 
   roofcentre = new Rig(size.roofcentre,RigType.RoofCentre);
   String roofcentreunits[] = {"centre"};

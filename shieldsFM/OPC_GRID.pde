@@ -90,12 +90,12 @@ class MegaSeedAGrid extends OPCGrid{
   }
 }
 
-class LanternInfo{
+class PixelMapping{
   String opcname;
   int start_pixel;
   int pixelcounts[];
   String unitname;
-  LanternInfo(String name,String opcn,int stpix,int[] pixcounts){
+  PixelMapping(String name,String opcn,int stpix,int[] pixcounts){
     unitname = name;
     opcname = opcn;
     start_pixel = stpix;
@@ -109,17 +109,55 @@ int sum(int[] ints){
   }
   return result;
 }
-class VerticalRoofGrid extends OPCGrid {
+
+class CircularRoofGrid extends OPCGrid {
   Rig rig;
   //Map<String,PVector> opcPositions=new Map<String,PVector>;
   //Map<String,PVector> rigPositions=new Map<String,PVector>;
-  VerticalRoofGrid(Rig _rig,Map<String,OPC> opcs,Map<String,LanternInfo> units,String[] unitnames){
+  VerticalRoofGrid(Rig _rig,Map<String,OPC> opcs,Map<String,PixelMapping> units,String[] unitnames){
     rig = _rig;
     //vertical strips left to right
     int nunits = unitnames.length; // number of strings in the rig, doesnt have to be from the same ESP
     for (int i=0;i<nunits;i++){
       println("setting up "+unitnames[i]+": "+unitnames.length+" pixel strings in the rig");
-      LanternInfo unit = units.get(unitnames[i]);
+      PixelMapping unit = units.get(unitnames[i]);
+      int xpos = rig.size.x-rig.size.wide/2 + (i+1)*rig.size.wide/(nunits+1);
+      float xspacing = rig.size.wide/(nunits+1);
+      //int ypos = rig.size.y;
+      OPC opc = opcs.get(unit.opcname);
+      //unit.pixelcounts.length = number of pixels in the string
+      float spacing = (rig.size.high) / (unit.pixelcounts.length+1);
+      boolean reverse = true;
+      int pixelnumber=unit.start_pixel;
+      for (int j=0;j<unit.pixelcounts.length;j++){
+        int npixels=unit.pixelcounts[j];
+        // offset centers the pixels based on number of pixels
+        float offset = (rig.size.high) / (unit.pixelcounts.length+2); 
+        float ypos = rig.size.y-rig.size.high/2 + offset + spacing*j;
+        // println("xpos "+xpos+" ypos "+ypos+ " spacing "+spacing+" offset "+offset);
+        if (npixels==1) {opc.led(pixelnumber,xpos,int(ypos));
+        }else if (npixels==25){
+          float gridspacing = min(spacing,xspacing)*0.5/5;
+          opc.ledGrid(pixelnumber,5,5,xpos,ypos,gridspacing,gridspacing,0,false);
+        }
+        pixelnumber += npixels;
+      }
+    }
+  }
+}
+
+
+class VerticalRoofGrid extends OPCGrid {
+  Rig rig;
+  //Map<String,PVector> opcPositions=new Map<String,PVector>;
+  //Map<String,PVector> rigPositions=new Map<String,PVector>;
+  VerticalRoofGrid(Rig _rig,Map<String,OPC> opcs,Map<String,PixelMapping> units,String[] unitnames){
+    rig = _rig;
+    //vertical strips left to right
+    int nunits = unitnames.length; // number of strings in the rig, doesnt have to be from the same ESP
+    for (int i=0;i<nunits;i++){
+      println("setting up "+unitnames[i]+": "+unitnames.length+" pixel strings in the rig");
+      PixelMapping unit = units.get(unitnames[i]);
       int xpos = rig.size.x-rig.size.wide/2 + (i+1)*rig.size.wide/(nunits+1);
       float xspacing = rig.size.wide/(nunits+1);
       //int ypos = rig.size.y;
@@ -222,8 +260,8 @@ class ShieldsOPCGrid extends OPCGrid {
     rig.positionX = _shield; 
     rig.position = shields;
   }
-  //////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////// todo add this to class ShieldsOpcGrid ///////////////////////////////////////
   void bigTriangleShieldsOPC(Map<String,OPC> _opc) {
     opclist = _opc;
     ringSize = new float[] { rig.wide/9, rig.wide/5, rig.wide/4.5 };
