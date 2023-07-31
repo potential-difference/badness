@@ -234,59 +234,59 @@ class ShieldsOPCGrid extends OPCGrid {
     int pos = 3;
     int ring = 0;
     smallShieldWLED(opclist.get("SmallShieldA"), pos, ring);
-    shields[0] = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
-    PVector smallShieldA = shields[0];
+    smallShieldA = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
+    shields[0] = smallShieldA;
 
     // Med Shield A
     ring = 1;
     medShieldWLED(opclist.get("MedShieldA"), pos, ring);
-    shields[1] = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
-    PVector medShieldA = shields[1];
+    medShieldA = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
+    shields[1] = medShieldA;
 
     // Small Shield B
     pos = 15;
     ring = 0;
     smallShieldWLED(opclist.get("SmallShieldB"), pos, ring);
-    shields[2] = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
-    PVector smallShieldB = shields[2];
+    smallShieldB = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
+    shields[2] = smallShieldB;
 
     // Med Shield B
     ring = 1;
     medShieldWLED(opclist.get("MedShieldB"), pos, ring);
-    shields[3] = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
-    PVector medShieldB = shields[3];
+    medShieldB = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
+    shields[3] = medShieldC;
 
     // Small Shield C
     pos = 9;
     ring = 0;
     smallShieldWLED(opclist.get("SmallShieldC"), pos, ring);
-    shields[4] = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
-    PVector smallShieldC = shields[4];
+    smallShieldC = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
+    shields[4] = smallShieldC;
 
     // Med Shield C
     ring = 1;
     medShieldWLED(opclist.get("MedShieldC"), pos, ring);
-    shields[5] = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
-    PVector medShieldC = shields[5];
+    medShieldC = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
+    shields[5] = medShieldC;
 
     // Big Shield - Ball A, Ball B, Ball C
     bigShieldWLED(opclist.get("BigShield"), int(size.shields.x), int(size.shields.y));
-
+    
     ring = 0;
     pos = 12;
     ballGrid(opclist.get("BigShield"), 0, pos, ring);
-    shields[6] = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
-    PVector ballA = shields[6];
+    ballA = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
+    shields[6] = ballA;
 
     pos = 0;
     ballGrid(opclist.get("BigShield"), 1, pos, ring);
-    shields[7] = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
-    PVector ballB = shields[7];
+    ballB = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
+    shields[7] = ballB;
 
     pos = 6;
     ballGrid(opclist.get("BigShield"), 2, pos, ring);
-    shields[8] = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
-    PVector ballC = shields[8];
+    ballC = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
+    shields[8] = ballC;
     
     rig.positionX = _shield; 
     rig.position = shields;
