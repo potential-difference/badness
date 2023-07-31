@@ -3,7 +3,7 @@ processing lighting code
 
 FM2023 working branch developed from decom22
 
-using PDhome router 192.168.10.1 for UDP data transmission to multiple WLED devices over ehternet & wifi
+using PD Home router 192.168.10.1 for UDP data transmission to multiple WLED devices over ehternet & wifi
 
 includes script to run fcserver using DMXONLY.json 
 
