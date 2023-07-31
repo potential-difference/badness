@@ -103,16 +103,18 @@ void mouseInfo(boolean _info) {
     textAlign(CENTER);
   }
 }
-void cordinatesInfo(Rig rig, boolean _info) {
+void coordinatesInfo(Rig rig, boolean _info) {
   if (_info) {
     textSize(12);
     textAlign(CENTER);
     fill(360);  
-    for (int i = 0; i < rig.position.length; i++){
-      text(i, rig.size.x-(rig.wide/2)+rig.position[i].x, rig.size.y-(rig.high/2)+rig.position[i].y);   ///  Position info
-    } 
-    fill(200);  
-    
+
+    float centerX = rig.size.x - (rig.wide / 2);
+    float centerY = rig.size.y - (rig.high / 2);
+    for (int i = 0; i < rig.position.length; i++) {
+      PVector position = rig.position[i];
+      text(i, centerX + position.x, centerY + position.y); // Position info
+    }     
   }
 }
 void dividerLines() {
