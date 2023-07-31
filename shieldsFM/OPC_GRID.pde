@@ -1,3 +1,4 @@
+import java.util.function.Function;
 //OPC GRID
 //contains points of interest in whole-window coords
 //and all the OPC objects relevant.
@@ -115,8 +116,27 @@ class CircularRoofGrid extends OPCGrid {
   CircularRoofGrid(Rig _rig,Map<String,OPC> opcs,Map<String,PixelMapping> channels,String[] unitnames){
     rig = _rig;
     //vertical strips left to right
-    int nunits = unitnames.length; // number of strings in the rig, doesnt have to be from the same ESP
-    for (int i=0;i<nunits;i++){
+    int nchannels = unitnames.length; // number of strings in the rig, doesnt have to be from the same ESP
+    //we need to know how many total pixels there are
+    // and with that we calculate where each one gets placed
+    int total_pixels = 0;
+    for(int i=0;i<nchannels;i++){
+      PixelMapping channel = channels.get(unitnames[i]);
+      total_pixels += channel.pixelcounts.length;
+    }
+    float angle_delta = TWO_PI / total_pixels;
+
+    float radius = rig.size.wide / 3.0 * 2.0;
+
+    //a lambda that, given a pixel number, gives us an xy coordiante
+    Function<Integer,PVector> coords = (Integer i) -> {
+      float center_x = rig.size.x;
+      float center_y = rig.size.y;
+      return new PVector(sin(i*angle_delta)*radius+center_x,cos(i*angle_delta)*radius+center_y);
+    };
+
+    int all_pixel_number = 0;
+    for (int i=0;i<nchannels;i++){
       println("setting up "+unitnames[i]+": "+unitnames.length+" pixel strings in the rig");
       PixelMapping channel = channels.get(unitnames[i]);
       OPC opc = opcs.get(channel.opcname);
@@ -125,24 +145,15 @@ class CircularRoofGrid extends OPCGrid {
       //channel.pixelcounts.length = number of pixels in the string
       
       //rig specific math
-      int xpos = rig.size.x-rig.size.wide/2 + (i+1)*rig.size.wide/(nunits+1);
-      float xspacing = rig.size.wide/(nunits+1);
-      //int ypos = rig.size.y;
-      float spacing = (rig.size.high) / (channel.pixelcounts.length+1);
       
       for (int j=0;j<channel.pixelcounts.length;j++){
         int npixels=channel.pixelcounts[j];
-
-        // offset centers the pixels based on number of pixels
-        float offset = (rig.size.high) / (channel.pixelcounts.length+2); 
-        float ypos = rig.size.y-rig.size.high/2 + offset + spacing*j;
-        // println("xpos "+xpos+" ypos "+ypos+ " spacing "+spacing+" offset "+offset);
-        if (npixels==1) {opc.led(pixelnumber,xpos,int(ypos));
-        }else if (npixels==25){
-          float gridspacing = min(spacing,xspacing)*0.5/5;
-          opc.ledGrid(pixelnumber,5,5,xpos,ypos,gridspacing,gridspacing,0,false);
+        for (int k=0; k<npixels;k++){
+          PVector pv = coords.apply(all_pixel_number);
+          opc.led(pixelnumber,int(pv.x),int(pv.y));
+          pixelnumber++;
+          all_pixel_number++;
         }
-        pixelnumber += npixels;
       }
     }
   }
