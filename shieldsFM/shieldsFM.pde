@@ -79,9 +79,12 @@ void setup()
     entry("megaSeedA",new WLED(this,"192.168.10.90",21324)),
     entry("megaSeedB",new WLED(this,"192.168.10.30",21324))
   );
-  Map<String,LanternInfo> units = Map.ofEntries(
-    entry("leftside", new LanternInfo("leftside","LunchBox1",0,new int[] {1,1,1,1})),
-    entry("leftmid", new LanternInfo("leftmid","LunchBox1",100,new int[] {1,1,1})),
+
+  Map<String,PixelMapping> channels = Map.ofEntries(
+    // document this: ("stringOne","LunchBox1",0,new int[] {1,1,1})
+    entry("stringOne", new PixelMapping("stringOne","LunchBox1",0,new int[] {1,1,1})),
+    entry("stringTwo", new PixelMapping("stringTwo","LunchBox1",100,new int[] {1,1,1})),  
+    entry("stringThree", new PixelMapping("stringThree","LunchBox1",200,new int[] {1,1,1})),
 
     entry("rightside",new LanternInfo("rightside","LunchBox2",100,new int[]{1,1,1,1})),
     entry("rightmid",new LanternInfo("rightmid","LunchBox2",0,new int[]{1,1,1,})),
@@ -107,20 +110,19 @@ void setup()
   uvPars.opcgrid = new UvParsGrid(uvPars,OPCs);
 
   roofmid = new Rig(size.roofmid,RigType.RoofMid);
-  String roofmidunits[] = {"leftmid","rightmid"};
-  roofmid.opcgrid = new VerticalRoofGrid(roofmid,OPCs,units,roofmidunits);
+  String roofmidunits[] = {"stringOne","stringTwo","stringThree"};
+  roofmid.opcgrid = new CircularRoofGrid(roofmid,OPCs,channels,roofmidunits);
 
   roofcentre = new Rig(size.roofcentre,RigType.RoofCentre);
   String roofcentreunits[] = {"centre"};
-  roofcentre.opcgrid = new VerticalRoofGrid(roofcentre,OPCs,units,roofcentreunits);
+  roofcentre.opcgrid = new VerticalRoofGrid(roofcentre,OPCs,channels,roofcentreunits);
 
   roofsides = new Rig(size.roofsides,RigType.RoofSides); // name change of rig
-  String roofsidesunits[] = {"leftside","rightside"};
-  roofsides.opcgrid = new VerticalRoofGrid(roofsides,OPCs,units,roofsidesunits);
+  String roofsidesunits[] = {"rightside","rightmid"};
+  roofsides.opcgrid = new VerticalRoofGrid(roofsides,OPCs,channels,roofsidesunits);
   
   bar = new Rig(size.bar,RigType.Bar);
   String barunits[] = {"barleft","barmid","barright"};
- // bar.opcgrid = new VerticalRoofGrid(bar,OPCs,units,barunits);
 
 
 //
