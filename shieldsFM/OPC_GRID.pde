@@ -90,12 +90,12 @@ class MegaSeedAGrid extends OPCGrid{
   }
 }
 
-class LanternInfo{
+class PixelMapping{
   String opcname;
   int start_pixel;
   int pixelcounts[];
   String unitname;
-  LanternInfo(String name,String opcn,int stpix,int[] pixcounts){
+  PixelMapping(String name,String opcn,int stpix,int[] pixcounts){
     unitname = name;
     opcname = opcn;
     start_pixel = stpix;

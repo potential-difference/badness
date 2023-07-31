@@ -86,14 +86,14 @@ void setup()
     entry("stringTwo", new PixelMapping("stringTwo","LunchBox1",100,new int[] {1,1,1})),  
     entry("stringThree", new PixelMapping("stringThree","LunchBox1",200,new int[] {1,1,1})),
 
-    entry("rightside",new LanternInfo("rightside","LunchBox2",100,new int[]{1,1,1,1})),
-    entry("rightmid",new LanternInfo("rightmid","LunchBox2",0,new int[]{1,1,1,})),
+    entry("rightside",new PixelMapping("rightside","LunchBox2",100,new int[]{1,1,1,1})),
+    entry("rightmid",new PixelMapping("rightmid","LunchBox2",0,new int[]{1,1,1,})),
 
-    entry("centre", new LanternInfo("centre","LunchBox2",200,new int[]{1,1,1,1})),
+    entry("centre", new PixelMapping("centre","LunchBox2",200,new int[]{1,1,1,1})),
 
-    entry("barleft", new LanternInfo("barleft","LunchBox3",300,new int[]{1})),
-    entry("barmid", new LanternInfo("barmid","LunchBox3",200,new int[]{1})),
-    entry("barright", new LanternInfo("barright","LunchBox3",100,new int[]{1}))
+    entry("barleft", new PixelMapping("barleft","LunchBox3",300,new int[]{1})),
+    entry("barmid", new PixelMapping("barmid","LunchBox3",200,new int[]{1})),
+    entry("barright", new PixelMapping("barright","LunchBox3",100,new int[]{1}))
   );
   shields = new Rig(size.shields, RigType.Shields);
   shields.opcgrid = new ShieldsOPCGrid(shields);
