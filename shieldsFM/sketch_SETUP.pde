@@ -28,10 +28,10 @@ class SizeSettings {
     
     shields = new IntCoord(rigWidth/2, rigHeight/2, rigWidth, rigHeight);
     
-     ////////////////////////////////  TOP LINE OF RIGS - RIGHT OF MAIN ONE ///////////////////////
-     // Update rigWidth and rigHeight using shields.wide/4
-    rigWidth = shields.wide/4;
-    rigHeight = shields.wide/4;
+    ////////////////////////////////  TOP LINE OF RIGS - RIGHT OF MAIN ONE ///////////////////////
+    // Update rigWidth and rigHeight using shields.wide/4
+    rigWidth = int(shields.wide/2.8);
+    rigHeight = int(shields.wide/2.8);
     
     // number of rigs required 
     int numObjects = 3;
@@ -50,24 +50,24 @@ class SizeSettings {
     yCoordinates[1] = rigHeight/2;
     yCoordinates[2] = yCoordinates[0] + rigHeight;
 
+    // print to console to check everything is working correctly.
     for(int i = 0; i < numObjects; i++ ) {
       println("xCoordinates[" + i + "] " + xCoordinates[i]);
       println("yCoordinates[" + i + "] " + yCoordinates[i]);
       println();
     }
          
-     // Create an array to store the created objects
+    // Create an array to store the created objects
     IntCoord[] roofCoords = new IntCoord[numObjects];
-     // Use a for loop to create the objects and store them in the array
+    // Use a for loop to create the objects and store them in the array
     for (int i = 0; i < numObjects; i++) {
-        roofCoords[i] = new IntCoord(xCoordinates[i], yCoordinates[i], rigWidth, rigHeight);
-        println("roofCoords[" + i + "] " + roofCoords[i].x + " " + roofCoords[i].y);
+      roofCoords[i] = new IntCoord(xCoordinates[i], yCoordinates[i], rigWidth, rigHeight);
+      println("roofCoords[" + i + "] " + roofCoords[i].x + " " + roofCoords[i].y);
     }
     
     tipiLeft = roofCoords[0];
     tipiRight = roofCoords[1];
     tipiCentre = roofCoords[2];    
-
 
      // Calculate the x and y coordinates for the info object
      int infoWidth = 250;
