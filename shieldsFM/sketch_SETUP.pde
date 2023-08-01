@@ -69,11 +69,12 @@ class SizeSettings {
     tipiRight = roofCoords[1];
     tipiCentre = roofCoords[2];    
 
-     // Calculate the x and y coordinates for the info object
-     int infoWidth = 250;
-     int infoHeight = shields.high;
-     int xCoordinate = roofCoords[numOfColumns-1].x + rigWidth/2 + infoWidth/2;
-     int yCoordinate = shields.y;
+    // Calculate the x and y coordinates for the info object
+    int infoWidth = 250;
+    int infoHeight = shields.high;
+    int xCoordinate = roofCoords[numOfColumns - 1].x + rigWidth / 2 + infoWidth / 2;
+    int yCoordinate = shields.y;
+    
     
     // Create the info object using the calculated coordinates and updated rigWidth
     info = new IntCoord(xCoordinate, yCoordinate, infoWidth, infoHeight);
