@@ -75,7 +75,6 @@ class SizeSettings {
     int xCoordinate = roofCoords[numOfColumns - 1].x + rigWidth / 2 + infoWidth / 2;
     int yCoordinate = shields.y;
     
-    
     // Create the info object using the calculated coordinates and updated rigWidth
     info = new IntCoord(xCoordinate, yCoordinate, infoWidth, infoHeight);
     
