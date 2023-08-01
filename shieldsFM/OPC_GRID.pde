@@ -20,13 +20,13 @@ class BoothGrid extends OPCGrid{
   PVector blins[] = new PVector[4];
   Coord uvDimmer,uvSpeed,uvProgram;
   Coord booth,dig,mixer,blinders;
-  BoothGrid(Map<String,OPC> opcs){
-    opclist = opcs;
+  BoothGrid(Map<String,OPC> opcnodes){
+    opclist = opcnodes;
     ////////////////////////// BOOTH, DIG, MIXER LIGHTS /////////////////////
     booth = new Coord(size.booth.x-size.booth.wide/2+35,size.booth.y-size.booth.high/2+20,30,15);
     dig = new Coord(booth.x,booth.y+20,booth.wide,booth.high);
     mixer = new Coord(dig.x, dig.y+20,dig.wide,dig.high);
-    OPC boothopc = opcs.get("LunchBox1");
+    OPC boothopc = opcnodes.get("LunchBox1");
     boothopc.led(0,int(booth.x-5),int(booth.y));
     boothopc.led(200,int(booth.x+5),int(booth.y));
     boothopc.led(100,int(mixer.x),int(mixer.y));
@@ -37,15 +37,15 @@ class BoothGrid extends OPCGrid{
 class UvParsGrid extends OPCGrid{
   Rig rig;
   //PVector centre;
-  UvParsGrid(Rig _rig,Map<String,OPC> opcs){
-    opclist = opcs;
+  UvParsGrid(Rig _rig,Map<String,OPC> opcnodes){
+    opclist = opcnodes;
     rig = _rig;
-    opcs.get("Entec").led(0,size.uvPars.x,size.uvPars.y);
+    opcnodes.get("Entec").led(0,size.uvPars.x,size.uvPars.y);
   }
 }
 /*
  ///////////////////////// DMX UV BATONS /////////////////////////////////
-    OPC entec = opcs.get("Entec");
+    OPC entec = opcnodes.get("Entec");
     // FOUR LAMPS LAID OUT VERTICALY - EACH LAMP HAS 3 CHANNELS, DIMMER, SPEED, PROGRAM
     int x = int(mixer.x);           // CHANGES THE X POSITION OF THE BATONS
     int y = int(mixer.y+40);        // CHANGES THE Y POSITION OF THE BATONS
@@ -74,19 +74,19 @@ class UvParsGrid extends OPCGrid{
 
 class MegaSeedBGrid extends OPCGrid{
   Rig rig;
-  MegaSeedBGrid(Rig _rig,Map<String,OPC> opcs){
-    opclist = opcs;
+  MegaSeedBGrid(Rig _rig,Map<String,OPC> opcnodes){
+    opclist = opcnodes;
     rig = _rig;
-    opcs.get("megaSeedB").led(0,size.megaSeedB.x,size.megaSeedB.y);
+    opcnodes.get("megaSeedB").led(0,size.megaSeedB.x,size.megaSeedB.y);
   }
 }
 
 class MegaSeedAGrid extends OPCGrid{
   Rig rig;
-  MegaSeedAGrid(Rig _rig,Map<String,OPC> opcs){
-    opclist = opcs;
+  MegaSeedAGrid(Rig _rig,Map<String,OPC> opcnodes){
+    opclist = opcnodes;
     rig = _rig;
-    opcs.get("megaSeedA").led(0,size.megaSeedA.x,size.megaSeedA.y);
+    opcnodes.get("megaSeedA").led(0,size.megaSeedA.x,size.megaSeedA.y);
 
   }
 }
@@ -113,15 +113,14 @@ int sum(int[] ints){
 
 class CircularRoofGrid extends OPCGrid {
   Rig rig;
-  CircularRoofGrid(Rig _rig,Map<String,OPC> opcs,Map<String,PixelMapping> channels,String[] unitnames){
+  CircularRoofGrid(Rig _rig,Map<String,OPC> opcnodes,Map<String,PixelMapping> channels,String[] channelnames){
     rig = _rig;
-    //vertical strips left to right
-    int nchannels = unitnames.length; // number of strings in the rig, doesnt have to be from the same ESP
+    int nchannels = channelnames.length; // number of strings in the rig, doesnt have to be from the same ESP
     //we need to know how many total pixels there are
     // and with that we calculate where each one gets placed
     int total_pixels = 0;
     for(int i=0;i<nchannels;i++){
-      PixelMapping channel = channels.get(unitnames[i]);
+      PixelMapping channel = channels.get(channelnames[i]);
       total_pixels += channel.pixelcounts.length;
     }
     float angle_delta = TWO_PI / total_pixels;
@@ -137,38 +136,39 @@ class CircularRoofGrid extends OPCGrid {
 
     int all_pixel_number = 0;
     for (int i=0;i<nchannels;i++){
-      println("setting up "+unitnames[i]+": "+unitnames.length+" pixel strings in the rig");
-      PixelMapping channel = channels.get(unitnames[i]);
-      OPC opc = opcs.get(channel.opcname);
+      println("setting up "+channelnames[i]+": "+channelnames.length+" pixel strings in the rig");
+      PixelMapping channel = channels.get(channelnames[i]);
+      OPC opc = opcnodes.get(channel.opcname);
       int pixelnumber=channel.start_pixel;
       boolean reverse = true;
       //channel.pixelcounts.length = number of pixels in the string
       
       //rig specific math
-      
       for (int j=0;j<channel.pixelcounts.length;j++){
         int npixels=channel.pixelcounts[j];
         for (int k=0; k<npixels;k++){
           PVector pv = coords.apply(all_pixel_number);
+          rig.position[k] = pv;                         // sets the rig.posistion[] coordinates to the pixel coords
           opc.led(pixelnumber,int(pv.x),int(pv.y));
           pixelnumber++;
           all_pixel_number++;
         }
       }
+      //println(rig.position); // prints coordinates for positions in the rig  
     }
   }
 }
 
 class VerticalRoofGrid extends OPCGrid {
   Rig rig;
-  VerticalRoofGrid(Rig _rig,Map<String,OPC> opcs,Map<String,PixelMapping> channels,String[] unitnames){
+  VerticalRoofGrid(Rig _rig,Map<String,OPC> opcnodes,Map<String,PixelMapping> channels,String[] channelnames){
     rig = _rig;
     //vertical strips left to right
-    int nunits = unitnames.length; // number of strings in the rig, doesnt have to be from the same ESP
+    int nunits = channelnames.length; // number of strings in the rig, doesnt have to be from the same ESP
     for (int i=0;i<nunits;i++){
-      println("setting up "+unitnames[i]+": "+unitnames.length+" pixel strings in the rig");
-      PixelMapping channel = channels.get(unitnames[i]);
-      OPC opc = opcs.get(channel.opcname);
+      println("setting up "+channelnames[i]+": "+channelnames.length+" pixel strings in the rig");
+      PixelMapping channel = channels.get(channelnames[i]);
+      OPC opc = opcnodes.get(channel.opcname);
       int pixelnumber=channel.start_pixel;
       boolean reverse = true;
       //channel.pixelcounts.length = number of pixels in the string
