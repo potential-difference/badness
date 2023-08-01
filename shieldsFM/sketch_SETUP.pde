@@ -35,27 +35,33 @@ class SizeSettings {
     
     // number of rigs required 
     int numObjects = 3;
+    int numOfRows = 2;
+    int numOfColumns = 2;
     // Use arrays to store the x and y coordinates
     int[] xCoordinates = new int[numObjects];
     int[] yCoordinates = new int[numObjects];
     
-     // Calculate the x coordiantes for the objects
-    xCoordinates[0] = shields.wide + rigWidth / 2;    // 1st column
-    if(numObjects>0){
-    for(int i = 1; i < numObjects; i++ ) {
-      xCoordinates[i] = xCoordinates[i-1] + rigWidth; 
-    }
-  
-     // Calculate the y coordiantes for the objects
+    // Calculate the x coordiantes for the objects: will become centre of the rig
+    xCoordinates[0] = shields.wide + rigWidth / 2;
+    xCoordinates[1] = xCoordinates[0] + rigWidth;
+    xCoordinates[2] = xCoordinates[0];
+    // Calculate the y coordiantes for the objects: will become centre of the rig
+    yCoordinates[0] = rigHeight/2;
+    yCoordinates[1] = rigHeight/2;
+    yCoordinates[2] = yCoordinates[0] + rigHeight;
+
     for(int i = 0; i < numObjects; i++ ) {
-      xCoordinates[i] = rigHeight/2; 
+      println("xCoordinates[" + i + "] " + xCoordinates[i]);
+      println("yCoordinates[" + i + "] " + yCoordinates[i]);
+      println();
     }
-     
+         
      // Create an array to store the created objects
     IntCoord[] roofCoords = new IntCoord[numObjects];
      // Use a for loop to create the objects and store them in the array
     for (int i = 0; i < numObjects; i++) {
         roofCoords[i] = new IntCoord(xCoordinates[i], yCoordinates[i], rigWidth, rigHeight);
+        println("roofCoords[" + i + "] " + roofCoords[i].x + " " + roofCoords[i].y);
     }
     
     tipiLeft = roofCoords[0];
@@ -65,11 +71,12 @@ class SizeSettings {
 
      // Calculate the x and y coordinates for the info object
      int infoWidth = 250;
-     int xCoordinate = xCoordinates[xCoordinates.length-1] + rigWidth/2 + infoWidth/2;
+     int infoHeight = shields.high;
+     int xCoordinate = roofCoords[numOfColumns-1].x + rigWidth/2 + infoWidth/2;
      int yCoordinate = shields.y;
     
      // Create the info object using the calculated coordinates and updated rigWidth
-     info = new IntCoord(xCoordinate, yCoordinate, rigWidth, rigHeight);
+     info = new IntCoord(xCoordinate, yCoordinate, infoWidth, infoHeight);
     
      ///////////////////////////////////////////////////////////////////////////////////////////
      ////////////////////////////////  BOTTOM LINE OF RIGS /////////////////////////////////////
@@ -95,7 +102,6 @@ class SizeSettings {
     
      // Update the rigWidth using info's properties
      rigWidth = info.wide;
-    
      // Create the booth object using info's properties and the updated rigWidth
      booth = new IntCoord(info.x, bottomRigY, rigWidth, rigHeight);
     
@@ -103,11 +109,12 @@ class SizeSettings {
     
     
      // Calculate the overall size of the application by adding the widths and heights of the components
-     sizeX = shields.wide + tipiLeft.wide + tipiRight.wide + tipiCentre.wide + info.wide;
+     sizeX = shields.wide + tipiLeft.wide + tipiRight.wide + info.wide;
      sizeY = shields.high + megaSeedA.high;
+
     }
   }
-}
+
 ///////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////
 void midiSetup() {
