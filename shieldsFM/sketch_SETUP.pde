@@ -193,3 +193,12 @@ void loadShaders() {
   blur.set("blurSize", blury);
   blur.set("sigma", 10.0f);
 }
+
+void printmd(String content) {
+  String[] lines = content.split("\n");
+
+  // Use the relative path to your .md file.
+  String filePath = "data/markdown.md";
+  saveStrings(filePath, lines);
+  println("Markdown file saved!");
+}
