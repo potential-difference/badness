@@ -125,7 +125,8 @@ class CircularRoofGrid extends OPCGrid {
     }
     float angle_delta = TWO_PI / total_pixels;
 
-    float radius = rig.size.wide / 3.0 * 2.0;
+    // set radius of the circle of pixels
+    float radius = float(rig.size.wide / 4);
 
     //a lambda that, given a pixel number, gives us an xy coordiante
     Function<Integer,PVector> coords = (Integer i) -> {

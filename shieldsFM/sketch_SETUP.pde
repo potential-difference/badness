@@ -14,50 +14,98 @@ class IntCoord{
 }
 
 class SizeSettings {
-  IntCoord shields,roofmid,roofcentre,roofsides,megaSeedA,megaSeedB,info,booth,bar,uvPars;
+  // for loop to setup components based on what rigs there are or the other way around.
+  // need less places where you have to make changes!
+  // maybe this could be a config thing though so each instance is just a reference to 
+  // a name in the config file so thats the only place you change things...?!
+  IntCoord shields,tipiLeft,tipiRight,tipiCentre,megaSeedA,megaSeedB,info,booth,bar,uvPars;
   //PVector rig, roof, cans, donut, pars, info;
   int sizeX, sizeY;
 
   SizeSettings() {
     int rigWidth = 600;   
     int rigHeight = 600;    
-                               
-    if (SHITTYLAPTOP) rigWidth = 547;
-    if (SHITTYLAPTOP) rigHeight = 547;
-
-    shields = new IntCoord(rigWidth/2,rigHeight/2,rigWidth,rigHeight);
-
-    ////////////////////////////////  TOP LINE OF RIGS RIGHT OF MAIN ONE ///////////////////////
-    rigWidth = shields.wide/3;
-    // TODO - MAKE THIS EASIER TO ADJUST //
-    roofcentre = new IntCoord(shields.wide+rigWidth/2,shields.y,rigWidth,rigHeight);
-    roofmid = new IntCoord(roofcentre.x+roofcentre.wide/2+rigWidth/2,shields.y,rigWidth,rigHeight);
-    roofsides = new IntCoord(roofmid.x+roofmid.wide/2+rigWidth/2,shields.y,rigWidth,rigHeight);
-
-    rigWidth = 250;
-    info = new IntCoord(roofsides.x+roofsides.wide/2+rigWidth/2,shields.y,rigWidth,rigHeight);
-
-    ////////////////////////////////  BOTTOM LINE OF RIGS ///////////////////////
-
-    rigHeight = 100;
-    rigWidth = 200;
-    int bottomRigY = shields.high+rigHeight/2;
-
-    megaSeedA = new IntCoord(rigWidth/2,bottomRigY,rigWidth,rigHeight);
-    megaSeedB = new IntCoord(megaSeedA.wide+rigWidth/2,bottomRigY,rigWidth,rigHeight);
-
-    rigWidth = 400;
-   
-    uvPars = new IntCoord(megaSeedB.x+megaSeedB.wide/2+rigWidth/2,bottomRigY,rigWidth,rigHeight);
-    bar = new IntCoord(uvPars.x+uvPars.wide/2+rigWidth/2,bottomRigY,rigWidth,rigHeight);
-
-    rigWidth = info.wide;
-    booth = new IntCoord(info.x,bottomRigY,rigWidth,rigHeight);
     
-    ////////////////////////////////  OVERALL SIZE /////////////////////////////
+    shields = new IntCoord(rigWidth/2, rigHeight/2, rigWidth, rigHeight);
+    
+     ////////////////////////////////  TOP LINE OF RIGS - RIGHT OF MAIN ONE ///////////////////////
+     // Update rigWidth and rigHeight using shields.wide/4
+    rigWidth = shields.wide/4;
+    rigHeight = shields.wide/4;
+    
+    // number of rigs required 
+    int numObjects = 3;
+    // Use arrays to store the x and y coordinates
+    int[] xCoordinates = new int[numObjects];
+    int[] yCoordinates = new int[numObjects];
+    
+     // Calculate the x coordiantes for the objects
+    xCoordinates[0] = shields.wide + rigWidth / 2;    // 1st column
+    if(numObjects>0){
+    for(int i = 1; i < numObjects; i++ ) {
+      xCoordinates[i] = xCoordinates[i-1] + rigWidth; 
+    }
+  
+     // Calculate the y coordiantes for the objects
+    for(int i = 0; i < numObjects; i++ ) {
+      xCoordinates[i] = rigHeight/2; 
+    }
+     
+     // Create an array to store the created objects
+    IntCoord[] roofCoords = new IntCoord[numObjects];
+     // Use a for loop to create the objects and store them in the array
+    for (int i = 0; i < numObjects; i++) {
+        roofCoords[i] = new IntCoord(xCoordinates[i], yCoordinates[i], rigWidth, rigHeight);
+    }
+    
+    tipiLeft = roofCoords[0];
+    tipiRight = roofCoords[1];
+    tipiCentre = roofCoords[2];    
 
-    sizeX = shields.wide+roofsides.wide+roofmid.wide+roofcentre.wide+info.wide;
-    sizeY = shields.high+megaSeedA.high;
+
+     // Calculate the x and y coordinates for the info object
+     int infoWidth = 250;
+     int xCoordinate = xCoordinates[xCoordinates.length-1] + rigWidth/2 + infoWidth/2;
+     int yCoordinate = shields.y;
+    
+     // Create the info object using the calculated coordinates and updated rigWidth
+     info = new IntCoord(xCoordinate, yCoordinate, rigWidth, rigHeight);
+    
+     ///////////////////////////////////////////////////////////////////////////////////////////
+     ////////////////////////////////  BOTTOM LINE OF RIGS /////////////////////////////////////
+     rigHeight = 100;
+     rigWidth = 200;
+    
+     // Calculate the y coordinate for the bottom row of objects
+     int bottomRigY = shields.high + rigHeight/2;
+    
+     // Create the megaSeedA object
+     megaSeedA = new IntCoord(rigWidth/2, bottomRigY, rigWidth, rigHeight);
+    
+     // Update the x coordinate for megaSeedB using megaSeedA's properties
+     megaSeedB = new IntCoord(megaSeedA.x + megaSeedA.wide/2, bottomRigY, rigWidth, rigHeight);
+    
+     rigWidth = 400;
+    
+     // Update the x coordinate for uvPars using megaSeedB's properties
+     uvPars = new IntCoord(megaSeedB.x + megaSeedB.wide/2 + rigWidth/2, bottomRigY, rigWidth, rigHeight);
+    
+     // Update the x coordinate for bar using uvPars's properties
+     bar = new IntCoord(uvPars.x + uvPars.wide/2 + rigWidth/2, bottomRigY, rigWidth, rigHeight);
+    
+     // Update the rigWidth using info's properties
+     rigWidth = info.wide;
+    
+     // Create the booth object using info's properties and the updated rigWidth
+     booth = new IntCoord(info.x, bottomRigY, rigWidth, rigHeight);
+    
+     ////////////////////////////////  OVERALL SIZE /////////////////////////////
+    
+    
+     // Calculate the overall size of the application by adding the widths and heights of the components
+     sizeX = shields.wide + tipiLeft.wide + tipiRight.wide + tipiCentre.wide + info.wide;
+     sizeY = shields.high + megaSeedA.high;
+    }
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////

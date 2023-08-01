@@ -19,7 +19,7 @@ OPCGrid opcGrid;
 //Gig Specific
 ShieldsOPCGrid shieldsGrid;
 BoothGrid boothGrid;
-Rig shields,roofmid,roofsides,roofcentre,bar,booth,megaSeedA,megaSeedB,cans,roof,uvPars;
+Rig shields,tipiLeft,tipiRight,tipiCentre,bar,booth,megaSeedA,megaSeedB,cans,roof,uvPars;
 
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
 PFont font;
@@ -44,10 +44,10 @@ float smokePumpValue, smokeOnTime, smokeOffTime;
 float uvDimmer=0.2;
 float uvSpeed=0.5;
 float uvProgram=0.5;
+
 void settings() {
   System.setProperty("jogl.disable.openglcore", "true");
   size = new SizeSettings();
-  //fullScreen();
   size(size.sizeX, size.sizeY, P2D);
 }
 
@@ -86,14 +86,17 @@ void setup()
     entry("stringTwo", new PixelMapping("stringTwo","LunchBox1",100,new int[] {1,1,1})),  
     entry("stringThree", new PixelMapping("stringThree","LunchBox1",200,new int[] {1,1,1})),
 
-    entry("rightside",new PixelMapping("rightside","LunchBox2",100,new int[]{1,1,1,1})),
-    entry("rightmid",new PixelMapping("rightmid","LunchBox2",0,new int[]{1,1,1,})),
+    entry("stringFour",new PixelMapping("stringFour","LunchBox2",0,new int[]{1,1,1})),
+    entry("stringFive",new PixelMapping("stringFive","LunchBox2",100,new int[]{1,1,1})),
+    entry("stringSix",new PixelMapping("stringSix","LunchBox2",200,new int[]{1,1,1})),
 
-    entry("centre", new PixelMapping("centre","LunchBox2",200,new int[]{1,1,1,1})),
+    entry("stringSeven",new PixelMapping("stringSeven","LunchBox3",0,new int[]{1,1,1})),
+    entry("stringEight",new PixelMapping("stringEight","LunchBox3",100,new int[]{1,1,1})),
+    entry("stringNine",new PixelMapping("stringNine","LunchBox3",200,new int[]{1,1,1})),
 
     entry("barleft", new PixelMapping("barleft","LunchBox3",300,new int[]{1})),
-    entry("barmid", new PixelMapping("barmid","LunchBox3",200,new int[]{1})),
-    entry("barright", new PixelMapping("barright","LunchBox3",100,new int[]{1}))
+    entry("barmid", new PixelMapping("barmid","LunchBox3",400,new int[]{1})),
+    entry("barright", new PixelMapping("barright","LunchBox3",500,new int[]{1}))
   );
   shields = new Rig(size.shields, RigType.Shields);
   shields.opcgrid = new ShieldsOPCGrid(shields);
@@ -101,6 +104,7 @@ void setup()
 
   boothGrid = new BoothGrid(OPCs);
 
+  // new rigs need to be iniciated inside RIG.pde too
   megaSeedA = new Rig(size.megaSeedA,RigType.MegaSeedA);
   megaSeedA.opcgrid = new MegaSeedAGrid(megaSeedA,OPCs);
   megaSeedB = new Rig(size.megaSeedB,RigType.MegaSeedB);
@@ -109,18 +113,18 @@ void setup()
   uvPars = new Rig(size.uvPars,RigType.UvPars);
   uvPars.opcgrid = new UvParsGrid(uvPars,OPCs);
 
-  roofmid = new Rig(size.roofmid,RigType.RoofMid);
-  String roofmidunits[] = {"stringOne","stringTwo","stringThree"};
-  roofmid.opcgrid = new CircularRoofGrid(roofmid,OPCs,channels,roofmidunits);
+  tipiLeft = new Rig(size.tipiLeft,RigType.TipiLeft);
+  String tipiLeftChannels[] = {"stringOne","stringTwo","stringThree"};
+  // tipiLeft.opcgrid = new CircularRoofGrid(tipiLeft,OPCs,channels,tipiLeftChannels);
 
-  roofcentre = new Rig(size.roofcentre,RigType.RoofCentre);
-  String roofcentreunits[] = {"centre"};
-  roofcentre.opcgrid = new VerticalRoofGrid(roofcentre,OPCs,channels,roofcentreunits);
+  tipiRight = new Rig(size.tipiRight,RigType.TipiRight);
+  String tipiRightChannels[] = {"stringFour","stringFive","stringSix"};
+  // tipiRight.opcgrid = new CircularRoofGrid(tipiRight,OPCs,channels,tipiRightChannels);
 
-  roofsides = new Rig(size.roofsides,RigType.RoofSides); // name change of rig
-  String roofsidesunits[] = {"rightside","rightmid"};
-  roofsides.opcgrid = new VerticalRoofGrid(roofsides,OPCs,channels,roofsidesunits);
-  
+  tipiCentre = new Rig(size.tipiCentre,RigType.TipiCentre);
+  String tipiCentreChannels[] = {"stringSeven","stringEight","stringNine"};
+  // tipiCentre.opcgrid = new CircularRoofGrid(tipiCentre,OPCs,channels,tipiCentreChannels);
+
   bar = new Rig(size.bar,RigType.Bar);
   String barunits[] = {"barleft","barmid","barright"};
 
@@ -144,6 +148,10 @@ void setup()
   rig.strokeSlider= 0.5;
   rig.blurriness = 0.2;
   }
+
+   //fullScreen();
+  
+
   frameRate(30); // always needs to be last in setup
 }
 

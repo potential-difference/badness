@@ -1,5 +1,5 @@
 enum RigType{
-    Shields,Lanterns,Diamonds,MegaSeedA,MegaSeedB,RoofMid,RoofSides,RoofCentre,Bar,Mirrors,Cans,Strips,Seeds,Pars,Booth,Dig,UvPars // rigs
+    Shields,Lanterns,Diamonds,MegaSeedA,MegaSeedB,TipiLeft,TipiRight,TipiCentre,Bar,Mirrors,Cans,Strips,Seeds,Pars,Booth,Dig,UvPars // rigs
 }
 //static RigType Shields = RigType.Shields;
 public class Rig {
@@ -28,7 +28,7 @@ public class Rig {
     type = _name;
     wide = coord.wide;
     high = coord.high;
-    size = coord;//new PVector (coord.x,coord.y);
+    size = coord; //new PVector (coord.x,coord.y);
 
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
 

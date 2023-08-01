@@ -228,8 +228,8 @@ void workLights(boolean _work,BoothGrid opcGrid) {
     pause = 10;
     fill(360*cc[9], 360*cc[10]);
     rect(size.shields);
-    rect(size.roofmid);
-    rect(size.roofsides);
+    rect(size.tipiLeft);
+    rect(size.tipiRight);
     //rect(size.cans);
     rect(opcGrid.booth);
     rect(opcGrid.dig);

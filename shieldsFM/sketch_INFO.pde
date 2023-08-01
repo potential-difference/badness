@@ -121,22 +121,22 @@ void dividerLines() {
   noFill();
   stroke(shields.flash,200);
   strokeWeight(1);
-  /*
+  
   // TO DO is this possible?? 
-  for (Rig rig : rigs){
-    rect(size.rig);
-  }
-  */
+  //for (Rig rig : rigs) rect(size.rig);
+  
+  
   rect(size.shields);
-  rect(size.roofcentre);
-  rect(size.roofmid);
-  rect(size.roofsides);
+  rect(size.tipiCentre);
+  rect(size.tipiLeft);
+  rect(size.tipiRight);
   rect(size.info);
   rect(size.megaSeedA);
   rect(size.megaSeedB);
   rect(size.uvPars);
   rect(size.bar);
   rect(size.booth);
+  
 }
 
 void frameRateInfo(float x, float y) {

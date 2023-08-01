@@ -32,10 +32,10 @@ void alwaysDoFirst() {
 
   megaSeedA.vizIndex = 5;
   megaSeedB.vizIndex = 5;
-  roofmid.colorIndexA = 2;
-  roofmid.colorIndexB = 1;
-  roofsides.colorIndexA = 3;
-  roofsides.colorIndexB = 2;
+  tipiLeft.colorIndexA = 2;
+  tipiLeft.colorIndexB = 1;
+  tipiRight.colorIndexA = 3;
+  tipiRight.colorIndexB = 2;
 
   megaSeedB.colorIndexA = 1;
   megaSeedB.colorIndexB = 2;
@@ -64,17 +64,17 @@ void alwaysDoFirst() {
   shields.strokeSlider= 1;
   shields.blurriness = 0.2;
 
-  roofmid.dimmer = 0.45;
-  roofmid.alphaRate = 0.84;
-  roofmid.functionRate = 0.56;
-  roofmid.blurriness = 0.075;
-  roofmid.strokeSlider = 0.9;
+  tipiLeft.dimmer = 0.45;
+  tipiLeft.alphaRate = 0.84;
+  tipiLeft.functionRate = 0.56;
+  tipiLeft.blurriness = 0.075;
+  tipiLeft.strokeSlider = 0.9;
 
-  roofsides.dimmer = 0.8;
-  roofsides.alphaRate = 0.45;
-  roofsides.functionRate = 0.72;
-  roofsides.blurriness = 0.25;
-  roofsides. strokeSlider = 0.9;
+  tipiRight.dimmer = 0.8;
+  tipiRight.alphaRate = 0.45;
+  tipiRight.functionRate = 0.72;
+  tipiRight.blurriness = 0.25;
+  tipiRight. strokeSlider = 0.9;
 
   megaSeedB.dimmer = 0.7;
   megaSeedB.alphaRate = 0.73;

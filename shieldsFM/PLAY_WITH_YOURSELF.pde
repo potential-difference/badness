@@ -48,9 +48,9 @@ void playWithYourself(float vizTm) {
   for (Rig rig : rigs){
     switch(rig.type){
     case Shields:     if (beatCounter%64<4) rig.colorSwap(1000000*noize);  break;
-    case RoofSides:   if (beatCounter%32>27) rig.colorSwap(1000000*noize);  break;
-    case RoofMid:     if (beatCounter%34>29) rig.colorSwap(1000000*noize);  break;
-    case RoofCentre:  if (beatCounter%36>31) rig.colorSwap(1000000*noize);  break;
+    case TipiRight:   if (beatCounter%32>27) rig.colorSwap(1000000*noize); break;
+    case TipiLeft:    if (beatCounter%34>29) rig.colorSwap(1000000*noize); break;
+    case TipiCentre:  if (beatCounter%36>31) rig.colorSwap(1000000*noize); break;
     case MegaSeedA:   if (beatCounter%64>61) rig.colorSwap(1000000*noize); break;
     case MegaSeedB:   if (beatCounter%64>61) rig.colorSwap(1000000*noize); break;
     case Bar:
@@ -68,9 +68,9 @@ void playWithYourself(float vizTm) {
   for (Rig rig : rigs){
     switch(rig.type){
     case Shields:     if (beatCounter % 18 > 15)  colorLerping(rig, (1-beat)*4); break;
-    case RoofSides:   if (beatCounter % 32 > 27) colorLerping(rig,(1-beat)*3);break;
-    case RoofMid:     if (beatCounter % 32 > 27) colorLerping(rig,(1-beat)*3);break;
-    case RoofCentre:  if (beatCounter % 18 < 4) colorLerping(rig,(1-beat)*4);break;
+    case TipiRight:   if (beatCounter % 32 > 27) colorLerping(rig,(1-beat)*3);break;
+    case TipiLeft:     if (beatCounter % 32 > 27) colorLerping(rig,(1-beat)*3);break;
+    case TipiCentre:  if (beatCounter % 18 < 4) colorLerping(rig,(1-beat)*4);break;
     case MegaSeedA:   //if (beatCounter%64>61) rig.colorSwap(1000000*noize); break;
     case MegaSeedB:  //if (beatCounter%64>61) rig.colorSwap(1000000*noize); break;
     case Bar:

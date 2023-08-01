@@ -13,11 +13,11 @@ void keyPressed() {
   }
 
   //// debound or thorttle this ////
-  if (roofcentre != null) {
+  if (tipiCentre != null) {
     // TODO make more of these for each rig allowing rigs to not exist
-    if (key == 'j') roofcentre.vizIndex = (roofcentre.vizIndex+1)%roofcentre.availableAnims.length;  //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
-    if (key == 'h') roofcentre.vizIndex = -1;  //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
-    if (roofcentre.vizIndex <0) roofcentre.vizIndex = roofcentre.availableAnims.length-1;
+    if (key == 'j') tipiCentre.vizIndex = (tipiCentre.vizIndex+1)%tipiCentre.availableAnims.length;  //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
+    if (key == 'h') tipiCentre.vizIndex = -1;  //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
+    if (tipiCentre.vizIndex <0) tipiCentre.vizIndex = tipiCentre.availableAnims.length-1;
 
   }
   /////////////////////////////// RIG KEY FUNCTIONS ////////////////////////
