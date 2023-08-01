@@ -128,15 +128,13 @@ void setup()
   bar = new Rig(size.bar,RigType.Bar);
   String barunits[] = {"barleft","barmid","barright"};
 
-
-//
-
   audioSetup(100, 0.2); ///// AUDIO SETUP - sensitivity, beatTempo /////
   midiSetup();
   drawingSetup();
   loadImages();
   loadShaders();
   alwaysDoFirst();
+  /// TODO this could all go into a config/setup file
   vizTime = 0.5;
   colorChangeTime = 0.5;
   for (Rig rig :rigs){
@@ -149,9 +147,8 @@ void setup()
   rig.blurriness = 0.2;
   }
 
-   //fullScreen();
+  //fullScreen();
   
-
   frameRate(30); // always needs to be last in setup
 }
 

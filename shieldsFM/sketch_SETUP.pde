@@ -51,6 +51,7 @@ class SizeSettings {
     yCoordinates[2] = yCoordinates[0] + rigHeight;
 
     // print to console to check everything is working correctly.
+    // TODO would love to be able to print this to a markdown file!!
     for(int i = 0; i < numObjects; i++ ) {
       println("xCoordinates[" + i + "] " + xCoordinates[i]);
       println("yCoordinates[" + i + "] " + yCoordinates[i]);
