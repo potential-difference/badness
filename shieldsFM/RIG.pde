@@ -31,8 +31,6 @@ public class Rig {
     size = coord; //new PVector (coord.x,coord.y);
 
     println("type: "+type+" wide: "+" high: "+" coordindates: "+size.x+" "+size.y);
-    println(); 
-
 
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
 

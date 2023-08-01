@@ -75,43 +75,44 @@ class SizeSettings {
      int xCoordinate = roofCoords[numOfColumns-1].x + rigWidth/2 + infoWidth/2;
      int yCoordinate = shields.y;
     
-     // Create the info object using the calculated coordinates and updated rigWidth
-     info = new IntCoord(xCoordinate, yCoordinate, infoWidth, infoHeight);
+    // Create the info object using the calculated coordinates and updated rigWidth
+    info = new IntCoord(xCoordinate, yCoordinate, infoWidth, infoHeight);
     
-     ///////////////////////////////////////////////////////////////////////////////////////////
-     ////////////////////////////////  BOTTOM LINE OF RIGS /////////////////////////////////////
-     rigHeight = 100;
-     rigWidth = 200;
+    ///////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////  BOTTOM LINE OF RIGS /////////////////////////////////////
+    rigHeight = 100;
+    rigWidth = 200;
     
-     // Calculate the y coordinate for the bottom row of objects
-     int bottomRigY = shields.high + rigHeight/2;
+    // Calculate the y coordinate for the bottom row of objects
+    int bottomRigY = shields.high + rigHeight/2;
     
-     // Create the megaSeedA object
-     megaSeedA = new IntCoord(rigWidth/2, bottomRigY, rigWidth, rigHeight);
+    // Create the megaSeedA object
+    megaSeedA = new IntCoord(rigWidth/2, bottomRigY, rigWidth, rigHeight);
     
-     // Update the x coordinate for megaSeedB using megaSeedA's properties
-     megaSeedB = new IntCoord(megaSeedA.x + megaSeedA.wide/2, bottomRigY, rigWidth, rigHeight);
+    // Update the x coordinate for megaSeedB using megaSeedA's properties
+    int megaSeedBx = megaSeedA.x + rigWidth;
+    megaSeedB = new IntCoord(megaSeedBx, bottomRigY, rigWidth, rigHeight);
     
-     rigWidth = 400;
+    // Update the x coordinate for uvPars using megaSeedB's properties
+    int uvParsx = megaSeedBx + megaSeedB.wide/2 + rigWidth/2;
+    uvPars = new IntCoord(uvParsx, bottomRigY, rigWidth, rigHeight);
     
-     // Update the x coordinate for uvPars using megaSeedB's properties
-     uvPars = new IntCoord(megaSeedB.x + megaSeedB.wide/2 + rigWidth/2, bottomRigY, rigWidth, rigHeight);
+    // Update the x coordinate for bar using uvPars's properties
+    int barx = uvParsx + uvPars.wide/2 + rigWidth/2;
+    bar = new IntCoord(barx, bottomRigY, rigWidth, rigHeight);
     
-     // Update the x coordinate for bar using uvPars's properties
-     bar = new IntCoord(uvPars.x + uvPars.wide/2 + rigWidth/2, bottomRigY, rigWidth, rigHeight);
+    // Update the rigWidth using info's properties
+    rigWidth = info.wide;
     
-     // Update the rigWidth using info's properties
-     rigWidth = info.wide;
-     // Create the booth object using info's properties and the updated rigWidth
-     booth = new IntCoord(info.x, bottomRigY, rigWidth, rigHeight);
-    
-     ////////////////////////////////  OVERALL SIZE /////////////////////////////
-    
-    
-     // Calculate the overall size of the application by adding the widths and heights of the components
-     sizeX = shields.wide + tipiLeft.wide + tipiRight.wide + info.wide;
-     sizeY = shields.high + megaSeedA.high;
-
+    // Create the booth object using info's properties and the updated rigWidth
+    booth = new IntCoord(info.x, bottomRigY, rigWidth, rigHeight);
+   
+    ////////////////////////////////  OVERALL SIZE ///////////////////////////// 
+    // Calculate the overall size of the application by adding the widths and heights of the components
+    // still has to be done manually - definatly room for improvement 
+    // TODO - add this stuff to the config file!!
+    sizeX = shields.wide + tipiLeft.wide + tipiRight.wide + info.wide;
+    sizeY = shields.high + megaSeedA.high;
     }
   }
 
