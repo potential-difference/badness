@@ -146,7 +146,6 @@ void setup()
   rig.strokeSlider= 0.5;
   rig.blurriness = 0.2;
   }
-
   //fullScreen();
   
   frameRate(30); // always needs to be last in setup
