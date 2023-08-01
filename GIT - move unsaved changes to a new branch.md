@@ -6,9 +6,9 @@ To move your unsaved changes to a new branch in git, you need to follow these st
     ```
 2. **Create a new branch**: Next, create a new branch where you want to apply your stashed changes. You can do this with the following command:
     ```
-    git checkout -b new_branch
+    git checkout -b FM2020-newbranch
     ```
-   Replace `new_branch` with the name you want to give to your new branch.
+   Replace `newbranch` with the name you want to give to your new branch.
 
 3. **Apply stashed changes**: Finally, apply your stashed changes to your new branch with the following command:
     ```
