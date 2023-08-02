@@ -76,8 +76,8 @@ void setup()
     entry("LunchBox3",new WLED(this,"192.168.10.23",21324)),
     //A:12 B:14 C:27 D:26 E:25
 
-    entry("megaSeedA",new WLED(this,"192.168.10.90",21324)),
-    entry("megaSeedB",new WLED(this,"192.168.10.30",21324))
+    entry("megaSeedA",new WLED(this,"192.168.10.30",21324)),
+    entry("megaSeedB",new WLED(this,"192.168.10.31",21324))
   );
 
   Map<String,PixelMapping> channels = Map.ofEntries(
