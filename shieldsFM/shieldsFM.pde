@@ -115,15 +115,15 @@ void setup()
 
   tipiLeft = new Rig(size.tipiLeft,RigType.TipiLeft);
   String tipiLeftChannels[] = {"stringOne","stringTwo","stringThree"};
-  // tipiLeft.opcgrid = new CircularRoofGrid(tipiLeft,OPCs,channels,tipiLeftChannels);
+  tipiLeft.opcgrid = new CircularRoofGrid(tipiLeft,OPCs,channels,tipiLeftChannels);
 
   tipiRight = new Rig(size.tipiRight,RigType.TipiRight);
   String tipiRightChannels[] = {"stringFour","stringFive","stringSix"};
-  // tipiRight.opcgrid = new CircularRoofGrid(tipiRight,OPCs,channels,tipiRightChannels);
+  tipiRight.opcgrid = new CircularRoofGrid(tipiRight,OPCs,channels,tipiRightChannels);
 
   tipiCentre = new Rig(size.tipiCentre,RigType.TipiCentre);
   String tipiCentreChannels[] = {"stringSeven","stringEight","stringNine"};
-  // tipiCentre.opcgrid = new CircularRoofGrid(tipiCentre,OPCs,channels,tipiCentreChannels);
+  tipiCentre.opcgrid = new CircularRoofGrid(tipiCentre,OPCs,channels,tipiCentreChannels);
 
   bar = new Rig(size.bar,RigType.Bar);
   String barunits[] = {"barleft","barmid","barright"};
