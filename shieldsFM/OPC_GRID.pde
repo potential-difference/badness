@@ -394,7 +394,7 @@ class ShieldsOPCGrid extends OPCGrid {
     int positionY = int(_shield[positionA][positionB].y);
     ////// 5V LED RING for MEDIUM SHIELDS
     int strt = 4;
-    int leds = 33;
+    int leds = 64;
     for (int i=strt; i < strt+leds; i++) {     
       opc.led(i, int(sin(radians((i-strt)*360/leds))*_medShieldRad)+int(positionX), (int(cos(radians((i-strt)*360/leds))*_medShieldRad)+int(positionY)));
     }
