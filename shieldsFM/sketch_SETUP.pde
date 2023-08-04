@@ -51,48 +51,23 @@ class SizeSettings {
     yCoordinates[2] = yCoordinates[0] + rigHeight;
 
     // print to console to check everything is working correctly.
-    // TODO would love to be able to print this to a markdown file!!
-    for(int i = 0; i < numObjects; i++ ) {
-      println("xCoordinates[" + i + "] " + xCoordinates[i]);
-      println("yCoordinates[" + i + "] " + yCoordinates[i]);
-      println();
-    }
+    // for(int i = 0; i < numObjects; i++ ) {
+    //   println("xCoordinates[" + i + "] " + xCoordinates[i]);
+    //   println("yCoordinates[" + i + "] " + yCoordinates[i]);
+    //   println();
+    // }
          
     // Create an array to store the created objects
     IntCoord[] roofCoords = new IntCoord[numObjects];
     // Use a for loop to create the objects and store them in the array
     for (int i = 0; i < numObjects; i++) {
       roofCoords[i] = new IntCoord(xCoordinates[i], yCoordinates[i], rigWidth, rigHeight);
-      println("roofCoords[" + i + "] " + roofCoords[i].x + " " + roofCoords[i].y);
+      println("roofCoords[" + i + "] " + roofCoords[i].x + " " + roofCoords[i].y);    
     }
     
     tipiLeft = roofCoords[0];
     tipiRight = roofCoords[1];
     tipiCentre = roofCoords[2];   
-
-    /////////////////////////////////////////////////////////////////
-    /////////////////// ADDING INFO TO MD FILE //////////////////////
-    // Create the ArrayList and add inital lines
-    ArrayList<String> lines = new ArrayList<>();
-    lines.add("# global coordinates");
-    lines.add("");
-
-    String roofCoordsString = "";
-    for (int i = 0; i < roofCoords.length; i++) {
-      roofCoordsString += roofCoords[i].x + ", " + roofCoords[i].y + "\n";
-      // Add individual roofCoords details to the lines ArrayList
-      String roofCoordDetail = "roofCoords[" + i + "] " + roofCoords[i].x + " " + roofCoords[i].y;
-     lines.add(roofCoordDetail);
-    }
-    // Specify the file path for the .md file: using relative path 
-    String filePath = "data/globalCoordinates.md";     
-    // Convert the ArrayList to an array for the saveStrings function
-    String[] linesArray = lines.toArray(new String[0]);
-    // Save the linesArray content to the file and print the location
-    saveStrings(filePath, linesArray);
-    println("globalCoordinates.md file saved at: " + filePath);
-    ///////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////
 
     // Calculate the x and y coordinates for the info object
     int infoWidth = 250;

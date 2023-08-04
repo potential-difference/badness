@@ -1,3 +1,7 @@
+OPC opcLocal;
+
+PrintWriter output; // Global variable to hold the PrintWriter object
+
 import java.util.*;
 import static java.util.Map.entry;  
 import java.util.Arrays;
@@ -50,7 +54,10 @@ void setup()
 {
   surface.setSize(size.sizeX, size.sizeY);
   surface.setAlwaysOnTop(onTop);
-  
+
+  output = createWriter("rig coords.md");
+  printmd("## RIG COORDS");
+
   ///////////////// LOCAL opc /////////////////////
   Map<String,OPC> OPCs = Map.ofEntries(
     entry("BigShield", new WLED(this, "192.168.10.10", 21324)),
@@ -142,7 +149,9 @@ void setup()
   rig.strokeSlider= 0.5;
   rig.blurriness = 0.2;
   }
-  //fullScreen();
+
+  output.flush(); // Flush the output to ensure all data is written to the file
+  output.close(); // Close the PrintWriter object
   
   frameRate(30); // always needs to be last in setup
 }

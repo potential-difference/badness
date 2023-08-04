@@ -32,6 +32,9 @@ public class Rig {
     high = coord.high;
     size = coord; //new PVector (coord.x,coord.y);
 
+    println(type+" wide: "+wide+" high: "+high+" global coords: "+size.x+" "+size.y);
+    printmd(type+" wide: "+wide+" high: "+high+" global coords: "+size.x+" "+size.y);
+
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
 
     backgroundNames = new String[] {"one col c", "vert mirror grad", "side by side", "horiz mirror grad", 
@@ -74,14 +77,7 @@ public class Rig {
     col[12] = orange;
     col[13] = orange1;
     col[14] = teal;
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
-  
-    println("TYPE: "+type+" WIDE: "+wide+" HIGH: "+high+" GLOBAL COORDS: "+size.x+" "+size.y);
-    for (int i = 0; i < position.length; i++) {
-      PVector point = position[i];
-      println("rig.position[" + i + "]:" + point.x + ", " + point.y);
-    }
-
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void createGraphicLayers(){

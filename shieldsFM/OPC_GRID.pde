@@ -155,7 +155,14 @@ class CircularRoofGrid extends OPCGrid {
           all_pixel_number++;
         }
       }
-      //println(rig.position); // prints coordinates for positions in the rig  
+      // TODO implement this into the other rigs 
+      printmd("## "+rig.type+" POSITION");
+      for (int k=0; k < rig.position.length-1;k++){
+        PVector rigPosition = rig.position[k]; // Assuming rig is an array of PVectors
+        String pos = "local coords["+ k +"] "+ rigPosition.x + "  " + rigPosition.y;
+        println(pos);
+        printmd(pos); // prints coordinates for positions in the rig  
+      }
     }
   }
 }
