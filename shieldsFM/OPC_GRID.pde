@@ -247,40 +247,40 @@ class ShieldsOPCGrid extends OPCGrid {
     shieldSetup(18);
     // SHIELDS - #1 shield address; #2 position on ring; #3 which ring 
 
-    // Small Shield A
+    // Small Shield A is RIGHT of the RIG
     int pos = 3;
     int ring = 0;
     smallShieldWLED(opclist.get("SmallShieldA"), pos, ring);
     smallShieldA = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
     shields[0] = smallShieldA;
 
-    // Med Shield A
+    // Med Shield A is RIGHT of the RIG
     ring = 1;
     medShieldWLED(opclist.get("MedShieldA"), pos, ring);
     medShieldA = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
     shields[1] = medShieldA;
 
-    // Small Shield B
+    // Small Shield B is RIGHT of the RIG
     pos = 15;
     ring = 0;
     smallShieldWLED(opclist.get("SmallShieldB"), pos, ring);
     smallShieldB = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
     shields[2] = smallShieldB;
 
-    // Med Shield B
+    // Med Shield B is RIGHT of the RIG
     ring = 1;
     medShieldWLED(opclist.get("MedShieldB"), pos, ring);
     medShieldB = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
     shields[3] = medShieldC;
 
-    // Small Shield C
+    // Small Shield C is TOP of the rig
     pos = 9;
     ring = 0;
     smallShieldWLED(opclist.get("SmallShieldC"), pos, ring);
     smallShieldC = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
     shields[4] = smallShieldC;
 
-    // Med Shield C
+    // Med Shield C is TOP of the rig
     ring = 1;
     medShieldWLED(opclist.get("MedShieldC"), pos, ring);
     medShieldC = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
@@ -289,17 +289,18 @@ class ShieldsOPCGrid extends OPCGrid {
     // Big Shield - Ball A, Ball B, Ball C
     bigShieldWLED(opclist.get("BigShield"), int(size.shields.x), int(size.shields.y));
     
+    // ball A is LEFT of the rig 
     ring = 0;
-    pos = 12;
+    pos = 12; 
     ballGrid(opclist.get("BigShield"), 0, pos, ring);
     ballA = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
     shields[6] = ballA;
-
-    pos = 0;
+    // ball B is BOTTOM of the rig 
+    pos = 0; 
     ballGrid(opclist.get("BigShield"), 1, pos, ring);
     ballB = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
     shields[7] = ballB;
-
+    // ball C is RIGHT of rig
     pos = 6;
     ballGrid(opclist.get("BigShield"), 2, pos, ring);
     ballC = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
@@ -308,10 +309,7 @@ class ShieldsOPCGrid extends OPCGrid {
     rig.positionX = _shield; 
     rig.position = shields;
   }
- 
-  void ballGrid(OPC opc, int numb, int positionA, int positionB) {
-    opc.led(130+numb, int(_shield[positionA][positionB].x), int(_shield[positionA][positionB].y));
-  }
+  int bigRing = 124; // number of LEDS in the rig shield ring, important for ballGrid too
   void bigShieldWLED(OPC opc, int xpos, int ypos) {
     ////// 10W LEDs in center ////
     int space = rig.wide/2/18;
@@ -320,13 +318,16 @@ class ShieldsOPCGrid extends OPCGrid {
     opc.led(2, xpos, ypos-space);
     opc.led(3, xpos-space, ypos);
     ///// LED STRIP ////
-    int leds = 126;
+    int leds = bigRing;
     int strt = 4;
     _bigShieldRad = rig.wide/leds*16;       
     bigShieldRad = _bigShieldRad * 2 + 4; 
     for (int i=strt; i < strt+leds; i++) {     
       opc.led(i, int(sin(radians((i-strt)*360/leds))*_bigShieldRad)+xpos, (int(cos(radians((i-strt)*360/leds))*_bigShieldRad)+ypos));
     }
+  }
+   void ballGrid(OPC opc, int numb, int positionA, int positionB) {
+    opc.led(numb+(bigRing+4), int(_shield[positionA][positionB].x), int(_shield[positionA][positionB].y));
   }
   void medShieldWLED(OPC opc, int positionA, int positionB) {
     ////// USED FOR CIRCULAR / TIRANGULAR ARRANGEMENT /////

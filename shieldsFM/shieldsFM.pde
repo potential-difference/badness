@@ -180,17 +180,9 @@ void draw()
     for (Rig rig : rigs) {
         //if (testToggle) rig.animations.add(new Test(rig));
 
-        // TODO is this a smart way to do this?! I dont think so... 
-        // rig.beatTriggered is used to draw a a box to indicate a beat for that rig
-        if(beatCounter % 2 == 0)
-        { 
-          tipiCentre.beatTriggered = true;
-          tipiCentre.addAnim(rig.vizIndex);
-        }
-        if(rig != tipiCentre){
-          rig.beatTriggered = true;
-         rig.addAnim(rig.vizIndex);  // create a new anim object and add it to the beginning of the arrayList
-        }
+      rig.beatTriggered = true;
+      rig.addAnim(rig.vizIndex);  // create a new anim object and add it to the beginning of the arrayList
+        
       }
   }
 

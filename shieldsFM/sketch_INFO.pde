@@ -95,9 +95,9 @@ void mouseInfo(boolean _info) {
     /////// DISPLAY MOUSE COORDINATES
     textAlign(LEFT);
     fill(360);  
-    ellipse(mouseX, mouseY+10, 10, 10);
+    ellipse(mouseX, mouseY, 10, 10);
     textSize(14);
-    text( " x" + mouseX + " y" + mouseY, mouseX, mouseY );
+    text( " x" + mouseX + " y" + mouseY, 0,50);
     /////  LABLELS to show what PVectors are what 
     textSize(12);
     textAlign(CENTER);
