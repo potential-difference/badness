@@ -115,6 +115,9 @@ class CircularRoofGrid extends OPCGrid {
   Rig rig;
   CircularRoofGrid(Rig _rig,Map<String,OPC> opcnodes,Map<String,PixelMapping> channels,String[] channelnames){
     rig = _rig;
+     // set radius of the circle of pixels
+    float radius = float(rig.size.wide / 3);
+
     int nchannels = channelnames.length; // number of strings in the rig, doesnt have to be from the same ESP
     //we need to know how many total pixels there are
     // and with that we calculate where each one gets placed
@@ -124,10 +127,6 @@ class CircularRoofGrid extends OPCGrid {
       total_pixels += channel.pixelcounts.length;
     }
     float angle_delta = TWO_PI / total_pixels;
-
-    // set radius of the circle of pixels
-    float radius = float(rig.size.wide / 4);
-
     //a lambda that, given a pixel number, gives us an xy coordiante
     Function<Integer,PVector> coords = (Integer i) -> {
       float center_x = rig.size.x;
@@ -205,7 +204,6 @@ class VerticalRoofGrid extends OPCGrid {
   }
 }
 
-
 class ShieldsOPCGrid extends OPCGrid {
   //  PVectors for positions of shields
   PVector[][] _shield; // = new PVector[numberOfShields][numberOfRings];    
@@ -241,48 +239,6 @@ class ShieldsOPCGrid extends OPCGrid {
     }
   }
 
-  /////////////////// todo THIS NEEDS UPDATING TO NEW SYSTEM uisng shieldSetup(18); /////////////
-
-    void spiralShieldsOPC(Map<String,OPC> _opc) {
-    opclist = _opc;
-    ringSize = new float[] { rig.wide/8.3, rig.wide/5.5, rig.wide/4.5 };
-    shieldSetup(9);
-
-    medShieldWLED(opclist.get("MedShieldA"), 0, 0);   ///// SLOT b1 on BOX ///// 
-
-    smallShieldWLED(opclist.get("SmallShieldA"), 8, 1); ///// SLOT b0 on BOX /////
-    ballGrid(opclist.get("Balls"), 0, 7, 2);
-
-    medShieldWLED(opclist.get("MedShieldB"), 6, 0);   ///// SLOT b5 on BOX /////
-    smallShieldWLED(opclist.get("SmallShieldB"), 5, 1); ///// SLOT b4 on BOX /////
-    ballGrid(opclist.get("Balls"), 1, 4, 2);
-
-    medShieldWLED(opclist.get("MedShieldC"), 3, 0);   ///// SLOT b3 on BOX /////
-    smallShieldWLED(opclist.get("SmallShieldC"), 2, 1); ///// SLOT b2 on BOX /////
-    ballGrid(opclist.get("Balls"), 2, 1, 2);
-
-    bigShieldWLED(opclist.get("BigShield"), int(size.shields.x), int(size.shields.y));     ///// SLOT b7 on BOX /////
-    /////////////////////////// increase size of radius so its covered when drawing over it in the sketch
-
-   // medShieldBottomRight = new PVector (_shield[0][0].x, _shield[0][0].y);        // MEDIUM SHIELD
-    shields[3] = new PVector (_shield[8][1].x, _shield[8][1].y);        // SMALL SHEILD
-    shields[6] = new PVector (_shield[7][2].x, _shield[7][2].y);        // BALL
-
-    shields[1] = new PVector (_shield[6][0].x, _shield[6][0].y);        // MEDIUM SHIELD
-    shields[4] = new PVector (_shield[5][1].x, _shield[5][1].y);        // SMALL SHEILD
-    shields[7] = new PVector (_shield[4][2].x, _shield[4][2].y);        // BALL
-
-    shields[2] = new PVector (_shield[3][0].x, _shield[3][0].y);        // MEDIUM SHIELD
-    shields[5] = new PVector (_shield[2][1].x, _shield[2][1].y);        // SMALL SHEILD
-    shields[8] = new PVector (_shield[1][2].x, _shield[1][2].y);        // BALL
-
-    shields[9] =  new PVector (_shield[7][2].x, _shield[7][2].y);       // BALL
-    shields[10] = new PVector (_shield[4][2].x, _shield[4][2].y);       // BALL
-    shields[11] = new PVector (_shield[1][2].x, _shield[1][2].y);       // BALL
-
-    rig.positionX = _shield; 
-    rig.position = shields;
-  }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// todo add this to class ShieldsOpcGrid ///////////////////////////////////////
   void bigTriangleShieldsOPC(Map<String,OPC> _opc) {
@@ -401,7 +357,7 @@ class ShieldsOPCGrid extends OPCGrid {
     int positionY = int(_shield[positionA][positionB].y);
     ////// 5V LED RING for MEDIUM SHIELDS
     int strt = 4;
-    int leds = 64;
+    int leds = 63;
     for (int i=strt; i < strt+leds; i++) {     
       opc.led(i, int(sin(radians((i-strt)*360/leds))*_medShieldRad)+int(positionX), (int(cos(radians((i-strt)*360/leds))*_medShieldRad)+int(positionY)));
     }
@@ -610,8 +566,6 @@ void pickleCansOPC(Rig _rig, OPC opc) {
     opc.led(fc+(channel*2), int(dig.x+5), int(dig.y));
   }
 
-  
-
   void eggsOPC(OPC opc, Rig rig) {
     //rig = _rig;
     eggs[0] = new PVector(rig.size.x-75, rig.size.y);
@@ -626,7 +580,6 @@ void pickleCansOPC(Rig _rig, OPC opc) {
     int leds = 28;
     opc.ledStrip(fc+(channel*5)+3, leds, int(eggs[0].x+10), int(eggs[0].y), rig.high/1.5/leds, PI/2, false);
     opc.ledStrip(fc+(channel*5)+3+leds, leds, int(eggs[0].x-10), int(eggs[0].y), rig.high/1.5/leds, PI/2, true);
-
 
     opc.led(fc+(channel*6), int(eggs[1].x), int(eggs[1].y-(eggLength/2)));          
     opc.led(fc+(channel*6)+1, int(eggs[1].x), int(eggs[1].y));
