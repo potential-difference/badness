@@ -16,6 +16,7 @@ public class Rig {
   boolean firsttime_sketchcolor=true, noiseToggle, playWithYourSelf = true;
   ArrayList <Anim> animations;
   int[] availableAnims;
+  int[] currentAnim;        // TODO implement this
   int[] availableBkgrnds;
   int[] availableAlphaEnvelopes;
   int[] availableFunctionEnvelopes;
@@ -279,7 +280,7 @@ public class Rig {
     noStroke();
     // text showing which is the current anim for each rig
     Anim anim = new Anim(this);
-    int index = this.availableAnims[vizIndex];
+    int index = this.availableAnims[vizIndex]; // TODO add anim.currentAnim index to make this easier to read
     fill(200);
     text("viz: "+index, x, y+20);
     //////////////////////////////////////////////////////////////////////////////////////////////////
