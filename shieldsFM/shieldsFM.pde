@@ -168,10 +168,12 @@ void draw()
   ////////////////////////////////////////////// PLAY WITH ME ////////////////////////////////////////////////////////////
   playWithMe();
   if (beatTrigger) { 
+    // list of rigs shields,tipiLeft,tipiRight,tipiCentre,bar,booth,megaSeedA,megaSeedB,cans,roof,uvPars;
     for (Rig rig : rigs) {
-            //if (testToggle) rig.animations.add(new Test(rig));
+        //if (testToggle) rig.animations.add(new Test(rig));
         //println(rig.type," vizIndex", rig.vizIndex);
-        rig.addAnim(rig.vizIndex);  // create a new anim object and add it to the beginning of the arrayList
+        if(beatCounter % 2 == 0) tipiCentre.addAnim(rig.vizIndex);
+        if(rig != tipiCentre) rig.addAnim(rig.vizIndex);  // create a new anim object and add it to the beginning of the arrayList
       }
   }
 

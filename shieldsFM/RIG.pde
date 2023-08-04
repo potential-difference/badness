@@ -258,54 +258,63 @@ public class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
    void rigInfo() {
-    float textHeight = 18;
+    // get the name of each rig and set x y coordiantes for the text
+    float textHeight = 16;
     textSize(textHeight);
     float nameWidth = textWidth(type.name());
-    float x = size.x+(wide/2)-(nameWidth/2)-12;
-    float y = size.y-(high/2)+21;
+    int xOffset = 5;
+    int yOffset = 15;
+    float x = size.x-(wide/2)+xOffset; 
+    float y = size.y-(high/2)+textHeight+2; //-(yOffset/1.5);
 
+    // text name for each rig displayed top left of rig
     fill(360);
-    textAlign(CENTER);
-    textLeading(18);
+    textAlign(LEFT);
     text(type.name(), x, y);
+    // box to draw around the text
+    fill(0, 100);
+    stroke(shields.flash, 60);
+    strokeWeight(1);
+    rect(x+(nameWidth/2), y-(textHeight/2)+(yOffset/5), nameWidth+(xOffset*2), yOffset*1.5);
+    noStroke();
+
     // TODO why doesnt this work?
     // Anim anim = new Anim(this);
     // text(anim.animName,x,y+20);
-
     Anim anim = new Anim(this);
     int index = this.availableAnims[vizIndex];
-    text("viz :"+index, x, y+20);
+    fill(200);
+    text("viz: "+index, x, y+20);
 
-    fill(0, 100);
-    stroke(shields.flash, 60);
-    strokeWeight(1);
-    rect(x, y-(textHeight/2)+3, nameWidth+17, 30);
-    noStroke();
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    x = x-(nameWidth+17);
-    y = size.y-(high/2)+20;
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////// RECTANGLES TO SHOW CURRENT COLOURS //////////////////////////////////
+    // size of the coloured rectangle
+    int rctsz = 15;
+    x = size.x+(wide/2)-(rctsz*2)-(rctsz/2);
+    y = size.y-(high/2)+(rctsz*2);
 
-    ///// RECTANGLES TO SHOW CURRENT COLOURS /////
+    // blackout area under rectangles
     fill(0);                              
-    rect(x, y-10, 10, 10);                 // rect to show CURRENT color C 
-    rect(x+15, y-10, 10, 10);              // rect to show NEXT color C 
-    rect(x, y, 10, 10);                    // rect to show CURRENT color FLASH 
-    rect(x+15, y, 10, 10);                 // rect to show NEXT color FLASH1
+    rect(x, y-(rctsz), rctsz, rctsz);            // rect to show CURRENT color C 
+    rect(x+(rctsz/2), y-rctsz, rctsz, rctsz);    // rect to show NEXT color C 
+    rect(x, y, rctsz, rctsz);                    // rect to show CURRENT color FLASH 
+    rect(x+(rctsz/2), y, rctsz, rctsz);          // rect to show NEXT color FLASH1
 
+    // box surrounding rectangles
     fill(0, 100);
     stroke(shields.flash, 60);
     strokeWeight(1);
-    rect(x+7.5, y-5, 30, 30);
-
+    rect(x+(rctsz*0.75), y-(rctsz/2), (rctsz*3)+(rctsz/2), (rctsz*3));
+    // rectangles to show colours
     stroke(0);
     fill(this.c);          
-    rect(x, y-10, 10, 10);                                     // rect to show CURRENT color C 
+    rect(x, y-(rctsz), rctsz, rctsz);                             // rect to show CURRENT color C 
     fill(this.col[(this.colorIndexA+1)%this.col.length], 100);
-    rect(x+15, y-10, 10, 10);                                  // rect to show NEXT color C 
+    rect(x+(rctsz*1.5), y-rctsz, rctsz, rctsz);                   // rect to show NEXT color C 
     fill(this.flash);
-    rect(x, y, 10, 10);                                        // rect to show CURRENT color FLASH 
+    rect(x, y, rctsz, rctsz);                                     // rect to show CURRENT color FLASH 
     fill(this.col[(this.colorIndexB+1)%this.col.length], 100);  
-    rect(x+15, y, 10, 10);                                     // rect to show NEXT color FLASH1
+    rect(x+(rctsz*1.5), y, rctsz, rctsz);                         // rect to show NEXT color FLASH1
     noStroke();
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
