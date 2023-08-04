@@ -50,9 +50,6 @@ class SizeSettings {
     yCoordinates[1] = rigHeight/2;
     yCoordinates[2] = yCoordinates[0] + rigHeight;
 
-    
-
-
     // print to console to check everything is working correctly.
     // TODO would love to be able to print this to a markdown file!!
     for(int i = 0; i < numObjects; i++ ) {
@@ -102,7 +99,6 @@ class SizeSettings {
     int infoHeight = shields.high;
     int xCoordinate = roofCoords[numOfColumns - 1].x + rigWidth / 2 + infoWidth / 2;
     int yCoordinate = shields.y;
-    
     
     // Create the info object using the calculated coordinates and updated rigWidth
     info = new IntCoord(xCoordinate, yCoordinate, infoWidth, infoHeight);
