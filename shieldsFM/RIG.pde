@@ -279,7 +279,6 @@ public class Rig {
     rect(x+(nameWidth/2), y-(textHeight/2)+(yOffset/5), nameWidth+(xOffset*2), yOffset*1.5);
     noStroke();
     // text showing which is the current anim for each rig
-    Anim anim = new Anim(this);
     int index = this.availableAnims[vizIndex]; // TODO add anim.currentAnim index to make this easier to read
     fill(200);
     text("viz: "+index, x, y+20);
@@ -287,18 +286,23 @@ public class Rig {
     ////////////////////////////// SHOW BEAT DETECTION FOR EACH RIG //////////////////////////////////
     // quick n dirty way to show which rigs are detecting which beats.
     // TODO turn this in to a visual sequencer
-    x = size.x;
-    y = size.y+(high/2);
-   // float = this.availableAnims[vizIndex];
-
-    fill(this.c);          
-    textAlign(CENTER, BOTTOM);
-    if (beatTriggered) text("BEAT DETECTED", x, y);
+    x = size.x-(wide/2)+2;
+    y = size.y+(high/2)+2;
+    fill(this.c); 
+    rectMode(CORNER);
+    int rctsz = 15;
+     // text to indicate what this is
+    textAlign(LEFT, BOTTOM);
+    textSize(12);
+    String beatD = new String ("BD");
+    text(beatD, x, y);
+    if (beatTriggered) rect(x,y-rctsz,rctsz,rctsz); // beatTriggered is per rig
+    rectMode(CENTER);
     beatTriggered = false;
     //////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////// RECTANGLES TO SHOW CURRENT COLOURS //////////////////////////////////
     // size of the coloured rectangle: scallable now
-    int rctsz = 10;
+    rctsz = 10;
     x = size.x+(wide/2)-(rctsz*2)-(rctsz/2);
     y = size.y-(high/2)+(rctsz*2);
     // blackout area under rectangles
