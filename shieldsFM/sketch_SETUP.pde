@@ -51,18 +51,18 @@ class SizeSettings {
     yCoordinates[2] = yCoordinates[0] + rigHeight;
 
     // print to console to check everything is working correctly.
-    for(int i = 0; i < numObjects; i++ ) {
-      println("xCoordinates[" + i + "] " + xCoordinates[i]);
-      println("yCoordinates[" + i + "] " + yCoordinates[i]);
-      println();
-    }
+    // for(int i = 0; i < numObjects; i++ ) {
+    //   println("xCoordinates[" + i + "] " + xCoordinates[i]);
+    //   println("yCoordinates[" + i + "] " + yCoordinates[i]);
+    //   println();
+    // }
          
     // Create an array to store the created objects
     IntCoord[] roofCoords = new IntCoord[numObjects];
     // Use a for loop to create the objects and store them in the array
     for (int i = 0; i < numObjects; i++) {
       roofCoords[i] = new IntCoord(xCoordinates[i], yCoordinates[i], rigWidth, rigHeight);
-      println("roofCoords[" + i + "] " + roofCoords[i].x + " " + roofCoords[i].y);
+      println("roofCoords[" + i + "] " + roofCoords[i].x + " " + roofCoords[i].y);    
     }
     
     tipiLeft = roofCoords[0];
@@ -192,13 +192,4 @@ void loadShaders() {
   blur = loadShader("blur.glsl");
   blur.set("blurSize", blury);
   blur.set("sigma", 10.0f);
-}
-
-void printmd(String content) {
-  String[] lines = content.split("\n");
-
-  // Use the relative path to your .md file.
-  String filePath = "data/markdown.md";
-  saveStrings(filePath, lines);
-  println("Markdown file saved!");
 }

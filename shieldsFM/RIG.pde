@@ -30,7 +30,8 @@ public class Rig {
     high = coord.high;
     size = coord; //new PVector (coord.x,coord.y);
 
-    println("type: "+type+" wide: "+" high: "+" coordindates: "+size.x+" "+size.y);
+    println(type+" wide: "+wide+" high: "+high+" global coords: "+size.x+" "+size.y);
+    printmd(type+" wide: "+wide+" high: "+high+" global coords: "+size.x+" "+size.y);
 
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
 
@@ -74,25 +75,7 @@ public class Rig {
     col[12] = orange;
     col[13] = orange1;
     col[14] = teal;
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////    
-  
-    /////////////////////////////////////////////////////////////////
-    /////////////////// ADDING INFO TO MD FILE //////////////////////
-    // Create the ArrayList
-    ArrayList<String> lines = new ArrayList<>();
-    // Add the desired line to the list
-    String typeLine = "type: "+type+" wide: "+" high: "+" coordindates: "+size.x+" "+size.y;
-    lines.add(typeLine);
-    // Specify the file path for the .md file
-    String filePath = "data/rigInfo.md";
-    // Convert the ArrayList to an array for the saveStrings function
-    String[] linesArray = lines.toArray(new String[lines.size()]);
-    saveStrings(filePath, linesArray);
-    // Print the file path where the .md file is saved
-    println("riginfo.md file saved at: " + filePath);
-    ///////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////
-  
+    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void createGraphicLayers(){

@@ -1,5 +1,6 @@
-WLED wledBigShield, wledShieldA, wledShieldB, wledShieldC, wledShieldD, wledShieldE, wledShieldF, wledBalls, wledSeedsA, wledSeedsB;
 OPC opcLocal;
+
+PrintWriter output; // Global variable to hold the PrintWriter object
 
 import java.util.*;
 import static java.util.Map.entry;  
@@ -55,15 +56,18 @@ void setup()
 {
   surface.setSize(size.sizeX, size.sizeY);
   surface.setAlwaysOnTop(onTop);
-  
+
+  output = createWriter("rig coords.md");
+  printmd("## RIG COORDS");
+
   ///////////////// LOCAL opc /////////////////////
   Map<String,OPC> OPCs = Map.ofEntries(
-    entry("BigShield", new WLED(this, "big_shield.local", 21324)),
-    entry("SmallShieldA", new WLED(this, "small_shield_a.local", 21324)),    //bottom right
+    entry("BigShield", new WLED(this, "192.168.10.10", 21324)),
+    entry("SmallShieldA", new WLED(this, "192.168.10.11", 21324)),    //bottom right
     entry("MedShieldA", new WLED(this, "192.168.10.12", 21324)),
-    entry("SmallShieldB", new WLED(this, "small_shield_b.local", 21324)),    //bottom left
+    entry("SmallShieldB", new WLED(this, "192.168.10.13", 21324)),    //bottom left
     entry("MedShieldB", new WLED(this, "192.168.10.14", 21324)),
-    entry("SmallShieldC", new WLED(this, "small_shield_c.local", 21324)),    //top
+    entry("SmallShieldC", new WLED(this, "192.168.10.15", 21324)),    //top
     entry("MedShieldC", new WLED(this, "192.168.10.16", 21324)),             
     entry("Entec",new OPC(this,"127.0.0.1",7890)),
 
@@ -115,7 +119,7 @@ void setup()
 
   tipiLeft = new Rig(size.tipiLeft,RigType.TipiLeft);
   String tipiLeftChannels[] = {"stringOne","stringTwo","stringThree"};
-  // tipiLeft.opcgrid = new CircularRoofGrid(tipiLeft,OPCs,channels,tipiLeftChannels);
+  tipiLeft.opcgrid = new CircularRoofGrid(tipiLeft,OPCs,channels,tipiLeftChannels);
 
   tipiRight = new Rig(size.tipiRight,RigType.TipiRight);
   String tipiRightChannels[] = {"stringFour","stringFive","stringSix"};
@@ -149,9 +153,9 @@ void setup()
   rig.blurriness = 0.2;
   }
 
-   //fullScreen();
+  output.flush(); // Flush the output to ensure all data is written to the file
+  output.close(); // Close the PrintWriter object
   
-
   frameRate(30); // always needs to be last in setup
 }
 
