@@ -23,6 +23,7 @@ public class Rig {
   String[] animNames, backgroundNames, alphaNames, functionNames;
   int arrayListIndex;
   float wideSlider, strokeSlider, highSlider;
+  boolean beatTriggered;
 
   Rig(IntCoord coord, RigType _name) {
     type = _name;
@@ -266,10 +267,9 @@ public class Rig {
     int yOffset = 15;
     float x = size.x-(wide/2)+xOffset; 
     float y = size.y-(high/2)+textHeight+2; //-(yOffset/1.5);
-
     // text name for each rig displayed top left of rig
     fill(360);
-    textAlign(LEFT);
+    textAlign(LEFT); // TODO this can be changed to (LEFT,TOP)
     text(type.name(), x, y);
     // box to draw around the text
     fill(0, 100);
@@ -277,29 +277,34 @@ public class Rig {
     strokeWeight(1);
     rect(x+(nameWidth/2), y-(textHeight/2)+(yOffset/5), nameWidth+(xOffset*2), yOffset*1.5);
     noStroke();
-
-    // TODO why doesnt this work?
-    // Anim anim = new Anim(this);
-    // text(anim.animName,x,y+20);
+    // text showing which is the current anim for each rig
     Anim anim = new Anim(this);
     int index = this.availableAnims[vizIndex];
     fill(200);
     text("viz: "+index, x, y+20);
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    // quick n dirty way to show which rigs are detecting which beats.
+    // TODO turn this in to a visual sequencer
+    x = size.x;
+    y = size.y+(high/2);
+    fill(360);
+    textAlign(CENTER, BOTTOM);
+    if (beatTriggered) text("BEAT DETECTED", x, y);
+    beatTriggered = false;
 
     //////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////// RECTANGLES TO SHOW CURRENT COLOURS //////////////////////////////////
-    // size of the coloured rectangle
-    int rctsz = 15;
+    // size of the coloured rectangle: scallable now
+    int rctsz = 10;
     x = size.x+(wide/2)-(rctsz*2)-(rctsz/2);
     y = size.y-(high/2)+(rctsz*2);
-
     // blackout area under rectangles
     fill(0);                              
     rect(x, y-(rctsz), rctsz, rctsz);            // rect to show CURRENT color C 
     rect(x+(rctsz/2), y-rctsz, rctsz, rctsz);    // rect to show NEXT color C 
     rect(x, y, rctsz, rctsz);                    // rect to show CURRENT color FLASH 
     rect(x+(rctsz/2), y, rctsz, rctsz);          // rect to show NEXT color FLASH1
-
     // box surrounding rectangles
     fill(0, 100);
     stroke(shields.flash, 60);
