@@ -215,7 +215,9 @@ void blinders(BoothGrid opcGrid){
 void testColors(boolean test) {
   if (test) {
 
-    fill((millis()/50)%360, 100, 100, 360*shields.dimmer); 
+    fill((millis()/25)%360, 100, 100, 360*shields.dimmer);  // TODO need to have touch osc setup
+    fill((millis()/25)%360, 100, 100, 50);                  // fixed for now
+
     for (Rig rig : rigs)     rect(rig.size.x, rig.size.y, rig.wide, rig.high);
 
    //rect(opcGrid.booth.x, opcGrid.booth.y, 30, 10);
