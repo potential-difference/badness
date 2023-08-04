@@ -1,5 +1,3 @@
-OPC opcLocal;
-
 PrintWriter output; // Global variable to hold the PrintWriter object
 
 import java.util.*;
