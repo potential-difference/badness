@@ -308,30 +308,7 @@ class ShieldsOPCGrid extends OPCGrid {
     rig.positionX = _shield; 
     rig.position = shields;
   }
-  void smallTriangleShieldsOPC(Map<String,OPC> _opc) {
-    opclist = _opc;
-    ringSize = new float[] { rig.wide/8, rig.wide/5, rig.wide/4.5 };
-    
-    _smallShieldRad = rig.wide/2/48*5.12; 
-    smallShieldRad = _smallShieldRad * 2 + 6; 
-
-    shieldSetup(18);
-    //// SHIELDS - #1 shield address; #2 position on ring; #3 which ring 
-    smallShieldWLED(opclist.get("SmallShieldA"), 3, 0);  
-    smallShieldA = new PVector(_shield[3][0].x,_shield[3][0].y);
-
-    smallShieldWLED(opclist.get("SmallShieldB"), 15, 0); 
-    smallShieldB = new PVector(_shield[15][0].x,_shield[15][0].y);
-
-    smallShieldWLED(opclist.get("SmallShieldC"), 9, 0); 
-    smallShieldC = new PVector(_shield[9][0].x,_shield[9][0].y);
-
-    bigShieldWLED(opclist.get("BigShield"), int(size.shields.x), int(size.shields.y));     
-    bigShield = new PVector(int(size.shields.x), int(size.shields.y));
-
-    rig.positionX = _shield; 
-  }
-
+ 
   void ballGrid(OPC opc, int numb, int positionA, int positionB) {
     opc.led(130+numb, int(_shield[positionA][positionB].x), int(_shield[positionA][positionB].y));
   }
