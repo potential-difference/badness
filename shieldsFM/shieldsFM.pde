@@ -120,6 +120,14 @@ void setup()
   tipiCentre = new Rig(size.tipiCentre,RigType.TipiCentre);
   String tipiCentreChannels[] = {"stringSeven","stringEight","stringNine"};
   tipiCentre.opcgrid = new CircularRoofGrid(tipiCentre,OPCs,channels,tipiCentreChannels);
+  tipiCentre.beatLogic_ = // c++ this would be [int beatCounter=0](){beatCounter++;return beatCounter%2==0;}
+  new BooleanSupplier(){
+    int beatCounter = 0;
+    @Override
+    public boolean getAsBoolean(){
+      return(beatCounter++ == 0);
+    }
+    };
 
   bar = new Rig(size.bar,RigType.Bar);
   String barunits[] = {"barleft","barmid","barright"};

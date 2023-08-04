@@ -1,3 +1,4 @@
+import java.util.function.*;
 enum RigType{
     Shields,Lanterns,Diamonds,MegaSeedA,MegaSeedB,TipiLeft,TipiRight,TipiCentre,Bar,Mirrors,Cans,Strips,Seeds,Pars,Booth,Dig,UvPars // rigs
 }
@@ -25,7 +26,8 @@ public class Rig {
   int arrayListIndex;
   float wideSlider, strokeSlider, highSlider;
   boolean beatTriggered;
-
+  BooleanSupplier beatLogic_ = ()->{return true;};
+  boolean beatLogic(){return beatLogic_.getAsBoolean();}
   Rig(IntCoord coord, RigType _name) {
     type = _name;
     wide = coord.wide;
