@@ -54,7 +54,7 @@ void setup()
   surface.setAlwaysOnTop(onTop);
 
   output = createWriter("rig coords.md");
-  printmd("## coordinate and position information for each rig"); // TODO update this to be more informative.
+  printmd("## coordinate and position information for each rig"); 
 
   ///////////////// LOCAL opc /////////////////////
   Map<String,OPC> OPCs = Map.ofEntries(
@@ -129,7 +129,6 @@ void setup()
   bar = new Rig(size.bar,RigType.Bar);
   String barunits[] = {"barleft","barmid","barright"};
 
-
   audioSetup(100, 0.2); ///// AUDIO SETUP - sensitivity, beatTempo /////
   midiSetup();
   drawingSetup();
@@ -148,8 +147,8 @@ void setup()
   rig.strokeSlider= 0.5;
   rig.blurriness = 0.2;
   }
-  for (Rig rig : rigs) setupLocalCoords(rig);
-
+  for (Rig rig : rigs) setupLocalCoords(rig); // rig.pixelPosition used to store pixel coords in rig grid space
+  for (Rig rig : rigs) markDownInfo(rig);
   output.flush(); // Flush the output to ensure all data is written to the file
   output.close(); // Close the PrintWriter object
   

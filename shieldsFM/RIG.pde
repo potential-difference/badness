@@ -23,6 +23,7 @@ public class Rig {
   int[] availableFunctionEnvelopes;
   int[] availableColors;
   String[] animNames, backgroundNames, alphaNames, functionNames;
+  String riginfo,localcoords,rigcoords, opcgridinfo;
   int arrayListIndex;
   float wideSlider, strokeSlider, highSlider;
   boolean beatTriggered;
@@ -34,10 +35,9 @@ public class Rig {
     size = coord; //new PVector (coord.x,coord.y);
     pixelPosition = new ArrayList<PVector>();
 
+    riginfo = "wide: "+wide+" high: "+high+" x,y: "+size.x+" "+size.y;
     println("## "+type+" COORDINATES");
-    println(" wide: "+wide+" high: "+high+" global coords: "+size.x+" "+size.y);
-    printmd("## "+type+" COORDINATES");
-    printmd("wide: "+wide+" high: "+high+" x,y: "+size.x+" "+size.y);
+    println(riginfo);
 
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
 

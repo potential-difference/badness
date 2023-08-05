@@ -8,9 +8,8 @@ import java.util.function.Function;
 //and we handle it with rects.
 class OPCGrid{
   Map<String,OPC> opclist;
+  String opcGridInfo;
   OPCGrid(){}
-  ArrayList<PVector> pixelPositions = new ArrayList<PVector>();
-
 }
 //for passing to a rect
 
@@ -135,7 +134,8 @@ class CircularRoofGrid extends OPCGrid {
       float center_y = rig.size.y;
       return new PVector(sin(i*angle_delta)*radius+center_x,cos(i*angle_delta)*radius+center_y);
     };
-
+    
+    StringBuilder sb = new StringBuilder();
     int all_pixel_number = 0;
     for (int i=0;i<nchannels;i++){
       println("setting up "+channelnames[i]+": "+channelnames.length+" pixel strings in the rig");
@@ -161,14 +161,16 @@ class CircularRoofGrid extends OPCGrid {
           String wledn = "led #["+pixelnumber+"] ";         // which pixel is specified on WLED eg 0,1,2,100,101,102 etc
           String global = "global coords: "+pv.x + "  " + pv.y;
           String info = pixeln+channeln+wledn+global;
-          println(info);
-          printmd(info); 
+          sb.append(info).append("\n");          // TODO printed at the end of the setup
+          println(rig.opcgridinfo);
+          // printmd(info); // 
 
           pixelnumber++;      // which pixel is specified on WLED eg 0,1,2,100,101,102 etc
           all_pixel_number++; // the physical pixel in the space eg 0-9 
         }
       }
     }
+    rig.opcgridinfo = sb.toString();
   }
 }
 

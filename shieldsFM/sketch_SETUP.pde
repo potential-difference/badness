@@ -195,16 +195,23 @@ void loadShaders() {
 }
 
 void setupLocalCoords(Rig rig){
- int index = 0;
+  StringBuilder sb = new StringBuilder();
+  int index = 0;
     for(PVector pixel : rig.pixelPosition){
-      pixel.x -= rig.size.x; 
-      pixel.x += rig.wide/2; 
-      pixel.y -= rig.size.y;
-      pixel.y += rig.high/2;
-      String rigcoords = rig.type+" rig local coords["+index+"] "+pixel.x+" "+pixel.y;
-      println(rigcoords);
-      printmd(rigcoords);
-      index++;
+    pixel.x = pixel.x - rig.size.x + rig.wide/2; 
+    pixel.y = pixel.y - rig.size.y + rig.high/2;
+    String coords = "local coords["+index+"] "+pixel.x+" "+pixel.y;
+    sb.append(coords).append("\n"); // add the coords to the StringBuilder and append a newline
+    println(coords);
+    index++;
     }
+    rig.rigcoords = sb.toString(); // add all coords to rig.rigcoords to be printed later.
+}
+
+void markDownInfo(Rig rig){
+  printmd("## "+rig.type+" COORDINATES");
+  printmd(rig.riginfo);
+  printmd(rig.rigcoords);
+  printmd(rig.opcgridinfo);
 }
    
