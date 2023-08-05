@@ -206,72 +206,7 @@ class Anim1 extends Anim { ///////// COME BACK TO THIS WITH NEW ENVELOPES
   }
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Checkers extends Anim {
-  //Mirrors only, really
-  Checkers(Rig _rig) {
-    super(_rig);
-  }
-  void draw() {
-    window.beginDraw();
-    window.background(0);
-    stroke = 20+(10*strokeSlider);
-    rotate = 0;
-    if (rig.type!=RigType.Mirrors){
-      println("ERROR: Checkers only works on Mirrors!");
-      return;
-    }
-    OGOPCGrid opcGrid = ((OGOPCGrid)(rig.opcgrid));
-    if (_beatCounter % 9 <4) { 
-      for (int i = 0; i < opcGrid.columns; i+=2) {
-        wide = (vizWidth*2)-(vizWidth/10);
-        wide = 50+(wide-(wide*functionA)); 
-        high = wide;
 
-        //stroke *=strokeSlider;
-        wide *=wideSlider;
-        high *=highSlider;
-
-        donut(position[i].x, position[i].y, col1, stroke, wide, high, rotate, alphaA);
-        donut(position[i+1 % opcGrid.columns+6].x, position[i+1 % opcGrid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
-
-        wide = (vizWidth/4)-(vizWidth/10);
-        wide = (wide-(wide*functionA)); 
-        high = wide;
-
-        //stroke *=strokeSlider;
-        wide *=wideSlider;
-        high *=highSlider;
-
-        donut(position[i+1 % opcGrid.columns].x, position[i+1 % opcGrid.columns].y, col1, stroke, wide, high, rotate, alphaA);
-        donut(position[i+6].x, position[i+6].y, col1, stroke, wide, high, rotate, alphaA);
-      }
-    } else { // opposite way around
-      for (int i = 0; i < opcGrid.columns; i+=2) {
-        wide  = (vizWidth*2)-(vizWidth/10);
-        wide = 50+(wide-(wide*functionA)); 
-        high = wide;
-
-        //stroke *=strokeSlider;
-        wide *=wideSlider;
-        high *=highSlider;
-
-        donut(position[i+1 % opcGrid.columns].x, position[i+1 % opcGrid.columns].y, col1, stroke, wide, high, rotate, alphaB);
-        donut(position[i+6].x, position[i+6].y, col1, stroke, wide, high, rotate, alphaB);
-        wide = (vizWidth/4)-(vizWidth/10);
-        wide = (wide-(wide*functionB)); 
-        high = wide;
-
-        //stroke *=strokeSlider;
-        wide *=wideSlider;
-        high *=highSlider;
-
-        donut(position[i].x, position[i].y, col1, stroke, wide, high, rotate, alphaA);
-        donut(position[i+1 % opcGrid.columns+6].x, position[i+1 % opcGrid.columns+6].y, col1, stroke, wide, high, rotate, alphaA);
-      }
-    }
-    window.endDraw();
-  }
-}
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Rings extends Anim {
   /*

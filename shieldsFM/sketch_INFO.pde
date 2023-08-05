@@ -25,7 +25,6 @@ void onScreenInfo() {
   mouseInfo(keyT['q']);
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   dividerLines();
-
   //////////////////////////////// SHOW INFO ABOUT CURRENT RIG ARRAY SELECTION //////////////////////////////////////////////////////////////// 
     float x = size.info.x-size.info.wide/2+10;
     float y = size.info.y-size.info.high/2+20;
@@ -106,16 +105,21 @@ void mouseInfo(boolean _info) {
 void coordinatesInfo(Rig rig, boolean _info) {
   if (_info) {
     textSize(12);
-    textAlign(CENTER);
-    fill(360);  
-
+    textAlign(LEFT);
+    fill(rig.c);  
     float centerX = rig.size.x - (rig.wide / 2);
     float centerY = rig.size.y - (rig.high / 2);
     for (int i = 0; i < rig.position.length; i++) {
       PVector position = rig.position[i];
       text(i, centerX + position.x, centerY + position.y); // Position info
-    }     
-  }
+    }
+    fill(rig.flash);
+    int length = rig.pixelPosition.size();
+    for(int i = 0; i < length; i++){
+      PVector pv = rig.pixelPosition.get(i);
+      text(" "+i, centerX + pv.x, centerY + pv.y);
+    }
+  } 
 }
 void dividerLines() {
   noFill();

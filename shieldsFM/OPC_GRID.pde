@@ -11,8 +11,6 @@ class OPCGrid{
   String opcGridInfo;
   OPCGrid(){}
 }
-//for passing to a rect
-
 
 class BoothGrid extends OPCGrid{
   PVector smoke[][] = new PVector[2][2];
@@ -35,6 +33,7 @@ class BoothGrid extends OPCGrid{
   }
 }
 
+// TODO set this up correctly for FM23
 class UvParsGrid extends OPCGrid{
   Rig rig;
   //PVector centre;
@@ -114,9 +113,9 @@ int sum(int[] ints){
   }
   return result;
 }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////
 class CircularRoofGrid extends OPCGrid {
-  
   Rig rig;
   CircularRoofGrid(Rig _rig,Map<String,OPC> opcnodes,Map<String,PixelMapping> channels,String[] channelnames){
     rig = _rig;
@@ -177,44 +176,8 @@ class CircularRoofGrid extends OPCGrid {
     println(rig.type + " " + rig.opcgridinfo);
   }
 }
-
-class VerticalRoofGrid extends OPCGrid {
-  Rig rig;
-  VerticalRoofGrid(Rig _rig,Map<String,OPC> opcnodes,Map<String,PixelMapping> channels,String[] channelnames){
-    rig = _rig;
-    //vertical strips left to right
-    int nunits = channelnames.length; // number of strings in the rig, doesnt have to be from the same ESP
-    for (int i=0;i<nunits;i++){
-      println("setting up "+channelnames[i]+": "+channelnames.length+" pixel strings in the rig");
-      PixelMapping channel = channels.get(channelnames[i]);
-      OPC opc = opcnodes.get(channel.opcname);
-      int pixelnumber=channel.start_pixel;
-      boolean reverse = true;
-      //channel.pixelcounts.length = number of pixels in the string
-      
-      //rig specific math
-      int xpos = rig.size.x-rig.size.wide/2 + (i+1)*rig.size.wide/(nunits+1);
-      float xspacing = rig.size.wide/(nunits+1);
-      //int ypos = rig.size.y;
-      float spacing = (rig.size.high) / (channel.pixelcounts.length+1);
-      
-      for (int j=0;j<channel.pixelcounts.length;j++){
-        int npixels=channel.pixelcounts[j];
-
-        // offset centers the pixels based on number of pixels
-        float offset = (rig.size.high) / (channel.pixelcounts.length+2); 
-        float ypos = rig.size.y-rig.size.high/2 + offset + spacing*j;
-        // println("xpos "+xpos+" ypos "+ypos+ " spacing "+spacing+" offset "+offset);
-        if (npixels==1) {opc.led(pixelnumber,xpos,int(ypos));
-        }else if (npixels==25){
-          float gridspacing = min(spacing,xspacing)*0.5/5;
-          opc.ledGrid(pixelnumber,5,5,xpos,ypos,gridspacing,gridspacing,0,false);
-        }
-        pixelnumber += npixels;
-      }
-    }
-  }
-}
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////
+ ////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 class ShieldsOPCGrid extends OPCGrid {
   //  PVectors for positions of shields
@@ -251,9 +214,8 @@ class ShieldsOPCGrid extends OPCGrid {
       }
     }
   }
-
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////// todo add this to class ShieldsOpcGrid ///////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////
   void bigTriangleShieldsOPC(Map<String,OPC> _opc) {
     opclist = _opc;
     ringSize = new float[] { rig.wide/9, rig.wide/5, rig.wide/4.5 };
@@ -327,23 +289,6 @@ class ShieldsOPCGrid extends OPCGrid {
       PVector pv = new PVector(shields[i].x,shields[i].y);
       rig.pixelPosition.add(pv); // adding global coords to pixelPosition ArrayList
     }
- 
-    // print the rig.positon - positions of all the shields
-    // printmd("## "+rig.type+" POSITION");
-    // for (int k=0; k < rig.position.length;k++){
-    //   PVector rigPosition = rig.position[k]; // Assuming rig is an array of PVectors
-    //   String position = "local coords["+ k +"] "+ rigPosition.x + "  " + rigPosition.y;
-    //   println(position);
-    //   printmd(position); // prints coordinates for positions in the rig  
-    // }
-    // print the positionX.positions of all the COORDINATES used for ANIMATIONS
-    // printmd("## "+rig.type+" POSITION");
-    // for (int k=0; k < rig.position.length;k++){
-    // PVector rigPosition = rig.position[k]; // Assuming rig is an array of PVectors
-      //String position = "local coords["+ k +"] "+ rigPosition.x + "  " + rigPosition.y;
-      //println(position);
-      //printmd(position); // prints coordinates for positions in the rig  
-   // }
   }
   int bigRing = 124; // number of LEDS in the rig shield ring, important for ballGrid too
   void bigShieldWLED(OPC opc, int xpos, int ypos) {
@@ -369,13 +314,12 @@ class ShieldsOPCGrid extends OPCGrid {
     ////// USED FOR CIRCULAR / TIRANGULAR ARRANGEMENT /////
     int xpos = int(_shield[positionA][positionB].x);
     int ypos = int(_shield[positionA][positionB].y);
-    ////// 5V LED RING for MEDIUM SHIELDS
+    ////// LED RING for MEDIUM SHIELDS
     int strt = 4;
     int leds = 63;
     for (int i=strt; i < strt+leds; i++) {     
       opc.led(i, int(sin(radians((i-strt)*360/leds))*_medShieldRad)+int(xpos), (int(cos(radians((i-strt)*360/leds))*_medShieldRad)+int(ypos)));
     }
-
     ///// PLACE 4 HP LEDS in CENTER OF EACH RING /////
     for (int j = 1; j < 6; j +=2) {
       int space = rig.wide/2/20;
@@ -391,7 +335,7 @@ class ShieldsOPCGrid extends OPCGrid {
     int ypos = int(_shield[positionA][positionB].y);
     ////// 1 HP LED IN MIDDLE OF EACH SMALL SHIELD //////
     opc.led(0, int(xpos), int(ypos));
-    /////// RING OF 5V LEDS TO MAKE SAMLL SHIELD ///////
+    /////// RING OF LEDS TO MAKE SAMLL SHIELD ///////
     int leds = 48;
     int strt = 1;
     for (int i=strt; i < strt+leds; i++) {     
@@ -401,90 +345,3 @@ class ShieldsOPCGrid extends OPCGrid {
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class OGOPCGrid extends OPCGrid{
-  PVector[] seeds = new PVector[4];
-  PVector[] cansString = new PVector[3];
-  PVector[] cans = new PVector[18];
-  PVector[] eggs = new PVector[2];
-  PVector[] strip = new PVector[6];
-  PVector[] controller = new PVector[4];
-  
-  PVector booth, dig, smokeFan, smokePump, uv;
-  float yTop;                            // height Valuve for top line of mirrors
-  float yBottom;  
-  float yMid = size.shields.y;   
-  int eggLength;
-
-  Rig rig;
-
-  int pd, ld, dist, controllerGridStep, rows, columns;
-  float mirrorAndGap, seedsLength, _seedsLength, seeds2Length, _seeds2Length, cansLength, _cansLength, _mirrorWidth, mirrorWidth, controllerWidth;
-
-  OGOPCGrid () {
-
-  }
-
-  
-  
-  
-  
-
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  ////////////////////////////////////// BOOTH LIGHTS ///////////////////////////////////////////////////////////////////
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void standAloneBoothOPC(OPC opc) {
-    booth = new PVector (104, 15);
-    dig = new PVector (booth.x+110, booth.y);
-
-    int fc = 10 * 512;
-    int channel = 64;       
-
-    opc.led(fc+(channel*3), int(booth.x-5), int(booth.y));
-    opc.led(fc+(channel*4), int(booth.x+5), int(booth.y));
-
-    opc.led(fc+(channel*1), int(dig.x-5), int(dig.y));
-    opc.led(fc+(channel*2), int(dig.x+5), int(dig.y));
-  }
-
-  ////////////////////////////////// DMX  /////////////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void dmxParsOPC(Rig _rig, OPC opc, int numberOfPars) {
-    rig = _rig;
-    int gap = rig.high/(numberOfPars+2);
-    for (int i = 0; i < numberOfPars*2; i+=2) opc.led(6048+i, int(rig.size.x), int(rig.size.y-(gap*numberOfPars/2)+(gap/2)+(i/2*gap)));
-  } 
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void dmxSmokeOPC(OPC opc) {
-    smokePump = new PVector (height-10, width-20);
-    smokeFan = new PVector (smokePump.x+10, smokePump.y);
-
-    opc.led(7000, int(smokePump.x), int(smokePump.y));
-    opc.led(7001, int(smokeFan.x), int(smokeFan.y));
-  } 
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  }
-
-
-
-
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//possible helper class
-//class GridCoords{
-//int arg1
-//int arg2
-//float arg3
-//int xpos
-//int ypos
-//int pd.
-// etc....
-//GridCoords(_arg1,_arg2...){
-//init all of them
-//}
-//}
-//then use it like a c struct sorry if that doesn't make it make mor sense
-//gridargs=new GridCoords(foo,bar,baz);
-//opc.ledStrip(gridargs);
-//gridargs.arg1=foo2;
-//opc.ledStrip(gridargs);

@@ -215,6 +215,5 @@ void markDownInfo(Rig rig){
   printmd(rig.riginfo);
   printmd(rig.rigcoords);
   printmd(rig.opcgridinfo);
-  
 }
    
