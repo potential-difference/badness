@@ -79,6 +79,8 @@ class MegaSeedBGrid extends OPCGrid{
     opclist = opcnodes;
     rig = _rig;
     opcnodes.get("megaSeedB").led(0,size.megaSeedB.x,size.megaSeedB.y);
+    PVector pv = new PVector(size.megaSeedB.x, size.megaSeedB.y);
+    rig.pixelPosition.add(pv); // adding global coords to pixelPosition ArrayList
   }
 }
 
@@ -88,6 +90,8 @@ class MegaSeedAGrid extends OPCGrid{
     opclist = opcnodes;
     rig = _rig;
     opcnodes.get("megaSeedA").led(0,size.megaSeedA.x,size.megaSeedA.y);
+    PVector pv = new PVector(size.megaSeedA.x, size.megaSeedA.y);
+    rig.pixelPosition.add(pv); // adding global coords to pixelPosition ArrayList
   }
 }
 
@@ -152,8 +156,7 @@ class CircularRoofGrid extends OPCGrid {
           PVector pv = coords.apply(all_pixel_number);  
           opc.led(pixelnumber,int(pv.x),int(pv.y));
           // adding opc postions to array list
-          // TODO some maths here to translate to local coords in the rig
-          rig.pixelPosition.add(pv); // adding global coords to pixelPosition ArrayList
+          rig.pixelPosition.add(pv); 
           // print the info and coordinates
           // TODO implement this into the other rigs
           String pixeln = "lantern["+all_pixel_number+"] "; // the physical pixel in the space eg 0-9
@@ -162,7 +165,7 @@ class CircularRoofGrid extends OPCGrid {
           String global = "global coords: "+pv.x + "  " + pv.y;
           String info = pixeln+channeln+wledn+global;
           sb.append(info).append("\n");          // TODO printed at the end of the setup
-          println(rig.opcgridinfo);
+          
           // printmd(info); // 
 
           pixelnumber++;      // which pixel is specified on WLED eg 0,1,2,100,101,102 etc
@@ -171,6 +174,7 @@ class CircularRoofGrid extends OPCGrid {
       }
     }
     rig.opcgridinfo = sb.toString();
+    println(rig.type + " " + rig.opcgridinfo);
   }
 }
 
@@ -318,16 +322,20 @@ class ShieldsOPCGrid extends OPCGrid {
     
     rig.positionX = _shield; 
     rig.position = shields;
-    println(rig.position.length);
 
-    // print the rig.positon - positions of all the shields
-    printmd("## "+rig.type+" POSITION");
-    for (int k=0; k < rig.position.length;k++){
-      PVector rigPosition = rig.position[k]; // Assuming rig is an array of PVectors
-      String position = "local coords["+ k +"] "+ rigPosition.x + "  " + rigPosition.y;
-      println(position);
-      printmd(position); // prints coordinates for positions in the rig  
+    for (int i = 0; i < shields.length; i++) {
+      PVector pv = new PVector(shields[i].x,shields[i].y);
+      rig.pixelPosition.add(pv); // adding global coords to pixelPosition ArrayList
     }
+ 
+    // print the rig.positon - positions of all the shields
+    // printmd("## "+rig.type+" POSITION");
+    // for (int k=0; k < rig.position.length;k++){
+    //   PVector rigPosition = rig.position[k]; // Assuming rig is an array of PVectors
+    //   String position = "local coords["+ k +"] "+ rigPosition.x + "  " + rigPosition.y;
+    //   println(position);
+    //   printmd(position); // prints coordinates for positions in the rig  
+    // }
     // print the positionX.positions of all the COORDINATES used for ANIMATIONS
     // printmd("## "+rig.type+" POSITION");
     // for (int k=0; k < rig.position.length;k++){

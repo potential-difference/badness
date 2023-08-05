@@ -149,6 +149,8 @@ void setup()
   }
   for (Rig rig : rigs) setupLocalCoords(rig); // rig.pixelPosition used to store pixel coords in rig grid space
   for (Rig rig : rigs) markDownInfo(rig);
+
+  for(Rig rig : rigs) println(rig.type+" "+rig.pixelPosition);
   output.flush(); // Flush the output to ensure all data is written to the file
   output.close(); // Close the PrintWriter object
   

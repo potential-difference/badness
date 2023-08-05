@@ -213,5 +213,7 @@ void markDownInfo(Rig rig){
   printmd(rig.riginfo);
   printmd(rig.rigcoords);
   printmd(rig.opcgridinfo);
+  int length = rig.pixelPosition.size();
+  printmd("## pixel position array length "+length);
 }
    
