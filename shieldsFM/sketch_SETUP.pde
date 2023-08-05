@@ -210,10 +210,11 @@ void setupLocalCoords(Rig rig){
 
 void markDownInfo(Rig rig){
   printmd("## "+rig.type+" COORDINATES");
+  int length = rig.pixelPosition.size();
+  printmd("*pixel position array length* "+length);
   printmd(rig.riginfo);
   printmd(rig.rigcoords);
   printmd(rig.opcgridinfo);
-  int length = rig.pixelPosition.size();
-  printmd("## pixel position array length "+length);
+  
 }
    

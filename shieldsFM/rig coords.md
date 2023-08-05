@@ -1,5 +1,6 @@
 ## coordinate and position information for each rig
 ## Shields COORDINATES
+*pixel position array length* 9
 wide: 600 high: 600 x,y: 300 300
 local coords[0] 414.0 365.0
 local coords[1] 507.0 419.0
@@ -12,25 +13,25 @@ local coords[7] 300.0 432.0
 local coords[8] 414.0 234.0
 
 null
-## pixel position array length 9
 ## MegaSeedA COORDINATES
+*pixel position array length* 1
 wide: 200 high: 100 x,y: 100 650
 local coords[0] 100.0 50.0
 
 null
-## pixel position array length 1
 ## MegaSeedB COORDINATES
+*pixel position array length* 1
 wide: 200 high: 100 x,y: 300 650
 local coords[0] 100.0 50.0
 
 null
-## pixel position array length 1
 ## UvPars COORDINATES
+*pixel position array length* 0
 wide: 200 high: 100 x,y: 500 650
 
 null
-## pixel position array length 0
 ## TipiLeft COORDINATES
+*pixel position array length* 9
 wide: 214 high: 214 x,y: 707 107
 local coords[0] 107.0 178.0
 local coords[1] 152.63794 161.38916
@@ -52,8 +53,8 @@ lantern[6] channel[2] led #[200] global coords: 645.5122  71.50001
 lantern[7] channel[2] led #[201] global coords: 637.0787  119.329056
 lantern[8] channel[2] led #[202] global coords: 661.3621  161.38916
 
-## pixel position array length 9
 ## TipiRight COORDINATES
+*pixel position array length* 9
 wide: 214 high: 214 x,y: 921 107
 local coords[0] 107.0 178.0
 local coords[1] 152.63794 161.38916
@@ -75,8 +76,8 @@ lantern[6] channel[2] led #[200] global coords: 859.5122  71.50001
 lantern[7] channel[2] led #[201] global coords: 851.0787  119.329056
 lantern[8] channel[2] led #[202] global coords: 875.3621  161.38916
 
-## pixel position array length 9
 ## TipiCentre COORDINATES
+*pixel position array length* 9
 wide: 214 high: 214 x,y: 707 321
 local coords[0] 107.0 178.0
 local coords[1] 152.63794 161.38916
@@ -98,9 +99,8 @@ lantern[6] channel[2] led #[200] global coords: 645.5122  285.5
 lantern[7] channel[2] led #[201] global coords: 637.0787  333.32904
 lantern[8] channel[2] led #[202] global coords: 661.3621  375.38916
 
-## pixel position array length 9
 ## Bar COORDINATES
+*pixel position array length* 0
 wide: 200 high: 100 x,y: 700 650
 
 null
-## pixel position array length 0
