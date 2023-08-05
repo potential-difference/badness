@@ -9,6 +9,8 @@ import java.util.function.Function;
 class OPCGrid{
   Map<String,OPC> opclist;
   OPCGrid(){}
+  ArrayList<PVector> pixelPositions = new ArrayList<PVector>();
+
 }
 //for passing to a rect
 
@@ -87,7 +89,6 @@ class MegaSeedAGrid extends OPCGrid{
     opclist = opcnodes;
     rig = _rig;
     opcnodes.get("megaSeedA").led(0,size.megaSeedA.x,size.megaSeedA.y);
-
   }
 }
 
@@ -112,6 +113,7 @@ int sum(int[] ints){
 }
 
 class CircularRoofGrid extends OPCGrid {
+  
   Rig rig;
   CircularRoofGrid(Rig _rig,Map<String,OPC> opcnodes,Map<String,PixelMapping> channels,String[] channelnames){
     rig = _rig;
@@ -156,11 +158,12 @@ class CircularRoofGrid extends OPCGrid {
       }
       // TODO implement this into the other rigs 
       printmd("## "+rig.type+" POSITION");
-      for (int k=0; k < rig.position.length-1;k++){
+      for (int k=0; k < rig.position.length;k++){
         PVector rigPosition = rig.position[k]; // Assuming rig is an array of PVectors
-        String pos = "local coords["+ k +"] "+ rigPosition.x + "  " + rigPosition.y;
-        println(pos);
-        printmd(pos); // prints coordinates for positions in the rig  
+        String position = "local coords["+ k +"] "+ rigPosition.x + "  " + rigPosition.y;
+        println(position);
+        printmd(position); // prints coordinates for positions in the rig
+         
       }
     }
   }
@@ -209,7 +212,8 @@ class ShieldsOPCGrid extends OPCGrid {
   PVector[][] _shield; // = new PVector[numberOfShields][numberOfRings];    
   PVector smallShieldA,medShieldA,smallShieldB,medShieldB,smallShieldC,medShieldC,bigShield,ballA,ballB,ballC;
   PVector[][] shield; // = new PVector[numberOfPositions][numberOfRings];  
-  PVector[] shields = new PVector[18];
+  PVector[] shields = new PVector[9];
+  //positions = new ArrayList<PVector>();
   float[] ringSize;
   Rig rig;
   float bigShieldRad, medShieldRad, smallShieldRad, _bigShieldRad, _medShieldRad, _smallShieldRad;
@@ -254,6 +258,7 @@ class ShieldsOPCGrid extends OPCGrid {
     smallShieldA = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
     shields[0] = smallShieldA;
 
+
     // Med Shield A is RIGHT of the RIG
     ring = 1;
     medShieldWLED(opclist.get("MedShieldA"), pos, ring);
@@ -271,8 +276,8 @@ class ShieldsOPCGrid extends OPCGrid {
     ring = 1;
     medShieldWLED(opclist.get("MedShieldB"), pos, ring);
     medShieldB = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
-    shields[3] = medShieldC;
-
+    shields[3] = medShieldB;
+    
     // Small Shield C is TOP of the rig
     pos = 9;
     ring = 0;
@@ -308,6 +313,26 @@ class ShieldsOPCGrid extends OPCGrid {
     
     rig.positionX = _shield; 
     rig.position = shields;
+    println(rig.position.length);
+
+   // for(int i = 0; i < si)
+
+    // print the rig.positon - positions of all the shields
+    printmd("## "+rig.type+" POSITION");
+    for (int k=0; k < rig.position.length;k++){
+      PVector rigPosition = rig.position[k]; // Assuming rig is an array of PVectors
+      String position = "local coords["+ k +"] "+ rigPosition.x + "  " + rigPosition.y;
+      println(position);
+      printmd(position); // prints coordinates for positions in the rig  
+    }
+    // print the positionX.positions of all the COORDINATES used for ANIMATIONS
+    // printmd("## "+rig.type+" POSITION");
+    // for (int k=0; k < rig.position.length;k++){
+    // PVector rigPosition = rig.position[k]; // Assuming rig is an array of PVectors
+      //String position = "local coords["+ k +"] "+ rigPosition.x + "  " + rigPosition.y;
+      //println(position);
+      //printmd(position); // prints coordinates for positions in the rig  
+   // }
   }
   int bigRing = 124; // number of LEDS in the rig shield ring, important for ballGrid too
   void bigShieldWLED(OPC opc, int xpos, int ypos) {
@@ -331,35 +356,35 @@ class ShieldsOPCGrid extends OPCGrid {
   }
   void medShieldWLED(OPC opc, int positionA, int positionB) {
     ////// USED FOR CIRCULAR / TIRANGULAR ARRANGEMENT /////
-    int positionX = int(_shield[positionA][positionB].x);
-    int positionY = int(_shield[positionA][positionB].y);
+    int xpos = int(_shield[positionA][positionB].x);
+    int ypos = int(_shield[positionA][positionB].y);
     ////// 5V LED RING for MEDIUM SHIELDS
     int strt = 4;
     int leds = 63;
     for (int i=strt; i < strt+leds; i++) {     
-      opc.led(i, int(sin(radians((i-strt)*360/leds))*_medShieldRad)+int(positionX), (int(cos(radians((i-strt)*360/leds))*_medShieldRad)+int(positionY)));
+      opc.led(i, int(sin(radians((i-strt)*360/leds))*_medShieldRad)+int(xpos), (int(cos(radians((i-strt)*360/leds))*_medShieldRad)+int(ypos)));
     }
 
     ///// PLACE 4 HP LEDS in CENTER OF EACH RING /////
     for (int j = 1; j < 6; j +=2) {
       int space = rig.wide/2/20;
-      opc.led(0, positionX, positionY+space);
-      opc.led(1, positionX+space, positionY);
-      opc.led(2, positionX, positionY-space);
-      opc.led(3, positionX-space, positionY);
+      opc.led(0, xpos, ypos+space);
+      opc.led(1, xpos+space, ypos);
+      opc.led(2, xpos, ypos-space);
+      opc.led(3, xpos-space, ypos);
     }
   }
   void smallShieldWLED(OPC opc, int positionA, int positionB) {
     ////// USED FOR CIRCULAR / TIRANGULAR ARRANGEMENT /////
-    int positionX = int(_shield[positionA][positionB].x);
-    int positionY = int(_shield[positionA][positionB].y);
+    int xpos = int(_shield[positionA][positionB].x);
+    int ypos = int(_shield[positionA][positionB].y);
     ////// 1 HP LED IN MIDDLE OF EACH SMALL SHIELD //////
-    opc.led(0, int(positionX), int(positionY));
+    opc.led(0, int(xpos), int(ypos));
     /////// RING OF 5V LEDS TO MAKE SAMLL SHIELD ///////
     int leds = 48;
     int strt = 1;
     for (int i=strt; i < strt+leds; i++) {     
-      opc.led(i, int(sin(radians((i-strt)*360/leds))*_smallShieldRad)+int(positionX), (int(cos(radians((i-strt)*360/leds))*_smallShieldRad)+int(positionY)));
+      opc.led(i, int(sin(radians((i-strt)*360/leds))*_smallShieldRad)+int(xpos), (int(cos(radians((i-strt)*360/leds))*_smallShieldRad)+int(ypos)));
     }
   }
 }
@@ -388,144 +413,11 @@ class OGOPCGrid extends OPCGrid{
 
   }
 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////// CANS //////////////////////////////////////////////////
-  void individualCansOPC(Rig _rig, OPC opc, boolean offset) {
-    rig = _rig;
-    //TODO: put into CANS opc
-    OGOPCGrid opcGrid = ((OGOPCGrid)(rig.opcgrid));
-    float xw = 6;
-    float y = rig.size.y;
-    if (offset) y = rig.size.y - rig.high/(xw+1)/(xw/2);
+  
+  
+  
+  
 
-    for (int i=0; i<cans.length/xw; i++) cans[i] =     new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*1);
-    for (int i=0; i<cans.length/xw; i++) cans[i+3] =   new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*2);
-    for (int i=0; i<cans.length/xw; i++) cans[i+6] =   new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*3);
-    for (int i=0; i<cans.length/xw; i++) cans[i+9] =   new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*4);
-    for (int i=0; i<cans.length/xw; i++) cans[i+12] =  new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*5);
-    for (int i=0; i<cans.length/xw; i++) cans[i+15] =  new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*6);
-
-    if (offset) {
-      cans[1].y = y-(rig.high/2)+rig.high/(xw+1)*(1.5);
-      cans[4].y = y-(rig.high/2)+rig.high/(xw+1)*(2.5);
-      cans[7].y = y-(rig.high/2)+rig.high/(xw+1)*(3.5);
-      cans[10].y = y-(rig.high/2)+rig.high/(xw+1)*(4.5);
-      cans[13].y = y-(rig.high/2)+rig.high/(xw+1)*(5.5);
-      cans[16].y = y-(rig.high/2)+rig.high/(xw+1)*(6.5);
-    }
-
-    int fc = 9 * 512;
-    int channel = 64;
-    for (int i = 0; i < cans.length/3; i++) opc.led(fc+(channel*0+i), int(cans[i].x), int(cans[i].y));                   
-    for (int i = 0; i < cans.length/3; i++) opc.led(fc+(channel*1+i), int(cans[i+6].x), int(cans[i+6].y));                  
-    for (int i = 0; i < cans.length/3; i++) opc.led(fc+(channel*2+i), int(cans[i+12].x), int(cans[i+12].y));                  
-
-    ////  set roof position to individual cans positions
-    for (int i = 0; i < rig.position.length/2; i++) {
-      rig.position[i].x=opcGrid.cans[i].x-(rig.size.x-(rig.wide/2));
-      rig.position[i].y=opcGrid.cans[i].y-(rig.size.y-(rig.high/2));
-      //
-      rig.position[i+6].x=opcGrid.cans[i+12].x-(rig.size.x-(rig.wide/2));
-      rig.position[i+6].y=opcGrid.cans[i+12].y-(rig.size.y-(rig.high/2));
-    }
-    rig.position[4].x=cans[7].x-(rig.size.x-(rig.wide/2));
-    rig.position[4].y=cans[7].y-(rig.size.y-(rig.high/2));
-
-    rig.position[7].x=cans[10].x-(rig.size.x-(rig.wide/2));
-    rig.position[7].y=cans[10].y-(rig.size.y-(rig.high/2));
-  }
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-  void kallidaCansOPC(OPC opc) {
-    int fc = 5 * 512;
-    int channel = 64;
-    int leds = 6;
-    pd = int(_cansLength/6);
-    opc.ledStrip(fc+(channel*0), leds, int(cansString[0].x), int(cansString[0].y), pd, 0, false);                   /////  6 CANS PLUG INTO slot 0 on CANS BOX /////// 
-    opc.ledStrip(fc+(channel*1)+(64*channel), leds, int(cansString[1].x), int(cansString[1].y), pd, 0, false);      /////  6 CANS PLUG INTO slot 1 on CANS BOX ///////
-    cansLength = _cansLength - (pd/2);
-  } 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-void pickleCansOPC(Rig _rig, OPC opc) {
-    rig = _rig;
-    _cansLength = rig.high/1.2;
-    
-    //int fc = 2 * 512;
-    int fc = 2560;
-    int channel = 64;
-    int leds = 6;
-    pd = int(_cansLength/6);
-
-    cansString[1] = new PVector(rig.size.x-(rig.wide/3), rig.size.y-(pd/4));
-    cansString[0] = new PVector(rig.size.x, rig.size.y+(pd/4));
-    cansString[2] = new PVector(rig.size.x+(rig.wide/3), rig.size.y-(pd/4));
-
-    opc.ledStrip(fc+(channel*0), leds, int(cansString[0].x), int(cansString[0].y), pd, PI/2, false);                   /////  PLUG INTO slot 1 on CANS BOX (first tail) /////// 
-    opc.ledStrip(fc+(channel*1), leds, int(cansString[1].x), int(cansString[1].y), pd, PI/2, false);                   /////  PLUG INTO slot 2 on CANS BOX /////// 
-    opc.ledStrip(fc+(channel*2), leds, int(cansString[2].x), int(cansString[2].y), pd, PI/2, false);                   /////  PLUG INTO slot 3 on CANS BOX /////// 
-
-    cansLength = _cansLength - (pd/2);
-  } 
-  /////////////////////////////////////////////////////////////////////////////////////////////////////
-  void castleCansOPC(Rig _rig, OPC opc, OPC opc1, boolean offset) {
-    rig = _rig;
-    //TODO accessing opcGrid from within opcGrid is 
-    //terrifying what does that even mean
-    //This should probably just be deleted
-    //Making sure this segfaults
-    OGOPCGrid opcGrid = ((OGOPCGrid)new OPCGrid());
-    float xw = 6;
-    float y = rig.size.y;
-    if (offset) y = rig.size.y - rig.high/(xw+1)/(xw/2);
-
-    for (int i=0; i<cans.length/xw; i++) cans[i] =     new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*1);
-    for (int i=0; i<cans.length/xw; i++) cans[i+3] =   new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*2);
-    for (int i=0; i<cans.length/xw; i++) cans[i+6] =   new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*3);
-    for (int i=0; i<cans.length/xw; i++) cans[i+9] =   new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*4);
-    for (int i=0; i<cans.length/xw; i++) cans[i+12] =  new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*5);
-    for (int i=0; i<cans.length/xw; i++) cans[i+15] =  new PVector (rig.size.x-(rig.wide/2)+(rig.wide/(cans.length/xw+1)*(i+1)), y-(rig.high/2)+rig.high/(xw+1)*6);
-
-    if (offset) {
-      cans[1].y = y-(rig.high/2)+rig.high/(xw+1)*(1.5);
-      cans[4].y = y-(rig.high/2)+rig.high/(xw+1)*(2.5);
-      cans[7].y = y-(rig.high/2)+rig.high/(xw+1)*(3.5);
-      cans[10].y = y-(rig.high/2)+rig.high/(xw+1)*(4.5);
-      cans[13].y = y-(rig.high/2)+rig.high/(xw+1)*(5.5);
-      cans[16].y = y-(rig.high/2)+rig.high/(xw+1)*(6.5);
-    }
-
-    int fc = 9 * 512;
-    int channel = 64;
-    for (int i = 0; i < cans.length/3; i++) opc.led(fc+(channel*0+i), int(cans[i].x), int(cans[i].y)+80);     
-    fc = 10 * 512;
-    for (int i = 0; i < cans.length/3; i++) opc1.led(fc+(channel*1+i), int(cans[i+6].x), int(cans[i+6].y)+80);                  
-    for (int i = 0; i < cans.length/3; i++) opc1.led(fc+(channel*2+i), int(cans[i+12].x), int(cans[i+12].y)+80);                  
-
-    ////  set roof position to individual cans positions
-    for (int i = 0; i < rig.position.length/2; i++) {
-      rig.position[i].x=opcGrid.cans[i].x-(rig.size.x-(rig.wide/2));
-      rig.position[i].y=opcGrid.cans[i].y-(rig.size.y-(rig.high/2));
-      //
-      rig.position[i+6].x=opcGrid.cans[i+12].x-(rig.size.x-(rig.wide/2));
-      rig.position[i+6].y=opcGrid.cans[i+12].y-(rig.size.y-(rig.high/2));
-    }
-    rig.position[4].x=cans[7].x-(rig.size.x-(rig.wide/2));
-    rig.position[4].y=cans[7].y-(rig.size.y-(rig.high/2));
-
-    rig.position[7].x=cans[10].x-(rig.size.x-(rig.wide/2));
-    rig.position[7].y=cans[10].y-(rig.size.y-(rig.high/2));
-  }
-
-  void espTestOPC(Rig _rig, OPC opc) {
-    rig = _rig;
-    int fc = 0 * 512;
-    int channel = 64;
-    int leds = 120;
-    int pd = rig.wide/2/leds;
-    for (int i = 0; i < 3; i++) strip[i] = new PVector (rig.size.x-(pd*leds/2), rig.size.y-(rig.high/2)+rig.high/6*(i*2+1));
-    for (int i = 0; i < 3; i++) strip[i+3] = new PVector (rig.size.x+(pd*leds/2), rig.size.y-(rig.high/2)+rig.high/6*(i*2+1));
-
-    for (int i=0; i<1; i++) opc.ledStrip(fc+(channel*i), leds, int(strip[i].x), int(strip[i].y), 2, 0, true);
-  }
   /////////////////////////////////////////////////////////////////////////////////////////////////////
 
   ////////////////////////////////////// BOOTH LIGHTS ///////////////////////////////////////////////////////////////////
@@ -544,95 +436,6 @@ void pickleCansOPC(Rig _rig, OPC opc) {
     opc.led(fc+(channel*2), int(dig.x+5), int(dig.y));
   }
 
-  void eggsOPC(OPC opc, Rig rig) {
-    //rig = _rig;
-    eggs[0] = new PVector(rig.size.x-75, rig.size.y);
-    eggs[1] = new PVector(rig.size.x+75, rig.size.y);
-    println("eggs x/y ", eggs[0], eggs[1]);
-    eggLength = 100;
-    int fc = 10 * 512;
-    int channel = 64;
-    opc.led(fc+(channel*5), int(eggs[0].x), int(eggs[0].y-(eggLength/2)));          
-    opc.led(fc+(channel*5)+1, int(eggs[0].x), int(eggs[0].y));
-    opc.led(fc+(channel*5)+2, int(eggs[0].x), int(eggs[0].y+(eggLength/2)));
-    int leds = 28;
-    opc.ledStrip(fc+(channel*5)+3, leds, int(eggs[0].x+10), int(eggs[0].y), rig.high/1.5/leds, PI/2, false);
-    opc.ledStrip(fc+(channel*5)+3+leds, leds, int(eggs[0].x-10), int(eggs[0].y), rig.high/1.5/leds, PI/2, true);
-
-    opc.led(fc+(channel*6), int(eggs[1].x), int(eggs[1].y-(eggLength/2)));          
-    opc.led(fc+(channel*6)+1, int(eggs[1].x), int(eggs[1].y));
-    opc.led(fc+(channel*6)+2, int(eggs[1].x), int(eggs[1].y+(eggLength/2)));
-
-    eggLength += 20;
-  }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void pickleLanternsIndividual(Rig _rig, OPC opc, int fc) {
-    rig = _rig;
-    int Xoffset = int(rig.size.x - (rig.wide/2));
-
-    fc *= 512;
-    int channel = 64;
-    opc.led(fc+(channel*0), int(rig.positionX[3][0].x + Xoffset), int(rig.positionX[3][0].y)); 
-
-    opc.led(fc+(channel*1), int(rig.position[0].x + Xoffset), int(rig.position[0].y));       
-    opc.led(fc+(channel*2), int(rig.position[5].x + Xoffset), int(rig.position[5].y));  
-
-    opc.led(fc+(channel*3), int(rig.positionX[2][1].x + Xoffset), int(rig.positionX[2][1].y)); 
-    opc.led(fc+(channel*4), int(rig.positionX[4][1].x + Xoffset), int(rig.positionX[4][1].y)); 
-
-    opc.led(fc+(channel*5), int(rig.position[6].x + Xoffset), int(rig.position[6].y)); 
-    opc.led(fc+(channel*6), int(rig.position[11].x + Xoffset), int(rig.position[11].y));  
-
-    opc.led(fc+(channel*7), int(rig.positionX[3][2].x + Xoffset), int(rig.positionX[3][2].y));
-  }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void pickleLanternsDaisyChain(Rig _rig, OPC opc, int fc) {
-    rig = _rig;
-    int Xoffset = int(rig.size.x - (rig.wide/2));
-
-    fc *=512;
-    int channel = 64;
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////// if you need to make another chain just change the 0 to 1 (or whichever slot the start of the chain is plugged into)
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    opc.led(fc+(channel*0+0), int(rig.positionX[3][0].x + Xoffset), int(rig.positionX[3][0].y)); 
-
-    opc.led(fc+(channel*0+1), int(rig.position[0].x + Xoffset), int(rig.position[0].y));       
-    opc.led(fc+(channel*0+2), int(rig.position[5].x + Xoffset), int(rig.position[5].y));      
-
-    opc.led(fc+(channel*0+3), int(rig.positionX[2][1].x + Xoffset), int(rig.positionX[2][1].y)); 
-    opc.led(fc+(channel*0+4), int(rig.positionX[4][1].x + Xoffset), int(rig.positionX[4][1].y)); 
-
-    opc.led(fc+(channel*0+5), int(rig.position[6].x + Xoffset), int(rig.position[6].y)); 
-    opc.led(fc+(channel*0+6), int(rig.position[11].x + Xoffset), int(rig.position[11].y));  
-
-    opc.led(fc+(channel*0+7), int(rig.positionX[3][2].x + Xoffset), int(rig.positionX[3][2].y));
-  }
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  void wigflexLanterns(Rig _rig, OPC opc) {
-    rig = _rig;
-    int Xoffset = int(rig.size.x - (rig.wide/2));
-
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////// if you need to make another chain just change the 0 to 1 (or whichever slot the start of the chain is plugged into)
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    opc.led(0, int(rig.position[0].x + Xoffset), int(rig.position[0].y));       
-    
-    
-    opc.led(3, int(rig.position[5].x + Xoffset), int(rig.position[5].y));      
-
-    opc.led(1, int(rig.positionX[2][1].x + Xoffset), int(rig.positionX[2][1].y)); 
-    opc.led(4, int(rig.positionX[4][1].x + Xoffset), int(rig.positionX[4][1].y)); 
-
-    opc.led(2, int(rig.position[6].x + Xoffset), int(rig.position[6].y)); 
-    opc.led(5, int(rig.position[11].x + Xoffset), int(rig.position[11].y));  
-
-    opc.led(6, int(rig.positionX[3][0].x + Xoffset), int(rig.positionX[3][0].y)); 
-
-    opc.led(8, int(rig.positionX[3][2].x + Xoffset), int(rig.positionX[3][2].y));
-    opc.led(7, int(rig.positionX[3][1].x + Xoffset), int(rig.positionX[3][1].y)+(rig.high-(int(rig.high/1.2)))/2);
-  }
   ////////////////////////////////// DMX  /////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void dmxParsOPC(Rig _rig, OPC opc, int numberOfPars) {

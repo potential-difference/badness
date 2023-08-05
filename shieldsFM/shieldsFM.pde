@@ -54,7 +54,7 @@ void setup()
   surface.setAlwaysOnTop(onTop);
 
   output = createWriter("rig coords.md");
-  printmd("## RIG COORDS");
+  printmd("## coordinate and position information for each rig"); // TODO update this to be more informative.
 
   ///////////////// LOCAL opc /////////////////////
   Map<String,OPC> OPCs = Map.ofEntries(

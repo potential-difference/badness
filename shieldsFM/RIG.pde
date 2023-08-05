@@ -11,6 +11,7 @@ public class Rig {
   IntCoord size;
   color c, flash, c1, flash1, clash, clash1, clashed, colorIndexA, colorIndexB = 1, colA, colB, colC, colD, scol1, scol2, scol3;
   color col[] = new color[15];
+  ArrayList <PVector> pixelPosition;       // TODO change from pistion[] to this
   PVector position[] = new PVector[12];
   PVector positionX[][] = new PVector[7][3];
   boolean firsttime_sketchcolor=true, noiseToggle, playWithYourSelf = true;
@@ -31,9 +32,11 @@ public class Rig {
     wide = coord.wide;
     high = coord.high;
     size = coord; //new PVector (coord.x,coord.y);
+    pixelPosition = new ArrayList<PVector>();
 
     println(type+" wide: "+wide+" high: "+high+" global coords: "+size.x+" "+size.y);
-    printmd(type+" wide: "+wide+" high: "+high+" global coords: "+size.x+" "+size.y);
+    printmd("## "+type+" COORDINATES");
+    printmd("wide: "+wide+" high: "+high+" x,y: "+size.x+" "+size.y);
 
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
 
@@ -47,6 +50,7 @@ public class Rig {
     availableAlphaEnvelopes = new int[] {0, 1};// 2, 3, 4, 5};  
     availableFunctionEnvelopes = new int[] {0, 1, 2, 5, 6};  
 
+    // setup grid of positons - TODO this needs work
     int xw = 2;
     for (int i = 0; i < position.length/xw; i++) position[i] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*1);
     for (int i = 0; i < position.length/xw; i++) position[i+(position.length/xw)] = new PVector (wide/(position.length/xw+1)*(i+1), high/(xw+1)*2);
@@ -517,7 +521,7 @@ public class Rig {
     blendMode(NORMAL);
     rigInfo();
     removeAnimations();
-    //coordinatesInfo(this, keyT['e']);
+    coordinatesInfo(this, keyT['e']);
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }
