@@ -52,3 +52,30 @@ lantern[7] channel[2] led #[201] global coords: 637.0787  333.32904
 lantern[8] channel[2] led #[202] global coords: 661.3621  375.38916
 ## Bar COORDINATES
 wide: 200 high: 100 x,y: 700 650
+TipiLeft rig local coords[0] 107.0 178.0
+TipiLeft rig local coords[1] 152.63794 161.38916
+TipiLeft rig local coords[2] 176.92139 119.32902
+TipiLeft rig local coords[3] 168.4878 71.5
+TipiLeft rig local coords[4] 131.28345 40.281822
+TipiLeft rig local coords[5] 82.71655 40.28183
+TipiLeft rig local coords[6] 45.512207 71.50001
+TipiLeft rig local coords[7] 37.078674 119.329056
+TipiLeft rig local coords[8] 61.36212 161.38916
+TipiRight rig local coords[0] 107.0 178.0
+TipiRight rig local coords[1] 152.63794 161.38916
+TipiRight rig local coords[2] 176.92139 119.32902
+TipiRight rig local coords[3] 168.4878 71.5
+TipiRight rig local coords[4] 131.28345 40.281822
+TipiRight rig local coords[5] 82.71655 40.28183
+TipiRight rig local coords[6] 45.512207 71.50001
+TipiRight rig local coords[7] 37.078674 119.329056
+TipiRight rig local coords[8] 61.36212 161.38916
+TipiCentre rig local coords[0] 107.0 178.0
+TipiCentre rig local coords[1] 152.63794 161.38916
+TipiCentre rig local coords[2] 176.92139 119.32901
+TipiCentre rig local coords[3] 168.4878 71.5
+TipiCentre rig local coords[4] 131.28345 40.28183
+TipiCentre rig local coords[5] 82.71655 40.28183
+TipiCentre rig local coords[6] 45.512207 71.5
+TipiCentre rig local coords[7] 37.078674 119.32904
+TipiCentre rig local coords[8] 61.36212 161.38916

@@ -149,13 +149,11 @@ class CircularRoofGrid extends OPCGrid {
       for (int j=0;j<channel.pixelcounts.length;j++){
         int npixels=channel.pixelcounts[j];
         for (int k=0; k<npixels;k++){
-          PVector pv = coords.apply(all_pixel_number);
-          // sets the rig.position[] coordinates to the pixel coords
-          // this is wrong - rig.position should be local to the rig
-          // rig.position[k] = pv;   
+          PVector pv = coords.apply(all_pixel_number);  
           opc.led(pixelnumber,int(pv.x),int(pv.y));
           // adding opc postions to array list
-          rig.pixelPosition.add(pv); // TODO some maths here to translate
+          // TODO some maths here to translate to local coords in the rig
+          rig.pixelPosition.add(pv); // adding global coords to pixelPosition ArrayList
           // print the info and coordinates
           // TODO implement this into the other rigs
           String pixeln = "lantern["+all_pixel_number+"] "; // the physical pixel in the space eg 0-9

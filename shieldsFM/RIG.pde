@@ -34,7 +34,8 @@ public class Rig {
     size = coord; //new PVector (coord.x,coord.y);
     pixelPosition = new ArrayList<PVector>();
 
-    println(type+" wide: "+wide+" high: "+high+" global coords: "+size.x+" "+size.y);
+    println("## "+type+" COORDINATES");
+    println(" wide: "+wide+" high: "+high+" global coords: "+size.x+" "+size.y);
     printmd("## "+type+" COORDINATES");
     printmd("wide: "+wide+" high: "+high+" x,y: "+size.x+" "+size.y);
 

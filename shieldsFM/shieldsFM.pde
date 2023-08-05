@@ -129,6 +129,7 @@ void setup()
   bar = new Rig(size.bar,RigType.Bar);
   String barunits[] = {"barleft","barmid","barright"};
 
+
   audioSetup(100, 0.2); ///// AUDIO SETUP - sensitivity, beatTempo /////
   midiSetup();
   drawingSetup();
@@ -147,6 +148,7 @@ void setup()
   rig.strokeSlider= 0.5;
   rig.blurriness = 0.2;
   }
+  for (Rig rig : rigs) setupLocalCoords(rig);
 
   output.flush(); // Flush the output to ensure all data is written to the file
   output.close(); // Close the PrintWriter object

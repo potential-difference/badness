@@ -193,3 +193,18 @@ void loadShaders() {
   blur.set("blurSize", blury);
   blur.set("sigma", 10.0f);
 }
+
+void setupLocalCoords(Rig rig){
+ int index = 0;
+    for(PVector pixel : rig.pixelPosition){
+      pixel.x -= rig.size.x; 
+      pixel.x += rig.wide/2; 
+      pixel.y -= rig.size.y;
+      pixel.y += rig.high/2;
+      String rigcoords = rig.type+" rig local coords["+index+"] "+pixel.x+" "+pixel.y;
+      println(rigcoords);
+      printmd(rigcoords);
+      index++;
+    }
+}
+   
