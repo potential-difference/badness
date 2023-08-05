@@ -150,21 +150,34 @@ class CircularRoofGrid extends OPCGrid {
         int npixels=channel.pixelcounts[j];
         for (int k=0; k<npixels;k++){
           PVector pv = coords.apply(all_pixel_number);
-          rig.position[k] = pv;                         // sets the rig.posistion[] coordinates to the pixel coords
+          // sets the rig.posistion[] coordinates to the pixel coords
+          // this is wrong - rig.position should be local to the rig
+          rig.position[k] = pv;   
           opc.led(pixelnumber,int(pv.x),int(pv.y));
+          // adding opc postions to array list
+          rig.pixelPosition.add(rig.position[k]);
+          // print the coords
+          String pixeln = "lantern["+all_pixel_number+"] ";
+          String channeln = "channel["+i+"] ";
+          String wledn = "led #["+pixelnumber+"] ";
+          String global = "global coords: "+rig.position[k].x + "  " + rig.position[k].y;
+          String info = pixeln+channeln+wledn+global;
+          println(pixeln,channeln,global);
+          printmd(info); // prints coordinates for positions in the rig
+          
+          // can use this information to print the channel number and position in the string
           pixelnumber++;
           all_pixel_number++;
         }
       }
       // TODO implement this into the other rigs 
-      printmd("## "+rig.type+" POSITION");
-      for (int k=0; k < rig.position.length;k++){
-        PVector rigPosition = rig.position[k]; // Assuming rig is an array of PVectors
-        String position = "local coords["+ k +"] "+ rigPosition.x + "  " + rigPosition.y;
-        println(position);
-        printmd(position); // prints coordinates for positions in the rig
-         
-      }
+      // for (int k=0; k < rig.position.length;k++){
+      //   PVector rigPosition = rig.position[k]; // Assuming rig is an array of PVectors
+      //   println(position);
+      //   printmd(position); // prints coordinates for positions in the rig
+      // }
+
+
     }
   }
 }
@@ -314,8 +327,6 @@ class ShieldsOPCGrid extends OPCGrid {
     rig.positionX = _shield; 
     rig.position = shields;
     println(rig.position.length);
-
-   // for(int i = 0; i < si)
 
     // print the rig.positon - positions of all the shields
     printmd("## "+rig.type+" POSITION");
