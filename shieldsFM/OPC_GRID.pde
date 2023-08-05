@@ -156,28 +156,20 @@ class CircularRoofGrid extends OPCGrid {
           opc.led(pixelnumber,int(pv.x),int(pv.y));
           // adding opc postions to array list
           rig.pixelPosition.add(rig.position[k]);
-          // print the coords
-          String pixeln = "lantern["+all_pixel_number+"] ";
-          String channeln = "channel["+i+"] ";
-          String wledn = "led #["+pixelnumber+"] ";
+          // print the info and coordinates
+          // TODO implement this into the other rigs
+          String pixeln = "lantern["+all_pixel_number+"] "; // the physical pixel in the space eg 0-9
+          String channeln = "channel["+i+"] ";              // the physical output the string is plugged into on the box
+          String wledn = "led #["+pixelnumber+"] ";         // which pixel is specified on WLED eg 0,1,2,100,101,102 etc
           String global = "global coords: "+rig.position[k].x + "  " + rig.position[k].y;
           String info = pixeln+channeln+wledn+global;
-          println(pixeln,channeln,global);
-          printmd(info); // prints coordinates for positions in the rig
-          
-          // can use this information to print the channel number and position in the string
-          pixelnumber++;
-          all_pixel_number++;
+          println(info);
+          printmd(info); 
+
+          pixelnumber++;      // which pixel is specified on WLED eg 0,1,2,100,101,102 etc
+          all_pixel_number++; // the physical pixel in the space eg 0-9 
         }
       }
-      // TODO implement this into the other rigs 
-      // for (int k=0; k < rig.position.length;k++){
-      //   PVector rigPosition = rig.position[k]; // Assuming rig is an array of PVectors
-      //   println(position);
-      //   printmd(position); // prints coordinates for positions in the rig
-      // }
-
-
     }
   }
 }
