@@ -30,8 +30,8 @@ void alwaysDoFirst() {
   shields.colorIndexA = 2;
   shields.colorIndexB = 1;
 
-  megaSeedA.vizIndex = 5;
-  megaSeedB.vizIndex = 5;
+  megaSeedA.vizIndex = 2;
+  megaSeedB.vizIndex = 1;
   tipiLeft.colorIndexA = 2;
   tipiLeft.colorIndexB = 1;
   tipiRight.colorIndexA = 3;
@@ -82,7 +82,7 @@ void alwaysDoFirst() {
   megaSeedB.blurriness = 0.05;
   megaSeedB.strokeSlider = 0.7;
 
-  megaSeedA.dimmer = 0.4;
+  megaSeedA.dimmer = 1;
   megaSeedA.alphaRate = 0.9;
   megaSeedA.functionRate = 0.3;
   megaSeedA.blurriness = 0.04;
