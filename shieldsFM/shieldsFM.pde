@@ -148,9 +148,8 @@ void setup()
   rig.blurriness = 0.2;
   }
   for (Rig rig : rigs) setupLocalCoords(rig); // rig.pixelPosition used to store pixel coords in rig grid space
-  for (Rig rig : rigs) markDownInfo(rig);
-
-  for(Rig rig : rigs) println(rig.type+" "+rig.pixelPosition);
+  for (Rig rig : rigs) markDownInfo(rig);     // print all rig info to md file.
+  for(Rig rig : rigs) println(rig.type+" "+rig.pixelPosition); // print all rig into to termial
   output.flush(); // Flush the output to ensure all data is written to the file
   output.close(); // Close the PrintWriter object
   
@@ -165,7 +164,7 @@ void draw()
   background(0);
   noStroke();
   beats(beatSlider);   
-  //pause(10);           ////// number of seconds before no music detected and auto kicks in
+  pause(10);           ////// number of seconds before no music detected and auto kicks in
   globalFunctions();
   
   if (frameCount > 10) playWithYourself(vizTime*60*8);
@@ -207,7 +206,9 @@ void draw()
   //dmxSmoke();
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   mouseInfo(keyT['q']);
+  mouseCircle(keyT['y']);
   onScreenInfo();
+  pauseInfo();
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

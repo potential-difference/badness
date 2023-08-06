@@ -68,7 +68,7 @@ void globalFunctions() {
 int beatCounter, pauseTriggerTime=360;
 long beatTimer;
 boolean beatTrigger;
-float beat, avgmillis;
+float beat, avgmillis, bmp;
 void resetbeats() {
   beat = 1;
   beatCounter = (beatCounter + 1) % 120;
@@ -77,6 +77,7 @@ void resetbeats() {
   weightedcnt=1+(1-beatTempo)*weightedcnt;
   float avgtime=weightedsum/weightedcnt;
   avgmillis = avgtime*1000/frameRate;
+  bmp = 60000/avgmillis;
   beatTimer=0;
 }
 ///////////////////////////////////////// BEATS /////////////////////////////////////////////////////////////////////

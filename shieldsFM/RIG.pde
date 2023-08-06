@@ -268,7 +268,7 @@ public class Rig {
     int xOffset = 5;
     int yOffset = 15;
     float x = size.x-(wide/2)+xOffset; 
-    float y = size.y-(high/2)+textHeight+2; //-(yOffset/1.5);
+    float y = size.y-(high/2)+textHeight+2;
     // text name for each rig displayed top left of rig
     fill(360);
     textAlign(LEFT); // TODO this can be changed to (LEFT,TOP)
@@ -279,24 +279,35 @@ public class Rig {
     strokeWeight(1);
     rect(x+(nameWidth/2), y-(textHeight/2)+(yOffset/5), nameWidth+(xOffset*2), yOffset*1.5);
     noStroke();
+     
     // text showing which is the current anim for each rig
-    int index = this.availableAnims[vizIndex]; // TODO add anim.currentAnim index to make this easier to read
+    // TODO add anim.currentAnim index to make this easier to read
+    int index = this.availableAnims[vizIndex]; 
     fill(200);
     text("viz: "+index, x, y+20);
+
+    ///////////// rig info/ ///////////////////////////////////////////////////////////////////
+    fill(rigs.get(0).c1, 200);
+    textAlign(LEFT, BOTTOM);
+    x = size.x-(wide/2)+5; 
+    y = size.y+(high/2)+2;    
+    text("bg: " + this.availableBkgrnds[bgIndex], x, y);
+    text("func: " + availableFunctionEnvelopes[functionIndexA] + " / " + availableFunctionEnvelopes[functionIndexB], x+40, y);
+    text("alph: " + availableAlphaEnvelopes[alphaIndexA] + " / " + availableAlphaEnvelopes[alphaIndexB], x+115, y);
     //////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////// SHOW BEAT DETECTION FOR EACH RIG //////////////////////////////////
     // quick n dirty way to show which rigs are detecting which beats.
     // TODO turn this in to a visual sequencer
-    x = size.x-(wide/2)+2;
-    y = size.y+(high/2)+2;
+    int rctsz = 10;
+    x = size.x+(wide/2)-rctsz-2;
+    y = size.y+(high/2);
     fill(this.c); 
     rectMode(CORNER);
-    int rctsz = 15;
      // text to indicate what this is
-    textAlign(LEFT, BOTTOM);
-    textSize(12);
+    textAlign(RIGHT, BOTTOM);
+    textSize(10);
     String beatD = new String ("BD");
-    text(beatD, x, y);
+    text(beatD, x+rctsz, y);
     if (beatTriggered) rect(x,y-rctsz,rctsz,rctsz); // beatTriggered is per rig
     rectMode(CENTER);
     beatTriggered = false;

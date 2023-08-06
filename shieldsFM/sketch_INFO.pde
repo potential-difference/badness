@@ -19,36 +19,38 @@
  
  */
 void onScreenInfo() {
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  frameRateInfo(5, 20);          ///// display frame rate X, Y /////
-  text("avgmillis: " + avgmillis,8,30);
   mouseInfo(keyT['q']);
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   dividerLines();
   //////////////////////////////// SHOW INFO ABOUT CURRENT RIG ARRAY SELECTION //////////////////////////////////////////////////////////////// 
-    float x = size.info.x-size.info.wide/2+10;
-    float y = size.info.y-size.info.high/2+20;
-    textAlign(LEFT);
-    textSize(18);
-    ///////////// rig info/ ///////////////////////////////////////////////////////////////////
-    fill(300);
-    text("rigViz: " + shields.availableAnims[shields.vizIndex], x, y);
-    text("bkgrnd: " + shields.availableBkgrnds[shields.bgIndex], x, y+20);
-    text("func's: " + shields.availableFunctionEnvelopes[shields.functionIndexA] + " / " + shields.availableFunctionEnvelopes[shields.functionIndexB], x+110, y);
-    text("alph's: " + shields.availableAlphaEnvelopes[shields.alphaIndexA] + " / " + shields.availableAlphaEnvelopes[shields.alphaIndexB], x+110, y+20);
-    /////////// info about PLAYWITHYOURSELF functions /////////////////////////////////////////////////////////////////////////////////////////////
+  float x = size.info.x-size.info.wide/2+10;
+  float y = size.info.y-size.info.high/2+20;
+  textAlign(LEFT);
+  textSize(18);
+  fill(300);
+  //////////////////////// INFO ABOUT SKETCH AND BEATS /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  text(int(frameRate) + " fps", x, y); // framerate display
+  text("BMP " + nf(bmp,0,1), x + 60, y);
+  text("millis: " + int(avgmillis), x + 145, y);
+  ///////////// rig info/ ///////////////////////////////////////////////////////////////////
+  fill(300);
+  text("rigViz: " + shields.availableAnims[shields.vizIndex], x, y+20);
+  text("bkgrnd: " + shields.availableBkgrnds[shields.bgIndex], x, y+40);
+  text("func's: " + shields.availableFunctionEnvelopes[shields.functionIndexA] + " / " + shields.availableFunctionEnvelopes[shields.functionIndexB], x+110, y+20);
+  text("alph's: " + shields.availableAlphaEnvelopes[shields.alphaIndexA] + " / " + shields.availableAlphaEnvelopes[shields.alphaIndexB], x+110, y+40);
+  /////////// info about PLAYWITHYOURSELF functions /////////////////////////////////////////////////////////////////////////////////////////////
   
     fill(300);
     String sec = nf(int(vizTime*60 - (millis()/1000 - vizTimer)) % 60, 2, 0);
     int min = int(vizTime*60 - (millis()/1000 - vizTimer)) /60 % 60;
-    text("next viz in: "+min+":"+sec, x, y+40);
+    text("next viz in: "+min+":"+sec, x, y+80);
     ///// NEXT COLOR CHANGE IN....
     sec = nf(int(colorChangeTime*60 - (millis()/1000 - shields.colorTimer)) %60, 2, 0);
     min = int(colorChangeTime*60 - (millis()/1000 - shields.colorTimer)) /60 %60;
-    text("next color in: "+ min+":"+sec, x, y+60);
+    text("next color in: "+ min+":"+sec, x, y+80);
     int totalAnims=0;      
     for (Rig rig : rigs) totalAnims += rig.animations.size();
-    text("# of anims: "+totalAnims, x,y+80);
+    text("# of anims: "+totalAnims, x,y+100);
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
@@ -79,27 +81,27 @@ void onScreenInfo() {
     }
 }
 void pauseInfo() {
-  //pause = 0;
   if (pause > 0) { 
-    float x = 400;
-    float y = 30;
-    textAlign(RIGHT);
-    textSize(20); 
-    fill(300);
-    text(" sec NO AUDIO!!", x, y); //pause*10+
+    textAlign(RIGHT,BOTTOM);
+    textSize(18); 
+    fill(360);
+    text("NO AUDIO!! PAUSE RUNNING", width-20,height); 
   }
+}
+void mouseCircle(boolean _info){
+  if (_info){
+    // draw circle over mouse to check LEDS
+    fill(200);  
+    ellipse(mouseX, mouseY, 10, 10);
+  } 
 }
 void mouseInfo(boolean _info) {
   if (_info) {
-    /////// DISPLAY MOUSE COORDINATES
-    textAlign(LEFT);
-    fill(360);  
-    ellipse(mouseX, mouseY, 10, 10);
+    // display mouse coordiantes in the bottom right.
+    fill (360);
+    textAlign(RIGHT,BOTTOM);
     textSize(14);
-    text( " x" + mouseX + " y" + mouseY, 0,50);
-    /////  LABLELS to show what PVectors are what 
-    textSize(12);
-    textAlign(CENTER);
+    text( " x" + mouseX + " y" + mouseY, width,height);
   }
 }
 void coordinatesInfo(Rig rig, boolean _info) {
@@ -123,61 +125,7 @@ void coordinatesInfo(Rig rig, boolean _info) {
 }
 void dividerLines() {
   noFill();
-  stroke(shields.flash,200);
+  stroke(rigs.get(0).c1, 200);
   strokeWeight(1);
-  
-  // TO DO is this possible?? 
-  //for (Rig rig : rigs) rect(size.rig);
-  
-  
-  rect(size.shields);
-  rect(size.tipiCentre);
-  rect(size.tipiLeft);
-  rect(size.tipiRight);
-  rect(size.info);
-  rect(size.megaSeedA);
-  rect(size.megaSeedB);
-  rect(size.uvPars);
-  rect(size.bar);
-  rect(size.booth);
-  
-}
-
-void frameRateInfo(float x, float y) {
-  fill(0, 150);
-  strokeWeight(1);
-  stroke(shields.flash, 60);
-  rect(x+28, y-5, 75, 30);
-  noStroke();
-  textAlign(LEFT);
-  textSize(18);
-  fill(360);  
-  text(int(frameRate) + " fps", x, y); // framerate display
-}
-void toggleKeysInfo() {
-  textSize(18);
-  textAlign(RIGHT);
-  float y = 180;
-  float x = width-5;
-  fill(50);
-  if (vizHold)  fill(300+(60*stutter));
-  text("[ = VIZ HOLD", x, y);
-  fill(50);
-  if (colHold) fill(300+(60*stutter));
-  text("] = COL HOLD", x, y+20);
-  y +=20;
-  fill(50);
-  if (keyT['p']) fill(300+(60*stutter));
-  text("P = shimmer", x, y+40);
-  fill(50);
-  if (!shields.colSwap) fill(300+(60*stutter));
-  text("O = color swap", x, y+60);
-  fill(50);
-  if (shields.colFlip) fill(300+(60*stutter));
-  text("I / U = color flip", x, y+80);
-  fill(50);
-  if (colBeat) fill(300+(60*stutter));
-  text("Y = color beat", x, y+100);
-  y+=20;
-  fill(50);
+  for (Rig rig : rigs) rect(rig.size);
 }
