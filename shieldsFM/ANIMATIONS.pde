@@ -21,7 +21,6 @@ class AllOn extends Anim {
     super( _rig);
     rig.alphaRate=rig.manualAlpha;
     animName = "AllOn";
-
   }
   void draw() {
     window.beginDraw();
@@ -34,6 +33,7 @@ class AllOff extends Anim {
   AllOff(Rig _rig) {
     super( _rig);
     rig.alphaRate=rig.manualAlpha;
+    animName = "AllOff";
   }
   void draw() {
     window.beginDraw();
@@ -46,7 +46,6 @@ class StarMesh extends Anim {
   StarMesh ( Rig _rig) {
     super (_rig);
     animName = "starMesh";
-
   }
   void draw() {
     println(animName);
@@ -78,7 +77,7 @@ class StarMesh extends Anim {
 class Celtic extends Anim {
   Celtic (Rig _rig) {
     super(_rig);
-
+    animName = "Celtic";
   }
   void draw() {
     window.beginDraw();
@@ -99,7 +98,6 @@ class Celtic extends Anim {
         donut(positionX[3][1].x, positionX[3][1].y, col1, stroke, wide, high, rotate-90, alphaA);
         donut(positionX[3][2].x, positionX[3][2].y, col1, stroke, wide, high, rotate+90, alphaA);
     }
-    
     window.endDraw();
   }
 }
@@ -143,6 +141,7 @@ class SpiralFlower extends Anim {
 class BenjaminsBoxes extends Anim {
   BenjaminsBoxes (Rig _rig) {
     super(_rig);
+    animName = "BenjaminsBoxes";
   }
   void draw() {
     window.beginDraw();
@@ -172,6 +171,7 @@ class BenjaminsBoxes extends Anim {
 class Anim1 extends Anim { ///////// COME BACK TO THIS WITH NEW ENVELOPES
   Anim1(Rig _rig) {
     super(_rig);
+    aninName = "Anim1";
   }
   void draw() {
     window.beginDraw();
@@ -287,6 +287,7 @@ class Rings extends Anim {
 class SquareNuts extends Anim { 
   SquareNuts(Rig _rig) { 
     super(_rig);
+    animName = "SquareNuts";
   }                                // maybe add beatcounter flip postion for this
   void draw() {
     window.beginDraw();
@@ -314,6 +315,7 @@ class SquareNuts extends Anim {
 class DiagoNuts extends Anim { 
   DiagoNuts(Rig _rig) { 
     super(_rig);
+    aninName = "DiagoNuts";
   }                                // maybe add beatcounter flip postion for this
   void draw() {
     window.beginDraw();
@@ -342,10 +344,9 @@ class DiagoNuts extends Anim {
 class Stars extends Anim {
   Stars(Rig _rig) {
     super(_rig);
+    animName = "stars";
   }
   void draw() {
-    animName = "stars";
-
     window.beginDraw();
     window.background(0);
     wide = 2+(functionA*vizWidth*1.5);
@@ -390,6 +391,7 @@ class Stars extends Anim {
 class Teeth extends Anim {
   Teeth(Rig _rig) {
     super( _rig);
+    animName = "Teeth";
     //functionBEnvelope = new(oskP Envelope); /////////////////////////////////
   }
   void draw() {
@@ -426,6 +428,7 @@ class Teeth extends Anim {
 class TwistedStar extends Anim {
   TwistedStar(Rig _rig) {
     super(_rig);
+    animName = "TwistedStar";
   }
   void draw() {
     window.beginDraw();
@@ -457,6 +460,7 @@ class TwistedStar extends Anim {
 class SingleDonut extends Anim {
   SingleDonut(Rig _rig) {            
     super(_rig);
+    animName = "SingleDonut";
   }
   void draw() {
     window.beginDraw();
@@ -497,6 +501,7 @@ class BouncingDonut extends Anim {
 class BouncingPolo extends Anim {
   int beatcounted;
   int numberofanims;
+  animName = "BouncingPolo";
   BouncingPolo(Rig _rig) {            
     super(_rig);
     numberofanims = rig.animations.size();
@@ -519,6 +524,7 @@ class BouncingPolo extends Anim {
 class Polo extends Anim {
   Polo(Rig _rig) {            
     super(_rig);
+    aninName = "Polo";
   }
   void draw() {
     window.beginDraw();
@@ -537,6 +543,7 @@ class Polo extends Anim {
 class Fill extends Anim {
   Fill(Rig _rig) {
     super(_rig);
+    animName = "Fill";
   }
   void draw() {
     window.beginDraw();
@@ -557,6 +564,7 @@ class Fill extends Anim {
 class Avoid extends Anim {
   Avoid(Rig _rig) {
     super(_rig);
+    animName = "Avoid";
   }
   void draw() {
     window.beginDraw();
@@ -574,6 +582,7 @@ class Test extends Anim {
   float atk_curv, dec_curv, atk_curv1, dec_curv1;
   Test(Rig _rig) {
     super(_rig);
+    animName = "Test";
   }
   void draw() {  
     window.beginDraw();
