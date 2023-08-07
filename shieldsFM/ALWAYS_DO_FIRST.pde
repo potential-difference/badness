@@ -15,6 +15,7 @@ void alwaysDoFirst() {
       rig.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
       rig.availableFunctionEnvelopes = new int[] {0, 1, 2};  
       rig.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6}; 
+      rig.backgroundChangeRate = 4; // ratio of bbackground changes per colour change 1/#: 
     }
   }
   //shields.availableColors = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
@@ -109,7 +110,7 @@ void alwaysDoFirst() {
   uvSpeed = 0.57;
   uvProgram = 0.306;
 
-  vizTime = 1;          // time in minutes - TODO sort this out onto slider 
+  vizTime = 3;          // time in minutes - TODO sort this out onto slider 
   colorChangeTime = 5;  // time in minutes - TODO sort this out onto slider 
 }
 

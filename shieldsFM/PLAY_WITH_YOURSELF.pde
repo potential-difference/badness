@@ -34,10 +34,13 @@ void playWithYourself(float vizTm) {
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////// PLAY WITH COLOUR ////////////////////////////////////////////////////////////////
   for (Rig rig : rigs) {
-    rig.colorTimer(colorChangeTime, 1); //// seconds between colour change, number of steps to cycle through colours
+      println("bg change rate",millis()/1000 - bgChangeTimer, colorChangeTime*60/ rig.backgroundChangeRate);
+
+    rig.colorChanger(colorChangeTime, 1); //// seconds between colour change, number of steps to cycle through colours
     if (millis()/1000 - bgChangeTimer >= colorChangeTime*60/rig.backgroundChangeRate) {
       rig.bgIndex = (int(random(rig.availableBkgrnds.length)));  // change colour layer 4 times every auto color change
       bgChangeTimer = millis()/1000;
+     println(rig.type+" bg change @", (hour()+":"+minute()+":"+second()), "new bg:", rig.bgIndex);
     }
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

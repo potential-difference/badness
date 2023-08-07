@@ -153,7 +153,7 @@ void draw()
   background(0);
   noStroke();
   beats(beatSlider);   
-  pause(10);           ////// number of seconds before no music detected and auto kicks in
+  pause(30);           ////// number of seconds before no music detected and auto kicks in
   globalFunctions();
   
   

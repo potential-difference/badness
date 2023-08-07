@@ -348,12 +348,12 @@ public class Rig {
   float go = 0;
   boolean change;
   int colorTimer;
-  void colorTimer(float colTime, int steps) {
+  void colorChanger(float _colorChangeTime, int steps) {
     if (change == false) {
       colA = c;
       colC = flash;
     }
-    if (millis()/1000 - colorTimer >= colTime*60) {
+    if (millis()/1000 - colorTimer >= _colorChangeTime*60) {
       change = true;
       println("COLOR CHANGE @", (hour()+":"+minute()+":"+second()));
       colorTimer = millis()/1000;

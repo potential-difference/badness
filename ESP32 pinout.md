@@ -1,6 +1,6 @@
 GPIO	Input	    Output	    Notes
 0	    pulled up	OK	        outputs PWM signal at boot, must be LOW to enter flashing mode
-1	    TX pin	    OK	        debug output at boot
+1	    TX pin      OK	        debug output at boot
 2	    OK	        OK	        connected to on-board LED, must be left floating or LOW to enter flashing mode
 3	    OK	        RX pin	    HIGH at boot
 4	    OK	        OK	
