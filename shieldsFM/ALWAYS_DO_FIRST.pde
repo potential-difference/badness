@@ -109,8 +109,8 @@ void alwaysDoFirst() {
   uvSpeed = 0.57;
   uvProgram = 0.306;
 
-  vizTime = 8;          // time in minutes - TODO sort this out onto slider 
-  colorChangeTime = 1;  // time in minutes - TODO sort this out onto slider 
+  vizTime = 1;          // time in minutes - TODO sort this out onto slider 
+  colorChangeTime = 5;  // time in minutes - TODO sort this out onto slider 
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
