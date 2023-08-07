@@ -45,10 +45,11 @@ class AllOff extends Anim {
 class StarMesh extends Anim {
   StarMesh ( Rig _rig) {
     super (_rig);
+    animName = "starMesh";
+
   }
   void draw() {
-        animName = "starMesh";
-
+    println(animName);
     window.beginDraw();
     window.background(0);
     stroke = (rig.high+rig.wide)/2/20*strokeSlider;
@@ -77,6 +78,7 @@ class StarMesh extends Anim {
 class Celtic extends Anim {
   Celtic (Rig _rig) {
     super(_rig);
+
   }
   void draw() {
     window.beginDraw();
@@ -105,6 +107,7 @@ class Celtic extends Anim {
 class SpiralFlower extends Anim {
   SpiralFlower(Rig _rig) {
     super(_rig);
+    animName = "SpiralFlower";
   }
   void draw() {
     window.beginDraw();
@@ -147,9 +150,9 @@ class BenjaminsBoxes extends Anim {
     wide = 600;
     high = 1000;
 
-    //stroke *=strokeSlider;
-    //wide *=wideSlider;
-    //high *=highSlider;
+    stroke *=strokeSlider;
+    wide *=wideSlider;
+    high *=highSlider;
 
     rotate = 45+(15*noize); //+(functionB*30);
     float xpos = 10+(noize*window.width/4);
@@ -226,7 +229,6 @@ class Rings extends Anim {
   Rings(Rig _rig) {
     super(_rig);
     animName = "rings";
-
     //animDimmer = animDimmer.mul(0.5);//this one is somehow blinding
   }
   void draw() {
@@ -268,8 +270,8 @@ class Rings extends Anim {
       donut(positionX[6][1].x,positionX[6][1].y, col1, stroke, wide, high, rotate, alphaB);
       donut(positionX[12][1].x,positionX[12][1].y, col1, stroke, wide, high, rotate+60, alphaB);
       // donut(position[6].x, position[6].y, col1, stroke, wide, high, rotate, alphaB);
-   // donut(position[7].x, position[7].y, col1, stroke, wide, high, rotate-60, alphaB);
-    //donut(position[8].x, position[8].y, col1, stroke, wide, high, rotate+60, alphaB);
+      // donut(position[7].x, position[7].y, col1, stroke, wide, high, rotate-60, alphaB);
+      //donut(position[8].x, position[8].y, col1, stroke, wide, high, rotate+60, alphaB);
       break;
       default:
       donut(window.width/4,window.height/4, col1, stroke, wide, high, -rotate, alphaA);
@@ -281,68 +283,6 @@ class Rings extends Anim {
   }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Rush extends Anim {
-  Rush (Rig _rig) {
-    super(_rig);
-  }
-  void draw() {
-    window.beginDraw();
-    window.background(0);
-    wide = 500+(noize*150);
-
-    stroke *=strokeSlider;
-    wide *=wideSlider;
-    high *=highSlider;
-
-    if (_beatCounter % 8 < 3) {
-      rush(position[0].x, position[3].y, col1, wide, vizHeight/2, functionA, alphaA);
-      rush(position[11].x, position[8].y, col1, wide, vizHeight/2, -functionA, alphaA);
-    } else {    
-      rush(position[0]. x, position[3].y, col1, wide, vizHeight/2, -functionA, alphaA);
-      rush(position[11].x, position[8].y, col1, wide, vizHeight/2, functionA, alphaA);
-    }
-    window.endDraw();
-  }
-}
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Rushed extends Anim {
-  Rushed(Rig _rig) {
-    super(_rig);
-  }
-  void draw() {
-    window.beginDraw();
-    window.background(0);
-    wide = 150+(noize*600*functionA);
-    high = vizHeight/2;
-
-    stroke *=strokeSlider;
-    wide *=wideSlider;
-    high *=highSlider;
-
-    if (beatCounter % 6 < 4) {
-      rush(viz.x, position[3].y, col1, wide, high, functionA, alphaA);
-      rush(viz.x, position[3].y, col1, wide, high, -functionB, alphaB);
-      rush(viz.x, position[3].y, col1, wide, high, -functionA, alphaA);
-      rush(viz.x, position[3].y, col1, wide, high, functionB, alphaB);
-      //
-      rush(viz.x, position[8].y, col1, wide, high, -functionA, alphaB);
-      rush(viz.x, position[8].y, col1, wide, high, functionB, alphaA);
-      rush(viz.x, position[8].y, col1, wide, high, functionA, alphaB);
-      rush(viz.x, position[8].y, col1, wide, high, -functionB, alphaA);
-    } else {
-      rush(viz.x, position[3].y, col1, wide, high, functionB, alphaB);
-      rush(viz.x, position[3].y, col1, wide, high, -functionA, alphaA);
-      rush(viz.x, position[3].y, col1, wide, high, -functionB, alphaB);
-      rush(viz.x, position[3].y, col1, wide, high, functionA, alphaA);
-      //
-      rush(viz.x, position[8].y, col1, wide, high, -functionB, alphaA);
-      rush(viz.x, position[8].y, col1, wide, high, functionA, alphaB);
-      rush(viz.x, position[8].y, col1, wide, high, functionB, alphaA);
-      rush(viz.x, position[8].y, col1, wide, high, -functionA, alphaB);
-    }
-    window.endDraw();
-  }
-}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class SquareNuts extends Anim { 
   SquareNuts(Rig _rig) { 
@@ -404,7 +344,7 @@ class Stars extends Anim {
     super(_rig);
   }
   void draw() {
-        animName = "stars";
+    animName = "stars";
 
     window.beginDraw();
     window.background(0);
@@ -443,46 +383,9 @@ class Stars extends Anim {
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Swipe extends Anim {
-  Swipe(Rig _rig) {
-    super(_rig);
-    //opcGrid.mirrorsOPC(opcMirror1, opcMirror2, 0);               // grids 0-3 MIX IT UPPPPP
-  }
-  void draw() {
 
-    window.beginDraw();
-    window.background(0);
-    wide = 500+(noize*300);
-
-    stroke *=strokeSlider;
-    wide *=wideSlider;
-    high *=highSlider;
-
-    if   (beatCounter % 3 < 1) rush(position[0].x, viz.y, col1, wide, vizHeight, functionA, alphaA);
-    else rush(position[0].x, viz.y, col1, wide, vizHeight, 1-functionA, alphaA);
-    window.endDraw();
-  }
-}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-class Swiped extends Anim {
-  Swiped(Rig _rig) {
-    super(_rig);
-  }
-  void draw() {
 
-    window.beginDraw();
-    window.background(0);
-    wide = 150+(noize1*500*functionB);
-
-    stroke *=strokeSlider;
-    wide *=wideSlider;
-    high *=highSlider;
-
-    rush(viz.x, viz.y, col1, wide, vizHeight, functionA, alphaA);
-    rush(-vizWidth/2, viz.y, col1, wide, vizHeight, 1-functionA, alphaA);
-    window.endDraw();
-  }
-}
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Teeth extends Anim {
   Teeth(Rig _rig) {
@@ -519,6 +422,7 @@ class Teeth extends Anim {
     window.endDraw();
   }
 }
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class TwistedStar extends Anim {
   TwistedStar(Rig _rig) {
     super(_rig);

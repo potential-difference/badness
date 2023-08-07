@@ -285,6 +285,10 @@ public class Rig {
     int index = this.availableAnims[vizIndex]; 
     fill(200);
     text("viz: "+index, x, y+20);
+    if (this.animations.size() > 0){
+      Anim anim = this.animations.get(0);  
+      text(anim.animName, x, y+40);
+    }
 
     ///////////// rig info/ ///////////////////////////////////////////////////////////////////
     fill(rigs.get(0).c1, 200);
@@ -294,6 +298,8 @@ public class Rig {
     text("bg: " + this.availableBkgrnds[bgIndex], x, y);
     text("func: " + availableFunctionEnvelopes[functionIndexA] + " / " + availableFunctionEnvelopes[functionIndexB], x+40, y);
     text("alph: " + availableAlphaEnvelopes[alphaIndexA] + " / " + availableAlphaEnvelopes[alphaIndexB], x+115, y);
+    
+    
     //////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////// SHOW BEAT DETECTION FOR EACH RIG //////////////////////////////////
     // quick n dirty way to show which rigs are detecting which beats.
