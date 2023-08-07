@@ -6,7 +6,7 @@ public class Rig {
   RigType type;
   OPCGrid opcgrid;
   float dimmer, alphaRate, functionRate, blurriness, bgNoise, manualAlpha, functionChangeRate, alphaChangeRate, backgroundChangeRate;
-  int wide, high, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, bgIndex, vizIndex, alphaTimer, functionTimer;
+  int wide, high, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, bgIndex, vizIndex, alphaTimer, functionTimer, vizTimer;
   PGraphics colorLayer, buffer, pass1, pass2;
   IntCoord size;
   color c, flash, c1, flash1, clash, clash1, clashed, colorIndexA, colorIndexB = 1, colA, colB, colC, colD, scol1, scol2, scol3;
@@ -275,7 +275,7 @@ public class Rig {
     text(type.name(), x, y);
     // box to draw around the text
     fill(0, 100);
-    stroke(shields.flash, 60);
+    stroke(rigs.get(0).flash, 60);
     strokeWeight(1);
     rect(x+(nameWidth/2), y-(textHeight/2)+(yOffset/5), nameWidth+(xOffset*2), yOffset*1.5);
     noStroke();
@@ -328,7 +328,7 @@ public class Rig {
     rect(x+(rctsz/2), y, rctsz, rctsz);          // rect to show NEXT color FLASH1
     // box surrounding rectangles
     fill(0, 100);
-    stroke(shields.flash, 60);
+    stroke(rigs.get(0).flash, 60);
     strokeWeight(1);
     rect(x+(rctsz*0.75), y-(rctsz/2), (rctsz*3)+(rctsz/2), (rctsz*3));
     // rectangles to show colours
@@ -353,7 +353,7 @@ public class Rig {
       colA = c;
       colC = flash;
     }
-    if (millis()/1000 - colorTimer >= colTime) {
+    if (millis()/1000 - colorTimer >= colTime*60) {
       change = true;
       println("COLOR CHANGE @", (hour()+":"+minute()+":"+second()));
       colorTimer = millis()/1000;

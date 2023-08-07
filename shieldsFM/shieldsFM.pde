@@ -135,18 +135,7 @@ void setup()
   loadImages();
   loadShaders();
   alwaysDoFirst();
-  /// TODO this could all go into a config/setup file
-  vizTime = 0.5;
-  colorChangeTime = 0.5;
-  for (Rig rig :rigs){
-  rig.dimmer = 1;
-  rig.alphaRate = 0.5;
-  rig.functionRate = 0.5;
-  rig.wideSlider = 0.5;
-  rig.highSlider = 0.5;
-  rig.strokeSlider= 0.5;
-  rig.blurriness = 0.2;
-  }
+ 
   for (Rig rig : rigs) setupLocalCoords(rig); // rig.pixelPosition used to store pixel coords in rig grid space
   for (Rig rig : rigs) markDownInfo(rig);     // print all rig info to md file.
   for(Rig rig : rigs) println(rig.type+" "+rig.pixelPosition); // print all rig into to termial
@@ -167,7 +156,8 @@ void draw()
   pause(10);           ////// number of seconds before no music detected and auto kicks in
   globalFunctions();
   
-  if (frameCount > 10) playWithYourself(vizTime*60*8);
+  
+  if (frameCount > 10) playWithYourself(vizTime);
   // TODO made a global variable class to include these and alpha and funcs
   c = rigs.get(0).c;
   flash = rigs.get(0).flash;

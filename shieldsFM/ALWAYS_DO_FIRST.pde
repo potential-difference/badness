@@ -56,6 +56,18 @@ void alwaysDoFirst() {
 
   for (int i= 36; i < 52; i++)cc[i] = 0;
 
+  // TODO this could all go into a config/setup file
+  // sets some defaults.
+  for (Rig rig :rigs){
+    rig.dimmer = 1;
+    rig.alphaRate = 0.5;
+    rig.functionRate = 0.5;
+    rig.wideSlider = 0.5;
+    rig.highSlider = 0.5;
+    rig.strokeSlider= 0.5;
+    rig.blurriness = 0.2;
+  }
+  // sets some values for the show.
   shields.dimmer = 1;
   shields.alphaRate = 0.5;
   shields.functionRate = 0.5;
@@ -97,8 +109,8 @@ void alwaysDoFirst() {
   uvSpeed = 0.57;
   uvProgram = 0.306;
 
-  vizTime = 1;
-  colorChangeTime = 1;
+  vizTime = 8;          // time in minutes - TODO sort this out onto slider 
+  colorChangeTime = 1;  // time in minutes - TODO sort this out onto slider 
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

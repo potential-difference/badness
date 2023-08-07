@@ -2,19 +2,19 @@ float[] lastTime = new float[cc.length];
 
 /*midiMap[46] = (float cc)->{
   if (cc == 1.0){
-    shields.animations.add new StarMesh(shields);
+    rigs.get(0).animations.add new StarMesh(rigs.get(0));
   }
 };
 */
 void setupMidiActions(){
   newMomentary(100,()->{
-    shields.colorSwap(0.9999);
+    rigs.get(0).colorSwap(0.9999);
   });
 
   noteOnActions[99] = (float velocity)->{
-    //Anim x = new Stars(shields);
+    //Anim x = new Stars(rigs.get(0));
     //x.animDimmer.set(velocity);
-    shields.animations.add(new Stars(shields));
+    rigs.get(0).animations.add(new Stars(rigs.get(0)));
   };
 
   noteOnActions[46] = (float velocity)->{
@@ -24,13 +24,13 @@ void setupMidiActions(){
   };
 
   noteOnActions[49] = (float velocity)->{
-    shields.colorFlip(true);
+    rigs.get(0).colorFlip(true);
   };
 ///////////////////////////////////////////////// STUTTER ///////////////////////////////////////////////x
 
   
   noteOnActions[48] =(float velocity)->{
-     for (Anim anim : shields.animations) {
+     for (Anim anim : rigs.get(0).animations) {
       anim.alphaEnvelopeA = anim.alphaEnvelopeA.mul((1-cc[45])+(stutter*cc[45])); // anim.alphaEnvelopeA.mul(0.6+(stutter*0.4));     //anim.alphaEnvelopeA.mul((1-cc[46])+(stutter*cc[46]));
       anim.alphaEnvelopeB = anim.alphaEnvelopeB.mul((1-cc[45])+(stutter*cc[45])); //anim.alphaEnvelopeA.mul(0.6+(stutter*0.4)); //anim.alphaEnvelopeB.mul((1-cc[46])+(stutter*cc[46]));
     }
@@ -57,10 +57,10 @@ if (keyP[' ']){
   }
 
   ////////////////////////////////////// COLOR SWAP AND FLIP BUTTONS /////////////////////////////////////////
-  if (keyP['o']) shields.colorSwap(0.9999999999);               // COLOR SWAP MOMENTARY 
+  if (keyP['o']) rigs.get(0).colorSwap(0.9999999999);               // COLOR SWAP MOMENTARY 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  if (keyT['i']) shields.colorFlip(keyT['i']);                  // COLOR FLIP TOGGLE 
-  if (keyP['u']) shields.colorFlip(keyP['u']);                  // COLOR FLIP MOMENTARY
+  if (keyT['i']) rigs.get(0).colorFlip(keyT['i']);                  // COLOR FLIP TOGGLE 
+  if (keyP['u']) rigs.get(0).colorFlip(keyP['u']);                  // COLOR FLIP MOMENTARY
 
   ////////////////////////////// LERP COLOUR ON BEAT /////////////////////////////////////////////////////////
   //if (keyT['y']) {

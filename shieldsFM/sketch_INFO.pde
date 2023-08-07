@@ -40,17 +40,17 @@ void onScreenInfo() {
   text("alph's: " + shields.availableAlphaEnvelopes[shields.alphaIndexA] + " / " + shields.availableAlphaEnvelopes[shields.alphaIndexB], x+110, y+40);
   /////////// info about PLAYWITHYOURSELF functions /////////////////////////////////////////////////////////////////////////////////////////////
   
-    fill(300);
-    String sec = nf(int(vizTime*60 - (millis()/1000 - vizTimer)) % 60, 2, 0);
-    int min = int(vizTime*60 - (millis()/1000 - vizTimer)) /60 % 60;
-    text("next viz in: "+min+":"+sec, x, y+80);
-    ///// NEXT COLOR CHANGE IN....
-    sec = nf(int(colorChangeTime*60 - (millis()/1000 - shields.colorTimer)) %60, 2, 0);
-    min = int(colorChangeTime*60 - (millis()/1000 - shields.colorTimer)) /60 %60;
-    text("next color in: "+ min+":"+sec, x, y+80);
-    int totalAnims=0;      
-    for (Rig rig : rigs) totalAnims += rig.animations.size();
-    text("# of anims: "+totalAnims, x,y+100);
+  fill(300);
+  String sec = nf(int(vizTime*60 - (millis()/1000 - vizTimer)) % 60, 2, 0);
+  int min = int(vizTime*60 - (millis()/1000 - vizTimer)) /60 % 60;
+  text("next viz in: "+min+":"+sec, x, y+80);
+  ///// NEXT COLOR CHANGE IN....
+  sec = nf(int(colorChangeTime*60 - (millis()/1000 - rigs.get(0).colorTimer)) %60, 2, 0);
+  min = int(colorChangeTime*60 - (millis()/1000 - rigs.get(0).colorTimer)) /60 %60;
+  text("next color in: "+ min+":"+sec, x, y+100);
+  int totalAnims=0;      
+  for (Rig rig : rigs) totalAnims += rig.animations.size();
+  text("# of anims: "+totalAnims, x,y+120);
 
 ///////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////

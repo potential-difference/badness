@@ -79,8 +79,6 @@ class Anim {
     if (!Float.isNaN(funcZ)) functionB = funcZ;
     //functionB = functionEnvelopeB.value(now);
 
-    //println("functionA "+functionA,"alphaA "+alphaA, "rigdimmer " +shields.dimmer);
-
     if (alphaEnvelopeA.end_time<now && alphaEnvelopeB.end_time<now) deleteme = true;  // only delete when all finished
 
     this.draw();
