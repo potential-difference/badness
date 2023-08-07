@@ -291,31 +291,28 @@ public class Rig {
     }
 
     ///////////// rig info/ ///////////////////////////////////////////////////////////////////
-    fill(rigs.get(0).c1, 200);
+    // fill(rigs.get(0).c1, 200);
     textAlign(LEFT, BOTTOM);
-    x = size.x-(wide/2)+5; 
+    textSize(14);
+    x = size.x-(wide/2)+8; 
     y = size.y+(high/2)+2;    
     text("bg: " + this.availableBkgrnds[bgIndex], x, y);
     text("func: " + availableFunctionEnvelopes[functionIndexA] + " / " + availableFunctionEnvelopes[functionIndexB], x+40, y);
-    text("alph: " + availableAlphaEnvelopes[alphaIndexA] + " / " + availableAlphaEnvelopes[alphaIndexB], x+115, y);
-    
+    text("alph: " + availableAlphaEnvelopes[alphaIndexA] + " / " + availableAlphaEnvelopes[alphaIndexB], x+110, y);
     
     //////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////// SHOW BEAT DETECTION FOR EACH RIG //////////////////////////////////
     // quick n dirty way to show which rigs are detecting which beats.
     // TODO turn this in to a visual sequencer
-    int rctsz = 10;
-    x = size.x+(wide/2)-rctsz-2;
-    y = size.y+(high/2);
-    fill(this.c); 
-    rectMode(CORNER);
-     // text to indicate what this is
-    textAlign(RIGHT, BOTTOM);
-    textSize(10);
-    String beatD = new String ("BD");
-    text(beatD, x+rctsz, y);
-    if (beatTriggered) rect(x,y-rctsz,rctsz,rctsz); // beatTriggered is per rig
-    rectMode(CENTER);
+    int rctsz = 12;
+    x = size.x+(wide/2)-(rctsz/2);
+    y = size.y+(high/2)+(rctsz/2);
+    strokeWeight(1);
+    stroke(rigs.get(0).c1,200);
+    noFill();
+    if (beatTriggered) fill(rigs.get(0).flash1,200); 
+    rect(x,y-rctsz,rctsz,rctsz); // beatTriggered is per rig
+    noStroke();
     beatTriggered = false;
     //////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////// RECTANGLES TO SHOW CURRENT COLOURS //////////////////////////////////

@@ -48,7 +48,6 @@ class StarMesh extends Anim {
     animName = "starMesh";
   }
   void draw() {
-    println(animName);
     window.beginDraw();
     window.background(0);
     stroke = (rig.high+rig.wide)/2/20*strokeSlider;
@@ -171,7 +170,7 @@ class BenjaminsBoxes extends Anim {
 class Anim1 extends Anim { ///////// COME BACK TO THIS WITH NEW ENVELOPES
   Anim1(Rig _rig) {
     super(_rig);
-    aninName = "Anim1";
+    animName = "Anim1";
   }
   void draw() {
     window.beginDraw();
@@ -315,7 +314,7 @@ class SquareNuts extends Anim {
 class DiagoNuts extends Anim { 
   DiagoNuts(Rig _rig) { 
     super(_rig);
-    aninName = "DiagoNuts";
+    animName = "DiagoNuts";
   }                                // maybe add beatcounter flip postion for this
   void draw() {
     window.beginDraw();
@@ -501,9 +500,9 @@ class BouncingDonut extends Anim {
 class BouncingPolo extends Anim {
   int beatcounted;
   int numberofanims;
-  animName = "BouncingPolo";
   BouncingPolo(Rig _rig) {            
     super(_rig);
+    animName = "BouncingPolo";
     numberofanims = rig.animations.size();
     beatcounted = (_beatCounter % (numberofanims+1));
   }
@@ -524,7 +523,7 @@ class BouncingPolo extends Anim {
 class Polo extends Anim {
   Polo(Rig _rig) {            
     super(_rig);
-    aninName = "Polo";
+    animName = "Polo";
   }
   void draw() {
     window.beginDraw();
