@@ -7,6 +7,8 @@ first time seeing this error!
 RIG.pde:211:0:211:0: ClassCastException: class shieldsFM$MegaSeedAGrid cannot be cast to class shieldsFM$ShieldsOPCGrid (shieldsFM$MegaSeedAGrid and shieldsFM$ShieldsOPCGrid are in unnamed module of loader 'app')
 
 ## last terminal log
+      println("bg change rate",millis()/1000 - bgChangeTimer, colorChangeTime*60/ rig.backgroundChangeRate);
+
 bg change rate 75 Infinity
 bg change rate 75 75.0
 MegaSeedA bg change @ 21:48:8 new bg: 4
