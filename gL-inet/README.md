@@ -23,9 +23,10 @@ Please follow the procedures below to access the Uboot Web UI and re-install the
  
     Use browser to visit http://192.168.1.1, this is the Uboot Web UI.
 
-    Click Choose file button to find the firmware file. 
-        openwrt-ar300m16-3.216-0321-1679391734
-    Then click Update firmware button.
+    UPLOAD NOR FIRMWARE
+        Click Choose file button to find the firmware file. 
+        openwrt-ar300m16-3.216-0321-1679391734.bin
+        Then click Update firmware button.
 
     Wait for around 3 minutes. Don’t power off your device when updating. The router is ready when both power and Wi-Fi LED are on or you can find its SSID on your device.
 
