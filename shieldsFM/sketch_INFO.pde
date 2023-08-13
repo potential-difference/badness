@@ -88,23 +88,12 @@ void pauseInfo() {
     text("NO AUDIO!! PAUSE RUNNING", width-20,height); 
   }
 }
-float increment;
-float dither;
+
 void mouseCircle(boolean _info){
-  _info = true;
   if (_info){
     // draw circle over mouse to check LEDS
-
-    if (keyP['q']) increment = (increment + 1) % 360;
-    if (keyP['a']) increment = (increment - 1) % 360;
-   
-    float fillx = millis()/50%360;
-
-    
-    fill(fillx);  
+    fill(200);  
     ellipse(mouseX, mouseY, 10, 10);
-    println(fillx);   
-
   } 
 }
 void mouseInfo() {

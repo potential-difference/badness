@@ -1,7 +1,6 @@
 # badness
 
-working on adding megaseeds in a smart way
-
+added megaseeds to sketch - pixel mapping needs work once physical layout is decided
 
 
 

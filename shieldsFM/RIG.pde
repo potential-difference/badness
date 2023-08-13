@@ -532,8 +532,9 @@ public class Rig {
     // this donesnt work anymore....
     if (cc[107] > 0 || keyT['r']) bgNoise(colorLayer, 0, 0, cc[55]); //PGraphics layer,color,alpha
    
-    // println(type);
-    if(type != RigType.MegaSeedC) drawColorLayer(bgIndex);
+    // TODO this can be used to draw white animations
+    // if(type != RigType.booth) drawColorLayer(bgIndex);
+    drawColorLayer(bgIndex);
 
     blendMode(NORMAL);
     rigInfo();
