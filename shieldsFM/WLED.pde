@@ -209,7 +209,9 @@ public class WLED extends OPC
         try{
           udpsock.send(packet);
         }catch(Exception e){
-          println("WLED: failed to send packet ",e);
+          // TODO enable debugging mode for this if nessesarry
+          // removed it coz its constantly priting when nothing connected during prep
+          // println("WLED: failed to send packet ",e);
         }
       }
     }
