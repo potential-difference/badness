@@ -18,7 +18,7 @@ class SizeSettings {
   // need less places where you have to make changes!
   // maybe this could be a config thing though so each instance is just a reference to 
   // a name in the config file so thats the only place you change things...?!
-  IntCoord shields,tipiLeft,tipiRight,tipiCentre,megaSeedA,megaSeedB,info,booth,bar,uvPars;
+  IntCoord shields,tipiLeft,tipiRight,tipiCentre,megaSeedA,megaSeedB,megaSeedC,info,booth,bar,uvPars;
   //PVector rig, roof, cans, donut, pars, info;
   int sizeX, sizeY;
 
@@ -92,9 +92,13 @@ class SizeSettings {
     // Update the x coordinate for megaSeedB using megaSeedA's properties
     int megaSeedBx = megaSeedA.x + rigWidth;
     megaSeedB = new IntCoord(megaSeedBx, bottomRigY, rigWidth, rigHeight);
+
+    // Update the x coordinate for megaSeedC using megaSeedB's properties
+    int megaSeedCx = megaSeedB.x + rigWidth;
+    megaSeedC = new IntCoord(megaSeedCx, bottomRigY, rigWidth, rigHeight);
     
-    // Update the x coordinate for uvPars using megaSeedB's properties
-    int uvParsx = megaSeedBx + megaSeedB.wide/2 + rigWidth/2;
+    // Update the x coordinate for uvPars using megaSeedC's properties
+    int uvParsx = megaSeedCx + megaSeedC.wide/2 + rigWidth/2;
     uvPars = new IntCoord(uvParsx, bottomRigY, rigWidth, rigHeight);
     
     // Update the x coordinate for bar using uvPars's properties

@@ -30,18 +30,23 @@ void alwaysDoFirst() {
   shields.colorIndexA = 2;
   shields.colorIndexB = 1;
 
-  megaSeedA.vizIndex = 2;
-  megaSeedB.vizIndex = 1;
   tipiLeft.colorIndexA = 2;
   tipiLeft.colorIndexB = 1;
   tipiRight.colorIndexA = 3;
   tipiRight.colorIndexB = 2;
 
-  megaSeedB.colorIndexA = 1;
-  megaSeedB.colorIndexB = 2;
+  megaSeedA.vizIndex = 2;
+  megaSeedB.vizIndex = 1;
+  megaSeedC.vizIndex = 2;
 
   megaSeedA.colorIndexA = 2;
   megaSeedA.colorIndexB = 1;
+
+  megaSeedB.colorIndexA = 1;
+  megaSeedB.colorIndexB = 2;
+
+  megaSeedC.colorIndexA = 2;
+  megaSeedC.colorIndexB = 1;
 
   ///// TODO  make an easy way of changing colour
    

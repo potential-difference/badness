@@ -1,5 +1,5 @@
 enum RigType{
-    Shields,Lanterns,Diamonds,MegaSeedA,MegaSeedB,TipiLeft,TipiRight,TipiCentre,Bar,Mirrors,Cans,Strips,Seeds,Pars,Booth,Dig,UvPars // rigs
+    Shields,Lanterns,Diamonds,MegaSeedA,MegaSeedB,MegaSeedC,TipiLeft,TipiRight,TipiCentre,Bar,Mirrors,Cans,Strips,Seeds,Pars,Booth,Dig,UvPars // rigs
 }
 //static RigType Shields = RigType.Shields;
 public class Rig {
@@ -531,7 +531,9 @@ public class Rig {
     blendMode(MULTIPLY);
     // this donesnt work anymore....
     if (cc[107] > 0 || keyT['r']) bgNoise(colorLayer, 0, 0, cc[55]); //PGraphics layer,color,alpha
-    drawColorLayer(bgIndex);
+   
+    // println(type);
+    if(type != RigType.MegaSeedC) drawColorLayer(bgIndex);
 
     blendMode(NORMAL);
     rigInfo();

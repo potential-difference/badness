@@ -14,7 +14,7 @@ OPCGrid opcGrid;
 //Gig Specific
 ShieldsOPCGrid shieldsGrid;
 BoothGrid boothGrid;
-Rig shields,tipiLeft,tipiRight,tipiCentre,bar,booth,megaSeedA,megaSeedB,cans,roof,uvPars;
+Rig shields,tipiLeft,tipiRight,tipiCentre,bar,booth,megaSeedA,megaSeedB,megaSeedC,cans,roof,uvPars;
 
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
 PFont font;
@@ -77,7 +77,9 @@ void setup()
     //A:12 B:14 C:27 D:26 E:25
 
     entry("megaSeedA",new WLED(this,"192.168.10.30",21324)),
-    entry("megaSeedB",new WLED(this,"192.168.10.31",21324))
+    entry("megaSeedB",new WLED(this,"192.168.10.31",21324)),
+    entry("megaSeedC",new WLED(this,"192.168.10.32",21324))
+
   );
 
   Map<String,PixelMapping> channels = Map.ofEntries(
@@ -110,6 +112,8 @@ void setup()
   megaSeedA.opcgrid = new MegaSeedAGrid(megaSeedA,OPCs);
   megaSeedB = new Rig(size.megaSeedB,RigType.MegaSeedB);
   megaSeedB.opcgrid = new MegaSeedBGrid(megaSeedB,OPCs);
+  megaSeedC = new Rig(size.megaSeedC,RigType.MegaSeedC);
+  megaSeedC.opcgrid = new MegaSeedCGrid(megaSeedC,OPCs);
 
   uvPars = new Rig(size.uvPars,RigType.UvPars);
   uvPars.opcgrid = new UvParsGrid(uvPars,OPCs);
@@ -153,7 +157,7 @@ void draw()
   background(0);
   noStroke();
   beats(beatSlider);   
-  pause(10);           ////// number of seconds before no music detected and auto kicks in
+  //pause(10);           ////// number of seconds before no music detected and auto kicks in
   globalFunctions();
   
   
@@ -168,7 +172,6 @@ void draw()
   playWithMe();
   if (beatTrigger) { 
     
-    // list of rigs shields,tipiLeft,tipiRight,tipiCentre,bar,booth,megaSeedA,megaSeedB,cans,roof,uvPars;
     for (Rig rig : rigs) {
         //if (testToggle) rig.animations.add(new Test(rig));
 
@@ -195,10 +198,11 @@ void draw()
   ///////////////////////////////////////////// !!!SMOKE!!! //////////////////////////////////////////////////////////////
   //dmxSmoke();
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  mouseInfo(keyT['q']);
-  mouseCircle(keyT['y']);
+  mouseCircle(keyT['q']);
   onScreenInfo();
   pauseInfo();
+
+  
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

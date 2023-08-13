@@ -72,6 +72,18 @@ class UvParsGrid extends OPCGrid{
     uvProgram = new Coord(pgmx,pgmy,uvwide,uvhigh);
 */
 
+// TODO is there a better way of doing this so rigs can be an array list and more easily added?!
+class MegaSeedAGrid extends OPCGrid{
+  Rig rig;
+  MegaSeedAGrid(Rig _rig,Map<String,OPC> opcnodes){
+    opclist = opcnodes;
+    rig = _rig;
+    opcnodes.get("megaSeedA").led(0,size.megaSeedA.x,size.megaSeedA.y);
+    PVector pv = new PVector(size.megaSeedA.x, size.megaSeedA.y);
+    rig.pixelPosition.add(pv); // adding global coords to pixelPosition ArrayList
+  }
+}
+
 class MegaSeedBGrid extends OPCGrid{
   Rig rig;
   MegaSeedBGrid(Rig _rig,Map<String,OPC> opcnodes){
@@ -83,16 +95,23 @@ class MegaSeedBGrid extends OPCGrid{
   }
 }
 
-class MegaSeedAGrid extends OPCGrid{
+class MegaSeedCGrid extends OPCGrid{
   Rig rig;
-  MegaSeedAGrid(Rig _rig,Map<String,OPC> opcnodes){
+  MegaSeedCGrid(Rig _rig,Map<String,OPC> opcnodes){
     opclist = opcnodes;
     rig = _rig;
-    opcnodes.get("megaSeedA").led(0,size.megaSeedA.x,size.megaSeedA.y);
-    PVector pv = new PVector(size.megaSeedA.x, size.megaSeedA.y);
+    opcnodes.get("megaSeedC").led(0,size.megaSeedC.x,size.megaSeedC.y);             // 100W RGBW pixel - GPIOS 33,25,26,32
+    opcnodes.get("megaSeedC").led(101,size.megaSeedC.x-20,size.megaSeedC.y);        // 2W WHITE led bulbs - GPIO 12
+    opcnodes.get("megaSeedC").led(102,size.megaSeedC.x+20,size.megaSeedC.y);        // FILLAMENT spiral - GPIO 14
+
+    // TODO add ring of 12v RGB leds to grid, led# 1-100
+    // opcnodes.get("megaSeedC").led(1,size.megaSeedC.x+20,size.megaSeedC.y);        
+
+    PVector pv = new PVector(size.megaSeedC.x, size.megaSeedC.y);
     rig.pixelPosition.add(pv); // adding global coords to pixelPosition ArrayList
   }
 }
+
 
 class PixelMapping{
   String opcname;

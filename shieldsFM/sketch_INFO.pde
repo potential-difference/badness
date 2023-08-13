@@ -19,7 +19,7 @@
  
  */
 void onScreenInfo() {
-  mouseInfo(keyT['q']);
+  mouseInfo();
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   dividerLines();
   //////////////////////////////// SHOW INFO ABOUT CURRENT RIG ARRAY SELECTION //////////////////////////////////////////////////////////////// 
@@ -88,22 +88,33 @@ void pauseInfo() {
     text("NO AUDIO!! PAUSE RUNNING", width-20,height); 
   }
 }
+float increment;
+float dither;
 void mouseCircle(boolean _info){
+  _info = true;
   if (_info){
     // draw circle over mouse to check LEDS
-    fill(200);  
+
+    if (keyP['q']) increment = (increment + 1) % 360;
+    if (keyP['a']) increment = (increment - 1) % 360;
+   
+    float fillx = millis()/50%360;
+
+    
+    fill(fillx);  
     ellipse(mouseX, mouseY, 10, 10);
+    println(fillx);   
+
   } 
 }
-void mouseInfo(boolean _info) {
-  if (_info) {
+void mouseInfo() {
     // display mouse coordiantes in the bottom right.
     fill (360);
     textAlign(RIGHT,BOTTOM);
     textSize(14);
     text( " x" + mouseX + " y" + mouseY, width,height);
-  }
 }
+
 void coordinatesInfo(Rig rig, boolean _info) {
   if (_info) {
     textSize(12);

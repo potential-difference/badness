@@ -1,6 +1,6 @@
 # badness
 
-working on rig positions, changing to array list for pixel positions...
+working on adding megaseeds in a smart way
 
 
 

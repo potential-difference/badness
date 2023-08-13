@@ -38,10 +38,6 @@ public class WLED extends OPC
     try{
       wledaddress = InetAddress.getByName(host);
     }catch(Exception e){println("WLED: DNS lookup failed for ",host,e);}
-    
-    
-    
-    
   }
 
   // Set the location of a single LED
