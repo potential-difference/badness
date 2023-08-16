@@ -50,14 +50,14 @@ local coords[7] 37.078674 119.329056
 local coords[8] 61.36212 161.38916
 
 lantern[0] channel[0] led #[0] global coords: 707.0  178.0
-lantern[1] channel[0] led #[1] global coords: 752.63794  161.38916
-lantern[2] channel[0] led #[2] global coords: 776.9214  119.32902
-lantern[3] channel[1] led #[100] global coords: 768.4878  71.5
-lantern[4] channel[1] led #[101] global coords: 731.28345  40.281822
-lantern[5] channel[1] led #[102] global coords: 682.71655  40.28183
-lantern[6] channel[2] led #[200] global coords: 645.5122  71.50001
-lantern[7] channel[2] led #[201] global coords: 637.0787  119.329056
-lantern[8] channel[2] led #[202] global coords: 661.3621  161.38916
+lantern[1] channel[1] led #[10] global coords: 752.63794  161.38916
+lantern[2] channel[2] led #[20] global coords: 776.9214  119.32902
+lantern[3] channel[3] led #[30] global coords: 768.4878  71.5
+lantern[4] channel[4] led #[40] global coords: 731.28345  40.281822
+lantern[5] channel[5] led #[50] global coords: 682.71655  40.28183
+lantern[6] channel[6] led #[60] global coords: 645.5122  71.50001
+lantern[7] channel[7] led #[70] global coords: 637.0787  119.329056
+lantern[8] channel[8] led #[80] global coords: 661.3621  161.38916
 
 ## TipiRight COORDINATES
 *pixel position array length* 9
@@ -73,14 +73,14 @@ local coords[7] 37.078674 119.329056
 local coords[8] 61.36212 161.38916
 
 lantern[0] channel[0] led #[0] global coords: 921.0  178.0
-lantern[1] channel[0] led #[1] global coords: 966.63794  161.38916
-lantern[2] channel[0] led #[2] global coords: 990.9214  119.32902
-lantern[3] channel[1] led #[100] global coords: 982.4878  71.5
-lantern[4] channel[1] led #[101] global coords: 945.28345  40.281822
-lantern[5] channel[1] led #[102] global coords: 896.71655  40.28183
-lantern[6] channel[2] led #[200] global coords: 859.5122  71.50001
-lantern[7] channel[2] led #[201] global coords: 851.0787  119.329056
-lantern[8] channel[2] led #[202] global coords: 875.3621  161.38916
+lantern[1] channel[1] led #[10] global coords: 966.63794  161.38916
+lantern[2] channel[2] led #[20] global coords: 990.9214  119.32902
+lantern[3] channel[3] led #[30] global coords: 982.4878  71.5
+lantern[4] channel[4] led #[40] global coords: 945.28345  40.281822
+lantern[5] channel[5] led #[50] global coords: 896.71655  40.28183
+lantern[6] channel[6] led #[60] global coords: 859.5122  71.50001
+lantern[7] channel[7] led #[70] global coords: 851.0787  119.329056
+lantern[8] channel[8] led #[80] global coords: 875.3621  161.38916
 
 ## TipiCentre COORDINATES
 *pixel position array length* 9
@@ -96,14 +96,14 @@ local coords[7] 37.078674 119.32904
 local coords[8] 61.36212 161.38916
 
 lantern[0] channel[0] led #[0] global coords: 707.0  392.0
-lantern[1] channel[0] led #[1] global coords: 752.63794  375.38916
-lantern[2] channel[0] led #[2] global coords: 776.9214  333.329
-lantern[3] channel[1] led #[100] global coords: 768.4878  285.5
-lantern[4] channel[1] led #[101] global coords: 731.28345  254.28183
-lantern[5] channel[1] led #[102] global coords: 682.71655  254.28183
-lantern[6] channel[2] led #[200] global coords: 645.5122  285.5
-lantern[7] channel[2] led #[201] global coords: 637.0787  333.32904
-lantern[8] channel[2] led #[202] global coords: 661.3621  375.38916
+lantern[1] channel[1] led #[10] global coords: 752.63794  375.38916
+lantern[2] channel[2] led #[20] global coords: 776.9214  333.329
+lantern[3] channel[3] led #[30] global coords: 768.4878  285.5
+lantern[4] channel[4] led #[40] global coords: 731.28345  254.28183
+lantern[5] channel[5] led #[50] global coords: 682.71655  254.28183
+lantern[6] channel[6] led #[60] global coords: 645.5122  285.5
+lantern[7] channel[7] led #[70] global coords: 637.0787  333.32904
+lantern[8] channel[8] led #[80] global coords: 661.3621  375.38916
 
 ## Bar COORDINATES
 *pixel position array length* 0

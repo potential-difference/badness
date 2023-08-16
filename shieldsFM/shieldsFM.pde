@@ -85,15 +85,37 @@ void setup()
   Map<String,PixelMapping> channels = Map.ofEntries(
     // document this: ("stringOne","LunchBox1",0,new int[] {1,1,1})
     // TODO is there a better way to do this? there are a lot of the same variable...
-    entry("stringOne", new PixelMapping("stringOne","LunchBox1",0,new int[] {1,1,1})),
-    entry("stringTwo", new PixelMapping("stringTwo","LunchBox1",100,new int[] {1,1,1})),  
-    entry("stringThree", new PixelMapping("stringThree","LunchBox1",200,new int[] {1,1,1})),
+   
+    entry("pix0",new PixelMapping("pix0","LunchBox1",00,new int[]{1})),  // A 
+    entry("pix1",new PixelMapping("pix1","LunchBox1",10,new int[]{1})),  // B
+    entry("pix2",new PixelMapping("pix2","LunchBox1",20,new int[]{1})),  // C
+    entry("pix3",new PixelMapping("pix3","LunchBox1",30,new int[]{1})),  // D
+    entry("pix4",new PixelMapping("pix4","LunchBox1",40,new int[]{1})),  // E
+    entry("pix5",new PixelMapping("pix5","LunchBox1",50,new int[]{1})),  // F
+    entry("pix6",new PixelMapping("pix6","LunchBox1",60,new int[]{1})),  // G
+    entry("pix7",new PixelMapping("pix7","LunchBox1",70,new int[]{1})),  // H
+    entry("pix8",new PixelMapping("pix8","LunchBox1",80,new int[]{1})),  // I
 
-    entry("stringFour",new PixelMapping("stringFour","LunchBox2",0,new int[]{1,1,1})),
-    entry("stringFive",new PixelMapping("stringFive","LunchBox2",100,new int[]{1,1,1})),
-    entry("stringSix",new PixelMapping("stringSix","LunchBox2",200,new int[]{1,1,1})),
+    entry("pix9", new PixelMapping("pix9", "LunchBox2",00,new int[]{1})),  // A
+    entry("pix10",new PixelMapping("pix10","LunchBox2",10,new int[]{1})),  // B
+    entry("pix11",new PixelMapping("pix11","LunchBox2",20,new int[]{1})),  // C
+    entry("pix12",new PixelMapping("pix12","LunchBox2",30,new int[]{1})),  // D
+    entry("pix13",new PixelMapping("pix13","LunchBox2",40,new int[]{1})),  // E
+    entry("pix14",new PixelMapping("pix14","LunchBox2",50,new int[]{1})),  // F
+    entry("pix15",new PixelMapping("pix15","LunchBox2",60,new int[]{1})),  // G
+    entry("pix16",new PixelMapping("pix16","LunchBox2",70,new int[]{1})),  // H
+    entry("pix17",new PixelMapping("pix17","LunchBox2",80,new int[]{1})),  // I
 
-    entry("stringSeven",new PixelMapping("stringSeven","LunchBox3",0,new int[]{1,1,1})),
+    entry("pix18",new PixelMapping("pix18","LunchBox3",00,new int[]{1})),  // A
+    entry("pix19",new PixelMapping("pix19","LunchBox3",10,new int[]{1})),  // B
+    entry("pix20",new PixelMapping("pix20","LunchBox3",20,new int[]{1})),  // C
+    entry("pix21",new PixelMapping("pix21","LunchBox3",30,new int[]{1})),  // D
+    entry("pix22",new PixelMapping("pix22","LunchBox3",40,new int[]{1})),  // E
+    entry("pix23",new PixelMapping("pix23","LunchBox3",50,new int[]{1})),  // F
+    entry("pix24",new PixelMapping("pix24","LunchBox3",60,new int[]{1})),  // G
+    entry("pix25",new PixelMapping("pix25","LunchBox3",70,new int[]{1})),  // H
+    entry("pix26",new PixelMapping("pix26","LunchBox3",80,new int[]{1})),  // I
+
     entry("stringEight",new PixelMapping("stringEight","LunchBox3",100,new int[]{1,1,1})),
     entry("stringNine",new PixelMapping("stringNine","LunchBox3",200,new int[]{1,1,1})),
 
@@ -119,15 +141,15 @@ void setup()
   uvPars.opcgrid = new UvParsGrid(uvPars,OPCs);
 
   tipiLeft = new Rig(size.tipiLeft,RigType.TipiLeft);
-  String tipiLeftChannels[] = {"stringOne","stringTwo","stringThree"};
+  String tipiLeftChannels[] = {"pix0","pix1","pix2","pix3","pix4","pix5","pix6","pix7","pix8"};
   tipiLeft.opcgrid = new CircularRoofGrid(tipiLeft,OPCs,channels,tipiLeftChannels);
 
   tipiRight = new Rig(size.tipiRight,RigType.TipiRight);
-  String tipiRightChannels[] = {"stringFour","stringFive","stringSix"};
+  String tipiRightChannels[] = {"pix9","pix10","pix11","pix12","pix13","pix14","pix15","pix16","pix17"};
   tipiRight.opcgrid = new CircularRoofGrid(tipiRight,OPCs,channels,tipiRightChannels);
 
   tipiCentre = new Rig(size.tipiCentre,RigType.TipiCentre);
-  String tipiCentreChannels[] = {"stringSeven","stringEight","stringNine"};
+  String tipiCentreChannels[] = {"pix18","pix19","pix20","pix21","pix22","pix23","pix24","pix25","pix26"};
   tipiCentre.opcgrid = new CircularRoofGrid(tipiCentre,OPCs,channels,tipiCentreChannels);
 
   bar = new Rig(size.bar,RigType.Bar);
