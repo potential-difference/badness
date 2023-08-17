@@ -65,10 +65,20 @@ void setup()
     noLoop();
     return;
   }
-  //Map<String,OPC> OPCs = legacyOPCs(devices);
-  //Map<String,PixelMapping> channels = legacyChannels(devices);
+
+  Map<String,OPC> OPCs;// = legacyOPCs(devices);
+  Map<String,PixelMapping> channels;// = legacyChannels(devices);
+  try{
+   OPCs = legacyOPCs(devices);
+   channels = legacyChannels(devices);
+  }catch(Exception e){
+    println("ERROR: ");
+    e.printStackTrace();
+    noLoop();
+    return;
+  }
   ///////////////// LOCAL opc /////////////////////
-  Map<String,OPC> OPCs = Map.ofEntries(
+  /*Map<String,OPC> OPCs = Map.ofEntries(
     entry("BigShield", new WLED(this, "192.168.10.10", 21324)),
     entry("SmallShieldA", new WLED(this, "192.168.10.11", 21324)),    //bottom right
     entry("MedShieldA", new WLED(this, "192.168.10.12", 21324)),
@@ -138,7 +148,7 @@ void setup()
     entry("barmid", new PixelMapping("barmid","LunchBox3",400,new int[]{1})),
     entry("barright", new PixelMapping("barright","LunchBox3",500,new int[]{1}))
   );
-  
+  */  
   shields = new Rig(size.shields, RigType.Shields);
   shields.opcgrid = new ShieldsOPCGrid(shields);
   ((ShieldsOPCGrid)(shields.opcgrid)).bigTriangleShieldsOPC(OPCs); 
@@ -159,15 +169,25 @@ void setup()
   uvPars.opcgrid = new UvParsGrid(uvPars,OPCs);
 
   tipiLeft = new Rig(size.tipiLeft,RigType.TipiLeft);
-  String tipiLeftChannels[] = {"pix0","pix1","pix2","pix3","pix4","pix5","pix6","pix7","pix8"};
+  String tipiLeftChannels[] = new String[9];
+  char idk[] = {'A','B','C','D','E','F','G','H','I'};
+  for(int i = 0;i<9;i++){
+    tipiLeftChannels[i] = "LunchBox1/lantern" + idk[i];
+  }// = {"Lu","pix1","pix2","pix3","pix4","pix5","pix6","pix7","pix8"};
   tipiLeft.opcgrid = new CircularRoofGrid(tipiLeft,OPCs,channels,tipiLeftChannels);
 
   tipiRight = new Rig(size.tipiRight,RigType.TipiRight);
-  String tipiRightChannels[] = {"pix9","pix10","pix11","pix12","pix13","pix14","pix15","pix16","pix17"};
+  String tipiRightChannels[] = new String[9];// = {"pix9","pix10","pix11","pix12","pix13","pix14","pix15","pix16","pix17"};
+  for(int i = 0; i<9;i++){
+    tipiRightChannels[i] = "LunchBox2/lantern" + idk[i];
+  }
   tipiRight.opcgrid = new CircularRoofGrid(tipiRight,OPCs,channels,tipiRightChannels);
 
   tipiCentre = new Rig(size.tipiCentre,RigType.TipiCentre);
-  String tipiCentreChannels[] = {"pix18","pix19","pix20","pix21","pix22","pix23","pix24","pix25","pix26"};
+  String tipiCentreChannels[] = new String[9];// = {"pix18","pix19","pix20","pix21","pix22","pix23","pix24","pix25","pix26"};
+  for(int i = 0; i<9; i++){
+    tipiCentreChannels[i] = "LunchBox3/lantern" + idk[i];
+  }
   tipiCentre.opcgrid = new CircularRoofGrid(tipiCentre,OPCs,channels,tipiCentreChannels);
 
   bar = new Rig(size.bar,RigType.Bar);

@@ -22,6 +22,7 @@ class Channel{//supercedes PixelMapping
 }
 Channel parseChannel(JSONObject chan,OPC opc){
     try{
+        if(!chan.getBoolean("enabled",true)){println("channel ",chan.getString("name"),"disabled");return null;}
         String name = chan.getString("name");
         int start = chan.getInt("start");
         int[] pixels = chan.getJSONArray("pixels").toIntArray();
@@ -64,9 +65,16 @@ Device parseDevice(JSONObject obj) throws Exception{
         //shield opcs dont have channels
         JSONArray channelsj = obj.getJSONArray("channels");      
         ArrayList<Channel> channels = new ArrayList<Channel>();
+        if(channelsj!=null){
+            println("parseDevice ",name," has ",channelsj.size()," channels");
+        }else{println("parseDevice ", name," has NO channels defined");}
         if (channelsj!=null){            
-            for(int i=0;i<channels.size();i++){
-                channels.add(parseChannel(channelsj.getJSONObject(i),instance));
+            for(int i=0;i<channelsj.size();i++){
+                println("adding",channelsj.getJSONObject(i).getString("name"));
+                Channel c = parseChannel(channelsj.getJSONObject(i),instance);
+                if(c!=null){
+                    channels.add(parseChannel(channelsj.getJSONObject(i),instance));
+                }
             }
         }
         return new Device(name,instance,channels);
@@ -80,6 +88,7 @@ ArrayList<Device> parseDevices(JSONArray arr) throws Exception{
     ArrayList<Device> res = new ArrayList<Device>();
     for(int i = 0;i<arr.size();i++){
         Device dev = parseDevice(arr.getJSONObject(i));
+        println("parsed ",dev.channels.size()," channels for dev ",dev.name);
         if(dev!=null){//device is null if disabled
             res.add(dev);
         }
@@ -106,11 +115,18 @@ Map<String,OPC> legacyOPCs(ArrayList<Device> devices){
     return OPCs;
 }
 
-Map<String,PixelMapping> legacyChannels(ArrayList<Device> devices){
+Map<String,PixelMapping> legacyChannels(ArrayList<Device> devices) throws Exception{
     Map<String,PixelMapping> channels = new HashMap<String,PixelMapping>();
+    if(devices.size() == 0){ throw new Exception("empty devices list!");}
     for(Device dev : devices){
+        println(dev.channels.size()," channels for device ",dev.name);
+        if (dev.name==null){throw new Exception("device name null");}
         for (Channel chan : dev.channels){
-            channels.put(chan.unitname,new PixelMapping(chan.unitname,dev.name,chan.start_pixel,chan.pixelcounts));
+            if (chan==null){ throw new Exception("channel is null on device"+dev.name);}
+            if (chan.unitname==null){ throw new Exception("channel unitname null");}
+            if (chan.pixelcounts==null){throw new Exception("channel " + chan.unitname + ", device " + dev.name + "pixelcounts are null");}
+            println("adding pixelmapping " + dev.name + "/" + chan.unitname);
+            channels.put(dev.name + "/" + chan.unitname,new PixelMapping(dev.name + "/" + chan.unitname,dev.name,chan.start_pixel,chan.pixelcounts));
         }
     }
     return channels;

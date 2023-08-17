@@ -146,8 +146,17 @@ class CircularRoofGrid extends OPCGrid {
     // and with that we calculate where each one gets placed
     int total_pixels = 0;
     for(int i=0;i<nchannels;i++){
-      PixelMapping channel = channels.get(channelnames[i]);
-      total_pixels += channel.pixelcounts.length;
+      try{
+        PixelMapping channel = channels.get(channelnames[i]);
+        total_pixels += channel.pixelcounts.length;
+      }catch(NullPointerException e){
+        println("attempted to get channelname",channelnames[i]);
+        println("available channel names:");
+        for(String key : channels.keySet()){
+          println("\t" + key);
+        }
+        throw e;
+      }
     }
     float angle_delta = TWO_PI / total_pixels;
     //a lambda that, given a pixel number, gives us an xy coordiante
