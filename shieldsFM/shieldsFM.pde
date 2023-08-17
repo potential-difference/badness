@@ -76,6 +76,9 @@ void setup()
     entry("LunchBox3",new WLED(this,"192.168.10.23",21324)),
     //A:12 B:14 C:27 D:26 E:25
 
+    entry("GreyBox1",new WLED(this,"192.168.10.41",21324)),
+    entry("GreyBox2",new WLED(this,"192.168.10.42",21324)),
+
     entry("megaSeedA",new WLED(this,"192.168.10.30",21324)),
     entry("megaSeedB",new WLED(this,"192.168.10.31",21324)),
     entry("megaSeedC",new WLED(this,"192.168.10.32",21324))
@@ -116,12 +119,19 @@ void setup()
     entry("pix25",new PixelMapping("pix25","LunchBox3",70,new int[]{1})),  // H
     entry("pix26",new PixelMapping("pix26","LunchBox3",80,new int[]{1})),  // I
 
-    entry("stringEight",new PixelMapping("stringEight","LunchBox3",100,new int[]{1,1,1})),
-    entry("stringNine",new PixelMapping("stringNine","LunchBox3",200,new int[]{1,1,1})),
+    entry("cansRight",new PixelMapping("cansRight","LunchBox2",51,new int[]{3})),  // cans coming outa lantern F
 
-    entry("barleft", new PixelMapping("barleft","LunchBox3",300,new int[]{1})),
-    entry("barmid", new PixelMapping("barmid","LunchBox3",400,new int[]{1})),
-    entry("barright", new PixelMapping("barright","LunchBox3",500,new int[]{1}))
+    entry("floods1",new PixelMapping("floods1","GreyBox1",00,new int[]{2})),  
+    entry("floods2",new PixelMapping("floods2","GreyBox1",10,new int[]{2})), 
+    entry("floods3",new PixelMapping("floods3","GreyBox1",20,new int[]{2})),  
+
+    entry("floods1",new PixelMapping("floods1","GreyBox1",00,new int[]{2})),  
+    entry("floods2",new PixelMapping("floods2","GreyBox1",10,new int[]{2})), 
+    entry("floods3",new PixelMapping("floods3","GreyBox1",20,new int[]{2}))
+ 
+
+   
+    // last entry in the chain has no comma!!
   );
   shields = new Rig(size.shields, RigType.Shields);
   shields.opcgrid = new ShieldsOPCGrid(shields);
@@ -159,9 +169,6 @@ void setup()
   tipiCentre = new Rig(size.tipiCentre,RigType.TipiCentre);
   String tipiCentreChannels[] = {"pix18","pix19","pix20","pix21","pix22","pix23","pix24","pix25","pix26"};
   tipiCentre.opcgrid = new CircularRoofGrid(tipiCentre,OPCs,channels,tipiCentreChannels);
-
-  bar = new Rig(size.bar,RigType.Bar);
-  String barunits[] = {"barleft","barmid","barright"};
 
   audioSetup(100, 0.2); ///// AUDIO SETUP - sensitivity, beatTempo /////
   midiSetup();
