@@ -18,12 +18,13 @@
             {"name" : "lanternA", "start" : 0 , "pixels" : [1]},
             {"name" : "lanternB", "start" : 10, "pixels" : [1]},
             {"name" : "lanternC", "start" : 20, "pixels" : [1]},
-            {"name" : "lanternD", "start" : 31, "pixels" : [1]},
+            {"name" : "lanternD", "start" : 30, "pixels" : [1]},
             {"name" : "lanternE", "start" : 40, "pixels" : [1]},
             {"name" : "lanternF", "start" : 50, "pixels" : [1]},
             {"name" : "lanternG", "start" : 60, "pixels" : [1]},
             {"name" : "lanternH", "start" : 70, "pixels" : [1]},
-            {"name" : "lanternI", "start" : 80, "pixels" : [1]}
+            {"name" : "lanternI", "start" : 80, "pixels" : [1]},
+            {"name" : "frontCansLeft", "start" : 31, "pixels" : [3]}
         ]
     },
     {"name" : "LunchBox2" , "ip" : "192.168.10.22", "type" : "WLED", "port" : 21324,
@@ -31,12 +32,13 @@
             {"name" : "lanternA", "start" : 0 , "pixels" : [1]},
             {"name" : "lanternB", "start" : 10, "pixels" : [1]},
             {"name" : "lanternC", "start" : 20, "pixels" : [1]},
-            {"name" : "lanternD", "start" : 31, "pixels" : [1]},
+            {"name" : "lanternD", "start" : 30, "pixels" : [1]},
             {"name" : "lanternE", "start" : 40, "pixels" : [1]},
             {"name" : "lanternF", "start" : 50, "pixels" : [1]},
             {"name" : "lanternG", "start" : 60, "pixels" : [1]},
             {"name" : "lanternH", "start" : 70, "pixels" : [1]},
-            {"name" : "lanternI", "start" : 80, "pixels" : [1]}
+            {"name" : "lanternI", "start" : 80, "pixels" : [1]},
+            {"name" : "frontCansRight", "start" : 51, "pixels" : [3]}
 
         ]
     },
@@ -45,13 +47,12 @@
             {"name" : "lanternA", "start" : 0 , "pixels" : [1]},
             {"name" : "lanternB", "start" : 10, "pixels" : [1]},
             {"name" : "lanternC", "start" : 20, "pixels" : [1]},
-            {"name" : "lanternD", "start" : 31, "pixels" : [1]},
+            {"name" : "lanternD", "start" : 30, "pixels" : [1]},
             {"name" : "lanternE", "start" : 40, "pixels" : [1]},
             {"name" : "lanternF", "start" : 50, "pixels" : [1]},
             {"name" : "lanternG", "start" : 60, "pixels" : [1]},
             {"name" : "lanternH", "start" : 70, "pixels" : [1]},
-            {"name" : "lanternI", "start" : 80, "pixels" : [1]},
-            {"name" : "frontCans", "start" : 81, "pixels" : [3], "enabled" : false}
+            {"name" : "lanternI", "start" : 80, "pixels" : [1]}
 
         ]
     },
@@ -81,6 +82,20 @@
             {"name" : "booth", "start" : 0, "pixels" :[1]},
             {"name" : "dig", "start" : 10, "pixels" : [1]},
             {"name" : "cans", "start" : 20, "pixels" : [5]}
+        ]
+    },
+    {"name" : "GreyBox1", "ip" : "192.168.10.41", "type" : "WLED", "port" : 21324,
+        "channels" :[
+            {"name" : "floods1", "start" : 0, "pixels" : [2]},
+            {"name" : "floods2", "start" : 10, "pixels" : [2]},
+            {"name" : "floods3", "start" : 20, "pixels" : [2]}
+        ]
+    },
+    {"name" : "GreyBox2", "ip" : "192.168.10.42", "type" : "WLED", "port" : 21324,
+        "channels" :[
+            {"name" : "floods1", "start" : 0, "pixels" : [2]},
+            {"name" : "floods2", "start" : 10, "pixels" : [2]},
+            {"name" : "floods3", "start" : 20, "pixels" : [2]}
         ]
     }
 ]
