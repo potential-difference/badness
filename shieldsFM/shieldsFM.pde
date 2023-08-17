@@ -65,7 +65,7 @@ void setup()
     entry("MedShieldB", new WLED(this, "192.168.10.14", 21324)),
     entry("SmallShieldC", new WLED(this, "192.168.10.15", 21324)),    //top
     entry("MedShieldC", new WLED(this, "192.168.10.16", 21324)),      // c/f       
-    entry("Entec",new OPC(this,"127.0.0.1",7890)),  
+    entry("Entec",new OPC(this,"192.168.10.157",7890)),  
 
     entry("LunchBox1",new WLED(this,"192.168.10.21",21324)),
     //A:19 B:18 C:17 D:16 E:4
