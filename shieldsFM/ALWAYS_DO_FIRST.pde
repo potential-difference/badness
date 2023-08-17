@@ -32,18 +32,18 @@ void alwaysDoFirst() {
 
   tipiLeft.colorIndexA = 2;
   tipiLeft.colorIndexB = 1;
-  tipiRight.colorIndexA = 3;
-  tipiRight.colorIndexB = 2;
+  tipiRight.colorIndexA = 2;
+  tipiRight.colorIndexB = 1;
 
   megaSeedA.vizIndex = 2;
-  megaSeedB.vizIndex = 1;
+  megaSeedB.vizIndex = 2;
   megaSeedC.vizIndex = 2;
 
   megaSeedA.colorIndexA = 2;
   megaSeedA.colorIndexB = 1;
 
-  megaSeedB.colorIndexA = 1;
-  megaSeedB.colorIndexB = 2;
+  megaSeedB.colorIndexA = 2;
+  megaSeedB.colorIndexB = 1;
 
   megaSeedC.colorIndexA = 2;
   megaSeedC.colorIndexB = 1;
