@@ -14,7 +14,7 @@ OPCGrid opcGrid;
 //Gig Specific
 ShieldsOPCGrid shieldsGrid;
 BoothGrid boothGrid;
-Rig shields,tipiLeft,tipiRight,tipiCentre,bar,booth,megaSeedA,megaSeedB,megaSeedC,cans,roof,uvPars;
+Rig shields,tipiLeft,tipiRight,tipiCentre,outsideRoof,outsideGround,booth,megaSeedA,megaSeedB,megaSeedC,cans,roof,uvPars;
 
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
 PFont font;
@@ -137,9 +137,13 @@ void setup()
   megaSeedC = new Rig(size.megaSeedC,RigType.MegaSeedC);
   megaSeedC.opcgrid = new MegaSeedCGrid(megaSeedC,OPCs);
 
-  outsideRoof = new Rig(size.outsideRoof, // add size. inside size settings
-  RigType.OutsideRoof);                   // Blue class needs to be added to RigType ENUM in RIG.pde
+  outsideRoof = new Rig(size.outsideRoof, RigType.OutsideRoof);   // add size. inside size settings
+                  // Blue class needs to be added to RigType ENUM in RIG.pde
   outsideRoof.opcgrid = new OutsideRoofGrid(outsideRoof,OPCs);  // add the blue CLASS in OPC_GRID.pde
+
+  outsideGround = new Rig(size.outsideGround, // add size. inside size settings
+  RigType.OutsideGround);                     // Blue class needs to be added to RigType ENUM in RIG.pde
+  outsideGround.opcgrid = new OutsideGroundGrid(outsideGround,OPCs);  // add the blue CLASS in OPC_GRID.pde
 
   uvPars = new Rig(size.uvPars,RigType.UvPars);
   uvPars.opcgrid = new UvParsGrid(uvPars,OPCs);

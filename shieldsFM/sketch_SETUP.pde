@@ -18,7 +18,7 @@ class SizeSettings {
   // need less places where you have to make changes!
   // maybe this could be a config thing though so each instance is just a reference to 
   // a name in the config file so thats the only place you change things...?!
-  IntCoord shields,tipiLeft,tipiRight,tipiCentre,megaSeedA,megaSeedB,megaSeedC,info,booth,bar,uvPars;
+  IntCoord shields,tipiLeft,tipiRight,tipiCentre,outsideRoof,outsideGround,megaSeedA,megaSeedB,megaSeedC,info,booth,bar,uvPars;
   //PVector rig, roof, cans, donut, pars, info;
   int sizeX, sizeY;
 
@@ -49,14 +49,7 @@ class SizeSettings {
     yCoordinates[0] = rigHeight/2;
     yCoordinates[1] = rigHeight/2;
     yCoordinates[2] = yCoordinates[0] + rigHeight;
-
-    // print to console to check everything is working correctly.
-    // for(int i = 0; i < numObjects; i++ ) {
-    //   println("xCoordinates[" + i + "] " + xCoordinates[i]);
-    //   println("yCoordinates[" + i + "] " + yCoordinates[i]);
-    //   println();
-    // }
-         
+   
     // Create an array to store the created objects
     IntCoord[] roofCoords = new IntCoord[numObjects];
     // Use a for loop to create the objects and store them in the array
@@ -81,7 +74,7 @@ class SizeSettings {
     ///////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////  BOTTOM LINE OF RIGS /////////////////////////////////////
     rigHeight = 100;
-    rigWidth = 200;
+    rigWidth = 50;
     
     // Calculate the y coordinate for the bottom row of objects
     int bottomRigY = shields.high + rigHeight/2;
@@ -97,13 +90,14 @@ class SizeSettings {
     int megaSeedCx = megaSeedB.x + rigWidth;
     megaSeedC = new IntCoord(megaSeedCx, bottomRigY, rigWidth, rigHeight);
     
+    rigWidth = 100;
     // Update the x coordinate for uvPars using megaSeedC's properties
     int uvParsx = megaSeedCx + megaSeedC.wide/2 + rigWidth/2;
     uvPars = new IntCoord(uvParsx, bottomRigY, rigWidth, rigHeight);
     
     // Update the x coordinate for bar using uvPars's properties
-    int barx = uvParsx + uvPars.wide/2 + rigWidth/2;
-    bar = new IntCoord(barx, bottomRigY, rigWidth, rigHeight);
+    int outsideRoofx = uvParsx + uvPars.wide/2 + rigWidth/2;
+    outsideRoof = new IntCoord(outsideRoofx, bottomRigY, rigWidth, rigHeight);
     
     // Update the rigWidth using info's properties
     rigWidth = info.wide;

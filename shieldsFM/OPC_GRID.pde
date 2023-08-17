@@ -40,12 +40,20 @@ class UvParsGrid extends OPCGrid{
   UvParsGrid(Rig _rig,Map<String,OPC> opcnodes){
     opclist = opcnodes;
     rig = _rig;
+    // left tipi
     opcnodes.get("Entec").led(0,size.uvPars.x-15,size.uvPars.y);
     opcnodes.get("Entec").led(1,size.uvPars.x-10,size.uvPars.y);
     opcnodes.get("Entec").led(2,size.uvPars.x-5,size.uvPars.y);
+    // right tipi
     opcnodes.get("Entec").led(3,size.uvPars.x+5,size.uvPars.y);
     opcnodes.get("Entec").led(4,size.uvPars.x+10,size.uvPars.y);
     opcnodes.get("Entec").led(5,size.uvPars.x+15,size.uvPars.y);
+    /*// 
+    opcnodes.get("Entec").led(6,size.uvPars.x-5,size.uvPars.y);
+    opcnodes.get("Entec").led(7,size.uvPars.x+5,size.uvPars.y);
+    opcnodes.get("Entec").led(8,size.uvPars.x+10,size.uvPars.y);
+    opcnodes.get("Entec").led(9,size.uvPars.x+15,size.uvPars.y);
+    */
   }
 }
 /*
@@ -118,6 +126,32 @@ class MegaSeedCGrid extends OPCGrid{
     // opcnodes.get("megaSeedC").led(1,size.megaSeedC.x+20,size.megaSeedC.y);        
 
     PVector pv = new PVector(size.megaSeedC.x, size.megaSeedC.y);
+    rig.pixelPosition.add(pv); // adding global coords to pixelPosition ArrayList
+  }
+}
+
+class OutsideRoofGrid extends OPCGrid{
+  Rig rig;
+  OutsideRoofGrid(Rig _rig,Map<String,OPC> opcnodes){
+    opclist = opcnodes;
+    rig = _rig;
+    opcnodes.get("outsideRoof").led(0,size.outsideRoof.x,size.outsideRoof.y);           // rgb 100w
+    opcnodes.get("outsideRoof").led(1,size.outsideRoof.x-20,size.outsideRoof.y);        // white 100w 
+    opcnodes.get("outsideRoof").led(2,size.outsideRoof.x+20,size.outsideRoof.y);        // FILLAMENT spiral - GPIO 14
+    PVector pv = new PVector(size.outsideRoof.x, size.outsideRoof.y);
+    rig.pixelPosition.add(pv); // adding global coords to pixelPosition ArrayList
+  }
+}
+
+class OutsideGroundGrid extends OPCGrid{
+  Rig rig;
+  OutsideGroundGrid(Rig _rig,Map<String,OPC> opcnodes){
+    opclist = opcnodes;
+    rig = _rig;
+    opcnodes.get("outsideGround").led(0,size.outsideGround.x,size.outsideGround.y);           // rgb 100w
+    opcnodes.get("outsideGround").led(1,size.outsideGround.x-20,size.outsideGround.y);        // white 100w 
+    opcnodes.get("outsideGround").led(2,size.outsideGround.x+20,size.outsideGround.y);        // FILLAMENT spiral - GPIO 14
+    PVector pv = new PVector(size.outsideGround.x, size.outsideGround.y);
     rig.pixelPosition.add(pv); // adding global coords to pixelPosition ArrayList
   }
 }
