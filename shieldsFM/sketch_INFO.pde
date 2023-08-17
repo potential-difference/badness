@@ -92,7 +92,8 @@ void pauseInfo() {
 void mouseCircle(boolean _info){
   if (_info){
     // draw circle over mouse to check LEDS
-    fill(200);  
+    float fillx = (millis()%360);
+    fill(fillx);  
     ellipse(mouseX, mouseY, 10, 10);
   } 
 }
@@ -114,6 +115,7 @@ void coordinatesInfo(Rig rig, boolean _info) {
     for (int i = 0; i < rig.position.length; i++) {
       PVector position = rig.position[i];
       text(i, centerX + position.x, centerY + position.y); // Position info
+      //as well, we want the name of the opcgrid associated
     }
     fill(rig.flash);
     int length = rig.pixelPosition.size();

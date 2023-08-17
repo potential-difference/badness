@@ -78,7 +78,9 @@ class MegaSeedAGrid extends OPCGrid{
   MegaSeedAGrid(Rig _rig,Map<String,OPC> opcnodes){
     opclist = opcnodes;
     rig = _rig;
-    opcnodes.get("megaSeedA").led(0,size.megaSeedA.x,size.megaSeedA.y);
+    opcnodes.get("megaSeedA").led(0,size.megaSeedA.x,size.megaSeedA.y);           // rgb 100w
+    opcnodes.get("megaSeedA").led(1,size.megaSeedA.x-20,size.megaSeedA.y);        // white 100w 
+    opcnodes.get("megaSeedA").led(2,size.megaSeedA.x+20,size.megaSeedA.y);        // FILLAMENT spiral - GPIO 14
     PVector pv = new PVector(size.megaSeedA.x, size.megaSeedA.y);
     rig.pixelPosition.add(pv); // adding global coords to pixelPosition ArrayList
   }
@@ -89,7 +91,10 @@ class MegaSeedBGrid extends OPCGrid{
   MegaSeedBGrid(Rig _rig,Map<String,OPC> opcnodes){
     opclist = opcnodes;
     rig = _rig;
-    opcnodes.get("megaSeedB").led(0,size.megaSeedB.x,size.megaSeedB.y);
+    opcnodes.get("megaSeedB").led(0,size.megaSeedB.x,size.megaSeedB.y);           // rgb 100w
+    opcnodes.get("megaSeedB").led(1,size.megaSeedB.x-20,size.megaSeedB.y);        // white 100w 
+    opcnodes.get("megaSeedB").led(2,size.megaSeedB.x+20,size.megaSeedB.y);        // FILLAMENT spiral - GPIO 14
+
     PVector pv = new PVector(size.megaSeedB.x, size.megaSeedB.y);
     rig.pixelPosition.add(pv); // adding global coords to pixelPosition ArrayList
   }
@@ -100,9 +105,9 @@ class MegaSeedCGrid extends OPCGrid{
   MegaSeedCGrid(Rig _rig,Map<String,OPC> opcnodes){
     opclist = opcnodes;
     rig = _rig;
-    opcnodes.get("megaSeedC").led(0,size.megaSeedC.x,size.megaSeedC.y);             // 100W RGBW pixel - GPIOS 33,25,26,32
-    opcnodes.get("megaSeedC").led(101,size.megaSeedC.x-20,size.megaSeedC.y);        // 2W WHITE led bulbs - GPIO 12
-    opcnodes.get("megaSeedC").led(102,size.megaSeedC.x+20,size.megaSeedC.y);        // FILLAMENT spiral - GPIO 14
+    opcnodes.get("megaSeedC").led(0,size.megaSeedC.x,size.megaSeedC.y);           // rgb 100w
+    opcnodes.get("megaSeedC").led(1,size.megaSeedC.x-20,size.megaSeedC.y);        // white 100w 
+    opcnodes.get("megaSeedC").led(2,size.megaSeedC.x+20,size.megaSeedC.y);        // FILLAMENT spiral - GPIO 14
 
     // TODO add ring of 12v RGB leds to grid, led# 1-100
     // opcnodes.get("megaSeedC").led(1,size.megaSeedC.x+20,size.megaSeedC.y);        
