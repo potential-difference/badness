@@ -30,6 +30,7 @@ Channel parseChannel(JSONObject chan,OPC opc){
         throw e;
     }
 }
+
 Device parseDevice(JSONObject obj) throws Exception{
     try{
         // if the object is null, throw
@@ -39,9 +40,26 @@ Device parseDevice(JSONObject obj) throws Exception{
         String name = obj.getString("name");
         String ip = obj.getString("ip");
         int port = obj.getInt("port");
-        Class<?> clazz = Class.forName(obj.getString("type"));
-        Constructor<?> constructor = clazz.getConstructor(PApplet.class,String.class,int.class);
-        OPC instance = (OPC)constructor.newInstance(this,ip,port);
+        //we get 'WLED' we want shieldsFM$WLED
+        String pappletname = this.getClass().getName();
+        Class<?> clazz = Class.forName(pappletname + "$" + obj.getString("type"));
+        Constructor<?> constructor;
+        try{
+            constructor = clazz.getDeclaredConstructor(this.getClass(),PApplet.class,String.class,int.class);
+        }catch(NoSuchMethodException e){
+            println("failed to find constructor " + e);
+            println("constructors are:");
+            Constructor[] allConstructors = clazz.getDeclaredConstructors();
+            for(Constructor c : allConstructors){
+                println(c.getName(), c.getParameterCount(), " arguments:");
+                for(Class cl : c.getParameterTypes()){
+                    print(" ",cl.getName());
+                }
+                println();
+            }
+            throw e;
+        }
+        OPC instance = (OPC)constructor.newInstance(this,this,ip,port);
         //have to have at least an opc
         //shield opcs dont have channels
         JSONArray channelsj = obj.getJSONArray("channels");      

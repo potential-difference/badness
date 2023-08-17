@@ -16,7 +16,7 @@ public class Rig {
   PVector positionX[][] = new PVector[7][3];
   boolean firsttime_sketchcolor=true, noiseToggle, playWithYourSelf = true;
   ArrayList <Anim> animations;
-  int[] availableAnims;
+  int[] availableAnims;     //TODO parsed from json
   int[] currentAnim;        // TODO implement this
   int[] availableBkgrnds;
   int[] availableAlphaEnvelopes;
@@ -26,7 +26,6 @@ public class Rig {
   String riginfo,localcoords,rigcoords, opcgridinfo;
   int arrayListIndex;
   float wideSlider, strokeSlider, highSlider;
-  boolean beatTriggered;
 
   Rig(IntCoord coord, RigType _name) {
     type = _name;
@@ -46,6 +45,8 @@ public class Rig {
 
     animations = new ArrayList<Anim>();
     rigs.add(this);
+    //this is a terrible hack.
+    // instead add directly to rigs
     arrayListIndex = rigs.indexOf(this);          // where this is the rig object
     availableBkgrnds = new int[] {0, 1, 2, 3};    // default - changed when initalised;
     availableAlphaEnvelopes = new int[] {0, 1};// 2, 3, 4, 5};  
@@ -300,24 +301,11 @@ public class Rig {
     text("func: " + availableFunctionEnvelopes[functionIndexA] + " / " + availableFunctionEnvelopes[functionIndexB], x+40, y);
     text("alph: " + availableAlphaEnvelopes[alphaIndexA] + " / " + availableAlphaEnvelopes[alphaIndexB], x+110, y);
     
-    //////////////////////////////////////////////////////////////////////////////////////////////////
-    ////////////////////////////// SHOW BEAT DETECTION FOR EACH RIG //////////////////////////////////
-    // quick n dirty way to show which rigs are detecting which beats.
-    // TODO turn this in to a visual sequencer
-    int rctsz = 12;
-    x = size.x+(wide/2)-(rctsz/2);
-    y = size.y+(high/2)+(rctsz/2);
-    strokeWeight(1);
-    stroke(rigs.get(0).c1,200);
-    noFill();
-    if (beatTriggered) fill(rigs.get(0).flash1,200); 
-    rect(x,y-rctsz,rctsz,rctsz); // beatTriggered is per rig
-    noStroke();
-    beatTriggered = false;
+    /////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////// RECTANGLES TO SHOW CURRENT COLOURS //////////////////////////////////
     // size of the coloured rectangle: scallable now
-    rctsz = 10;
+    int rctsz = 10;
     x = size.x+(wide/2)-(rctsz*2)-(rctsz/2);
     y = size.y-(high/2)+(rctsz*2);
     // blackout area under rectangles
@@ -426,6 +414,7 @@ public class Rig {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+   void addAnim(){ this.addAnim(this.vizIndex);}
    void addAnim(int animIndex) {
     //Object[] classList = new Object[] { new BenjaminsBoxes(this), new StarMesh(this), new Rings(this), new Celtic(this)};
 
@@ -531,9 +520,6 @@ public class Rig {
     blendMode(MULTIPLY);
     // this donesnt work anymore....
     if (cc[107] > 0 || keyT['r']) bgNoise(colorLayer, 0, 0, cc[55]); //PGraphics layer,color,alpha
-   
-    // TODO this can be used to draw white animations
-    // if(type != RigType.booth) drawColorLayer(bgIndex);
     drawColorLayer(bgIndex);
 
     blendMode(NORMAL);

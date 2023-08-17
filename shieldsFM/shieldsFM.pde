@@ -10,7 +10,7 @@ import java.lang.reflect.*;
 SizeSettings size;
 
 OPC opcLocal;
-OPCGrid opcGrid;
+OPCGrid opcGrid;//oof
 //Gig Specific
 ShieldsOPCGrid shieldsGrid;
 BoothGrid boothGrid;
@@ -34,7 +34,7 @@ MidiBus MPD8bus;
 boolean onTop = false;
 boolean testToggle, smokeToggle;
 float boothDimmer=0.5, mixerDimmer=0.5, digDimmer=1.0, vizTime, colorChangeTime, colorSwapSlider, beatSlider = 0.3;
-float smokePumpValue, smokeOnTime, smokeOffTime;
+//float smokePumpValue, smokeOnTime, smokeOffTime;
 float uvDimmer=0.2;
 float uvSpeed=0.5;
 float uvProgram=0.5;
@@ -56,6 +56,17 @@ void setup()
   output = createWriter("rig coords.md");
   printmd("## coordinate and position information for each rig"); 
 
+  ArrayList<Device> devices;
+  try{
+    devices = parseDevices(loadJSONArray("opcs.json"));
+  }catch(Exception e){
+    println("ERROR: FAILED TO PARSE opcs.json");
+    e.printStackTrace();
+    noLoop();
+    return;
+  }
+  //Map<String,OPC> OPCs = legacyOPCs(devices);
+  //Map<String,PixelMapping> channels = legacyChannels(devices);
   ///////////////// LOCAL opc /////////////////////
   Map<String,OPC> OPCs = Map.ofEntries(
     entry("BigShield", new WLED(this, "192.168.10.10", 21324)),
@@ -85,7 +96,11 @@ void setup()
   Map<String,PixelMapping> channels = Map.ofEntries(
     // document this: ("stringOne","LunchBox1",0,new int[] {1,1,1})
     // TODO is there a better way to do this? there are a lot of the same variable...
-   
+    // entry is a java thing
+    // the offset needs to sync with the pixel mapping in the 
+    // named wled instance.
+    // i.e. wled-lunchbox-1-config.json | jq '.hw.led.ins[] | {start}
+    // and '.hw.led.ins[] | {len}' must be < sum(pixelarray)
     entry("pix0",new PixelMapping("pix0","LunchBox1",00,new int[]{1})),  // A 
     entry("pix1",new PixelMapping("pix1","LunchBox1",10,new int[]{1})),  // B
     entry("pix2",new PixelMapping("pix2","LunchBox1",20,new int[]{1})),  // C
@@ -123,10 +138,13 @@ void setup()
     entry("barmid", new PixelMapping("barmid","LunchBox3",400,new int[]{1})),
     entry("barright", new PixelMapping("barright","LunchBox3",500,new int[]{1}))
   );
+  
   shields = new Rig(size.shields, RigType.Shields);
   shields.opcgrid = new ShieldsOPCGrid(shields);
   ((ShieldsOPCGrid)(shields.opcgrid)).bigTriangleShieldsOPC(OPCs); 
-
+  //shields is special.
+  //but everything else can be initialized like this:
+  
   boothGrid = new BoothGrid(OPCs);
 
   // new rigs need to be iniciated inside RIG.pde too
@@ -197,7 +215,6 @@ void draw()
     for (Rig rig : rigs) {
         //if (testToggle) rig.animations.add(new Test(rig));
 
-      rig.beatTriggered = true;
       rig.addAnim(rig.vizIndex);  // create a new anim object and add it to the beginning of the arrayList
         
       }
@@ -218,7 +235,7 @@ void draw()
   ///////////////////////////////////////////// DISPLAY //////////////////////////////////////////////////////////////////
   testColors(keyT['t']);
   ///////////////////////////////////////////// !!!SMOKE!!! //////////////////////////////////////////////////////////////
-  //dmxSmoke();
+  //dmxSmoke(Grids.get("boothgrid")); //
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   mouseCircle(keyT['q']);
   onScreenInfo();

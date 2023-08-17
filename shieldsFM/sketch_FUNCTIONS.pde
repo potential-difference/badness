@@ -14,38 +14,67 @@
  return 1.0;
  }
  }*/
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void dmxSmoke(BoothGrid opcGrid) {
-  ////////////////////////////////////// DMX SMOKE //////////////////////////////////
-  fill(0, 150);
-  strokeWeight(1);
-  stroke(flash, 60);
-  rect(opcGrid.smokePump.x+80, opcGrid.smokePump.y, 220, 30);
-  noStroke();
-  fill(0);
-  rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 40, 15);
-  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  float smokeInterval = smokeOffTime*60;
-  float smokeOn = smokeOnTime;
-  if (millis()/1000 % smokeInterval > smokeInterval - smokeOn) {
-    fill(360*smokePumpValue);
-    if (smokeToggle)  rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 10, 10);
-  }
-  float smokeInfo = millis()/1000 % smokeInterval - (smokeInterval);
-  fill(c, 360);
-  textAlign(LEFT);
-  textSize(16);
-
-  int min = abs(int(smokeInfo) /60 % 60);
-  String sec = nf(abs(int(smokeInfo) % 60), 2, 0);
-  text("SMOKE ON IN: "+min+":"+sec, opcGrid.smokePump.x+25, opcGrid.smokePump.y+6);
-
-  if (keyP['0']) {
+//void dmxSmoke(BoothGrid opcGrid) {
+// how does this even work
+/*
+class ManualDmxSmoke extends ManualAnim {
+  ManualDmxSmoke(Rig rig_){super(rig_);}
+  void draw(){
+    float smokePumpValue = 0.5;//rig.smokePumpValue;
+    //need to be able to add extra sliders to a rig
+    //without fucking inheritance
+    BoothGrid opcgrid = (BoothGrid)rig.opcgrid;
+    //TODO HACK 
+    //nullpointerexception waiting to happen mate.
     fill(360*smokePumpValue);
     rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 10, 10);
   }
 }
+*/
+//momentary_keypresses['0'] = (bool value)->{rigs.get("boothgrid")}
+// add this Anim in the Booth constructor
+// booth = new Rig
+/*
+class DmxSmoke extends Anim {
+  DmxSmoke(Rig _rig){
+    //assert that this rig is a boothgrid
+    super(_rig);
+    animName = "DmxSmoke";
+  }
+  void draw() {
+    float smokePumpValue = 0.5;//rig.smokePumpValue;
+    float smokeOnTime = 0.5;//rig.smokeOnTime;
+    float smokeOffTime = 0.5;//rig.smokeOffTime;
+    BoothGrid opcgrid = (BoothGrid)rig.opcgrid;
+    //TODO HACK nullpointerexception waiting to happen
+    ////////////////////////////////////// DMX SMOKE //////////////////////////////////
+    fill(0, 150);
+    strokeWeight(1);
+    stroke(flash, 60);
+    rect(opcGrid.smokePump.x+80, opcGrid.smokePump.y, 220, 30);
+    noStroke();
+    fill(0);
+    rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 40, 15);
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    // this is an anim
+    float smokeInterval = smokeOffTime*60;
+    float smokeOn = smokeOnTime;
+    if (millis()/1000 % smokeInterval > smokeInterval - smokeOn) {
+      fill(360*smokePumpValue);
+      if (smokeToggle)  rect(opcGrid.smokePump.x, opcGrid.smokePump.y, 10, 10);
+    }
+    float smokeInfo = millis()/1000 % smokeInterval - (smokeInterval);
+    fill(c, 360);
+    textAlign(LEFT);
+    textSize(16);
+    int min = abs(int(smokeInfo) /60 % 60);
+    String sec = nf(abs(int(smokeInfo) % 60), 2, 0);
+    text("SMOKE ON IN: "+min+":"+sec, opcGrid.smokePump.x+25, opcGrid.smokePump.y+6);
+  }
+}
+*/
 /////////////////////////////////// FUNCTION AND ALPHA ARRAYS //////////////////////////////////////////////
 float sineFast, sineSlow, sine, stutter, shimmer;
 float timer[] = new float[6];
