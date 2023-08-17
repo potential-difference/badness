@@ -22,7 +22,7 @@ class Anim {
     dimmer= ()->{return 1.0;};//new Ref(new float[]{1.0}, 0);
     rig = _rig;
    
-    _beatCounter = (int)beatCounter;
+    _beatCounter = (int)beatCounter;//kill this with fire
     col1 = white;
     col2 = white;
     animName = "default";

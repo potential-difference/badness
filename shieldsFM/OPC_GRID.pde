@@ -112,7 +112,14 @@ class MegaSeedCGrid extends OPCGrid{
   }
 }
 
-
+/* pixel mapping is a simple struct holding information about a
+  single channel (a physical cable) coming out of a device
+  that speaks opc*/
+  // unitname: used as a key for the cable.
+  // opcname: the key into the map of opc devices
+  // start_pixel: the offset for opc addressing
+  // pixelcounts: an array of pixel counts.
+  //   used to arrange subgroups of pixels in circles etc
 class PixelMapping{
   String opcname;
   int start_pixel;
@@ -124,13 +131,6 @@ class PixelMapping{
     start_pixel = stpix;
     pixelcounts = pixcounts;
   }
-}
-int sum(int[] ints){
-  int result=0;
-  for (int i:ints){
-    result += i;
-  }
-  return result;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////

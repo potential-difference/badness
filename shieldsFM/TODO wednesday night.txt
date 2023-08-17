@@ -1,0 +1,57 @@
+TODO wednesday night
+
+understand all the .mds 
+translate them to json
+make json a source of truth
+
+handle:
+  rig placements
+  pixelmappings 
+
+
+user story:
+  move half of megaseeda and megaseedb into another rig
+
+Other tasks:
+    rig for booth etc
+    anims that dont depend on beats
+
+    (beat class)
+
+Rich Requests:
+   presses E and prints pixel positions
+   what would be handy would be
+   press Q, get white dot to light up a pixel
+   wants: name on screen. e.g. SmallShieldC ShieldsOPCGrid.name
+   look at coordinatesInfo in sketch_info.pde line 117
+   //thing to look for is opc map
+   //i.e. rig.opcgrid
+   //answer: no. spaghetti inside OPC_GRID
+
+2: //booth rig simple anims
+
+NOTES:
+   SizeSettings is our encapsulation of where all the rigs go
+   what bits of SizeSettings() do you modify to move rigs about?
+   'size' contains SizeSettings
+   and we use it to get the positions of each rig
+   by name :/ 
+
+   wled config.json | jq '.hw.led.ins[] | {start,len}' looks like:
+    {
+        "start": 0,
+        "len": 1
+    }
+    {
+        ""
+    }
+
+2:01
+Getting distracted. dmxSmoke is an Anim and should be refactored as such
+
+Making keybindings.json - documentation(at least) of keybindings
+  if they just call a function, this can be code gen.
+
+instead of passing BoothGrid opcGrid into dmxSmoke (though i like the type safety)
+it's a always-on anim
+plus debug printlns
