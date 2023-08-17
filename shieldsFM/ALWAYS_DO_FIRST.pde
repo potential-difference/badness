@@ -93,11 +93,11 @@ void alwaysDoFirst() {
   tipiRight.blurriness = 0.25;
   tipiRight. strokeSlider = 0.9;
 
-  megaSeedB.dimmer = 0.7;
-  megaSeedB.alphaRate = 0.73;
-  megaSeedB.functionRate = 0.6;
-  megaSeedB.blurriness = 0.05;
-  megaSeedB.strokeSlider = 0.7;
+  megaSeedB.dimmer = 1;
+  megaSeedB.alphaRate = 0.9;
+  megaSeedB.functionRate = 0.3;
+  megaSeedB.blurriness = 0.04;
+  megaSeedB.strokeSlider = 0.9;
 
   megaSeedA.dimmer = 1;
   megaSeedA.alphaRate = 0.9;
@@ -110,7 +110,7 @@ void alwaysDoFirst() {
   mixerDimmer = 0.15;
   digDimmer = 0.11;
   
-  uvDimmer = 0.03;
+  uvDimmer = 1;
   uvSpeed = 0.57;
   uvProgram = 0.306;
 

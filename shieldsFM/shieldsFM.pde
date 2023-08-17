@@ -61,11 +61,11 @@ void setup()
     entry("BigShield", new WLED(this, "192.168.10.10", 21324)),
     entry("SmallShieldA", new WLED(this, "192.168.10.11", 21324)),    //bottom right
     entry("MedShieldA", new WLED(this, "192.168.10.12", 21324)),
-    entry("SmallShieldB", new WLED(this, "192.168.10.13", 21324)),    //bottom left
+    entry("SmallShieldB", new WLED(this, "192.168.10.13", 21324)),    // bottom left
     entry("MedShieldB", new WLED(this, "192.168.10.14", 21324)),
-    entry("SmallShieldC", new WLED(this, "192.168.10.15", 21324)),    //top
+    entry("SmallShieldC", new WLED(this, "192.168.10.15", 21324)),    // top
     entry("MedShieldC", new WLED(this, "192.168.10.16", 21324)),      // c/f       
-    entry("Entec",new OPC(this,"192.168.10.157",7890)),  
+    entry("Entec",new OPC(this,"192.168.10.5",7890)),                 // benjamins laptop  
 
     entry("LunchBox1",new WLED(this,"192.168.10.21",21324)),
     //A:19 B:18 C:17 D:16 E:4
@@ -136,6 +136,10 @@ void setup()
   megaSeedB.opcgrid = new MegaSeedBGrid(megaSeedB,OPCs);
   megaSeedC = new Rig(size.megaSeedC,RigType.MegaSeedC);
   megaSeedC.opcgrid = new MegaSeedCGrid(megaSeedC,OPCs);
+
+  outsideRoof = new Rig(size.outsideRoof, // add size. inside size settings
+  RigType.OutsideRoof);                   // Blue class needs to be added to RigType ENUM in RIG.pde
+  outsideRoof.opcgrid = new OutsideRoofGrid(outsideRoof,OPCs);  // add the blue CLASS in OPC_GRID.pde
 
   uvPars = new Rig(size.uvPars,RigType.UvPars);
   uvPars.opcgrid = new UvParsGrid(uvPars,OPCs);
