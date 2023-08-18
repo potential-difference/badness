@@ -169,10 +169,12 @@ class BoothCansGrid extends OPCGrid{
   OutsideRoofGrid(Rig _rig,Map<String,OPC> opcnodes){
     rig = _rig;
     IntCoord coord = size.outsideRoof;
-    opcnodes.get("GreyBox1").led(0,coord.x - coord.wide/4,coord.y-coord.high/4);
-    opcnodes.get("GreyBox1").led(10,coord.x + coord.wide/4,coord.y - coord.high/4);
-    opcnodes.get("GreyBox2").led(0,coord.x-coord.wide/4,coord.y + coord.high/4);
-    opcnodes.get("GreyBox2").led(10,coord.x+coord.wide/4,coord.y + coord.high/4);
+    int ydiv = 5;
+    int xdiv = 4;
+    opcnodes.get("GreyBox1").led(0,coord.x - coord.wide/xdiv,coord.y-coord.high/ydiv);
+    opcnodes.get("GreyBox1").led(10,coord.x + coord.wide/xdiv,coord.y - coord.high/ydiv);
+    opcnodes.get("GreyBox2").led(0,coord.x-coord.wide/xdiv,coord.y + coord.high/ydiv);
+    opcnodes.get("GreyBox2").led(10,coord.x+coord.wide/xdiv,coord.y + coord.high/ydiv);
     rig.pixelPosition.add(new PVector(coord.x,coord.y));
   }
   }
