@@ -42,7 +42,6 @@ class UvParsGrid extends OPCGrid{
     rig = _rig;
     IntCoord coord = size.uvPars;
     // TIPI LEFT
-        // opcnodes.get("LunchBox4").led(52,coord.x - coord.wide/4,coord.y - coord.high/3);
 
     opcnodes.get("Entec").led(11,coord.x-coord.wide/4,coord.y-coord.high/5);
     opcnodes.get("Entec").led(12,coord.x,coord.y-coord.high/5);
