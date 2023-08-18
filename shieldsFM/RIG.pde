@@ -8,7 +8,6 @@ enum RigType{
     Booth,Dig,UvPars,Filaments,MegaWhite,
     BoothCans
 }
-//static RigType Shields = RigType.Shields;
 public class Rig {
   RigType type;
   OPCGrid opcgrid;
@@ -542,8 +541,8 @@ public class Rig {
     if (cc[107] > 0 || keyT['r']) bgNoise(colorLayer, 0, 0, cc[55]); //PGraphics layer,color,alpha
    
     // TODO this can be used to draw white animations
-    // if(type != RigType.booth) drawColorLayer(bgIndex);
-    drawColorLayer(bgIndex);
+    if(type != RigType.Filaments && type != RigType.UvPars) drawColorLayer(bgIndex);
+    // drawColorLayer(bgIndex);
 
     blendMode(NORMAL);
     rigInfo();

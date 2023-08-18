@@ -40,51 +40,27 @@ class UvParsGrid extends OPCGrid{
   UvParsGrid(Rig _rig,Map<String,OPC> opcnodes){
     opclist = opcnodes;
     rig = _rig;
-    opcnodes.get("Entec").led(11,size.uvPars.x-15,size.uvPars.y-10);
-    opcnodes.get("Entec").led(12,size.uvPars.x-10,size.uvPars.y-10);
-    opcnodes.get("Entec").led(13,size.uvPars.x-5,size.uvPars.y-10);
-    
-    opcnodes.get("Entec").led(21,size.uvPars.x+5,size.uvPars.y);
-    opcnodes.get("Entec").led(22,size.uvPars.x+10,size.uvPars.y);
-    opcnodes.get("Entec").led(23,size.uvPars.x+15,size.uvPars.y);
+    IntCoord coord = size.uvPars;
+    // TIPI LEFT
+        // opcnodes.get("LunchBox4").led(52,coord.x - coord.wide/4,coord.y - coord.high/3);
 
-    opcnodes.get("Entec").led(31,size.uvPars.x+5,size.uvPars.y+10);
-    opcnodes.get("Entec").led(32,size.uvPars.x+10,size.uvPars.y+10);
-    opcnodes.get("Entec").led(33,size.uvPars.x+15,size.uvPars.y+10);
-
-    opcnodes.get("Entec").led(41,size.uvPars.x+5,size.uvPars.y+20);
-    opcnodes.get("Entec").led(42,size.uvPars.x+10,size.uvPars.y+20);
-
+    opcnodes.get("Entec").led(11,coord.x-coord.wide/4,coord.y-coord.high/5);
+    opcnodes.get("Entec").led(12,coord.x,coord.y-coord.high/5);
+    opcnodes.get("Entec").led(13,coord.x+coord.wide/4,coord.y-coord.high/5);
+    // TIPI RIGHT
+    opcnodes.get("Entec").led(21,coord.x-coord.wide/4,coord.y);
+    opcnodes.get("Entec").led(22,coord.x,coord.y);
+    opcnodes.get("Entec").led(23,coord.x+coord.wide/4,coord.y);
+    // TIPI CENTRE
+    opcnodes.get("Entec").led(31,coord.x-coord.wide/4,coord.y+coord.high/5);
+    opcnodes.get("Entec").led(32,coord.x,coord.y+coord.high/5);
+    opcnodes.get("Entec").led(33,coord.x+coord.wide/4,coord.y+coord.high/5);
+    // TENT CENTRE
+    opcnodes.get("Entec").led(41,coord.x-coord.wide/6,coord.y-5);
+    opcnodes.get("Entec").led(42,coord.x+coord.wide/6,coord.y+5);
   }
 }
-/*
- ///////////////////////// DMX UV BATONS /////////////////////////////////
-    OPC entec = opcnodes.get("Entec");
-    // FOUR LAMPS LAID OUT VERTICALY - EACH LAMP HAS 3 CHANNELS, DIMMER, SPEED, PROGRAM
-    int x = int(mixer.x);           // CHANGES THE X POSITION OF THE BATONS
-    int y = int(mixer.y+40);        // CHANGES THE Y POSITION OF THE BATONS
-    int xgap = 10;
-    int ygap = 10;
-    for (int i=0;i<6;i++){
-      for (int j=0;j<3;j++){
-        int xx = x+j*xgap;
-        int yy = y+i*ygap;
-        uvs[i][j] = new PVector(xx,yy);
-        entec.led(8000+j+3*i,xx,yy);
-      }
-    }
-    float dimx = uvs[0][0].x;
-    float spdx = uvs[0][1].x;
-    float pgmx = uvs[0][2].x;
-    float dimy = 0.5*(uvs[2][0].y + uvs[3][0].y);
-    float spdy = 0.5*(uvs[2][1].y + uvs[3][1].y);
-    float pgmy = 0.5*(uvs[2][2].y + uvs[3][2].y);
-    float uvwide = xgap - 2;
-    float uvhigh = ygap * 7;
-    uvDimmer = new Coord(dimx,dimy,uvwide,uvhigh);
-    uvSpeed = new Coord(spdx,spdy,uvwide,uvhigh);
-    uvProgram = new Coord(pgmx,pgmy,uvwide,uvhigh);
-*/
+
 
 // TODO is there a better way of doing this so rigs can be an array list and more easily added?!
 class MegaSeedAGrid extends OPCGrid{
@@ -125,9 +101,10 @@ class FilamentsGrid extends OPCGrid{
   Rig rig;
   FilamentsGrid(Rig _rig,Map<String,OPC> opcnodes){
     rig = _rig;
-    opcnodes.get("megaSeedA").led(2,size.filaments.x,size.filaments.y - 20);
-    opcnodes.get("megaSeedB").led(2,size.filaments.x,size.filaments.y);
-    opcnodes.get("megaSeedC").led(2,size.filaments.x,size.filaments.y + 20);
+    IntCoord coord = size.filaments;
+    opcnodes.get("megaSeedA").led(2,coord.x-coord.wide/4,coord.y);
+    opcnodes.get("megaSeedB").led(2,coord.x+coord.wide/4,coord.y);
+    opcnodes.get("megaSeedC").led(2,coord.x,coord.y+coord.high/4);
   }
 }
 class MegaWhiteGrid extends OPCGrid{
@@ -176,10 +153,12 @@ class BoothCansGrid extends OPCGrid{
   }
   class OutsideGroundGrid extends OPCGrid{
   Rig rig;
+
   OutsideGroundGrid(Rig _rig,Map<String,OPC> opcnodes){
     rig = _rig;
-    opcnodes.get("GreyBox1").led(30,size.outsideGround.x-40,size.outsideGround.y-10);
-    opcnodes.get("GreyBox2").led(50,size.outsideGround.x-20,size.outsideGround.y+10);
+    IntCoord coord = size.outsideGround;
+    opcnodes.get("GreyBox1").led(30,coord.x-coord.wide/6,coord.y+coord.wide/20);
+    opcnodes.get("GreyBox2").led(50,coord.x+coord.wide/6,coord.y-coord.wide/20);
   }
 }
 /* pixel mapping is a simple struct holding information about a

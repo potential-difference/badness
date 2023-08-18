@@ -45,8 +45,8 @@ void alwaysDoFirst() {
   megaSeedB.colorIndexA = 2;
   megaSeedB.colorIndexB = 1;
 
-  megaSeedC.colorIndexA = 2;
-  megaSeedC.colorIndexB = 1;
+  megaSeedC.colorIndexA = 1;
+  megaSeedC.colorIndexB = 2;
 
   ///// TODO  make an easy way of changing colour
    
@@ -81,40 +81,40 @@ void alwaysDoFirst() {
   shields.strokeSlider= 1;
   shields.blurriness = 0.2;
 
-  tipiLeft.dimmer = 0.45;
+  tipiLeft.dimmer = 1;
   tipiLeft.alphaRate = 0.84;
   tipiLeft.functionRate = 0.56;
   tipiLeft.blurriness = 0.075;
   tipiLeft.strokeSlider = 0.9;
 
-  tipiRight.dimmer = 0.8;
+  tipiRight.dimmer = 1;
   tipiRight.alphaRate = 0.45;
   tipiRight.functionRate = 0.72;
   tipiRight.blurriness = 0.25;
   tipiRight. strokeSlider = 0.9;
 
-  megaSeedB.dimmer = 0.7;
-  megaSeedB.alphaRate = 0.73;
+  megaSeedB.dimmer = 1;
+  megaSeedB.alphaRate = 0.9;
   megaSeedB.functionRate = 0.6;
-  megaSeedB.blurriness = 0.05;
+  megaSeedB.blurriness = 0.04;
   megaSeedB.strokeSlider = 0.7;
 
   megaSeedA.dimmer = 1;
   megaSeedA.alphaRate = 0.9;
-  megaSeedA.functionRate = 0.3;
+  megaSeedA.functionRate = 0.6;
   megaSeedA.blurriness = 0.04;
-  megaSeedA.strokeSlider = 0.9;
+  megaSeedA.strokeSlider = 0.7;
 
   // THESE ARE SLIGHTLY DIFFERENT COZ THEY ARENT THEIR OWN RIGS //
   boothDimmer = 0.18;
   mixerDimmer = 0.15;
   digDimmer = 0.11;
   
-  uvDimmer = 0.03;
+  uvDimmer = 0.8;
   uvSpeed = 0.57;
   uvProgram = 0.306;
 
-  vizTime = 1;          // time in minutes - TODO sort this out onto slider 
+  vizTime = 10;          // time in minutes - TODO sort this out onto slider 
   colorChangeTime = 5;  // time in minutes - TODO sort this out onto slider 
 }
 
