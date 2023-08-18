@@ -73,12 +73,30 @@ void playWithYourself(float vizTm) {
     case TipiLeft:    if (beatCounter % 32 > 27)  colorLerping(rig,(1-beat)*3);break;
     case TipiCentre:  if (beatCounter % 18 < 4)   colorLerping(rig,(1-beat)*4);break;
     case MegaSeedA:   //if (beatCounter%64>61) rig.colorSwap(1000000*noize); break;
-    case MegaSeedB:  //if (beatCounter%64>61) rig.colorSwap(1000000*noize); break;
+    case MegaSeedB:   //if (beatCounter%64>61) rig.colorSwap(1000000*noize); break;
     case Bar:
     default:
       if (beatCounter % 18 > 15)  colorLerping(rig, (1-beat)*4); break;
     }
   }
+  // QUICK AND DIRTY ADJUSTMETNS ON FRIDAY NIGHT //
+
+  outsideRoof.c = shields.c;
+  outsideRoof.flash = shields.flash;
+
+  outsideGround.c = shields.flash;
+  outsideGround.flash = shields.c;
+
+  frontCans.c = shields.flash;
+  frontCans.flash = shields.c;
+
+  boothCans.c = shields.flash;
+  boothCans.flash = shields.c;
+
+  // TODO undo this sorry benjamin
+  if (beatCounter % 32 < 8 && beatCounter % 2 == 0) filaments.dimmer = 1;
+  else filaments.dimmer = 0;
+
   // for (Rig rig : rigs) 
   // {
   //   switch (rig){
