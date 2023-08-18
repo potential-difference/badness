@@ -28,8 +28,8 @@ class BoothGrid extends OPCGrid{
     OPC boothopc = opcnodes.get("LunchBox4");
     boothopc.led(20,int(booth.x-5),int(booth.y));
     boothopc.led(30,int(booth.x+5),int(booth.y));
-    boothopc.led(60,int(mixer.x),int(mixer.y));
-    boothopc.led(50,int(dig.x),int(dig.y));
+    boothopc.led(10,int(mixer.x),int(mixer.y));
+    //boothopc.led(50,int(dig.x),int(dig.y));
   }
 }
 
@@ -152,13 +152,15 @@ class BoothCansGrid extends OPCGrid{
     rig = _rig;
     
     IntCoord coord = size.boothCans;
-    opcnodes.get("LunchBox4").led(10,coord.x - coord.wide/4,coord.y - coord.high/3);
-    opcnodes.get("LunchBox4").led(11,coord.x - coord.wide/4, coord.y);
-    opcnodes.get("LunchBox4").led(12,coord.x - coord.wide/4,coord.y + coord.high/3);
+    //cansL
+    opcnodes.get("LunchBox4").led(52,coord.x - coord.wide/4,coord.y - coord.high/3);
+    opcnodes.get("LunchBox4").led(51,coord.x - coord.wide/4, coord.y);
+    opcnodes.get("LunchBox4").led(50,coord.x - coord.wide/4,coord.y + coord.high/3);
     
-    opcnodes.get("LunchBox4").led(40,coord.x + coord.wide/4,coord.y - coord.high/3);
+    //cansR
+    opcnodes.get("LunchBox4").led(42,coord.x + coord.wide/4,coord.y - coord.high/3);
     opcnodes.get("LunchBox4").led(41,coord.x + coord.wide/4, coord.y);
-    opcnodes.get("LunchBox4").led(42,coord.x + coord.wide/4,coord.y + coord.high/3);
+    opcnodes.get("LunchBox4").led(40,coord.x + coord.wide/4,coord.y + coord.high/3);
     
   }
 }

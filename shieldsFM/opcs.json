@@ -80,13 +80,13 @@
             {"name" : "ring", "start" : 10, "pixels" : [100]}
         ]
     },
-    {"name" : "LunchBox4", "ip" : "192.168.10.241", "type" : "WLED", "port" : 21324,
+    {"name" : "LunchBox4", "ip" : "192.168.10.24", "type" : "WLED", "port" : 21324,
         "channels" :[
-            {"name" : "booth", "start" : 0, "pixels" :[1]},
-            {"name" : "dig", "start" : 10, "pixels" : [1]},
-            {"name" : "mixer", "start" : 20, "pixels": [1]},
-            {"name" : "cansL", "start" : 30, "pixels" : [3]},
-            {"name" : "cansR", "start" : 40, "pixels" : [3]}
+            {"name" : "mixer", "start" : 10, "pixels" : [1]},
+            {"name" : "boothA", "start" : 20, "pixels": [1]},
+            {"name" : "boothB", "start" : 30, "pixels" : [1]},
+            {"name" : "cansR", "start" : 40, "pixels" : [3]},
+            {"name" : "cansL", "start" : 50, "pixels" : [3]}
         ]
     },
     {"name" : "GreyBox1", "ip" : "192.168.10.41", "type" : "WLED", "port" : 21324,
