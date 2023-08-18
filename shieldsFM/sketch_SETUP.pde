@@ -18,7 +18,15 @@ class SizeSettings {
   // need less places where you have to make changes!
   // maybe this could be a config thing though so each instance is just a reference to 
   // a name in the config file so thats the only place you change things...?!
-  IntCoord shields,tipiLeft,tipiRight,tipiCentre,megaSeedA,megaSeedB,outsideRoof,outsideGround,megaSeedC,info,booth,bar,uvPars;
+  IntCoord shields,
+  tipiLeft,tipiRight,tipiCentre,
+  megaSeedA,megaSeedB,megaSeedC,
+  filaments,megaWhite,
+  outsideRoof,outsideGround,
+  info,
+  booth,bar,
+  uvPars,
+  boothCans;
   //PVector rig, roof, cans, donut, pars, info;
   int sizeX, sizeY;
 
@@ -34,7 +42,7 @@ class SizeSettings {
     rigHeight = int(shields.wide/2.8);
     
     // number of rigs required 
-    int numObjects = 3;
+    int numObjects = 4;
     int numOfRows = 2;
     int numOfColumns = 2;
     // Use arrays to store the x and y coordinates
@@ -45,10 +53,12 @@ class SizeSettings {
     xCoordinates[0] = shields.wide + rigWidth / 2;
     xCoordinates[1] = xCoordinates[0] + rigWidth;
     xCoordinates[2] = xCoordinates[0];
+    xCoordinates[3] = xCoordinates[0] + rigWidth;
     // Calculate the y coordiantes for the objects: will become centre of the rig
     yCoordinates[0] = rigHeight/2;
     yCoordinates[1] = rigHeight/2;
     yCoordinates[2] = yCoordinates[0] + rigHeight;
+    yCoordinates[3] = yCoordinates[0] + rigHeight;
 
     // print to console to check everything is working correctly.
     // for(int i = 0; i < numObjects; i++ ) {
@@ -68,7 +78,7 @@ class SizeSettings {
     tipiLeft = roofCoords[0];
     tipiRight = roofCoords[1];
     tipiCentre = roofCoords[2];   
-
+    boothCans = roofCoords[3];
     // Calculate the x and y coordinates for the info object
     int infoWidth = 250;
     int infoHeight = shields.high;
@@ -97,9 +107,18 @@ class SizeSettings {
     int megaSeedCx = megaSeedB.x + rigWidth;
     megaSeedC = new IntCoord(megaSeedCx, bottomRigY, rigWidth, rigHeight);
 
+    rigWidth = 100;
+
+    // Update the x coordinate for megaSeedC using megaSeedB's properties
+    int filamentsx = megaSeedC.x + rigWidth;
+    filaments = new IntCoord(filamentsx, bottomRigY, rigWidth, rigHeight);
+
+    int megaWhitex = filaments.x + rigWidth;
+    megaWhite = new IntCoord(megaWhitex, bottomRigY, rigWidth, rigHeight);
+
     rigWidth = 200;
     // Update the x coordinate for uvPars using megaSeedC's properties
-    int uvParsx = megaSeedCx + megaSeedC.wide/2 + rigWidth/2;
+    int uvParsx = megaWhitex + megaWhite.wide/2 + rigWidth/2;
     uvPars = new IntCoord(uvParsx, bottomRigY, rigWidth, rigHeight);
     
     // Update the x coordinate for bar using uvPars's properties
@@ -115,7 +134,7 @@ class SizeSettings {
     rigWidth = info.wide;
     
     // Create the booth object using info's properties and the updated rigWidth
-    booth = new IntCoord(info.x, bottomRigY, rigWidth, rigHeight);
+    booth = new IntCoord(info.x, bottomRigY - rigHeight, rigWidth, rigHeight);
    
     ////////////////////////////////  OVERALL SIZE ///////////////////////////// 
     // Calculate the overall size of the application by adding the widths and heights of the components

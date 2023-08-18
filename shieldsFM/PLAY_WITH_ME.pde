@@ -215,20 +215,6 @@ void playWithMeMore() {
   /////////////////////////////////////////////////////// 
 
   /////background noise over whole window/////
-  if (padVelocity[51] > 0) {
-    shields.colorLayer.beginDraw();
-    shields.colorLayer.background(0, 0, 0, 0);
-    shields.colorLayer.endDraw();
-    bgNoise(shields.colorLayer, shields.flash, map(padVelocity[51], 0, 1, 0, shields.dimmer/1.5), cc[48]);   //PGraphics layer,color,alpha
-    image(shields.colorLayer, shields.size.x, shields.size.y, shields.wide, shields.high);
-  }
-  if (padVelocity[43] > 0 && roof != null) {
-    roof.colorLayer.beginDraw();
-    roof.colorLayer.background(0, 0, 0, 0);
-    roof.colorLayer.endDraw();
-    bgNoise(roof.colorLayer, roof.flash, map(padVelocity[43], 0, 1, 0, roof.dimmer), cc[56]);   //PGraphics layer,color,alpha
-    image(roof.colorLayer, roof.size.x, roof.size.y, roof.wide, roof.high);
-  }
   /*
   if (padVelocity[50] > 0) {
    pars.colorLayer.beginDraw();

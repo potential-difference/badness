@@ -14,7 +14,12 @@ OPCGrid opcGrid;//oof
 //Gig Specific
 ShieldsOPCGrid shieldsGrid;
 BoothGrid boothGrid;
-Rig shields,tipiLeft,tipiRight,tipiCentre,bar,booth,megaSeedA,megaSeedB,megaSeedC,cans,roof,uvPars;
+Rig shields,tipiLeft,tipiRight,tipiCentre,
+outsideGround,outsideRoof,
+megaSeedA,megaSeedB,megaSeedC,
+filaments,megaWhite,
+uvPars,
+boothCans;
 
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
 PFont font;
@@ -165,8 +170,26 @@ void setup()
   megaSeedC = new Rig(size.megaSeedC,RigType.MegaSeedC);
   megaSeedC.opcgrid = new MegaSeedCGrid(megaSeedC,OPCs);
 
+  filaments = new Rig(size.filaments,RigType.Filaments);
+  filaments.opcgrid = new FilamentsGrid(filaments,OPCs);
+  megaWhite = new Rig(size.megaWhite,RigType.MegaWhite);
+  megaWhite.opcgrid = new MegaWhiteGrid(megaWhite,OPCs);
+
+
   uvPars = new Rig(size.uvPars,RigType.UvPars);
   uvPars.opcgrid = new UvParsGrid(uvPars,OPCs);
+
+  outsideGround = new Rig(size.outsideGround,RigType.OutsideGround);
+  outsideGround.opcgrid = new OutsideGroundGrid(outsideGround,OPCs);
+
+  outsideRoof = new Rig(size.outsideRoof,RigType.OutsideRoof);
+  outsideRoof.opcgrid = new OutsideRoofGrid(outsideRoof,OPCs);
+  
+  boothCans = new Rig(size.boothCans,RigType.BoothCans);
+  boothCans.opcgrid = new BoothCansGrid(boothCans,OPCs);
+
+  
+
 
   tipiLeft = new Rig(size.tipiLeft,RigType.TipiLeft);
   String tipiLeftChannels[] = new String[9];

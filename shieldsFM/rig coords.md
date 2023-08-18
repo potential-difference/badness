@@ -31,9 +31,35 @@ wide: 100 high: 100 x,y: 250 650
 local coords[0] 50.0 50.0
 
 null
+## Filaments COORDINATES
+*pixel position array length* 0
+wide: 100 high: 100 x,y: 350 650
+
+null
+## MegaWhite COORDINATES
+*pixel position array length* 0
+wide: 100 high: 100 x,y: 450 650
+
+null
 ## UvPars COORDINATES
 *pixel position array length* 0
-wide: 200 high: 100 x,y: 400 650
+wide: 200 high: 100 x,y: 600 650
+
+null
+## OutsideGround COORDINATES
+*pixel position array length* 0
+wide: 200 high: 100 x,y: 1000 650
+
+null
+## OutsideRoof COORDINATES
+*pixel position array length* 1
+wide: 200 high: 100 x,y: 800 650
+local coords[0] 100.0 50.0
+
+null
+## BoothCans COORDINATES
+*pixel position array length* 0
+wide: 214 high: 214 x,y: 921 321
 
 null
 ## TipiLeft COORDINATES
