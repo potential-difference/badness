@@ -27,7 +27,7 @@
             {"name" : "lanternG", "start" : 60, "pixels" : [1]},
             {"name" : "lanternH", "start" : 70, "pixels" : [1]},
             {"name" : "lanternI", "start" : 80, "pixels" : [1]},
-            {"name" : "frontCansLeft", "start" : 31, "pixels" : [3]}
+            {"name" : "frontCansLeft", "start" : 31, "pixels" : [1,1,1]}
         ]
     },
     {"name" : "LunchBox2" , "ip" : "192.168.10.22", "type" : "WLED", "port" : 21324,
@@ -41,7 +41,7 @@
             {"name" : "lanternG", "start" : 60, "pixels" : [1]},
             {"name" : "lanternH", "start" : 70, "pixels" : [1]},
             {"name" : "lanternI", "start" : 80, "pixels" : [1]},
-            {"name" : "frontCansRight", "start" : 51, "pixels" : [3]}
+            {"name" : "frontCansRight", "start" : 51, "pixels" : [1,1,1]}
 
         ]
     },
@@ -91,16 +91,18 @@
     },
     {"name" : "GreyBox1", "ip" : "192.168.10.41", "type" : "WLED", "port" : 21324,
         "channels" :[
-            {"name" : "roofA", "start" : 0, "pixels" : [1]},
-            {"name" : "roofB", "start" : 10, "pixels" : [2]},
-            {"name" : "groundB", "start" : 20, "pixels" : [1]}
+            {"name" : "roofA", "start" : 40, "pixels" : [1]},
+            {"name" : "roofB", "start" : 50, "pixels" : [2]},
+            {"name" : "groundB", "start" : 30, "pixels" : [1]}
         ]
     },
     {"name" : "GreyBox2", "ip" : "192.168.10.42", "type" : "WLED", "port" : 21324,
         "channels" :[
-            {"name" : "roofA", "start" : 0, "pixels" : [1]},
-            {"name" : "roofB", "start" : 10, "pixels" : [2]},
-            {"name" : "groundB", "start" : 20, "pixels" : [1]}
+            {"name" : "roofA", "start" : 20, "pixels" : [1]},
+            {"name" : "roofB", "start" : 0, "pixels" : [1]},
+            {"name" : "roofC", "start" : 10, "pixels" : [1]},
+
+            {"name" : "groundB", "start" : 50, "pixels" : [1]}
         ]
     }
 ]

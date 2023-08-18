@@ -120,14 +120,7 @@ class MegaSeedCGrid extends OPCGrid{
     rig.pixelPosition.add(pv); // adding global coords to pixelPosition ArrayList
   }
 }
-class OutsideGroundGrid extends OPCGrid{
-  Rig rig;
-  OutsideGroundGrid(Rig _rig,Map<String,OPC> opcnodes){
-    rig = _rig;
-    opcnodes.get("GreyBox1").led(20,size.outsideGround.x,size.outsideGround.y-20);
-    opcnodes.get("GreyBox2").led(20,size.outsideGround.x,size.outsideGround.y);
-  }
-}
+
 class FilamentsGrid extends OPCGrid{
   Rig rig;
   FilamentsGrid(Rig _rig,Map<String,OPC> opcnodes){
@@ -171,13 +164,24 @@ class BoothCansGrid extends OPCGrid{
     IntCoord coord = size.outsideRoof;
     int ydiv = 5;
     int xdiv = 4;
-    opcnodes.get("GreyBox1").led(0,coord.x - coord.wide/xdiv,coord.y-coord.high/ydiv);
-    opcnodes.get("GreyBox1").led(10,coord.x + coord.wide/xdiv,coord.y - coord.high/ydiv);
-    opcnodes.get("GreyBox2").led(0,coord.x-coord.wide/xdiv,coord.y + coord.high/ydiv);
-    opcnodes.get("GreyBox2").led(10,coord.x+coord.wide/xdiv,coord.y + coord.high/ydiv);
+    opcnodes.get("GreyBox2").led(20,coord.x - coord.wide/xdiv,coord.y-coord.high/ydiv);
+    opcnodes.get("GreyBox2").led(0,coord.x + coord.wide/xdiv,coord.y - coord.high/ydiv);
+        opcnodes.get("GreyBox2").led(10,coord.x ,coord.y - coord.high/ydiv);
+    opcnodes.get("GreyBox1").led(40,coord.x ,coord.y + coord.high/ydiv);
+
+    opcnodes.get("GreyBox1").led(50,coord.x-coord.wide/xdiv,coord.y + coord.high/ydiv);
+    opcnodes.get("GreyBox1").led(51,coord.x+coord.wide/xdiv,coord.y + coord.high/ydiv);
     rig.pixelPosition.add(new PVector(coord.x,coord.y));
   }
   }
+  class OutsideGroundGrid extends OPCGrid{
+  Rig rig;
+  OutsideGroundGrid(Rig _rig,Map<String,OPC> opcnodes){
+    rig = _rig;
+    opcnodes.get("GreyBox1").led(30,size.outsideGround.x-40,size.outsideGround.y-10);
+    opcnodes.get("GreyBox2").led(50,size.outsideGround.x-20,size.outsideGround.y+10);
+  }
+}
 /* pixel mapping is a simple struct holding information about a
   single channel (a physical cable) coming out of a device
   that speaks opc*/

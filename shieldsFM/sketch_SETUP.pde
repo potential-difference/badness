@@ -19,7 +19,7 @@ class SizeSettings {
   // maybe this could be a config thing though so each instance is just a reference to 
   // a name in the config file so thats the only place you change things...?!
   IntCoord shields,
-  tipiLeft,tipiRight,tipiCentre,
+  tipiLeft,tipiRight,frontCans,
   megaSeedA,megaSeedB,megaSeedC,
   filaments,megaWhite,
   outsideRoof,outsideGround,
@@ -77,7 +77,7 @@ class SizeSettings {
     
     tipiLeft = roofCoords[0];
     tipiRight = roofCoords[1];
-    tipiCentre = roofCoords[2];   
+    frontCans = roofCoords[2];   
     boothCans = roofCoords[3];
     // Calculate the x and y coordinates for the info object
     int infoWidth = 250;

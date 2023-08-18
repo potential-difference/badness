@@ -9,8 +9,8 @@
         "implementation" : "add single-frame DmxSmoke Anim to boothgrid",
         },
     {"key" : "q", "type" : "toggle", "description" : "log incoming osc messages"},
-    {"key" : "j", "type" : "rise" , "description" : "increment tipiCentre vizIndex"},
-    {"key" : "h", "type" : "rise" , "description" : "jump to last tipiCentre vizIndex"},
+    {"key" : "j", "type" : "rise" , "description" : "increment frontCans vizIndex"},
+    {"key" : "h", "type" : "rise" , "description" : "jump to last frontCans vizIndex"},
     {"key" : "n", "type" : "rise" , "description" : "increment shields vizindex"},
     {"key" : "b", "type" : "rise" , "description" : }
 ]

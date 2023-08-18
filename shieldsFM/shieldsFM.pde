@@ -14,7 +14,7 @@ OPCGrid opcGrid;//oof
 //Gig Specific
 ShieldsOPCGrid shieldsGrid;
 BoothGrid boothGrid;
-Rig shields,tipiLeft,tipiRight,tipiCentre,
+Rig shields,tipiLeft,tipiRight,frontCans ,
 outsideGround,outsideRoof,
 megaSeedA,megaSeedB,megaSeedC,
 filaments,megaWhite,
@@ -206,12 +206,9 @@ void setup()
   }
   tipiRight.opcgrid = new CircularRoofGrid(tipiRight,OPCs,channels,tipiRightChannels);
 
-  tipiCentre = new Rig(size.tipiCentre,RigType.TipiCentre);
-  String tipiCentreChannels[] = new String[9];// = {"pix18","pix19","pix20","pix21","pix22","pix23","pix24","pix25","pix26"};
-  for(int i = 0; i<9; i++){
-    tipiCentreChannels[i] = "LunchBox3/lantern" + idk[i];
-  }
-  tipiCentre.opcgrid = new CircularRoofGrid(tipiCentre,OPCs,channels,tipiCentreChannels);
+  frontCans = new Rig(size.frontCans,RigType.FrontCans);
+  String frontCanChannels[] = {"LunchBox2/frontCansRight","LunchBox1/frontCansLeft"};
+  frontCans.opcgrid = new CircularRoofGrid(frontCans,OPCs,channels,frontCanChannels);
 
   audioSetup(100, 0.2); ///// AUDIO SETUP - sensitivity, beatTempo /////
   midiSetup();

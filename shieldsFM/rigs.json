@@ -28,7 +28,7 @@
         "opcgrid" : "CircularRoofGrid"
 
     },
-    {"name" : "tipiCentre", "type" : "Lanterns", "size" : "tipiCentre",
+    {"name" : "frontCans", "type" : "Lanterns", "size" : "frontCans",
         "channels" : [
             "LunchBox3/lanternA",
             "LunchBox3/lanternB",

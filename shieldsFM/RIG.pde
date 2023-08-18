@@ -3,6 +3,7 @@ enum RigType{
     OutsideGround,OutsideRoof,
     MegaSeedA,MegaSeedB,MegaSeedC,
     TipiLeft,TipiRight,TipiCentre,
+    FrontCans,
     Bar,Mirrors,Cans,Strips,Seeds,Pars,
     Booth,Dig,UvPars,Filaments,MegaWhite,
     BoothCans
