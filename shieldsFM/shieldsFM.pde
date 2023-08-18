@@ -41,8 +41,6 @@ boolean testToggle, smokeToggle;
 float boothDimmer=0.5, mixerDimmer=0.5, digDimmer=1.0, vizTime, colorChangeTime, colorSwapSlider, beatSlider = 0.3;
 //float smokePumpValue, smokeOnTime, smokeOffTime;
 float uvDimmer=0.2;
-float uvSpeed=0.5;
-float uvProgram=0.5;
 int colStepper = 1;
 int time_since_last_anim=0;
 
@@ -82,78 +80,7 @@ void setup()
     noLoop();
     return;
   }
-  ///////////////// LOCAL opc /////////////////////
-  /*Map<String,OPC> OPCs = Map.ofEntries(
-    entry("BigShield", new WLED(this, "192.168.10.10", 21324)),
-    entry("SmallShieldA", new WLED(this, "192.168.10.11", 21324)),    //bottom right
-    entry("MedShieldA", new WLED(this, "192.168.10.12", 21324)),
-    entry("SmallShieldB", new WLED(this, "192.168.10.13", 21324)),    //bottom left
-    entry("MedShieldB", new WLED(this, "192.168.10.14", 21324)),
-    entry("SmallShieldC", new WLED(this, "192.168.10.15", 21324)),    //top
-    entry("MedShieldC", new WLED(this, "192.168.10.16", 21324)),      // c/f       
-    entry("Entec",new OPC(this,"192.168.10.157",7890)),  
-
-    entry("LunchBox1",new WLED(this,"192.168.10.21",21324)),
-    //A:19 B:18 C:17 D:16 E:4
-
-    entry("LunchBox2",new WLED(this,"192.168.10.22",21324)),
-    //A:19 B:18 C:17 D:16 E:4
-
-    entry("LunchBox3",new WLED(this,"192.168.10.23",21324)),
-    //A:12 B:14 C:27 D:26 E:25
-
-    entry("megaSeedA",new WLED(this,"192.168.10.30",21324)),
-    entry("megaSeedB",new WLED(this,"192.168.10.31",21324)),
-    entry("megaSeedC",new WLED(this,"192.168.10.32",21324))
-
-  );
-
-  Map<String,PixelMapping> channels = Map.ofEntries(
-    // document this: ("stringOne","LunchBox1",0,new int[] {1,1,1})
-    // TODO is there a better way to do this? there are a lot of the same variable...
-    // entry is a java thing
-    // the offset needs to sync with the pixel mapping in the 
-    // named wled instance.
-    // i.e. wled-lunchbox-1-config.json | jq '.hw.led.ins[] | {start}
-    // and '.hw.led.ins[] | {len}' must be < sum(pixelarray)
-    entry("pix0",new PixelMapping("pix0","LunchBox1",00,new int[]{1})),  // A 
-    entry("pix1",new PixelMapping("pix1","LunchBox1",10,new int[]{1})),  // B
-    entry("pix2",new PixelMapping("pix2","LunchBox1",20,new int[]{1})),  // C
-    entry("pix3",new PixelMapping("pix3","LunchBox1",30,new int[]{1})),  // D
-    entry("pix4",new PixelMapping("pix4","LunchBox1",40,new int[]{1})),  // E
-    entry("pix5",new PixelMapping("pix5","LunchBox1",50,new int[]{1})),  // F
-    entry("pix6",new PixelMapping("pix6","LunchBox1",60,new int[]{1})),  // G
-    entry("pix7",new PixelMapping("pix7","LunchBox1",70,new int[]{1})),  // H
-    entry("pix8",new PixelMapping("pix8","LunchBox1",80,new int[]{1})),  // I
-
-    entry("pix9", new PixelMapping("pix9", "LunchBox2",00,new int[]{1})),  // A
-    entry("pix10",new PixelMapping("pix10","LunchBox2",10,new int[]{1})),  // B
-    entry("pix11",new PixelMapping("pix11","LunchBox2",20,new int[]{1})),  // C
-    entry("pix12",new PixelMapping("pix12","LunchBox2",30,new int[]{1})),  // D
-    entry("pix13",new PixelMapping("pix13","LunchBox2",40,new int[]{1})),  // E
-    entry("pix14",new PixelMapping("pix14","LunchBox2",50,new int[]{1})),  // F
-    entry("pix15",new PixelMapping("pix15","LunchBox2",60,new int[]{1})),  // G
-    entry("pix16",new PixelMapping("pix16","LunchBox2",70,new int[]{1})),  // H
-    entry("pix17",new PixelMapping("pix17","LunchBox2",80,new int[]{1})),  // I
-
-    entry("pix18",new PixelMapping("pix18","LunchBox3",00,new int[]{1})),  // A
-    entry("pix19",new PixelMapping("pix19","LunchBox3",10,new int[]{1})),  // B
-    entry("pix20",new PixelMapping("pix20","LunchBox3",20,new int[]{1})),  // C
-    entry("pix21",new PixelMapping("pix21","LunchBox3",30,new int[]{1})),  // D
-    entry("pix22",new PixelMapping("pix22","LunchBox3",40,new int[]{1})),  // E
-    entry("pix23",new PixelMapping("pix23","LunchBox3",50,new int[]{1})),  // F
-    entry("pix24",new PixelMapping("pix24","LunchBox3",60,new int[]{1})),  // G
-    entry("pix25",new PixelMapping("pix25","LunchBox3",70,new int[]{1})),  // H
-    entry("pix26",new PixelMapping("pix26","LunchBox3",80,new int[]{1})),  // I
-
-    entry("stringEight",new PixelMapping("stringEight","LunchBox3",100,new int[]{1,1,1})),
-    entry("stringNine",new PixelMapping("stringNine","LunchBox3",200,new int[]{1,1,1})),
-
-    entry("barleft", new PixelMapping("barleft","LunchBox3",300,new int[]{1})),
-    entry("barmid", new PixelMapping("barmid","LunchBox3",400,new int[]{1})),
-    entry("barright", new PixelMapping("barright","LunchBox3",500,new int[]{1}))
-  );
-  */  
+  
   shields = new Rig(size.shields, RigType.Shields);
   shields.opcgrid = new ShieldsOPCGrid(shields);
   ((ShieldsOPCGrid)(shields.opcgrid)).bigTriangleShieldsOPC(OPCs); 
@@ -187,9 +114,6 @@ void setup()
   
   boothCans = new Rig(size.boothCans,RigType.BoothCans);
   boothCans.opcgrid = new BoothCansGrid(boothCans,OPCs);
-
-  
-
 
   tipiLeft = new Rig(size.tipiLeft,RigType.TipiLeft);
   String tipiLeftChannels[] = new String[9];
@@ -265,8 +189,6 @@ void draw()
   playWithMeMore();
   ///////////////////////////////////////////// BOOTH & DIG /////////////////////////////////////////////////////////////
   boothLights(boothGrid);
-  ///////////////////////////////////////////// UV BATONS FM22 //////////////////////////////////////////////////////////
-  // uvBatons(boothGrid);
   ///////////////////////////////////////////// BLINDERS FM22 ///////////////////////////////////////////////////////////
   // blinders(boothGrid);
   ///////////////////////////////////////////// DISPLAY //////////////////////////////////////////////////////////////////

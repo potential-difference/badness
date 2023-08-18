@@ -144,37 +144,6 @@ void pause(int secondsToWait) {
   }
 }
 
-/////////////////UV BATONS //////////////////
-void uvBatons(BoothGrid opcGrid){
-  fill(0);                // FILL IN BLACK TO CANCEL ANY ANIMATIONS ETC
-  rect(opcGrid.uvDimmer);
-  rect(opcGrid.uvSpeed);
-  rect(opcGrid.uvProgram);
-  fill(0,150);            // DRAW OUTLINE BOX
-  stroke(flash, 60);
-  rect(opcGrid.uvSpeed.x,opcGrid.uvSpeed.y+7,70,100);
-  noStroke();
-  //////////////////// RECTANGLES TO CONTROL BIRGHTNESS AND COLOUR //////////////
-  fill(360*uvDimmer);
-  rect(opcGrid.uvDimmer);
-  fill(360*uvSpeed);
-  rect(opcGrid.uvSpeed);
-  fill(360*uvProgram);
-  rect(opcGrid.uvProgram);
-  //////////////////// ON SCREEN TEXT INFO //////////////////////////////////////
-  fill(c);
-  textAlign(CENTER);
-  textSize(16);
-  text("BATONS",opcGrid.uvDimmer.x+10,opcGrid.uvDimmer.y+50);
-  noFill();
-  strokeWeight(1);
-  stroke(flash,60);
-  rect(opcGrid.uvDimmer);
-  rect(opcGrid.uvSpeed);
-  rect(opcGrid.uvProgram);
-  noStroke();
-}
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////// BOOTH AND DIG LIGHTS /////////////////////////////////////////////////////////////////////
 void boothLights(BoothGrid opcGrid) {

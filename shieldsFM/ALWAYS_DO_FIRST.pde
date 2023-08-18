@@ -72,7 +72,7 @@ void alwaysDoFirst() {
     rig.strokeSlider= 0.5;
     rig.blurriness = 0.2;
   }
-  // sets some values for the show.
+  // DIMMERS AND ANIM CONTROL
   shields.dimmer = 1;
   shields.alphaRate = 0.5;
   shields.functionRate = 0.5;
@@ -90,7 +90,7 @@ void alwaysDoFirst() {
   tipiRight.dimmer = 1;
   tipiRight.alphaRate = 0.45;
   tipiRight.functionRate = 0.72;
-  tipiRight.blurriness = 0.25;
+  tipiRight.blurriness = 0.075;
   tipiRight. strokeSlider = 0.9;
 
   megaSeedB.dimmer = 1;
@@ -105,14 +105,17 @@ void alwaysDoFirst() {
   megaSeedA.blurriness = 0.04;
   megaSeedA.strokeSlider = 0.7;
 
+  filaments.dimmer = 0.2;
+
+  outsideRoof.strokeSlider = 1;
+  outsideGround.strokeSlider = 1;
+
   // THESE ARE SLIGHTLY DIFFERENT COZ THEY ARENT THEIR OWN RIGS //
   boothDimmer = 0.18;
   mixerDimmer = 0.15;
   digDimmer = 0.11;
   
   uvDimmer = 0.8;
-  uvSpeed = 0.57;
-  uvProgram = 0.306;
 
   vizTime = 10;          // time in minutes - TODO sort this out onto slider 
   colorChangeTime = 5;  // time in minutes - TODO sort this out onto slider 

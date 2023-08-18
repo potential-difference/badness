@@ -17,7 +17,7 @@ class BoothGrid extends OPCGrid{
   Coord smokePump,smokeFan;
   PVector uvs[][] = new PVector[6][3];
   PVector blins[] = new PVector[4];
-  Coord uvDimmer,uvSpeed,uvProgram;
+  Coord uvDimmer,uvProgram;
   Coord booth,dig,mixer,blinders;
   BoothGrid(Map<String,OPC> opcnodes){
     opclist = opcnodes;
