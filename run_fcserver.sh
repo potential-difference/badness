@@ -1,2 +1,2 @@
 #!/bin/bash
-./fadecandy/server/fcserver FM2023.json
+./fadecandy/server/fcserver FM2023DMX.json

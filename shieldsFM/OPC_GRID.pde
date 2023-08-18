@@ -40,12 +40,21 @@ class UvParsGrid extends OPCGrid{
   UvParsGrid(Rig _rig,Map<String,OPC> opcnodes){
     opclist = opcnodes;
     rig = _rig;
-    opcnodes.get("Entec").led(0,size.uvPars.x-15,size.uvPars.y);
-    opcnodes.get("Entec").led(1,size.uvPars.x-10,size.uvPars.y);
-    opcnodes.get("Entec").led(2,size.uvPars.x-5,size.uvPars.y);
-    opcnodes.get("Entec").led(3,size.uvPars.x+5,size.uvPars.y);
-    opcnodes.get("Entec").led(4,size.uvPars.x+10,size.uvPars.y);
-    opcnodes.get("Entec").led(5,size.uvPars.x+15,size.uvPars.y);
+    opcnodes.get("Entec").led(11,size.uvPars.x-15,size.uvPars.y-10);
+    opcnodes.get("Entec").led(12,size.uvPars.x-10,size.uvPars.y-10);
+    opcnodes.get("Entec").led(13,size.uvPars.x-5,size.uvPars.y-10);
+    
+    opcnodes.get("Entec").led(21,size.uvPars.x+5,size.uvPars.y);
+    opcnodes.get("Entec").led(22,size.uvPars.x+10,size.uvPars.y);
+    opcnodes.get("Entec").led(23,size.uvPars.x+15,size.uvPars.y);
+
+    opcnodes.get("Entec").led(31,size.uvPars.x+5,size.uvPars.y+10);
+    opcnodes.get("Entec").led(32,size.uvPars.x+10,size.uvPars.y+10);
+    opcnodes.get("Entec").led(33,size.uvPars.x+15,size.uvPars.y+10);
+
+    opcnodes.get("Entec").led(41,size.uvPars.x+5,size.uvPars.y+20);
+    opcnodes.get("Entec").led(42,size.uvPars.x+10,size.uvPars.y+20);
+
   }
 }
 /*

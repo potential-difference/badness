@@ -190,10 +190,6 @@ void setup()
   }
   tipiCentre.opcgrid = new CircularRoofGrid(tipiCentre,OPCs,channels,tipiCentreChannels);
 
-   
-  bar = new Rig(size.bar,RigType.Bar);
-  String barunits[] = {"barleft","barmid","barright"};
-
   audioSetup(100, 0.2); ///// AUDIO SETUP - sensitivity, beatTempo /////
   midiSetup();
   drawingSetup();

@@ -15,25 +15,25 @@ local coords[8] 414.0 234.0
 null
 ## MegaSeedA COORDINATES
 *pixel position array length* 1
-wide: 200 high: 100 x,y: 100 650
-local coords[0] 100.0 50.0
+wide: 100 high: 100 x,y: 50 650
+local coords[0] 50.0 50.0
 
 null
 ## MegaSeedB COORDINATES
 *pixel position array length* 1
-wide: 200 high: 100 x,y: 300 650
-local coords[0] 100.0 50.0
+wide: 100 high: 100 x,y: 150 650
+local coords[0] 50.0 50.0
 
 null
 ## MegaSeedC COORDINATES
 *pixel position array length* 1
-wide: 200 high: 100 x,y: 500 650
-local coords[0] 100.0 50.0
+wide: 100 high: 100 x,y: 250 650
+local coords[0] 50.0 50.0
 
 null
 ## UvPars COORDINATES
 *pixel position array length* 0
-wide: 200 high: 100 x,y: 700 650
+wide: 200 high: 100 x,y: 400 650
 
 null
 ## TipiLeft COORDINATES
@@ -105,8 +105,3 @@ lantern[6] channel[6] led #[60] global coords: 645.5122  285.5
 lantern[7] channel[7] led #[70] global coords: 637.0787  333.32904
 lantern[8] channel[8] led #[80] global coords: 661.3621  375.38916
 
-## Bar COORDINATES
-*pixel position array length* 0
-wide: 200 high: 100 x,y: 900 650
-
-null
