@@ -1,0 +1,12 @@
+[
+    {"name" : "alphaRate", "default" : 0.5},
+    {"name" : "manualAlpha", "default" : 0.5},
+    {"name" : "functionRate", "default" : 0.5},
+    {"name" : "blurriness", "default" : 0.2},
+    {"name" : "functionChangeRate", "default" : },
+    {"name" : "alphaChangeRate" , "default" : },
+    {"name" : "backgroundChangeRate", "default" : },
+    {"name" : "strokeSlider", "default" : 0.9},
+    {"name" : "wideSlider" , "default" : 0.5},
+    {"name" : "highSlider", "default" : 0.5}
+]

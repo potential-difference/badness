@@ -1,5 +1,11 @@
 enum RigType{
-    Shields,Lanterns,Diamonds,MegaSeedA,MegaSeedB,MegaSeedC,TipiLeft,TipiRight,TipiCentre,Bar,Mirrors,Cans,Strips,Seeds,Pars,Booth,Dig,UvPars // rigs
+    Shields,Lanterns,Diamonds,
+    OutsideGround,OutsideRoof,
+    MegaSeedA,MegaSeedB,MegaSeedC,
+    TipiLeft,TipiRight,TipiCentre,
+    Bar,Mirrors,Cans,Strips,Seeds,Pars,
+    Booth,Dig,UvPars,Filaments,MegaWhite,
+    BoothCans
 }
 //static RigType Shields = RigType.Shields;
 public class Rig {
@@ -84,6 +90,7 @@ public class Rig {
     col[14] = teal;
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////  
   }
+  Rig init_grid(Class<?> opcgrid){ return this;}
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void createGraphicLayers(){
       colorLayer = createGraphics(wide, high, P2D);
@@ -287,7 +294,7 @@ public class Rig {
     text("viz: "+index, x, y+20);
     if (this.animations.size() > 0){
       Anim anim = this.animations.get(0);  
-      text(anim.animName, x, y+40);
+     // text(anim.animName, x, y+40);
     }
 
     ///////////// rig info/ ///////////////////////////////////////////////////////////////////
@@ -426,6 +433,7 @@ public class Rig {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  void addAnim(){ this.addAnim(this.vizIndex);}
    void addAnim(int animIndex) {
     //Object[] classList = new Object[] { new BenjaminsBoxes(this), new StarMesh(this), new Rings(this), new Celtic(this)};
 

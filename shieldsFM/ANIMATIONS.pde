@@ -1,4 +1,8 @@
-
+// the idea of this was to have a separate alphaRate
+// but it's not set anywhere. maybe cp5 used to do it?
+// oh, does what's it called touchosc change it?
+// you'd have to have a slider in touchosc do it
+// we should at least set a default
 abstract class ManualAnim extends Anim {
   ManualAnim(Rig _rig) {
     super(_rig);

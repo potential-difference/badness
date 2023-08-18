@@ -25,11 +25,11 @@ class BoothGrid extends OPCGrid{
     booth = new Coord(size.booth.x-size.booth.wide/2+35,size.booth.y-size.booth.high/2+20,30,15);
     dig = new Coord(booth.x,booth.y+20,booth.wide,booth.high);
     mixer = new Coord(dig.x, dig.y+20,dig.wide,dig.high);
-    OPC boothopc = opcnodes.get("LunchBox1");
-    boothopc.led(0,int(booth.x-5),int(booth.y));
-    boothopc.led(200,int(booth.x+5),int(booth.y));
-    boothopc.led(100,int(mixer.x),int(mixer.y));
-    boothopc.led(300,int(dig.x),int(dig.y));
+    OPC boothopc = opcnodes.get("LunchBox4");
+    boothopc.led(20,int(booth.x-5),int(booth.y));
+    boothopc.led(30,int(booth.x+5),int(booth.y));
+    boothopc.led(60,int(mixer.x),int(mixer.y));
+    boothopc.led(50,int(dig.x),int(dig.y));
   }
 }
 
@@ -40,12 +40,21 @@ class UvParsGrid extends OPCGrid{
   UvParsGrid(Rig _rig,Map<String,OPC> opcnodes){
     opclist = opcnodes;
     rig = _rig;
-    opcnodes.get("Entec").led(0,size.uvPars.x-15,size.uvPars.y);
-    opcnodes.get("Entec").led(1,size.uvPars.x-10,size.uvPars.y);
-    opcnodes.get("Entec").led(2,size.uvPars.x-5,size.uvPars.y);
-    opcnodes.get("Entec").led(3,size.uvPars.x+5,size.uvPars.y);
-    opcnodes.get("Entec").led(4,size.uvPars.x+10,size.uvPars.y);
-    opcnodes.get("Entec").led(5,size.uvPars.x+15,size.uvPars.y);
+    opcnodes.get("Entec").led(11,size.uvPars.x-15,size.uvPars.y-10);
+    opcnodes.get("Entec").led(12,size.uvPars.x-10,size.uvPars.y-10);
+    opcnodes.get("Entec").led(13,size.uvPars.x-5,size.uvPars.y-10);
+    
+    opcnodes.get("Entec").led(21,size.uvPars.x+5,size.uvPars.y);
+    opcnodes.get("Entec").led(22,size.uvPars.x+10,size.uvPars.y);
+    opcnodes.get("Entec").led(23,size.uvPars.x+15,size.uvPars.y);
+
+    opcnodes.get("Entec").led(31,size.uvPars.x+5,size.uvPars.y+10);
+    opcnodes.get("Entec").led(32,size.uvPars.x+10,size.uvPars.y+10);
+    opcnodes.get("Entec").led(33,size.uvPars.x+15,size.uvPars.y+10);
+
+    opcnodes.get("Entec").led(41,size.uvPars.x+5,size.uvPars.y+20);
+    opcnodes.get("Entec").led(42,size.uvPars.x+10,size.uvPars.y+20);
+
   }
 }
 /*
@@ -84,8 +93,6 @@ class MegaSeedAGrid extends OPCGrid{
     opclist = opcnodes;
     rig = _rig;
     opcnodes.get("megaSeedA").led(0,size.megaSeedA.x,size.megaSeedA.y);           // rgb 100w
-    opcnodes.get("megaSeedA").led(1,size.megaSeedA.x-20,size.megaSeedA.y);        // white 100w 
-    opcnodes.get("megaSeedA").led(2,size.megaSeedA.x+20,size.megaSeedA.y);        // FILLAMENT spiral - GPIO 14
     PVector pv = new PVector(size.megaSeedA.x, size.megaSeedA.y);
     rig.pixelPosition.add(pv); // adding global coords to pixelPosition ArrayList
   }
@@ -97,9 +104,6 @@ class MegaSeedBGrid extends OPCGrid{
     opclist = opcnodes;
     rig = _rig;
     opcnodes.get("megaSeedB").led(0,size.megaSeedB.x,size.megaSeedB.y);           // rgb 100w
-    opcnodes.get("megaSeedB").led(1,size.megaSeedB.x-20,size.megaSeedB.y);        // white 100w 
-    opcnodes.get("megaSeedB").led(2,size.megaSeedB.x+20,size.megaSeedB.y);        // FILLAMENT spiral - GPIO 14
-
     PVector pv = new PVector(size.megaSeedB.x, size.megaSeedB.y);
     rig.pixelPosition.add(pv); // adding global coords to pixelPosition ArrayList
   }
@@ -111,18 +115,73 @@ class MegaSeedCGrid extends OPCGrid{
     opclist = opcnodes;
     rig = _rig;
     opcnodes.get("megaSeedC").led(0,size.megaSeedC.x,size.megaSeedC.y);           // rgb 100w
-    opcnodes.get("megaSeedC").led(1,size.megaSeedC.x-20,size.megaSeedC.y);        // white 100w 
-    opcnodes.get("megaSeedC").led(2,size.megaSeedC.x+20,size.megaSeedC.y);        // FILLAMENT spiral - GPIO 14
-
-    // TODO add ring of 12v RGB leds to grid, led# 1-100
-    // opcnodes.get("megaSeedC").led(1,size.megaSeedC.x+20,size.megaSeedC.y);        
-
+    
     PVector pv = new PVector(size.megaSeedC.x, size.megaSeedC.y);
     rig.pixelPosition.add(pv); // adding global coords to pixelPosition ArrayList
   }
 }
-
-
+class OutsideGroundGrid extends OPCGrid{
+  Rig rig;
+  OutsideGroundGrid(Rig _rig,Map<String,OPC> opcnodes){
+    rig = _rig;
+    opcnodes.get("GreyBox1").led(20,size.outsideGround.x,size.outsideGround.y-20);
+    opcnodes.get("GreyBox2").led(20,size.outsideGround.x,size.outsideGround.y);
+  }
+}
+class FilamentsGrid extends OPCGrid{
+  Rig rig;
+  FilamentsGrid(Rig _rig,Map<String,OPC> opcnodes){
+    rig = _rig;
+    opcnodes.get("megaSeedA").led(2,size.filaments.x,size.filaments.y - 20);
+    opcnodes.get("megaSeedB").led(2,size.filaments.x,size.filaments.y);
+    opcnodes.get("megaSeedC").led(2,size.filaments.x,size.filaments.y + 20);
+  }
+}
+class MegaWhiteGrid extends OPCGrid{
+  Rig rig;
+  MegaWhiteGrid(Rig _rig,Map<String,OPC> opcnodes){
+    rig = _rig;
+    opcnodes.get("megaSeedA").led(1,size.megaWhite.x,size.megaWhite.y - 20);
+    opcnodes.get("megaSeedB").led(1,size.megaWhite.x,size.megaWhite.y);
+    opcnodes.get("megaSeedC").led(1,size.megaWhite.x,size.megaWhite.y + 20);
+  }
+}
+class BoothCansGrid extends OPCGrid{
+  Rig rig;
+  BoothCansGrid(Rig _rig,Map<String,OPC> opcnodes){
+    rig = _rig;
+    
+    IntCoord coord = size.boothCans;
+    opcnodes.get("LunchBox4").led(10,coord.x - coord.wide/4,coord.y - coord.high/3);
+    opcnodes.get("LunchBox4").led(11,coord.x - coord.wide/4, coord.y);
+    opcnodes.get("LunchBox4").led(12,coord.x - coord.wide/4,coord.y + coord.high/3);
+    
+    opcnodes.get("LunchBox4").led(40,coord.x + coord.wide/4,coord.y - coord.high/3);
+    opcnodes.get("LunchBox4").led(41,coord.x + coord.wide/4, coord.y);
+    opcnodes.get("LunchBox4").led(42,coord.x + coord.wide/4,coord.y + coord.high/3);
+    
+  }
+}
+  class OutsideRoofGrid extends OPCGrid{
+  Rig rig;
+  OutsideRoofGrid(Rig _rig,Map<String,OPC> opcnodes){
+    rig = _rig;
+    IntCoord coord = size.outsideRoof;
+    opcnodes.get("GreyBox1").led(0,coord.x - coord.wide/4,coord.y-coord.high/4);
+    opcnodes.get("GreyBox1").led(10,coord.x + coord.wide/4,coord.y - coord.high/4);
+    opcnodes.get("GreyBox2").led(0,coord.x-coord.wide/4,coord.y + coord.high/4);
+    opcnodes.get("GreyBox2").led(10,coord.x+coord.wide/4,coord.y + coord.high/4);
+    rig.pixelPosition.add(new PVector(coord.x,coord.y));
+  }
+  }
+/* pixel mapping is a simple struct holding information about a
+  single channel (a physical cable) coming out of a device
+  that speaks opc*/
+  // unitname: used as a key for the cable.
+  // opcname: the key into the map of opc devices
+  // start_pixel: the offset for opc addressing
+  // pixelcounts: an array of pixel counts.
+  //   used to arrange subgroups of pixels in circles etc
 class PixelMapping{
   String opcname;
   int start_pixel;
@@ -134,13 +193,6 @@ class PixelMapping{
     start_pixel = stpix;
     pixelcounts = pixcounts;
   }
-}
-int sum(int[] ints){
-  int result=0;
-  for (int i:ints){
-    result += i;
-  }
-  return result;
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -156,8 +208,17 @@ class CircularRoofGrid extends OPCGrid {
     // and with that we calculate where each one gets placed
     int total_pixels = 0;
     for(int i=0;i<nchannels;i++){
-      PixelMapping channel = channels.get(channelnames[i]);
-      total_pixels += channel.pixelcounts.length;
+      try{
+        PixelMapping channel = channels.get(channelnames[i]);
+        total_pixels += channel.pixelcounts.length;
+      }catch(NullPointerException e){
+        println("attempted to get channelname",channelnames[i]);
+        println("available channel names:");
+        for(String key : channels.keySet()){
+          println("\t" + key);
+        }
+        throw e;
+      }
     }
     float angle_delta = TWO_PI / total_pixels;
     //a lambda that, given a pixel number, gives us an xy coordiante
