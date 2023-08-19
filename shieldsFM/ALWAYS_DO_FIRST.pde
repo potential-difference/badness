@@ -45,8 +45,8 @@ void alwaysDoFirst() {
   megaSeedB.colorIndexA = 2;
   megaSeedB.colorIndexB = 1;
 
-  megaSeedC.colorIndexA = 1;
-  megaSeedC.colorIndexB = 2;
+  megaSeedC.colorIndexA = 2;
+  megaSeedC.colorIndexB = 1;
 
   ///// TODO  make an easy way of changing colour
    
@@ -81,13 +81,15 @@ void alwaysDoFirst() {
   shields.strokeSlider= 1;
   shields.blurriness = 0.2;
 
-  tipiLeft.dimmer = 1;
+  boothCans.dimmer = 0.5;
+
+  tipiLeft.dimmer = 0.3;
   tipiLeft.alphaRate = 0.84;
   tipiLeft.functionRate = 0.56;
   tipiLeft.blurriness = 0.075;
   tipiLeft.strokeSlider = 0.9;
 
-  tipiRight.dimmer = 1;
+  tipiRight.dimmer = 0.3;
   tipiRight.alphaRate = 0.45;
   tipiRight.functionRate = 0.72;
   tipiRight.blurriness = 0.075;
@@ -107,15 +109,22 @@ void alwaysDoFirst() {
 
   filaments.dimmer = 0.2;
 
+  uvPars.strokeSlider = 1;
+  uvPars.dimmer = 0.8;
+
   outsideRoof.strokeSlider = 1;
+  outsideRoof.wideSlider = 1;
+  outsideRoof.highSlider = 1;
+
   outsideGround.strokeSlider = 1;
+  outsideGround.wideSlider = 1;
+  outsideGround.highSlider = 1;
+
 
   // THESE ARE SLIGHTLY DIFFERENT COZ THEY ARENT THEIR OWN RIGS //
   boothDimmer = 0.18;
   mixerDimmer = 0.15;
   digDimmer = 0.11;
-  
-  uvDimmer = 0.8;
 
   vizTime = 10;          // time in minutes - TODO sort this out onto slider 
   colorChangeTime = 5;  // time in minutes - TODO sort this out onto slider 

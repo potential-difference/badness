@@ -38,9 +38,8 @@ MidiBus MPD8bus;
 
 boolean onTop = false;
 boolean testToggle, smokeToggle;
-float boothDimmer=0.5, mixerDimmer=0.5, digDimmer=1.0, vizTime, colorChangeTime, colorSwapSlider, beatSlider = 0.3;
+float boothDimmer, mixerDimmer, digDimmer, vizTime, colorChangeTime, colorSwapSlider, beatSlider = 0.3;
 //float smokePumpValue, smokeOnTime, smokeOffTime;
-float uvDimmer=0.2;
 int colStepper = 1;
 int time_since_last_anim=0;
 
