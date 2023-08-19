@@ -32,6 +32,16 @@ class AllOn extends Anim {
     window.endDraw();
   }
 }
+class AllOnForever extends Anim {
+  AllOnForever(Rig _rig){
+    super(_rig);
+  }
+  void draw(){
+    window.beginDraw();
+    window.background(360);
+    window.endDraw();
+  }
+}
 ///////////////////////////////////////////////////////////////////////////////////////////////////////
 class AllOff extends Anim {
   AllOff(Rig _rig) {

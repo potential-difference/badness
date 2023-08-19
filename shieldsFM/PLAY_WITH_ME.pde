@@ -10,29 +10,203 @@ void setupMidiActions(){
   newMomentary(100,()->{
     rigs.get(0).colorSwap(0.9999);
   });
+  //MIDI PAD AKAI
+  //      A                   B
+  //48  49  50  51    64  65  66  67
+  //44  45  46  47    60  61  62  63
+  //40  41  42  43    56  57  58  59
+  //36  37  38  39    52  53  54  55
 
-  noteOnActions[99] = (float velocity)->{
-    //Anim x = new Stars(rigs.get(0));
-    //x.animDimmer.set(velocity);
-    rigs.get(0).animations.add(new Stars(rigs.get(0)));
+  //shields bang
+  // ths shoudl rebe ac fucntuonf 2222
+  noteOnActions[65] = (float velocity) ->{
+
+    Anim anim = shields.animAtIndex(shields.vizIndex);
+    //get what the current animation would be
+
+    shields.animations.add(anim);
+    // add it to the shields 
+
+    //now, set the noteOff action to 
+    // delete that anim
+    noteOffActions[65] = ()->{
+      anim.deleteme = true;
+    };
+  };
+  //tipileft bang
+  noteOnActions[61] = (float velocity) ->{
+    Anim anim = tipiLeft.animAtIndex(tipiLeft.vizIndex);
+    tipiLeft.animations.add(anim);
+    noteOffActions[61] = ()->{
+      anim.deleteme = true;
+    };
+  };
+  //tipiRight bang
+  noteOnActions[57] = (float velocity) ->{
+    Anim anim = tipiRight.animAtIndex(tipiRight.vizIndex);
+    tipiRight.animations.add(anim);
+    noteOffActions[57] = ()->{
+      anim.deleteme = true;
+    };
+  };
+  //all megaseeds bang
+  noteOnActions[53] = (float velocity) ->{
+    Anim animA = megaSeedA.animAtIndex(megaSeedA.vizIndex);
+    Anim animB = megaSeedB.animAtIndex(megaSeedB.vizIndex);
+    Anim animC = megaSeedC.animAtIndex(megaSeedC.vizIndex);
+    megaSeedA.animations.add(animA);
+    megaSeedB.animations.add(animB);
+    megaSeedC.animations.add(animC);
+    noteOffActions[53] = ()->{
+      animA.deleteme = true;
+      animB.deleteme = true;
+      animC.deleteme = true;
+    };
   };
 
-  noteOnActions[46] = (float velocity)->{
+  //allON shields momentary..
+  noteOnActions[66] = (float velocity) ->{
+
+    //get an allonforever anim that has no 
+    // dependence on alpha
+    Anim anim = new AllOnForever(shields);
+    
+    //add it to the rig
+    shields.animations.add(anim);
+
+    //turn it off when you lift the button
+    noteOffActions[66] = ()->{
+      anim.deleteme = true;
+    };
+  };
+
+ //allON tipiLeft momentary..
+  noteOnActions[62] = (float velocity) ->{
+    Anim anim = new AllOnForever(tipiLeft);
+    tipiLeft.animations.add(anim);
+    noteOffActions[62] = ()->{
+      anim.deleteme = true;
+    };
+  };
+ //allON tipiRight momentary..
+  noteOnActions[58] = (float velocity) ->{
+    Anim anim = new AllOnForever(tipiRight);
+    tipiRight.animations.add(anim);
+    noteOffActions[58] = ()->{
+      anim.deleteme = true;
+    };
+  };
+
+ //allON all megaseeds momentary..
+  noteOnActions[54] = (float velocity) ->{
+    Anim animA = new AllOnForever(megaSeedA);
+    Anim animB = new AllOnForever(megaSeedB);
+    Anim animC = new AllOnForever(megaSeedC);
+
+   megaSeedA.animations.add(animA);
+   megaSeedB.animations.add(animB);
+   megaSeedC.animations.add(animC);
+    noteOffActions[54] = ()->{
+      animA.deleteme = true;
+      animB.deleteme = true;
+      animC.deleteme = true;
+    };
+  };
+
+  //filaments all
+  noteOnActions[67] = (float velocity)->{
+    Anim anim = new AllOnForever(filaments);
+    filaments.animations.add(anim);
+    noteOffActions[67] = ()->{
+      anim.deleteme = true;
+    };
+  };
+  //filaments right
+  noteOnActions[63] = (float velocity)->{
+
+  };
+  //filaments centre
+  noteOnActions[59] = (float velocity)->{
+
+  };
+  //filaments strobe with rate. see below under stutter
+
+
+  MidiAction shieldsOff = (float velocity) ->{
+    for (Anim anim : shields.animations) anim.deleteme = true;
+  //and also prevent pwys from adding more to shields
+    shields.onBeat = false;
+  };
+  noteOnActions[64] = shieldsOff;
+  noteOffActions[64] = ()->{
+    shields.onBeat = true;
+  };
+
+  //tipiLeft you'll go blind
+  noteOnActions[60] = (float velocity) -> {
+    //delete all the anims
+    for (Anim anim : tipiLeft.animations) anim.deleteme = true;
+    
+    //disable adding anims on beats
+    tipiLeft.onBeat = false;
+
+  };
+  
+  //when the button lifts, re-enable beat adding 
+  noteOffActions[60] = () -> {
+    tipiLeft.onBeat = true;
+  };
+
+  //tipiRight you'll go blind
+  noteOnActions[56] = (float velocity) -> {
+    for (Anim anim : tipiRight.animations) anim.deleteme = true;
+    tipiRight.onBeat = false;
+  };
+  noteOffActions[56] = () -> {
+    tipiRight.onBeat = true;
+  };
+
+  //all megaseeds you'll go blind
+  noteOnActions[52] = (float velocity) -> {
+    for (Anim anim : megaSeedA.animations) anim.deleteme = true;
+    for (Anim anim : megaSeedB.animations) anim.deleteme = true;
+    for (Anim anim : megaSeedC.animations) anim.deleteme = true;
+
+    megaSeedA.onBeat = false;
+    megaSeedB.onBeat = false;
+    megaSeedC.onBeat = false;
+  };
+  noteOffActions[52] = () -> {
+    megaSeedA.onBeat = true;
+    megaSeedB.onBeat = true;
+    megaSeedC.onBeat = true;
+  };
+
+
+  MidiAction allFlash = (float velocity)->{
     for (Rig rig: rigs){
       rig.animations.add(new AllOn(rig));
     } 
   };
+  noteOnActions[46] = allFlash;
 
+  MidiAction allAnim =  (float velocity)->{
+    for(Rig rig: rigs){
+      rig.addAnim();
+    }
+  };
+  noteOnActions[47] = allAnim;
+  
   noteOnActions[49] = (float velocity)->{
     rigs.get(0).colorFlip(true);
   };
 ///////////////////////////////////////////////// STUTTER ///////////////////////////////////////////////x
 
   
-  noteOnActions[48] =(float velocity)->{
-     for (Anim anim : rigs.get(0).animations) {
-      anim.alphaEnvelopeA = anim.alphaEnvelopeA.mul((1-cc[45])+(stutter*cc[45])); // anim.alphaEnvelopeA.mul(0.6+(stutter*0.4));     //anim.alphaEnvelopeA.mul((1-cc[46])+(stutter*cc[46]));
-      anim.alphaEnvelopeB = anim.alphaEnvelopeB.mul((1-cc[45])+(stutter*cc[45])); //anim.alphaEnvelopeA.mul(0.6+(stutter*0.4)); //anim.alphaEnvelopeB.mul((1-cc[46])+(stutter*cc[46]));
+  noteOnActions[55] =(float velocity)->{
+     for (Anim anim : shields.animations) {
+      anim.alphaEnvelopeA = anim.alphaEnvelopeA.mul((1-cc[15])+(stutter*cc[15])); // anim.alphaEnvelopeA.mul(0.6+(stutter*0.4));     //anim.alphaEnvelopeA.mul((1-cc[46])+(stutter*cc[46]));
+      anim.alphaEnvelopeB = anim.alphaEnvelopeB.mul((1-cc[15])+(stutter*cc[15])); //anim.alphaEnvelopeA.mul(0.6+(stutter*0.4)); //anim.alphaEnvelopeB.mul((1-cc[46])+(stutter*cc[46]));
     }
   };
 

@@ -21,6 +21,7 @@ public class Rig {
   PVector position[] = new PVector[12];
   PVector positionX[][] = new PVector[7][3];
   boolean firsttime_sketchcolor=true, noiseToggle, playWithYourSelf = true;
+  boolean onBeat=true; //add animations on a new beat
   ArrayList <Anim> animations;
   int[] availableAnims;
   int[] currentAnim;        // TODO implement this
@@ -434,9 +435,9 @@ public class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void addAnim(){ this.addAnim(this.vizIndex);}
-   void addAnim(int animIndex) {
+   void addAnim(int animIndex) { this.animations.add(animAtIndex(animIndex)); }
     //Object[] classList = new Object[] { new BenjaminsBoxes(this), new StarMesh(this), new Rings(this), new Celtic(this)};
-
+  Anim animAtIndex(int animIndex){
     Anim anim = new Anim(this);
     int index = this.availableAnims[animIndex];    
     switch (index) {
@@ -486,7 +487,7 @@ public class Rig {
       anim = new AllOff(this);
       break;
     }
-    this.animations.add(anim);
+    return anim;
   }
 
 

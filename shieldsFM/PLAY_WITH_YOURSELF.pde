@@ -94,8 +94,8 @@ void playWithYourself(float vizTm) {
   boothCans.flash = shields.c;
 
   // TODO undo this sorry benjamin
-  if (beatCounter % 32 < 8 && beatCounter % 2 == 0) filaments.dimmer = 1;
-  else filaments.dimmer = 0;
+  if (beatCounter % 32 < 8 && beatCounter % 2 == 0) filaments.onBeat = true;
+  else filaments.onBeat = false;
 
   // for (Rig rig : rigs) 
   // {

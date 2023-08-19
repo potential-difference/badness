@@ -174,9 +174,9 @@ void draw()
     
     for (Rig rig : rigs) {
         //if (testToggle) rig.animations.add(new Test(rig));
-
-      rig.addAnim(rig.vizIndex);  // create a new anim object and add it to the beginning of the arrayList
-        
+      if (rig.onBeat){
+        rig.addAnim(rig.vizIndex);  // create a new anim object and add it to the beginning of the arrayList
+      }
       }
   }
 
