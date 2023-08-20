@@ -142,7 +142,7 @@ class BoothCansGrid extends OPCGrid{
     int xdiv = 4;
     opcnodes.get("GreyBox2").led(20,coord.x - coord.wide/xdiv,coord.y-coord.high/ydiv);
     opcnodes.get("GreyBox2").led(0,coord.x + coord.wide/xdiv,coord.y - coord.high/ydiv);
-        opcnodes.get("GreyBox2").led(10,coord.x ,coord.y - coord.high/ydiv);
+    opcnodes.get("GreyBox2").led(10,coord.x ,coord.y - coord.high/ydiv);
     opcnodes.get("GreyBox1").led(40,coord.x ,coord.y + coord.high/ydiv);
 
     opcnodes.get("GreyBox1").led(50,coord.x-coord.wide/xdiv,coord.y + coord.high/ydiv);

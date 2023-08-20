@@ -1,6 +1,21 @@
 void alwaysDoFirst() {
-  //This is confusing.  can these be words please
-  //like, shields.availableAnims = {Donuts,GoodAnim3,BoxesRed} or sth. an enum? can it be an enum?
+  /* //////////////////// ANIM LIST ///////////////////
+    case 0 anim = new BenjaminsBoxes(this);
+    case 1 anim = new StarMesh(this);
+    case 2 anim = new Rings(this);
+    case 3 anim = new Celtic(this);
+    case 4 anim = new SpiralFlower(this);
+    case 5 anim = new TwistedStar(this);
+    case 6 anim = new Stars(this);
+    case 7 anim = new SingleDonut(this);
+    case 8 anim = new BouncingDonut(this);
+    case 9 anim = new BouncingPolo(this);
+    case 10 anim = new Polo(this);
+    case 11 anim = new SquareNuts(this);
+    case 12 anim = new DiagoNuts(this);
+    case 13 anim = new AllOn(this);
+    case 14an im = new AllOff(this);
+    */
 
   for (Rig rig : rigs){
     switch (rig.type){
@@ -10,6 +25,13 @@ void alwaysDoFirst() {
       rig.availableFunctionEnvelopes = new int[] {0, 1, 2};  
       rig.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6};   
       break;
+    // TODO why doesnt this set the anims for the outside rigs?!
+    case OutsideRoof:
+      rig.availableAnims = new int[] {6, 7, 13};      // setup which anims are used on which rig here
+      break;
+    case OutsideGround:
+      rig.availableAnims = new int[] {6, 7, 13};      // setup which anims are used on which rig here
+      break;
     default:
       rig.availableAnims = new int[] {1, 2, 6, 7, 8, 4};      // setup which anims are used on which rig here
       rig.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
@@ -17,8 +39,6 @@ void alwaysDoFirst() {
       rig.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6}; 
     }
   }
-  //shields.availableColors = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
-  //roof.availableColors = shields.availableColors; // = new int[] { 0, 1, 2, 3, 4, 13, 10, 11, 12, 2, 3};
 
   shields.vizIndex = 2;
   shields.functionIndexA = 0;
@@ -52,12 +72,9 @@ void alwaysDoFirst() {
    
   for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
   for (int i = 0; i < 100; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen
-  cc[1] = 0.75;
-  cc[2] = 0.75;
-  cc[5] = 0.3;
-  cc[6] = 0.75;
-  cc[4] = 1;
-  cc[8] = 1;
+  
+  cc[3] = 0.8;    // outside roof constant level
+  cc[12] = 0.4;   // outside ground constant level
 
   for (int i= 36; i < 52; i++)cc[i] = 0;
 
@@ -81,7 +98,7 @@ void alwaysDoFirst() {
   shields.strokeSlider= 1;
   shields.blurriness = 0.2;
 
-  boothCans.dimmer = 0.5;
+  boothCans.dimmer = 0;
 
   tipiLeft.dimmer = 0.3;
   tipiLeft.alphaRate = 0.84;
@@ -95,19 +112,25 @@ void alwaysDoFirst() {
   tipiRight.blurriness = 0.075;
   tipiRight. strokeSlider = 0.9;
 
-  megaSeedB.dimmer = 1;
+  megaSeedB.dimmer = 0.4;
   megaSeedB.alphaRate = 0.9;
   megaSeedB.functionRate = 0.6;
   megaSeedB.blurriness = 0.04;
   megaSeedB.strokeSlider = 0.7;
 
-  megaSeedA.dimmer = 1;
+  megaSeedA.dimmer = 0.4;
   megaSeedA.alphaRate = 0.9;
   megaSeedA.functionRate = 0.6;
   megaSeedA.blurriness = 0.04;
   megaSeedA.strokeSlider = 0.7;
 
-  filaments.dimmer = 0.2;
+  megaSeedB.dimmer = 0.3;
+  megaSeedB.alphaRate = 0.9;
+  megaSeedB.functionRate = 0.6;
+  megaSeedB.blurriness = 0.04;
+  megaSeedB.strokeSlider = 0.7;
+
+  filaments.dimmer = 1;
 
   uvPars.strokeSlider = 1;
   uvPars.dimmer = 0.8;
@@ -120,11 +143,10 @@ void alwaysDoFirst() {
   outsideGround.wideSlider = 1;
   outsideGround.highSlider = 1;
 
-
   // THESE ARE SLIGHTLY DIFFERENT COZ THEY ARENT THEIR OWN RIGS //
-  boothDimmer = 0.18;
-  mixerDimmer = 0.15;
-  digDimmer = 0.11;
+  boothDimmer = 0.12;
+  mixerDimmer = 0.1;
+  // digDimmer = 0.11;
 
   vizTime = 10;          // time in minutes - TODO sort this out onto slider 
   colorChangeTime = 5;  // time in minutes - TODO sort this out onto slider 

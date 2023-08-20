@@ -1,34 +1,20 @@
 float[] lastTime = new float[cc.length];
-
-/*midiMap[46] = (float cc)->{
-  if (cc == 1.0){
-    rigs.get(0).animations.add new StarMesh(rigs.get(0));
-  }
-};
-*/
 void setupMidiActions(){
   newMomentary(100,()->{
     rigs.get(0).colorSwap(0.9999);
   });
-  //MIDI PAD AKAI
-  //      A                   B
-  //48  49  50  51    64  65  66  67
-  //44  45  46  47    60  61  62  63
-  //40  41  42  43    56  57  58  59
-  //36  37  38  39    52  53  54  55
-
-  ///////////////////////////// SHIELDS /////////////////////////////
-
+  //////////////////////////////////////////////////////////////////////
+  ///////////////////////////// SHIELDS ///////////////////////////////////
+  // OFF
   MidiAction shieldsOff = (float velocity) ->{
     for (Anim anim : shields.animations) anim.deleteme = true;
-  //and also prevent pwys from adding more to shields
     shields.onBeat = false;
   };
   noteOnActions[64] = shieldsOff;
   noteOffActions[64] = ()->{
     shields.onBeat = true;
   };
-
+  // ANIM ON 
   noteOnActions[65] = (float velocity) ->{
     Anim anim = shields.animAtIndex(shields.vizIndex);
     shields.animations.add(anim);
@@ -36,24 +22,20 @@ void setupMidiActions(){
       anim.deleteme = true;
     };
   };
-
+  // ALL ON FORVER
   noteOnActions[66] = (float velocity) ->{
-    //get an allonforever anim that has no 
-    // dependence on alpha
-    Anim anim = new AllOnForever(shields, cc[66]);    
-    //add it to the rig
+    Anim anim = new AllOnForever(shields, velocity);    
     shields.animations.add(anim);
     noteOffActions[66] = ()->{
       anim.deleteme = true;
     };
   };
-  ///////////////////////////// TPIPS ////////////////////////////////////////////////
-  // turn off the tips
+  //////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////// LANTERNS ////////////////////////////////////////////////
+  // OFF
   noteOnActions[60] = (float velocity) -> {
-    //delete all the anims
     for (Anim anim : tipiRight.animations) anim.deleteme = true;
     for (Anim anim : tipiLeft.animations) anim.deleteme = true; 
-    //disable adding anims on beats
     tipiRight.onBeat = false;
     tipiLeft.onBeat = false;
   };
@@ -61,8 +43,7 @@ void setupMidiActions(){
     tipiLeft.onBeat = true;
     tipiRight.onBeat = true;
   };
-
-  //both Tipis bang
+  // ANIM ON
   noteOnActions[61] = (float velocity) ->{
     Anim anim = tipiLeft.animAtIndex(tipiLeft.vizIndex);
     tipiLeft.animations.add(anim);
@@ -73,28 +54,24 @@ void setupMidiActions(){
       anim1.deleteme = true;
     };
   };
-
-  //all ON both tipis momentary..
+  // ALL ON FOREVER
   noteOnActions[62] = (float velocity) ->{
-    Anim anim = new AllOnForever(tipiLeft,cc[62]);
-    Anim anim1 = new AllOnForever(tipiRight,cc[62]);
+    Anim anim = new AllOnForever(tipiLeft,velocity);
+    Anim anim1 = new AllOnForever(tipiRight,velocity);
     tipiLeft.animations.add(anim);
     tipiRight.animations.add(anim1);
-
     noteOffActions[62] = ()->{
       anim.deleteme = true;
       anim1.deleteme = true;
     };
   };
-
+  ///////////////////////////////////////////////////////////////////////
   ////////////////////////// MEGA SEEDS ////////////////////////////////////
-  
-  // turn them off
+  // OFF
   noteOnActions[56] = (float velocity) -> {
     for (Anim anim : megaSeedA.animations) anim.deleteme = true;
     for (Anim anim : megaSeedB.animations) anim.deleteme = true;
     for (Anim anim : megaSeedC.animations) anim.deleteme = true;
-
     megaSeedA.onBeat = false;
     megaSeedB.onBeat = false;
     megaSeedC.onBeat = false;
@@ -104,8 +81,7 @@ void setupMidiActions(){
     megaSeedB.onBeat = true;
     megaSeedC.onBeat = true;
   };
-
-  //all megaseeds bang
+  // ANIM ON
   noteOnActions[57] = (float velocity) ->{
     Anim animA = megaSeedA.animAtIndex(megaSeedA.vizIndex);
     Anim animB = megaSeedB.animAtIndex(megaSeedB.vizIndex);
@@ -119,12 +95,11 @@ void setupMidiActions(){
       animC.deleteme = true;
     };
   };
-  // all megaseds all on
+  // ALL ON FOREVER
   noteOnActions[58] = (float velocity) ->{
-    Anim animA = new AllOnForever(megaSeedA,cc[124]);
-    Anim animB = new AllOnForever(megaSeedB,cc[124]);
-    Anim animC = new AllOnForever(megaSeedC,cc[124]);
-
+    Anim animA = new AllOnForever(megaSeedA,velocity);
+    Anim animB = new AllOnForever(megaSeedB,velocity);
+    Anim animC = new AllOnForever(megaSeedC,velocity);
    megaSeedA.animations.add(animA);
    megaSeedB.animations.add(animB);
    megaSeedC.animations.add(animC);
@@ -134,40 +109,17 @@ void setupMidiActions(){
       animC.deleteme = true;
     };
   };
-
-/////////////// FILLAMENTS ///////////////////////////////////
-  // filaments.manualAlpha = cc[9]; 
-  // TODO figure this out so that controller knobs affect the 
-  // bightness off the all on amin 
-  // we have manuaAlpah but im not sure execactly what its doing here
-  noteOnActions[67] = (float velocity)->{
-    Anim anim = new AllOn(filaments);
-    filaments.animations.add(anim);
-    noteOffActions[67] = ()->{
-      anim.deleteme = true;
-    };
-  }; 
-  noteOnActions[63] = (float velocity)->{
-     Anim anim = new AllOnForever(filaments,cc[63]);
-    filaments.animations.add(anim);
-    noteOffActions[63] = ()->{
-      anim.deleteme = true;
-    };
-  };
-  
-  //////////////////////////////////////// UV PARS 
+  /////////////////////////////////////////////////////////////////////
+  //////////////////////////// UV PARS //////////////////////////////// 
+  // OFF
   noteOnActions[52] = (float velocity) -> {
-    //delete all the anims
     for (Anim anim : uvPars.animations) anim.deleteme = true;
-    //disable adding anims on beats
     uvPars.onBeat = false;
   };
-  
-  //when the button lifts, re-enable beat adding 
   noteOffActions[52] = () -> {
     uvPars.onBeat = true;
   };
-
+  // ANIM ON
   noteOnActions[53] = (float velocity) ->{
     Anim anim = uvPars.animAtIndex(uvPars.vizIndex);
     uvPars.animations.add(anim);
@@ -175,19 +127,32 @@ void setupMidiActions(){
       anim.deleteme = true;
     };
   };
-
+  // ALL ON FOREVER
   noteOnActions[54] = (float velocity) ->{
-    //get an allonforever anim that has no 
-    // dependence on alpha
     Anim anim = new AllOnForever(uvPars,velocity);    
-    //add it to the rig
     uvPars.animations.add(anim);
     noteOffActions[54] = ()->{
       anim.deleteme = true;
     };
   };
-  
-
+  /////////////////////////////////////////////////////////////////////////
+  ////////////////////////// FILLAMENTS ///////////////////////////////////
+  // ANIM ON
+  noteOnActions[67] = (float velocity)->{
+    Anim anim = new AllOn(filaments);
+    filaments.animations.add(anim);
+    noteOffActions[67] = ()->{
+      anim.deleteme = true;
+    };
+  }; 
+  // ALL ON FOREVER
+  noteOnActions[63] = (float velocity)->{
+     Anim anim = new AllOnForever(filaments,velocity);
+    filaments.animations.add(anim);
+    noteOffActions[63] = ()->{
+      anim.deleteme = true;
+    };
+  };
 }
 
 void playWithMe() {

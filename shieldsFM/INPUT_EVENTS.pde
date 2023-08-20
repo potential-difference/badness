@@ -171,10 +171,9 @@ void oscEvent(OscMessage theOscMessage) {
   //addr[addr.length-1]="";
   //String address=String.join("/", addr);
   //int argument = (int)theOscMessage.arguments()[0];
-  
+  println();
   print("received osc message to "); // TODO ADD message arguments to this ....??
   printArray(addr);
-  println();
   Object obj = this;
   Field fld;
   try{
@@ -184,7 +183,9 @@ void oscEvent(OscMessage theOscMessage) {
       }
     fld = obj.getClass().getDeclaredField(addr[addr.length-1]);
     fld.set(obj,theOscMessage.arguments()[0]);
-    if (keyT['q']) println("set ",fld.getName(),"to ",theOscMessage.arguments()[0]);
+    // if (keyT['q']) println("set ",fld.getName(),"to ",theOscMessage.arguments()[0]);
+    println("set ",fld.getName(),"to ",theOscMessage.arguments()[0]);
+    println();
   }catch(Exception e){
     print("osc message ");
     printArray(addr);

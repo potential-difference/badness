@@ -41,6 +41,8 @@ class AllOnForever extends Anim {
   void draw(){
     float knob = cc[9];
     window.beginDraw();
+    //if (rig.type == RigType.Filaments) window.background(360*__velocity);
+    //else window.background(360*__velocity*knob);
     window.background(360*__velocity*knob);
     window.endDraw();
   }
