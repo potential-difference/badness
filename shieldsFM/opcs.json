@@ -6,7 +6,8 @@
     {"name" : "MedShieldB", "ip" : "192.168.10.14", "type" : "WLED", "port" : 21324},
     {"name" : "SmallShieldC", "ip" : "192.168.10.15", "type" : "WLED", "port" : 21324},
     {"name" : "MedShieldC", "ip" : "192.168.10.16", "type" : "WLED", "port" : 21324},
-    {"name" : "Entec", "ip" : "192.168.10.5", "type" : "OPC", "port" : 7890,
+  
+    {"name" : "Entec", "ip" : "192.168.10.6", "type" : "OPC", "port" : 7890,
         "channels" : [
             
             {"name" : "uv_left", "start" : 11, "pixels" : [3]},

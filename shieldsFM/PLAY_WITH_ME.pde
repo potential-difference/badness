@@ -52,15 +52,11 @@ void setupMidiActions(){
   // turn off the tips
   noteOnActions[60] = (float velocity) -> {
     //delete all the anims
-    for (Anim anim : tipiLeft.animations) anim.deleteme = true;
-    //disable adding anims on beats
-    tipiLeft.onBeat = false;
-  };
-  noteOnActions[60] = (float velocity) -> {
-    //delete all the anims
     for (Anim anim : tipiRight.animations) anim.deleteme = true;
+    for (Anim anim : tipiLeft.animations) anim.deleteme = true; 
     //disable adding anims on beats
     tipiRight.onBeat = false;
+    tipiLeft.onBeat = false;
   };
   noteOffActions[60] = () -> {
     tipiLeft.onBeat = true;
@@ -75,6 +71,7 @@ void setupMidiActions(){
     tipiRight.animations.add(anim1); 
     noteOffActions[61] = ()->{
       anim.deleteme = true;
+      anim1.deleteme = true;
     };
   };
 
@@ -83,10 +80,11 @@ void setupMidiActions(){
     Anim anim = new AllOnForever(tipiLeft);
     Anim anim1 = new AllOnForever(tipiRight);
     tipiLeft.animations.add(anim);
-        tipiRight.animations.add(anim1);
+    tipiRight.animations.add(anim1);
 
     noteOffActions[62] = ()->{
       anim.deleteme = true;
+      anim1.deleteme = true;
     };
   };
 
