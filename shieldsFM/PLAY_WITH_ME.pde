@@ -17,7 +17,7 @@ void setupMidiActions(){
   //40  41  42  43    56  57  58  59
   //36  37  38  39    52  53  54  55
 
-  
+  ///////////////////////////// SHIELDS /////////////////////////////
 
   MidiAction shieldsOff = (float velocity) ->{
     for (Anim anim : shields.animations) anim.deleteme = true;
@@ -37,11 +37,10 @@ void setupMidiActions(){
     };
   };
 
-  //allON shields momentary..
   noteOnActions[66] = (float velocity) ->{
     //get an allonforever anim that has no 
     // dependence on alpha
-    Anim anim = new AllOnForever(shields);    
+    Anim anim = new AllOnForever(shields, cc[66]);    
     //add it to the rig
     shields.animations.add(anim);
     noteOffActions[66] = ()->{
@@ -77,8 +76,8 @@ void setupMidiActions(){
 
   //all ON both tipis momentary..
   noteOnActions[62] = (float velocity) ->{
-    Anim anim = new AllOnForever(tipiLeft);
-    Anim anim1 = new AllOnForever(tipiRight);
+    Anim anim = new AllOnForever(tipiLeft,cc[62]);
+    Anim anim1 = new AllOnForever(tipiRight,cc[62]);
     tipiLeft.animations.add(anim);
     tipiRight.animations.add(anim1);
 
@@ -122,9 +121,9 @@ void setupMidiActions(){
   };
   // all megaseds all on
   noteOnActions[58] = (float velocity) ->{
-    Anim animA = new AllOnForever(megaSeedA);
-    Anim animB = new AllOnForever(megaSeedB);
-    Anim animC = new AllOnForever(megaSeedC);
+    Anim animA = new AllOnForever(megaSeedA,cc[124]);
+    Anim animB = new AllOnForever(megaSeedB,cc[124]);
+    Anim animC = new AllOnForever(megaSeedC,cc[124]);
 
    megaSeedA.animations.add(animA);
    megaSeedB.animations.add(animB);
@@ -149,7 +148,7 @@ void setupMidiActions(){
     };
   }; 
   noteOnActions[63] = (float velocity)->{
-     Anim anim = new AllOnForever(filaments);
+     Anim anim = new AllOnForever(filaments,cc[63]);
     filaments.animations.add(anim);
     noteOffActions[63] = ()->{
       anim.deleteme = true;
@@ -180,7 +179,7 @@ void setupMidiActions(){
   noteOnActions[54] = (float velocity) ->{
     //get an allonforever anim that has no 
     // dependence on alpha
-    Anim anim = new AllOnForever(uvPars);    
+    Anim anim = new AllOnForever(uvPars,velocity);    
     //add it to the rig
     uvPars.animations.add(anim);
     noteOffActions[54] = ()->{

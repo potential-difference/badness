@@ -33,12 +33,15 @@ class AllOn extends Anim {
   }
 }
 class AllOnForever extends Anim {
-  AllOnForever(Rig _rig){
+  float __velocity;
+  AllOnForever(Rig _rig, float _velocity){
     super(_rig);
+    __velocity = _velocity;
   }
   void draw(){
+    float knob = cc[9];
     window.beginDraw();
-    window.background(360);
+    window.background(360*__velocity*knob);
     window.endDraw();
   }
 }
