@@ -62,9 +62,6 @@ void setupMidiActions(){
     //disable adding anims on beats
     tipiRight.onBeat = false;
   };
-
-  
-  //when the button lifts, re-enable beat adding 
   noteOffActions[60] = () -> {
     tipiLeft.onBeat = true;
     tipiRight.onBeat = true;
@@ -74,42 +71,58 @@ void setupMidiActions(){
   noteOnActions[61] = (float velocity) ->{
     Anim anim = tipiLeft.animAtIndex(tipiLeft.vizIndex);
     tipiLeft.animations.add(anim);
-    Anim anim = tipiRight.animAtIndex(tipiRight.vizIndex);
-    tipiRight.animations.add(anim); 
+    Anim anim1 = tipiRight.animAtIndex(tipiRight.vizIndex);
+    tipiRight.animations.add(anim1); 
     noteOffActions[61] = ()->{
       anim.deleteme = true;
     };
   };
 
-  //allON both tipis momentary..
+  //all ON both tipis momentary..
   noteOnActions[62] = (float velocity) ->{
     Anim anim = new AllOnForever(tipiLeft);
-    Anim anim = new AllOnForever(tipiRight);
+    Anim anim1 = new AllOnForever(tipiRight);
     tipiLeft.animations.add(anim);
+        tipiRight.animations.add(anim1);
+
     noteOffActions[62] = ()->{
       anim.deleteme = true;
     };
   };
 
   ////////////////////////// MEGA SEEDS ////////////////////////////////////
+  
+  // turn them off
+  noteOnActions[56] = (float velocity) -> {
+    for (Anim anim : megaSeedA.animations) anim.deleteme = true;
+    for (Anim anim : megaSeedB.animations) anim.deleteme = true;
+    for (Anim anim : megaSeedC.animations) anim.deleteme = true;
+
+    megaSeedA.onBeat = false;
+    megaSeedB.onBeat = false;
+    megaSeedC.onBeat = false;
+  };
+  noteOffActions[56] = () -> {
+    megaSeedA.onBeat = true;
+    megaSeedB.onBeat = true;
+    megaSeedC.onBeat = true;
+  };
 
   //all megaseeds bang
-  noteOnActions[53] = (float velocity) ->{
+  noteOnActions[57] = (float velocity) ->{
     Anim animA = megaSeedA.animAtIndex(megaSeedA.vizIndex);
     Anim animB = megaSeedB.animAtIndex(megaSeedB.vizIndex);
     Anim animC = megaSeedC.animAtIndex(megaSeedC.vizIndex);
     megaSeedA.animations.add(animA);
     megaSeedB.animations.add(animB);
     megaSeedC.animations.add(animC);
-    noteOffActions[53] = ()->{
+    noteOffActions[57] = ()->{
       animA.deleteme = true;
       animB.deleteme = true;
       animC.deleteme = true;
     };
   };
-
-
- //allON all megaseeds momentary..
+  // all megaseds all on
   noteOnActions[58] = (float velocity) ->{
     Anim animA = new AllOnForever(megaSeedA);
     Anim animB = new AllOnForever(megaSeedB);
@@ -125,29 +138,27 @@ void setupMidiActions(){
     };
   };
 
-  // TODO this needs to be shields stilll  SEHIDLS STROBE
+/////////////// FILLAMENTS ///////////////////////////////////
+  // filaments.manualAlpha = cc[9]; 
+  // TODO figure this out so that controller knobs affect the 
+  // bightness off the all on amin 
+  // we have manuaAlpah but im not sure execactly what its doing here
   noteOnActions[67] = (float velocity)->{
     Anim anim = new AllOn(filaments);
     filaments.animations.add(anim);
     noteOffActions[67] = ()->{
       anim.deleteme = true;
     };
-  };
-  //filaments right
+  }; 
   noteOnActions[63] = (float velocity)->{
      Anim anim = new AllOnForever(filaments);
     filaments.animations.add(anim);
     noteOffActions[63] = ()->{
       anim.deleteme = true;
+    };
   };
-  //filaments centre
-  noteOnActions[59] = (float velocity)->{
-
-  };
-  //filaments strobe with rate. see below under stutter
-
-
-  ///////////////// UV PARS 
+  
+  //////////////////////////////////////// UV PARS 
   noteOnActions[52] = (float velocity) -> {
     //delete all the anims
     for (Anim anim : uvPars.animations) anim.deleteme = true;
@@ -160,15 +171,14 @@ void setupMidiActions(){
     uvPars.onBeat = true;
   };
 
-  noteOnActions[54] = (float velocity) ->{
+  noteOnActions[53] = (float velocity) ->{
     Anim anim = uvPars.animAtIndex(uvPars.vizIndex);
     uvPars.animations.add(anim);
-    noteOffActions[54] = ()->{
+    noteOffActions[53] = ()->{
       anim.deleteme = true;
     };
   };
 
-   //allON shields momentary..
   noteOnActions[54] = (float velocity) ->{
     //get an allonforever anim that has no 
     // dependence on alpha
@@ -179,41 +189,9 @@ void setupMidiActions(){
       anim.deleteme = true;
     };
   };
-  //all megaseeds 
-  noteOnActions[52] = (float velocity) -> {
-    for (Anim anim : megaSeedA.animations) anim.deleteme = true;
-    for (Anim anim : megaSeedB.animations) anim.deleteme = true;
-    for (Anim anim : megaSeedC.animations) anim.deleteme = true;
-
-    megaSeedA.onBeat = false;
-    megaSeedB.onBeat = false;
-    megaSeedC.onBeat = false;
-  };
-  noteOffActions[52] = () -> {
-    megaSeedA.onBeat = true;
-    megaSeedB.onBeat = true;
-    megaSeedC.onBeat = true;
-  };
-
-
-  MidiAction allFlash = (float velocity)->{
-    for (Rig rig: rigs){
-      rig.animations.add(new AllOn(rig));
-    } 
-  };
-  noteOnActions[46] = allFlash;
-
-  MidiAction allAnim =  (float velocity)->{
-    for(Rig rig: rigs){
-      rig.addAnim();
-    }
-  };
-  noteOnActions[47] = allAnim;
   
-  noteOnActions[49] = (float velocity)->{
-    rigs.get(0).colorFlip(true);
-  };
-};
+
+}
 
 void playWithMe() {
 
