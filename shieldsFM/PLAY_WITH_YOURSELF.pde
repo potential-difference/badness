@@ -93,18 +93,35 @@ void playWithYourself(float vizTm) {
   boothCans.c = shields.flash;
   boothCans.flash = shields.c;
 
-  // TODO undo this sorry benjamin
+  // TODO make this proper beatLOGIS
   if (beatCounter % 32 < 8 && beatCounter % 2 == 0) filaments.onBeat = true;
   else filaments.onBeat = false;
 
-  // for (Rig rig : rigs) 
-  // {
-  //   switch (rig){
-  //     case cans:  if (beatCounter % 18 < 4) colorLerping(rig,(1-beat)*4);break;
-  //     case roof:
-  //       if (beatCounter % 32 > 27) colorLerping(rig,(1-beat)*3);break;
-  //   }
-  // }
+  for (Rig rig : rigs) 
+  {
+    switch (rig.type){
+      case Shields:  
+      if (beatCounter % 18 < 4) colorLerping(rig,(1-beat)*4);
+      break;
+      case TipiLeft:
+        if (beatCounter % 16 > 27) colorLerping(rig,(1-beat)*3);
+        break;
+      case TipiRight:
+        if (beatCounter % 16 > 27) colorLerping(rig,(1-beat)*3);
+        break;
+      case MegaSeedA:
+        if (beatCounter % 32 < 6) colorLerping(rig,(1-beat)*3);
+        break;
+      case MegaSeedB:
+        if (beatCounter % 32 < 6) colorLerping(rig,(1-beat)*3);
+        break;
+      case MegaSeedC:
+        if (beatCounter % 16 < 2) colorLerping(rig,(1-beat)*3);
+        break;
+      default:
+       if (beatCounter % 64 > 60) colorLerping(rig,(1-beat)*4);
+    }
+  }
   
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
