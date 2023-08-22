@@ -25,7 +25,9 @@ void alwaysDoFirst() {
       rig.availableFunctionEnvelopes = new int[] {0, 1, 2};  
       rig.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6};   
       break;
-    // TODO why doesnt this set the anims for the outside rigs?!
+    case FrontCans:
+      rig.availableAnims = new int[] {6, 7, 13};      // setup which anims are used on which rig here
+      break;
     case OutsideRoof:
       rig.availableAnims = new int[] {6, 7, 13};      // setup which anims are used on which rig here
       break;
