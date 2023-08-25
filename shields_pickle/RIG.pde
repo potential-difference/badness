@@ -417,7 +417,7 @@ public class Rig {
   // TODO improve the variation on this so that it can be controlled by slider / pad
   void colorSwap(float spd) {
     int swap = int(millis()/70*spd % 2);
-    println("swap: "+swap);
+    // println("swap: "+swap);
     int colA = c;
     int colB = flash;
     if ( swap == 0) {
@@ -432,6 +432,7 @@ public class Rig {
     if (toggle) {
       c = colB;
       flash = colA;
+      println("color flip");
     }
   }
   ///////////////////////////////////////// CLASH COLOR SETUP /////////////////////////////////

@@ -27,19 +27,15 @@ void setupMidiActions(){
   allOnForeverBangButton(63,filaments);       // ALL ON FOREVER BANG BUTTON: noteNumber, rig objects to add animation to
   /////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////////////////////////////////
-  //colorSwapBangButton(59,shields,tipiLeft,tipiRight,megaSeedA,megaSeedB,megaSeedC,uvPars,filaments); // COLOR SWAP BANG BUTTON: noteNumber, rig objects to add animation to
-  colorFlipBangButton(55,shields,tipiLeft,tipiRight,megaSeedA,megaSeedB,megaSeedC,uvPars,filaments); // COLOR FLIP BANG BUTTON: noteNumber, rig objects to add animation to
+  
+  
+  colorSwapBangButton(59,shields); // COLOR SWAP BANG BUTTON: noteNumber, rig objects to add animation to
+  colorFlipBangButton(55,shields); // COLOR FLIP BANG BUTTON: noteNumber, rig objects to add animation to
 
-  // MOMENTARY ACTION that sets colorSwap for the given rig objects
-  midiManager.newMomentary(59, (float velocity) ->{
-    for (Rig rig : rigs) {
-      rig.colorSwap(velocity);
-      // println rig.type, "colorSwap", rig.colorSwapRate;
-      println(rig.type, "colorSwap", rig.colorSwapRate);
-    }
-  });
   
-  
+// CONSTANT BUTTON sets colorSwap for the given rig objects
+  midiManager.constantButton(59, shields.colorSwap, 0.5, shields); // COLOR SWAP CONSTANT BUTTON: noteNumber, rig objects to add animation to
+
 }
 
 void playWithMe() {
@@ -206,7 +202,6 @@ void animOnBangButton(int noteNumber, Rig... rigs) {
   };
 }
 
-
 // MOMENTARY PAD BUTTON adds ALL ON FOREVER to the given rig objects
 void allOnForeverBangButton(int noteNumber, Rig... rigs) {
   AnimationHolder[] animationHolders = new AnimationHolder[rigs.length];
@@ -231,14 +226,16 @@ void allOnForeverBangButton(int noteNumber, Rig... rigs) {
   };
 }
 
+
 // MOMENTARY PAD BUTTON sets colourSwap for the given rig objects
 void colorSwapBangButton(int noteNumber, Rig... rigs) {
-  midiManager.noteOnActions[noteNumber] = (float velocity) ->{
+  midiManager.everyFrameActions[noteNumber] = (velocity) ->{
+   if (velocity > 0) { // Check if the button is pressed (velocity > 0)
     for (Rig rig : rigs) {
       rig.colorSwap(velocity);
-      // println rig.type, "colorSwap", rig.colorSwapRate;
       println(rig.type, "colorSwap", rig.colorSwapRate);
     }
+   }
     midiManager.noteOffActions[noteNumber] = () ->{
       for (Rig rig : rigs) {
         // set colorSwap to the default rate
@@ -251,13 +248,14 @@ void colorSwapBangButton(int noteNumber, Rig... rigs) {
 // MOMENTARY PAD BUTTON sets colorFlip for the given rig objects
 void colorFlipBangButton(int noteNumber, Rig... rigs) {
   // set the noteOn action for the given note number
-  midiManager.noteOnActions[noteNumber] = (float velocity) ->{
-    for (Rig rig : rigs) rig.colorFlip(true);
-    };
+  midiManager.noteOnActions[noteNumber] = (velocity) ->{
+    if (velocity > 0) { // Check if the button is pressed (velocity > 0)
+      for (Rig rig : rigs) rig.colorFlip(true);
+    }
     midiManager.noteOffActions[noteNumber] = () ->{
       for (Rig rig : rigs) rig.colorFlip(false);
     };
-  
+  };
 }
  
 

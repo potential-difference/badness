@@ -29,7 +29,7 @@ class MidiManager {
     }
 
     public void newMomentary(int note, FrameAction action) {
-        final int noteCopy = note; // Make a copy of the note
+        final int noteCopy = note; // Make a static copy of the note variable to use in the lambda
         noteOnActions[note] = velocity -> {
             everyFrameActions[noteCopy] = action;
             noteOffActions[noteCopy] = () -> {
@@ -37,7 +37,23 @@ class MidiManager {
             };
         };
     }
+    
+    public void constantButton(int noteNumber, Consumer<Float> function, float thisFunctionRate, Rig rig) {
+        everyFrameActions[noteNumber] = velocity -> {
+            if (velocity > 0.0f) {
+               // for (Rig rig : rigs) {
+                    function.accept(velocity);
+                    println(rig.type, "action performed");
+               // }
+            }
+        };
 
+        noteOffActions[noteNumber] = () -> {
+          //  for (Rig rig : rigs) {
+                function.accept(thisFunctionRate); // Use the provided function rate
+           // }
+        };
+    }
 
     public void processFrame() {
       // Process frame actions here
@@ -78,12 +94,14 @@ boolean padPressed[] = new boolean[128];
     }
 
 float cc[] = new float[128];                   //// An array where to store the last value received for each CC controller
-void controllerChange(int channel, int number, int controllerChangeValue) {
-  cc[number] = map(controllerChangeValue, 0, 127, 0, 1);
-  println("cc[" + number + "]", "Velocity: "+cc[controllerChangeValue], "Channel: "+channel);
+void controllerChange(int channel, int number, int _controllerChangeValue) {
+  cc[number] = map(_controllerChangeValue, 0, 127, 0, 1);
+  // number is the cc index
+  // cc[number] is the value
+  println("cc[" + number + "]", "Velocity: "+cc[number], "Channel: "+channel);
   //see if cc value is associated in our midi mapping
   if (midiManager.ccActions[number]!=null){
-    midiManager.ccActions[number].send(cc[controllerChangeValue]);
+    midiManager.ccActions[number].send(cc[number]);
   }
  
 }
