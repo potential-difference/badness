@@ -1,4 +1,5 @@
 PrintWriter outputmd; // Global variable to hold the PrintWriter object
+MidiManager midiManager; // Declare MidiManager instance
 
 import java.util.*;
 import static java.util.Map.entry;  
@@ -134,6 +135,7 @@ void setup()
   frontCans.opcgrid = new CircularRoofGrid(frontCans,OPCs,channels,frontCanChannels);
 
   audioSetup(100, 0.2); ///// AUDIO SETUP - sensitivity, beatTempo /////
+  midiManager = new MidiManager();        // Initialize MidiManager
   midiSetup();
   drawingSetup();
   loadImages();
@@ -152,6 +154,8 @@ void setup()
 //////////////////////////////////////////////////////////////////////////////////////
 void draw()
 {
+  midiManager.processFrame();   // Process frame actions
+
   int start_time = millis();
   surface.setAlwaysOnTop(onTop);
   background(0);

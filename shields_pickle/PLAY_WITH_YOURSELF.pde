@@ -45,6 +45,7 @@ void playWithYourself(float vizTm) {
 
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////// COLORSWAP TIMER /////////////////////////////////////////////////////////////////
+ /*
   if (colorSwapSlider > 0) for (Rig rig : rigs) rig.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
   for (Rig rig : rigs){
     switch(rig.type){
@@ -59,10 +60,11 @@ void playWithYourself(float vizTm) {
       if (beatCounter%82 > 78) rig.colorSwap(noize);
     }
   }
+  */
   ////////////////////////////////////////// COLOR FLIP ///////////////////////////////////////////////////////////////////
-  for (int i = 16; i<22; i+=2) if ( beatCounter % 128 == i) rigs.get(0).colFlip = true;
-  else rigs.get(0).colFlip = false;
-  for (Rig rig : rigs) rig.colorFlip(shields.colFlip);
+  // for (int i = 16; i<22; i+=2) if ( beatCounter % 128 == i) shields.colorFlip(true);
+  // else shields.colorFlip(false);
+  // for (Rig rig : rigs) rig.colorFlip(shields.colFlip);
   ///////////////////////////////////////// LERP COLOUR //////////////////////////////////////////////////////////////////
   //colBeat = false;
   // if (beatCounter % 18 > 15)  colorLerping(shields, (1-beat)*4);

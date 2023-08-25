@@ -414,17 +414,18 @@ public class Rig {
     return color(h, lerp(s1, s2, amt), lerp(b1, b2, amt));
   }
   ////////////////////////////// COLOR SWAP //////////////////////////////////
+  // TODO improve the variation on this so that it can be controlled by slider / pad
   void colorSwap(float spd) {
-    int t = int(millis()/70*spd % 2);
+    int swap = int(millis()/70*spd % 2);
+    println("swap: "+swap);
     int colA = c;
     int colB = flash;
-    if ( t == 0) {
+    if ( swap == 0) {
       c = colB;
       flash = colA;
     } 
   } 
   ////////////////////////////// COLOR FLIP //////////////////////////////////
-  boolean colFlip;
   void colorFlip(boolean toggle) {
     int colA = c;
     int colB = flash;
