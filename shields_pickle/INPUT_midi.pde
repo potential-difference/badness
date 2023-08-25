@@ -23,8 +23,14 @@ class MidiManager {
         // Initialize noteOnActions and noteOffActions here
         for (int i = 0; i < numNotes; i++) {
             int note = i;
+            // pass velocity from the noteOn event to the everyFrameAction
             noteOnActions[note] = velocity -> everyFrameActions[note] = null;
+            // println to show this is working
+            println("noteOnActions["+note+"]", "Velocity: "+noteOnActions[note]);
+            
             noteOffActions[note] = () -> everyFrameActions[note] = null;
+            // println to show this is working
+            println("noteOffActions["+note+"]");
         }
     }
 
