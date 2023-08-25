@@ -29,7 +29,7 @@ void setupMidiActions(){
   /////////////////////////////////////////////////////////////////////////
   
   
-  colorSwapBangButton(59,shields); // COLOR SWAP BANG BUTTON: noteNumber, rig objects to add animation to
+  colorSwapBangButton(59,shields,tipiLeft); // COLOR SWAP BANG BUTTON: noteNumber, rig objects to add animation to
   colorFlipBangButton(55,shields,tipiLeft); // COLOR FLIP BANG BUTTON: noteNumber, rig objects to add animation to
 
   /*
@@ -233,7 +233,13 @@ void allOnForeverBangButton(int noteNumber, Rig... rigs) {
 // MOMENTARY PAD BUTTON sets colorSwap for the given rig objects
 void colorFlipBangButton(int noteNumber, Rig... rigs) {
   midiManager.momentarySwitch(noteNumber, velocity -> {
-    if (velocity > 0) for (Rig rig : rigs) rig.colorFlip(true);
+    if (velocity > 0) {
+      for (Rig rig : rigs) {
+        rig.colorFlip(true);
+        println(rig.type," colorFlip", velocity); // velocity always = 1 currently 
+        // though i'd fixed this!!
+      }
+    }
   });
 }
 
@@ -242,9 +248,6 @@ void colorFlipBangButton(int noteNumber, Rig... rigs) {
 // MOMENTARY PAD BUTTON sets colorSwap for the given rig objects
 // TODO this is WIP and doesn't work yet 
 void colorSwapBangButton(int noteNumber, Rig... rigs) {
-  // start a momemtary process that runs while the button is held down
-  // this is slightly different from the momentarySwitch because it doesn't
-  // doesnt have any parameters
   midiManager.momentaryProcess(noteNumber, velocity -> {
     if (velocity > 0) { // Check if the button is pressed (velocity > 0)
       for (Rig rig : rigs){
