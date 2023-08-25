@@ -225,7 +225,7 @@ void colorSwapBangButton(int noteNumber, Rig... rigs) {
     // Loop through each provided Rig object
     for (Rig rig : rigs) {
       // get the animation at the current vizIndex and add it to the animations list
-      rig.colorSwap(cc[15]);
+      rig.colorSwap(velocity);
     }
     // set the noteOff action for the given note number
     noteOffActions[noteNumber] = () ->{
