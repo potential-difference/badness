@@ -10,7 +10,7 @@ class Anim {
   PGraphics window, pass1, pass2;
   float alph[] = new float[7];
   float func[] = new float[8];
-  boolean deleteme=false;
+  boolean deleteme = false, manuallyAdded = false;
   String animName;
   Envelope alphaEnvelopeA, alphaEnvelopeB, functionEnvelopeA, functionEnvelopeB;
   Ref dimmer;
@@ -79,7 +79,7 @@ class Anim {
     if (!Float.isNaN(funcZ)) functionB = funcZ;
     //functionB = functionEnvelopeB.value(now);
 
-    if (alphaEnvelopeA.end_time<now && alphaEnvelopeB.end_time<now) deleteme = true;  // only delete when all finished
+    if (alphaEnvelopeA.end_time<now && alphaEnvelopeB.end_time<now && !manuallyAdded) deleteme = true;  // only delete when all finished
 
     this.draw();
     blurPGraphics();

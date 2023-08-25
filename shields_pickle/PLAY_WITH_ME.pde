@@ -210,23 +210,48 @@ void animOnBangButton(int noteNumber, Rig... rigs) {
     };
   };
 }
+
 // MOMENTARY PAD BUTTON adds ALL ON FOREVER to the given rig objects
 void allOnForeverBangButton(int noteNumber, Rig... rigs) {
+  AnimationHolder[] animationHolders = new AnimationHolder[rigs.length];
+  
   midiManager.noteOnActions[noteNumber] = velocity -> {
-    for (Rig rig : rigs) {
-      rig.animations.add(new AllOnForever(rig, velocity));
+    for (int i = 0; i < rigs.length; i++) {
+      Rig rig = rigs[i];
+      Anim animation = new AllOnForever(rig, velocity);
+      animation.manuallyAdded = true; // Flag the animation as not flagged
+      animationHolders[i] = new AnimationHolder(rig, animation);
+      rig.animations.add(animationHolders[i].animation);
     }
+  };
 
-    midiManager.noteOffActions[noteNumber] = () -> {
-      for (Rig rig : rigs) {
-        int lastIndex = rig.animations.size() - 1;
-        if (lastIndex >= 0) {
-          rig.animations.get(lastIndex).deleteme = true;
+  midiManager.noteOffActions[noteNumber] = () -> {
+    for (AnimationHolder animationHolder : animationHolders) {
+      if (animationHolder != null) {
+        if (animationHolder.animation.manuallyAdded) {
+          System.out.println("Flagged animation for deletion: " + animationHolder.animation);
+          animationHolder.animation.deleteme = true;
         }
+        
       }
-    };
+    }
   };
 }
+
+
+
+// A class to hold both the rig and the associated animation
+class AnimationHolder {
+  Rig rig;
+  Anim animation;
+
+  AnimationHolder(Rig rig, Anim animation) {
+    this.rig = rig;
+    this.animation = animation;
+  }
+}
+
+
 
 
 // MOMENTARY PAD BUTTON sets colourSwap for the given rig objects
