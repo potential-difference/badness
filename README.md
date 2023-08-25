@@ -1,12 +1,16 @@
-# badness
+# PICKLE OCTOBER 2023 
 
-MERGED CODE THAT RAN SUNDAY NIGHT OF FM2023
+## Jane Fitz & Matthew Dexter
+https://ra.co/events/1762418
 
-will add notes here of setup as and when
+Spiral shields rig setup
+filaments
+some lanterns
+some cans
 
+UV DMX and smoke
+loads of haze
+loads of fun!
 
-working code for each event - new branches for development and merged back here for archive
-
-
-one_shot_wavs inside seperate folder no longer in data folder for easy switching between machines and pulling of sketches
-
+benjamins midi pad for bang buttons
+matts midi pad for tuning the rig
