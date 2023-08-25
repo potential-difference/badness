@@ -219,17 +219,16 @@ void allOnForeverBangButton(int noteNumber, Rig... rigs) {
     for (int i = 0; i < rigs.length; i++) {
       Rig rig = rigs[i];
       Anim animation = new AllOnForever(rig, velocity);
-      animation.manuallyAdded = true; // Flag the animation as not flagged
+      println("velocity ",velocity);
+      animation.manuallyAdded = true;   // flag anim as manually added so it doesn't get deleted by PLAY WITH YOURSELF
       animationHolders[i] = new AnimationHolder(rig, animation);
       rig.animations.add(animationHolders[i].animation);
     }
   };
-
   midiManager.noteOffActions[noteNumber] = () -> {
     for (AnimationHolder animationHolder : animationHolders) {
       if (animationHolder != null) {
         if (animationHolder.animation.manuallyAdded) {
-          System.out.println("Flagged animation for deletion: " + animationHolder.animation);
           animationHolder.animation.deleteme = true;
         }
         
@@ -237,22 +236,6 @@ void allOnForeverBangButton(int noteNumber, Rig... rigs) {
     }
   };
 }
-
-
-
-// A class to hold both the rig and the associated animation
-class AnimationHolder {
-  Rig rig;
-  Anim animation;
-
-  AnimationHolder(Rig rig, Anim animation) {
-    this.rig = rig;
-    this.animation = animation;
-  }
-}
-
-
-
 
 // MOMENTARY PAD BUTTON sets colourSwap for the given rig objects
 void colorSwapBangButton(int noteNumber, Rig... rigs) {

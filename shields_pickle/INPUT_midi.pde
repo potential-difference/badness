@@ -61,11 +61,12 @@ boolean padPressed[] = new boolean[128];
   
    
 
-    public void noteOn(int channel, int pitch, int velocity) {
-        // Handle note on event here
-        midiManager.noteOnActions[pitch].send(velocity);
-        // println to show this is working
-        println("noteOnActions["+pitch+"]", "Velocity: "+velocity);
+    public void noteOn(int channel, int pitch, int _velocity) {
+      float velocity = map(_velocity, 0, 127, 0, 1);
+      // Handle note on event here
+      midiManager.noteOnActions[pitch].send(velocity);
+      // println to show this is working
+      println("noteOnActions["+pitch+"]", "Velocity: "+velocity);
     }
     
 
