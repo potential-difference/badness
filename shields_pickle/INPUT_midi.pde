@@ -23,20 +23,21 @@ class MidiManager {
         // Initialize noteOnActions and noteOffActions here
         for (int i = 0; i < numNotes; i++) {
             int note = i;
-            // pass velocity from the noteOn event to the everyFrameAction
             noteOnActions[note] = velocity -> everyFrameActions[note] = null;
-            // println to show this is working
-            println("noteOnActions["+note+"]", "Velocity: "+noteOnActions[note]);
-            
             noteOffActions[note] = () -> everyFrameActions[note] = null;
-            // println to show this is working
-            println("noteOffActions["+note+"]");
         }
     }
 
     public void newMomentary(int note, FrameAction action) {
-        // Set up new momentary action here
+        final int noteCopy = note; // Make a copy of the note
+        noteOnActions[note] = velocity -> {
+            everyFrameActions[noteCopy] = action;
+            noteOffActions[noteCopy] = () -> {
+                everyFrameActions[noteCopy] = null;
+            };
+        };
     }
+
 
     public void processFrame() {
       // Process frame actions here
@@ -60,12 +61,19 @@ boolean padPressed[] = new boolean[128];
   
    
 
-    public void noteOn(int channel, int pitch, int _velocity) {
-        // Handle note on event
+    public void noteOn(int channel, int pitch, int velocity) {
+        // Handle note on event here
+        midiManager.noteOnActions[pitch].send(velocity);
+        // println to show this is working
+        println("noteOnActions["+pitch+"]", "Velocity: "+velocity);
     }
+    
 
     public void noteOff(Note note) {
         // Handle note off event
+        midiManager.noteOffActions[note.pitch].execute();
+        // println to show this is working
+        println("noteOffActions["+note.pitch+"]");
     }
 
 float cc[] = new float[128];                   //// An array where to store the last value received for each CC controller

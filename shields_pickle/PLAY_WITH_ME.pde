@@ -212,25 +212,22 @@ void animOnBangButton(int noteNumber, Rig... rigs) {
 }
 // MOMENTARY PAD BUTTON adds ALL ON FOREVER to the given rig objects
 void allOnForeverBangButton(int noteNumber, Rig... rigs) {
-  // set the noteOn action for the given note number
-  midiManager.noteOnActions[noteNumber] = (float velocity) ->{
-    // Loop through each provided Rig object
+  midiManager.noteOnActions[noteNumber] = velocity -> {
     for (Rig rig : rigs) {
-      // get the animation at the current vizIndex and add it to the animations list
-      Anim anim = new AllOnForever(rig,velocity);
-      rig.animations.add(anim);
+      rig.animations.add(new AllOnForever(rig, velocity));
     }
-    // set the noteOff action for the given note number
-    midiManager.noteOffActions[noteNumber] = () ->{
-      // Loop through each provided Rig object
+
+    midiManager.noteOffActions[noteNumber] = () -> {
       for (Rig rig : rigs) {
-        // get the animation at the current vizIndex and set the 'deleteme' flag
-        Anim anim = new AllOnForever(rig,velocity);
-        anim.deleteme = true;
+        int lastIndex = rig.animations.size() - 1;
+        if (lastIndex >= 0) {
+          rig.animations.get(lastIndex).deleteme = true;
+        }
       }
     };
   };
 }
+
 
 // MOMENTARY PAD BUTTON sets colourSwap for the given rig objects
 void colorSwapBangButton(int noteNumber, Rig... rigs) {
