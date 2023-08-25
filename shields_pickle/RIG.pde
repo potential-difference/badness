@@ -11,17 +11,28 @@ enum RigType{
 public class Rig {
   RigType type;
   OPCGrid opcgrid;
-  float dimmer, alphaRate, functionRate, blurriness, bgNoise, manualAlpha, functionChangeRate, alphaChangeRate, backgroundChangeRate;
-  int wide, high, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, bgIndex, vizIndex, alphaTimer, functionTimer, vizTimer;
+  float dimmer, alphaRate, functionRate, colorSwapRate,
+  blurriness,
+  functionChangeRate, alphaChangeRate, backgroundChangeRate,
+  manualAlpha, bgNoise;
+  int wide, high, 
+  alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, 
+  bgIndex, vizIndex, 
+  alphaTimer, functionTimer, vizTimer, lastColorSwapTime;
   PGraphics colorLayer, buffer, pass1, pass2;
   IntCoord size;
-  color c, flash, c1, flash1, clash, clash1, clashed, colorIndexA, colorIndexB = 1, colA, colB, colC, colD, scol1, scol2, scol3;
+  color c, flash, c1, flash1, 
+  clash, clash1, clashed, 
+  colorIndexA = 0, colorIndexB = 1, 
+  colA, colB, colC, colD, 
+  scol1, scol2, scol3;
   color col[] = new color[15];
   ArrayList <PVector> pixelPosition;       // TODO change from pistion[] to this
   PVector position[] = new PVector[12];
   PVector positionX[][] = new PVector[7][3];
-  boolean firsttime_sketchcolor=true, noiseToggle, playWithYourSelf = true;
-  boolean onBeat=true; //add animations on a new beat
+  boolean firsttime_sketchcolor=true, noiseToggle,
+  playWithYourSelf = true,
+  onBeat=true; //add animations on a new beat
   ArrayList <Anim> animations;
   int[] availableAnims;
   int[] currentAnim;        // TODO implement this
@@ -299,7 +310,6 @@ public class Rig {
     }
 
     ///////////// rig info/ ///////////////////////////////////////////////////////////////////
-    // fill(rigs.get(0).c1, 200);
     textAlign(LEFT, BOTTOM);
     textSize(14);
     x = size.x-(wide/2)+8; 
@@ -404,16 +414,14 @@ public class Rig {
     return color(h, lerp(s1, s2, amt), lerp(b1, b2, amt));
   }
   ////////////////////////////// COLOR SWAP //////////////////////////////////
-  boolean colSwap;
   void colorSwap(float spd) {
     int t = int(millis()/70*spd % 2);
     int colA = c;
     int colB = flash;
     if ( t == 0) {
-      colSwap = true;
       c = colB;
       flash = colA;
-    } else colSwap = false;
+    } 
   } 
   ////////////////////////////// COLOR FLIP //////////////////////////////////
   boolean colFlip;

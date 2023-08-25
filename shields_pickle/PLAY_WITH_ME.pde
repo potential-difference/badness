@@ -1,158 +1,32 @@
 float[] lastTime = new float[cc.length];
 void setupMidiActions(){
-  newMomentary(100,()->{
+  newMomentary(59,()->{
     rigs.get(0).colorSwap(0.9999);
   });
-  //////////////////////////////////////////////////////////////////////
+  /////////////////////////////////////////////////////////////////////////
   ///////////////////////////// SHIELDS ///////////////////////////////////
-  // OFF
-  MidiAction shieldsOff = (float velocity) ->{
-    for (Anim anim : shields.animations) anim.deleteme = true;
-    shields.onBeat = false;
-  };
-  noteOnActions[64] = shieldsOff;
-  noteOffActions[64] = ()->{
-    shields.onBeat = true;
-  };
-  // ANIM ON 
-  noteOnActions[65] = (float velocity) ->{
-    Anim anim = shields.animAtIndex(shields.vizIndex);
-    shields.animations.add(anim);
-    noteOffActions[65] = ()->{
-      anim.deleteme = true;
-    };
-  };
-  // ALL ON FORVER
-  noteOnActions[66] = (float velocity) ->{
-    Anim anim = new AllOnForever(shields, velocity);    
-    shields.animations.add(anim);
-    noteOffActions[66] = ()->{
-      anim.deleteme = true;
-    };
-  };
+  offBangButton(64, shields);              // OFF BANG BUTTON: noteNumber, rig objects to turn off
+  animOnBangButton(65, shields);           // ANIM ON BANG BUTTON: noteNumber, rig objects to add animation to
+  allOnForeverBangButton(66, shields);     // ALL ON FOREVER BANG BUTTON: noteNumber, rig objects to add animation to
   //////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////// LANTERNS ////////////////////////////////////////////////
-  // OFF
-  noteOnActions[60] = (float velocity) -> {
-    for (Anim anim : tipiRight.animations) anim.deleteme = true;
-    for (Anim anim : tipiLeft.animations) anim.deleteme = true; 
-    tipiRight.onBeat = false;
-    tipiLeft.onBeat = false;
-  };
-  noteOffActions[60] = () -> {
-    tipiLeft.onBeat = true;
-    tipiRight.onBeat = true;
-  };
-  // ANIM ON
-  noteOnActions[61] = (float velocity) ->{
-    Anim anim = tipiLeft.animAtIndex(tipiLeft.vizIndex);
-    tipiLeft.animations.add(anim);
-    Anim anim1 = tipiRight.animAtIndex(tipiRight.vizIndex);
-    tipiRight.animations.add(anim1); 
-    noteOffActions[61] = ()->{
-      anim.deleteme = true;
-      anim1.deleteme = true;
-    };
-  };
-  // ALL ON FOREVER
-  noteOnActions[62] = (float velocity) ->{
-    Anim anim = new AllOnForever(tipiLeft,velocity);
-    Anim anim1 = new AllOnForever(tipiRight,velocity);
-    tipiLeft.animations.add(anim);
-    tipiRight.animations.add(anim1);
-    noteOffActions[62] = ()->{
-      anim.deleteme = true;
-      anim1.deleteme = true;
-    };
-  };
+  offBangButton(60,tipiLeft,tipiRight);              // OFF BANG BUTTON: noteNumber, rig objects to turn off
+  animOnBangButton(61,tipiLeft,tipiRight);           // ANIM ON BANG BUTTON: noteNumber, rig objects to add animation to
+  allOnForeverBangButton(62,tipiLeft,tipiRight);     // ALL ON FOREVER BANG BUTTON: noteNumber, rig objects to add animation to
   ///////////////////////////////////////////////////////////////////////
   ////////////////////////// MEGA SEEDS ////////////////////////////////////
-  // OFF
-  noteOnActions[56] = (float velocity) -> {
-    for (Anim anim : megaSeedA.animations) anim.deleteme = true;
-    for (Anim anim : megaSeedB.animations) anim.deleteme = true;
-    for (Anim anim : megaSeedC.animations) anim.deleteme = true;
-    megaSeedA.onBeat = false;
-    megaSeedB.onBeat = false;
-    megaSeedC.onBeat = false;
-  };
-  noteOffActions[56] = () -> {
-    megaSeedA.onBeat = true;
-    megaSeedB.onBeat = true;
-    megaSeedC.onBeat = true;
-  };
-  // ANIM ON
-  noteOnActions[57] = (float velocity) ->{
-    Anim animA = megaSeedA.animAtIndex(megaSeedA.vizIndex);
-    Anim animB = megaSeedB.animAtIndex(megaSeedB.vizIndex);
-    Anim animC = megaSeedC.animAtIndex(megaSeedC.vizIndex);
-    megaSeedA.animations.add(animA);
-    megaSeedB.animations.add(animB);
-    megaSeedC.animations.add(animC);
-    noteOffActions[57] = ()->{
-      animA.deleteme = true;
-      animB.deleteme = true;
-      animC.deleteme = true;
-    };
-  };
-  // ALL ON FOREVER
-  noteOnActions[58] = (float velocity) ->{
-    Anim animA = new AllOnForever(megaSeedA,velocity);
-    Anim animB = new AllOnForever(megaSeedB,velocity);
-    Anim animC = new AllOnForever(megaSeedC,velocity);
-   megaSeedA.animations.add(animA);
-   megaSeedB.animations.add(animB);
-   megaSeedC.animations.add(animC);
-    noteOffActions[58] = ()->{
-      animA.deleteme = true;
-      animB.deleteme = true;
-      animC.deleteme = true;
-    };
-  };
+  offBangButton(56,megaSeedA,megaSeedB,megaSeedC);          // OFF BANG BUTTON: noteNumber, rig objects to turn off
+  animOnBangButton(57,megaSeedA,megaSeedB,megaSeedC);       // ANIM ON BANG BUTTON: noteNumber, rig objects to add animation to
+  allOnForeverBangButton(58,megaSeedA,megaSeedB,megaSeedC); // ALL ON FOREVER BANG BUTTON: noteNumber, rig objects to add animation to
   /////////////////////////////////////////////////////////////////////
   //////////////////////////// UV PARS //////////////////////////////// 
-  // OFF
-  noteOnActions[52] = (float velocity) -> {
-    for (Anim anim : uvPars.animations) anim.deleteme = true;
-    uvPars.onBeat = false;
-  };
-  noteOffActions[52] = () -> {
-    uvPars.onBeat = true;
-  };
-  // ANIM ON
-  noteOnActions[53] = (float velocity) ->{
-    Anim anim = uvPars.animAtIndex(uvPars.vizIndex);
-    uvPars.animations.add(anim);
-    noteOffActions[53] = ()->{
-      anim.deleteme = true;
-    };
-  };
-  // ALL ON FOREVER
-  noteOnActions[54] = (float velocity) ->{
-    Anim anim = new AllOnForever(uvPars,velocity);    
-    uvPars.animations.add(anim);
-    noteOffActions[54] = ()->{
-      anim.deleteme = true;
-    };
-  };
+  offBangButton(52,uvPars);              // OFF BANG BUTTON: noteNumber, rig objects to turn off
+  animOnBangButton(53,uvPars);           // ANIM ON BANG BUTTON: noteNumber, rig objects to add animation to
+  allOnForeverBangButton(54,uvPars);     // ALL ON FOREVER BANG BUTTON: noteNumber, rig objects to add animation to
   /////////////////////////////////////////////////////////////////////////
   ////////////////////////// FILLAMENTS ///////////////////////////////////
-  // ANIM ON
-  noteOnActions[67] = (float velocity)->{
-    Anim anim = new AllOn(filaments);
-    filaments.animations.add(anim);
-    noteOffActions[67] = ()->{
-      anim.deleteme = true;
-    };
-  }; 
-  // ALL ON FOREVER
-  noteOnActions[63] = (float velocity)->{
-     Anim anim = new AllOnForever(filaments,velocity);
-    filaments.animations.add(anim);
-    noteOffActions[63] = ()->{
-      anim.deleteme = true;
-    };
-  };
+  animOnBangButton(67,filaments);              // OFF BANG BUTTON: noteNumber, rig objects to turn off
+  allOnForeverBangButton(63,filaments);       // ALL ON FOREVER BANG BUTTON: noteNumber, rig objects to add animation to
 }
 
 void playWithMe() {
@@ -180,12 +54,6 @@ if (keyP[' ']){
   if (keyT['i']) rigs.get(0).colorFlip(keyT['i']);                  // COLOR FLIP TOGGLE 
   if (keyP['u']) rigs.get(0).colorFlip(keyP['u']);                  // COLOR FLIP MOMENTARY
 
-  ////////////////////////////// LERP COLOUR ON BEAT /////////////////////////////////////////////////////////
-  //if (keyT['y']) {
-  //  colorLerping(shields, (1-beat)*2);
-  //  colorLerping(roof, (1-beat)*1.5);
-  //}
-
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -211,39 +79,7 @@ if (keyP[' ']){
    }
    */
   
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////// ADD ANIM ////////////////////////////////////////////////////////////////////
-  /*if (millis()-lastTime[0]>debouncetime*2.5) {
-    if (keyP[' ']) {
-      for (Rig rig : rigs) {
-        if (true){
-          rig.addAnim(rig.vizIndex);
-        }
-      }
-      lastTime[0]=millis();
-    }
-  }
-  */
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  /*
-  int ccc = 101;
-  if (millis()-lastTime[ccc]>debouncetime) {
-    if (padVelocity[ccc]>0) shields.animations.add(new StarMesh (shields));
-    lastTime[ccc]=millis();
-  }
-  */
-  //if (millis()-lastTime[45]>debouncetime) {
-  //  if (padVelocity[45]>0) shields.animations.add(new SpiralFlower(shields));
-  //  lastTime[45]=millis();
-  //}
-  /*
-  ccc= 102;
-    if (millis()-lastTime[ccc]>debouncetime) {
-    if (padVelocity[ccc]>0) shields.animations.add(new Stars(shields));
-    lastTime[ccc]=millis();
-  }
-  */
+ 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////// ALL ON ///////////////////////////////////////////////
 
@@ -256,16 +92,7 @@ if (keyP[' ']){
   }
   */
 
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////////////// KILL ALL ANIMS - BLACKOUT ///////////////////////////////////////////////
-
-  ///// DEBOUNCE?! /////
-  /*
-  if (millis()-lastTime[47]>debouncetime) {
-    if (padVelocity[47]>0) for (Anim anim : shields.animations) anim.deleteme = true;  // immediately delete all anims
-    lastTime[47]=millis();
-  }
-  */
+  
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////////////////  COLOUR //////////////////////////////////////////////////////////////////////////////
@@ -274,32 +101,7 @@ if (keyP[' ']){
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  //if (millis()-lastTime[36]>debouncetime) {
-  // if (padVelocity[36]>0) shields.animations.add(new StarMesh (roof));
-  // lastTime[36]=millis();
-  // }
-
-  // if (millis()-lastTime[37]>debouncetime) {
-  // if (padVelocity[37]>0) shields.animations.add(new SingleDonut(roof));
-  // lastTime[37]=millis();
-  // }
-
-  // if (millis()-lastTime[38]>debouncetime) {
-  // if (padVelocity[38]>0) shields.animations.add(new BenjaminsBoxes(roof));
-  // lastTime[38]=millis();
-  // }
-  /*
-  if (millis()-lastTime[39]>debouncetime) {
-   if (padVelocity[39]>0) roof.animations.add( new AllOn(roof));
-   lastTime[39]=millis();
-   }
-   */
-  /*
-  if (millis()-lastTime[40]>debouncetime) {
-   if (padVelocity[40]>0) for (Anim anim : roof.animations) anim.deleteme = true;  // immediately delete all anims
-   lastTime[40]=millis();
-   }
-   */
+  
   /*
    if (millis()-lastTime[41]>debouncetime) {
    if (padVelocity[41]>0) for (Anim anim : shields.animations) {
@@ -348,3 +150,94 @@ void playWithMeMore() {
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// MOMENTARY PAD BUTTON turns OFF all the animations in the given rig objects
+void offBangButton(int noteNumber, Rig... rigs) {
+  // Set the noteOn action for the given note number
+  noteOnActions[noteNumber] = (float velocity) -> {
+    // Loop through each provided Rig object
+    for (Rig rig : rigs) {
+      // Loop through animations in the current rig and set the 'deleteme' flag
+      for (Anim anim : rig.animations) {
+        anim.deleteme = true;
+      }
+      // Update the 'onBeat' state for the current rig
+      rig.onBeat = false;
+    }
+  };  
+  // Set the noteOff action for the given note number
+  noteOffActions[noteNumber] = () -> {
+    // Loop through each provided Rig object
+    for (Rig rig : rigs) {
+      // Update the 'onBeat' state for the current rig
+      rig.onBeat = true;
+    }
+  };
+}
+
+// MOMENTARY PAD BUTTON adds the CURRENT ANIMATION to the given rig objects
+void animOnBangButton(int noteNumber, Rig... rigs) {
+  // set the noteOn action for the given note number
+  noteOnActions[noteNumber] = (float velocity) ->{
+    // Loop through each provided Rig object
+    for (Rig rig : rigs) {
+      // get the animation at the current vizIndex and add it to the animations list
+      Anim anim = rig.animAtIndex(rig.vizIndex);
+      rig.animations.add(anim);
+    }
+    // set the noteOff action for the given note number
+    noteOffActions[noteNumber] = () ->{
+      // Loop through each provided Rig object
+      for (Rig rig : rigs) {
+        // get the animation at the current vizIndex and set the 'deleteme' flag
+        Anim anim = rig.animAtIndex(rig.vizIndex);
+        anim.deleteme = true;
+      }
+    };
+  };
+}
+// MOMENTARY PAD BUTTON adds ALL ON FOREVER to the given rig objects
+void allOnForeverBangButton(int noteNumber, Rig... rigs) {
+  // set the noteOn action for the given note number
+  noteOnActions[noteNumber] = (float velocity) ->{
+    // Loop through each provided Rig object
+    for (Rig rig : rigs) {
+      // get the animation at the current vizIndex and add it to the animations list
+      Anim anim = new AllOnForever(rig,velocity);
+      rig.animations.add(anim);
+    }
+    // set the noteOff action for the given note number
+    noteOffActions[noteNumber] = () ->{
+      // Loop through each provided Rig object
+      for (Rig rig : rigs) {
+        // get the animation at the current vizIndex and set the 'deleteme' flag
+        Anim anim = new AllOnForever(rig,velocity);
+        anim.deleteme = true;
+      }
+    };
+  };
+}
+
+// MOMENTARY PAD BUTTON sets colourSwap for the given rig objects
+void colorSwapBangButton(int noteNumber, Rig... rigs) {
+  // set the noteOn action for the given note number
+  noteOnActions[noteNumber] = (float velocity) ->{
+    // Loop through each provided Rig object
+    for (Rig rig : rigs) {
+      // get the animation at the current vizIndex and add it to the animations list
+      rig.colorSwap(cc[15]);
+    }
+    // set the noteOff action for the given note number
+    noteOffActions[noteNumber] = () ->{
+      // Loop through each provided Rig object
+      for (Rig rig : rigs) {
+        // get the animation at the current vizIndex and set the 'deleteme' flag
+        rig.colorSwap(rig.colorSwapRate);
+      }
+    };
+  };
+}
+ 
+
+
+

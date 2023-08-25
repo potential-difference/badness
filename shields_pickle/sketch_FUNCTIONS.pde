@@ -275,5 +275,5 @@ void bgNoise(PGraphics layer, color _col, float bright, float fizzyness) {
 }
 
 void printmd(String text) {
-  output.println(text); // Write the provided text to the file
+  outputmd.println(text); // Write the provided text to the file
 }
