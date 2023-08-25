@@ -38,10 +38,10 @@ class MidiManager {
         };
     }
     
- 
+    // TODO figure out why this doesnt work yet - function is void colorSwapBangButton(int noteNumber, Rig... rigs) {
     public void momentaryProcess(int note, FrameAction action) {
+    //  final int noteCopy = note; // Make a static copy of the note variable to use in the lambda
         for (int i = 0; i < numNotes; i++) {
-            final int noteCopy = i; // Make a static copy of the note variable to use in the lambda
             noteOnActions[i] = velocity -> {
                 for (int j = 0; j < numNotes; j++) {
                     FrameAction frameAction = everyFrameActions[j];

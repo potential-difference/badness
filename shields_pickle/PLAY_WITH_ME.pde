@@ -240,13 +240,17 @@ void colorFlipBangButton(int noteNumber, Rig... rigs) {
 
 
 // MOMENTARY PAD BUTTON sets colorSwap for the given rig objects
+// TODO this is WIP and doesn't work yet 
 void colorSwapBangButton(int noteNumber, Rig... rigs) {
   // start a momemtary process that runs while the button is held down
   // this is slightly different from the momentarySwitch because it doesn't
   // doesnt have any parameters
   midiManager.momentaryProcess(noteNumber, velocity -> {
     if (velocity > 0) { // Check if the button is pressed (velocity > 0)
-      for (Rig rig : rigs) rig.colorSwap(velocity);
+      for (Rig rig : rigs){
+        rig.colorSwap(velocity);
+        println(rig.type," colorSwap", velocity);
+      }
     }
     midiManager.noteOffActions[noteNumber] = () ->{
       for (Rig rig : rigs) rig.colorSwap(rig.colorSwapRate);
