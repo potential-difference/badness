@@ -28,33 +28,32 @@ class MidiManager {
         }
     }
 
-    public void newMomentary(int note, FrameAction action) {
+    public void momentary(int note, FrameAction action) {
         final int noteCopy = note; // Make a static copy of the note variable to use in the lambda
         noteOnActions[note] = velocity -> {
             everyFrameActions[noteCopy] = action;
             noteOffActions[noteCopy] = () -> {
-                everyFrameActions[noteCopy] = null;
+              everyFrameActions[noteCopy] = null;
             };
         };
     }
-    
-    public void constantButton(int noteNumber, Consumer<Float> function, float thisFunctionRate, Rig rig) {
-        everyFrameActions[noteNumber] = velocity -> {
-            if (velocity > 0.0f) {
-               // for (Rig rig : rigs) {
-                    function.accept(velocity);
-                    println(rig.type, "action performed");
-               // }
-            }
-        };
+    /*
+    // TODO figure this out - close but maybe a java barrier 
+    // was trying to pass in Rig... rigs but that didnt work either
+  public void constantButton(int noteNumber, Consumer<Float> function, float thisFunctionRate, Rig rig) {
+      everyFrameActions[noteNumber] = _velocity -> {
+          float velocity = map(_velocity, 0, 127, 0, 1);
+          if (velocity > 0.0f) {
+              function.accept(velocity);
+              println(rig.type, "action performed");
+          }
+      };
 
-        noteOffActions[noteNumber] = () -> {
-          //  for (Rig rig : rigs) {
-                function.accept(thisFunctionRate); // Use the provided function rate
-           // }
-        };
-    }
-
+      noteOffActions[noteNumber] = () -> {
+          function.accept(thisFunctionRate); // Use the provided function rate
+      };
+  }
+    */
     public void processFrame() {
       // Process frame actions here
       for (int i = 0; i < numNotes; i++) {
@@ -92,6 +91,8 @@ boolean padPressed[] = new boolean[128];
         // println to show this is working
         println("noteOffActions["+note.pitch+"]");
     }
+
+    
 
 float cc[] = new float[128];                   //// An array where to store the last value received for each CC controller
 void controllerChange(int channel, int number, int _controllerChangeValue) {

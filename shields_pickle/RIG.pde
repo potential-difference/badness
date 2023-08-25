@@ -415,9 +415,10 @@ public class Rig {
   }
   ////////////////////////////// COLOR SWAP //////////////////////////////////
   // TODO improve the variation on this so that it can be controlled by slider / pad
+  // TODO reinstate in PLAY WITH YOURSELF mode
   void colorSwap(float spd) {
     int swap = int(millis()/70*spd % 2);
-    // println("swap: "+swap);
+    println("spd ", spd, "swap: "+swap);
     int colA = c;
     int colB = flash;
     if ( swap == 0) {
