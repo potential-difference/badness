@@ -1,4 +1,4 @@
-PrintWriter output; // Global variable to hold the PrintWriter object
+PrintWriter outputmd; // Global variable to hold the PrintWriter object
 
 import java.util.*;
 import static java.util.Map.entry;  
@@ -55,7 +55,7 @@ void setup()
   surface.setSize(size.sizeX, size.sizeY);
   surface.setAlwaysOnTop(onTop);
 
-  output = createWriter("rig coords.md");
+  outputmd = createWriter("rig coords.md");
   printmd("## coordinate and position information for each rig"); 
 
   ArrayList<Device> devices;
@@ -143,8 +143,8 @@ void setup()
   for (Rig rig : rigs) setupLocalCoords(rig); // rig.pixelPosition used to store pixel coords in rig grid space
   for (Rig rig : rigs) markDownInfo(rig);     // print all rig info to md file.
   for(Rig rig : rigs) println(rig.type+" "+rig.pixelPosition); // print all rig into to termial
-  output.flush(); // Flush the output to ensure all data is written to the file
-  output.close(); // Close the PrintWriter object
+  outputmd.flush(); // Flush the output to ensure all data is written to the file
+  outputmd.close(); // Close the PrintWriter object
   
   frameRate(30); // always needs to be last in setup
 }
