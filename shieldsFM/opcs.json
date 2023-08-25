@@ -1,5 +1,5 @@
 [
-    { "name" : "BigShield", "ip" : "192.168.10.10", "type" : "WLED", "port" : 21324 },
+    {"name" : "BigShield", "ip" : "192.168.10.10", "type" : "WLED", "port" : 21324},
     {"name" : "SmallShieldA","ip" : "192.168.10.11", "type" : "WLED", "port" : 21324},
     {"name" : "MedShieldA", "ip" : "192.168.10.12", "type" : "WLED", "port" : 21324},
     {"name" : "SmallShieldB", "ip" : "192.168.10.13", "type" : "WLED", "port" : 21324},
@@ -7,7 +7,7 @@
     {"name" : "SmallShieldC", "ip" : "192.168.10.15", "type" : "WLED", "port" : 21324},
     {"name" : "MedShieldC", "ip" : "192.168.10.16", "type" : "WLED", "port" : 21324},
   
-    {"name" : "Entec", "ip" : "192.168.10.6", "type" : "OPC", "port" : 7890,
+    {"name" : "Entec", "ip" : "192.168.10.5", "type" : "OPC", "port" : 7890,
         "channels" : [
             
             {"name" : "uv_left", "start" : 11, "pixels" : [3]},
