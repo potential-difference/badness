@@ -154,7 +154,7 @@ void setup()
 //////////////////////////////////////////////////////////////////////////////////////
 void draw()
 {
-  midiManager.processFrame();   // Process frame actions
+ midiManager.processFrame();   // Process frame actions
 
   int start_time = millis();
   surface.setAlwaysOnTop(onTop);
@@ -213,6 +213,8 @@ void draw()
   mouseCircle(keyT['q']);
   onScreenInfo();
   pauseInfo();
+
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

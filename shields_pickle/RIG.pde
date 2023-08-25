@@ -427,14 +427,16 @@ public class Rig {
     } 
   } 
   ////////////////////////////// COLOR FLIP //////////////////////////////////
+  // TODO figure out why this doesnt actually work when triggered by the button
   void colorFlip(boolean toggle) {
     int colA = c;
     int colB = flash;
     if (toggle) {
       c = colB;
       flash = colA;
-      println("color flip");
+      println(type,"color flip");
     }
+    toggle = false;
   }
   ///////////////////////////////////////// CLASH COLOR SETUP /////////////////////////////////
   void clash(float func) { 

@@ -28,8 +28,8 @@ class MidiManager {
         }
     }
 
-    public void momentary(int note, FrameAction action) {
-        final int noteCopy = note; // Make a static copy of the note variable to use in the lambda
+    public void momentarySwitch(int note, FrameAction action) {
+      final int noteCopy = note; // Make a static copy of the note variable to use in the lambda
         noteOnActions[note] = velocity -> {
             everyFrameActions[noteCopy] = action;
             noteOffActions[noteCopy] = () -> {
@@ -37,23 +37,22 @@ class MidiManager {
             };
         };
     }
-    /*
-    // TODO figure this out - close but maybe a java barrier 
-    // was trying to pass in Rig... rigs but that didnt work either
-  public void constantButton(int noteNumber, Consumer<Float> function, float thisFunctionRate, Rig rig) {
-      everyFrameActions[noteNumber] = _velocity -> {
-          float velocity = map(_velocity, 0, 127, 0, 1);
-          if (velocity > 0.0f) {
-              function.accept(velocity);
-              println(rig.type, "action performed");
-          }
-      };
+    
+ 
+    public void momentaryProcess(int note, FrameAction action) {
+        for (int i = 0; i < numNotes; i++) {
+            final int noteCopy = i; // Make a static copy of the note variable to use in the lambda
+            noteOnActions[i] = velocity -> {
+                for (int j = 0; j < numNotes; j++) {
+                    FrameAction frameAction = everyFrameActions[j];
+                    if (frameAction != null) {
+                        frameAction.execute(velocity); // Execute the FrameAction with the provided velocity
+                    }
+                }
+            };
+        }
+    }
 
-      noteOffActions[noteNumber] = () -> {
-          function.accept(thisFunctionRate); // Use the provided function rate
-      };
-  }
-    */
     public void processFrame() {
       // Process frame actions here
       for (int i = 0; i < numNotes; i++) {
@@ -63,6 +62,10 @@ class MidiManager {
             }
         }
     }
+
+
+
+
 
     void controllerChange(int channel, int number, int controllerChangeValue) {
         // Handle controller change here
