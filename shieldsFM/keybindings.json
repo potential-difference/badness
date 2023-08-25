@@ -1,0 +1,16 @@
+[
+    {"key" : " ", "type" : "momentary", "description" : "add current default anim to all rigs",
+    {"key" : "o", "type" : "momentary", "description" : "colorSwap on first rig"},
+    {"key" : "i", "type" : "toggle", "description" : "colorFlip on first rig"},
+    {"key" : "u", "type" : "momentary", "description" : "colorFlip on first rig"},
+    {"key" : "t", "type" : "toggle", "function" : "testColors"},
+    {"key" : "q", "type" : "toggle", "function" : "mouseCircle"},
+    {"key" : "0", "type" : "momentary", "description" : "turn on smoke pump",
+        "implementation" : "add single-frame DmxSmoke Anim to boothgrid",
+        },
+    {"key" : "q", "type" : "toggle", "description" : "log incoming osc messages"},
+    {"key" : "j", "type" : "rise" , "description" : "increment frontCans vizIndex"},
+    {"key" : "h", "type" : "rise" , "description" : "jump to last frontCans vizIndex"},
+    {"key" : "n", "type" : "rise" , "description" : "increment shields vizindex"},
+    {"key" : "b", "type" : "rise" , "description" : }
+]

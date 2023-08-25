@@ -1,0 +1,1 @@
+packageSearchIndex = [{"l":"All Packages","url":"allpackages-index.html"},{"l":"ch.bildspur.artnet"},{"l":"ch.bildspur.artnet.events"},{"l":"ch.bildspur.artnet.packets"}]

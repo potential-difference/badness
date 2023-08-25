@@ -1,5 +1,8 @@
 # badness
-processing lighting code
+
+MERGED CODE THAT RAN SUNDAY NIGHT OF FM2023
+
+will add notes here of setup as and when
 
 
 working code for each event - new branches for development and merged back here for archive

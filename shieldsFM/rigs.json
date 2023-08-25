@@ -1,0 +1,122 @@
+[
+    {"name" : "tipiLeft", "type" : "Lanterns", "size" : "tipiLeft",
+        "channels" : [
+            "LunchBox1/lanternA",
+            "LunchBox1/lanternB",
+            "LunchBox1/lanternC",
+            "LunchBox1/lanternD",
+            "LunchBox1/lanternE",
+            "LunchBox1/lanternF",
+            "LunchBox1/lanternG",
+            "LunchBox1/lanternH",
+            "LunchBox1/lanternI"
+        ],
+        "opcgrid" : "CircularRoofGrid"
+    },
+    {"name" : "tipiRight", "type" : "Lanterns", "size" : "tipiRight",
+        "channels" : [
+            "LunchBox2/lanternA",
+            "LunchBox2/lanternB",
+            "LunchBox2/lanternC",
+            "LunchBox2/lanternD",
+            "LunchBox2/lanternE",
+            "LunchBox2/lanternF",
+            "LunchBox2/lanternG",
+            "LunchBox2/lanternH",
+            "LunchBox2/lanternI"
+        ],
+        "opcgrid" : "CircularRoofGrid"
+
+    },
+    {"name" : "frontCans", "type" : "Lanterns", "size" : "frontCans",
+        "channels" : [
+            "LunchBox3/lanternA",
+            "LunchBox3/lanternB",
+            "LunchBox3/lanternC",
+            "LunchBox3/lanternD",
+            "LunchBox3/lanternE",
+            "LunchBox3/lanternF",
+            "LunchBox3/lanternG",
+            "LunchBox3/lanternH",
+            "LunchBox3/lanternI"
+        ],
+        "opcgrid" : "CircularRoofGrid"
+    },
+    {"name" : "megaSeedLeft", "type" : "MegaSeedA", "size" : "megaSeedLeft",
+        "channels" : [
+            "megaSeedA/100w",
+            "megaSeedA/filament",
+            "megaSeedA/ring"
+        ],
+        "opcgrid" : ""
+    },
+    {"name" : "megaSeedRight", "type" :"MegaSeedB", "size" : "megaSeedRight",
+        "channels" : [
+            "megaSeedB/100w",
+            "megaSeedB/filament",
+            "megaSeedB/ring"
+        ],
+        "opcgrid" : ""
+    },
+    {"name" : "megaSeedCentre", "type" : "MegaSeedC", "size" : "megaSeedCentre",
+        "channels" : [
+            "megaSeedC/100w",
+            "megaSeedC/filament",
+            "megaSeedC/ring"
+        ],
+        "opcgrid" : "" 
+    },
+    {"name" : "filament", "type" : "Filament", "size" : "filament","enabled" : false,
+        "channels" : [
+            "megaSeedA/filament",
+            "megaSeedB/filament",
+            "megaSeedC/filament"
+        ],
+    },
+    {"name" : "megaRings", "type" : "Ring", "size" : "megaRings", "enabled" : false,
+        "channels" : [
+            "megaSeedA/ring",
+            "megaSeedB/ring",
+            "megaSeedC/ring",
+        ]
+    },
+    {"name" : "booth", "type" : "Booth", "size" : "booth",
+        "channels" :[
+            "LunchBox4/booth",
+            "LunchBox4/dig"
+        ]
+    },
+    {"name" : "boothCans", "type" : "BoothCans", "size" : "boothCans",
+        "channels" :[
+            "LunchBox4/cans"
+        ]
+    },
+    {"name" : "uvAll", "type" : "UV", "size" : "uvAll", "enabled": true,
+        "channels" : [
+            "Entec/uv_centre",
+            "Entec/uv_left",
+            "Entec/uv_right"
+        ]
+    }
+    {"name" : "uvLeft", "type" : "UV", "size" : "uvLeft", "enabled" : false,
+        "channels" : [
+            "Entec/uv_left"
+        ]
+    },
+    {"name" : "uvRight", "type" : "UV", "size" : "uvRight", "enabled" :false,
+        "channels" : [
+            "Entec/uv_right"
+        ]
+    },
+    {"name" : "uvCentre", "type" : "UV", "size" : "uvCentre", "enabled" : false,
+        "channels" : [
+            "Entec/uv_centre"
+        ]
+    },
+    {"name" : "frontCans", "type" : "FrontCans", "size" : "frontCans", "enabled" : false,
+        "channels" : [
+            "LunchBox3/cans",
+            "LunchBox2/cans"
+        ]
+    },
+]

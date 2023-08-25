@@ -1,0 +1,112 @@
+/* map of opc entries */
+[
+    { "name" : "BigShield", "ip" : "192.168.10.10", "type" : "WLED", "port" : 21324 },
+    {"name" : "SmallShieldA","ip" : "192.168.10.11", "type" : "WLED", "port" : 21324},
+    {"name" : "MedShieldA", "ip" : "192.168.10.12", "type" : "WLED", "port" : 21324},
+    {"name" : "SmallShieldB", "ip" : "192.168.10.13", "type" : "WLED", "port" : 21324},
+    {"name" : "MedShieldB", "ip" : "192.168.10.14", "type" : "WLED", "port" : 21324},
+    {"name" : "SmallShieldC", "ip" : "192.168.10.15", "type" : "WLED", "port" : 21324},
+    {"name" : "MedShieldC", "ip" : "192.168.10.16", "type" : "WLED", "port" : 21324},
+    {"name" : "Entec", "ip" : "127.0.0.1", "type" : "OPC", "port" : 7890},
+    {"name" : "LunchBox1", "ip" : "192.168.10.21", "type" : "WLED", "port" : 21324,
+        "channels" : [
+            {"name" : "lanternA", "start" : 0 , "pixels" : [1]},
+            {"name" : "lanternB", "start" : 10, "pixels" : [1]},
+            {"name" : "lanternC", "start" : 20, "pixels" : [1]},
+            {"name" : "lanternD", "start" : 31, "pixels" : [1]},
+            {"name" : "lanternE", "start" : 40, "pixels" : [1]},
+            {"name" : "lanternF", "start" : 50, "pixels" : [1]},
+            {"name" : "lanternG", "start" : 60, "pixels" : [1]},
+            {"name" : "lanternH", "start" : 70, "pixels" : [1]},
+            {"name" : "lanternI", "start" : 80, "pixels" : [1]}
+        ]},
+    {"name" : "LunchBox2" , "ip" : "192.168.10.22", "type" : "WLED", "port" : 21324,
+        "channels" : [
+            {"name" : "lanternA", "start" : 0 , "pixels" : [1]},
+            {"name" : "lanternB", "start" : 10, "pixels" : [1]},
+            {"name" : "lanternC", "start" : 20, "pixels" : [1]},
+            {"name" : "lanternD", "start" : 31, "pixels" : [1]},
+            {"name" : "lanternE", "start" : 40, "pixels" : [1]},
+            {"name" : "lanternF", "start" : 50, "pixels" : [1]},
+            {"name" : "lanternG", "start" : 60, "pixels" : [1]},
+            {"name" : "lanternH", "start" : 70, "pixels" : [1]},
+            {"name" : "lanternI", "start" : 80, "pixels" : [1]}
+
+        ]},
+    {"name" : "LunchBox3" , "ip" : "192.168.10.23", "type" : "WLED", "port" : 21324,
+        "channels" : [
+            {"name" : "lanternA", "start" : 0 , "pixels" : [1]},
+            {"name" : "lanternB", "start" : 10, "pixels" : [1]},
+            {"name" : "lanternC", "start" : 20, "pixels" : [1]},
+            {"name" : "lanternD", "start" : 31, "pixels" : [1]},
+            {"name" : "lanternE", "start" : 40, "pixels" : [1]},
+            {"name" : "lanternF", "start" : 50, "pixels" : [1]},
+            {"name" : "lanternG", "start" : 60, "pixels" : [1]},
+            {"name" : "lanternH", "start" : 70, "pixels" : [1]},
+            {"name" : "lanternI", "start" : 80, "pixels" : [1]}
+
+        ]},
+    {"name" : "megaSeedA" , "ip" : "192.168.10.30", "type" : "WLED", "port" : 21324,
+        "channels" : [
+            {"name" : "100w", "start" : 0, "pixels" :[1]},
+            {"name" : "filament", "start" : 1, "pixels" : [1]},
+            {"name" : "strip", "start" : 10, "pixels" : [100]}
+        ]
+    },
+    {"name" : "megaSeedB" , "ip" : "192.168.10.31", "type" : "WLED", "port" : 21324,
+        "channels" : [
+            {"name" : "100w", "start" : 0, "pixels" :[1]},
+            {"name" : "filament", "start" : 1, "pixels" : [1]},
+            {"name" : "strip", "start" : 10, "pixels" : [100]}
+        ]
+    },
+
+    {"name" : "megaSeedC", "ip" : "192.168.10.32", "type" : "WLED", "port" : 21324,
+        "channels" : [
+            {"name" : "100w", "start" : 0, "pixels" :[1]},
+            {"name" : "filament", "start" : 1, "pixels" : [1]},
+            {"name" : "strip", "start" : 10, "pixels" : [100]}
+        ]
+    }
+]
+
+
+/* the reason its like that is we just need a key to associate these things*/
+// but do we?
+/* rigs: */
+rigs = parseRigs([
+    {"name" : "tipiLeft", "type" : "TipiLeft", "size" : "tipiLeft" /*SizeSettings.megaSeedA*/,
+    "channels" : [
+        "LunchBox1.pix0",
+        "LunchBox1.pix1",
+        "LunchBox1.pix2",
+        "LunchBox1.pix3",
+        "LunchBox1.pix4",
+        "LunchBox1.pix5",
+        "LunchBox1.pix6",
+        "LunchBox1.pix7",
+        "LunchBox1.pix8"
+    ],
+    "opcgrid" : "CircularRoofGrid",
+    "keybindings" : [{"incrementVizIndex" : "j"},
+                    {"decrementVizIndex" : "h"} ],
+    }
+    {"name" : "megaSeedA", "type" : "MegaSeedA", "size" : "megaSeedA",
+    "channels" : [
+        "megaSeedA.100w",
+        "megaSeedA.filament",
+        "megaSeedA.leds"
+    ],
+    "opcgrid" : "MegaSeedGrid"
+    }
+    {
+        "name" : "booth",
+        "channels" :[],
+        "opcgrid" : "BoothGrid",
+        "keybindings" : [{"key" : "0", "type": "rise", "function" : "dmxSmoke"},],
+        "anims" : ["dmxSmoke","digLights",""],
+        "onBeat" : false,/* dont add anims on the beat */
+        ""
+    }
+]
+

@@ -1,0 +1,1 @@
+zlib-flate -compress < $1 > $2

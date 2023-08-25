@@ -1,0 +1,107 @@
+[
+    {"name" : "BigShield", "ip" : "192.168.10.10", "type" : "WLED", "port" : 21324},
+    {"name" : "SmallShieldA","ip" : "192.168.10.11", "type" : "WLED", "port" : 21324},
+    {"name" : "MedShieldA", "ip" : "192.168.10.12", "type" : "WLED", "port" : 21324},
+    {"name" : "SmallShieldB", "ip" : "192.168.10.13", "type" : "WLED", "port" : 21324},
+    {"name" : "MedShieldB", "ip" : "192.168.10.14", "type" : "WLED", "port" : 21324},
+    {"name" : "SmallShieldC", "ip" : "192.168.10.15", "type" : "WLED", "port" : 21324},
+    {"name" : "MedShieldC", "ip" : "192.168.10.16", "type" : "WLED", "port" : 21324},
+  
+    {"name" : "Entec", "ip" : "192.168.10.5", "type" : "OPC", "port" : 7890,
+        "channels" : [
+            
+            {"name" : "uv_left", "start" : 11, "pixels" : [3]},
+            {"name" : "uv_right", "start" : 21, "pixels" : [3]},
+            {"name" : "uv_centre", "start" : 31, "pixels" : [3]},
+            {"name" : "uv_front", "start" : 41, "pixels" : [2]}
+            
+        ]
+    },
+    {"name" : "LunchBox1", "ip" : "192.168.10.21", "type" : "WLED", "port" : 21324,
+        "channels" : [
+            {"name" : "lanternA", "start" : 0 , "pixels" : [1]},
+            {"name" : "lanternB", "start" : 10, "pixels" : [1]},
+            {"name" : "lanternC", "start" : 20, "pixels" : [1]},
+            {"name" : "lanternD", "start" : 30, "pixels" : [1]},
+            {"name" : "lanternE", "start" : 40, "pixels" : [1]},
+            {"name" : "lanternF", "start" : 50, "pixels" : [1]},
+            {"name" : "lanternG", "start" : 60, "pixels" : [1]},
+            {"name" : "lanternH", "start" : 70, "pixels" : [1]},
+            {"name" : "lanternI", "start" : 80, "pixels" : [1]},
+            {"name" : "frontCansLeft", "start" : 31, "pixels" : [1,1,1]}
+        ]
+    },
+    {"name" : "LunchBox2" , "ip" : "192.168.10.22", "type" : "WLED", "port" : 21324,
+        "channels" : [
+            {"name" : "lanternA", "start" : 0 , "pixels" : [1]},
+            {"name" : "lanternB", "start" : 10, "pixels" : [1]},
+            {"name" : "lanternC", "start" : 20, "pixels" : [1]},
+            {"name" : "lanternD", "start" : 30, "pixels" : [1]},
+            {"name" : "lanternE", "start" : 40, "pixels" : [1]},
+            {"name" : "lanternF", "start" : 50, "pixels" : [1]},
+            {"name" : "lanternG", "start" : 60, "pixels" : [1]},
+            {"name" : "lanternH", "start" : 70, "pixels" : [1]},
+            {"name" : "lanternI", "start" : 80, "pixels" : [1]},
+            {"name" : "frontCansRight", "start" : 51, "pixels" : [1,1,1]}
+        ]
+    },
+    {"name" : "LunchBox3" , "ip" : "192.168.10.23", "type" : "WLED", "port" : 21324,
+        "channels" : [
+            {"name" : "lanternA", "start" : 0 , "pixels" : [1]},
+            {"name" : "lanternB", "start" : 10, "pixels" : [1]},
+            {"name" : "lanternC", "start" : 20, "pixels" : [1]},
+            {"name" : "lanternD", "start" : 30, "pixels" : [1]},
+            {"name" : "lanternE", "start" : 40, "pixels" : [1]},
+            {"name" : "lanternF", "start" : 50, "pixels" : [1]},
+            {"name" : "lanternG", "start" : 60, "pixels" : [1]},
+            {"name" : "lanternH", "start" : 70, "pixels" : [1]},
+            {"name" : "lanternI", "start" : 80, "pixels" : [1]}
+        ]
+    },
+    {"name" : "LunchBox4", "ip" : "192.168.10.24", "type" : "WLED", "port" : 21324,
+        "channels" :[
+            {"name" : "mixer", "start" : 10, "pixels" : [1]},
+            {"name" : "boothA", "start" : 20, "pixels": [1]},
+            {"name" : "boothB", "start" : 30, "pixels" : [1]},
+            {"name" : "cansR", "start" : 40, "pixels" : [3]},
+            {"name" : "cansL", "start" : 50, "pixels" : [3]}
+        ]
+    },
+    {"name" : "megaSeedA" , "ip" : "192.168.10.30", "type" : "WLED", "port" : 21324,
+        "channels" : [
+            {"name" : "100w", "start" : 0, "pixels" :[1]},
+            {"name" : "filament", "start" : 1, "pixels" : [1]},
+            {"name" : "ring", "start" : 10, "pixels" : [100]}
+        ]
+    },
+    {"name" : "megaSeedB" , "ip" : "192.168.10.31", "type" : "WLED", "port" : 21324,
+        "channels" : [
+            {"name" : "100w", "start" : 0, "pixels" :[1]},
+            {"name" : "filament", "start" : 1, "pixels" : [1]},
+            {"name" : "ring", "start" : 10, "pixels" : [100]}
+        ]
+    },
+    {"name" : "megaSeedC", "ip" : "192.168.10.32", "type" : "WLED", "port" : 21324,
+        "channels" : [
+            {"name" : "100w", "start" : 0, "pixels" :[1]},
+            {"name" : "filament", "start" : 1, "pixels" : [1]},
+            {"name" : "ring", "start" : 10, "pixels" : [100]}
+        ]
+    },
+    {"name" : "GreyBox1", "ip" : "192.168.10.41", "type" : "WLED", "port" : 21324,
+        "channels" :[
+            {"name" : "roofA", "start" : 40, "pixels" : [1]},
+            {"name" : "roofB", "start" : 50, "pixels" : [2]},
+            {"name" : "groundB", "start" : 30, "pixels" : [1]}
+        ]
+    },
+    {"name" : "GreyBox2", "ip" : "192.168.10.42", "type" : "WLED", "port" : 21324,
+        "channels" :[
+            {"name" : "roofA", "start" : 20, "pixels" : [1]},
+            {"name" : "roofB", "start" : 0, "pixels" : [1]},
+            {"name" : "roofC", "start" : 10, "pixels" : [1]},
+
+            {"name" : "groundB", "start" : 50, "pixels" : [1]}
+        ]
+    }
+]
