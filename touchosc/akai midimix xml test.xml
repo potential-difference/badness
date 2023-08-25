@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+  <tabpage name="MIDImix Emulation">
+    <vlayout>
+      <!-- Row 1: Buttons -->
+      <hlayout>
+        <button x="10" y="10" w="60" h="60" scalef="false" color="red" sysex="false" osc_cs="/midimix/button/1" label="Button 1" />
+        <!-- Add more buttons for Row 1 here -->
+      </hlayout>
+
+      <!-- Row 2: Buttons -->
+      <hlayout>
+        <button x="10" y="80" w="60" h="60" scalef="false" color="red" sysex="false" osc_cs="/midimix/button/9" label="Button 9" />
+        <!-- Add more buttons for Row 2 here -->
+      </hlayout>
+
+      <!-- Knobs -->
+      <hlayout>
+        <rotary x="10" y="150" w="60" h="60" color="green" sysex="false" osc_cs="/midimix/knob/1" label="Knob 1" />
+        <!-- Add more knobs here -->
+      </hlayout>
+    </vlayout>
+  </tabpage>
+</layout>

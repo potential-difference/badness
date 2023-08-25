@@ -13,4 +13,4 @@ loads of haze
 loads of fun!
 
 benjamins midi pad for bang buttons
-matts midi pad for tuning the rig
+matts akai midimix pad for tuning the rig
