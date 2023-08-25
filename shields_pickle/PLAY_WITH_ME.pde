@@ -167,71 +167,65 @@ void playWithMeMore() {
 
 // MOMENTARY PAD BUTTON turns OFF all the animations in the given rig objects
 void offBangButton(int noteNumber, Rig... rigs) {
-  // Set the noteOn action for the given note number
   midiManager.noteOnActions[noteNumber] = (float velocity) -> {
-    // Loop through each provided Rig object
     for (Rig rig : rigs) {
-      // Loop through animations in the current rig and set the 'deleteme' flag
       for (Anim anim : rig.animations) {
-        anim.deleteme = true;
-      }
-      // Update the 'onBeat' state for the current rig
+        anim.deleteme = true;             // delete all the animations in the given rig objects
+      } 
       rig.onBeat = false;
     }
   };  
-  // Set the noteOff action for the given note number
   midiManager.noteOffActions[noteNumber] = () -> {
-    // Loop through each provided Rig object
-    for (Rig rig : rigs) {
-      // Update the 'onBeat' state for the current rig
-      rig.onBeat = true;
-    }
+    for (Rig rig : rigs)rig.onBeat = true;
   };
 }
 
 // MOMENTARY PAD BUTTON adds the CURRENT ANIMATION to the given rig objects
+// TODO change the alpha of the added anim so it reamins on screeen while the button is held down
+// and can be controlled by a knob or a slider
 void animOnBangButton(int noteNumber, Rig... rigs) {
-  // set the noteOn action for the given note number
-  midiManager.noteOnActions[noteNumber] = (float velocity) ->{
-    // Loop through each provided Rig object
-    for (Rig rig : rigs) {
-      // get the animation at the current vizIndex and add it to the animations list
-      Anim anim = rig.animAtIndex(rig.vizIndex);
-      rig.animations.add(anim);
-    }
-    // set the noteOff action for the given note number
-    midiManager.noteOffActions[noteNumber] = () ->{
-      // Loop through each provided Rig object
-      for (Rig rig : rigs) {
-        // get the animation at the current vizIndex and set the 'deleteme' flag
-        Anim anim = rig.animAtIndex(rig.vizIndex);
-        anim.deleteme = true;
-      }
-    };
-  };
-}
-
-// MOMENTARY PAD BUTTON adds ALL ON FOREVER to the given rig objects
-void allOnForeverBangButton(int noteNumber, Rig... rigs) {
   AnimationHolder[] animationHolders = new AnimationHolder[rigs.length];
-  
-  midiManager.noteOnActions[noteNumber] = velocity -> {
+  // TODO im not sure this loop is exaclty right but it does work
+  midiManager.noteOnActions[noteNumber] = velocity ->{
     for (int i = 0; i < rigs.length; i++) {
-      Rig rig = rigs[i];
-      Anim animation = new AllOnForever(rig, velocity);
-      println("velocity ",velocity);
-      animation.manuallyAdded = true;   // flag anim as manually added so it doesn't get deleted by PLAY WITH YOURSELF
-      animationHolders[i] = new AnimationHolder(rig, animation);
-      rig.animations.add(animationHolders[i].animation);
+      Rig rig = rigs[i];            // get the animation at the current vizIndex and add it to the animations list
+      Anim anim = rig.animAtIndex(rig.vizIndex);
+      anim.manuallyAdded = true;    // flag anim as manually added so it doesn't get deleted by PLAY WITH YOURSELF
+      animationHolders[i] = new AnimationHolder(rig, anim); // create a new AnimationHolder object and add it to the array
+      rig.animations.add(animationHolders[i].anim); 
     }
   };
   midiManager.noteOffActions[noteNumber] = () -> {
     for (AnimationHolder animationHolder : animationHolders) {
       if (animationHolder != null) {
-        if (animationHolder.animation.manuallyAdded) {
-          animationHolder.animation.deleteme = true;
+        if (animationHolder.anim.manuallyAdded) {
+          animationHolder.anim.deleteme = true;
         }
-        
+      }
+    }
+  };
+}
+
+
+// MOMENTARY PAD BUTTON adds ALL ON FOREVER to the given rig objects
+void allOnForeverBangButton(int noteNumber, Rig... rigs) {
+  AnimationHolder[] animationHolders = new AnimationHolder[rigs.length];
+  // TODO im not sure this loop is exaclty right but it does work
+  midiManager.noteOnActions[noteNumber] = velocity -> {
+    for (int i = 0; i < rigs.length; i++) {
+      Rig rig = rigs[i];
+      Anim anim = new AllOnForever(rig, velocity);
+      anim.manuallyAdded = true;   // flag anim as manually added so it doesn't get deleted by PLAY WITH YOURSELF
+      animationHolders[i] = new AnimationHolder(rig, anim); // create a new AnimationHolder object and add it to the array
+      rig.animations.add(animationHolders[i].anim); 
+    }
+  };
+  midiManager.noteOffActions[noteNumber] = () -> {
+    for (AnimationHolder animationHolder : animationHolders) {
+      if (animationHolder != null) {
+        if (animationHolder.anim.manuallyAdded) {
+          animationHolder.anim.deleteme = true;
+        }
       }
     }
   };

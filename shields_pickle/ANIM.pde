@@ -1,11 +1,11 @@
 // A class to hold both the rig and the associated animation
 class AnimationHolder {
   Rig rig;
-  Anim animation;
+  Anim anim;
 
-  AnimationHolder(Rig rig, Anim animation) {
+  AnimationHolder(Rig rig, Anim anim) {
     this.rig = rig;
-    this.animation = animation;
+    this.anim = anim;
   }
 }
 
