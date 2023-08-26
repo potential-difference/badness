@@ -39,18 +39,23 @@ class MidiManager {
     }
     
     // TODO figure out why this doesnt work yet - function is void colorSwapBangButton(int noteNumber, Rig... rigs) {
-    public void momentaryProcess(int note, FrameAction action) {
+    public void momentaryProcess(int note, FrameAction _action) {
       final int noteCopy = note; // Make a static copy of the note variable to use in the lambda
         noteOnActions[note] = velocity -> {
-          everyFrameActions[noteCopy] = action;
-                // if (action != null) {
-                //   action.execute(velocity); // Execute the FrameAction with the provided velocity
-                // }
+          for (int i = 0; i < numNotes; i++) {
+            FrameAction action = everyFrameActions[i];
+            if (action != null) {
+                action.execute(velocity); // You can pass the desired velocity here
+            }
+            // everyFrameActions[noteCopy] = action;
+            //       if (action != null) {
+            //         action.execute(velocity); // Execute the FrameAction with the provided velocity
+            //       }
               noteOffActions[noteCopy] = () -> {
                 everyFrameActions[noteCopy] = null;
               };
+          };
         };
-        
     }
 
     public void processFrame() {
@@ -107,5 +112,5 @@ void controllerChange(int channel, int number, int _controllerChangeValue) {
   if (midiManager.ccActions[number]!=null){
     midiManager.ccActions[number].send(cc[number]);
   }
- 
 }
+
