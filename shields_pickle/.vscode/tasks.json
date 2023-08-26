@@ -11,7 +11,7 @@
       "command": "${config:processing.path}",
       "presentation": {
         "echo": true,
-        "reveal": "always",
+        "reveal": "always", // "always" | "silent" | "never"
         "focus": false,
         "panel": "dedicated"
       },

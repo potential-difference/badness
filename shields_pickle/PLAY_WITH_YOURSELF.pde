@@ -63,7 +63,7 @@ void playWithYourself(float vizTm) {
   */
   ////////////////////////////////////////// COLOR FLIP ///////////////////////////////////////////////////////////////////
   // TODO reinstate this when working proprely
-  for (int i = 16; i<22; i+=2) if ( beatCounter % 128 == i) shields.colorFlip(true);
+  for (int i = 16; i<22; i+=2) if ( beatCounter % 128 == i) shields.colFlip = true;
   for (Rig rig : rigs) if ( beatCounter % 128 > 120) rig.colFlip = true;
   ///////////////////////////////////////// LERP COLOUR //////////////////////////////////////////////////////////////////
   //colBeat = false;
