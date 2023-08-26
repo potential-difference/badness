@@ -58,12 +58,12 @@ void keyPressed() {
 void keyReleased() {
     /// loop to change key[] to false when released to give hold control
     for (int i = 32; i <=  63; i++) {
-        charn = char(i);
-        if (key == n) keyP[i] = false;
+        char released = char(i);
+        if (key == released) keyP[i] = false;
     }
     for (int i = 91; i <=  127; i++) {
-        charn = char(i);
-        if (key == n) keyP[i] = false;
+        char released = char(i);
+        if (key == released) keyP[i] = false;
     }
 } 
 
