@@ -67,11 +67,17 @@ class Anim {
     alphaEnvelopeValues = new ArrayList<Float>();
 
     for (int i = 0; i < rig.availableAlphaEnvelopes.length; i++) {
-    int alphaEnvelopeValue = rig.availableAlphaEnvelopes[i]; // Get the value from the array
-    // alphaEnvelopeFactory is a method that creates envelopes
-    Envelope newEnvelope = alphaEnvelopeFactory(alphaEnvelopeValue, rig, avgmillis);
-    avaliableEnvelopes.add(newEnvelope); // Add the new envelope to the ArrayList
+       int alphaEnvelopeValue = rig.availableAlphaEnvelopes[i]; // Get the value from the array
+       // alphaEnvelopeFactory is a method that creates envelopes
+       Envelope newEnvelope = alphaEnvelopeFactory(alphaEnvelopeValue, rig, avgmillis);
+       avaliableEnvelopes.add(i,newEnvelope); // Add the new envelope to the ArrayList
+      // println(rig.type," added alpha envelope", newEnvelope, " index ",i);
+       
     }
+    println();
+    // println the first value from avaliableEnvelopes array list to check it is pouuplaed
+    float tst = avaliableEnvelopes.get(0).value(int(avgmillis));
+    //println("avaliableEnvelopes.get(0) = ", tst);
 
     strokeSlider = rig.strokeSlider;
     wideSlider = rig.wideSlider;
@@ -93,11 +99,26 @@ class Anim {
     alphaA = alphaEnvelopeA.value(now) * rig.dimmer * this.dimmer.get();
     alphaB = alphaEnvelopeB.value(now) * rig.dimmer * this.dimmer.get();
 
-    // loop through the avaliableEnvelopes ArrayList and update the list with value(now)
+
+  try {
+    for (int i = 0; i < avaliableEnvelopes.size(); i++) {
+        Envelope envelope = avaliableEnvelopes.get(i);
+        float envelopeValue = envelope.value(now);
+        alphaEnvelopeValues.set(i, envelopeValue);
+    }
+    } catch (IndexOutOfBoundsException e) {
+        // Handle the IndexOutOfBoundsException here
+        // This could involve logging an error, displaying a message, or taking corrective action.
+    }
+
+    /*
+    int index = 0;
     for (Envelope envelope : avaliableEnvelopes) {
         float envelopeValue = envelope.value(now); // Get the value of the envelope at the current time
-        alphaEnvelopeValues.add(envelopeValue);    // Add the envelope value to the ArrayList
+        alphaEnvelopeValues.set(index,envelopeValue);    // Add the envelope value to the ArrayList
+        index ++;
     }
+    */
 
     Float funcX = functionEnvelopeA.value(now);
     if (!Float.isNaN(funcX)) functionA = funcX; 

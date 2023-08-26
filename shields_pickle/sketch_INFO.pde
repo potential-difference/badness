@@ -128,11 +128,7 @@ void onScreenInfo() {
     //////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////// ALL ENVELOPES VIZULIZATION ///////////////////////////////////////
     // create an array list of all the avaliable alphaAenvelopes
-    ArrayList<Envelope> alphaAenvelopes = new ArrayList<>();
-    for (int j = 0; j < shields.availableAlphaEnvelopes.length; j++) {
-        alphaAenvelopes.add(alphaEnvelopeFactory(shields.availableAlphaEnvelopes[j], shields, avgmillis));
-    }
-
+   
     // draw a series of boxes below the ones above to visually display the alphaA envelopes using the array list above
     x = size.info.x - size.info.wide / 2 + 10;
     y = size.info.y - size.info.high / 4 + 20;
@@ -140,15 +136,18 @@ void onScreenInfo() {
     i = 0;
     int now = millis();
 
-    // when beatTrigger = true create an envelope for the first place alphaAenvelopes array list
-    // that is the first envelope in the avaliableAlphaEnvelopes array for the shields
-    if (beatTrigger) { 
-        alphaAenvelopes.set(0, alphaEnvelopeFactory(shields.availableAlphaEnvelopes[0], shields, avgmillis));
-    }
     // draw one rectangle to represet the first envelope in the arrary list
     fill(c1, 120);
-    float alphaFromEnvelope = alphaAenvelopes.get(0).value(now);
-    rect(x + (box * 2) + (alphaFromEnvelope * vizulizationWidth - (dist * 2 + gap)), y + (dist * i), box, box);
+    
+    try {
+        Anim anim = shields.animations.get(0);
+        float alphaFromEnvelope = anim.alphaEnvelopeValues.get(0);
+        rect(x + (box * 2) + (alphaFromEnvelope * vizulizationWidth - (dist * 2 + gap)), y + (dist * i), box, box);
+        println("alphaFromEnvelope: " + alphaFromEnvelope);
+    } catch (IndexOutOfBoundsException e) {
+    // Handle the case where the index is out of bounds or no animations/values are available
+    // You can log an error message, provide a default behavior, or leave this block empty if needed.
+    }   
 
     // for (Envelope envelope : alphaAenvelopes) {
     //     if (i < alphaAenvelopes.size() - 1) {
