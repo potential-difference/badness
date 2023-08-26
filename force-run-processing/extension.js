@@ -9,6 +9,32 @@ const vscode = require('vscode');
  * @param {vscode.ExtensionContext} context
  */
 function activate(context) {
+	let disposable = vscode.commands.registerCommand('extension.manageTask', async () => {
+        const runningTasks = await vscode.tasks.fetchTasks();
+
+        // Replace 'yourTaskName' with your task's name
+        const taskName = 'Run Processing Sketch';
+
+        const taskToTerminate = runningTasks.find(task => task.name === taskName);
+
+        if (taskToTerminate) {
+            // Terminate the task
+			taskToTerminate.terminate();			
+            // Execute the task again
+            const taskDefinition = {
+                type: 'shell', // Replace with the task type you are using
+                label: taskName,
+                command: '${config:processing.path}', // Replace with the actual command
+                args: ["--force",
+				"--sketch=${workspaceRoot}",
+				"--output=${workspaceRoot}/out",
+				"--run"], // Replace with command arguments
+            };
+
+            vscode.tasks.executeTask(taskDefinition);
+        }
+    
+
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
@@ -25,7 +51,8 @@ function activate(context) {
 	});
 
 	context.subscriptions.push(disposable);
-}
+
+});}
 
 // This method is called when your extension is deactivated
 function deactivate() {}
