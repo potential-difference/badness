@@ -434,7 +434,7 @@ public class Rig {
     if (toggle) {
       c = colB;
       flash = colA;
-      println(type,"color flip");
+      println(type,"color flip debug in rig");
     }
     toggle = false;
   }
