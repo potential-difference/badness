@@ -57,7 +57,7 @@ void onScreenInfo() {
     text("# of anims: " + totalAnims, x,y + 120);
     
     //////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////// ENVELOPES VIZULIZATION ///////////////////////////////////////////
+    /////////////////////////////// RIG ENVELOPES VIZULIZATION ///////////////////////////////////////
     x += 25;              // STARTING xpos for each section
     y += 150;             // STARTING ypos for 1st section
     float length = 150;   // LENGTH of each vizulization
@@ -124,6 +124,46 @@ void onScreenInfo() {
         println(e);
         println("erorr on alpah / function  envelope visulization");
     }
+
+    //////////////////////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////// ALL ENVELOPES VIZULIZATION ///////////////////////////////////////
+    // create an array list of all the avaliable alphaAenvelopes
+    ArrayList<Envelope> alphaAenvelopes = new ArrayList<>();
+    for (int j = 0; j < shields.availableAlphaEnvelopes.length; j++) {
+        alphaAenvelopes.add(alphaEnvelopeFactory(shields.availableAlphaEnvelopes[j], shields, avgmillis));
+    }
+
+    // draw a series of boxes below the ones above to visually display the alphaA envelopes using the array list above
+    x = size.info.x - size.info.wide / 2 + 10;
+    y = size.info.y - size.info.high / 4 + 20;
+    y += 150;
+    i = 0;
+    int now = millis();
+
+    // when beatTrigger = true create an envelope for the first place alphaAenvelopes array list
+    // that is the first envelope in the avaliableAlphaEnvelopes array for the shields
+    if (beatTrigger) { 
+        alphaAenvelopes.set(0, alphaEnvelopeFactory(shields.availableAlphaEnvelopes[0], shields, avgmillis));
+    }
+    // draw one rectangle to represet the first envelope in the arrary list
+    fill(c1, 120);
+    float alphaFromEnvelope = alphaAenvelopes.get(0).value(now);
+    rect(x + (box * 2) + (alphaFromEnvelope * vizulizationWidth - (dist * 2 + gap)), y + (dist * i), box, box);
+
+    // for (Envelope envelope : alphaAenvelopes) {
+    //     if (i < alphaAenvelopes.size() - 1) {
+    //         fill(c1, 120);
+    //     } else {
+    //         fill(flash1, 300);
+    //     }
+    //         float alphaFromEnvelope = envelope.value(now);
+
+    //     rect(x + (box * 2) + (alphaFromEnvelope * vizulizationWidth - (dist * 2 + gap)), y + (dist * i), box, box);
+    //     i += 1;
+    // }
+    
+    
+
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////

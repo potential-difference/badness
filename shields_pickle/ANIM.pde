@@ -24,6 +24,8 @@ class Anim {
   boolean deleteme = false, manuallyAdded = false;
   String animName;
   Envelope alphaEnvelopeA, alphaEnvelopeB, functionEnvelopeA, functionEnvelopeB;
+  ArrayList<Envelope> avaliableEnvelopes;
+  ArrayList<Float> alphaEnvelopeValues;
   Ref dimmer;
   Rig rig;
   //float overalltime;
@@ -51,14 +53,25 @@ class Anim {
     position = rig.position; 
     positionX = rig.positionX;
 
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
     //overalltime = avgmillis;
-
+    
     alphaEnvelopeA = alphaEnvelopeFactory(rig.availableAlphaEnvelopes[rig.alphaIndexA], rig, avgmillis);
     alphaEnvelopeB = alphaEnvelopeFactory(rig.availableAlphaEnvelopes[rig.alphaIndexB], rig, avgmillis);
     //if(functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexA], rig) != NaN)
     functionEnvelopeA = functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexA], rig);
     functionEnvelopeB = functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexB], rig);
+    
+    // setup the avaliableEnvelop ArrayList<>();
+    avaliableEnvelopes = new ArrayList<Envelope>();
+    alphaEnvelopeValues = new ArrayList<Float>();
+
+    for (int i = 0; i < rig.availableAlphaEnvelopes.length; i++) {
+    int alphaEnvelopeValue = rig.availableAlphaEnvelopes[i]; // Get the value from the array
+    // alphaEnvelopeFactory is a method that creates envelopes
+    Envelope newEnvelope = alphaEnvelopeFactory(alphaEnvelopeValue, rig, avgmillis);
+    avaliableEnvelopes.add(newEnvelope); // Add the new envelope to the ArrayList
+    }
 
     strokeSlider = rig.strokeSlider;
     wideSlider = rig.wideSlider;
@@ -76,11 +89,15 @@ class Anim {
   //Object highobj;
   void drawAnim() {
     int now = millis();
-    //alphaA = alphaEnvelopeA.value(now);
-    //alphaB = alphaEnvelopeB.value(now);
-
+    
     alphaA = alphaEnvelopeA.value(now) * rig.dimmer * this.dimmer.get();
     alphaB = alphaEnvelopeB.value(now) * rig.dimmer * this.dimmer.get();
+
+    // loop through the avaliableEnvelopes ArrayList and update the list with value(now)
+    for (Envelope envelope : avaliableEnvelopes) {
+        float envelopeValue = envelope.value(now); // Get the value of the envelope at the current time
+        alphaEnvelopeValues.add(envelopeValue);    // Add the envelope value to the ArrayList
+    }
 
     Float funcX = functionEnvelopeA.value(now);
     if (!Float.isNaN(funcX)) functionA = funcX; 
