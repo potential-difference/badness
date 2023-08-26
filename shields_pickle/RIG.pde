@@ -427,16 +427,20 @@ public class Rig {
     } 
   } 
   ////////////////////////////// COLOR FLIP //////////////////////////////////
-  // TODO figure out why this doesnt actually work when triggered by the button
-  void colorFlip(boolean toggle) {
+  // function to flip the colors, happens in rig.draw()
+  boolean colFlip;
+  void colorFlip() {
     int colA = c;
     int colB = flash;
-    if (toggle) {
+    if (colFlip) {
       c = colB;
       flash = colA;
-      println(type,"color flip debug in rig");
+      // println(type,"color flip = ", colFlip); // debugging
+    } else {
+      c = colA;
+      flash = colB;
     }
-    toggle = false;
+    colFlip = false;
   }
   ///////////////////////////////////////// CLASH COLOR SETUP /////////////////////////////////
   void clash(float func) { 
@@ -548,16 +552,12 @@ public class Rig {
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   void draw() {
-    if (beatCounter % 16 == 0) clash(beat); // TODO // this shouldnt happen al the time - need more control over it!
+    //if (beatCounter % 16 == 0) clash(beat); // TODO // this shouldnt happen al the time - need more control over it!
     drawAnimations();
     blendMode(MULTIPLY);
-    // this donesnt work anymore....
-    if (cc[107] > 0 || keyT['r']) bgNoise(colorLayer, 0, 0, cc[55]); //PGraphics layer,color,alpha
-   
-    // TODO this can be used to draw white animations
+    colorFlip();
+    // draw a colour layer for all rigs except the filaments and uv pars - leaving these ones white 
     if(type != RigType.Filaments && type != RigType.UvPars) drawColorLayer(bgIndex);
-    // drawColorLayer(bgIndex);
-
     blendMode(NORMAL);
     rigInfo();
     removeAnimations();

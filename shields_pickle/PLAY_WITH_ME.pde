@@ -30,7 +30,7 @@ void setupMidiActions(){
   
   
   colorSwapBangButton(59,shields,tipiLeft); // COLOR SWAP BANG BUTTON: noteNumber, rig objects to add animation to
-  colorFlipBangButton(55,shields,tipiLeft); // COLOR FLIP BANG BUTTON: noteNumber, rig objects to add animation to
+  colorFlipBangButton(55,shields,tipiLeft,tipiRight,megaSeedA,megaSeedB,megaSeedC); // COLOR FLIP BANG BUTTON: noteNumber, rig objects to add animation to
 
   /*
   // CONSTANT BUTTON sets colorSwap for the given rig objects
@@ -64,8 +64,8 @@ if (keyP[' ']){
   ////////////////////////////////////// COLOR SWAP AND FLIP BUTTONS /////////////////////////////////////////
   if (keyP['o']) rigs.get(0).colorSwap(0.9999999999);               // COLOR SWAP MOMENTARY 
   /////////////////////////////////////////////////////////////////////////////////////////////////////////////
-  if (keyT['i']) rigs.get(0).colorFlip(keyT['i']);                  // COLOR FLIP TOGGLE 
-  if (keyP['u']) rigs.get(0).colorFlip(keyP['u']);                  // COLOR FLIP MOMENTARY
+  // if (keyT['i']) rigs.get(0).colorFlip(keyT['i']);                  // COLOR FLIP TOGGLE 
+  // if (keyP['u']) rigs.get(0).colorFlip(keyP['u']);                  // COLOR FLIP MOMENTARY
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -235,7 +235,7 @@ void colorFlipBangButton(int noteNumber, Rig... rigs) {
   midiManager.momentarySwitch(noteNumber, velocity -> {
     if (velocity > 0) {
       for (Rig rig : rigs) {
-        rig.colorFlip(true);
+        rig.colFlip = true;
         println(rig.type," colorFlip", velocity); // velocity always = 1 currently 
         // though i'd fixed this!!
       }
