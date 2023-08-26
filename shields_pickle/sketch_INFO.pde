@@ -53,10 +53,10 @@ void onScreenInfo() {
   text("# of anims: "+totalAnims, x,y+120);
 
 ///////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////// ENVELOPES VIZULIZATION ////////////////////////////////////
 //Envelopes visulization
-    y+=200;             // STARTING HEIGHT for sections
-    float y1=160;            // LENGTH of sections
+    y+=200;                   // STARTING HEIGHT for sections
+    float y1=160;             // LENGTH of sections
     float dist = 15;
     int i=0;
     x+=20;
