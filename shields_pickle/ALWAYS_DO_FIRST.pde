@@ -1,158 +1,88 @@
-void alwaysDoFirst() {
-  /* //////////////////// ANIM LIST ///////////////////
-    case 0 anim = new BenjaminsBoxes(this);
-    case 1 anim = new StarMesh(this);
-    case 2 anim = new Rings(this);
-    case 3 anim = new Celtic(this);
-    case 4 anim = new SpiralFlower(this);
-    case 5 anim = new TwistedStar(this);
-    case 6 anim = new Stars(this);
-    case 7 anim = new SingleDonut(this);
-    case 8 anim = new BouncingDonut(this);
-    case 9 anim = new BouncingPolo(this);
-    case 10 anim = new Polo(this);
-    case 11 anim = new SquareNuts(this);
-    case 12 anim = new DiagoNuts(this);
-    case 13 anim = new AllOn(this);
-    case 14an im = new AllOff(this);
-    */
-
-  for (Rig rig : rigs){
-    switch (rig.type){
+void setDefaultParameters(Rig rig, float dimmer, float alphaRate, float functionRate, 
+                         int backgroundChangeRate, float wideSlider, float highSlider, 
+                         float strokeSlider, float blurriness) {
+  rig.dimmer = dimmer;                // Set the dimmer value for the rig
+  rig.alphaRate = alphaRate;          // Set the alpha change rate for the rig
+  rig.functionRate = functionRate;    // Set the function change rate for the rig
+  rig.backgroundChangeRate = backgroundChangeRate;  // Set how frequently the background changes per color change
+  rig.wideSlider = wideSlider;        // Set the width slider value for the rig
+  rig.highSlider = highSlider;        // Set the height slider value for the rig
+  rig.strokeSlider = strokeSlider;    // Set the stroke slider value for the rig
+  rig.blurriness = blurriness;        // Set the blurriness value for the rig
+}
+//////////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////// Set default parameter values for rig settings ///////////////////////////////
+void setStatupSettings(Rig rig) {
+  switch (rig.type) {
     case Shields:
-      rig.availableAnims = new int[] {1, 2, 6, 7, 8};      // setup which anims are used on which rig here
-      rig.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
-      rig.availableFunctionEnvelopes = new int[] {0, 1, 2};  
-      rig.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6};   
+      rig.vizIndex = 2;
+      rig.functionIndexA = 0;
+      rig.functionIndexB = 1;
+      rig.alphaIndexA = 0;
+      rig.alphaIndexB = 0;
+      rig.bgIndex = 0;
+      rig.colorIndexA = 2;
+      rig.colorIndexB = 1;
       break;
     case FrontCans:
-      rig.availableAnims = new int[] {6, 7, 13};      // setup which anims are used on which rig here
-      break;
     case OutsideRoof:
-      rig.availableAnims = new int[] {6, 7, 13};      // setup which anims are used on which rig here
-      break;
     case OutsideGround:
-      rig.availableAnims = new int[] {6, 7, 13};      // setup which anims are used on which rig here
-      break;
     default:
-      rig.availableAnims = new int[] {1, 2, 6, 7, 8, 4};      // setup which anims are used on which rig here
-      rig.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
-      rig.availableFunctionEnvelopes = new int[] {0, 1, 2};  
-      rig.availableBkgrnds = new int[] {0, 1, 2, 3, 4, 5, 6}; 
+      rig.vizIndex = 1;
+      rig.colorIndexA = 2;
+      rig.colorIndexB = 1;
+      break;
+  }
+}
+
+void alwaysDoFirst() {
+  // Animation and configuration setups
+  for (Rig rig : rigs) {
+    // Set default animation and configurations
+    rig.availableAnims = new int[] {1, 2, 6, 7, 8};
+    rig.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
+    rig.availableFunctionEnvelopes = new int[] {0, 1, 2};  
+    rig.availableBkgrnds = new int[] {0, 1, 2};   
+    setDefaultParameters(rig, 1, 0.5, 0.5, 4, 0.5, 0.5, 0.5, 0.2);  
+    setStatupSettings(rig);
+
+    // Modify settings for specific cases
+    switch (rig.type) {
+      case Shields:
+        rig.availableAnims = new int[] {1, 2, 6, 7, 8, 4};
+        rig.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
+        rig.availableFunctionEnvelopes = new int[] {0, 1, 2};  
+        rig.availableBkgrnds = new int[] {0, 1, 2};   
+        // Dimmer, alphaRate, functionRate, backgroundChangeRate, wideSlider, highSlider, strokeSlider, blurriness
+        setDefaultParameters(rig, 1, 0.5, 0.5, 4, 0.5, 0.5, 0.5, 0.2);  
+        setStatupSettings(rig);
+        break;
+      case BoothCans:
+        rig.dimmer = 0;
+        break;
+      case TipiLeft:
+        setDefaultParameters(rig, 0.3, 0.84, 0.56, 4, 0.5, 0.5, 0.9, 0.075);  
+        break;
+      case TipiRight:
+        setDefaultParameters(rig, 0.3, 0.84, 0.56, 4, 0.5, 0.5, 0.9, 0.075);  
+        break;
+      case OutsideRoof:
+        rig.strokeSlider = 1;
+        rig.wideSlider = 1;
+        rig.highSlider = 1;
+        break;
+      case OutsideGround:
+        rig.availableAnims = new int[] {6, 7, 13};
+        break;
+      default:
+        break;
     }
   }
 
-  shields.vizIndex = 2;
-  shields.functionIndexA = 0;
-  shields.functionIndexB = 1;
-  shields.alphaIndexA = 0;
-  shields.alphaIndexB = 0;
-  shields.bgIndex = 0;
-
-  shields.colorIndexA = 2;
-  shields.colorIndexB = 1;
-
-  tipiLeft.colorIndexA = 2;
-  tipiLeft.colorIndexB = 1;
-  tipiRight.colorIndexA = 2;
-  tipiRight.colorIndexB = 1;
-
-  megaSeedA.vizIndex = 2;
-  megaSeedB.vizIndex = 2;
-  megaSeedC.vizIndex = 2;
-
-  megaSeedA.colorIndexA = 2;
-  megaSeedA.colorIndexB = 1;
-
-  megaSeedB.colorIndexA = 2;
-  megaSeedB.colorIndexB = 1;
-
-  megaSeedC.colorIndexA = 2;
-  megaSeedC.colorIndexB = 1;
-
-  ///// TODO  make an easy way of changing colour
-   
-  for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
-  for (int i = 0; i < 100; i++) cc[i] = 1;         // set all knobs to 1 ready for shit happen
-  
-  cc[3] = 0.8;    // outside roof constant level
-  cc[12] = 0.4;   // outside ground constant level
-
-  for (int i= 36; i < 52; i++)cc[i] = 0;
-
-  // TODO this could all go into a config/setup file
-  // sets some defaults.
-  for (Rig rig :rigs){
-    rig.dimmer = 1;
-    rig.alphaRate = 0.5;
-    rig.functionRate = 0.5;
-    rig.wideSlider = 0.5;
-    rig.highSlider = 0.5;
-    rig.strokeSlider= 0.5;
-    rig.blurriness = 0.2;
-  }
-  // DIMMERS AND ANIM CONTROL
-  shields.dimmer = 1;
-  shields.alphaRate = 0.5;
-  shields.functionRate = 0.5;
-  shields.wideSlider = 0.5;
-  shields.highSlider = 0.5;
-  shields.strokeSlider= 1;
-  shields.blurriness = 0.2;
-
-  boothCans.dimmer = 0;
-
-  tipiLeft.dimmer = 0.3;
-  tipiLeft.alphaRate = 0.84;
-  tipiLeft.functionRate = 0.56;
-  tipiLeft.blurriness = 0.075;
-  tipiLeft.strokeSlider = 0.9;
-
-  tipiRight.dimmer = 0.3;
-  tipiRight.alphaRate = 0.45;
-  tipiRight.functionRate = 0.72;
-  tipiRight.blurriness = 0.075;
-  tipiRight. strokeSlider = 0.9;
-
-  megaSeedB.dimmer = 0.4;
-  megaSeedB.alphaRate = 0.9;
-  megaSeedB.functionRate = 0.6;
-  megaSeedB.blurriness = 0.04;
-  megaSeedB.strokeSlider = 0.7;
-
-  megaSeedA.dimmer = 0.4;
-  megaSeedA.alphaRate = 0.9;
-  megaSeedA.functionRate = 0.6;
-  megaSeedA.blurriness = 0.04;
-  megaSeedA.strokeSlider = 0.7;
-
-  megaSeedB.dimmer = 0.3;
-  megaSeedB.alphaRate = 0.9;
-  megaSeedB.functionRate = 0.6;
-  megaSeedB.blurriness = 0.04;
-  megaSeedB.strokeSlider = 0.7;
-
-  filaments.dimmer = 1;
-
-  uvPars.strokeSlider = 1;
-  uvPars.dimmer = 0.8;
-
-  outsideRoof.strokeSlider = 1;
-  outsideRoof.wideSlider = 1;
-  outsideRoof.highSlider = 1;
-
-  outsideGround.strokeSlider = 1;
-  outsideGround.wideSlider = 1;
-  outsideGround.highSlider = 1;
-
-  // THESE ARE SLIGHTLY DIFFERENT COZ THEY ARENT THEIR OWN RIGS //
-  boothDimmer = 0.12;
-  mixerDimmer = 0.1;
-  // digDimmer = 0.11;
-
-  vizTime = 10;          // time in minutes - TODO sort this out onto slider 
+  vizChangeTime = 10;   // time in minutes - TODO sort this out onto slider 
   colorChangeTime = 5;  // time in minutes - TODO sort this out onto slider 
 }
+
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////////// COLOR SETUP CHOSE COLOUR VALUES ///////////////////////////////////////////////
@@ -207,3 +137,4 @@ void colorSetup() {
   teal2 = color(170-alt, sat2, 85);
   red2 = color(15-alt, sat2, 100);
 }
+

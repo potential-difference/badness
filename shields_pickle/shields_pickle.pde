@@ -39,7 +39,7 @@ MidiBus MPD8bus;
 
 boolean onTop = false;
 boolean testToggle, smokeToggle;
-float boothDimmer, mixerDimmer, digDimmer, vizTime, colorChangeTime, colorSwapSlider, beatSlider = 0.3;
+float boothDimmer, mixerDimmer, digDimmer, vizChangeTime, colorChangeTime, colorSwapSlider, beatSlider = 0.3;
 //float smokePumpValue, smokeOnTime, smokeOffTime;
 int colStepper = 1;
 int time_since_last_anim=0;
@@ -165,7 +165,7 @@ void draw()
   globalFunctions();
   
   
-  if (frameCount > 10) playWithYourself(vizTime);
+  if (frameCount > 10) playWithYourself();
   // TODO made a global variable class to include these and alpha and funcs
   c = rigs.get(0).c;
   flash = rigs.get(0).flash;

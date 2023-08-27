@@ -18,7 +18,7 @@ public class Rig {
   int wide, high, 
   alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, 
   bgIndex, vizIndex, 
-  alphaTimer, functionTimer, vizTimer, lastColorSwapTime;
+  alphaTimer, functionTimer, vizTimer, bgTimer, lastColorSwapTime; // TODO check on lastCOlorSwapTime
   PGraphics colorLayer, buffer, pass1, pass2;
   IntCoord size;
   color c, flash, c1, flash1, 
@@ -66,8 +66,8 @@ public class Rig {
     rigs.add(this);
     arrayListIndex = rigs.indexOf(this);          // where this is the rig object
     availableBkgrnds = new int[] {0, 1, 2, 3};    // default - changed when initalised;
-    availableAlphaEnvelopes = new int[] {0, 1};// 2, 3, 4, 5};  
-    availableFunctionEnvelopes = new int[] {0, 1, 2, 5, 6};  
+    availableAlphaEnvelopes = new int[] {0, 1};   // default - changed when initalised; 
+    availableFunctionEnvelopes = new int[] {0, 1, 2, 5, 6};  // default - changed when initalised;
 
     // setup grid of positons - TODO this needs work
     int xw = 2;
@@ -140,68 +140,49 @@ public class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////  COLOUR LAYERS FOR RIG /////////////////////////////////////////
   void drawColorLayer(int backgroundIndex) {
-    int index = this.availableBkgrnds[backgroundIndex];
-    switch(index) {
+    colorLayer.beginDraw();
+    colorLayer.noStroke();
+    colorLayer.background(0);
+    
+    switch (backgroundIndex) {
       case 0:
-        colorLayer.beginDraw();
-        colorLayer.background(0);
         oneColour(c);
-        colorLayer.endDraw();
         break;
       case 1:
-        colorLayer.beginDraw();
-        colorLayer.background(0);
         oneColour(flash);
-        colorLayer.endDraw();
         break;
       case 2:
-        colorLayer.beginDraw();
-        colorLayer.background(0);
         radialGradient(flash, c, sine);
-        colorLayer.endDraw();
         break;
       case 3:
-        colorLayer.beginDraw();
-        colorLayer.background(0);
         radialGradient(c, flash, beat);
         bigShield(c, flash);
         balls(clash);
-        colorLayer.endDraw();
         break;
       case 4:
-        colorLayer.beginDraw();
-        colorLayer.background(0);
         oneColour(c);
         bigShield(flash, flash);
-        colorLayer.endDraw();
         break;
       case 5:
-        colorLayer.beginDraw();
-        colorLayer.background(0);
         oneColour(flash);
         bigShield(c, clash);
-        colorLayer.endDraw();
         break;
       case 6:
-        colorLayer.beginDraw();
-        colorLayer.background(0);
         oneColour(c);
         bigShield(clash, clashed);
         mediumShield(flash, flash);
         smallShield(c);
         balls(clash1);
-        colorLayer.endDraw();
         break;
       default:
-        colorLayer.beginDraw();
-        colorLayer.background(0);
         oneColour(c);
-        colorLayer.endDraw();
         break;
-      }
+    }
+    colorLayer.endDraw();
     blendMode(MULTIPLY);
     image(colorLayer, size.x, size.y);
   }
+
   //////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////// RADIAL GRADIENT BACKGROUND /////////////////////////////
   void radialGradient(color col1, color col2, float function) {
@@ -231,8 +212,11 @@ public class Rig {
   ///////////////////////////////////////// SHIELDS BACKGROUNDS ////////////////////////////////////
   void bigShield( color col1, color col2) {
     ShieldsOPCGrid opcGrid = (ShieldsOPCGrid)(opcgrid);  // why is this nessessary?!
-
-    colorLayer.noStroke();
+    // returned this error
+    // RIG.pde:214:0:214:0: ClassCastException: class shields_pickle$MegaSeedCGrid cannot be cast to class 
+    // shields_pickle$ShieldsOPCGrid (shields_pickle$MegaSeedCGrid and shields_pickle$ShieldsOPCGrid are in unnamed module of loader 'app')
+    // need to be careful about which background is used with which rig
+    // can we make this idiot proof?!
     colorLayer.fill(col1);  
     colorLayer.ellipse(colorLayer.width/2, colorLayer.height/2, opcGrid.bigShieldRad, opcGrid.bigShieldRad);
     colorLayer.fill(col2);      
@@ -240,9 +224,7 @@ public class Rig {
   }
   void balls(color col1) {
     ShieldsOPCGrid opcGrid = (ShieldsOPCGrid)(opcgrid);  // why is this nessessary?!
-
     colorLayer.fill(col1);     
-    colorLayer.noStroke();
     colorLayer.ellipse(opcGrid.ballA.x, opcGrid.ballA.y, 15, 15);
     colorLayer.ellipse(opcGrid.ballB.x, opcGrid.ballB.y, 15, 15);
     colorLayer.ellipse(opcGrid.ballC.x, opcGrid.ballC.y, 15, 15);
@@ -250,10 +232,7 @@ public class Rig {
   
   void mediumShield(color col1, color col2) {
     ShieldsOPCGrid opcGrid = (ShieldsOPCGrid)(opcgrid);  // fixed typo in variable name
-
-   colorLayer.fill(col1);      
-    colorLayer.noStroke();
-
+    colorLayer.fill(col1);      
     drawShield(colorLayer, opcGrid.medShieldA, opcGrid.medShieldRad, col1, col2);
     drawShield(colorLayer, opcGrid.medShieldB, opcGrid.medShieldRad, col1, col2);
     drawShield(colorLayer, opcGrid.medShieldC, opcGrid.medShieldRad, col1, col2);
@@ -261,7 +240,6 @@ public class Rig {
 
   void smallShield(color col1) {
     ShieldsOPCGrid opcGrid = (ShieldsOPCGrid)(opcgrid);  // fixed typo in variable name
-
     colorLayer.fill(col1);      
     drawShield(colorLayer, opcGrid.smallShieldA, opcGrid.smallShieldRad, col1, col1);
     drawShield(colorLayer, opcGrid.smallShieldB, opcGrid.smallShieldRad, col1, col1);
@@ -271,7 +249,6 @@ public class Rig {
   ////////////////////// funcitons to draw shields quickly /////////////////////
   void drawCircle(PGraphics colorLayer, PVector position, float radius, color col){
     colorLayer.fill(col);
-    colorLayer.noStroke();
     colorLayer.ellipse(position.x, position.y, radius, radius);
   }
 
@@ -367,23 +344,27 @@ public class Rig {
   float go = 0;
   boolean change;
   int colorTimer;
-  void colorTimer(float colTime, int steps) {
-    if (change == false) {
+
+  void colorTimer(int steps) {
+    if (!change) {
       colA = c;
       colC = flash;
     }
-    if (millis()/1000 - colorTimer >= colTime*60) {
+    
+    if (millis() / 1000 - colorTimer >= colorChangeTime * 60) { // multiply colorChangeTime by seconds 
+      println("COLOR CHANGE @", hour() + ":" + minute() + ":" + second());
+      colorTimer = millis() / 1000;
       change = true;
-      println("COLOR CHANGE @", (hour()+":"+minute()+":"+second()));
-      colorTimer = millis()/1000;
     } else change = false;
-    if (change == true) {
+        
+    if (change) {
       go = 1;
-      colorIndexA =  (colorIndexA + steps) % (availableColors.length-1);
-      colB =  col[colorIndexA];
-      colorIndexB = (colorIndexB + steps) % (availableColors.length-1);
+      colorIndexA = (colorIndexA + steps) % (availableColors.length - 1);
+      colB = col[colorIndexA];
+      colorIndexB = (colorIndexB + steps) % (availableColors.length - 1);
       colD = col[colorIndexB];
     }
+    
     c = col[colorIndexA];
     c1 = col[colorIndexA];
     flash = col[colorIndexB];
@@ -391,10 +372,12 @@ public class Rig {
 
     if (go > 0.1) change = true;
     else change = false;
-    if (change == true) {
+    
+    if (change) {
       c = lerpColorHSB(colB, colA, go);
       flash = lerpColorHSB(colD, colC, go);
     }
+    
     go *= 0.97;
     if (go < 0.01) go = 0.001;
   }
@@ -564,8 +547,8 @@ public class Rig {
     drawAnimations();
     blendMode(MULTIPLY);
     colorFlip();
-    // draw a colour layer for all rigs except the filaments and uv pars - leaving these ones white 
-    if(type != RigType.Filaments && type != RigType.UvPars) drawColorLayer(bgIndex);
+    // draw a colour layer for all rigs except the filaments & uv pars & MegaWhite - leaving these ones white 
+    if(type != RigType.Filaments && type != RigType.UvPars && type != RigType.MegaWhite) drawColorLayer(bgIndex);
     blendMode(NORMAL);
     rigInfo();
     removeAnimations();

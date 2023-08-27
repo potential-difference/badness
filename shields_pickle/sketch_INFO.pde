@@ -45,8 +45,8 @@ void onScreenInfo() {
     //////////////////////////////////////////////////////////////////////////////////////////////////
     /////////// info about PLAYWITHYOURSELF functions ////////////////////////////////////////////////
     fill(300);
-    String sec = nf(int(vizTime * 60 - (millis() / 1000 - vizTimer)) % 60, 2, 0);
-    int min = int(vizTime * 60 - (millis() / 1000 - vizTimer)) / 60 % 60;
+    String sec = nf(int(vizChangeTime * 60 - (millis() / 1000 - rigs.get(0).vizTimer)) % 60, 2, 0);
+    int min = int(vizChangeTime * 60 - (millis() / 1000 - rigs.get(0).vizTimer)) / 60 % 60;
     text("next viz in: " + min + ":" + sec, x, y + 80);
     ///// NEXT COLOR CHANGE IN....
     sec = nf(int(colorChangeTime * 60 - (millis() / 1000 - rigs.get(0).colorTimer)) % 60, 2, 0);
