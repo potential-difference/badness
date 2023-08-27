@@ -413,6 +413,8 @@ public class Rig {
     color adjustedColor2 = color(hue(originalColor2), saturation(originalColor2), adjustedBrightness2);
 
     flash = adjustedColor2;
+
+    // TODO these cc[] variables need to be changed to a rig specific dimmer for c & flash
     
     go *= 0.97;
     if (go < 0.01) go = 0.001;
