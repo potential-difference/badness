@@ -42,15 +42,7 @@ void setupMidiActions() {
 
 void playWithMe() {
     
-    /////////////////////// KEY PRESS ////////////////////////////
-    if (keyP[' ']) { 
-        for (Rig rig : rigs) {
-            //if (testToggle) rig.animations.add(new Test(rig));
-            //println(rig.type," vizIndex", rig.vizIndex);
-            rig.addAnim(rig.vizIndex);  // create a new anim object and add it to the beginning of the arrayList
-        }
-    } 
-    
+      
     /*
     ////////////////////////////////////// Momentary pad button actions //////////////////////////////
     for (int idx = 0;idx < 128;idx++) {//action: everyFrameActions){
@@ -70,9 +62,9 @@ void playWithMe() {
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     
     
-    float debouncetime = 100;
     ///////////////////////////// *** MANUAL ANIM WORK THAT DOESNT WORK **** ////////////////////////////
     /*
+    float debouncetime = 100;
     try {
     if (millis()-lastTime[44]>debouncetime) {
     if (padVelocity[44]>0) shields.animations.add(new Checkers (shields));
@@ -93,20 +85,6 @@ void playWithMe() {
     
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////// ALL ON ///////////////////////////////////////////////
-    
-    /*if (millis()-lastTime[46]>debouncetime) {
-    if (padVelocity[46]>0) {
-    shields.animations.add( new AllOn(shields)); //shields.anim.alphaEnvelopeA = new CrushPulse(0.031, 0.040, 0.913, avgmillis*shields.alphaRate*3+0.5, 0.0, 0.0);
-    //anim = shields.animations.get(shields.animations.size()-1);
-    lastTime[46]=millis();
-}
-}
-    */
-    
-    
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////  COLOUR //////////////////////////////////////////////////////////////////////////////
     
     
@@ -122,15 +100,7 @@ void playWithMe() {
 }
     lastTime[41]=millis();
 }
-    */
-    //  if(padVelocity[36] > 0) {
-    //    shields.colorIndexA = (shields.colorIndexA+1)%shields.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
-    //    cans.colorIndexA = (cans.colorIndexA+1)%cans.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
-//  }
-    //  if(padVelocity[37] > 0) {
-    //    shields.colorIndexB = (shields.colorIndexB+1)%shields.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
-    //    cans.colorIndexB = (cans.colorIndexB+1)%cans.col.length;      //// CYCLE FORWARD THROUGH ROOF COLORS
-//  }
+  
     //if (padVelocity[51] > 0) roof.colorSwap(0.9999999999);
     //if (padVelocity[43] > 0) pars.colorSwap(0.9999999999);                // COLOR SWAP MOMENTARY
     
@@ -212,7 +182,7 @@ void allOnForeverBangButton(int noteNumber, Rig...rigs) {
         for (int i = 0; i < rigs.length; i++) {
             Rig rig = rigs[i];
             Anim anim = new AllOnForever(rig, velocity);
-            anim.manuallyAdded = true;   // flag anim as manually added soit doesn't get deleted by PLAY WITH YOURSELF
+            anim.manuallyAdded = true;              // flag anim as manually added soit doesn't get deleted by PLAY WITH YOURSELF
             animationHolders[i] = new AnimationHolder(rig, anim); // create a new AnimationHolder object and add it to the array
             rig.animations.add(animationHolders[i].anim); 
         }
@@ -229,7 +199,7 @@ void allOnForeverBangButton(int noteNumber, Rig...rigs) {
 }
 
 
-// MOMENTARY PAD BUTTON sets colorSwap for the given rig objects
+// MOMENTARY PAD BUTTON sets colorFlip for the given rig objects
 void colorFlipBangButton(int noteNumber, Rig...rigs) {
     midiManager.momentarySwitch(noteNumber, velocity -> {
         if (velocity > 0) {
