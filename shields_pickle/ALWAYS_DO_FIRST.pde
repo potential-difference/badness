@@ -150,7 +150,7 @@ void alwaysDoFirst() {
   mixerDimmer = 0.1;
   // digDimmer = 0.11;
 
-  vizTime = 10;          // time in minutes - TODO sort this out onto slider 
+  vizChangeTime = 10;          // time in minutes - TODO sort this out onto slider 
   colorChangeTime = 5;  // time in minutes - TODO sort this out onto slider 
 }
 
