@@ -172,6 +172,7 @@ void midiSetup() {
     }
   }
   setupMidiActions();
+  setupShieldMidiActions();
 }
 
 //////////////////////////////////////// LOAD IMAGES ///////////////////////////

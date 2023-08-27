@@ -171,8 +171,8 @@ void coordinatesInfo(Rig rig, boolean _info) {
         fill(rig.flash);
         int length = rig.pixelPosition.size();
         for (int i = 0; i < length; i++) {
-            PVector pv = rig.pixelPosition.get(i);
-            text("" + i, centerX + pv.x, centerY + pv.y);
+            PVector pos = rig.pixelPosition.get(i);
+            text("" + i, centerX + pos.x, centerY + pos.y);
         }
     } 
 }
