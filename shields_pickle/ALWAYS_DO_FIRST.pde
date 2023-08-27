@@ -28,7 +28,7 @@ void setStatupSettings(Rig rig) {
       rig.vizIndex = 1;
       rig.colorIndexA = 2;
       rig.colorIndexB = 1;
-      rig.bgIndex = 0;
+      rig.bgIndex = 4;
       break;
   }
 }
@@ -40,7 +40,7 @@ void alwaysDoFirst() {
     rig.availableAnims = new int[] {1, 2, 6, 7, 8};
     rig.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
     rig.availableFunctionEnvelopes = new int[] {0, 1, 2};  
-    rig.availableBkgrnds = new int[] {7};   
+    rig.availableBkgrnds = new int[] {8, 0, 1, 2, 7};   
     setDefaultParameters(rig, 1, 0.5, 0.5, 4, 0.5, 0.5, 0.5, 0.2);  
     setStatupSettings(rig);
 
@@ -50,7 +50,7 @@ void alwaysDoFirst() {
         rig.availableAnims = new int[] {1, 2, 6, 7, 8, 4};
         rig.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
         rig.availableFunctionEnvelopes = new int[] {0, 1, 2};  
-        rig.availableBkgrnds = new int[] {7};   
+        rig.availableBkgrnds = new int[] {0,1,2,3,4,5,6};   
         // Dimmer, alphaRate, functionRate, backgroundChangeRate, wideSlider, highSlider, strokeSlider, blurriness
         setDefaultParameters(rig, 1, 0.5, 0.5, 4, 0.5, 0.5, 0.5, 0.2);  
         setStatupSettings(rig);

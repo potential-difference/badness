@@ -156,6 +156,9 @@ public class Rig {
       case 2:
         radialGradient(flash, c, sine);
         break;
+      case 8:
+        radialGradient(flash, c, beat);
+        break;
       case 3:
         radialGradient(c, flash, beat);
         bigShield(c, flash);
@@ -177,7 +180,9 @@ public class Rig {
         balls(clash1);
         break;
       case 7:
-        everyOtherColor(c, flash);
+        everyOtherColor(c,1);
+        everyOtherColor(flash,2);
+        everyOtherColor(clashed,3);
         break;
       default:
         oneColour(c);
@@ -214,18 +219,15 @@ public class Rig {
     // println(type," one colour");
     colorLayer.background(col1);
   }
-//////////////////////////////////////////////////////////////////////////////////////////////////
-  ///////////////////////////////////////// ONE COLOUR BACKGOUND ///////////////////////////////////
-  void everyOtherColor(color col1, color col2) {
-    colorLayer.background(col1);
-    println(type," everyothercolor");
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////// EVERY INDEX BACKGOUND ///////////////////////////////////
+  void everyOtherColor(color col1, int index) {
     // loop through array list of pixel positions PVectors
     for (int i = 0; i < pixelPosition.size(); i++) {
       PVector pos = pixelPosition.get(i);
-      println("pos: "+pos, " everyothercolor");
-      if (i % 2 == 0) {
-        colorLayer.fill(col2);
-        colorLayer.ellipse(pos.x, pos.y, 10, 10);
+      if (i % index == 0) {
+        colorLayer.fill(col1);
+        colorLayer.ellipse(pos.x, pos.y, 30, 30);
       }
     }
   }
@@ -397,6 +399,20 @@ public class Rig {
       c = lerpColorHSB(colB, colA, go);
       flash = lerpColorHSB(colD, colC, go);
     }
+
+    color originalColor1 = c;
+    float originalBrightness1 = brightness(originalColor1);
+    float adjustedBrightness1 = originalBrightness1 * cc[9]; // TODO change this to a variable that is easier to track
+    color adjustedColor1 = color(hue(originalColor1), saturation(originalColor1), adjustedBrightness1);
+
+    c = adjustedColor1;
+
+    color originalColor2 = flash;
+    float originalBrightness2 = brightness(originalColor2);
+    float adjustedBrightness2 = originalBrightness2 * cc[13]; // TODO change this to a variable that is easier to track
+    color adjustedColor2 = color(hue(originalColor2), saturation(originalColor2), adjustedBrightness2);
+
+    flash = adjustedColor2;
     
     go *= 0.97;
     if (go < 0.01) go = 0.001;
@@ -454,7 +470,7 @@ public class Rig {
   void clash(float func) { 
     clash = lerpColorHSB(c, flash, func*0.2);           ///// MOVING, HALF RNAGE BETWEEN C and FLASH
     clash1 = lerpColorHSB(c, flash, 1-(func*0.2));      ///// MOVING, HALF RANGE BETWEEN FLASH and C
-    clashed = lerpColor(c, flash, 0.2);                 ///// STATIC - HALFWAY BETWEEN C and FLASH
+    clashed = lerpColor(c, flash, 0.5);                 ///// STATIC - HALFWAY BETWEEN C and FLASH
   }
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -567,8 +583,8 @@ public class Rig {
     drawAnimations();
     blendMode(MULTIPLY);
     colorFlip();
+    clash(beat);    // TODO improve global variable beat - add envelope functionality to this
     // draw a colour layer for all rigs except the filaments & uv pars & MegaWhite - leaving these ones white 
-    println(type, "BG INDEX ", bgIndex);
     if(type != RigType.Filaments && type != RigType.UvPars && type != RigType.MegaWhite) drawColorLayer(bgIndex);
     blendMode(NORMAL);
     rigInfo();

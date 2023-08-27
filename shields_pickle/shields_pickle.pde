@@ -39,7 +39,9 @@ MidiBus MPD8bus;
 
 boolean onTop = false;
 boolean testToggle, smokeToggle;
-float boothDimmer, mixerDimmer, digDimmer, vizChangeTime, colorChangeTime, colorSwapSlider, beatSlider = 0.3;
+float boothDimmer, mixerDimmer, digDimmer,
+vizChangeTime, colorChangeTime, 
+colorSwapSlider, beatSlider = 0.3;
 //float smokePumpValue, smokeOnTime, smokeOffTime;
 int colStepper = 1;
 int time_since_last_anim=0;
@@ -154,7 +156,7 @@ void setup()
 //////////////////////////////////////////////////////////////////////////////////////
 void draw()
 {
- midiManager.processFrame();   // Process frame actions
+  midiManager.processFrame();   // Process frame actions
 
   int start_time = millis();
   surface.setAlwaysOnTop(onTop);
