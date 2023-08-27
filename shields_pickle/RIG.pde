@@ -57,14 +57,13 @@ public class Rig {
     println("## "+type+" COORDINATES");
     println(riginfo);
 
-    availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
-
     backgroundNames = new String[] {"one col c", "vert mirror grad", "side by side", "horiz mirror grad", 
     "one color flash", "moving horiz grad", "checked", "radiators", "stripes", "one two three"}; 
 
     animations = new ArrayList<Anim>();
     rigs.add(this);
     arrayListIndex = rigs.indexOf(this);          // where this is the rig object
+    availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
     availableBkgrnds = new int[] {0, 1, 2, 3};    // default - changed when initalised;
     availableAlphaEnvelopes = new int[] {0, 1};   // default - changed when initalised; 
     availableFunctionEnvelopes = new int[] {0, 1, 2, 5, 6};  // default - changed when initalised;
@@ -139,12 +138,15 @@ public class Rig {
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////  COLOUR LAYERS FOR RIG /////////////////////////////////////////
+ //  void addAnim(){ this.addAnim(this.vizIndex);}
+
   void drawColorLayer(int backgroundIndex) {
+    int index = this.availableBkgrnds[backgroundIndex];    
     colorLayer.beginDraw();
     colorLayer.noStroke();
     colorLayer.background(0);
     
-    switch (backgroundIndex) {
+    switch (index) {
       case 0:
         oneColour(c);
         break;
@@ -173,6 +175,9 @@ public class Rig {
         mediumShield(flash, flash);
         smallShield(c);
         balls(clash1);
+        break;
+      case 7:
+        everyOtherColor(c, flash);
         break;
       default:
         oneColour(c);
@@ -206,7 +211,34 @@ public class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////// ONE COLOUR BACKGOUND ///////////////////////////////////
   void oneColour(color col1) {
+    // println(type," one colour");
     colorLayer.background(col1);
+  }
+//////////////////////////////////////////////////////////////////////////////////////////////////
+  ///////////////////////////////////////// ONE COLOUR BACKGOUND ///////////////////////////////////
+  void everyOtherColor(color col1, color col2) {
+    colorLayer.background(col1);
+    println(type," everyothercolor");
+    // loop through array list of pixel positions PVectors
+    for (int i = 0; i < pixelPosition.size(); i++) {
+      PVector pos = pixelPosition.get(i);
+      println("pos: "+pos, " everyothercolor");
+      if (i % 2 == 0) {
+        colorLayer.fill(col2);
+        colorLayer.ellipse(pos.x, pos.y, 10, 10);
+      }
+    }
+  }
+  //////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////// funcitons to draw shields quickly /////////////////////////////////////////
+  void drawCircle(PGraphics colorLayer, PVector position, float radius, color col){
+    colorLayer.fill(col);
+    colorLayer.ellipse(position.x, position.y, radius, radius);
+  }
+
+  void drawShield(PGraphics colorLayer, PVector shield, float radius, color col1, color col2) {
+    drawCircle(colorLayer, shield, radius, col1);
+    drawCircle(colorLayer, shield, radius/2, col2);
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////// SHIELDS BACKGROUNDS ////////////////////////////////////
@@ -245,18 +277,6 @@ public class Rig {
     drawShield(colorLayer, opcGrid.smallShieldB, opcGrid.smallShieldRad, col1, col1);
     drawShield(colorLayer, opcGrid.smallShieldC, opcGrid.smallShieldRad, col1, col1);
      }
-
-  ////////////////////// funcitons to draw shields quickly /////////////////////
-  void drawCircle(PGraphics colorLayer, PVector position, float radius, color col){
-    colorLayer.fill(col);
-    colorLayer.ellipse(position.x, position.y, radius, radius);
-  }
-
-  void drawShield(PGraphics colorLayer, PVector shield, float radius, color col1, color col2) {
-    drawCircle(colorLayer, shield, radius, col1);
-    drawCircle(colorLayer, shield, radius/2, col2);
-  }
-
   //////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////
    void rigInfo() {
@@ -440,7 +460,7 @@ public class Rig {
   //////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////// ADD ANIM //////////////////////////////////////////////
   void addAnim(){ this.addAnim(this.vizIndex);}
-   void addAnim(int animIndex) { this.animations.add(animAtIndex(animIndex)); }
+  void addAnim(int animIndex) { this.animations.add(animAtIndex(animIndex)); }
     //Object[] classList = new Object[] { new BenjaminsBoxes(this), new StarMesh(this), new Rings(this), new Celtic(this)};
   Anim animAtIndex(int animIndex){
     Anim anim = new Anim(this);
@@ -548,6 +568,7 @@ public class Rig {
     blendMode(MULTIPLY);
     colorFlip();
     // draw a colour layer for all rigs except the filaments & uv pars & MegaWhite - leaving these ones white 
+    println(type, "BG INDEX ", bgIndex);
     if(type != RigType.Filaments && type != RigType.UvPars && type != RigType.MegaWhite) drawColorLayer(bgIndex);
     blendMode(NORMAL);
     rigInfo();

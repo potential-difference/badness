@@ -35,9 +35,9 @@ void playWithYourself() {
   for (Rig rig : rigs) {
     rig.colorTimer(1); //// seconds between colour change, number of steps to cycle through colours
     if (millis()/1000 - rig.bgTimer >= (colorChangeTime * 60) / rig.backgroundChangeRate) { 
-      rig.bgIndex = (int(random(rig.availableBkgrnds.length)));  
+      rig.bgIndex = int(random(rig.availableBkgrnds.length));  
       rig.bgTimer = millis()/1000; 
-      // println(rig.type+" background change @", (hour()+":"+minute()+":"+second()), "new background:", rig.bgIndex);
+      println(rig.type+" background change @", (hour()+":"+minute()+":"+second()), "new background:", rig.bgIndex);
     }
   }
   //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

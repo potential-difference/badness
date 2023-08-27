@@ -18,9 +18,6 @@ void setStatupSettings(Rig rig) {
       rig.vizIndex = 2;
       rig.functionIndexA = 0;
       rig.functionIndexB = 1;
-      rig.alphaIndexA = 0;
-      rig.alphaIndexB = 0;
-      rig.bgIndex = 0;
       rig.colorIndexA = 2;
       rig.colorIndexB = 1;
       break;
@@ -31,6 +28,7 @@ void setStatupSettings(Rig rig) {
       rig.vizIndex = 1;
       rig.colorIndexA = 2;
       rig.colorIndexB = 1;
+      rig.bgIndex = 0;
       break;
   }
 }
@@ -42,7 +40,7 @@ void alwaysDoFirst() {
     rig.availableAnims = new int[] {1, 2, 6, 7, 8};
     rig.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
     rig.availableFunctionEnvelopes = new int[] {0, 1, 2};  
-    rig.availableBkgrnds = new int[] {0, 1, 2};   
+    rig.availableBkgrnds = new int[] {7};   
     setDefaultParameters(rig, 1, 0.5, 0.5, 4, 0.5, 0.5, 0.5, 0.2);  
     setStatupSettings(rig);
 
@@ -52,7 +50,7 @@ void alwaysDoFirst() {
         rig.availableAnims = new int[] {1, 2, 6, 7, 8, 4};
         rig.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
         rig.availableFunctionEnvelopes = new int[] {0, 1, 2};  
-        rig.availableBkgrnds = new int[] {0, 1, 2};   
+        rig.availableBkgrnds = new int[] {7};   
         // Dimmer, alphaRate, functionRate, backgroundChangeRate, wideSlider, highSlider, strokeSlider, blurriness
         setDefaultParameters(rig, 1, 0.5, 0.5, 4, 0.5, 0.5, 0.5, 0.2);  
         setStatupSettings(rig);
