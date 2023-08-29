@@ -96,6 +96,17 @@ class MegaSeedCGrid extends OPCGrid{
   }
 }
 
+class UnicornGrid extends OPCGrid{
+  Rig rig;;
+  UnicornGrid(Rig _rig, Map<String,OPC> opcnodes){
+    rig = _rig;
+    IntCoord coord = size.filaments;
+    
+    // sunset lamp cold white
+    opcnodes.get("unicorn").led(1,coord.x+20,coord.y);
+  }
+}
+
 class FilamentsGrid extends OPCGrid{
   Rig rig;
   FilamentsGrid(Rig _rig,Map<String,OPC> opcnodes){
@@ -104,15 +115,22 @@ class FilamentsGrid extends OPCGrid{
     opcnodes.get("megaSeedA").led(2,coord.x-coord.wide/4,coord.y);
     opcnodes.get("megaSeedB").led(2,coord.x+coord.wide/4,coord.y);
     opcnodes.get("megaSeedC").led(2,coord.x,coord.y+coord.high/4);
+
+    // sunset lamp cold white
+    opcnodes.get("unicorn").led(1,coord.x+20,coord.y);
   }
 }
 class MegaWhiteGrid extends OPCGrid{
   Rig rig;
   MegaWhiteGrid(Rig _rig,Map<String,OPC> opcnodes){
     rig = _rig;
-    opcnodes.get("megaSeedA").led(1,size.megaWhite.x,size.megaWhite.y - 20);
-    opcnodes.get("megaSeedB").led(1,size.megaWhite.x,size.megaWhite.y);
-    opcnodes.get("megaSeedC").led(1,size.megaWhite.x,size.megaWhite.y + 20);
+    IntCoord coord = size.megaWhite;
+    opcnodes.get("megaSeedA").led(1,coord.x,coord.y - 20);
+    opcnodes.get("megaSeedB").led(1,coord.x,coord.y);
+    opcnodes.get("megaSeedC").led(1,coord.x,coord.y + 20);
+
+    // sunset lamp warm white
+    opcnodes.get("unicorn").led(0,coord.x+20,coord.y);
   }
 }
 class BoothCansGrid extends OPCGrid{
@@ -131,6 +149,7 @@ class BoothCansGrid extends OPCGrid{
     opcnodes.get("LunchBox4").led(41,coord.x + coord.wide/4, coord.y);
     opcnodes.get("LunchBox4").led(40,coord.x + coord.wide/4,coord.y + coord.high/3);
     
+    
   }
 }
   class OutsideRoofGrid extends OPCGrid{
@@ -148,8 +167,11 @@ class BoothCansGrid extends OPCGrid{
     opcnodes.get("GreyBox1").led(50,coord.x-coord.wide/xdiv,coord.y + coord.high/ydiv);
     opcnodes.get("GreyBox1").led(51,coord.x+coord.wide/xdiv,coord.y + coord.high/ydiv);
     rig.pixelPosition.add(new PVector(coord.x,coord.y));
+
+ 
+
   }
-  }
+}
   class OutsideGroundGrid extends OPCGrid{
   Rig rig;
 
@@ -158,6 +180,17 @@ class BoothCansGrid extends OPCGrid{
     IntCoord coord = size.outsideGround;
     opcnodes.get("GreyBox1").led(30,coord.x-coord.wide/6,coord.y+coord.wide/20);
     opcnodes.get("GreyBox2").led(50,coord.x+coord.wide/6,coord.y-coord.wide/20);
+
+   // led string on esp c3
+    int leds = 104;
+    int gap = coord.wide/leds*3;
+    println("gap: "+gap);
+    for (int i = 0; i < leds/2; i++){
+    opcnodes.get("narwhal").led(i,coord.x - coord.wide/2 + 5 +(i*gap),coord.y);
+    opcnodes.get("narwhal").led(i+(leds/2),coord.x - coord.wide/2 + 5 +(i*gap),coord.y+5);
+    }
+
+
   }
 }
 /* pixel mapping is a simple struct holding information about a
