@@ -20,11 +20,31 @@ void oscEvent(OscMessage theOscMessage) {
         // if (keyT['q']) println("set ",fld.getName(),"to ",theOscMessage.arguments()[0]);
         println("set ",fld.getName(),"to ",theOscMessage.arguments()[0]);
         println();
+   
     } catch(Exception e) {
         print("osc message ");
         printArray(addr);
-        println(" failed with exception ",e);
+        println(" failed cc change with exception ",e);
     }
+     
+    try {
+    for (int i = 1; i < addr.length - 1; i++) {
+        fld = obj.getClass().getDeclaredField(addr[i]);
+        obj = fld.get(obj);
+    }
+        fld = obj.getClass().getDeclaredField(addr[addr.length - 1]);
+       
+       // boolean buttonToggle = !fld.getBoolean(obj); // Toggle the boolean value
+       // fld.setBoolean(obj, buttonToggle);
+        //println("set ",fld.getName(),"to ",buttonToggle);
+        println("set ","to ");
+
+    } catch (Exception e) {
+        print("osc message ");
+        printArray(addr);
+        println(" failed button press with exception ", e);
+    }
+
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
