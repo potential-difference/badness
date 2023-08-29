@@ -1,9 +1,12 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////// KEYBOARD COMMANDS //////////////////////////////////// 
-boolean vizHold, colHold, colBeat;
+boolean vizHold, colHold, colBeat, debugToggle;
 boolean[] keyP = new boolean[128];
 boolean[] keyT = new boolean[128];
 void keyPressed() {  
+
+    if (key == 'e') debugToggle = !debugToggle; // toggle debug 
+
        if (keyCode == BACKSPACE) {
         println("*** DELETE ALL ANIMS ***");
         for (Rig rig : rigs) {
