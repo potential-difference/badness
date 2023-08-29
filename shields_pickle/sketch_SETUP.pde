@@ -155,11 +155,11 @@ void midiSetup() {
   for (String in : inputs){//(int idx=0;idx < inputs.length;idx++){//in : inputs){
     //String in = inputs[idx];
     if (in.contains("TR-8S")) { 
-      TR8bus = new MidiBus(this, in,in);
+      tR8bus = new MidiBus(this, in,in);
       println("Found TR8: ",in);
     }
     if (in.contains("LPD8")) {
-      LPD8bus = new MidiBus(this,in,in);
+      lPD8bus = new MidiBus(this,in,in);
       println("Found LPD8: ", in);
     }
     if (in.contains("BeatStep")) { 
@@ -167,8 +167,12 @@ void midiSetup() {
       println("Found Arturia BeatStep: ", in);
     }
     if (in.contains("MPD218") | in.contains("Port A")) { 
-      MPD8bus = new MidiBus(this,in,in);
+      mPD8bus = new MidiBus(this,in,in);
       println("Found AKAI MPD218: ", in);
+    }
+    if (in.contains("Launch Control XL") ) { 
+      launchControlBus = new MidiBus(this,in,in);
+      println("Found Novation Launch Control XL: ", in);
     }
   }
   setupMidiActions();

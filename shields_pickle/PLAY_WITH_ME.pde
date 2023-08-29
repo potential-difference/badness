@@ -1,6 +1,5 @@
 float[] lastTime = new float[cc.length];
 void setupMidiActions() {
-    
     /////////////////////////////////////////////////////////////////////////
     ///////////////////////////// SHIELDS ///////////////////////////////////
     offBangButton(64, shields);              // OFF BANG BUTTON: noteNumber, rig objects to turn off
@@ -38,10 +37,23 @@ void setupMidiActions() {
     Consumer<Float> colorSwapConsumer = velocity -> shields.colorSwap(velocity);
     midiManager.constantButton(59, colorSwapConsumer, customFunctionRate, shields);
     */
+
 }
 
 void playWithMe() {
     
+    shields.alphaRate = cc[13];
+    shields.functionRate = cc[29];
+    shields.strokeSlider = cc[49];
+
+    try {
+        Field dimmer = Rig.class.getDeclaredField("dimmer");  // Get the Field object using reflection
+        float value = cc[77];
+        dimmer.set(shields, value);    // set the dimmer value of the shields rig
+        if(debugToggle) println("Value from pad: " + value);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+        println ("failed with exception ",e);
+    }
       
     /*
     ////////////////////////////////////// Momentary pad button actions //////////////////////////////

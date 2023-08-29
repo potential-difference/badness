@@ -591,7 +591,7 @@ public class Rig {
     blendMode(NORMAL);
     rigInfo();
     removeAnimations();
-    coordinatesInfo(this, keyT['e']);
+    coordinatesInfo(this, debugToggle);
   }
 }
 //////////////////////////////////////////////////////////////////////////////////////////////////

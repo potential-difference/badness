@@ -31,11 +31,12 @@ import netP5.*;
 OscP5 oscP5 = new OscP5(this,8000);
 
 import themidibus.*;  
-MidiBus TR8bus;           // midibus for TR8
+MidiBus tR8bus;           // midibus for TR8
 MidiBus faderBus;         // midibus for APC mini
-MidiBus LPD8bus;          // midibus for LPD8
+MidiBus lPD8bus;          // midibus for LPD8
 MidiBus beatStepBus;      // midibus for Artuia BeatStep
-MidiBus MPD8bus;
+MidiBus mPD8bus;
+MidiBus launchControlBus; // midibus for Novation Launch Control
 
 boolean onTop = false;
 boolean testToggle, smokeToggle;
@@ -100,8 +101,9 @@ void setup()
   megaSeedC.opcgrid = new MegaSeedCGrid(megaSeedC,OPCs);
 
   filaments = new Rig(size.filaments,RigType.Filaments);
-  filaments.opcgrid = new FilamentsGrid(filaments,OPCs);
-  megaWhite = new Rig(size.megaWhite,RigType.MegaWhite);
+  //filaments.opcgrid = new FilamentsGrid(filaments,OPCs);
+  filaments.opcgrid = new UnicornGrid(filaments,OPCs); // swap filaments grid to unicorn
+  megaWhite = new Rig(size.megaWhite,RigType.MegaWhite); // sunset lamp added here
   megaWhite.opcgrid = new MegaWhiteGrid(megaWhite,OPCs);
 
 
@@ -177,6 +179,7 @@ void draw()
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////// PLAY WITH ME ////////////////////////////////////////////////////////////
   playWithMe();
+
   if (beatTrigger) { 
     
     for (Rig rig : rigs) {
@@ -186,6 +189,7 @@ void draw()
       }
       }
   }
+    playWithMe();
 
   if (keyT['s']) for (Anim anim : shields.animations)  anim.funcFX = 1-(stutter*noize1*0.1);
  

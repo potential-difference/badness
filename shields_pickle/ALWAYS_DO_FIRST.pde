@@ -28,7 +28,7 @@ void setStatupSettings(Rig rig) {
       rig.vizIndex = 1;
       rig.colorIndexA = 2;
       rig.colorIndexB = 1;
-      rig.bgIndex = 4;
+      rig.bgIndex = 0;
       break;
   }
 }
