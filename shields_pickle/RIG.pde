@@ -32,6 +32,7 @@ public class Rig {
   PVector positionX[][] = new PVector[7][3];
   boolean firsttime_sketchcolor=true, noiseToggle,
   playWithYourSelf = true,
+  vizHold, colHold, bgHold,
   onBeat=true; //add animations on a new beat
   ArrayList <Anim> animations;
   int[] availableAnims;
@@ -402,14 +403,14 @@ public class Rig {
 
     color originalColor1 = c;
     float originalBrightness1 = brightness(originalColor1);
-    float adjustedBrightness1 = originalBrightness1 * cc[9]; // TODO change this to a variable that is easier to track
+    float adjustedBrightness1 = originalBrightness1 * cc[0][9]; // TODO change this to a variable that is easier to track
     color adjustedColor1 = color(hue(originalColor1), saturation(originalColor1), adjustedBrightness1);
 
     c = adjustedColor1;
 
     color originalColor2 = flash;
     float originalBrightness2 = brightness(originalColor2);
-    float adjustedBrightness2 = originalBrightness2 * cc[13]; // TODO change this to a variable that is easier to track
+    float adjustedBrightness2 = originalBrightness2 * cc[0][13]; // TODO change this to a variable that is easier to track
     color adjustedColor2 = color(hue(originalColor2), saturation(originalColor2), adjustedBrightness2);
 
     flash = adjustedColor2;

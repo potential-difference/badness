@@ -42,13 +42,13 @@ void setupMidiActions() {
 
 void playWithMe() {
     
-    shields.alphaRate = cc[13];
-    shields.functionRate = cc[29];
-    shields.strokeSlider = cc[49];
+    shields.alphaRate = cc[8][13];
+    shields.functionRate = cc[8][29];
+    shields.strokeSlider = cc[8][49];
 
     try {
         Field dimmer = Rig.class.getDeclaredField("dimmer");  // Get the Field object using reflection
-        float value = cc[77];
+        float value = cc[8][77];
         dimmer.set(shields, value);    // set the dimmer value of the shields rig
         if(debugToggle) println("Value from pad: " + value);
         } catch (NoSuchFieldException | IllegalAccessException e) {

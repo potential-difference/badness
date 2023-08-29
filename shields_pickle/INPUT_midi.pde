@@ -77,13 +77,6 @@ class MidiManager {
     }
 }
 
-float pad[] = new float[128];
-float padVelocity[] = new float[128];
-boolean padPressed[] = new boolean[128];
-
-
-
-
 public void noteOn(int channel, int pitch, int _velocity) {
     float velocity = map(_velocity, 0, 127, 0, 1);
     // Handle note on event here
@@ -92,7 +85,6 @@ public void noteOn(int channel, int pitch, int _velocity) {
     println("noteOnActions[" + pitch + "]", "Velocity: " + velocity);
 }
 
-
 public void noteOff(Note note) {
     // Handle note off event
     midiManager.noteOffActions[note.pitch].execute();
@@ -100,17 +92,19 @@ public void noteOff(Note note) {
     println("noteOffActions[" + note.pitch + "]");
 }
 
-
-
-float cc[] = new float[128];                   //// An array where to store the last value received for each CC controller
+// An array where to store the last value received for each CC controller
+// cc[channel][number] is the value
+// MDP8 is channel 0 // LaunchPad is channel 8
+float cc[][] = new float[9][128];   
 void controllerChange(int channel, int number, int _controllerChangeValue) {
-    cc[number] = map(_controllerChangeValue, 0, 127, 0, 1);
-    //number is the cc index
-    //cc[number] is the value
-    println("cc[" + number + "]", "Velocity: " + cc[number], "Channel: " + channel);
+    cc[channel][number] = map(_controllerChangeValue, 0, 127, 0, 1);
+    // channel is the midi channel
+    // number is the cc index
+    // cc[channel][number] is the value
+    println("Channel: " + channel, " cc[" + number + "]", "Velocity: " + cc[channel][number]);
     //see if cc value is associated in our midi mapping
-    if (midiManager.ccActions[number]!= null) {
-        midiManager.ccActions[number].send(cc[number]);
-    }
+    // if (midiManager.ccActions[number]!= null) {
+    //     midiManager.ccActions[number].send(cc[channel][number]);
+    // }
 }
 
