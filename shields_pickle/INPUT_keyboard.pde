@@ -7,21 +7,6 @@ void keyPressed() {
 
     if (key == 'e') debugToggle = !debugToggle; // toggle debug 
 
-       if (keyCode == BACKSPACE) {
-        println("*** DELETE ALL ANIMS ***");
-        for (Rig rig : rigs) {
-            for (Anim anim : rig.animations) anim.deleteme = true; // immediately delete all anims
-        }
-    }
-    
-    ////debound or thorttle this ////
-    if (frontCans != null) {
-        // TODO make more of these for each rig allowing rigs to not exist
-        if (key == 'j') frontCans.vizIndex = (frontCans.vizIndex + 1) % frontCans.availableAnims.length;  //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
-        if (key == 'h') frontCans.vizIndex = -1;  //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
-        if (frontCans.vizIndex < 0) frontCans.vizIndex = frontCans.availableAnims.length - 1;
-        
-    }
     /////////////////////////////// RIG KEY FUNCTIONS ////////////////////////
     if (shields != null) {
         if (key == 'n') shields.vizIndex = (shields.vizIndex + 1) % shields.availableAnims.length;        //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
@@ -40,10 +25,6 @@ void keyPressed() {
         if (key == 'v') shields.colorIndexB = (shields.colorIndexB + 1) % shields.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    
-    if (key == '[') vizHold = !vizHold; 
-    if (key == ']') colHold = !colHold; 
-    
     /////////////////////////////////// momentaory key pressed array /////////////////////////////////////////////////
     for (int i = 32; i <=  63; i++)  if (key == char(i)) keyP[i] = true;
     for (int i = 91; i <=  127; i++) if (key == char(i)) keyP[i] = true;
@@ -59,7 +40,7 @@ void keyPressed() {
 }
 
 void keyReleased() {
-    /// loop to change key[] to false when released to give hold control
+    /// loop to change key[] to false when released to give momentary control
     for (int i = 32; i <=  63; i++) {
         char released = char(i);
         if (key == released) keyP[i] = false;
