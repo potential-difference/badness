@@ -100,8 +100,18 @@
             {"name" : "roofA", "start" : 20, "pixels" : [1]},
             {"name" : "roofB", "start" : 0, "pixels" : [1]},
             {"name" : "roofC", "start" : 10, "pixels" : [1]},
-
             {"name" : "groundB", "start" : 50, "pixels" : [1]}
         ]
+    },
+    {"name" : "unicorn", "ip" : "192.168.10.50", "type" : "WLED", "port" : 21324,
+        "channels" :[
+            {"name" : "ww", "start" : 0, "pixels" : [1]}
+        ]
+    },
+    {"name" : "narwhal", "ip" : "192.168.10.51", "type" : "WLED", "port" : 21324,
+    "channels" :[
+        {"name" : "string", "start" : 0, "pixels" : [104]}
+    ]
     }
+
 ]
