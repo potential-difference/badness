@@ -24,6 +24,23 @@ void keyPressed() {
         if (key == 'c') shields.colorIndexA = (shields.colorIndexA + 1) % shields.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
         if (key == 'v') shields.colorIndexB = (shields.colorIndexB + 1) % shields.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
     }
+    /////////////////////////////// TEST KEY FUNTIONS ////////////////////////////////////////////////////////
+    if (test != null) {
+        if (key == 'n') test.vizIndex = (test.vizIndex + 1) % test.availableAnims.length;        //// STEP FORWARD TO NEXT RIG VIZ+ 1)&1
+        if (key == 'b') test.vizIndex -= 1;                            //// STEP BACK TO PREVIOUS RIG VIZ
+        if (test.vizIndex < 0) test.vizIndex = test.availableAnims.length - 1;
+        if (key == 'm') test.bgIndex = (test.bgIndex + 1) % test.availableBkgrnds.length;                 //// CYCLE THROUGH RIG BACKGROUNDS
+        if (key == ',') {                                      //// CYCLE THROUGH RIG FUNCS
+            test.functionIndexA = (test.functionIndexA + 1) % test.availableFunctionEnvelopes.length; //animations.func.length; 
+            test.functionIndexB = (test.functionIndexB + 1) % test.availableFunctionEnvelopes.length; //fct.length;
+        }  
+        if (key == '.') {                                      //// CYCLE THROUGH RIG ALPHAS
+            test.alphaIndexA = (test.alphaIndexA + 1) % test.availableAlphaEnvelopes.length; //alph.length; 
+            test.alphaIndexB = (test.alphaIndexB + 1) % test.availableAlphaEnvelopes.length; //alph.length;
+        }   
+        if (key == 'c') test.colorIndexA = (test.colorIndexA + 1) % test.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
+        if (key == 'v') test.colorIndexB = (test.colorIndexB + 1) % test.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
+    }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////// momentaory key pressed array /////////////////////////////////////////////////
     for (int i = 32; i <=  63; i++)  if (key == char(i)) keyP[i] = true;

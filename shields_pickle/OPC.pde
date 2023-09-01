@@ -31,6 +31,8 @@ public class OPC implements Runnable
 
   }
 
+  
+
   // Set the location of a single LED
   void led(int index, int x, int y)  
   {
@@ -43,6 +45,17 @@ public class OPC implements Runnable
     }
 
     pixelLocations[index] = x + width * y;
+  }
+
+  // Function to return the pixel locations as a Map<Integer, Integer>
+  public Map<Integer, Integer> getPixelLocations() {
+    Map<Integer, Integer> locations = new HashMap<>();
+    if (pixelLocations != null) {
+      for (int i = 0; i < pixelLocations.length; i++) {
+        locations.put(i, pixelLocations[i]);
+      }
+    }
+    return locations;
   }
   
   // Set the location of several LEDs arranged in a strip.

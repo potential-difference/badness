@@ -53,6 +53,17 @@ public class WLED extends OPC
 
     pixelLocations[index] = x + width * y;
   }
+
+  // Function to return the pixel locations as a Map<Integer, Integer>
+  public Map<Integer, Integer> getPixelLocations() {
+    Map<Integer, Integer> locations = new HashMap<>();
+    if (pixelLocations != null) {
+      for (int i = 0; i < pixelLocations.length; i++) {
+        locations.put(i, pixelLocations[i]);
+      }
+    }
+    return locations;
+  }
   
   // Set the location of several LEDs arranged in a strip.
   // Angle is in radians, measured clockwise from +X.

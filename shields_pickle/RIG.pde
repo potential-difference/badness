@@ -142,56 +142,96 @@ public class Rig {
  //  void addAnim(){ this.addAnim(this.vizIndex);}
 
   void drawColorLayer(int backgroundIndex) {
+    
     int index = this.availableBkgrnds[backgroundIndex];    
     colorLayer.beginDraw();
     colorLayer.noStroke();
     colorLayer.background(0);
     
-    switch (index) {
-      case 0:
-        oneColour(c);
-        break;
-      case 1:
-        oneColour(flash);
-        break;
-      case 2:
-        radialGradient(flash, c, sine);
-        break;
-      case 8:
-        radialGradient(flash, c, beat);
-        break;
-      case 3:
-        radialGradient(c, flash, beat);
-        bigShield(c, flash);
-        balls(clash);
-        break;
-      case 4:
-        oneColour(c);
-        bigShield(flash, flash);
-        break;
-      case 5:
-        oneColour(flash);
-        bigShield(c, clash);
-        break;
-      case 6:
-        oneColour(c);
-        bigShield(clash, clashed);
-        mediumShield(flash, flash);
-        smallShield(c);
-        balls(clash1);
-        break;
-      case 7:
-        everyOtherColor(c,1);
-        everyOtherColor(flash,2);
-        everyOtherColor(clashed,3);
-        break;
-      default:
-        oneColour(c);
-        break;
+    if (type == RigType.Shields){    
+      switch (index) {
+        case 0:
+          oneColour(c);
+          break;
+        case 1:
+          oneColour(flash);
+          break;
+        case 2:
+          radialGradient(flash, c, sine);
+          break;
+        case 8:
+          radialGradient(flash, c, beat);
+          break;
+        case 3:
+          radialGradient(c, flash, beat);
+          bigShield(c, flash);
+          balls(clash);
+          break;
+        case 4:
+          oneColour(c);
+          bigShield(flash, flash);
+          break;
+        case 5:
+          oneColour(flash);
+          bigShield(c, clash);
+          break;
+        case 6:
+          oneColour(c);
+          bigShield(clash, clashed);
+          mediumShield(flash, flash);
+          smallShield(c);
+          balls(clash1);
+          break;
+        case 7:
+          everyOtherColor(c,1);
+          everyOtherColor(flash,2);
+          everyOtherColor(clashed,3);
+          break;
+        default:
+          oneColour(c);
+          break;
+      }
+    } else {
+       switch (index) {
+        case 0:
+          oneColour(c);
+          break;
+        case 1:
+          oneColour(flash);
+          break;
+        case 2:
+          radialGradient(flash, c, sine);
+          break;
+        case 3:
+          radialGradient(flash, c, beat);
+          break;
+        case 4:
+          everyOtherColor(c,1);
+          everyOtherColor(flash,2);
+          everyOtherColor(clashed,3);
+          break;
+        case 5:
+          radialGradient(c, flash, 0.5);
+          break;
+        case 6:
+          mirrorGradientHalfHalf(c, flash, 0.5);
+          break;
+        case 7:
+          mirrorGradient(flash, c, 0.5);
+          break;
+        case 8:
+          horizontalMirrorGradient(c, flash, 0.5);
+          break;
+        default:
+          oneColour(c);
+          break;
+      }
     }
     colorLayer.endDraw();
     image(colorLayer, size.x, size.y);
   }
+
+  
 
   //////////////////////////////////////////////////////////////////////////////////////////////////
   ///////////////////////////////////////// RADIAL GRADIENT BACKGROUND /////////////////////////////
@@ -278,7 +318,110 @@ public class Rig {
     drawShield(colorLayer, opcGrid.smallShieldA, opcGrid.smallShieldRad, col1, col1);
     drawShield(colorLayer, opcGrid.smallShieldB, opcGrid.smallShieldRad, col1, col1);
     drawShield(colorLayer, opcGrid.smallShieldC, opcGrid.smallShieldRad, col1, col1);
-     }
+  }
+
+   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  /////////////////////////////////// VERTICAL MIRROR GRADIENT BACKGROUND ////////////////////////////////////////////////
+  void mirrorGradient(color col1, color col2, float func) {
+    //// LEFT SIDE OF GRADIENT
+    colorLayer.beginShape(POLYGON); 
+    //colorLayer.noStroke();
+    colorLayer.fill(col1);
+    colorLayer.vertex(0, 0);
+    colorLayer.fill(col2);
+    colorLayer.vertex(colorLayer.width*func, 0);
+    colorLayer.fill(col2);
+    colorLayer.vertex(colorLayer.width*func, colorLayer.height);
+    colorLayer.fill(col1);
+    colorLayer.vertex(0, colorLayer.height);
+    colorLayer.endShape(CLOSE);
+    //// RIGHT SIDE OF colorLayerIENT
+    colorLayer.beginShape(POLYGON); 
+    colorLayer.fill(col2);
+    colorLayer.vertex(colorLayer.width*func, 0);
+    colorLayer.fill(col1);
+    colorLayer.vertex(colorLayer.width, 0);
+    colorLayer.fill(col1);
+    colorLayer.vertex(colorLayer.width, colorLayer.height);
+    colorLayer.fill(col2);
+    colorLayer.vertex(colorLayer.width*func, colorLayer.height);
+    colorLayer.endShape(CLOSE);
+  }
+  
+  /// MIRROR GRADIENT BACKGROUND top one direction - bottom opposite direction ///
+  void mirrorGradientHalfHalf(color col1, color col2, float func) {
+    //////// TOP //// LEFT SIDE OF GRADIENT
+    colorLayer.beginShape(POLYGON); 
+    colorLayer.fill(col1);
+    colorLayer.vertex(0, 0);
+    colorLayer.fill(col2);
+    colorLayer.vertex(colorLayer.width*func, 0);
+    colorLayer.fill(col2);
+    colorLayer.vertex(colorLayer.width*func, colorLayer.height/2);
+    colorLayer.fill(col1);
+    colorLayer.vertex(0, colorLayer.height/2);
+    colorLayer.endShape(CLOSE);
+    //// RIGHT SIDE OF colorLayerIENT
+    colorLayer.beginShape(POLYGON); 
+    colorLayer.fill(col2);
+    colorLayer.vertex(colorLayer.width*func, 0);
+    colorLayer.fill(col1);
+    colorLayer.vertex(colorLayer.width, 0);
+    colorLayer.fill(col1);
+    colorLayer.vertex(colorLayer.width, colorLayer.height/2);
+    colorLayer.fill(col2);
+    colorLayer.vertex(colorLayer.width*func, colorLayer.height/2);
+    colorLayer.endShape(CLOSE);
+    colorLayer.endDraw();
+    //////////////////////////////////
+    func = 1-func;
+    colorLayer.beginDraw();
+    ///// BOTTOM
+    //// LEFT SIDE OF GRADIENT
+    colorLayer.beginShape(POLYGON); 
+    colorLayer.fill(col1);
+    colorLayer.vertex(0, colorLayer.height/2);
+    colorLayer.fill(col2);
+    colorLayer.vertex(colorLayer.width*func, colorLayer.height);
+    colorLayer.fill(col2);
+    colorLayer.vertex(colorLayer.width*func, colorLayer.height);
+    colorLayer.fill(col1);
+    colorLayer.vertex(0, colorLayer.height/2);
+    colorLayer.endShape(CLOSE);
+    //// RIGHT SIDE OF colorLayerIENT
+    colorLayer.beginShape(POLYGON); 
+    colorLayer.fill(col2);
+    colorLayer.vertex(colorLayer.width*func, colorLayer.height/2);
+    colorLayer.fill(col1);
+    colorLayer.vertex(colorLayer.width, colorLayer.height/2);
+    colorLayer.fill(col1);
+    colorLayer.vertex(colorLayer.width, colorLayer.height);
+    colorLayer.fill(col2);
+    colorLayer.vertex(colorLayer.width*func, colorLayer.height);
+    colorLayer.endShape(CLOSE);
+  }
+  /////////////////////////////////////////////////// HORIZONAL GRADIENT ///////////////////////////////////////////////////////
+  void horizontalMirrorGradient(color col1, color col2, float func) {
+    //// TOP HALF OF GRADIENT
+    colorLayer.beginShape(POLYGON); 
+    colorLayer.fill(col2);
+    colorLayer.vertex(0, 0);
+    colorLayer.vertex(colorLayer.width, 0);
+    colorLayer.fill(col1);
+    colorLayer.vertex(colorLayer.width, colorLayer.height*func);
+    colorLayer.vertex(0, colorLayer.height*func);
+    colorLayer.endShape(CLOSE);
+    //// BOTTOM HALF OF GRADIENT 
+    colorLayer.beginShape(POLYGON); 
+    colorLayer.fill(col1);
+    colorLayer.vertex(0, colorLayer.height*func);
+    colorLayer.vertex(colorLayer.width, colorLayer.height*func);
+    colorLayer.fill(col2);
+    colorLayer.vertex(colorLayer.width, colorLayer.height);
+    colorLayer.vertex(0, colorLayer.height);
+    colorLayer.endShape(CLOSE);
+  }
+
   //////////////////////////////////////////////////////////////////////////////////////////////////
   //////////////////////////////////////////////////////////////////////////////////////////////////
    void rigInfo() {
@@ -585,6 +728,12 @@ public class Rig {
     if(type != RigType.Test){ 
       drawAnimations();
       blendMode(MULTIPLY);
+    }
+    if(type == RigType.Test){
+      if(debugToggle){
+        drawAnimations();
+        blendMode(MULTIPLY);
+      }
     }
     colorFlip();
     clash(beat);    // TODO improve global variable beat - add envelope functionality to this

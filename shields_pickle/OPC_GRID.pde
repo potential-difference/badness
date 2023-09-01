@@ -188,19 +188,35 @@ class BoothCansGrid extends OPCGrid{
 }
 class TestGrid extends OPCGrid{
   Rig rig;
+  Map<String,OPC> opcnodes;
+  //Map<Integer, Integer> pixelLocationsMap; // store pixel locations
+
   TestGrid(Rig _rig,Map<String,OPC> opcnodes){
     rig = _rig;
+    this.opcnodes = opcnodes;
     
     IntCoord coord = size.test;
+    OPC opcInstance = opcnodes.get("LunchBox4");
     //cansL
-    opcnodes.get("LunchBox4").led(52,coord.x - coord.wide/4,coord.y - coord.high/3);
-    opcnodes.get("LunchBox4").led(51,coord.x - coord.wide/4, coord.y);
-    opcnodes.get("LunchBox4").led(50,coord.x - coord.wide/4,coord.y + coord.high/3);
+    opcInstance.led(52,coord.x - coord.wide/4,coord.y - coord.high/3);
+    opcInstance.led(51,coord.x - coord.wide/4, coord.y);
+    opcInstance.led(50,coord.x - coord.wide/4,coord.y + coord.high/3);
     
     //cansR
-    opcnodes.get("LunchBox4").led(42,coord.x + coord.wide/4,coord.y - coord.high/3);
-    opcnodes.get("LunchBox4").led(41,coord.x + coord.wide/4, coord.y);
-    opcnodes.get("LunchBox4").led(40,coord.x + coord.wide/4,coord.y + coord.high/3);
+    opcInstance.led(42,coord.x + coord.wide/4,coord.y - coord.high/3);
+    opcInstance.led(41,coord.x + coord.wide/4, coord.y);
+    opcInstance.led(40,coord.x + coord.wide/4,coord.y + coord.high/3);
+    
+    Map<Integer, Integer> pixelLocations = opcInstance.getPixelLocations();
+      for (Map.Entry<Integer, Integer> entry : pixelLocations.entrySet()) {
+        println();
+        int index = entry.getKey();
+        int location = entry.getValue();
+        println("*** pixelLocations ***", index, location);
+
+        PVector pv = new PVector(index, location); // Assuming index is X-coordinate
+        rig.pixelPosition.add(pv);
+      }
     
     
   }
