@@ -41,6 +41,11 @@ null
 wide: 100 high: 100 x,y: 450 650
 
 null
+## Test COORDINATES
+*pixel position array length* 0
+wide: 214 high: 214 x,y: 921 321
+
+null
 ## UvPars COORDINATES
 *pixel position array length* 0
 wide: 200 high: 100 x,y: 600 650
@@ -55,11 +60,6 @@ null
 *pixel position array length* 1
 wide: 200 high: 100 x,y: 800 650
 local coords[0] 100.0 50.0
-
-null
-## BoothCans COORDINATES
-*pixel position array length* 0
-wide: 214 high: 214 x,y: 921 321
 
 null
 ## TipiLeft COORDINATES

@@ -23,7 +23,7 @@ class SizeSettings {
   megaSeedA,megaSeedB,megaSeedC,
   filaments,megaWhite,
   outsideRoof,outsideGround,
-  info,
+  info, test,
   booth,bar,
   uvPars,
   boothCans;
@@ -60,13 +60,6 @@ class SizeSettings {
     yCoordinates[2] = yCoordinates[0] + rigHeight;
     yCoordinates[3] = yCoordinates[0] + rigHeight;
 
-    // print to console to check everything is working correctly.
-    // for(int i = 0; i < numObjects; i++ ) {
-    //   println("xCoordinates[" + i + "] " + xCoordinates[i]);
-    //   println("yCoordinates[" + i + "] " + yCoordinates[i]);
-    //   println();
-    // }
-         
     // Create an array to store the created objects
     IntCoord[] roofCoords = new IntCoord[numObjects];
     // Use a for loop to create the objects and store them in the array
@@ -79,12 +72,12 @@ class SizeSettings {
     tipiRight = roofCoords[1];
     frontCans = roofCoords[2];   
     boothCans = roofCoords[3];
+    
     // Calculate the x and y coordinates for the info object
     int infoWidth = 250;
     int infoHeight = shields.high;
     int xCoordinate = roofCoords[numOfColumns - 1].x + rigWidth / 2 + infoWidth / 2;
     int yCoordinate = shields.y;
-    
     // Create the info object using the calculated coordinates and updated rigWidth
     info = new IntCoord(xCoordinate, yCoordinate, infoWidth, infoHeight);
     
@@ -128,8 +121,11 @@ class SizeSettings {
     // Update the x coordinate for bar using uvPars's properties
     int outsideGroundx = outsideRoofx + outsideRoof.wide/2 + rigWidth/2;
     outsideGround = new IntCoord(outsideGroundx, bottomRigY, rigWidth, rigHeight);
-    
 
+    // rigWidth = 100;
+    // int testx = outsideGroundx + outsideGround.wide/2 + rigWidth/2;
+    test = roofCoords[3];
+    
     // Update the rigWidth using info's properties
     rigWidth = info.wide;
     

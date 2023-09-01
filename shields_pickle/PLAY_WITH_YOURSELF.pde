@@ -83,18 +83,22 @@ void playWithYourself() {
   }
   // QUICK AND DIRTY ADJUSTMETNS ON FRIDAY NIGHT //
 
-  outsideRoof.c = shields.c;
-  outsideRoof.flash = shields.flash;
+  try {
+    outsideRoof.c = shields.flash;
+    outsideRoof.flash = shields.c;
+  } catch (Exception e) { println("outside roof not found", e); }
 
-  outsideGround.c = shields.flash;
-  outsideGround.flash = shields.c;
+  try {
+    outsideGround.c = shields.flash;
+    outsideGround.flash = shields.c;
+  } catch (Exception e) { println("outside ground not found", e); }
 
-  frontCans.c = shields.flash;
-  frontCans.flash = shields.c;
+  try {
+    frontCans.c = shields.flash;
+    frontCans.flash = shields.c;
+  } catch (Exception e) { println("front cans not found", e); }
 
-  boothCans.c = shields.flash;
-  boothCans.flash = shields.c;
-
+  
   // TODO make this proper beatLOGIS
   if (beatCounter % 32 < 8 && beatCounter % 2 == 0) filaments.onBeat = true;
   else filaments.onBeat = false;

@@ -20,7 +20,8 @@ outsideGround,outsideRoof,
 megaSeedA,megaSeedB,megaSeedC,
 filaments,megaWhite,
 uvPars,
-boothCans;
+boothCans,
+test;
 
 ArrayList <Rig> rigs = new ArrayList<Rig>();  
 PFont font;
@@ -106,6 +107,8 @@ void setup()
   megaWhite = new Rig(size.megaWhite,RigType.MegaWhite); // sunset lamp added here
   megaWhite.opcgrid = new MegaWhiteGrid(megaWhite,OPCs);
 
+  test = new Rig(size.test,RigType.Test);
+  test.opcgrid = new TestGrid(test,OPCs);
 
   uvPars = new Rig(size.uvPars,RigType.UvPars);
   uvPars.opcgrid = new UvParsGrid(uvPars,OPCs);
@@ -116,8 +119,8 @@ void setup()
   outsideRoof = new Rig(size.outsideRoof,RigType.OutsideRoof);
   outsideRoof.opcgrid = new OutsideRoofGrid(outsideRoof,OPCs);
   
-  boothCans = new Rig(size.boothCans,RigType.BoothCans);
-  boothCans.opcgrid = new BoothCansGrid(boothCans,OPCs);
+ // boothCans = new Rig(size.boothCans,RigType.BoothCans);
+ // boothCans.opcgrid = new BoothCansGrid(boothCans,OPCs);
 
   tipiLeft = new Rig(size.tipiLeft,RigType.TipiLeft);
   String tipiLeftChannels[] = new String[9];

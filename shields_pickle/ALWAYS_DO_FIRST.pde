@@ -25,7 +25,7 @@ void setStatupSettings(Rig rig) {
     case OutsideRoof:
     case OutsideGround:
     default:
-      rig.vizIndex = 1;
+      rig.vizIndex = 0;
       rig.colorIndexA = 2;
       rig.colorIndexB = 1;
       rig.bgIndex = 0;
@@ -71,6 +71,9 @@ void alwaysDoFirst() {
         break;
       case OutsideGround:
         rig.availableAnims = new int[] {6, 7, 13};
+        break;
+      case Test:
+        rig.availableAnims = new int[] {13};
         break;
       default:
         break;

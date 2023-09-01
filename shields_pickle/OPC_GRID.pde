@@ -147,9 +147,7 @@ class BoothCansGrid extends OPCGrid{
     //cansR
     opcnodes.get("LunchBox4").led(42,coord.x + coord.wide/4,coord.y - coord.high/3);
     opcnodes.get("LunchBox4").led(41,coord.x + coord.wide/4, coord.y);
-    opcnodes.get("LunchBox4").led(40,coord.x + coord.wide/4,coord.y + coord.high/3);
-    
-    
+    opcnodes.get("LunchBox4").led(40,coord.x + coord.wide/4,coord.y + coord.high/3);  
   }
 }
   class OutsideRoofGrid extends OPCGrid{
@@ -167,9 +165,6 @@ class BoothCansGrid extends OPCGrid{
     opcnodes.get("GreyBox1").led(50,coord.x-coord.wide/xdiv,coord.y + coord.high/ydiv);
     opcnodes.get("GreyBox1").led(51,coord.x+coord.wide/xdiv,coord.y + coord.high/ydiv);
     rig.pixelPosition.add(new PVector(coord.x,coord.y));
-
- 
-
   }
 }
   class OutsideGroundGrid extends OPCGrid{
@@ -189,10 +184,29 @@ class BoothCansGrid extends OPCGrid{
     opcnodes.get("narwhal").led(i,coord.x - coord.wide/2 + 5 +(i*gap),coord.y);
     opcnodes.get("narwhal").led(i+(leds/2),coord.x - coord.wide/2 + 5 +(i*gap),coord.y+5);
     }
-
-
   }
 }
+class TestGrid extends OPCGrid{
+  Rig rig;
+  TestGrid(Rig _rig,Map<String,OPC> opcnodes){
+    rig = _rig;
+    
+    IntCoord coord = size.test;
+    //cansL
+    opcnodes.get("LunchBox4").led(52,coord.x - coord.wide/4,coord.y - coord.high/3);
+    opcnodes.get("LunchBox4").led(51,coord.x - coord.wide/4, coord.y);
+    opcnodes.get("LunchBox4").led(50,coord.x - coord.wide/4,coord.y + coord.high/3);
+    
+    //cansR
+    opcnodes.get("LunchBox4").led(42,coord.x + coord.wide/4,coord.y - coord.high/3);
+    opcnodes.get("LunchBox4").led(41,coord.x + coord.wide/4, coord.y);
+    opcnodes.get("LunchBox4").led(40,coord.x + coord.wide/4,coord.y + coord.high/3);
+    
+    
+  }
+}
+
+
 /* pixel mapping is a simple struct holding information about a
   single channel (a physical cable) coming out of a device
   that speaks opc*/

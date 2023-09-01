@@ -6,7 +6,8 @@ enum RigType{
     FrontCans,
     Bar,Mirrors,Cans,Strips,Seeds,Pars,
     Booth,Dig,UvPars,Filaments,MegaWhite,
-    BoothCans
+    BoothCans,
+    Test
 }
 public class Rig {
   RigType type;
@@ -189,7 +190,6 @@ public class Rig {
         break;
     }
     colorLayer.endDraw();
-    blendMode(MULTIPLY);
     image(colorLayer, size.x, size.y);
   }
 
@@ -582,8 +582,10 @@ public class Rig {
   ///////////////////////////////////// RIG DRAW ///////////////////////////////////////////////////
   void draw() {
     //if (beatCounter % 16 == 0) clash(beat); // TODO // this shouldnt happen al the time - need more control over it!
-    drawAnimations();
-    blendMode(MULTIPLY);
+    if(type != RigType.Test){ 
+      drawAnimations();
+      blendMode(MULTIPLY);
+    }
     colorFlip();
     clash(beat);    // TODO improve global variable beat - add envelope functionality to this
     // draw a colour layer for all rigs except the filaments & uv pars & MegaWhite - leaving these ones white 
