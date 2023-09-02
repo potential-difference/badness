@@ -103,7 +103,6 @@ Envelope BeatzOskp(float overalltime, float decay_curv, float threshold){
 //}
 Envelope alphaEnvelopeFactory(int envelope_index, Rig rig, float overalltime) {
   float alphaRate = rig.alphaRate*20+0.2; //TODO why do we *10 here?
-  //float overalltime = avgmillis;
 
   switch (envelope_index) {
   case 0: 
@@ -132,15 +131,14 @@ Envelope alphaEnvelopeFactory(int envelope_index, Rig rig, float overalltime) {
     return ComplexPulse(0.031, 0.040, 0.913, overalltime*(alphaRate+0.5), 0.02, 0.02);
   }
 }
-
-Envelope functionEnvelopeFactory(int envelope_index, Rig rig) {
-  float overalltime = avgmillis;
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+Envelope functionEnvelopeFactory(int envelope_index, Rig rig, float overalltime) {
+  float functionRate = rig.functionRate*10;
 
   Envelope sine = new Sine(1, overalltime*rig.functionRate);
   int now = millis();
   float sined = sine.value(now); 
 
-  float functionRate = rig.functionRate*10;
   switch (envelope_index) {
   case 0: 
     //return SimplePulse(cc[41]*4000, cc[42]*4000, cc[43]*4000, cc[44], cc[45]);

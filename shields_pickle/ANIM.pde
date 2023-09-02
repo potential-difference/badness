@@ -61,8 +61,8 @@ class Anim {
     alphaEnvelopeA = alphaEnvelopeFactory(rig.availableAlphaEnvelopes[rig.alphaIndexA], rig, avgmillis);
     alphaEnvelopeB = alphaEnvelopeFactory(rig.availableAlphaEnvelopes[rig.alphaIndexB], rig, avgmillis);
     //if(functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexA], rig) != NaN)
-    functionEnvelopeA = functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexA], rig);
-    functionEnvelopeB = functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexB], rig);
+    functionEnvelopeA = functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexA], rig, avgmillis);
+    functionEnvelopeB = functionEnvelopeFactory(rig.availableFunctionEnvelopes[rig.functionIndexB], rig, avgmillis);
 
     strokeSlider = rig.strokeSlider;
     wideSlider = rig.wideSlider;
