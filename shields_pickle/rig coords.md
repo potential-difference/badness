@@ -42,61 +42,14 @@ wide: 100 high: 100 x,y: 450 650
 
 null
 ## Test COORDINATES
-*pixel position array length* 53
+*pixel position array length* 6
 wide: 214 high: 214 x,y: 921 321
-local coords[0] -814.0 -214.0
-local coords[1] -813.0 -214.0
-local coords[2] -812.0 -214.0
-local coords[3] -811.0 -214.0
-local coords[4] -810.0 -214.0
-local coords[5] -809.0 -214.0
-local coords[6] -808.0 -214.0
-local coords[7] -807.0 -214.0
-local coords[8] -806.0 -214.0
-local coords[9] -805.0 -214.0
-local coords[10] -804.0 716529.0
-local coords[11] -803.0 -214.0
-local coords[12] -802.0 -214.0
-local coords[13] -801.0 -214.0
-local coords[14] -800.0 -214.0
-local coords[15] -799.0 -214.0
-local coords[16] -798.0 -214.0
-local coords[17] -797.0 -214.0
-local coords[18] -796.0 -214.0
-local coords[19] -795.0 -214.0
-local coords[20] -794.0 665404.0
-local coords[21] -793.0 -214.0
-local coords[22] -792.0 -214.0
-local coords[23] -791.0 -214.0
-local coords[24] -790.0 -214.0
-local coords[25] -789.0 -214.0
-local coords[26] -788.0 -214.0
-local coords[27] -787.0 -214.0
-local coords[28] -786.0 -214.0
-local coords[29] -785.0 -214.0
-local coords[30] -784.0 665414.0
-local coords[31] -783.0 -214.0
-local coords[32] -782.0 -214.0
-local coords[33] -781.0 -214.0
-local coords[34] -780.0 -214.0
-local coords[35] -779.0 -214.0
-local coords[36] -778.0 -214.0
-local coords[37] -777.0 -214.0
-local coords[38] -776.0 -214.0
-local coords[39] -775.0 -214.0
-local coords[40] -774.0 501736.0
-local coords[41] -773.0 410998.0
-local coords[42] -772.0 320260.0
-local coords[43] -771.0 -214.0
-local coords[44] -770.0 -214.0
-local coords[45] -769.0 -214.0
-local coords[46] -768.0 -214.0
-local coords[47] -767.0 -214.0
-local coords[48] -766.0 -214.0
-local coords[49] -765.0 -214.0
-local coords[50] -764.0 501630.0
-local coords[51] -763.0 410892.0
-local coords[52] -762.0 320154.0
+local coords[0] 54.0 36.0
+local coords[1] 54.0 107.0
+local coords[2] 54.0 178.0
+local coords[3] 160.0 36.0
+local coords[4] 160.0 107.0
+local coords[5] 160.0 178.0
 
 null
 ## UvPars COORDINATES
