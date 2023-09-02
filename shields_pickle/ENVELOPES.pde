@@ -115,9 +115,9 @@ Envelope alphaEnvelopeFactory(int envelope_index, Rig rig, float overalltime) {
   case 2:
       return ComplexPulse(0.0, 0.0, 1.0, overalltime*(alphaRate+0.5), 0.0, 1.0);
   case 3:
-      return ComplexPulse(0.9, 0.0, 0.01, overalltime*(alphaRate*0.8+0.5), 0.0, 1.0);
+      return ComplexPulse(0.03, 0.02, 0.85, overalltime*(alphaRate*0.5), 0.0, 0.0);
   case 4:
-      return ComplexPulse(0.9, 0.0, 0.01, overalltime*(alphaRate*0.8+0.5), 0.0, 0.0);
+      return ComplexPulse(0.3, 0.0, 0.7, overalltime*(alphaRate*0.5), 0.0, 0.0);
   case 5:
       return ComplexPulse(0.5, 0.5, 0.5, overalltime*(alphaRate+0.5), 1.0, 1.0);
    // return Squiggle(cc[41], cc[42], cc[43], overalltime*(alphaRate+0.5), 0.01+cc[44], cc[45]);

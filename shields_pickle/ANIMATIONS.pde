@@ -450,18 +450,24 @@ class TwistedStar extends Anim {
     window.background(0);
     // star(int n, float wide, float high, float rotate, color col, float stroke, float alph) {
     stroke = 10+((rig.high+rig.wide)/2/20*functionB);
+    stroke *= 2*strokeSlider+0.1;
 
     switch (rig.type){
       case Shields:
-        wide = shieldsGrid.bigShieldRad/2+(functionA*rig.wide*1.2);
-        high = shieldsGrid.bigShieldRad/2+((1-functionA)*rig.high*1.2);
+        ShieldsOPCGrid opcGrid = (ShieldsOPCGrid)(rig.opcgrid);
+        wide = opcGrid.bigShieldRad/2+(functionA*rig.wide*1.2);
+        high = opcGrid.bigShieldRad/2+((1-functionA)*rig.high*1.2);
         break;
       default:
         wide = (rig.wide/64*7*2+6)/2+(functionA*rig.wide*1.2);
         high = (rig.wide/64*7*2+6)/2+((1-functionA)*rig.high*1.2);
     }
-    float wideB = shieldsGrid.bigShieldRad/2+(functionB*rig.high*1.2);
-    float highB = shieldsGrid.bigShieldRad/2+((1-functionB)*rig.wide*1.2);
+    // TODO fix this, remove shields 
+    // float wideB = shieldsGrid.bigShieldRad/2+(functionB*rig.high*1.2);
+    // float highB = shieldsGrid.bigShieldRad/2+((1-functionB)*rig.wide*1.2);
+
+    float wideB = 100/2+(functionB*rig.high*1.2);
+    float highB = 100/2+((1-functionB)*rig.wide*1.2);
     
     rotate = 60*functionA;
     //void star(float xpos, float ypos, color col, float stroke, float wide, float high, float rotate, float alph) {
@@ -498,6 +504,7 @@ class BouncingDonut extends Anim {
   int numberofanims;
   BouncingDonut(Rig _rig) {            
     super(_rig);
+    animName = "bouncingDonut";
     numberofanims = rig.animations.size();
     beatcounted = (_beatCounter % (numberofanims+1));
   }
@@ -506,10 +513,13 @@ class BouncingDonut extends Anim {
     window.background(0);
     wide = rig.wide*1.2-(rig.wide*1.2*functionA*((beatcounted+1)));
     high = rig.high*1.2-(rig.high*1.2*functionA*((beatcounted+1)));
-    ;
-    stroke = (rig.high+rig.wide)/2/15*strokeSlider;
-    wide *=wideSlider;
-    high *=highSlider;
+    
+    stroke = (rig.high+rig.wide)/30;
+    stroke *= 2*strokeSlider+0.1;
+
+    wide *=wideSlider*2;
+    high *=highSlider*2;
+
     donut(viz.x, viz.y, col1, stroke, wide, high, 0, alphaA);
     window.endDraw();
   }
