@@ -41,7 +41,7 @@ void alwaysDoFirst() {
     rig.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
     rig.availableFunctionEnvelopes = new int[] {0, 1, 2};  
     rig.availableBkgrnds = new int[] {8, 0, 1, 2, 7};   
-    setDefaultParameters(rig, 1, 0.5, 0.5, 4, 0.5, 0.5, 0.5, 0.2);  
+    setDefaultParameters(rig, 0.5, 0.5, 0.5, 4, 0.5, 0.5, 0.5, 0.2);  
     setStatupSettings(rig);
 
     // Modify settings for specific cases
@@ -52,7 +52,7 @@ void alwaysDoFirst() {
         rig.availableFunctionEnvelopes = new int[] {0, 1, 2};  
         rig.availableBkgrnds = new int[] {0,1,2,3,4,5,6};   
         // Dimmer, alphaRate, functionRate, backgroundChangeRate, wideSlider, highSlider, strokeSlider, blurriness
-        setDefaultParameters(rig, 1, 0.5, 0.5, 4, 0.5, 0.5, 0.5, 0.2);  
+        setDefaultParameters(rig, 0.5, 0.5, 0.5, 4, 0.5, 0.5, 0.5, 0.2);  
         setStatupSettings(rig);
         break;
       case BoothCans:

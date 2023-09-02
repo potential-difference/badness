@@ -480,12 +480,14 @@ class SingleDonut extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    wide = 10+(rig.wide*1.2*(1-functionB));
-    high = 10+(rig.high*1.2*(1-functionB));
-    ;
-    stroke = (rig.high+rig.wide)/10*strokeSlider;
-    wide *=wideSlider;
-    high *=highSlider;
+    wide = 10+(rig.wide*1.2*(1-functionA));
+    high = 10+(rig.high*1.2*(1-functionA));
+    
+    stroke = (rig.high+rig.wide)/10;
+    stroke *= 2*strokeSlider+0.1;
+
+    wide *=wideSlider*2;
+    high *=highSlider*2;
     donut(viz.x, viz.y, col1, stroke, wide, high, 0, alphaA);
     window.endDraw();
   }

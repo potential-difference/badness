@@ -50,7 +50,7 @@ void playWithMe() {
         Field dimmer = Rig.class.getDeclaredField("dimmer");  // Get the Field object using reflection
         float value = cc[77];
         dimmer.set(shields, value);    // set the dimmer value of the shields rig
-        if(debugToggle) println("Value from pad: " + value);
+      //  if(debugToggle) println("Value from pad: " + value);
         } catch (NoSuchFieldException | IllegalAccessException e) {
         println ("failed with exception ",e);
     }
