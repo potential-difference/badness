@@ -457,7 +457,7 @@ public class Rig {
     text("viz: "+index, x, y+20);
     if (this.animations.size() > 0){
       Anim anim = this.animations.get(0);  
-      // text(anim.animName, x, y+40); // TODO this displays the anim name - needs a better position on screen
+      if(debugToggle) text(anim.animName, x, y+40); // TODO this displays the anim name - needs a better position on screen
     }
     //////////////////////////////////////////////////////////////////////////////////////////////////
     //////////////////////////////// ALPHA / FUNC / BG INFO //////////////////////////////////////////

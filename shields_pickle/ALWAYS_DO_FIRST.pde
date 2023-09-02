@@ -73,7 +73,7 @@ void alwaysDoFirst() {
         rig.availableAnims = new int[] {6, 7, 13};
         break;
       case Test:
-        rig.availableAnims = new int[] {13};
+        rig.availableAnims = new int[] {0,1,2,3,4,5,6,7,8,9,10,11,12,13};
         rig.availableBkgrnds = new int[] {0,1,2,3,4,5,6,7,8,9};
         break;
       default:

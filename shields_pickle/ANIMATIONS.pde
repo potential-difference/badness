@@ -39,11 +39,8 @@ class AllOnForever extends Anim {
     __velocity = _velocity;
   }
   void draw(){
-    float knob = cc[9];
     window.beginDraw();
-    //if (rig.type == RigType.Filaments) window.background(360*__velocity);
-    //else window.background(360*__velocity*knob);
-    window.background(360*__velocity*knob);
+    window.background(360*__velocity);
     window.endDraw();
   }
 }
@@ -69,8 +66,9 @@ class StarMesh extends Anim {
   void draw() {
     window.beginDraw();
     window.background(0);
-    stroke = (rig.high+rig.wide)/2/20*strokeSlider;
-    //println("function A", functionA);
+    stroke = (rig.high+rig.wide)/(rig.wide/15);
+    stroke *= strokeSlider+0.1;
+
     wide = (10+(functionA*rig.wide*1.5));
     high = (10+((1-functionA)*rig.high*1.5));
     rotate = -30*functionB;
@@ -83,10 +81,9 @@ class StarMesh extends Anim {
       star(opcGrid.smallShieldC.x,opcGrid.smallShieldC.y, col1, stroke, wide, high, rotate, alphaA);
       break;
       default:
-      star(window.width/4, window.height/4, col1, stroke, wide, high, -rotate, alphaA);
-      star(window.width/4*3, window.height/4*3, col1, stroke, wide, high, -rotate, alphaA);
-    
-      star(window.width, window.height, col1, stroke, wide, high, -rotate, alphaA);
+      star(window.width/6, window.height/6, col1, stroke, wide, high, -rotate, alphaA);
+      star(window.width/6*5, window.height/6, col1, stroke, wide, high, -rotate, alphaA);
+      star(window.width/2, window.height/6*5, col1, stroke, wide, high, -rotate, alphaA);
     }
     window.endDraw();
   }
@@ -217,7 +214,6 @@ class Anim1 extends Anim { ///////// COME BACK TO THIS WITH NEW ENVELOPES
     wide *=wideSlider;
     high *=highSlider;
 
-    println("wide/high 2", wide, high);
 
     if (_beatCounter % 8 < 3) rotate = 60*functionA;    /////////// CHANGE THIS TO A SPECIFIC FUNCTION IN THE ABOVE SECTION OF CODE
     else rotate = -60*functionB;                        /////////// CHANGE THIS TO A SPECIFIC FUNCTION IN THE ABOVE SECTION OF CODE
@@ -247,12 +243,12 @@ class Rings extends Anim {
   Rings(Rig _rig) {
     super(_rig);
     animName = "rings";
-    //animDimmer = animDimmer.mul(0.5);//this one is somehow blinding
   }
   void draw() {
     window.beginDraw();
     window.background(0);
-    stroke = 15+((rig.high+rig.wide)/2/20*functionA)+(10*strokeSlider);
+    stroke = 15+((rig.high+rig.wide)/40*functionA);
+    stroke *= strokeSlider + 0.1;
     wide = vizWidth*1.2;
     wide = wide-(wide*functionA);
     high = wide*2;
@@ -372,9 +368,10 @@ class Stars extends Anim {
     stroke = 15+(30*functionA);
     rotate = 30+(30*functionB);
 
-    stroke *=strokeSlider;
+    stroke *= 1.5*strokeSlider+0.1;
     wide *=wideSlider;
     high *=highSlider;
+
     switch (rig.type){
     case Shields:
       star(positionX[6][0].x, positionX[6][0].y, col1, stroke, wide, high, -rotate, alphaA);

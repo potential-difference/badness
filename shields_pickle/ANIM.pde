@@ -12,8 +12,14 @@ class AnimationHolder {
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 class Anim {
-  float alphMod=1, funcMod=1, funcFX=1, alphFX=1, alphaA, alphaB, functionA, functionB;
-  int blury, prevblury, vizIndex, alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, _beatCounter;
+  float alphMod=1, funcMod=1, funcFX=1, alphFX=1, 
+  alphaA, alphaB, functionA, functionB,
+  wide, high, stroke, rotate,
+  strokeSlider, wideSlider, highSlider,
+  vizWidth,vizHeight;
+  int blury, prevblury, vizIndex, 
+  alphaIndexA, alphaIndexB, functionIndexA, functionIndexB,
+  _beatCounter;
   color col1, col2;
   PVector viz;
   PVector[] position = new PVector[18];
@@ -26,9 +32,7 @@ class Anim {
   Envelope alphaEnvelopeA, alphaEnvelopeB, functionEnvelopeA, functionEnvelopeB;
   Ref dimmer;
   Rig rig;
-  //float overalltime;
-  float strokeSlider, wideSlider, highSlider;
-  float vizWidth,vizHeight;
+
   Anim(Rig _rig) {
     dimmer= ()->{return 1.0;};//new Ref(new float[]{1.0}, 0);
     rig = _rig;
@@ -72,8 +76,7 @@ class Anim {
     textAlign(CENTER);
     text("OOPS!!\nCHECK YOUR ANIM LIST", rig.size.x, rig.size.y-15);
   }
-  float stroke, wide, high, rotate;
-  //Object highobj;
+
   void drawAnim() {
     int now = millis();
     //alphaA = alphaEnvelopeA.value(now);
@@ -82,6 +85,11 @@ class Anim {
     alphaA = alphaEnvelopeA.value(now) * rig.dimmer * this.dimmer.get();
     alphaB = alphaEnvelopeB.value(now) * rig.dimmer * this.dimmer.get();
 
+    //TODO is it possible to have wide,high and stroke sliders here? eg:
+    // stroke *= strokeSlider+0.1;
+    // wide *=wideSlider;
+    // high *=highSlider;
+    
     Float funcX = functionEnvelopeA.value(now);
     if (!Float.isNaN(funcX)) functionA = funcX; 
     //functionEnvelopeA.value(now); 
@@ -253,17 +261,15 @@ class Anim {
 
 
   void benjaminsBox(float xpos, float ypos, color col, float wide, float high, float func, float rotate, float alph) {
-    rotate = radians(rotate);
-
     PVector box = new PVector(window.width, window.height);
-    float distance = (-diagonallen(box, rotate)*0.5)-(diagonallen(box, rotate)*0.5);
+    float distance = (-diagonallen(box,radians(rotate))*0.5)-(diagonallen(box, radians(rotate))*0.5);
     float moveA = (-(distance/2)+(distance*func))*1.3;
 
     window.imageMode(CENTER);
     window.tint(360*alph);
     window.pushMatrix();
     window.translate(xpos, ypos);
-    window.rotate(rotate);
+    window.rotate(radians(rotate));
     window.image(bar1, moveA, 0, wide, high);
     window.noTint();
     window.popMatrix();

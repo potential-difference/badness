@@ -102,7 +102,7 @@ Envelope BeatzOskp(float overalltime, float decay_curv, float threshold){
 //  default:
 //}
 Envelope alphaEnvelopeFactory(int envelope_index, Rig rig, float overalltime) {
-  float alphaRate = rig.alphaRate*10; //TODO why do we *10 here?
+  float alphaRate = rig.alphaRate*20+0.2; //TODO why do we *10 here?
   //float overalltime = avgmillis;
 
   switch (envelope_index) {
