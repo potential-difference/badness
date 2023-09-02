@@ -188,11 +188,8 @@ class BoothCansGrid extends OPCGrid{
 }
 class TestGrid extends OPCGrid{
   Rig rig;
-
   TestGrid(Rig _rig,Map<String,OPC> opcnodes){
-    rig = _rig;
-    // this.opcnodes = opcnodes; // is this nessesary?
-    
+    rig = _rig;    
     IntCoord coord = size.test;
     OPC opcInstance = opcnodes.get("LunchBox4");
     //cansL

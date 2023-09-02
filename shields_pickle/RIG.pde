@@ -206,21 +206,28 @@ public class Rig {
           radialGradient(flash, c, beat);
           break;
         case 4:
+          oneColour(c);
+          colorLayer.stroke(clashed);
+          colorLayer.strokeWeight(2);
           everyOtherColor(c,1);
           everyOtherColor(flash,2);
           everyOtherColor(clashed,3);
+          colorLayer.noStroke();
           break;
         case 5:
-          radialGradient(c, flash, 0.5);
+          verticalMirrorGradientHalfHalf(flash, c, 0.2);
           break;
         case 6:
-          mirrorGradientHalfHalf(c, flash, 0.5);
+          verticalMirrorGradientHalfHalf(c, flash, beat);
           break;
         case 7:
-          mirrorGradient(flash, c, 0.5);
+          verticalMirrorGradient(flash, c, 0.5);
           break;
         case 8:
-          horizontalMirrorGradient(c, flash, 0.5);
+          horizontalMirrorGradient(flash, c, 0.5);
+          break;
+        case 9: 
+          horizontalMirrorGradient(c, flash, sine);
           break;
         default:
           oneColour(c);
@@ -322,7 +329,7 @@ public class Rig {
 
    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   /////////////////////////////////// VERTICAL MIRROR GRADIENT BACKGROUND ////////////////////////////////////////////////
-  void mirrorGradient(color col1, color col2, float func) {
+  void verticalMirrorGradient(color col1, color col2, float func) {
     //// LEFT SIDE OF GRADIENT
     colorLayer.beginShape(POLYGON); 
     //colorLayer.noStroke();
@@ -349,7 +356,7 @@ public class Rig {
   }
   
   /// MIRROR GRADIENT BACKGROUND top one direction - bottom opposite direction ///
-  void mirrorGradientHalfHalf(color col1, color col2, float func) {
+  void verticalMirrorGradientHalfHalf(color col1, color col2, float func) {
     //////// TOP //// LEFT SIDE OF GRADIENT
     colorLayer.beginShape(POLYGON); 
     colorLayer.fill(col1);
@@ -382,11 +389,11 @@ public class Rig {
     colorLayer.fill(col1);
     colorLayer.vertex(0, colorLayer.height/2);
     colorLayer.fill(col2);
-    colorLayer.vertex(colorLayer.width*func, colorLayer.height);
+    colorLayer.vertex(colorLayer.width*func, colorLayer.height/2);
     colorLayer.fill(col2);
     colorLayer.vertex(colorLayer.width*func, colorLayer.height);
     colorLayer.fill(col1);
-    colorLayer.vertex(0, colorLayer.height/2);
+    colorLayer.vertex(0, colorLayer.height);
     colorLayer.endShape(CLOSE);
     //// RIGHT SIDE OF colorLayerIENT
     colorLayer.beginShape(POLYGON); 
