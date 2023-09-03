@@ -81,13 +81,18 @@ void alwaysDoFirst() {
     }
   }
 
-  for (int i = 0; i < cc.length; i++) cc[i]=0;   // set all midi values to 0;
-  // TODO why is this essential 
-  for (int i = 0; i < 100; i++) cc[i] = 1;       // set all knobs to 1 ready for shit happen
-  cc[3]=0;
-  cc[12]=0;
+  int numChannels = cc.length;
+  int numCCValues = cc[0].length; 
+  for (int channel = 0; channel < numChannels; channel++) {
+      for (int ccValueIndex = 0; ccValueIndex < numCCValues; ccValueIndex++) {
+          cc[channel][ccValueIndex] = 1;
+      }
+  }
 
-
+  // for (int i = 0; i < cc.length; i++) cc[0][i]=0;   // set all midi values to 0;
+  // // TODO why is this essential 
+  // for (int i = 0; i < 100; i++) cc[i] = 1;       // set all knobs to 1 ready for shit happen
+  
   vizChangeTime = 10;   // time in minutes - TODO sort this out onto slider 
   colorChangeTime = 5;  // time in minutes - TODO sort this out onto slider 
 }

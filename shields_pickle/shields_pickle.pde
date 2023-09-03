@@ -162,7 +162,8 @@ void setup()
 void draw()
 {
   midiManager.processFrame();   // Process frame actions
-
+  checkForLongPress();          // Check for long press actions
+  
   int start_time = millis();
   surface.setAlwaysOnTop(onTop);
   background(0);
@@ -171,8 +172,6 @@ void draw()
   //pause(10);           ////// number of seconds before no music detected and auto kicks in
   globalFunctions();
   
-  
-  // if (frameCount > 10) playWithYourself();
   // TODO made a global variable class to include these and alpha and funcs
   c = rigs.get(0).c;
   flash = rigs.get(0).flash;
@@ -184,7 +183,6 @@ void draw()
   playWithMe();
 
   if (beatTrigger) { 
-    
     for (Rig rig : rigs) {
         //if (testToggle) rig.animations.add(new Test(rig));
       if (rig.onBeat){
@@ -192,32 +190,18 @@ void draw()
       }
       }
   }
-    playWithMe();
-
-  if (keyT['s']) for (Anim anim : shields.animations)  anim.funcFX = 1-(stutter*noize1*0.1);
- 
- 
   //////////////////// Must be after playwithme, before rig.draw() //////////////////////////////////////////////////////
   for (Rig rig : rigs) rig.draw();  
   ///////////////////////////////////////////// PLAY WITH ME MORE ///////////////////////////////////////////////////////
   //playWithMeMore();
   ///////////////////////////////////////////// BOOTH & DIG /////////////////////////////////////////////////////////////
   boothLights(boothGrid);
-  ///////////////////////////////////////////// BLINDERS FM22 ///////////////////////////////////////////////////////////
-  // blinders(boothGrid);
   ///////////////////////////////////////////// DISPLAY //////////////////////////////////////////////////////////////////
   testColors(keyT['t']);
   ///////////////////////////////////////////// !!!SMOKE!!! //////////////////////////////////////////////////////////////
   //dmxSmoke(Grids.get("boothgrid")); //
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
-  ///////////////////////////////////////////// OUTSIDE ROOF AND GROUND ///////////////////////////////////////////////////////////////////////////
-  // add a solid coulsour sodute 
-  fill(c, 360*cc[3]);
-  rect(800,650, 120,80);
-
-  fill(flash, 360*cc[12]);
-  rect(1000,650, 120,80);
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   mouseCircle(keyT['q']);

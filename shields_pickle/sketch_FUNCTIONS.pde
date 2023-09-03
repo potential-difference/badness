@@ -86,9 +86,10 @@ void globalFunctions() {
   sine = map(sin(timer[0]), -1, 1, 0, 1);            //// 0-1-1-0 standard sine wave
   sineFast = map(sin(timer[5]), -1, 1, 0, 1);            //// 0-1-1-0 standard sine wave
   sineSlow = map(sin(timer[1]/4), -1, 1, 0, 1);         //// 0-1-1-0 slow sine wave
-  if (cc[102] > 0) stutter = map(sin(timer[4]*cc[2]*8), -1, 1, 0, 1);        //// 0-1-1-0 fast jitter sine wave
-  else stutter = map(sin(timer[4]*50), -1, 1, 0, 1);        //// 0-1-1-0 fast jitter sine wave
-  //shimmer = (shimmerSlider/2+(stutter*0.4*noize1*0.2));
+  // TODO figure out a way to reinstate this
+  // if (cc[102] > 0) stutter = map(sin(timer[4]*cc[2]*8), -1, 1, 0, 1);        //// 0-1-1-0 fast jitter sine wave
+  // else stutter = map(sin(timer[4]*50), -1, 1, 0, 1);        //// 0-1-1-0 fast jitter sine wave
+  // //shimmer = (shimmerSlider/2+(stutter*0.4*noize1*0.2));
   noize();
   oskPulse();
 }
@@ -226,13 +227,14 @@ void testColors(boolean test) {
 void workLights(boolean _work,BoothGrid opcGrid) {
   if (_work) {
     pause = 10;
-    fill(360*cc[9], 360*cc[10]);
-    rect(size.shields);
-    rect(size.tipiLeft);
-    rect(size.tipiRight);
-    //rect(size.cans);
-    rect(opcGrid.booth);
-    rect(opcGrid.dig);
+    fill(360, 360 * shields.dimmer);
+    for (Rig rig : rigs) rect(rig.size);
+    // rect(size.shields);
+    // rect(size.tipiLeft);
+    // rect(size.tipiRight);
+    // //rect(size.cans);
+    // rect(opcGrid.booth);
+    // rect(opcGrid.dig);
   }
 }
 /////////////////////////////////////////////// OSKP///////////////////////////////////////////
