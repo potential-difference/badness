@@ -583,6 +583,8 @@ public class Rig {
   ///////////////////////////////////// RIG DRAW ///////////////////////////////////////////////////
   void draw() {
     //if (beatCounter % 16 == 0) clash(beat); // TODO // this shouldnt happen al the time - need more control over it!
+    playWithYourself(this);
+
     drawAnimations();
     blendMode(MULTIPLY);
     colorFlip();
