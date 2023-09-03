@@ -100,44 +100,58 @@ class MidiManager {
 /////////////////////////////////////////////////////////////////////////////////////////////////
 int numChannels = 9; //midiManager.numChannels;
 int numNotes = 128; //midiManager.numNotes;
-int longPressDuration = 5000; // Define the duration for a long press in milliseconds
+int longPressDuration = 1000; // Define the duration for a long press in milliseconds
 boolean[][] padPressed = new boolean[numChannels][numNotes];
+boolean[][] padLongPressed = new boolean[numChannels][numNotes];
 boolean[][] padToggle = new boolean[numChannels][numNotes];
+boolean[][] padLongToggle = new boolean[numChannels][numNotes];
 long[][] padStartTime = new long[numChannels][numNotes]; // Create an array to store start times for each note
 public void noteOn(int channel, int pitch, int _velocity) {
     float velocity = map(_velocity, 0, 127, 0, 1);
 
     midiManager.noteOnActions[pitch].send(velocity);
 
-    /*
-    // Check if the button is already pressed
-    if (!padPressed[channel][pitch]) {
-        // Button is not pressed, set it as pressed
-        padPressed[channel][pitch] = true;
-        // Start a timer to detect long press
-        padStartTime[channel][pitch] = millis();
-       // padVelocity[channel][pitch] = velocity;
-    } else {
-        // Button is already pressed, check for a long press
-        if (millis() - padStartTime[channel][pitch] >= longPressDuration) {
-            // Handle long-press action here
-            // Example: Toggle a boolean variable
-            padStartTime[channel][pitch] = millis(); // Reset the timer
-            boolean isToggled = !padToggle[channel][pitch];
-            println("Button " + pitch + " in Channel " + channel + " long pressed. Toggled: " + isToggled);
-        }
-    }
-    */
-    // println to show this is working
+    padPressed[channel][pitch] = true;
+    padStartTime[channel][pitch] = millis();    // Start a timer to detect long press
+    padToggle[channel][pitch] = !padToggle[channel][pitch];     // Toggle the boolean
+    
+    println();
     println("noteOnActions[" + pitch + "]", "Velocity: " + velocity);
+    println("padPressed[" + channel + "][" + pitch + "] = " + padPressed[channel][pitch]);
+    println("padToggle[" + channel + "][" + pitch + "] = " + padToggle[channel][pitch]);
 }
 
 public void noteOff(Note note) {
     // Handle note off event
     midiManager.noteOffActions[note.pitch].execute();
-    // println to show this is working
+    padPressed[note.channel][note.pitch] = false; // Button is released, reset the flag
+    padLongPressed[note.channel][note.pitch] = false; // Button is released, reset the flag
+
+    println();
     println("noteOffActions[" + note.pitch + "]");
+    println("padPressed[" + note.channel + "][" + note.pitch + "] = " + padPressed[note.channel][note.pitch]);
+    println("padLongPressed[" + note.channel + "][" + note.pitch + "] = " + padLongPressed[note.channel][note.pitch]);
 }
+
+void checkForLongPress() {
+    for (int channel = 0; channel < numChannels; channel++){
+        for (int pitch = 0; pitch < numNotes; pitch++) {
+            if (padPressed[channel][pitch] && !padLongPressed[channel][pitch] && millis() - padStartTime[channel][pitch] >= longPressDuration) {
+                // Handle long-press action here
+                padLongPressed[channel][pitch] = true;
+                padLongToggle[channel][pitch] = !padLongToggle[channel][pitch]; // Toggle the boolean
+                println("_____________________________");
+                println("Long press detected on channel " + channel + " pitch " + pitch);
+                println("padLongPressed[" + channel + "][" + pitch + "] = " + padLongPressed[channel][pitch]);
+                println("padLongToggle[" + channel + "][" + pitch + "] = " + padLongToggle[channel][pitch]);
+                println("_____________________________");
+                padStartTime[channel][pitch] = millis(); // Reset the timer
+            }
+        }
+    }
+}
+
+
 
 // An array where to store the last value received for each CC controller
 // cc[channel][number] is the value

@@ -159,7 +159,8 @@ void setup()
 void draw()
 {
   midiManager.processFrame();   // Process frame actions
-
+  checkForLongPress();          // Check for long press actions
+  
   int start_time = millis();
   surface.setAlwaysOnTop(onTop);
   background(0);
