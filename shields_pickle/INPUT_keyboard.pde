@@ -6,6 +6,7 @@ boolean[] keyT = new boolean[128];
 void keyPressed() {  
 
     if (key == 'e') debugToggle = !debugToggle; // toggle debug 
+    if (key == ' ') for (Rig rig : rigs) for (Anim anim : rig.animations) anim.deleteme = true;
 
     /////////////////////////////// RIG KEY FUNCTIONS ////////////////////////
     if (shields != null) {
