@@ -514,7 +514,7 @@ class BouncingDonut extends Anim {
     wide = rig.wide*1.2-(rig.wide*1.2*functionA*((beatcounted+1)));
     high = rig.high*1.2-(rig.high*1.2*functionA*((beatcounted+1)));
     
-    stroke = (rig.high+rig.wide)/30;
+    stroke = (rig.high+rig.wide)/(rig.wide/20);
     stroke *= 2*strokeSlider+0.1;
 
     wide *=wideSlider*2;
@@ -558,10 +558,12 @@ class Polo extends Anim {
     window.background(0);
     wide = rig.wide*1.2*(1-functionA);
     high = rig.high*1.2*(1-functionA);
-    ;
-    stroke = wide*functionA;
-    wide *=wideSlider;
-    high *=highSlider;
+    
+    stroke = wide*functionB;
+    stroke *= 2*strokeSlider+0.1;
+
+    wide *= 2*wideSlider;
+    high *= 2*highSlider;
     donut(viz.x, viz.y, col1, stroke, wide, high, 0, alphaA);
     window.endDraw();
   }
