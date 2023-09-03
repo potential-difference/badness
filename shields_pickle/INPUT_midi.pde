@@ -111,6 +111,11 @@ public void noteOn(int channel, int pitch, int _velocity) {
 
     midiManager.noteOnActions[pitch].send(velocity);
 
+    // if padPressed is true then increase the rig.viz index by one
+    // looping back to zero if it goes over the number of availableAnims in the rig
+    if(channel == 8 && pitch == 41) shields.vizIndex = (shields.vizIndex + 1) % shields.availableAnims.length; 
+
+
     padPressed[channel][pitch] = true;
     padStartTime[channel][pitch] = millis();    // Start a timer to detect long press
     padToggle[channel][pitch] = !padToggle[channel][pitch];     // Toggle the boolean
@@ -127,6 +132,8 @@ public void noteOff(Note note) {
     midiManager.noteOffActions[note.pitch].execute();
     padPressed[note.channel][note.pitch] = false; // Button is released, reset the flag
     padLongPressed[note.channel][note.pitch] = false; // Button is released, reset the flag
+
+    
 
     println();
     println("noteOffActions[" + note.pitch + "]");

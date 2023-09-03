@@ -1,14 +1,13 @@
 // vizTimer keeps track of the time between 'ticks' 
 void playWithYourself(Rig rig) {
 
-=======
-  
->>>>>>> pickle_october_23-midiMapping
     ///////////////// VIZ TIMER ////////////////////////////////////////////////////////////////////////////////////////////////////
-    if (millis()/1000 - rig.vizTimer >= vizChangeTime*60) {  
-      rig.vizIndex = int(random(rig.availableAnims.length));
-      //println(rig.type," VIZ:", rig.vizIndex, "@", (hour()+":"+minute()+":"+second()));
-      rig.vizTimer = millis()/1000;
+    if(!rig.vizHold){
+      if (millis()/1000 - rig.vizTimer >= vizChangeTime*60) {  
+        rig.vizIndex = int(random(rig.availableAnims.length));
+        //println(rig.type," VIZ:", rig.vizIndex, "@", (hour()+":"+minute()+":"+second()));
+        rig.vizTimer = millis()/1000;
+      }
     }
     ////////////////////////////// PLAY TOGGLE TO CONTROL AUTO CYCLING OF FUNCS AND ALPHAS /////////////////////////////////////////
     rig.playWithYourSelf = debugToggle;
@@ -30,30 +29,23 @@ void playWithYourself(Rig rig) {
         rig.functionTimer = millis()/1000;
       }
     }
-  
 
-<<<<<<< HEAD
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    ///////////////////////////////////// BEAT LOGIC ///////////////////////////////////////////////////////////////////////////
+
+    // TODO make this proper beatLOGIS
+    if (beatCounter % 32 < 8 && beatCounter % 2 == 0) filaments.onBeat = true;
+    else filaments.onBeat = false;
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ///////////////////////////////////// PLAY WITH COLOUR ////////////////////////////////////////////////////////////////
-    // for (Rig rig : rigs) {
     rig.colorTimer(1); //// seconds between colour change, number of steps to cycle through colours
-=======
-    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////// PLAY WITH COLOUR ////////////////////////////////////////////////////////////////
-
-    ///////////////////////////////////// BACKGROUND TIMER ////////////////////////////////////////////////////////////////
-    rig.colorTimer(1); //// number of steps to cycle through colours
->>>>>>> pickle_october_23-midiMapping
     if (millis()/1000 - rig.bgTimer >= (colorChangeTime * 60) / rig.backgroundChangeRate) { 
         rig.bgIndex = int(random(rig.availableBkgrnds.length));  
         rig.bgTimer = millis()/1000; 
         if(debugToggle) println(rig.type+" background change @", (hour()+":"+minute()+":"+second()), "new background:", rig.bgIndex);
     }
-<<<<<<< HEAD
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-=======
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
->>>>>>> pickle_october_23-midiMapping
     ///////////////////////////////////// COLORSWAP TIMER /////////////////////////////////////////////////////////////////
     /*
     if (colorSwapSlider > 0) for (Rig rig : rigs) rig.colorSwap(colorSwapSlider*10000000*oskP);         //// spped of  colour swap; c/flash
@@ -77,8 +69,6 @@ void playWithYourself(Rig rig) {
     switch(rig.type){
       case Shields:
         for (int i = 16; i<22; i+=2) if ( beatCounter % 128 == i) rig.colFlip = true;
-<<<<<<< HEAD
-=======
         break;
       default:
         if ( beatCounter % 128 > 120) rig.colFlip = true;
@@ -98,80 +88,6 @@ void playWithYourself(Rig rig) {
           if (beatCounter % 64 > 60) colorLerping(rig,(1-beat)*4); 
     }
   
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-    // TODO make this proper beatLOGIS
-    if (beatCounter % 32 < 8 && beatCounter % 2 == 0) filaments.onBeat = true;
-    else filaments.onBeat = false;
-
-
-    switch (rig.type){
-      case Shields:  
-      if (beatCounter % 18 < 4) colorLerping(rig,(1-beat)*4);
-      break;
-      case TipiLeft:
-        if (beatCounter % 16 > 27) colorLerping(rig,(1-beat)*3);
-        break;
-      case TipiRight:
-        if (beatCounter % 16 > 27) colorLerping(rig,(1-beat)*3);
-        break;
-      case MegaSeedA:
-        if (beatCounter % 32 < 6) colorLerping(rig,(1-beat)*3);
-        break;
-      case MegaSeedB:
-        if (beatCounter % 32 < 6) colorLerping(rig,(1-beat)*3);
-        break;
-      case MegaSeedC:
-        if (beatCounter % 16 < 2) colorLerping(rig,(1-beat)*3);
->>>>>>> pickle_october_23-midiMapping
-        break;
-      default:
-        if ( beatCounter % 128 > 120) rig.colFlip = true;
-    }
-    //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-    ///////////////////////////////////////// LERP COLOUR //////////////////////////////////////////////////////////////////
-    //colBeat = false;
-    // if (beatCounter % 18 > 15)  colorLerping(shields, (1-beat)*4);
-    switch (rig.type){
-        case Shields:   if (beatCounter % 18 < 4)  colorLerping(rig,(1-beat)*4);   break;
-        case TipiLeft:  if (beatCounter % 16 > 27) colorLerping(rig,(1-beat)*3);   break;
-        case TipiRight: if (beatCounter % 16 > 27) colorLerping(rig,(1-beat)*3);   break;
-        case MegaSeedA: if (beatCounter % 32 < 6)  colorLerping(rig,(1-beat)*3);   break;
-        case MegaSeedB: if (beatCounter % 32 < 6)  colorLerping(rig,(1-beat)*3);   break;
-        case MegaSeedC: if (beatCounter % 16 < 2)  colorLerping(rig,(1-beat)*3);   break;
-        default:        
-          if (beatCounter % 64 > 60) colorLerping(rig,(1-beat)*4); 
-    }
-  
-<<<<<<< HEAD
-    
-    // QUICK AND DIRTY ADJUSTMETNS ON FRIDAY NIGHT //
-    try {
-      outsideRoof.c = shields.flash;
-      outsideRoof.flash = shields.c;
-    } catch (Exception e) { println("outside roof not found", e); }
-
-    try {
-      outsideGround.c = shields.flash;
-      outsideGround.flash = shields.c;
-    } catch (Exception e) { println("outside ground not found", e); }
-
-    try {
-      frontCans.c = shields.flash;
-      frontCans.flash = shields.c;
-    } catch (Exception e) { println("front cans not found", e); }
-
-    
-    // TODO make this proper beatLOGIS
-    if (beatCounter % 32 < 8 && beatCounter % 2 == 0) filaments.onBeat = true;
-    else filaments.onBeat = false;
-    ///////////////////////////////////////////////////////////////////////////////////////////////////
-
-    
-=======
-  
->>>>>>> pickle_october_23-midiMapping
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 }

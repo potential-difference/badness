@@ -30,6 +30,8 @@ void setupMidiActions() {
     colorSwapBangButton(59,shields,tipiLeft); // COLOR SWAP BANG BUTTON: noteNumber, rig objects to add animation to
     colorFlipBangButton(55,shields,tipiLeft,tipiRight,megaSeedA,megaSeedB,megaSeedC); // COLOR FLIP BANG BUTTON: noteNumber, rig objects to add animation to
     
+   
+    
     /*
     //CONSTANT BUTTON sets colorSwap for the given rig objects
     //TODO this is WIP and doesn't work yet - maybe a java barrier
@@ -41,8 +43,12 @@ void setupMidiActions() {
 }
 
 void playWithMe() {
+
     
-   
+    // long press button toggles rig.vizhold: stops the viz timer function for the rig.
+    shields.vizHold = padLongToggle[8][41];
+    tipiLeft.vizHold = padLongToggle[8][42];
+
     /*
     ////////////////////////////////////// Momentary pad button actions //////////////////////////////
     for (int idx = 0;idx < 128;idx++) {//action: everyFrameActions){
