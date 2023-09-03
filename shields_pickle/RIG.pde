@@ -524,7 +524,7 @@ public class Rig {
     }
     
     if (millis() / 1000 - colorTimer >= colorChangeTime * 60) { // multiply colorChangeTime by seconds 
-      println("COLOR CHANGE @", hour() + ":" + minute() + ":" + second());
+      //println("COLOR CHANGE @", hour() + ":" + minute() + ":" + second());
       colorTimer = millis() / 1000;
       change = true;
     } else change = false;
@@ -732,6 +732,8 @@ public class Rig {
   ///////////////////////////////////// RIG DRAW ///////////////////////////////////////////////////
   void draw() {
     //if (beatCounter % 16 == 0) clash(beat); // TODO // this shouldnt happen al the time - need more control over it!
+    if (frameCount > 10) playWithYourself(this); 
+
     if(type != RigType.Test){ 
       drawAnimations();
       blendMode(MULTIPLY);
