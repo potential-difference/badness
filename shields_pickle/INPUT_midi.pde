@@ -119,6 +119,7 @@ public void noteOn(int channel, int pitch, int _velocity) {
     println("noteOnActions[" + pitch + "]", "Velocity: " + velocity);
     println("padPressed[" + channel + "][" + pitch + "] = " + padPressed[channel][pitch]);
     println("padToggle[" + channel + "][" + pitch + "] = " + padToggle[channel][pitch]);
+    println();
 }
 
 public void noteOff(Note note) {
@@ -131,6 +132,7 @@ public void noteOff(Note note) {
     println("noteOffActions[" + note.pitch + "]");
     println("padPressed[" + note.channel + "][" + note.pitch + "] = " + padPressed[note.channel][note.pitch]);
     println("padLongPressed[" + note.channel + "][" + note.pitch + "] = " + padLongPressed[note.channel][note.pitch]);
+    println();
 }
 
 void checkForLongPress() {
