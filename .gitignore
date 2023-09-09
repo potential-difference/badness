@@ -2,3 +2,7 @@
 shields_pickle/ALWAYS_DO_FIRST copy.pde
 force-run-processing
 force-run-processing/*
+rpi/2022-07-01-raspios-bullseye-i386.iso
+rpi/2023-05-03-raspios-bullseye-arm64.img.xz
+rpi/2023-05-03-raspios-bullseye-armhf-lite.img.xz
+rpi/2023-05-03-raspios-bullseye-armhf.img.xz
