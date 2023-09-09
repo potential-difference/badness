@@ -22,7 +22,7 @@ class MidiManager {
     
     private boolean[] buttonPressed = new boolean[numNotes];
     private long[] buttonPressStartTime = new long[numNotes];
-    private long longPressDuration = 1000; // Define the duration for a long press in milliseconds
+    private int longPressDuration = 1000; // Define the duration for a long press in milliseconds
         
     public MidiManager() {
         // Initialize noteOnActions and noteOffActions here
