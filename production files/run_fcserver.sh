@@ -1,2 +1,2 @@
 #!/bin/bash
-./fadecandy/server/fcserver pickle_DMX.json
+/home/dmxpi/badness/fadecandy/server/fcserver pickle_DMX.json
