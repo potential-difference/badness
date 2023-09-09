@@ -7,7 +7,18 @@
     {"name" : "MedShieldB", "ip" : "192.168.10.14", "type" : "WLED", "port" : 21324},
     {"name" : "SmallShieldC", "ip" : "192.168.10.15", "type" : "WLED", "port" : 21324},
     {"name" : "MedShieldC", "ip" : "192.168.10.16", "type" : "WLED", "port" : 21324},
-    {"name" : "Entec", "ip" : "127.0.0.1", "type" : "OPC", "port" : 7890},
+
+   {"name" : "Entec", "ip" : "192.168.10.8", "type" : "OPC", "port" : 7890,
+        "channels" : [
+            
+            {"name" : "pin_spot", "start" : 1, "pixels" : [1]},
+            {"name" : "uv_left", "start" : 11, "pixels" : [3]},
+            {"name" : "uv_right", "start" : 21, "pixels" : [3]},
+            {"name" : "uv_centre", "start" : 31, "pixels" : [3]},
+            {"name" : "uv_front", "start" : 41, "pixels" : [2]}
+            
+        ]
+    },
     {"name" : "LunchBox1", "ip" : "192.168.10.21", "type" : "WLED", "port" : 21324,
         "channels" : [
             {"name" : "lanternA", "start" : 0 , "pixels" : [1]},

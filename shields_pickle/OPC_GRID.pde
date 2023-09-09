@@ -192,7 +192,7 @@ class TestGrid extends OPCGrid{
     rig = _rig;    
     IntCoord coord = size.test;
     OPC opcInstance = opcnodes.get("LunchBox4");
-    /*
+    
     //cansL
     PVector pv = new PVector(coord.x - coord.wide/4, coord.y - coord.high/3);
     opcInstance.led(52, (int) pv.x, (int) pv.y);
@@ -218,9 +218,9 @@ class TestGrid extends OPCGrid{
     pv = new PVector(coord.x + coord.wide/4, coord.y + coord.high/3);
     opcInstance.led(40, (int) pv.x, (int) pv.y);
     rig.pixelPosition.add(pv);
-    */
-
-    opcnodes.get("Entec").led(1,coord.x,coord.y);
+    
+    opcInstance = opcnodes.get("Entec");
+    opcInstance.led(1,coord.x,coord.y);
   }
 }
 

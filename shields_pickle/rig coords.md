@@ -42,8 +42,14 @@ wide: 100 high: 100 x,y: 450 650
 
 null
 ## Test COORDINATES
-*pixel position array length* 0
+*pixel position array length* 6
 wide: 214 high: 214 x,y: 921 321
+local coords[0] 54.0 36.0
+local coords[1] 54.0 107.0
+local coords[2] 54.0 178.0
+local coords[3] 160.0 36.0
+local coords[4] 160.0 107.0
+local coords[5] 160.0 178.0
 
 null
 ## UvPars COORDINATES
