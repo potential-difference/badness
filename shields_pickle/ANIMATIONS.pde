@@ -248,7 +248,7 @@ class Rings extends Anim {
     window.beginDraw();
     window.background(0);
     stroke = 15+((rig.high+rig.wide)/40*functionA);
-    stroke *= strokeSlider + 0.1;
+    stroke *= 2* strokeSlider + 0.1;
     wide = vizWidth*1.2;
     wide = wide-(wide*functionA);
     high = wide*2;
