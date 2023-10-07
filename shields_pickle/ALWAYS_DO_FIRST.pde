@@ -41,13 +41,15 @@ void alwaysDoFirst() {
     rig.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
     rig.availableFunctionEnvelopes = new int[] {0, 1, 2};  
     rig.availableBkgrnds = new int[] {8, 0, 1, 2, 7};   
+    rig.availableColors = new int[] { 0, 1, 2, 3, 5, 6, 7, 8, 10, 11, 12, 13}; 
+    // Dimmer, alphaRate, functionRate, backgroundChangeRate, wideSlider, highSlider, strokeSlider, blurriness
     setDefaultParameters(rig, 0.5, 0.5, 0.5, 4, 0.5, 0.5, 0.5, 0.2);  
     setStatupSettings(rig);
 
     // Modify settings for specific cases
     switch (rig.type) {
       case Shields:
-        rig.availableAnims = new int[] {0, 1, 2,3,4,5, 6, 7, 8,9,10,11,12,13};
+        rig.availableAnims = new int[] {0,1,  2,3,4,5, 6, 7, 8,9,10,11,12,13};
         rig.availableAlphaEnvelopes = new int[] {0, 1, 2, 3, 4, 5, 6};  
         rig.availableFunctionEnvelopes = new int[] {0, 1, 2};  
         rig.availableBkgrnds = new int[] {0,1,2,3,4,5,6};   

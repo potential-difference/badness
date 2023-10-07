@@ -18,13 +18,12 @@ public class Rig {
   manualAlpha, bgNoise;
   int wide, high, 
   alphaIndexA, alphaIndexB, functionIndexA, functionIndexB, 
-  bgIndex, vizIndex, 
+  bgIndex, vizIndex, colorIndexA, colorIndexB,
   alphaTimer, functionTimer, vizTimer, bgTimer, lastColorSwapTime; // TODO check on lastCOlorSwapTime
   PGraphics colorLayer, buffer, pass1, pass2;
   IntCoord size;
   color c, flash, c1, flash1, 
   clash, clash1, clashed, 
-  colorIndexA = 0, colorIndexB = 1, 
   colA, colB, colC, colD, 
   scol1, scol2, scol3;
   color col[] = new color[15];
@@ -67,6 +66,7 @@ public class Rig {
     arrayListIndex = rigs.indexOf(this);          // where this is the rig object
     availableAnims = new int[] {0, 1, 2, 3};      // default - changed when initalised;
     availableBkgrnds = new int[] {0, 1, 2, 3};    // default - changed when initalised;
+    availableColors = new int[] {0, 1, 2, 3};     // default - changed when initalised;
     availableAlphaEnvelopes = new int[] {0, 1};   // default - changed when initalised; 
     availableFunctionEnvelopes = new int[] {0, 1, 2, 5, 6};  // default - changed when initalised;
 
@@ -86,7 +86,6 @@ public class Rig {
       colorSetup();                        // setup colors red bloo etc once
       firsttime_sketchcolor = false;
     }
-    availableColors = new int[] { 0, 1, 2, 3, 13, 10, 11, 12, 2, 3}; /// ALWAYS DO FIRST!! ////////////
     col[0] = teal; 
     col[1] = orange; 
     col[2] = pink; 
@@ -96,7 +95,7 @@ public class Rig {
     col[6] = orange;
     col[7] = pink;
     col[8] = orange;
-    col[9] = bloo;
+    col[9] = bloo1;
     col[10] = purple1;
     col[11] = pink1;
     col[12] = orange;
@@ -541,15 +540,16 @@ public class Rig {
     if (change) {
       go = 1;
       colorIndexA = (colorIndexA + steps) % (availableColors.length - 1);
-      colB = col[colorIndexA];
+      colB = availableColors[colorIndexA];
       colorIndexB = (colorIndexB + steps) % (availableColors.length - 1);
-      colD = col[colorIndexB];
+      colD = availableColors[colorIndexB];
     }
+
     
-    c = col[colorIndexA];
-    c1 = col[colorIndexA];
-    flash = col[colorIndexB];
-    flash1 = col[colorIndexB];
+    c = col[availableColors[colorIndexA]];
+    c1 = col[availableColors[colorIndexA]];
+    flash = col[availableColors[colorIndexB]];
+    flash1 = col[availableColors[colorIndexB]];
 
     if (go > 0.1) change = true;
     else change = false;

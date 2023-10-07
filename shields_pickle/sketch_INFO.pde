@@ -42,9 +42,11 @@ void onScreenInfo() {
     text("bkgrnd: " + shields.availableBkgrnds[shields.bgIndex], x, y + 40);
     text("func's: " + shields.availableFunctionEnvelopes[shields.functionIndexA] + " / " + shields.availableFunctionEnvelopes[shields.functionIndexB], x + 110, y + 20);
     text("alph's: " + shields.availableAlphaEnvelopes[shields.alphaIndexA] + " / " + shields.availableAlphaEnvelopes[shields.alphaIndexB], x + 110, y + 40);
+    text("color A/B: " + shields.availableColors[shields.colorIndexA] + " / " + shields.availableColors[shields.colorIndexB], x , y + 60);
     //////////////////////////////////////////////////////////////////////////////////////////////////
     /////////// info about PLAYWITHYOURSELF functions ////////////////////////////////////////////////
     fill(300);
+    y += 10;
     String sec = nf(int(vizChangeTime * 60 - (millis() / 1000 - rigs.get(0).vizTimer)) % 60, 2, 0);
     int min = int(vizChangeTime * 60 - (millis() / 1000 - rigs.get(0).vizTimer)) / 60 % 60;
     text("next viz in: " + min + ":" + sec, x, y + 80);

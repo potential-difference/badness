@@ -22,8 +22,8 @@ void keyPressed() {
             shields.alphaIndexA = (shields.alphaIndexA + 1) % shields.availableAlphaEnvelopes.length; //alph.length; 
             shields.alphaIndexB = (shields.alphaIndexB + 1) % shields.availableAlphaEnvelopes.length; //alph.length;
         }   
-        if (key == 'c') shields.colorIndexA = (shields.colorIndexA + 1) % shields.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
-        if (key == 'v') shields.colorIndexB = (shields.colorIndexB + 1) % shields.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
+        if (key == 'c') shields.colorIndexA = (shields.colorIndexA + 1) % shields.availableColors.length; //// CYCLE FORWARD THROUGH RIG COLORS
+        if (key == 'v') shields.colorIndexB = (shields.colorIndexB + 1) % shields.availableColors.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
     }
     /////////////////////////////// TEST KEY FUNTIONS ////////////////////////////////////////////////////////
     if (test != null) {
@@ -39,8 +39,8 @@ void keyPressed() {
             test.alphaIndexA = (test.alphaIndexA + 1) % test.availableAlphaEnvelopes.length; //alph.length; 
             test.alphaIndexB = (test.alphaIndexB + 1) % test.availableAlphaEnvelopes.length; //alph.length;
         }   
-        if (key == 'c') test.colorIndexA = (test.colorIndexA + 1) % test.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
-        if (key == 'v') test.colorIndexB = (test.colorIndexB + 1) % test.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
+        // if (key == 'c') test.colorIndexA = (test.colorIndexA + 1) % test.col.length; //// CYCLE FORWARD THROUGH RIG COLORS
+        // if (key == 'v') test.colorIndexB = (test.colorIndexB + 1) % test.col.length;         //// CYCLE BACKWARD THROUGH RIG COLORS
     }
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     /////////////////////////////////// momentaory key pressed array /////////////////////////////////////////////////
