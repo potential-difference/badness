@@ -98,8 +98,11 @@ void alwaysDoFirst() {
   vizChangeTime = 10;   // time in minutes - TODO sort this out onto slider 
   colorChangeTime = 5;  // time in minutes - TODO sort this out onto slider 
 
-  boothDimmer = 0.2;
+  cc[8][36] = 0.05;
+  cc[8][56] = 0.2;
+  boothDimmer = 0.05;
   mixerDimmer = 0.2;
+  cc[8][20] = 0.5;
 }
 
 
