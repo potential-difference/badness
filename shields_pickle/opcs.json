@@ -19,43 +19,32 @@
     },
     {"name" : "LunchBox1", "ip" : "192.168.10.21", "type" : "WLED", "port" : 21324,
         "channels" : [
-            {"name" : "lanternA", "start" : 0 , "pixels" : [1]},
-            {"name" : "lanternB", "start" : 10, "pixels" : [1]},
-            {"name" : "lanternC", "start" : 20, "pixels" : [1]},
-            {"name" : "lanternD", "start" : 30, "pixels" : [1]},
-            {"name" : "lanternE", "start" : 40, "pixels" : [1]},
-            {"name" : "lanternF", "start" : 50, "pixels" : [1]},
-            {"name" : "lanternG", "start" : 60, "pixels" : [1]},
-            {"name" : "lanternH", "start" : 70, "pixels" : [1]},
-            {"name" : "lanternI", "start" : 80, "pixels" : [1]},
-            {"name" : "frontCansLeft", "start" : 31, "pixels" : [1,1,1]}
+            
+            {"name" : "frontCansLeft", "start" : 0, "pixels" : [1,1,1]},
+            {"name" : "frontCansLeft", "start" : 10, "pixels" : [1,1,1]},
+            {"name" : "lanternA", "start" : 20 , "pixels" : [1]},
+            {"name" : "lanternB", "start" : 30, "pixels" : [1]}
+
         ]
     },
     {"name" : "LunchBox2" , "ip" : "192.168.10.22", "type" : "WLED", "port" : 21324,
         "channels" : [
-            {"name" : "lanternA", "start" : 0 , "pixels" : [1]},
-            {"name" : "lanternB", "start" : 10, "pixels" : [1]},
-            {"name" : "lanternC", "start" : 20, "pixels" : [1]},
-            {"name" : "lanternD", "start" : 30, "pixels" : [1]},
-            {"name" : "lanternE", "start" : 40, "pixels" : [1]},
-            {"name" : "lanternF", "start" : 50, "pixels" : [1]},
-            {"name" : "lanternG", "start" : 60, "pixels" : [1]},
-            {"name" : "lanternH", "start" : 70, "pixels" : [1]},
-            {"name" : "lanternI", "start" : 80, "pixels" : [1]},
-            {"name" : "frontCansRight", "start" : 51, "pixels" : [1,1,1]}
+            {"name" : "frontCansLeft", "start" : 0, "pixels" : [1,1,1]},
+            {"name" : "frontCansLeft", "start" : 10, "pixels" : [1,1,1]},
+            {"name" : "lanternA", "start" : 20 , "pixels" : [1]},
+            {"name" : "lanternB", "start" : 30, "pixels" : [1]}
+
         ]
     },
     {"name" : "LunchBox3" , "ip" : "192.168.10.23", "type" : "WLED", "port" : 21324,
         "channels" : [
-            {"name" : "lanternA", "start" : 0 , "pixels" : [1]},
-            {"name" : "lanternB", "start" : 10, "pixels" : [1]},
-            {"name" : "lanternC", "start" : 20, "pixels" : [1]},
-            {"name" : "lanternD", "start" : 30, "pixels" : [1]},
-            {"name" : "lanternE", "start" : 40, "pixels" : [1]},
-            {"name" : "lanternF", "start" : 50, "pixels" : [1]},
-            {"name" : "lanternG", "start" : 60, "pixels" : [1]},
-            {"name" : "lanternH", "start" : 70, "pixels" : [1]},
-            {"name" : "lanternI", "start" : 80, "pixels" : [1]}
+            {"name" : "mixer", "start" : 0 , "pixels" : [1]},
+            {"name" : "boothA", "start" : 10, "pixels" : [1]},
+            {"name" : "boothB", "start" : 20, "pixels" : [1]},
+
+            {"name" : "floodsA", "start" : 30, "pixels" : [1,1]},
+            {"name" : "floodsB", "start" : 40, "pixels" : [1,1]}
+            
         ]
     },
     {"name" : "LunchBox4", "ip" : "192.168.10.24", "type" : "WLED", "port" : 21324,

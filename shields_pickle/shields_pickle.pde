@@ -87,7 +87,7 @@ void setup()
   
   shields = new Rig(size.shields, RigType.Shields);
   shields.opcgrid = new ShieldsOPCGrid(shields);
-  ((ShieldsOPCGrid)(shields.opcgrid)).bigTriangleShieldsOPC(OPCs); 
+  ((ShieldsOPCGrid)(shields.opcgrid)).spiralShieldsOPC(OPCs); 
   //shields is special.
   //but everything else can be initialized like this:
   
@@ -102,44 +102,32 @@ void setup()
   megaSeedC.opcgrid = new MegaSeedCGrid(megaSeedC,OPCs);
 
   filaments = new Rig(size.filaments,RigType.Filaments);
-  //filaments.opcgrid = new FilamentsGrid(filaments,OPCs);
-  filaments.opcgrid = new UnicornGrid(filaments,OPCs); // swap filaments grid to unicorn
+  filaments.opcgrid = new FilamentsGrid(filaments,OPCs);
   megaWhite = new Rig(size.megaWhite,RigType.MegaWhite); // sunset lamp added here
   megaWhite.opcgrid = new MegaWhiteGrid(megaWhite,OPCs);
 
-  test = new Rig(size.test,RigType.Test);
-  test.opcgrid = new TestGrid(test,OPCs);
+  // test = new Rig(size.test,RigType.Test);
+  // test.opcgrid = new TestGrid(test,OPCs);
 
   uvPars = new Rig(size.uvPars,RigType.UvPars);
   uvPars.opcgrid = new UvParsGrid(uvPars,OPCs);
 
   outsideGround = new Rig(size.outsideGround,RigType.OutsideGround);
-  outsideGround.opcgrid = new OutsideGroundGrid(outsideGround,OPCs);
+  outsideGround.opcgrid = new PickleBarGrid(outsideGround,OPCs);
 
   outsideRoof = new Rig(size.outsideRoof,RigType.OutsideRoof);
-  outsideRoof.opcgrid = new OutsideRoofGrid(outsideRoof,OPCs);
+  outsideRoof.opcgrid = new PickleFloodsGrid(outsideRoof,OPCs);
   
- // boothCans = new Rig(size.boothCans,RigType.BoothCans);
- // boothCans.opcgrid = new BoothCansGrid(boothCans,OPCs);
+  boothCans = new Rig(size.boothCans,RigType.BoothCans);
+  boothCans.opcgrid = new BoothCansGrid(boothCans,OPCs);
 
   tipiLeft = new Rig(size.tipiLeft,RigType.TipiLeft);
-  String tipiLeftChannels[] = new String[9];
-  char idk[] = {'A','B','C','D','E','F','G','H','I'};
-  for(int i = 0;i<9;i++){
-    tipiLeftChannels[i] = "LunchBox1/lantern" + idk[i];
-  }// = {"Lu","pix1","pix2","pix3","pix4","pix5","pix6","pix7","pix8"};
-  tipiLeft.opcgrid = new CircularRoofGrid(tipiLeft,OPCs,channels,tipiLeftChannels);
+  tipiLeft.opcgrid = new PickleCansGridA(tipiLeft,OPCs);
 
   tipiRight = new Rig(size.tipiRight,RigType.TipiRight);
-  String tipiRightChannels[] = new String[9];// = {"pix9","pix10","pix11","pix12","pix13","pix14","pix15","pix16","pix17"};
-  for(int i = 0; i<9;i++){
-    tipiRightChannels[i] = "LunchBox2/lantern" + idk[i];
-  }
-  tipiRight.opcgrid = new CircularRoofGrid(tipiRight,OPCs,channels,tipiRightChannels);
-
+  tipiRight.opcgrid = new PickleLanternsGrid(tipiRight,OPCs);
+  
   frontCans = new Rig(size.frontCans,RigType.FrontCans);
-  String frontCanChannels[] = {"LunchBox2/frontCansRight","LunchBox1/frontCansLeft"};
-  frontCans.opcgrid = new CircularRoofGrid(frontCans,OPCs,channels,frontCanChannels);
 
   audioSetup(100, 0.2); ///// AUDIO SETUP - sensitivity, beatTempo /////
   midiManager = new MidiManager();        // Initialize MidiManager
@@ -203,6 +191,10 @@ void draw()
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
   
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  /////////// BAR ////////// 
+  fill(flash1,100); // add this to cc
+  rect(size.outsideGround);
 
   mouseCircle(keyT['q']);
   onScreenInfo();

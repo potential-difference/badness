@@ -743,22 +743,15 @@ public class Rig {
     //if (beatCounter % 16 == 0) clash(beat); // TODO // this shouldnt happen al the time - need more control over it!
     if (frameCount > 10) playWithYourself(this); 
 
-    if(type != RigType.Test){ 
+    if(type != RigType.Test && type != RigType.MegaSeedA && type != RigType.MegaSeedB && type != RigType.MegaSeedC && type != RigType.MegaWhite){ 
       drawAnimations();
       blendMode(MULTIPLY);
     }
-    if(type == RigType.Test){
-      if(debugToggle){
-        playWithYourself(this);
-
-    drawAnimations();
-        blendMode(MULTIPLY);
-      }
-    }
+  
     colorFlip();
     clash(beat);    // TODO improve global variable beat - add envelope functionality to this
     // draw a colour layer for all rigs except the filaments & uv pars & MegaWhite - leaving these ones white 
-    if(type != RigType.Filaments && type != RigType.UvPars && type != RigType.MegaWhite) drawColorLayer(bgIndex);
+    if(type != RigType.Filaments && type != RigType.UvPars && type != RigType.MegaWhite && type != RigType.MegaSeedA && type != RigType.MegaSeedB && type != RigType.MegaSeedC) drawColorLayer(bgIndex);
     blendMode(NORMAL);
     rigInfo();
     removeAnimations();

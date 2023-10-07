@@ -25,10 +25,10 @@ class BoothGrid extends OPCGrid{
     booth = new Coord(size.booth.x-size.booth.wide/2+35,size.booth.y-size.booth.high/2+20,30,15);
     dig = new Coord(booth.x,booth.y+20,booth.wide,booth.high);
     mixer = new Coord(dig.x, dig.y+20,dig.wide,dig.high);
-    OPC boothopc = opcnodes.get("LunchBox4");
+    OPC boothopc = opcnodes.get("LunchBox3");
     boothopc.led(20,int(booth.x-5),int(booth.y));
-    boothopc.led(30,int(booth.x+5),int(booth.y));
-    boothopc.led(10,int(mixer.x),int(mixer.y));
+    boothopc.led(40,int(booth.x+5),int(booth.y));
+    boothopc.led(30,int(mixer.x),int(mixer.y));
     //boothopc.led(50,int(dig.x),int(dig.y));
   }
 }
@@ -96,28 +96,14 @@ class MegaSeedCGrid extends OPCGrid{
   }
 }
 
-class UnicornGrid extends OPCGrid{
-  Rig rig;;
-  UnicornGrid(Rig _rig, Map<String,OPC> opcnodes){
-    rig = _rig;
-    IntCoord coord = size.filaments;
-    
-    // sunset lamp cold white
-    opcnodes.get("unicorn").led(1,coord.x+20,coord.y);
-  }
-}
-
 class FilamentsGrid extends OPCGrid{
   Rig rig;
   FilamentsGrid(Rig _rig,Map<String,OPC> opcnodes){
     rig = _rig;
     IntCoord coord = size.filaments;
     opcnodes.get("megaSeedA").led(2,coord.x-coord.wide/4,coord.y);
-    opcnodes.get("megaSeedB").led(2,coord.x+coord.wide/4,coord.y);
-    opcnodes.get("megaSeedC").led(2,coord.x,coord.y+coord.high/4);
-
-    // sunset lamp cold white
-    opcnodes.get("unicorn").led(1,coord.x+20,coord.y);
+    opcnodes.get("megaSeedC").led(2,coord.x+coord.wide/4,coord.y);
+    opcnodes.get("megaSeedB").led(2,coord.x,coord.y+coord.high/4);
   }
 }
 class MegaWhiteGrid extends OPCGrid{
@@ -128,9 +114,6 @@ class MegaWhiteGrid extends OPCGrid{
     opcnodes.get("megaSeedA").led(1,coord.x,coord.y - 20);
     opcnodes.get("megaSeedB").led(1,coord.x,coord.y);
     opcnodes.get("megaSeedC").led(1,coord.x,coord.y + 20);
-
-    // sunset lamp warm white
-    opcnodes.get("unicorn").led(0,coord.x+20,coord.y);
   }
 }
 class BoothCansGrid extends OPCGrid{
@@ -140,89 +123,111 @@ class BoothCansGrid extends OPCGrid{
     
     IntCoord coord = size.boothCans;
     //cansL
-    opcnodes.get("LunchBox4").led(52,coord.x - coord.wide/4,coord.y - coord.high/3);
-    opcnodes.get("LunchBox4").led(51,coord.x - coord.wide/4, coord.y);
-    opcnodes.get("LunchBox4").led(50,coord.x - coord.wide/4,coord.y + coord.high/3);
+    // opcnodes.get("LunchBox1").led(0,coord.x - coord.wide/4,coord.y - coord.high/3);
+    // opcnodes.get("LunchBox1").led(1,coord.x - coord.wide/4, coord.y);
+    // opcnodes.get("LunchBox1").led(2,coord.x - coord.wide/4,coord.y + coord.high/3);
     
-    //cansR
-    opcnodes.get("LunchBox4").led(42,coord.x + coord.wide/4,coord.y - coord.high/3);
-    opcnodes.get("LunchBox4").led(41,coord.x + coord.wide/4, coord.y);
-    opcnodes.get("LunchBox4").led(40,coord.x + coord.wide/4,coord.y + coord.high/3);  
+    // //cansR
+    // opcnodes.get("LunchBox2").led(0,coord.x + coord.wide/4,coord.y - coord.high/3);
+    // opcnodes.get("LunchBox2").led(1,coord.x + coord.wide/4, coord.y);
+    // opcnodes.get("LunchBox2").led(2,coord.x + coord.wide/4,coord.y + coord.high/3);  
   }
 }
-  class OutsideRoofGrid extends OPCGrid{
+class PickleCansGridA extends OPCGrid{
   Rig rig;
-  OutsideRoofGrid(Rig _rig,Map<String,OPC> opcnodes){
+  PickleCansGridA(Rig _rig,Map<String,OPC> opcnodes){
+    rig = _rig;
+    IntCoord coord = size.tipiLeft;
+    int offset = 30;
+    int div = 10;
+    //cansA
+    opcnodes.get("LunchBox1").led(0,coord.x - coord.wide/div,coord.y - coord.high/5);
+    opcnodes.get("LunchBox1").led(1,coord.x - coord.wide/div, coord.y);
+    opcnodes.get("LunchBox1").led(2,coord.x - coord.wide/div, coord.y + coord.high/5);
+    
+    //cansB
+    opcnodes.get("LunchBox1").led(10,coord.x - coord.wide/3,coord.y - coord.high/5 + offset);
+    opcnodes.get("LunchBox1").led(11,coord.x - coord.wide/3, coord.y + offset);
+    opcnodes.get("LunchBox1").led(12,coord.x - coord.wide/3, coord.y + coord.high/5 + offset);
+    
+    //cansC
+    opcnodes.get("LunchBox2").led(0,coord.x + coord.wide/div,coord.y - coord.high/5+offset);
+    opcnodes.get("LunchBox2").led(1,coord.x + coord.wide/div, coord.y+offset);
+    opcnodes.get("LunchBox2").led(2,coord.x + coord.wide/div, coord.y + coord.high/5+offset);
+    
+    //cansD
+    opcnodes.get("LunchBox2").led(10,coord.x + coord.wide/3,coord.y - coord.high/5);
+    opcnodes.get("LunchBox2").led(11,coord.x + coord.wide/3, coord.y);
+    opcnodes.get("LunchBox2").led(12,coord.x + coord.wide/3, coord.y + coord.high/5);
+   
+  }
+}
+
+class PickleCansGridB extends OPCGrid{
+  Rig rig;
+  PickleCansGridB(Rig _rig,Map<String,OPC> opcnodes){
+    rig = _rig;
+    IntCoord coord = size.tipiRight;
+    int offset = 30;
+    int div = 10;
+    //cansC
+    opcnodes.get("LunchBox2").led(0,coord.x + coord.wide/div,coord.y - coord.high/5+offset);
+    opcnodes.get("LunchBox2").led(1,coord.x + coord.wide/div, coord.y+offset);
+    opcnodes.get("LunchBox2").led(2,coord.x + coord.wide/div, coord.y + coord.high/5+offset);
+    
+    //cansD
+    opcnodes.get("LunchBox2").led(10,coord.x + coord.wide/3,coord.y - coord.high/5);
+    opcnodes.get("LunchBox2").led(11,coord.x + coord.wide/3, coord.y);
+    opcnodes.get("LunchBox2").led(12,coord.x + coord.wide/3, coord.y + coord.high/5);
+    
+  }
+}
+
+class PickleLanternsGrid extends OPCGrid{
+  Rig rig;
+  PickleLanternsGrid(Rig _rig,Map<String,OPC> opcnodes){
+    rig = _rig;
+    IntCoord coord = size.tipiRight;
+    int offset = 30;
+    int div = 10;
+    //lanterns
+    opcnodes.get("LunchBox1").led(20,coord.x + coord.wide/div,coord.y - coord.high/5+offset);
+    opcnodes.get("LunchBox1").led(30,coord.x + coord.wide/div, coord.y+offset);
+    
+  }
+}
+
+class PickleBarGrid extends OPCGrid{
+  Rig rig;
+  PickleBarGrid(Rig _rig,Map<String,OPC> opcnodes){
+    rig = _rig;
+    IntCoord coord = size.outsideGround;
+    int offset = 30;
+    int div = 10;
+    //lanterns
+    opcnodes.get("LunchBox2").led(20,coord.x + coord.wide/div,coord.y - coord.high/div);
+    opcnodes.get("LunchBox2").led(30,coord.x - coord.wide/div, coord.y + coord.high/div);
+    
+  }
+}
+
+class PickleFloodsGrid extends OPCGrid{
+  Rig rig;
+  PickleFloodsGrid(Rig _rig,Map<String,OPC> opcnodes){
     rig = _rig;
     IntCoord coord = size.outsideRoof;
     int ydiv = 5;
     int xdiv = 4;
-    opcnodes.get("GreyBox2").led(20,coord.x - coord.wide/xdiv,coord.y-coord.high/ydiv);
-    opcnodes.get("GreyBox2").led(0,coord.x + coord.wide/xdiv,coord.y - coord.high/ydiv);
-    opcnodes.get("GreyBox2").led(10,coord.x ,coord.y - coord.high/ydiv);
-    opcnodes.get("GreyBox1").led(40,coord.x ,coord.y + coord.high/ydiv);
 
-    opcnodes.get("GreyBox1").led(50,coord.x-coord.wide/xdiv,coord.y + coord.high/ydiv);
-    opcnodes.get("GreyBox1").led(51,coord.x+coord.wide/xdiv,coord.y + coord.high/ydiv);
-    rig.pixelPosition.add(new PVector(coord.x,coord.y));
-  }
-}
-  class OutsideGroundGrid extends OPCGrid{
-  Rig rig;
+    opcnodes.get("LunchBox3").led(0, coord.x - coord.wide/xdiv,coord.y-coord.high/ydiv);
+    opcnodes.get("LunchBox3").led(1, coord.x + coord.wide/xdiv,coord.y-coord.high/ydiv);
 
-  OutsideGroundGrid(Rig _rig,Map<String,OPC> opcnodes){
-    rig = _rig;
-    IntCoord coord = size.outsideGround;
-    opcnodes.get("GreyBox1").led(30,coord.x-coord.wide/6,coord.y+coord.wide/20);
-    opcnodes.get("GreyBox2").led(50,coord.x+coord.wide/6,coord.y-coord.wide/20);
-
-   // led string on esp c3
-    int leds = 104;
-    int gap = coord.wide/leds*3;
-    println("gap: "+gap);
-    for (int i = 0; i < leds/2; i++){
-    opcnodes.get("narwhal").led(i,coord.x - coord.wide/2 + 5 +(i*gap),coord.y);
-    opcnodes.get("narwhal").led(i+(leds/2),coord.x - coord.wide/2 + 5 +(i*gap),coord.y+5);
+    opcnodes.get("LunchBox3").led(50, coord.x + coord.wide/xdiv,coord.y+coord.high/ydiv);
+    opcnodes.get("LunchBox3").led(51, coord.x - coord.wide/xdiv,coord.y+coord.high/ydiv);
     }
   }
-}
-class TestGrid extends OPCGrid{
-  Rig rig;
-  TestGrid(Rig _rig,Map<String,OPC> opcnodes){
-    rig = _rig;    
-    IntCoord coord = size.test;
-    OPC opcInstance = opcnodes.get("LunchBox4");
-    
-    //cansL
-    PVector pv = new PVector(coord.x - coord.wide/4, coord.y - coord.high/3);
-    opcInstance.led(52, (int) pv.x, (int) pv.y);
-    rig.pixelPosition.add(pv);
 
-    pv = new PVector(coord.x - coord.wide/4, coord.y);
-    opcInstance.led(51, (int) pv.x, (int) pv.y);
-    rig.pixelPosition.add(pv);
 
-    pv = new PVector(coord.x - coord.wide/4, coord.y + coord.high/3);
-    opcInstance.led(50, (int) pv.x, (int) pv.y);
-    rig.pixelPosition.add(pv);
-
-    //cansR
-    pv = new PVector(coord.x + coord.wide/4, coord.y - coord.high/3);
-    opcInstance.led(42, (int) pv.x, (int) pv.y);
-    rig.pixelPosition.add(pv);
-
-    pv = new PVector(coord.x + coord.wide/4, coord.y);
-    opcInstance.led(41, (int) pv.x, (int) pv.y);
-    rig.pixelPosition.add(pv);
-
-    pv = new PVector(coord.x + coord.wide/4, coord.y + coord.high/3);
-    opcInstance.led(40, (int) pv.x, (int) pv.y);
-    rig.pixelPosition.add(pv);
-    
-    opcInstance = opcnodes.get("Entec");
-    opcInstance.led(1,coord.x,coord.y);
-  }
-}
 
 
 /* pixel mapping is a simple struct holding information about a
@@ -357,6 +362,88 @@ class ShieldsOPCGrid extends OPCGrid {
   }
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////////////////////////////
+ 
+  void spiralShieldsOPC(Map<String,OPC> _opc) {
+    opclist = _opc;
+    ringSize = new float[] { rig.wide/8.3, rig.wide/5.5, rig.wide/4 };
+    shieldSetup(18);
+    // SHIELDS - #1 shield address; #2 position on ring; #3 which ring 
+
+    // RIGHT ARM 
+    int ring = 0;
+    int pos = 5;
+    medShieldWLED(opclist.get("MedShieldA"), pos, ring);
+    medShieldA = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
+    shields[0] = medShieldA;
+
+    ring = 1;
+    pos = 3;
+    smallShieldWLED(opclist.get("SmallShieldA"), pos, ring);
+    smallShieldA = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
+    shields[1] = smallShieldA;
+
+    ring = 2;
+    pos = 1; 
+    ballGrid(opclist.get("BigShield"), 0, pos, ring);
+    ballA = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
+    shields[2] = ballA;
+
+    // LEFT ARM 
+    ring = 0;
+    pos = 17;
+    medShieldWLED(opclist.get("MedShieldB"), pos, ring);
+    medShieldB = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
+    shields[3] = medShieldB;
+
+    ring = 1;
+    pos = 15;
+    smallShieldWLED(opclist.get("SmallShieldB"), pos, ring);
+    smallShieldB = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
+    shields[4] = smallShieldB;
+
+    ring = 2;
+    pos = 13; 
+    ballGrid(opclist.get("BigShield"), 1, pos, ring);
+    ballB = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
+    shields[5] = ballB;
+
+     // TOP ARM 
+    ring = 0;
+    pos = 11;
+    medShieldWLED(opclist.get("MedShieldC"), pos, ring);
+    medShieldC = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
+    shields[6] = medShieldC;
+
+    ring = 1;
+    pos = 9;
+    smallShieldWLED(opclist.get("SmallShieldC"), pos, ring);
+    smallShieldC = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
+    shields[7] = smallShieldC;
+
+    ring = 2;
+    pos = 7; 
+    ballGrid(opclist.get("BigShield"), 2, pos, ring);
+    ballC = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
+    shields[8] = ballC;
+
+    // Big Shield - Ball A, Ball B, Ball C
+    bigShieldWLED(opclist.get("BigShield"), int(size.shields.x), int(size.shields.y));
+    
+    rig.positionX = _shield; 
+    rig.position = shields;
+    println("shields length: " + shields.length);
+    println(shields);
+    for (int i = 0; i < shields.length; i++) {
+      PVector pv = new PVector(shields[i].x,shields[i].y);
+      rig.pixelPosition.add(pv); // adding global coords to pixelPosition ArrayList
+    }
+
+
+   
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////
+  ////////////////////////////////////////////////////////////////////////////////////////////////////////
   void bigTriangleShieldsOPC(Map<String,OPC> _opc) {
     opclist = _opc;
     ringSize = new float[] { rig.wide/9, rig.wide/5, rig.wide/4.5 };
@@ -369,7 +456,6 @@ class ShieldsOPCGrid extends OPCGrid {
     smallShieldWLED(opclist.get("SmallShieldA"), pos, ring);
     smallShieldA = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
     shields[0] = smallShieldA;
-
 
     // Med Shield A is RIGHT of the RIG
     ring = 1;
@@ -425,6 +511,9 @@ class ShieldsOPCGrid extends OPCGrid {
     
     rig.positionX = _shield; 
     rig.position = shields;
+    
+     println("shields length: " + shields.length);
+    println(shields);
 
     for (int i = 0; i < shields.length; i++) {
       PVector pv = new PVector(shields[i].x,shields[i].y);
