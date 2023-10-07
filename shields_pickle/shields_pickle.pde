@@ -125,9 +125,11 @@ void setup()
   tipiLeft.opcgrid = new PickleCansGridA(tipiLeft,OPCs);
 
   tipiRight = new Rig(size.tipiRight,RigType.TipiRight);
-  tipiRight.opcgrid = new PickleLanternsGrid(tipiRight,OPCs);
+  tipiRight.opcgrid = new PickleCansGridB(tipiRight,OPCs); 
   
   frontCans = new Rig(size.frontCans,RigType.FrontCans);
+  frontCans.opcgrid = new PickleLanternsGrid(frontCans,OPCs);
+
 
   audioSetup(100, 0.2); ///// AUDIO SETUP - sensitivity, beatTempo /////
   midiManager = new MidiManager();        // Initialize MidiManager
