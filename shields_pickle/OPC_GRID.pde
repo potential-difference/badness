@@ -145,22 +145,12 @@ class PickleCansGridA extends OPCGrid{
     opcnodes.get("LunchBox1").led(1,coord.x - coord.wide/div, coord.y);
     opcnodes.get("LunchBox1").led(2,coord.x - coord.wide/div, coord.y + coord.high/5);
     
-    //cansB
-    opcnodes.get("LunchBox1").led(10,coord.x - coord.wide/3,coord.y - coord.high/5 + offset);
-    opcnodes.get("LunchBox1").led(11,coord.x - coord.wide/3, coord.y + offset);
-    opcnodes.get("LunchBox1").led(12,coord.x - coord.wide/3, coord.y + coord.high/5 + offset);
     
-    /*
-    //cansC
+     //cansC
     opcnodes.get("LunchBox2").led(0,coord.x + coord.wide/div,coord.y - coord.high/5+offset);
     opcnodes.get("LunchBox2").led(1,coord.x + coord.wide/div, coord.y+offset);
     opcnodes.get("LunchBox2").led(2,coord.x + coord.wide/div, coord.y + coord.high/5+offset);
-    
-    //cansD
-    opcnodes.get("LunchBox2").led(10,coord.x + coord.wide/3,coord.y - coord.high/5);
-    opcnodes.get("LunchBox2").led(11,coord.x + coord.wide/3, coord.y);
-    opcnodes.get("LunchBox2").led(12,coord.x + coord.wide/3, coord.y + coord.high/5);
-   */
+   
   }
 }
 
@@ -171,11 +161,11 @@ class PickleCansGridB extends OPCGrid{
     IntCoord coord = size.tipiRight;
     int offset = 30;
     int div = 10;
-    //cansC
-    opcnodes.get("LunchBox2").led(0,coord.x + coord.wide/div,coord.y - coord.high/5+offset);
-    opcnodes.get("LunchBox2").led(1,coord.x + coord.wide/div, coord.y+offset);
-    opcnodes.get("LunchBox2").led(2,coord.x + coord.wide/div, coord.y + coord.high/5+offset);
-    
+     //cansB
+    opcnodes.get("LunchBox1").led(10,coord.x - coord.wide/3,coord.y - coord.high/5 + offset);
+    opcnodes.get("LunchBox1").led(11,coord.x - coord.wide/3, coord.y + offset);
+    opcnodes.get("LunchBox1").led(12,coord.x - coord.wide/3, coord.y + coord.high/5 + offset);
+   
     //cansD
     opcnodes.get("LunchBox2").led(10,coord.x + coord.wide/3,coord.y - coord.high/5);
     opcnodes.get("LunchBox2").led(11,coord.x + coord.wide/3, coord.y);

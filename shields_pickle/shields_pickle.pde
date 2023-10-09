@@ -198,6 +198,13 @@ void draw()
   fill(flash1,360*cc[8][20]); // add this to cc
   rect(size.outsideGround);
 
+  /////////// FILAMENTS //////////////
+
+  fill(360,360*cc[8][83]);
+  rect(size.filaments);
+
+  ///////////////////////////////////
+
   mouseCircle(keyT['q']);
   onScreenInfo();
   pauseInfo();
