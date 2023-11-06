@@ -89,7 +89,7 @@ void draw()
     //while (!client.newFrame()){delay(1);} //don't do anything without a new frame
 
     background(0);  
-    //image(mappingImg, 0, 0, width, height); // draw mapping image overlay 
+    //image(mappingImg, 0, 0, width, height); // draw mapping image overlay
     
     /*
     if (img != null) {
