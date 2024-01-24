@@ -4,7 +4,7 @@
 			"path": "."
 		},
 		{
-			"path": "../shields_pickle"
+			"path": "shields_pickle"
 		}
 	],
 	"settings": {}
