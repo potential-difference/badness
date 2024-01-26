@@ -92,15 +92,11 @@
             {"name" : "groundB", "start" : 50, "pixels" : [1]}
         ]
     },
-    {"name" : "unicorn", "ip" : "192.168.10.50", "type" : "WLED", "port" : 21324,
+    {"name" : "egg", "ip" : "192.168.10.50", "type" : "WLED", "port" : 21324,
         "channels" :[
-            {"name" : "ww", "start" : 0, "pixels" : [1]}
+            {"name" : "up", "start" : 0, "pixels" : [29]},
+            {"name" : "down", "start" : 0, "pixels" : [28]}
         ]
-    },
-    {"name" : "narwhal", "ip" : "192.168.10.51", "type" : "WLED", "port" : 21324,
-    "channels" :[
-        {"name" : "string", "start" : 0, "pixels" : [104]}
-    ]
     }
 
 ]

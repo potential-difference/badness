@@ -319,7 +319,7 @@ class CircularRoofGrid extends OPCGrid {
 class ShieldsOPCGrid extends OPCGrid {
   //  PVectors for positions of shields
   PVector[][] _shield; // = new PVector[numberOfShields][numberOfRings];    
-  PVector smallShieldA,medShieldA,smallShieldB,medShieldB,smallShieldC,medShieldC,bigShield,ballA,ballB,ballC;
+  PVector smallShieldA,medShieldA,smallShieldB,medShieldB,smallShieldC,medShieldC,bigShield,ballA,ballB,ballC,egg;
   PVector[][] shield; // = new PVector[numberOfPositions][numberOfRings];  
   PVector[] shields = new PVector[9];
   //positions = new ArrayList<PVector>();
@@ -420,8 +420,23 @@ class ShieldsOPCGrid extends OPCGrid {
     // Big Shield - Ball A, Ball B, Ball C
     bigShieldWLED(opclist.get("BigShield"), int(size.shields.x), int(size.shields.y));
 
-    
     // EGG 
+    ring = 2;
+    pos = 7; 
+    OPC opc = opclist.get("egg");
+    float spacing = 2;
+    opc.ledStrip(0,29, 295,500,spacing,(PI/2),true);
+    opc.ledStrip(29,28,305,500,spacing,(PI/2),false);
+    // opc.ledStrip(0, 29, _shield[pos][ring].x, _shield[pos][ring].y, 0.1,  (PI/2), false);
+    // egg = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
+    // shields[8] = egg;
+
+   
+
+    // void ballGrid(OPC opc, int numb, int positionA, int positionB) {
+    // opc.led(numb+(bigRing+4), int(_shield[positionA][positionB].x), int(_shield[positionA][positionB].y));
+  
+    
 
     
     rig.positionX = _shield; 
