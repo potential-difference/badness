@@ -101,9 +101,9 @@ class FilamentsGrid extends OPCGrid{
   FilamentsGrid(Rig _rig,Map<String,OPC> opcnodes){
     rig = _rig;
     IntCoord coord = size.filaments;
-    opcnodes.get("megaSeedA").led(2,coord.x-coord.wide/4,coord.y);
-    opcnodes.get("megaSeedC").led(2,coord.x+coord.wide/4,coord.y);
-    opcnodes.get("megaSeedB").led(2,coord.x,coord.y+coord.high/4);
+    opcnodes.get("sputnik").led(0,coord.x-coord.wide/4,coord.y);
+    opcnodes.get("sputnik").led(1,coord.x+coord.wide/4,coord.y);
+    // opcnodes.get("megaSeedB").led(2,coord.x,coord.y+coord.high/4);
   }
 }
 class MegaWhiteGrid extends OPCGrid{
@@ -427,18 +427,7 @@ class ShieldsOPCGrid extends OPCGrid {
     float spacing = 2;
     opc.ledStrip(0,29, 295,500,spacing,(PI/2),true);
     opc.ledStrip(29,28,305,500,spacing,(PI/2),false);
-    // opc.ledStrip(0, 29, _shield[pos][ring].x, _shield[pos][ring].y, 0.1,  (PI/2), false);
-    // egg = new PVector(_shield[pos][ring].x, _shield[pos][ring].y);
-    // shields[8] = egg;
-
-   
-
-    // void ballGrid(OPC opc, int numb, int positionA, int positionB) {
-    // opc.led(numb+(bigRing+4), int(_shield[positionA][positionB].x), int(_shield[positionA][positionB].y));
   
-    
-
-    
     rig.positionX = _shield; 
     rig.position = shields;
     println("shields length: " + shields.length);

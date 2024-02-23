@@ -97,6 +97,12 @@
             {"name" : "up", "start" : 0, "pixels" : [29]},
             {"name" : "down", "start" : 0, "pixels" : [28]}
         ]
+    },
+    {"name" : "sputnik", "ip" : "192.168.10.51", "type" : "WLED", "port" : 21324,
+        "channels" :[
+            {"name" : "left", "start" : 0, "pixels" : [1]},
+            {"name" : "right", "start" : 0, "pixels" : [1]}
+        ]
     }
 
 ]

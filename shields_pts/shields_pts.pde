@@ -200,9 +200,49 @@ void draw()
 
   /////////// FILAMENTS //////////////
 
-  fill(360,360*cc[8][83]);
+  fill(360,360*cc[0][84]);
   rect(size.filaments);
 
+  /////////// SHIELDS CONTROL ON PAD /////
+
+  // small shields + egg OFF
+  fill(0,360*cc[0][78]);
+  ellipse(300,84,70,70);
+  ellipse(490,411,70,70);
+  ellipse(113,411,70,70);
+  rect(300,500,30,60);
+
+   //balls OFF
+  fill(0,360*cc[0][79]);
+  ellipse(492,72,20,20);
+  ellipse(404,582,20,20);
+  ellipse(6,249,20,20);
+
+  // big shield OFF
+  fill(0,360*cc[0][50]);
+  ellipse(300,300,140,140);
+  
+  //balls ON
+  fill(c,360*cc[0][83]);
+  ellipse(492,72,20,20);
+  ellipse(404,582,20,20);
+  ellipse(6,249,20,20);
+
+  // small shields + egg ON
+  fill(c,360*cc[0][82]);
+  ellipse(300,84,70,70);
+  ellipse(490,411,70,70);
+  ellipse(113,411,70,70);
+  rect(300,500,30,60);
+
+  // big shield ON
+  fill(c,360*cc[0][81]);
+  ellipse(300,300,140,140);
+  
+  ///////////// color change timer ////
+  
+  // colorChangeTime = cc[0][20]*60*60+1
+  
   ///////////////////////////////////
 
   mouseCircle(keyT['q']);

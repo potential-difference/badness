@@ -103,6 +103,16 @@ void alwaysDoFirst() {
   boothDimmer = 0.05;
   mixerDimmer = 0.2;
   cc[8][20] = 0.5;
+  // quick n dirty shield faders
+  cc[0][77] = 0.5; //rig
+  cc[0][78] = 0; // smalll shields + egg dimmer
+  cc[0][79] = 0;  // balls dimmer
+  cc[0][50] = 0; // big shield dimmer
+  cc[0][80] = 0.1; // filaments dimmer
+  cc[0][81] = 0;  // big shield on
+  cc[0][82] = 0; // small shields + egg on
+  cc[0][83] = 0; // balls on
+  cc[0][84] = 0; // fialments on
 }
 
 
